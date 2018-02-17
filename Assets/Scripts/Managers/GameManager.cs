@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
-	#region Public Data
-	
+    #region Public Data
+
+    public static GameManager instance;
+    public enum GameStates { Init, Cutscene, Management, Wave, Stats, GameOver };
+    public GameStates gameState;
+
 	#endregion
 	
 	#region Private Serialized Fields
@@ -22,6 +26,20 @@ public class GameManager : MonoBehaviour {
 	
 	#region MonoBehaviour Methods
 	
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(gameObject);
+    }
+
 	#endregion
 	
 	#region Public Methods
