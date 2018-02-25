@@ -15,12 +15,15 @@ public class ConquerableBuilding : MonoBehaviour {
 
     [Header("Life and stuff")]
     [Tooltip("The initial amount of hit points for the conquerable building.")]
-    public float initialHitPoints = 50;
+    [SerializeField]
+    private float initialHitPoints = 50;
     // Duration in seconds
     [Tooltip("The duration (in seconds) for which the conquerable object is considered to be \"under attack\" after the last actual attack happened.")]
-    public float underAttackStateDuration = 1;
+    [SerializeField]
+    private float underAttackStateDuration = 1;
     [Tooltip("The duration (in seconds) that the dark to cute conversion takes.")]
-    public float conquerEffectDuration = 1;
+    [SerializeField]
+    private float conquerEffectDuration = 1;
 
     private float underAttackElapsedTime = 0;
     [SerializeField]    // TEST
@@ -33,8 +36,10 @@ public class ConquerableBuilding : MonoBehaviour {
 
     [Header("Model shaking")]
     [Range(0, 1)]
-    public float shakeAmplitude;
-    public float shakeSpeed;
+    [SerializeField]
+    private float shakeAmplitude;
+    [SerializeField]
+    private float shakeSpeed;
 
     [Header("Damage testing")]
     public bool reset = false; // TEST
@@ -58,7 +63,7 @@ public class ConquerableBuilding : MonoBehaviour {
         areaRenderer.gameObject.SetActive(true);
     }
 
-    void Start ()
+    private void Start ()
     {
         Reset();
         hitPoints = initialHitPoints;
@@ -67,7 +72,7 @@ public class ConquerableBuilding : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update ()
+	private void Update ()
     {
         Test();
 
@@ -95,7 +100,55 @@ public class ConquerableBuilding : MonoBehaviour {
         }
 	}
 
-    void Test()
+    public void TakeDamage(float damage)
+    {
+        if (conquered)
+            return;
+
+        // Reset the currentUnderAttackElapsedTime timer
+        SetUnderAttack(true);
+        underAttackElapsedTime = 0;
+
+        hitPoints -= damage;
+
+
+        if (hitPoints <= 0)
+        {
+            hitPoints = 0;
+        }
+
+        AdjustMaterials();
+
+        if (hitPoints == 0)
+        {
+            ConquerEffect();
+        }
+
+    }
+
+    public void RestoreHitPoints()
+    {
+        hitPoints = initialHitPoints;
+
+        AdjustMaterials();
+
+        if (conquered)
+        {
+            Reset();
+        }
+    }
+
+    public bool IsCute()
+    {
+        return conquered;
+    }
+
+    public float GetCurrentHitPoints()
+    {
+        return hitPoints;
+    }
+
+    private void Test()
     {
         if (reset)
         {
@@ -118,33 +171,7 @@ public class ConquerableBuilding : MonoBehaviour {
         }
     }
 
-    void TakeDamage(float damage)
-    {
-        if (conquered)
-            return;
-
-        // Reset the currentUnderAttackElapsedTime timer
-        SetUnderAttack(true);
-        underAttackElapsedTime = 0;
-
-        hitPoints -= damage;
-        
-
-        if (hitPoints <= 0)
-        {
-            hitPoints = 0;
-        }
-
-        AdjustMaterials();
-
-        if (hitPoints == 0)
-        {
-            ConquerEffect();
-        }
-
-    }
-
-    void SetUnderAttack(bool underAttackState)
+    private void SetUnderAttack(bool underAttackState)
     {
         if (underAttack != underAttackState)
         {
@@ -160,19 +187,7 @@ public class ConquerableBuilding : MonoBehaviour {
         underAttack = underAttackState;
     }
 
-    void RestoreHitPoints ()
-    {
-        hitPoints = initialHitPoints;
-
-        AdjustMaterials();
-
-        if (conquered)
-        {
-            Reset();
-        }
-    }
-
-    void ConquerEffect()
+    private void ConquerEffect()
     {
         if (!conquering)
         {
@@ -202,7 +217,7 @@ public class ConquerableBuilding : MonoBehaviour {
         }
     }
 
-    void Conquer()
+    private void Conquer()
     {
         conquering = false;
         conquerEffectElapsedTime = 0;
@@ -211,14 +226,14 @@ public class ConquerableBuilding : MonoBehaviour {
         conquered = true;
     }
 
-    void AdjustMaterials()
+    private void AdjustMaterials()
     {
         float conqueredFactor = (initialHitPoints - hitPoints) / (float)initialHitPoints;
         buildingRenderer.material.SetFloat("_ConquerFactor", conqueredFactor);
         areaRenderer.material.SetFloat("_ConquerFactor", conqueredFactor);
     }
 
-    void Reset()
+    private void Reset()
     {
         hitPoints = initialHitPoints;
         buildingRenderer.material.SetFloat("_ConquerFactor", 0);
