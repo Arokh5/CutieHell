@@ -10,18 +10,6 @@ public class InputManager : MonoBehaviour {
 
     #endregion
 
-    #region Private Serialized Fields
-
-    #endregion
-
-    #region Private Non-Serialized Fields
-
-    #endregion
-
-    #region Properties
-
-    #endregion
-
     #region MonoBehaviour Methods
 
     private void Awake()
@@ -44,24 +32,64 @@ public class InputManager : MonoBehaviour {
 
     /* Buttons */
 
-    public bool GetXButton()
+    public bool GetXButtonDown()
     {
         return Input.GetButtonDown("PS4_X");
     }
 
-    public bool GetOButton()
+    public bool GetOButtonDown()
     {
         return Input.GetButtonDown("PS4_O");
     }
 
-    public bool GetTriangleButton()
+    public bool GetTriangleButtonDown()
     {
         return Input.GetButtonDown("PS4_Triangle");
     }
 
-    public bool GetSquareButton()
+    public bool GetSquareButtonDown()
     {
         return Input.GetButtonDown("PS4_Square");
+    }
+
+    public bool GetXButton()
+    {
+        return Input.GetButton("PS4_X");
+    }
+
+    public bool GetOButton()
+    {
+        return Input.GetButton("PS4_O");
+    }
+
+    public bool GetTriangleButton()
+    {
+        return Input.GetButton("PS4_Triangle");
+    }
+
+    public bool GetSquareButton()
+    {
+        return Input.GetButton("PS4_Square");
+    }
+
+    public bool GetXButtonUp()
+    {
+        return Input.GetButtonUp("PS4_X");
+    }
+
+    public bool GetOButtonUp()
+    {
+        return Input.GetButtonUp("PS4_O");
+    }
+
+    public bool GetTriangleButtonUp()
+    {
+        return Input.GetButtonUp("PS4_Triangle");
+    }
+
+    public bool GetSquareButtonUp()
+    {
+        return Input.GetButtonUp("PS4_Square");
     }
 
     /* Left Stick */
@@ -86,9 +114,19 @@ public class InputManager : MonoBehaviour {
         return Input.GetAxis("PS4_L_Vertical") > 0.1;
     }
 
-    public bool GetLeftStickButton()
+    public bool GetLeftStickButtonDown()
     {
         return Input.GetButtonDown("PS4_L_Bnt");
+    }
+
+    public bool GetLeftStickButton()
+    {
+        return Input.GetButton("PS4_L_Bnt");
+    }
+
+    public bool GetLeftStickButtonUp()
+    {
+        return Input.GetButtonUp("PS4_L_Bnt");
     }
 
     /* Right Stick */
@@ -113,9 +151,19 @@ public class InputManager : MonoBehaviour {
         return Input.GetAxis("PS4_R_Vertical") > 0.1;
     }
 
-    public bool GetRightStickButton()
+    public bool GetRightStickButtonDown()
     {
         return Input.GetButtonDown("PS4_R_Bnt");
+    }
+
+    public bool GetRightStickButton()
+    {
+        return Input.GetButton("PS4_R_Bnt");
+    }
+
+    public bool GetRightStickButtonUp()
+    {
+        return Input.GetButtonUp("PS4_R_Bnt");
     }
 
     /* Top side */
@@ -130,14 +178,34 @@ public class InputManager : MonoBehaviour {
         return Input.GetAxis("PS4_L2") > 0.1;
     }
 
-    public bool GetR1Button()
+    public bool GetR1ButtonDown()
     {
         return Input.GetButtonDown("PS4_R1");
     }
 
-    public bool GetL1Button()
+    public bool GetL1ButtonDown()
     {
         return Input.GetButtonDown("PS4_L1");
+    }
+
+    public bool GetR1Button()
+    {
+        return Input.GetButton("PS4_R1");
+    }
+
+    public bool GetL1Button()
+    {
+        return Input.GetButton("PS4_L1");
+    }
+
+    public bool GetR1ButtonUp()
+    {
+        return Input.GetButtonUp("PS4_R1");
+    }
+
+    public bool GetL1ButtonUp()
+    {
+        return Input.GetButtonUp("PS4_L1");
     }
 
     /* D-Pad */
@@ -164,29 +232,65 @@ public class InputManager : MonoBehaviour {
 
     /* PS4 buttons */
 
-    public bool GetPS4Options()
+    public bool GetPS4OptionsDown()
     {
         return Input.GetButtonDown("PS4_Options");
     }
 
-    public bool GetPS4Share()
+    public bool GetPS4ShareDown()
     {
         return Input.GetButtonDown("PS4_Share");
     }
 
-    public bool GetPS4Pad()
+    public bool GetPS4PadDown()
     {
         return Input.GetButtonDown("PS4_Pad");
     }
 
-    public bool GetPS4PS()
+    public bool GetPS4PSDown()
     {
         return Input.GetButtonDown("PS4_PS");
     }
 
-    #endregion
+    public bool GetPS4Options()
+    {
+        return Input.GetButton("PS4_Options");
+    }
 
-    #region Private Methods
+    public bool GetPS4Share()
+    {
+        return Input.GetButton("PS4_Share");
+    }
+
+    public bool GetPS4Pad()
+    {
+        return Input.GetButton("PS4_Pad");
+    }
+
+    public bool GetPS4PS()
+    {
+        return Input.GetButton("PS4_PS");
+    }
+
+    public bool GetPS4OptionsUp()
+    {
+        return Input.GetButtonUp("PS4_Options");
+    }
+
+    public bool GetPS4ShareUp()
+    {
+        return Input.GetButtonUp("PS4_Share");
+    }
+
+    public bool GetPS4PadUp()
+    {
+        return Input.GetButtonUp("PS4_Pad");
+    }
+
+    public bool GetPS4PSUp()
+    {
+        return Input.GetButtonUp("PS4_PS");
+    }
 
     #endregion
 }
