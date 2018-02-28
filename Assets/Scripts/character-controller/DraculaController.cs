@@ -26,7 +26,7 @@ public class DraculaController : MonoBehaviour {
             speedDirection += new Vector3(0.0f, 0.0f, 0.75f);
         }
         if (InputManager.instance.GetLeftStickDown()) {
-            speedDirection += new Vector3(0.0f, 0.0f, -0.5f);
+            speedDirection += new Vector3(0.0f, 0.0f, -0.1f);
         }
         if (InputManager.instance.GetLeftStickLeft()) {
             speedDirection += new Vector3(-0.5f, 0.0f, 0.0f);
