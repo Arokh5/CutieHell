@@ -161,7 +161,7 @@ public class ConquerableBuilding : MonoBehaviour {
         {
             reset = false;
             loseHitPoints = false;
-            Reset();
+            Unconquer();
         }
 
         if (restoreLife)
@@ -244,6 +244,16 @@ public class ConquerableBuilding : MonoBehaviour {
         conquered = true;
     }
 
+    private void Unconquer()
+    {
+        foreach (Convertible convertible in convertibles)
+        {
+            convertible.Unconvert();
+        }
+
+        Reset();
+    }
+
     private void AdjustMaterials()
     {
         float conqueredFactor = (initialHitPoints - hitPoints) / (float)initialHitPoints;
@@ -261,11 +271,6 @@ public class ConquerableBuilding : MonoBehaviour {
         areaRenderer.material.SetFloat("_AlternateStartRadius", 0);
         areaRenderer.material.SetFloat("_ConquerFactor", 0);
         areaRenderer.material.SetFloat("_Conquered", 0);
-
-        foreach (Convertible convertible in convertibles)
-        {
-            convertible.Unconvert();
-        }
 
         conquered = false;
     }
