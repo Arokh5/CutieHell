@@ -10,7 +10,11 @@ public class EnemyBehaviour : MonoBehaviour {
     [SerializeField]
     private string m_AISubTeamID;
 
+    public float attackRange = 5;
+    public float dps = 0.5f;
+
     private Transform target;
+    private ConquerableBuilding cBuilding;
     private String area;
 
     NavMeshAgent agent;
@@ -28,11 +32,21 @@ public class EnemyBehaviour : MonoBehaviour {
         target = areaParent.GetComponent<GameAreaManager>().defensePoint.transform;
 
         //TODO manage own area defense point being conquered
-        if (areaParent.transform.Find("weakTrapArea1_1") != null)
+        Transform weakTrap = areaParent.transform.Find("weakTrapArea1_1");
+        if (weakTrap)
         {
-            if (areaParent.transform.Find("weakTrapArea1_1").GetComponent<ConquerableElement>().GetBeingUsed())
+            ConquerableElement cElement = weakTrap.GetComponent<ConquerableElement>();
+            if (cElement && cElement.GetBeingUsed())
             {
-                target = areaParent.transform.Find("weakTrapArea1_1").transform;
+                target = weakTrap;
+            }
+            else
+            {
+                cBuilding = weakTrap.GetComponent<ConquerableBuilding>();
+                if (cBuilding && cBuilding.GetBeingUsed())
+                {
+                    target = weakTrap;
+                }
             }
         }
     }
@@ -46,10 +60,15 @@ public class EnemyBehaviour : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if(target != null) 
+        if(target) 
         {
             Vector3 destination = new Vector3(target.position.x, this.transform.position.y, target.position.z); //The Y will be the own to avoid problems with mesh and not valid y values
             agent.SetDestination(destination);
+
+            if (cBuilding && Vector3.Distance(this.transform.position, target.position) < attackRange)
+            {
+                cBuilding.TakeDamage(dps * Time.deltaTime);
+            }
         }
         
     }

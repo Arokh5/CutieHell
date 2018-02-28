@@ -48,7 +48,7 @@ public class TrapsManagement : MonoBehaviour {
                 if (areaNumber == 1)
                 {
                     trapPosition.x = 95;
-                    trapPosition.y = -30;
+                    trapPosition.y = -29.65f;
                     trapPosition.z = 85;
                 } 
                 break;
@@ -56,7 +56,7 @@ public class TrapsManagement : MonoBehaviour {
                 if(areaNumber == 1)
                 {
                     trapPosition.x = 60;
-                    trapPosition.y = -30;
+                    trapPosition.y = -29;
                     trapPosition.z = 93;  
                 }
                 break;
@@ -64,7 +64,7 @@ public class TrapsManagement : MonoBehaviour {
                 if (areaNumber == 1)
                 {
                     trapPosition.x = 25;
-                    trapPosition.y = -30;
+                    trapPosition.y = -29;
                     trapPosition.z = 100;
                 }
                 break;

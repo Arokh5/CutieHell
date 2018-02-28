@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ConquerableBuilding : MonoBehaviour {
 
+    [HideInInspector]
+    public GameScenariosManager gameScenariosManager;
+
     [Header("Elements setup")]
 
     [SerializeField]
@@ -30,6 +33,7 @@ public class ConquerableBuilding : MonoBehaviour {
     private float conquerEffectElapsedTime = 0;
     [SerializeField]    // TEST
 	private float hitPoints;
+    private bool inUse = false;
     private bool underAttack = false;
     private bool conquering = false;
     private bool conquered = false;
@@ -148,6 +152,31 @@ public class ConquerableBuilding : MonoBehaviour {
         return hitPoints;
     }
 
+    public bool GetBeingUsed()
+    {
+        return inUse;
+    }
+
+    public void SetBeingUsed(bool inUseState)
+    {
+        inUse = inUseState;
+    }
+
+    public void SetConquered(bool conqueredState)
+    {
+        if (conqueredState != conquered)
+        {
+            if (conqueredState)
+            {
+                Conquer();
+            }
+            else
+            {
+                Reset();
+            }
+        }
+    }
+
     private void Test()
     {
         if (reset)
@@ -219,6 +248,7 @@ public class ConquerableBuilding : MonoBehaviour {
 
     private void Conquer()
     {
+        gameScenariosManager.updateEnemiesTarget(false);
         conquering = false;
         conquerEffectElapsedTime = 0;
         alternateBuildingRenderer.material.SetFloat("_SizeFactor", 1);

@@ -30,13 +30,23 @@ public class GameScenariosManager : MonoBehaviour {
                 {
                     weakTrap1 = area1.transform.Find("weakTrapArea1_1");
                 }
-                if (weakTrap1.GetComponent<ConquerableElement>().GetActive() == true)
+                ConquerableElement cElement = weakTrap1.GetComponent<ConquerableElement>();
+                if (cElement && cElement.GetActive() == true)
                 {
-                    weakTrap1.GetComponent<ConquerableElement>().SetBeingUsed(true);
+                    cElement.SetBeingUsed(true);
                     updateEnemiesTarget(true);
                 }
+                else
+                {
+                    ConquerableBuilding cBuilding = weakTrap1.GetComponent<ConquerableBuilding>();
+                    if (cBuilding)
+                    {
+                        cBuilding.gameScenariosManager = this;
+                        cBuilding.SetBeingUsed(true);
+                        updateEnemiesTarget(true);
+                    }
+                }
             }
-                    
         }
 
         //Stop using trap
@@ -48,10 +58,20 @@ public class GameScenariosManager : MonoBehaviour {
                 {
                     weakTrap1 = area1.transform.Find("weakTrapArea1_1");
                 }
-                if (weakTrap1.GetComponent<ConquerableElement>().GetActive() == true)
+                ConquerableElement cElement = weakTrap1.GetComponent<ConquerableElement>();
+                if (cElement && cElement.GetActive() == true)
                 {
-                    weakTrap1.GetComponent<ConquerableElement>().SetBeingUsed(false);
+                    cElement.SetBeingUsed(false);
                     updateEnemiesTarget(false);
+                }
+                else
+                {
+                    ConquerableBuilding cBuilding = weakTrap1.GetComponent<ConquerableBuilding>();
+                    if (cBuilding)
+                    {
+                        cBuilding.SetBeingUsed(false);
+                        updateEnemiesTarget(false);
+                    }
                 }
             }
         }
@@ -65,11 +85,22 @@ public class GameScenariosManager : MonoBehaviour {
                 {
                     weakTrap1 = area1.transform.Find("weakTrapArea1_1");
                 }
-                if (weakTrap1.GetComponent<ConquerableElement>().GetActive() == true)
+                ConquerableElement cElement = weakTrap1.GetComponent<ConquerableElement>();
+                if (cElement && cElement.GetActive() == true)
                 {
-                    weakTrap1.GetComponent<ConquerableElement>().SetBeingUsed(false);
-                    weakTrap1.GetComponent<ConquerableElement>().SetConquered(true);
+                    cElement.SetBeingUsed(false);
+                    cElement.SetConquered(true);
                     updateEnemiesTarget(false);
+                }
+                else
+                {
+                    ConquerableBuilding cBuilding = weakTrap1.GetComponent<ConquerableBuilding>();
+                    if (cBuilding)
+                    {
+                        cBuilding.SetBeingUsed(false);
+                        cBuilding.SetConquered(true);
+                        updateEnemiesTarget(false);
+                    }
                 }
             }
         }
@@ -83,15 +114,25 @@ public class GameScenariosManager : MonoBehaviour {
                 {
                     weakTrap1 = area1.transform.Find("weakTrapArea1_1");
                 }
-                if (weakTrap1.GetComponent<ConquerableElement>().GetActive() == true)
+
+                ConquerableElement cElement = weakTrap1.GetComponent<ConquerableElement>();
+                if (cElement && cElement.GetActive() == true)
                 {
-                    weakTrap1.GetComponent<ConquerableElement>().SetConquered(false);
+                    cElement.SetConquered(false);
+                }
+                else
+                {
+                    ConquerableBuilding cBuilding = weakTrap1.GetComponent<ConquerableBuilding>();
+                    if (cBuilding)
+                    {
+                        cBuilding.SetConquered(false);
+                    }
                 }
             }
         }  
     }
 
-    void updateEnemiesTarget(bool beingUsed)
+    public void updateEnemiesTarget(bool beingUsed)
     {
         List<GameObject> affectedEnemies = new List<GameObject>(); //Improve memory management
         affectedEnemies.Add(GameObject.Find("SlimesA1_"));
