@@ -37,7 +37,7 @@ public class FocusAttack : MonoBehaviour
     {
         time += Time.deltaTime;
 
-        if (InputManager.instance.GetXButtonDown())
+        if (InputManager.instance.GetR2Button())
         {
             if (time >= basicAttackCooldown)
             {
