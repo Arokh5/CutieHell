@@ -13,6 +13,12 @@ public class ConquerableBuilding : MonoBehaviour {
     [SerializeField]
     private MeshRenderer areaRenderer;
 
+    [Header("Area of Effect")]
+    [SerializeField]
+    private float effectRadius = 5;
+    [SerializeField]
+    private List<Convertible> convertibles;
+
     [Header("Life and stuff")]
     [Tooltip("The initial amount of hit points for the conquerable building.")]
     [SerializeField]
@@ -61,6 +67,7 @@ public class ConquerableBuilding : MonoBehaviour {
         buildingRenderer.gameObject.SetActive(true);
         alternateBuildingRenderer.gameObject.SetActive(false);
         areaRenderer.gameObject.SetActive(true);
+        areaRenderer.transform.localScale = new Vector3(effectRadius * 2 / 10, effectRadius * 2 / 10, effectRadius * 2 / 10);
     }
 
     private void Start ()
@@ -215,6 +222,17 @@ public class ConquerableBuilding : MonoBehaviour {
             progress = (progress - 0.6f) / (1 - 0.6f);
             alternateBuildingRenderer.material.SetFloat("_SizeFactor", 1 + (0.2f / (1 + progress)) * Mathf.Sin(2 * Mathf.PI * 2 * progress));
         }
+
+        // Now we attempt to convert convertible props
+
+        float limitRadius = effectRadius * progress;
+        foreach (Convertible convertible in convertibles)
+        {
+            if (!convertible.IsConverting() && Vector3.Distance(transform.position, convertible.transform.position) < limitRadius)
+            {
+                convertible.Convert();
+            }
+        }
     }
 
     private void Conquer()
@@ -243,6 +261,11 @@ public class ConquerableBuilding : MonoBehaviour {
         areaRenderer.material.SetFloat("_AlternateStartRadius", 0);
         areaRenderer.material.SetFloat("_ConquerFactor", 0);
         areaRenderer.material.SetFloat("_Conquered", 0);
+
+        foreach (Convertible convertible in convertibles)
+        {
+            convertible.Unconvert();
+        }
 
         conquered = false;
     }

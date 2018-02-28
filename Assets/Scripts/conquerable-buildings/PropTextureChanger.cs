@@ -10,13 +10,10 @@ public class PropTextureChanger : Convertible {
     public float convertionDuration = 0.5f;
     private float convertionElapsedTime = 0;
     private bool isCute = false;
-    private bool converting = false;
-    private bool unconverting = false;
-    
 
     private void Awake()
     {
-        mRenderer = GetComponent<Renderer>();
+        mRenderer = GetComponentInChildren<Renderer>();
         UnityEngine.Assertions.Assert.IsNotNull(mRenderer, "Renderer could not be found in PropTextureChanger in GameObject called " + gameObject.name);
     }
 
@@ -51,13 +48,11 @@ public class PropTextureChanger : Convertible {
 
     public override void Convert()
     {
-        convertionElapsedTime = 0;
         converting = true;
     }
 
     public override void Unconvert()
     {
-        convertionElapsedTime = 0;
         unconverting = true;
     }
 }
