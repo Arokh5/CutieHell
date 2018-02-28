@@ -8,6 +8,7 @@ public class MoveEnemy_temp : MonoBehaviour
 	
     public enum MoveStates { Right, Left }
     public MoveStates moveState;
+    private const float movementSpeed = 5f;
 
 	#endregion
 	
@@ -22,7 +23,7 @@ public class MoveEnemy_temp : MonoBehaviour
         switch (moveState)
         {
             case MoveStates.Right:
-                transform.Translate(Vector3.right * 2f * Time.deltaTime);
+                transform.Translate(Vector3.right * movementSpeed * Time.deltaTime);
 
                 if (transform.position.x >= 20)
                     moveState = MoveStates.Left;
@@ -30,7 +31,7 @@ public class MoveEnemy_temp : MonoBehaviour
                 break;
 
             case MoveStates.Left:
-                transform.Translate(Vector3.left * 3f * Time.deltaTime);
+                transform.Translate(Vector3.left * movementSpeed * Time.deltaTime);
 
                 if (transform.position.x <= -20)
                     moveState = MoveStates.Right;
