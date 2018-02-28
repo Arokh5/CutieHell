@@ -24,9 +24,17 @@ public class EnemyBehaviour : MonoBehaviour {
 
     public void InitializeTarget()
     {
-        //TODO primero mirar si la structura conquistable no ha sido conquistada, si no hay ninguna torreta activa
         GameObject areaParent = transform.parent.transform.parent.gameObject;
-        target = areaParent.GetComponent<GameAreaManager>().defensePoint.transform; 
+        target = areaParent.GetComponent<GameAreaManager>().defensePoint.transform;
+
+        //TODO manage own area defense point being conquered
+        if (areaParent.transform.Find("weakTrapArea1_1") != null)
+        {
+            if (areaParent.transform.Find("weakTrapArea1_1").GetComponent<ConquerableElement>().GetBeingUsed())
+            {
+                target = areaParent.transform.Find("weakTrapArea1_1").transform;
+            }
+        }
     }
 
 
