@@ -17,8 +17,8 @@ public class DraculaController : MonoBehaviour {
         rb = this.GetComponent<Rigidbody>();
         speedDirection = Vector3.zero;
 	}
-	
-	private void Update () 
+
+    private void FixedUpdate() 
     {
         speedDirection = Vector3.zero;
 
@@ -35,11 +35,6 @@ public class DraculaController : MonoBehaviour {
             speedDirection += new Vector3(0.5f, 0.0f, 0.0f);
         }
 
-
-    }
-
-    private void FixedUpdate() 
-    {
         if (speedDirection.magnitude > 0.0f) 
         {
             rb.drag = 0.0f;
@@ -51,11 +46,9 @@ public class DraculaController : MonoBehaviour {
 
         Vector3 temp = speedDirection * acceleration;
 
-
         rb.AddRelativeForce(speedDirection * acceleration, ForceMode.Acceleration);
 
-        if (Mathf.Abs(rb.velocity.magnitude) > maxSpeed) 
-        {
+        if (rb.velocity.magnitude > maxSpeed) {
             rb.velocity = rb.velocity.normalized * maxSpeed;
         }
     }
