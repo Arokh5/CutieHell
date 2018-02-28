@@ -7,9 +7,6 @@ public class FocusAttack : MonoBehaviour
     #region Fields
 
     [SerializeField]
-    private GameObject player;
-
-    [SerializeField]
     private LayerMask layerMask;
 
     #endregion
@@ -24,9 +21,9 @@ public class FocusAttack : MonoBehaviour
     {
         if (InputManager.instance.GetXButtonDown())
         {
-            Debug.DrawRay(player.transform.position, player.transform.forward * 100, Color.red, 2);
+            Debug.DrawRay(transform.position, transform.forward * 100, Color.red, 2);
 
-            if (Physics.Raycast(player.transform.position, player.transform.forward, 100, layerMask.value))
+            if (Physics.Raycast(transform.position, transform.forward, 100, layerMask.value))
             {
                 Debug.Log("Hit enemy");
             }
