@@ -30,6 +30,16 @@ public class FollowTarget : MonoBehaviour
         DestroyOrb();
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        Destroy(gameObject);
+
+        if (other.gameObject.layer == 8)
+        {
+            Destroy(other.gameObject);
+        }
+    }
+
 	#endregion
 	
 	#region Public Methods

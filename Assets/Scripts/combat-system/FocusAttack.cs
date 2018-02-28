@@ -22,6 +22,19 @@ public class FocusAttack : MonoBehaviour
 
     private void Update()
     {
+        FocusBasicAttack();
+    }
+
+    #endregion
+
+    #region Public Methods
+
+    #endregion
+
+    #region Private Methods
+
+    private void FocusBasicAttack()
+    {
         time += Time.deltaTime;
 
         if (InputManager.instance.GetXButtonDown())
@@ -44,14 +57,6 @@ public class FocusAttack : MonoBehaviour
             }
         }
     }
-
-    #endregion
-
-    #region Public Methods
-
-    #endregion
-
-    #region Private Methods
 
     #endregion
 }
