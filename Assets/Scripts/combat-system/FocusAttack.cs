@@ -8,6 +8,7 @@ public class FocusAttack : MonoBehaviour
 
     [SerializeField]
     private LayerMask layerMask;
+    private RaycastHit hit;
 
     #endregion
 
@@ -23,9 +24,14 @@ public class FocusAttack : MonoBehaviour
         {
             Debug.DrawRay(transform.position, transform.forward * 100, Color.red, 2);
 
-            if (Physics.Raycast(transform.position, transform.forward, 100, layerMask.value))
+            if (Physics.Raycast(transform.position, transform.forward, out hit, 100, layerMask.value))
             {
+                GetComponent<InstantiateAttack>().InstantiateRedOrb(hit.transform);
                 Debug.Log("Hit enemy");
+            }
+            else
+            {
+                GetComponent<InstantiateAttack>().InstantiateRedOrb(null);
             }
         }
     }

@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 4974264843804994}
   - component: {fileID: 198866729825584564}
   - component: {fileID: 199686542144100476}
+  - component: {fileID: 114661543892491386}
   m_Layer: 0
   m_Name: PlayerMainAttackRed
   m_TagString: Untagged
@@ -335,7 +336,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1247621087027588}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 301.39813, y: 167.7071, z: -242.92282}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 4165728412695310}
@@ -351,6 +352,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114661543892491386
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1247621087027588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79180ab5e6586b47b657a143b6cfd6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 0}
 --- !u!198 &198020617008254994
 ParticleSystem:
   m_ObjectHideFlags: 1
