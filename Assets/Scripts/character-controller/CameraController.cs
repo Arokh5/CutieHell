@@ -19,7 +19,7 @@ public class CameraController : MonoBehaviour {
 
     private void Awake()
     {
-        distance = 2.5f;
+        distance = 3.5f;
         x = 0f;
         y = 0f;
         t = 0f;
@@ -40,13 +40,12 @@ public class CameraController : MonoBehaviour {
     private void RotateCamera()
     {
         float test = 0;
-        if (InputManager.instance.GetRightStickLeft()) 
-        {
-            x -= xSpeed * 0.01f;
-        }
-        if (InputManager.instance.GetRightStickRight()) {
-            x += xSpeed * 0.01f;
-        }
+
+        if(InputManager.instance.GetRightStickLeft() || InputManager.instance.GetRightStickRight())
+            x += xSpeed * 0.01f * InputManager.instance.GetRightStickLeftValue();
+        if(InputManager.instance.GetRightStickUp() || InputManager.instance.GetRightStickDown())
+            y += ySpeed * 0.01f * InputManager.instance.GetRightStickUpValue();
+
         test = y;
 
         if (distance < 2.5f)
@@ -63,7 +62,7 @@ public class CameraController : MonoBehaviour {
         if (y == yMinLimit || test == yMinLimit)
         {
             // This is to allow the camera to slide across the bottom if the player is too low in the y
-            distance += -(Input.GetAxis("Mouse Y") * Time.deltaTime) * 10 * Mathf.Abs(distance);
+            //distance += -(InputManager.instance.GetRightStickUpValue() * Time.deltaTime) * 10 * Mathf.Abs(distance);
         }
 
         Quaternion rotation = Quaternion.Euler(y, x, 0);
