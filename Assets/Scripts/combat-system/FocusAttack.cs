@@ -24,9 +24,9 @@ public class FocusAttack : MonoBehaviour
     {
         if (InputManager.instance.GetXButtonDown())
         {
-            Debug.DrawRay(transform.position, player.transform.forward * 100, Color.red, 2);
+            Debug.DrawRay(player.transform.position, player.transform.forward * 100, Color.red, 2);
 
-            if (Physics.Raycast(transform.position, player.transform.forward, 100, layerMask.value))
+            if (Physics.Raycast(player.transform.position, player.transform.forward, 100, layerMask.value))
             {
                 Debug.Log("Hit enemy");
             }
