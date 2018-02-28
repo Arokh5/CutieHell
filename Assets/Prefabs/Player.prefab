@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4504046273204654}
   - component: {fileID: 54835961218026522}
+  - component: {fileID: 136079893593462112}
   - component: {fileID: 114386524282915284}
   m_Layer: 0
   m_Name: Player
@@ -241,6 +242,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!136 &136079893593462112
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1151529080479378}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.3
+  m_Height: 1.8
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!222 &222114184622445128
 CanvasRenderer:
   m_ObjectHideFlags: 1
