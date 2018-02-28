@@ -69,23 +69,10 @@ public class ConquerableElement : MonoBehaviour {
         return active;
     }
 
-    public void SetBeingUsed(bool isBeingUsed)
+    public void SetBeingUsed(bool isBeingUsed) //Area1
     {
         beingUsed = isBeingUsed;
-
-        GameObject affectedEnemies = GameObject.Find("SlimesA1_"); //TODO find expensive an only slimes
-        for (int i = 0; i < affectedEnemies.transform.childCount; i++)
-        {
-            if (beingUsed == true)
-            {
-                affectedEnemies.transform.GetChild(i).GetComponent<EnemyBehaviour>().UpdateTarget(transform);  //TODO hardcoded
-            }
-            else
-            {
-                affectedEnemies.transform.GetChild(i).GetComponent<EnemyBehaviour>().UpdateTarget(transform.parent.Find("ConquerableStructure1").transform);
-            }
-                
-        }
+        
     }
 
     public bool GetBeingUsed()
