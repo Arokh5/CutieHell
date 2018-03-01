@@ -14,7 +14,7 @@
 		Tags{ "Queue" = "Transparent" "RenderType" = "Transparent" }
 		LOD 200
 
-		ZWrite Off
+		//ZWrite Off
 		Blend SrcAlpha OneMinusSrcAlpha
 
 		CGPROGRAM

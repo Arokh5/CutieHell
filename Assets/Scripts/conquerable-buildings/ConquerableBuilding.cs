@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ConquerableBuilding : MonoBehaviour {
 
+    [HideInInspector]
+    public GameScenariosManager gameScenariosManager;
+
     [Header("Elements setup")]
 
     [SerializeField]
@@ -12,6 +15,12 @@ public class ConquerableBuilding : MonoBehaviour {
     private MeshRenderer alternateBuildingRenderer;
     [SerializeField]
     private MeshRenderer areaRenderer;
+
+    [Header("Area of Effect")]
+    [SerializeField]
+    private float effectRadius = 5;
+    [SerializeField]
+    private List<Convertible> convertibles;
 
     [Header("Life and stuff")]
     [Tooltip("The initial amount of hit points for the conquerable building.")]
@@ -30,6 +39,7 @@ public class ConquerableBuilding : MonoBehaviour {
     private float conquerEffectElapsedTime = 0;
     [SerializeField]    // TEST
 	private float hitPoints;
+    private bool inUse = false;
     private bool underAttack = false;
     private bool conquering = false;
     private bool conquered = false;
@@ -61,6 +71,7 @@ public class ConquerableBuilding : MonoBehaviour {
         buildingRenderer.gameObject.SetActive(true);
         alternateBuildingRenderer.gameObject.SetActive(false);
         areaRenderer.gameObject.SetActive(true);
+        areaRenderer.transform.localScale = new Vector3(effectRadius * 2 / 10, effectRadius * 2 / 10, effectRadius * 2 / 10);
     }
 
     private void Start ()
@@ -148,13 +159,38 @@ public class ConquerableBuilding : MonoBehaviour {
         return hitPoints;
     }
 
+    public bool GetBeingUsed()
+    {
+        return inUse;
+    }
+
+    public void SetBeingUsed(bool inUseState)
+    {
+        inUse = inUseState;
+    }
+
+    public void SetConquered(bool conqueredState)
+    {
+        if (conqueredState != conquered)
+        {
+            if (conqueredState)
+            {
+                Conquer();
+            }
+            else
+            {
+                Unconquer();
+            }
+        }
+    }
+
     private void Test()
     {
         if (reset)
         {
             reset = false;
             loseHitPoints = false;
-            Reset();
+            Unconquer();
         }
 
         if (restoreLife)
@@ -215,15 +251,37 @@ public class ConquerableBuilding : MonoBehaviour {
             progress = (progress - 0.6f) / (1 - 0.6f);
             alternateBuildingRenderer.material.SetFloat("_SizeFactor", 1 + (0.2f / (1 + progress)) * Mathf.Sin(2 * Mathf.PI * 2 * progress));
         }
+
+        // Now we attempt to convert convertible props
+
+        float limitRadius = effectRadius * progress;
+        foreach (Convertible convertible in convertibles)
+        {
+            if (!convertible.IsConverting() && Vector3.Distance(transform.position, convertible.transform.position) < limitRadius)
+            {
+                convertible.Convert();
+            }
+        }
     }
 
     private void Conquer()
     {
+        gameScenariosManager.updateEnemiesTarget(false);
         conquering = false;
         conquerEffectElapsedTime = 0;
         alternateBuildingRenderer.material.SetFloat("_SizeFactor", 1);
         areaRenderer.material.SetFloat("_Conquered", 1);
         conquered = true;
+    }
+
+    private void Unconquer()
+    {
+        foreach (Convertible convertible in convertibles)
+        {
+            convertible.Unconvert();
+        }
+
+        Reset();
     }
 
     private void AdjustMaterials()

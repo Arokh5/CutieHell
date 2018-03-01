@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4605279188145310}
   - component: {fileID: 114764543443428570}
+  - component: {fileID: 208637708094427638}
   m_Layer: 0
   m_Name: Conquerable Tomb
   m_TagString: Untagged
@@ -332,3 +333,18 @@ MonoBehaviour:
   loseHitPoints: 0
   lifeLossPerSecond: 10
   restoreLife: 0
+--- !u!208 &208637708094427638
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1125615926677706}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 1, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
+  m_TimeToStationary: 0.5
