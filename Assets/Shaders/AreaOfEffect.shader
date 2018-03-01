@@ -15,7 +15,7 @@
 		LOD 200
 
 		//ZWrite Off
-		Blend SrcAlpha OneMinusSrcAlpha
+		//Blend SrcAlpha OneMinusSrcAlpha
 
 		CGPROGRAM
 		// Physically based Standard lighting model, and enable shadows on all light types
