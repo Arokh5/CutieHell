@@ -20,6 +20,8 @@ public class CameraController : MonoBehaviour {
     private float y;
 
     //For debugg position
+    public bool debugCamera = false;
+    public GameObject debugCanvas;
     public float distance;
     public float cameraX;
     public float cameraY;
@@ -57,7 +59,18 @@ public class CameraController : MonoBehaviour {
     private void Update()
     {
         RotateCamera();
-        DebugCamera();
+        if (debugCanvas != null) {
+            if (Input.GetKeyDown(KeyCode.P)) {
+                debugCamera = !debugCamera;
+            }
+            if (debugCamera) {
+                debugCanvas.SetActive(true);
+                DebugCamera();
+            } else {
+                debugCanvas.SetActive(false);
+            }
+        }
+
     }
 
     private void RotateCamera()
