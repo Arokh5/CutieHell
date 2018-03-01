@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour {
 
@@ -12,16 +15,36 @@ public class CameraController : MonoBehaviour {
     private const float lerpSpeed = 0.1f;
 
     private int collisionLayers;
-    private float distance;
+    //private float distance;
     private float x;
     private float y;
+
+    //For debugg position
+    public float distance;
+    public float cameraX;
+    public float cameraY;
+    public float focusDistance;
+    public float focusX;
+    public float focusY;
+    public Text instructions;
+    public Image grid;
+    public bool gridOn;
 
     private void Awake()
     {
         collisionLayers = 1 << 4;
-        distance = 3.0f;
+        //distance = 3.0f;
         x = 0f;
         y = 0f;
+
+        //For debugg position
+        distance = 3.0f;
+        cameraX = 0.5f;
+        cameraY = 1.75f;
+        focusDistance = 0.4f;
+        focusX = 0.3f;
+        focusY = 1.7f;
+        gridOn = false;
     }
 
     private void Start()
@@ -34,6 +57,7 @@ public class CameraController : MonoBehaviour {
     private void Update()
     {
         RotateCamera();
+        DebugCamera();
     }
 
     private void RotateCamera()
@@ -53,23 +77,22 @@ public class CameraController : MonoBehaviour {
         for( float zOffset = distance; zOffset >= 0.5f; zOffset -= 0.05f) 
         {
             noCollisionDistance = zOffset;
-            Vector3 tempPos = rotation * new Vector3(0.5f, 1.75f, -noCollisionDistance) + player.position;
+            Vector3 tempPos = rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position;
 
             if (DoubleViewingPosCheck(tempPos, zOffset)) 
             {
                 break;
             }
         }
-
         /* Ends collision detection */
 
-        Vector3 position = rotation * new Vector3(0.5f, 1.75f, -noCollisionDistance) + player.position;
+        Vector3 position = rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position;
 
         transform.position = position;
 
         SetPlayerDirection(rotation.eulerAngles.y);
 
-        this.transform.LookAt(player.transform.position + player.transform.up  * 1.7f + player.transform.right * 0.3f + player.transform.forward * 0.4f);
+        this.transform.LookAt(player.transform.position + player.transform.up  * focusY + player.transform.right * focusX + player.transform.forward * focusDistance);
     }
 
     private float LerpRotation(float cameraRotationY)
@@ -125,12 +148,68 @@ public class CameraController : MonoBehaviour {
         RaycastHit hit;
         Debug.DrawRay(player.position + (Vector3.up * deltaPlayerHeight), checkPos - player.position, Color.green);
         if (Physics.Raycast(player.position + (Vector3.up * deltaPlayerHeight), checkPos - player.position, out hit, offset)) 
-        {
-
-            if (hit.transform.gameObject.layer == 4) {
+        {   
+            if (hit.transform.gameObject.layer == 4) 
+            {
                 return false;
             }
         }
         return true;
+    }
+
+    private void DebugCamera() 
+    {
+        if (Input.GetKeyDown(KeyCode.Z)) 
+        {
+            gridOn = !gridOn;
+        }
+        grid.gameObject.SetActive(gridOn);
+        if (Input.GetKey(KeyCode.X)) {
+            distance += Time.deltaTime * 0.5f;
+        }
+        if (Input.GetKey(KeyCode.C)) {
+            distance -= Time.deltaTime * 0.5f;
+        }
+        if (Input.GetKey(KeyCode.V)) {
+            cameraX -= Time.deltaTime * 0.5f;
+        }
+        if (Input.GetKey(KeyCode.B)) {
+            cameraX += Time.deltaTime * 0.5f;
+        }
+        if (Input.GetKey(KeyCode.N)) {
+            cameraY += Time.deltaTime * 0.5f;
+        }
+        if (Input.GetKey(KeyCode.M)) {
+            cameraY -= Time.deltaTime * 0.5f;
+        }
+        if (Input.GetKey(KeyCode.F)) {
+            focusDistance += Time.deltaTime * 0.5f;
+        }
+        if (Input.GetKey(KeyCode.G)) {
+            focusDistance -= Time.deltaTime * 0.5f;
+        }
+        if (Input.GetKey(KeyCode.H)) {
+            focusX -= Time.deltaTime * 0.5f;
+        }
+        if (Input.GetKey(KeyCode.J)) {
+            focusX += Time.deltaTime * 0.5f;
+        }
+        if (Input.GetKey(KeyCode.K)) {
+            focusY += Time.deltaTime * 0.5f;
+        }
+        if (Input.GetKey(KeyCode.L)) {
+            focusY -= Time.deltaTime * 0.5f;
+        }
+        if (Input.GetKeyDown(KeyCode.Return)) {
+            distance = 3.0f;
+            cameraX = 0.5f;
+            cameraY = 1.75f;
+            focusDistance = 0.4f;
+            focusX = 0.3f;
+            focusY = 1.7f;
+            gridOn = true;
+        }
+        instructions.text = "Distance : " + distance + "\nCameraX : " + cameraX + "\nCameraY : " + cameraY + "\nFocus Distance" +
+            focusDistance + "\nFocusX : " + focusX + "\nFocusY : " + focusY;
     }
 }
