@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4605279188145310}
   - component: {fileID: 114764543443428570}
+  - component: {fileID: 208637708094427638}
   m_Layer: 0
   m_Name: Conquerable Tomb
   m_TagString: Untagged
@@ -244,7 +245,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1219219215384138}
-  m_Mesh: {fileID: 4300000, guid: 48e91da9b90a5c642b2dd36d6c79e748, type: 3}
+  m_Mesh: {fileID: 4300000, guid: fd56d3fb73a2c06498112a166e9aa42c, type: 3}
 --- !u!33 &33568078251892924
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -258,7 +259,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1238935851044620}
-  m_Mesh: {fileID: 4300002, guid: c0e14f3a322f17b4f90d37f20ba8a81a, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 0c940668237872f49b2a2df637a2d842, type: 3}
 --- !u!64 &64555014549421174
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -281,7 +282,7 @@ Animator:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1238935851044620}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: c0e14f3a322f17b4f90d37f20ba8a81a, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 0c940668237872f49b2a2df637a2d842, type: 3}
   m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -298,7 +299,7 @@ Animator:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1219219215384138}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 48e91da9b90a5c642b2dd36d6c79e748, type: 3}
+  m_Avatar: {fileID: 9000000, guid: fd56d3fb73a2c06498112a166e9aa42c, type: 3}
   m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -318,9 +319,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 936bb983ed181f144a5a1ad64e1fef32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameScenariosManager: {fileID: 0}
   buildingRenderer: {fileID: 23121339679628994}
   alternateBuildingRenderer: {fileID: 23230527510876810}
   areaRenderer: {fileID: 23523350350510342}
+  effectRadius: 5
+  convertibles: []
   initialHitPoints: 50
   underAttackStateDuration: 1
   conquerEffectDuration: 0.5
@@ -332,3 +336,18 @@ MonoBehaviour:
   loseHitPoints: 0
   lifeLossPerSecond: 10
   restoreLife: 0
+--- !u!208 &208637708094427638
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1125615926677706}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 1, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.5, z: 0}
+  m_TimeToStationary: 0.5

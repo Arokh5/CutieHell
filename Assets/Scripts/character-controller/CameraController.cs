@@ -1,12 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour {
 
     [SerializeField]
     private Transform player;
-    [SerializeField]
-    private bool lookAt = false;
-
 
     private const float xSpeed = 2.5f;
     private const float ySpeed = 1.2f;
@@ -15,16 +15,38 @@ public class CameraController : MonoBehaviour {
     private const float lerpSpeed = 0.1f;
 
     private int collisionLayers;
-    private float distance;
+    //private float distance;
     private float x;
     private float y;
+
+    //For debugg position
+    public bool debugCamera = false;
+    public GameObject debugCanvas;
+    public float distance;
+    public float cameraX;
+    public float cameraY;
+    public float focusDistance;
+    public float focusX;
+    public float focusY;
+    public Text instructions;
+    public Image grid;
+    public bool gridOn;
 
     private void Awake()
     {
         collisionLayers = 1 << 4;
-        distance = 3.0f;
+        //distance = 3.0f;
         x = 0f;
         y = 0f;
+
+        //For debugg position
+        distance = 3.0f;
+        cameraX = 0.5f;
+        cameraY = 1.75f;
+        focusDistance = 0.4f;
+        focusX = 0.3f;
+        focusY = 1.7f;
+        gridOn = false;
     }
 
     private void Start()
@@ -37,6 +59,18 @@ public class CameraController : MonoBehaviour {
     private void Update()
     {
         RotateCamera();
+        if (debugCanvas != null) {
+            if (Input.GetKeyDown(KeyCode.P)) {
+                debugCamera = !debugCamera;
+            }
+            if (debugCamera) {
+                debugCanvas.SetActive(true);
+                DebugCamera();
+            } else {
+                debugCanvas.SetActive(false);
+            }
+        }
+
     }
 
     private void RotateCamera()
@@ -52,26 +86,26 @@ public class CameraController : MonoBehaviour {
 
         /* Checks for collisions */
         float noCollisionDistance = distance;
-        Vector3 baseTempPosition = rotation * new Vector3(0.5f, 1.75f, -noCollisionDistance) + player.position;
 
-        for( float zOffset = distance; zOffset >= 0.5f; zOffset -= 0.1f) 
+        for( float zOffset = distance; zOffset >= 0.5f; zOffset -= 0.05f) 
         {
             noCollisionDistance = zOffset;
+            Vector3 tempPos = rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position;
 
-            if (DoubleViewingPosCheck(baseTempPosition + rotation * new Vector3(0.5f, 1.75f, -noCollisionDistance), zOffset)) {
+            if (DoubleViewingPosCheck(tempPos, zOffset)) 
+            {
                 break;
             }
         }
-
         /* Ends collision detection */
 
-        Vector3 position = rotation * new Vector3(0.5f, 1.75f, -noCollisionDistance) + player.position;
+        Vector3 position = rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position;
 
         transform.position = position;
 
         SetPlayerDirection(rotation.eulerAngles.y);
 
-        this.transform.LookAt(player.transform.position + player.transform.up  * 1.7f + player.transform.right * 0.3f + player.transform.forward * 0.4f);
+        this.transform.LookAt(player.transform.position + player.transform.up  * focusY + player.transform.right * focusX + player.transform.forward * focusDistance);
     }
 
     private float LerpRotation(float cameraRotationY)
@@ -106,34 +140,89 @@ public class CameraController : MonoBehaviour {
     private bool DoubleViewingPosCheck(Vector3 checkPos, float offset) 
     {
         float playerFocusHeight = player.GetComponent<CapsuleCollider>().height * 0.5f;
-        return ViewingPosCheck(checkPos, playerFocusHeight);
+        return ViewingPosCheck(checkPos, playerFocusHeight) && ReverseViewingPosCheck(checkPos, playerFocusHeight, offset);
     }
 
-    // Check for collision from camera to player.
-    private bool ViewingPosCheck(Vector3 checkPos, float deltaPlayerHeight) {
-        RaycastHit hit;
-        // If a raycast from the check position to the player hits something...
-        if (Physics.Raycast(checkPos, player.position + (Vector3.up * deltaPlayerHeight) - checkPos, out hit)) {
-            // ... if it is not the player...
-            //Debug.DrawRay(checkPos, player.position + (Vector3.up * deltaPlayerHeight) - checkPos, Color.green);
-            if (hit.transform.gameObject.layer == 4) {
-                // This position isn't appropriate.
-                return false;
-            }
-        }
-        // If we haven't hit anything or we've hit the player, this is an appropriate position.
-        return true;
-    }
-
-    // Check for collision from player to camera.
-    private bool ReverseViewingPosCheck(Vector3 checkPos, float deltaPlayerHeight, float maxDistance) {
+    private bool ViewingPosCheck(Vector3 checkPos, float deltaPlayerHeight) 
+    {
         RaycastHit hit;
 
-        if (Physics.Raycast(player.position + (Vector3.up * deltaPlayerHeight), checkPos - player.position, out hit)) {
-            if (hit.transform != transform && hit.transform.gameObject.layer == collisionLayers) {
+        if (Physics.Raycast(checkPos, player.position + (Vector3.up * deltaPlayerHeight) - checkPos, out hit)) 
+        {
+            if (hit.transform.gameObject.layer == 4) 
+            {
                 return false;
             }
         }
         return true;
+    }
+
+    private bool ReverseViewingPosCheck(Vector3 checkPos, float deltaPlayerHeight, float offset) {
+        RaycastHit hit;
+        Debug.DrawRay(player.position + (Vector3.up * deltaPlayerHeight), checkPos - player.position, Color.green);
+        if (Physics.Raycast(player.position + (Vector3.up * deltaPlayerHeight), checkPos - player.position, out hit, offset)) 
+        {   
+            if (hit.transform.gameObject.layer == 4) 
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void DebugCamera() 
+    {
+        if (Input.GetKeyDown(KeyCode.Z)) 
+        {
+            gridOn = !gridOn;
+        }
+        grid.gameObject.SetActive(gridOn);
+        if (Input.GetKey(KeyCode.X)) {
+            distance += Time.deltaTime * 0.5f;
+        }
+        if (Input.GetKey(KeyCode.C)) {
+            distance -= Time.deltaTime * 0.5f;
+        }
+        if (Input.GetKey(KeyCode.V)) {
+            cameraX -= Time.deltaTime * 0.5f;
+        }
+        if (Input.GetKey(KeyCode.B)) {
+            cameraX += Time.deltaTime * 0.5f;
+        }
+        if (Input.GetKey(KeyCode.N)) {
+            cameraY += Time.deltaTime * 0.5f;
+        }
+        if (Input.GetKey(KeyCode.M)) {
+            cameraY -= Time.deltaTime * 0.5f;
+        }
+        if (Input.GetKey(KeyCode.F)) {
+            focusDistance += Time.deltaTime * 0.5f;
+        }
+        if (Input.GetKey(KeyCode.G)) {
+            focusDistance -= Time.deltaTime * 0.5f;
+        }
+        if (Input.GetKey(KeyCode.H)) {
+            focusX -= Time.deltaTime * 0.5f;
+        }
+        if (Input.GetKey(KeyCode.J)) {
+            focusX += Time.deltaTime * 0.5f;
+        }
+        if (Input.GetKey(KeyCode.K)) {
+            focusY += Time.deltaTime * 0.5f;
+        }
+        if (Input.GetKey(KeyCode.L)) {
+            focusY -= Time.deltaTime * 0.5f;
+        }
+        if (Input.GetKeyDown(KeyCode.Return)) {
+            distance = 3.0f;
+            cameraX = 0.5f;
+            cameraY = 1.75f;
+            focusDistance = 0.4f;
+            focusX = 0.3f;
+            focusY = 1.7f;
+            gridOn = true;
+        }
+        instructions.text = "Distance : " + distance + "\nCameraX : " + cameraX + "\nCameraY : " + cameraY + "\nFocus Distance" +
+            focusDistance + "\nFocusX : " + focusX + "\nFocusY : " + focusY;
     }
 }
