@@ -9,8 +9,9 @@ public class FocusAttack : MonoBehaviour
     [SerializeField]
     private LayerMask layerMask;
     private RaycastHit hit;
-    private const float basicAttackCooldown = 0.5f;
-    private float time = basicAttackCooldown;
+    private const float sphereCastRadius = 0.5f;
+    private const float basicAttackCadency = 0.5f;
+    private float time = basicAttackCadency;
 
     #endregion
 
@@ -39,11 +40,11 @@ public class FocusAttack : MonoBehaviour
 
         if (InputManager.instance.GetR2Button())
         {
-            if (time >= basicAttackCooldown)
+            if (time >= basicAttackCadency)
             {
                 Debug.DrawRay(transform.position, transform.forward * 100, Color.red, 2);
 
-                if (Physics.Raycast(transform.position, transform.forward, out hit, 100, layerMask.value))
+                if (Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, 100, layerMask.value))
                 {
                     GetComponent<InstantiateAttack>().InstantiateRedOrb(hit.transform);
                     Debug.Log("Hit enemy");
