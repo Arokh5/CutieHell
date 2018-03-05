@@ -212,7 +212,7 @@ public abstract class Player
     public abstract void StopTrapUse();
 }
 
-public abstract class UIManagerOld
+public abstract class UIManager
 {
     // Called by Player when using or earning Evil Points
     public abstract void SetEvilBarValue(int value);
