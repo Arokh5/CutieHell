@@ -39,7 +39,7 @@ public interface IUsable
     // Called by Player
     int GetUsageCost();
     // Called by Player
-    bool Activate();
+    bool Activate(Player player);
     // Called by Player
     void Deactivate();
 }
@@ -155,6 +155,7 @@ public abstract class ZoneConnection
 
 #endregion
 
+
 #region Buildings
 
 public abstract class Building : IDamageable, IRepairable
@@ -188,7 +189,7 @@ public abstract class Trap : Building, IUsable
     // Called by Player
     public abstract int GetUsageCost();
     // Called by Player. A call to this method should inform the ZoneController
-    public abstract bool Activate();
+    public abstract bool Activate(Player player);
     // Called by Player. A call to this method should inform the ZoneController
     public abstract void Deactivate();
 }
