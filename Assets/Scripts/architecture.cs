@@ -157,51 +157,51 @@ public abstract class ZoneConnection
 
 #region Buildings
 
-public abstract class Building : IDamageable, IRepairable
-{
-    AIZoneController zoneController;
-    float baseHealth;
-    float health;
-    SubZoneType zoneType;
+//public abstract class Building : IDamageable, IRepairable
+//{
+//    AIZoneController zoneController;
+//    float baseHealth;
+//    float health;
+//    SubZoneType zoneType;
 
-    // IDamageable
-    public abstract bool IsDead();
-    public abstract bool TakeDamage(float dmg, AttackType attacktype);
-    // IRepairable
-    public abstract void FullRepair();
-    public abstract bool HasFullHealth();
-    public abstract int GetRepairCost();
-}
+//    // IDamageable
+//    public abstract bool IsDead();
+//    public abstract bool TakeDamage(float dmg, AttackType attacktype);
+//    // IRepairable
+//    public abstract void FullRepair();
+//    public abstract bool HasFullHealth();
+//    public abstract int GetRepairCost();
+//}
 
-public abstract class Trap : Building, IUsable
-{
-    uint trapID;
-    bool isInUse;
+//public abstract class Trap : Building, IUsable
+//{
+//    uint trapID;
+//    bool isInUse;
 
-    // IDamageable
-    // If a call to this method causes the Trap to die, it should inform Player to get off the trap and call Deactivate
-    public abstract override bool TakeDamage(float dmg, AttackType attacktype);
+//    // IDamageable
+//    // If a call to this method causes the Trap to die, it should inform Player to get off the trap and call Deactivate
+//    public abstract override bool TakeDamage(float dmg, AttackType attacktype);
 
-    // IUsable
-    // Called by Player
-    public abstract bool CanUse();
-    // Called by Player
-    public abstract int GetUsageCost();
-    // Called by Player. A call to this method should inform the ZoneController
-    public abstract bool Activate(Player player);
-    // Called by Player. A call to this method should inform the ZoneController
-    public abstract void Deactivate();
-}
+//    // IUsable
+//    // Called by Player
+//    public abstract bool CanUse();
+//    // Called by Player
+//    public abstract int GetUsageCost();
+//    // Called by Player. A call to this method should inform the ZoneController
+//    public abstract bool Activate(Player player);
+//    // Called by Player. A call to this method should inform the ZoneController
+//    public abstract void Deactivate();
+//}
 
-public abstract class Monument : Building
-{
-    // IDamageable
-    // If a call to this method causes the Monument to die, it should inform the ZoneController
-    public abstract override bool TakeDamage(float dmg, AttackType attacktype);
-    // If this method is called, it should inform the ZoneController
-    public abstract override void FullRepair();
+//public abstract class Monument : Building
+//{
+//    // IDamageable
+//    // If a call to this method causes the Monument to die, it should inform the ZoneController
+//    public abstract override bool TakeDamage(float dmg, AttackType attacktype);
+//    // If this method is called, it should inform the ZoneController
+//    public abstract override void FullRepair();
 
-}
+//}
 
 #endregion
 
