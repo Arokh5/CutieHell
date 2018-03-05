@@ -3,46 +3,45 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
 #region enums
 
-public enum EnemyType { BASIC, RANGE, CONQUEROR }
-public enum AttackType { ENEMY, WEAK, STRONG, WOLF, FOG, TRAP_BASIC, TRAP_AREA }
-public enum SubZoneType { WEAK_TRAP, STRONG_TRAP, MONUMENT }
+//public enum EnemyType { BASIC, RANGE, CONQUEROR }
+//public enum AttackType { ENEMY, WEAK, STRONG, WOLF, FOG, TRAP_BASIC, TRAP_AREA }
+//public enum SubZoneType { WEAK_TRAP, STRONG_TRAP, MONUMENT }
 
 #endregion
 
 #region interfaces
 
-public interface IDamageable
-{
-    // Called by Player (for AIEnemy) and by AIEnemy (for Building)
-    bool IsDead();
-    // Called by Player (for AIEnemy) and by AIEnemy (for Building)
-    bool TakeDamage(float dmg, AttackType attacktype);
-}
+//public interface IDamageable
+//{
+//    // Called by Player (for AIEnemy) and by AIEnemy (for Building)
+//    bool IsDead();
+//    // Called by Player (for AIEnemy) and by AIEnemy (for Building)
+//    bool TakeDamage(float dmg, AttackType attacktype);
+//}
 
-public interface IRepairable
-{
-    // Called by Player
-    bool HasFullHealth();
-    // Called by Player
-    void FullRepair();
-    // Called by Player
-    int GetRepairCost();
-}
+//public interface IRepairable
+//{
+//    // Called by Player
+//    bool HasFullHealth();
+//    // Called by Player
+//    void FullRepair();
+//    // Called by Player
+//    int GetRepairCost();
+//}
 
-public interface IUsable
-{
-    // Called by Player
-    bool CanUse();
-    // Called by Player
-    int GetUsageCost();
-    // Called by Player
-    bool Activate(Player player);
-    // Called by Player
-    void Deactivate();
-}
+//public interface IUsable
+//{
+//    // Called by Player
+//    bool CanUse();
+//    // Called by Player
+//    int GetUsageCost();
+//    // Called by Player
+//    bool Activate(Player player);
+//    // Called by Player
+//    void Deactivate();
+//}
 
 #endregion
 
