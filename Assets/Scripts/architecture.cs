@@ -7,9 +7,9 @@ namespace Assets.Scripts
 {
     #region enums
 
-    enum EnemyType { BASIC, RANGE, CONQUEROR }
-    enum AttackType { ENEMY, WEAK, STRONG, WOLF, FOG, TRAP_A, TRAP_B }
-    enum SubZoneType { WEAK_TRAP, STRING_TRAP, MONUMENT }
+    public enum EnemyType { BASIC, RANGE, CONQUEROR }
+    public enum AttackType { ENEMY, WEAK, STRONG, WOLF, FOG, TRAP_A, TRAP_B }
+    public enum SubZoneType { WEAK_TRAP, STRING_TRAP, MONUMENT }
 
     #endregion
 

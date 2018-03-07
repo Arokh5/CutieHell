@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using Assets.Scripts;
 
 public class StrongAttackDetection : MonoBehaviour
 {
@@ -31,7 +30,7 @@ public class StrongAttackDetection : MonoBehaviour
         {
             if (other.gameObject.layer == 8)
             {
-                Destroy(other.gameObject);
+                other.GetComponent<AIEnemy>().TakeDamage(3, AttackType.STRONG);
             }
         }
     }
