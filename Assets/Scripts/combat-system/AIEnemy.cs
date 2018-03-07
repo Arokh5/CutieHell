@@ -19,26 +19,18 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
     #region Public Methods
 
+    // Called by Player (for AIEnemy) and by AIEnemy (for Building)
     public bool IsDead()
     {
-        return health <= 0;
+        return true;
     }
 
     // Called by the AIPlayer or an Attack to damage the AIEnemy
-    public bool TakeDamage(float dmg, AttackType attacktype)
+    public bool TakeDamage(int dmg, AttackType attacktype)
     {
-        switch (attacktype)
-        {
-            case AttackType.WEAK:
-                health -= 1;
-                break;
+        health -= dmg;
 
-            case AttackType.STRONG:
-                health -= 3;
-                break;
-        }
-
-        if (IsDead())
+        if (health <= 0)
             Destroy(gameObject);
 
         return true;

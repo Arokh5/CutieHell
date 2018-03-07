@@ -35,7 +35,7 @@ public class FollowTarget : MonoBehaviour
 
         if (other.gameObject.layer == 8)
         {
-            other.GetComponent<AIEnemy>().TakeDamage(3, AttackType.WEAK);
+            other.GetComponent<AIEnemy>().TakeDamage(1, AttackType.WEAK);
         }
     }
 

@@ -20,7 +20,7 @@ namespace Assets.Scripts
         // Called by Player (for AIEnemy) and by AIEnemy (for Building)
         bool IsDead();
         // Called by Player (for AIEnemy) and by AIEnemy (for Building)
-        bool TakeDamage(float dmg, AttackType attacktype);
+        bool TakeDamage(int dmg, AttackType attacktype);
     }
 
     interface IRepairable
@@ -98,7 +98,7 @@ namespace Assets.Scripts
         // Called by the AIPlayer or an Attack to determine if this AIEnemy should be targetted
         public abstract bool IsDead();
         // Called by the AIPlayer or an Attack to damage the AIEnemy
-        public abstract bool TakeDamage(float dmg, AttackType attacktype);
+        public abstract bool TakeDamage(int dmg, AttackType attacktype);
     }
 
     abstract class ScenarioController
@@ -153,7 +153,7 @@ namespace Assets.Scripts
 
         // IDamageable
         public abstract bool IsDead();
-        public abstract bool TakeDamage(float dmg, AttackType attacktype);
+        public abstract bool TakeDamage(int dmg, AttackType attacktype);
         // IRepairable
         public abstract void FullRepair();
         public abstract bool HasFullHealth();
@@ -167,7 +167,7 @@ namespace Assets.Scripts
 
         // IDamageable
         // If a call to this method causes the Trap to die, it should inform Player to get off the trap and call Deactivate
-        public abstract override bool TakeDamage(float dmg, AttackType attacktype);
+        public abstract override bool TakeDamage(int dmg, AttackType attacktype);
 
         // IUsable
         // Called by Player
@@ -185,7 +185,7 @@ namespace Assets.Scripts
     {
         // IDamageable
         // If a call to this method causes the Monument to die, it should inform the ZoneController
-        public abstract override bool TakeDamage(float dmg, AttackType attacktype);
+        public abstract override bool TakeDamage(int dmg, AttackType attacktype);
     }
 
     #endregion
