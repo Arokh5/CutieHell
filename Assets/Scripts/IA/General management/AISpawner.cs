@@ -7,6 +7,8 @@ public class AISpawner : MonoBehaviour {
     #region Fields
     [SerializeField]
     private AIZoneController zonecontroller;
+    [SerializeField]
+    private AISpawnController spawnController;
 
     [SerializeField]
     private List<SpawnInfo> activeSpawnInfos;

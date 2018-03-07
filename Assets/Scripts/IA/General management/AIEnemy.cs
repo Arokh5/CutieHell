@@ -10,9 +10,9 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private IDamageable currentTarget;
 
     [Tooltip("The initial amount of hit points for the conquerable building.")]
-    public int baseHealth;
+    public float baseHealth;
 
-    protected int currentHealth;
+    protected float currentHealth;
     #endregion
 
     #region MonoBehaviour Methods
@@ -57,7 +57,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     }
 
     // Called by the AIPlayer or an Attack to damage the AIEnemy
-    public void TakeDamage(int damage, AttackType attacktype)
+    public void TakeDamage(float damage, AttackType attacktype)
     {
         currentHealth -= damage;
         if (currentHealth <= 0)

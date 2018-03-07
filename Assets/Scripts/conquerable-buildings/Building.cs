@@ -11,10 +11,10 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     [SerializeField]
     protected AIZoneController zoneController;
     [Tooltip("The initial amount of hit points for the conquerable building.")]
-    public int baseHealth;
+    public float baseHealth;
     public int fullRepairCost;
 
-    protected int currentHealth;
+    protected float currentHealth;
 
     [Header("Elements setup")]
     [SerializeField]
@@ -59,11 +59,6 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     private float accumulatedLifeLoss = 0;
 
     #endregion
-
-    #region Properties
-
-    #endregion
-
 
     #region MonoBehaviour Methods
     // Use this for initialization
@@ -140,7 +135,7 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     }
 
     // IDamageable
-    public virtual void TakeDamage(int damage, AttackType attacktype)
+    public virtual void TakeDamage(float damage, AttackType attacktype)
     {
         if (conquering || conquered)
             return;

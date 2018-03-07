@@ -18,7 +18,7 @@ using UnityEngine;
 //    // Called by Player (for AIEnemy) and by AIEnemy (for Building)
 //    bool IsDead();
 //    // Called by Player (for AIEnemy) and by AIEnemy (for Building)
-//    void TakeDamage(int damage, AttackType attacktype);
+//    void TakeDamage(float damage, AttackType attacktype);
 //}
 
 //public interface IRepairable
@@ -100,7 +100,7 @@ using UnityEngine;
 //    // Called by the AIPlayer or an Attack to determine if this AIEnemy should be targetted
 //    public abstract bool IsDead();
 //    // Called by the AIPlayer or an Attack to damage the AIEnemy
-//    public abstract void TakeDamage(int damage, AttackType attacktype);
+//    public abstract void TakeDamage(float damage, AttackType attacktype);
 //    // Called by the Area-type Trap to retarget the AIEnemy after exploding
 //    public abstract void UpdateTarget();
 //}
@@ -166,7 +166,7 @@ public abstract class ZoneConnection
 
 //    // IDamageable
 //    public abstract bool IsDead();
-//    public abstract void TakeDamage(int damage, AttackType attacktype);
+//    public abstract void TakeDamage(float damage, AttackType attacktype);
 //    // IRepairable
 //    public abstract void FullRepair();
 //    public abstract bool HasFullHealth();
@@ -180,7 +180,7 @@ public abstract class ZoneConnection
 
 //    // IDamageable
 //    // If a call to this method causes the Trap to die, it should inform Player to get off the trap and call Deactivate
-//    public abstract override void TakeDamage(int damage, AttackType attacktype);
+//    public abstract override void TakeDamage(float damage, AttackType attacktype);
 
 //    // IUsable
 //    // Called by Player
@@ -197,7 +197,7 @@ public abstract class ZoneConnection
 //{
 //    // IDamageable
 //    // If a call to this method causes the Monument to die, it should inform the ZoneController
-//    public abstract override void TakeDamage(int damage, AttackType attacktype);
+//    public abstract override void TakeDamage(float damage, AttackType attacktype);
 //    // If this method is called, it should inform the ZoneController
 //    public abstract override void FullRepair();
 
