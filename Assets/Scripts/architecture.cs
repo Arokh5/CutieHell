@@ -197,7 +197,7 @@ namespace Assets.Scripts
         public abstract void StopTrapUse();
     }
 
-    abstract class UIController
+    abstract class UIManager
     {
         // Called by Player when using or earning Evil Points
         public abstract void SetEvilBarValue(int value);
