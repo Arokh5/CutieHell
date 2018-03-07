@@ -47,63 +47,63 @@ using UnityEngine;
 
 #region AI
 
-public class AISpawnController
-{
-    float elapsedTime;
-    uint currentWave;
-    List<WaveInfo> wavesInfo;
-    List<AISpawner> aiSpawners;
-}
+//public class AISpawnController
+//{
+//    float elapsedTime;
+//    uint currentWave;
+//    List<WaveInfo> wavesInfo;
+//    List<AISpawner> aiSpawners;
+//}
 
-public class WaveInfo
-{
-    float waveDuration;
-    List<SpawnInfo> spawnInfo;
-}
+//public class WaveInfo
+//{
+//    float waveDuration;
+//    List<SpawnInfo> spawnInfo;
+//}
 
-public class SpawnInfo
-{
-    // Used by AISpawnController
-    float spawnTime;
-    // Used by AISpawnController
-    uint spawnerID;
-    // Used by AISpawner
-    float spawnDuration;
-    // Used by AISpawner
-    List<EnemyType> enemiesToSpawn;
-}
+//public class SpawnInfo
+//{
+//    // Used by AISpawnController
+//    float spawnTime;
+//    // Used by AISpawnController
+//    uint spawnerID;
+//    // Used by AISpawner
+//    float spawnDuration;
+//    // Used by AISpawner
+//    List<EnemyType> enemiesToSpawn;
+//}
 
-public abstract class AISpawner
-{
-    AIZoneController zonecontroller;
-    List<SpawnInfo> activeSpawnInfos;
+//public abstract class AISpawner
+//{
+//    AIZoneController zonecontroller;
+//    List<SpawnInfo> activeSpawnInfos;
 
-    // Called by AISpawnController
-    public abstract void Spawn(SpawnInfo spawnInfo);
-}
+//    // Called by AISpawnController
+//    public abstract void Spawn(SpawnInfo spawnInfo);
+//}
 
-public abstract class AIEnemy : IDamageable
-{
-    private AIZoneController zoneController;
-    SubZoneType currentSubZone;
-    IDamageable currentTarget;
+//public abstract class AIEnemy : IDamageable
+//{
+//    private AIZoneController zoneController;
+//    SubZoneType currentSubZone;
+//    IDamageable currentTarget;
 
-    // Called 
+//    // Called 
 
-    // Called by AISpawner when instantiating an AIEnemy. This method should inform the ZoneController about this AIEnemy's creation
-    public abstract void SetZoneController(AIZoneController zoneController);
-    // Called by the ZoneController in case the Monument gets repaired (this will cause all AIEnemy to return to the ZoneController's area)
-    // or when a Trap gets deactivated or when the area-type Trap explodes
-    public abstract void SetCurrentTarget(IDamageable target);
+//    // Called by AISpawner when instantiating an AIEnemy. This method should inform the ZoneController about this AIEnemy's creation
+//    public abstract void SetZoneController(AIZoneController zoneController);
+//    // Called by the ZoneController in case the Monument gets repaired (this will cause all AIEnemy to return to the ZoneController's area)
+//    // or when a Trap gets deactivated or when the area-type Trap explodes
+//    public abstract void SetCurrentTarget(IDamageable target);
 
-    // IDamageable
-    // Called by the AIPlayer or an Attack to determine if this AIEnemy should be targetted
-    public abstract bool IsDead();
-    // Called by the AIPlayer or an Attack to damage the AIEnemy
-    public abstract void TakeDamage(int damage, AttackType attacktype);
-    // Called by the Area-type Trap to retarget the AIEnemy after exploding
-    public abstract void UpdateTarget();
-}
+//    // IDamageable
+//    // Called by the AIPlayer or an Attack to determine if this AIEnemy should be targetted
+//    public abstract bool IsDead();
+//    // Called by the AIPlayer or an Attack to damage the AIEnemy
+//    public abstract void TakeDamage(int damage, AttackType attacktype);
+//    // Called by the Area-type Trap to retarget the AIEnemy after exploding
+//    public abstract void UpdateTarget();
+//}
 
 public abstract class ScenarioController
 {
