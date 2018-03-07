@@ -4,9 +4,10 @@ public class StrongAttackDetection : MonoBehaviour
 {
     #region Fields
 
-    private const float strongAttackCadency = 3f;
-    private const float actionTimeRange = 0.5f;
-    private float time = strongAttackCadency;
+    private const float actionTimeRange = 1f;
+    private const int evilCost = -10;
+    private const int damage = 3;
+
     private float actionTime = 0f;
     private bool activateAttack = false;
 
@@ -29,7 +30,7 @@ public class StrongAttackDetection : MonoBehaviour
         {
             if (other.gameObject.layer == 8)
             {
-                other.GetComponent<AIEnemy_temp>().TakeDamage(3, AttackType.STRONG);
+                other.GetComponent<AIEnemy_temp>().TakeDamage(damage, AttackType.STRONG);
             }
         }
     }
@@ -44,18 +45,14 @@ public class StrongAttackDetection : MonoBehaviour
 
     private void StrongAttackActivation()
     {
-        time += Time.deltaTime;
-
-        if (InputManager.instance.GetL2Button())
+        if (InputManager.instance.GetL2ButtonDown() && !activateAttack)
         {
-            if (time >= strongAttackCadency)
+            if (actionTime < actionTimeRange)
             {
-                if (actionTime < actionTimeRange)
-                {
-                    activateAttack = true;
-                    GetComponent<MeshCollider>().enabled = true;
-                    GetComponent<Renderer>().enabled = true;
-                }
+                activateAttack = true;
+                Player.instance.SetEvilnessLevel(evilCost);
+                GetComponent<MeshCollider>().enabled = true;
+                GetComponent<Renderer>().enabled = true;
             }
         }
 
@@ -67,7 +64,6 @@ public class StrongAttackDetection : MonoBehaviour
         if (actionTime >= actionTimeRange)
         {
             activateAttack = false;
-            time = 0f;
             actionTime = 0f;
             GetComponent<MeshCollider>().enabled = false;
             GetComponent<Renderer>().enabled = false;

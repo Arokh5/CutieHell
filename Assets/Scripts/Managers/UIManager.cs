@@ -1,20 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class PlayerManager : MonoBehaviour {
+public class UIManager : MonoBehaviour
+{
+    #region Fields
 
-    #region Public Data
+    public static UIManager instance;
 
-    public static PlayerManager instance;
-
-    #endregion
-
-    #region Private Serialized Fields
-
-    #endregion
-
-    #region Private Non-Serialized Fields
+    [SerializeField]
+    private GameObject evilnessBar;
 
     #endregion
 
@@ -45,6 +41,13 @@ public class PlayerManager : MonoBehaviour {
     #endregion
 
     #region Private Methods
+
+    // Called by Player when using or earning Evil Points
+    public void SetEvilBarValue(int value)
+    {
+        Debug.Log("Evil: " + ((float)value / Player.instance.GetMaxEvilLevel()));
+        evilnessBar.GetComponent<Image>().fillAmount += ((float)value / Player.instance.GetMaxEvilLevel());
+    }
 
     #endregion
 }

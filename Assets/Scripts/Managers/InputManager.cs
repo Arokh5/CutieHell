@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour {
 
-    #region Public Data
+    #region Fields
 
     public static InputManager instance;
+    private bool L2buttonPrevState = false;
 
     #endregion
 
@@ -216,6 +217,26 @@ public class InputManager : MonoBehaviour {
     public float GetR2ButtonValue()
     {
         return Input.GetAxis("PS4_R2");
+    }
+
+    public bool GetL2ButtonDown()
+    {
+        bool buttonDown = false;
+
+        if (GetL2Button())
+        {
+            if (!L2buttonPrevState)
+            {
+                buttonDown = true;
+                L2buttonPrevState = true;
+            }
+        }
+        else
+        {
+            L2buttonPrevState = false;
+        }
+
+        return buttonDown;
     }
 
     public bool GetL2Button()

@@ -6,6 +6,8 @@ public class FollowTarget : MonoBehaviour
 
     private const float attackSpeed = 15f;
     private const float lifeTime = 10f;
+    private const int damage = 1;
+
     private Transform enemy = null;
     private float time = 0;
 
@@ -34,7 +36,7 @@ public class FollowTarget : MonoBehaviour
 
         if (other.gameObject.layer == 8)
         {
-            other.GetComponent<AIEnemy_temp>().TakeDamage(1, AttackType.WEAK);
+            other.GetComponent<AIEnemy_temp>().TakeDamage(damage, AttackType.WEAK);
         }
     }
 

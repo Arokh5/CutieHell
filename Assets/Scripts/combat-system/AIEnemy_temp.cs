@@ -4,7 +4,8 @@ public class AIEnemy_temp : MonoBehaviour, IDamageable
 {
     #region Fields
 
-    private int health = 3;
+    public int evilnessReward = 1;
+    private float health = 3;
 
     #endregion
 
@@ -25,12 +26,15 @@ public class AIEnemy_temp : MonoBehaviour, IDamageable
     }
 
     // Called by the AIPlayer or an Attack to damage the AIEnemy
-    public void TakeDamage(int dmg, AttackType attacktype)
+    public void TakeDamage(float dmg, AttackType attacktype)
     {
         health -= dmg;
 
         if (health <= 0)
+        {
+            Player.instance.SetEvilnessLevel(evilnessReward);
             Destroy(gameObject);
+        }
     }
 
     #endregion

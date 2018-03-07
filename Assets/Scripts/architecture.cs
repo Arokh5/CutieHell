@@ -100,7 +100,7 @@ public abstract class AIEnemy : IDamageable
     // Called by the AIPlayer or an Attack to determine if this AIEnemy should be targetted
     public abstract bool IsDead();
     // Called by the AIPlayer or an Attack to damage the AIEnemy
-    public abstract void TakeDamage(int damage, AttackType attacktype);
+    public abstract void TakeDamage(float damage, AttackType attacktype);
     // Called by the Area-type Trap to retarget the AIEnemy after exploding
     public abstract void UpdateTarget();
 }
@@ -166,7 +166,7 @@ public abstract class Building : IDamageable, IRepairable
 
     // IDamageable
     public abstract bool IsDead();
-    public abstract void TakeDamage(int damage, AttackType attacktype);
+    public abstract void TakeDamage(float damage, AttackType attacktype);
     // IRepairable
     public abstract void FullRepair();
     public abstract bool HasFullHealth();
@@ -180,7 +180,7 @@ public abstract class Trap : Building, IUsable
 
     // IDamageable
     // If a call to this method causes the Trap to die, it should inform Player to get off the trap and call Deactivate
-    public abstract override void TakeDamage(int damage, AttackType attacktype);
+    public abstract override void TakeDamage(float damage, AttackType attacktype);
 
     // IUsable
     // Called by Player
@@ -197,7 +197,7 @@ public abstract class Monument : Building
 {
     // IDamageable
     // If a call to this method causes the Monument to die, it should inform the ZoneController
-    public abstract override void TakeDamage(int damage, AttackType attacktype);
+    public abstract override void TakeDamage(float damage, AttackType attacktype);
     // If this method is called, it should inform the ZoneController
     public abstract override void FullRepair();
 
@@ -206,27 +206,27 @@ public abstract class Monument : Building
 #endregion
 
 
-public abstract class Player
-{
-    // Called by Trap in case it gets conquered by AIEnemy
-    public abstract void StopTrapUse();
-}
+//public abstract class Player
+//{
+//    // Called by Trap in case it gets conquered by AIEnemy
+//    public abstract void StopTrapUse();
+//}
 
-public abstract class UIManager
-{
-    // Called by Player when using or earning Evil Points
-    public abstract void SetEvilBarValue(int value);
-    // Called by Player when increasing its maximum of Evil Point
-    public abstract void SetEvilBarMaxValue(int maxValue);
-    // Called by ZonesConnection when the connection gets opened
-    public abstract void ZoneConnectionOpened(uint zoneConnectionID);
-    // Called by Trap to update its remaining health
-    public abstract void SetTrapHealth(uint zoneID, uint TrapID, float normalizedHealth);
-    // Called by Trap to update its remaining health
-    public abstract void SetMonumentHealth(uint zoneID, float normalizedHealth);
-    // Called by AISpawnController to move the Wave indicator forward
-    public abstract void SetWaveNumberAndProgress(uint waveNumber, float normalizedProgress);
-}
+//public abstract class UIManager
+//{
+//    // Called by Player when using or earning Evil Points
+//    public abstract void SetEvilBarValue(int value);
+//    // Called by Player when increasing its maximum of Evil Point
+//    public abstract void SetEvilBarMaxValue(int maxValue);
+//    // Called by ZonesConnection when the connection gets opened
+//    public abstract void ZoneConnectionOpened(uint zoneConnectionID);
+//    // Called by Trap to update its remaining health
+//    public abstract void SetTrapHealth(uint zoneID, uint TrapID, float normalizedHealth);
+//    // Called by Trap to update its remaining health
+//    public abstract void SetMonumentHealth(uint zoneID, float normalizedHealth);
+//    // Called by AISpawnController to move the Wave indicator forward
+//    public abstract void SetWaveNumberAndProgress(uint waveNumber, float normalizedProgress);
+//}
 
 public abstract class StatsManager
 {
