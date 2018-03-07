@@ -56,7 +56,7 @@ public class FollowTarget : MonoBehaviour
         }
         else
         {
-            transform.Translate(Vector3.left * attackSpeed * Time.deltaTime);
+            transform.Translate(Vector3.right * attackSpeed * Time.deltaTime);
         }
     }
 
