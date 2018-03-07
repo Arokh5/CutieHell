@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DraculaController : MonoBehaviour {
+public class Player : MonoBehaviour {
 
 
     [Header("Speed Variabes")]
@@ -51,5 +51,10 @@ public class DraculaController : MonoBehaviour {
         if (rb.velocity.magnitude > maxSpeed) {
             rb.velocity = rb.velocity.normalized * maxSpeed;
         }
+    }
+
+    public void StopTrapUse() 
+    {
+
     }
 }

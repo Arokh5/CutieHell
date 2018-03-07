@@ -206,11 +206,11 @@ public abstract class ZoneConnection
 #endregion
 
 
-public abstract class Player
-{
-    // Called by Trap in case it gets conquered by AIEnemy
-    public abstract void StopTrapUse();
-}
+//public abstract class Player
+//{
+//    // Called by Trap in case it gets conquered by AIEnemy
+//    public abstract void StopTrapUse();
+//}
 
 public abstract class UIManager
 {
