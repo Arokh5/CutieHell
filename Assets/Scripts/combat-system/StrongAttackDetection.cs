@@ -45,12 +45,12 @@ public class StrongAttackDetection : MonoBehaviour
 
     private void StrongAttackActivation()
     {
-        if (InputManager.instance.GetL2ButtonDown() && !activateAttack)
+        if (InputManager.instance.GetL2ButtonDown() && !activateAttack && Player.instance.GetEvilLevel() >= Mathf.Abs(evilCost))
         {
             if (actionTime < actionTimeRange)
             {
                 activateAttack = true;
-                Player.instance.SetEvilnessLevel(evilCost);
+                Player.instance.SetEvilLevel(evilCost);
                 GetComponent<MeshCollider>().enabled = true;
                 GetComponent<Renderer>().enabled = true;
             }

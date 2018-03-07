@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     public static Player instance;
 
     private const int maxEvilLevel = 20;
-    private int evilnessLevel = maxEvilLevel;
+    private int evilLevel = maxEvilLevel;
 
 	#endregion
 	
@@ -19,16 +19,31 @@ public class Player : MonoBehaviour
     {
         return maxEvilLevel;
     }
-	
-    public void SetEvilnessLevel(int evilness)
+
+    public int GetEvilLevel()
     {
-        evilnessLevel += evilness;
-        UIManager.instance.SetEvilBarValue(evilness);
+        return evilLevel;
+    }
+
+    public void SetEvilLevel(int value)
+    {
+        evilLevel += value;
+
+        if (evilLevel < 0)
+        {
+            evilLevel = 0;
+        }
+        else if (evilLevel > maxEvilLevel)
+        {
+            evilLevel = maxEvilLevel;
+        }
+
+        UIManager.instance.SetEvilBarValue(evilLevel);
     }
 
     #endregion
-	
-	#region MonoBehaviour Methods
+
+    #region MonoBehaviour Methods
 
     private void Awake()
     {
@@ -38,13 +53,13 @@ public class Player : MonoBehaviour
         }
     }
 
-	#endregion
-	
-	#region Public Methods
-	
-	#endregion
-	
-	#region Private Methods
+    #endregion
 
-	#endregion
+    #region Public Methods
+
+    #endregion
+
+    #region Private Methods
+
+    #endregion
 }

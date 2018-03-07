@@ -46,7 +46,7 @@ public class UIManager : MonoBehaviour
     public void SetEvilBarValue(int value)
     {
         Debug.Log("Evil: " + ((float)value / Player.instance.GetMaxEvilLevel()));
-        evilnessBar.GetComponent<Image>().fillAmount += ((float)value / Player.instance.GetMaxEvilLevel());
+        evilnessBar.GetComponent<Image>().fillAmount = ((float)value / Player.instance.GetMaxEvilLevel());
     }
 
     #endregion
