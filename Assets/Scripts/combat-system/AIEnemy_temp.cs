@@ -25,14 +25,12 @@ public class AIEnemy_temp : MonoBehaviour, IDamageable
     }
 
     // Called by the AIPlayer or an Attack to damage the AIEnemy
-    public bool TakeDamage(int dmg, AttackType attacktype)
+    public void TakeDamage(int dmg, AttackType attacktype)
     {
         health -= dmg;
 
         if (health <= 0)
             Destroy(gameObject);
-
-        return true;
     }
 
     #endregion
