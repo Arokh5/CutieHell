@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Assets.Scripts;
 
 public class StrongAttackDetection : MonoBehaviour
 {
@@ -30,7 +29,7 @@ public class StrongAttackDetection : MonoBehaviour
         {
             if (other.gameObject.layer == 8)
             {
-                other.GetComponent<AIEnemy>().TakeDamage(3, AttackType.STRONG);
+                other.GetComponent<AIEnemy_temp>().TakeDamage(3, AttackType.STRONG);
             }
         }
     }

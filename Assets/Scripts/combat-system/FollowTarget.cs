@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Assets.Scripts;
 
 public class FollowTarget : MonoBehaviour
 {
@@ -35,7 +34,7 @@ public class FollowTarget : MonoBehaviour
 
         if (other.gameObject.layer == 8)
         {
-            other.GetComponent<AIEnemy>().TakeDamage(1, AttackType.WEAK);
+            other.GetComponent<AIEnemy_temp>().TakeDamage(1, AttackType.WEAK);
         }
     }
 

@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using Assets.Scripts;
 
-public class AIEnemy : MonoBehaviour, IDamageable
+public class AIEnemy_temp : MonoBehaviour, IDamageable
 {
     #region Fields
 
