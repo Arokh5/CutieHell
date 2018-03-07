@@ -1,13 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AIEnemy : MonoBehaviour, IDamageable
 {
     #region Fields
     private AIZoneController zoneController;
     private SubZoneType currentSubZone;
-    private IDamageable currentTarget;
+    private Building currentTarget;
+    private NavMeshAgent agent;
+
+    [Header("Attack information")]
+    public float attackRange = 5;
+    public float dps = 0.5f;
 
     [Tooltip("The initial amount of hit points for the conquerable building.")]
     public float baseHealth;
@@ -16,6 +22,11 @@ public class AIEnemy : MonoBehaviour, IDamageable
     #endregion
 
     #region MonoBehaviour Methods
+    private void Awake()
+    {
+        agent = GetComponent<NavMeshAgent>();
+        UnityEngine.Assertions.Assert.IsNotNull(agent, "Error: agent is null for AIEnemy in GameObject '" + gameObject.name + "'!");
+    }
 
     private void Start()
     {
@@ -23,6 +34,18 @@ public class AIEnemy : MonoBehaviour, IDamageable
         UpdateTarget();
     }
 
+    private void Update()
+    {
+        if (currentTarget)
+        {
+            agent.SetDestination(currentTarget.transform.position);
+
+            if (Vector3.Distance(transform.position, currentTarget.transform.position) < attackRange)
+            {
+                Attack();
+            }
+        }
+    }
     #endregion
 
     #region Public Methods
@@ -44,7 +67,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
     // Called by the ZoneController in case the Monument gets repaired (this will cause all AIEnemy to return to the ZoneController's area)
     // or when a Trap gets deactivated or when the area-type Trap explodes
-    public void SetCurrentTarget(IDamageable target)
+    public void SetCurrentTarget(Building target)
     {
         currentTarget = target;
     }
@@ -72,5 +95,12 @@ public class AIEnemy : MonoBehaviour, IDamageable
         currentTarget = zoneController.GetTargetBuilding();
     }
 
+    #endregion
+
+    #region Private Methods
+    private void Attack()
+    {
+        currentTarget.TakeDamage(dps * Time.deltaTime, AttackType.ENEMY);
+    }
     #endregion
 }

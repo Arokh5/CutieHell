@@ -52,6 +52,7 @@ public class Trap : Building, IUsable {
     protected override void BuildingKilled()
     {
         player.StopTrapUse();
+        Deactivate();
     }
     #endregion
 }
