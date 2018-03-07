@@ -44,8 +44,6 @@ public class Player : MonoBehaviour {
             rb.drag = 10.0f;
         }
 
-        Vector3 temp = speedDirection * acceleration;
-
         rb.AddRelativeForce(speedDirection * acceleration, ForceMode.Acceleration);
 
         if (rb.velocity.magnitude > maxSpeed) {

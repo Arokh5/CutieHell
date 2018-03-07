@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour {
 
-    [SerializeField]
     private Transform player;
 
     private const float xSpeed = 2.5f;
@@ -19,18 +18,22 @@ public class CameraController : MonoBehaviour {
     private float x;
     private float y;
 
+    [Header("Debug components to drag")]
     //For debugg position
-    public bool debugCamera = false;
-    public GameObject debugCanvas;
-    public float distance;
-    public float cameraX;
-    public float cameraY;
-    public float focusDistance;
-    public float focusX;
-    public float focusY;
-    public Text instructions;
-    public Image grid;
-    public bool gridOn;
+    private bool debugCamera = false;
+    [SerializeField]
+    private GameObject debugCanvas;
+    private float distance;
+    private float cameraX;
+    private float cameraY;
+    private float focusDistance;
+    private float focusX;
+    private float focusY;
+    [SerializeField]
+    private Text values;
+    [SerializeField]
+    private Image grid;
+    private bool gridOn;
 
     private void Awake()
     {
@@ -39,7 +42,9 @@ public class CameraController : MonoBehaviour {
         x = 0f;
         y = 0f;
 
+        player = GameObject.Find("Player").transform;
         //For debugg position
+
         distance = 3.0f;
         cameraX = 0.5f;
         cameraY = 1.75f;
@@ -70,7 +75,6 @@ public class CameraController : MonoBehaviour {
                 debugCanvas.SetActive(false);
             }
         }
-
     }
 
     private void RotateCamera()
@@ -222,7 +226,7 @@ public class CameraController : MonoBehaviour {
             focusY = 1.7f;
             gridOn = true;
         }
-        instructions.text = "Distance : " + distance + "\nCameraX : " + cameraX + "\nCameraY : " + cameraY + "\nFocus Distance" +
+        values.text = "Distance : " + distance + "\nCameraX : " + cameraX + "\nCameraY : " + cameraY + "\nFocus Distance" +
             focusDistance + "\nFocusX : " + focusX + "\nFocusY : " + focusY;
     }
 }
