@@ -37,7 +37,6 @@ public class CameraController : MonoBehaviour {
 
     private void Awake()
     {
-        collisionLayers = 1 << 4;
         //distance = 3.0f;
         x = 0f;
         y = 0f;
@@ -153,7 +152,7 @@ public class CameraController : MonoBehaviour {
 
         if (Physics.Raycast(checkPos, player.position + (Vector3.up * deltaPlayerHeight) - checkPos, out hit)) 
         {
-            if (hit.transform.gameObject.layer == 4) 
+            if (hit.transform.gameObject.layer == 9) 
             {
                 return false;
             }
@@ -166,7 +165,7 @@ public class CameraController : MonoBehaviour {
         Debug.DrawRay(player.position + (Vector3.up * deltaPlayerHeight), checkPos - player.position, Color.green);
         if (Physics.Raycast(player.position + (Vector3.up * deltaPlayerHeight), checkPos - player.position, out hit, offset)) 
         {   
-            if (hit.transform.gameObject.layer == 4) 
+            if (hit.transform.gameObject.layer == 9) 
             {
                 return false;
             }
