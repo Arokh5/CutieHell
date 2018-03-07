@@ -803,7 +803,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 615330474}
-  lookAt: 0
+  debugCamera: 0
+  debugCanvas: {fileID: 0}
+  distance: 0
+  cameraX: 0
+  cameraY: 0
+  focusDistance: 0
+  focusX: 0
+  focusY: 0
+  instructions: {fileID: 0}
+  grid: {fileID: 0}
+  gridOn: 0
 --- !u!114 &455685528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1945,7 +1955,7 @@ MeshCollider:
   m_GameObject: {fileID: 1165925601}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 1
   m_CookingOptions: 14

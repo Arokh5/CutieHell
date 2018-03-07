@@ -55,6 +55,7 @@ public class StrongAttackDetection : MonoBehaviour
                 if (actionTime < actionTimeRange)
                 {
                     activateAttack = true;
+                    GetComponent<MeshCollider>().enabled = true;
                     GetComponent<Renderer>().enabled = true;
                 }
             }
@@ -70,6 +71,7 @@ public class StrongAttackDetection : MonoBehaviour
             activateAttack = false;
             time = 0f;
             actionTime = 0f;
+            GetComponent<MeshCollider>().enabled = false;
             GetComponent<Renderer>().enabled = false;
         }
     }
