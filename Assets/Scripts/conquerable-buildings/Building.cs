@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Building : MonoBehaviour {
+public abstract class Building : MonoBehaviour, IDamageable, IRepairable
+{
 
     #region Fields
     [Header ("General Building fields")]
+    public SubZoneType zoneType;
     [SerializeField]
     protected AIZoneController zoneController;
     [Tooltip("The initial amount of hit points for the conquerable building.")]
-    public float baseHealth;
+    public int baseHealth;
     public int fullRepairCost;
-    public SubZoneType zoneType;
 
-    protected float currentHealth;
+    protected int currentHealth;
 
     [Header("Elements setup")]
     [SerializeField]
@@ -55,6 +56,7 @@ public abstract class Building : MonoBehaviour {
     public bool loseHitPoints = false; // TEST
     public int lifeLossPerSecond = 0; // TEST
     public bool restoreLife = false;
+    private float accumulatedLifeLoss = 0;
 
     #endregion
 
@@ -138,16 +140,16 @@ public abstract class Building : MonoBehaviour {
     }
 
     // IDamageable
-    public virtual bool TakeDamage(float dmg, AttackType attacktype)
+    public virtual void TakeDamage(int damage, AttackType attacktype)
     {
         if (conquering || conquered)
-            return false;
+            return;
 
         // Reset the underAttackElapsedTime timer
         SetUnderAttack(true);
         underAttackElapsedTime = 0;
 
-        currentHealth -= dmg;
+        currentHealth -= damage;
 
         if (currentHealth <= 0)
         {
@@ -160,9 +162,7 @@ public abstract class Building : MonoBehaviour {
         {
             ConquerEffect();
             BuildingKilled();
-            return true;
         }
-        return false;
     }
 
     // IRepairable
@@ -213,9 +213,14 @@ public abstract class Building : MonoBehaviour {
 
         if (loseHitPoints)
         {
-            TakeDamage(lifeLossPerSecond * Time.deltaTime, AttackType.ENEMY);
-            if (conquered)
-                loseHitPoints = false;
+            accumulatedLifeLoss += lifeLossPerSecond * Time.deltaTime;
+            if (accumulatedLifeLoss > 1)
+            {
+                accumulatedLifeLoss -= 1;
+                TakeDamage(1, AttackType.ENEMY);
+                if (conquered)
+                    loseHitPoints = false;
+            }
         }
     }
 
