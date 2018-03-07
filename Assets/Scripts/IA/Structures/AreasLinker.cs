@@ -6,13 +6,12 @@ using UnityEngine.AI;
 public class AreasLinker : MonoBehaviour
 {
     private bool opened;
-	// Use this for initialization
+
 	void Start ()
     {
         opened = false;
 	}
 	
-	// Update is called once per frame
 	void Update ()
     {
 		

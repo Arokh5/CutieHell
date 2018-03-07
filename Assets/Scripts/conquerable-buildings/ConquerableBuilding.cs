@@ -81,8 +81,7 @@ public class ConquerableBuilding : MonoBehaviour {
         buildingRenderer.material.SetFloat("_ShakeAmplitude", shakeAmplitude);
         buildingRenderer.material.SetFloat("_ShakeSpeed", shakeSpeed);
     }
-	
-	// Update is called once per frame
+
 	private void Update ()
     {
         Test();
