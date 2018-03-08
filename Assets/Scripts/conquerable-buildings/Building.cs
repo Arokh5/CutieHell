@@ -169,7 +169,7 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
 
         if (conquered)
         {
-            Reset();
+            Unconquer();
         }
     }
 
@@ -203,6 +203,7 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
         if (restoreLife)
         {
             restoreLife = false;
+            Unconquer();
             FullRepair();
         }
 
