@@ -14,6 +14,7 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     public float baseHealth;
     public int fullRepairCost;
 
+    [SerializeField]
     protected float currentHealth;
 
     [Header("Elements setup")]
@@ -54,9 +55,8 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     [Header("Damage testing")]
     public bool reset = false; // TEST
     public bool loseHitPoints = false; // TEST
-    public int lifeLossPerSecond = 0; // TEST
+    public float lifeLossPerSecond = 0; // TEST
     public bool restoreLife = false;
-    private float accumulatedLifeLoss = 0;
 
     #endregion
 
@@ -98,7 +98,7 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     }
 
     // Update is called once per frame
-    private void Update()
+    protected void Update()
     {
         Test();
 
@@ -197,26 +197,20 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
         {
             reset = false;
             loseHitPoints = false;
-            Unconquer();
+            FullRepair();
         }
 
         if (restoreLife)
         {
             restoreLife = false;
-            Unconquer();
             FullRepair();
         }
 
         if (loseHitPoints)
         {
-            accumulatedLifeLoss += lifeLossPerSecond * Time.deltaTime;
-            if (accumulatedLifeLoss > 1)
-            {
-                accumulatedLifeLoss -= 1;
-                TakeDamage(1, AttackType.ENEMY);
-                if (conquered)
-                    loseHitPoints = false;
-            }
+            TakeDamage(lifeLossPerSecond * Time.deltaTime, AttackType.ENEMY);
+            if (conquered)
+                loseHitPoints = false;
         }
     }
 

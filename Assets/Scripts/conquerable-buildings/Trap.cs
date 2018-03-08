@@ -5,10 +5,36 @@ using UnityEngine;
 public class Trap : Building, IUsable {
 
     #region Fields
+    [Header("Trap setup")]
     public int usageCost;
 
     private uint trapID;
     private Player player;
+
+    [Header("Trap testing")]
+    public bool activate = false;
+    public bool deactivate = false;
+    [ShowOnly]
+    public bool isActive = false;
+    #endregion
+
+    #region MonoBehaviour Methods
+    private new void Update()
+    {
+        if (activate)
+        {
+            activate = false;
+            isActive = true;
+            Activate(player);
+        }
+        if (deactivate)
+        {
+            deactivate = false;
+            isActive = false;
+            Deactivate();
+        }
+        base.Update();
+    }
     #endregion
 
     #region Public Methods
@@ -51,7 +77,14 @@ public class Trap : Building, IUsable {
     #region Protected Methods
     protected override void BuildingKilled()
     {
-        player.StopTrapUse();
+        if (player != null)
+        {
+            player.StopTrapUse();
+        }
+        else
+        {
+            Debug.LogError("Trap is still in testing mode using a null Player for activation!");
+        }
         Deactivate();
     }
     #endregion

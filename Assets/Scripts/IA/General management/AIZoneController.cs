@@ -16,6 +16,15 @@ public class AIZoneController : MonoBehaviour {
     private List<AIEnemy> aiEnemies;
     #endregion
 
+    #region MonoBehaviour Methods
+    private void Awake()
+    {
+        UnityEngine.Assertions.Assert.IsNotNull(monument, "Error: monument not set for AIZoneController in gameObject '" + gameObject.name + "'");
+        currentZoneTarget = monument;
+    }
+
+    #endregion
+
     #region Public Methods
     // Called by Monument when it gets repaired
     public void OnMonumentRepaired()
@@ -32,13 +41,15 @@ public class AIZoneController : MonoBehaviour {
     // Called by Trap when it gets activated by Player
     public void OnTrapActivated(Building trap)
     {
-        Debug.LogError("NOT IMPLEMENTED: AIZoneController::OnTrapActivated");
+        currentZoneTarget = trap;
+        OnTargetBuildingChanged();
     }
 
     // Called by Trap when it gets deactivated by Player
     public void OnTrapDeactivated()
     {
-        Debug.LogError("NOT IMPLEMENTED: AIZoneController::OnTrapDeactivated");
+        currentZoneTarget = monument;
+        OnTargetBuildingChanged();
     }
 
     // Called by AIEnemy when it finishes conquering a Building or when the trap it was attacking becomes inactive
@@ -67,6 +78,16 @@ public class AIZoneController : MonoBehaviour {
     public bool RemoveEnemy(AIEnemy aiEnemy)
     {
         return aiEnemies.Remove(aiEnemy);
+    }
+    #endregion
+
+    #region Private Methods
+    private void OnTargetBuildingChanged()
+    {
+        foreach (AIEnemy enemy in aiEnemies)
+        {
+            enemy.SetCurrentTarget(currentZoneTarget);
+        }
     }
     #endregion
 }
