@@ -15,6 +15,7 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     public int fullRepairCost;
 
     [SerializeField]
+    [ShowOnly]
     protected float currentHealth;
 
     [Header("Elements setup")]

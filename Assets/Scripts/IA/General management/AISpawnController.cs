@@ -5,6 +5,8 @@ using UnityEngine;
 public class AISpawnController : MonoBehaviour {
 
     #region Fields
+    [SerializeField]
+    [ShowOnly]
     private float elapsedTime;
     [SerializeField]
     private int currentWaveIndex;
