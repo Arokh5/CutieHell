@@ -13,8 +13,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private Renderer mRenderer;
 
     [Header("Attack information")]
-    public float attackRange = 5;
-    public float dps = 0.5f;
+    public float attackRange;
+    public float dps;
 
     [Header("Health information")]
     [Tooltip("The initial amount of hit points for the conquerable building.")]
@@ -50,6 +50,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
     private void Update()
     {
+        // Motion through NavMeshAgent
         if (currentTarget)
         {
             agent.SetDestination(currentTarget.transform.position);
@@ -60,6 +61,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
             }
         }
 
+        // Testing
         if (hit)
         {
             hit = false;
