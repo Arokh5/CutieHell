@@ -17,7 +17,6 @@ public class PropModelChanger : Convertible
     public float alternatePropGrowDuration = 0.75f;
 
     private float convertionElapsedTime;
-    private bool isCute = false;
 
     private void Awake()
     {
@@ -48,7 +47,7 @@ public class PropModelChanger : Convertible
                 alternateProp.material.SetFloat("_Size", 1);
                 convertionElapsedTime = 0;
                 converting = false;
-                isCute = true;
+                isConverted = true;
             }
         }
         else if (unconverting)
@@ -70,7 +69,7 @@ public class PropModelChanger : Convertible
                 originalProp.material.SetFloat("_Size", 1);
                 convertionElapsedTime = 0;
                 unconverting = false;
-                isCute = false;
+                isConverted = false;
             }
         }
 
