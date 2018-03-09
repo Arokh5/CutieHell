@@ -35,7 +35,8 @@ public class AIZoneController : MonoBehaviour {
     // Called by Monument when it gets conquered. The method is meant to open the door
     public void OnMonumentTaken()
     {
-        Debug.LogError("NOT IMPLEMENTED: AIZoneController::OnMonumentTaken");
+        Debug.LogWarning("NOT FULLY IMPLEMENTED: AIZoneController::OnMonumentTaken");
+        GameManager.instance.OnGameLost();
     }
 
     // Called by Trap when it gets activated by Player

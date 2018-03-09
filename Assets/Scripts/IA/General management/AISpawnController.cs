@@ -84,6 +84,7 @@ public class AISpawnController : MonoBehaviour {
         else
         {
             waveRunning = false;
+            GameManager.instance.OnGameWon();
         }
     }
     #endregion
