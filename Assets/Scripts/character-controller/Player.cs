@@ -13,10 +13,14 @@ public class Player : MonoBehaviour {
     private Vector3 speedDirection;
     private GameObject[] traps;
     private const int maxEvilLevel = 20;
+    public PlayerStates state, nextState;
+
+    public enum PlayerStates { STILL, MOVE, WOLF, FOG, TURRET}
 
 	void Start () 
     {
         rb = this.GetComponent<Rigidbody>();
+        state = nextState = PlayerStates.MOVE;
         ResetTrapList();
     }
 
@@ -27,7 +31,23 @@ public class Player : MonoBehaviour {
 
     private void FixedUpdate() 
     {
-        MovePlayer();
+        switch (state) 
+        {
+            case PlayerStates.STILL:
+                break;
+            case PlayerStates.MOVE:
+                MovePlayer();
+                break;
+            case PlayerStates.WOLF:
+                break;
+            case PlayerStates.FOG:
+                break;
+            case PlayerStates.TURRET:
+                break;
+            default:
+                break;
+        }
+        state = nextState;
     }
 
     public void StopTrapUse() 
@@ -72,11 +92,16 @@ public class Player : MonoBehaviour {
             if(Vector3.Distance(this.transform.position, traps[i].transform.position) < 3.0f) {
                 if (InputManager.instance.GetXButtonDown()) 
                 {
-                    Trap trapScript = traps[i].GetComponent<Trap>();
-                    if (trapScript.CanUse()) 
-                    {
-                        trapScript.Activate(this);
-                    }
+                    //Trap trapScript = traps[i].GetComponent<Trap>();
+                    //if (trapScript.CanUse()) 
+                    //{
+                    //    this.transform.position = traps[i].transform.position;
+                    //    trapScript.Activate(this);
+                    //    nextState = PlayerStates.TURRET;
+                    //}
+                    this.transform.position = traps[i].transform.position;
+                    //trapScript.Activate(this);
+                    nextState = PlayerStates.TURRET;
                 }
             }
         }
