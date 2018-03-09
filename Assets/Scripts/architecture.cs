@@ -105,11 +105,11 @@ using UnityEngine;
 //    public abstract void UpdateTarget();
 //}
 
-public abstract class ScenarioController
-{
-    // Called by a ZoneController when its Monument has been conquered and an AIEnemy request for a Target
-    public abstract AIZoneController GetAlternateZone(AIZoneController currentZone);
-}
+//public abstract class ScenarioController
+//{
+//    // Called by a ZoneController when its Monument has been conquered and an AIEnemy request for a Target
+//    public abstract AIZoneController GetAlternateZone(AIZoneController currentZone);
+//}
 
 //public abstract class AIZoneController
 //{
@@ -141,16 +141,16 @@ public abstract class ScenarioController
 //    public abstract bool RemoveEnemy(AIEnemy aiEnemy);
 //}
 
-public abstract class ZoneConnection
-{
-    uint zoneConnetionID;
-    AIZoneController zone1;
-    AIZoneController zone2;
-    // Called by one of two Zonecontroller when its Monument gets conquered
-    public abstract void Open();
-    // Called by one of two Zonecontroller when its Monument gets repaired
-    public abstract void Close();
-}
+//public abstract class ZoneConnection
+//{
+//    uint zoneConnetionID;
+//    AIZoneController zone1;
+//    AIZoneController zone2;
+//    // Called by one of two Zonecontroller when its Monument gets conquered
+//    public abstract void Open();
+//    // Called by one of two Zonecontroller when its Monument gets repaired
+//    public abstract void Close();
+//}
 
 #endregion
 
@@ -230,14 +230,14 @@ public abstract class UIManager
     public abstract void SetWaveNumberAndProgress(uint waveNumber, float normalizedProgress);
 }
 
-public abstract class StatsManager
-{
-    // Called by AIEnemy upon dying
-    public abstract void RegisterKill(EnemyType enemyType, AttackType attackType);
-    // Called by Player when gaining EP (Evil Points)
-    public abstract void RegisterEPGained(int epGained);
-    // Called by Player when gaining EP but losing it due to having reached the max EP (Evil Points)
-    public abstract void RegisterEPLost(int epLost);
-    // Called by Player when using EP (Evil Points)
-    public abstract void RegisterEPUsed(int epUsed);
-}
+//public abstract class StatsManager
+//{
+//    // Called by AIEnemy upon dying
+//    public abstract void RegisterKill(EnemyType enemyType, AttackType attackType);
+//    // Called by Player when gaining EP (Evil Points)
+//    public abstract void RegisterEPGained(int epGained);
+//    // Called by Player when gaining EP but losing it due to having reached the max EP (Evil Points)
+//    public abstract void RegisterEPLost(int epLost);
+//    // Called by Player when using EP (Evil Points)
+//    public abstract void RegisterEPUsed(int epUsed);
+//}
