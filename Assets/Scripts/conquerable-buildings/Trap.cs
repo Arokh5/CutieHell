@@ -77,6 +77,7 @@ public class Trap : Building, IUsable {
     #region Protected Methods
     protected override void BuildingKilled()
     {
+        isActive = false;
         if (player != null)
         {
             player.StopTrapUse();

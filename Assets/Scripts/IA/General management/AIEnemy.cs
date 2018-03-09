@@ -10,6 +10,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private SubZoneType currentSubZone;
     private Building currentTarget;
     private NavMeshAgent agent;
+    private Renderer mRenderer;
 
     [Header("Attack information")]
     public float attackRange = 5;
@@ -19,19 +20,30 @@ public class AIEnemy : MonoBehaviour, IDamageable
     public float baseHealth;
 
     protected float currentHealth;
+
+    [Header("Color changing Testing")]
+    public Color initialColor;
+    public Color halfColor;
+    public Color deadColor;
+    public float healthToReduce = 1;
+    public bool hit;
     #endregion
 
     #region MonoBehaviour Methods
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        UnityEngine.Assertions.Assert.IsNotNull(agent, "Error: agent is null for AIEnemy in GameObject '" + gameObject.name + "'!");
+        UnityEngine.Assertions.Assert.IsNotNull(agent, "Error: No NavMeshAgent found for AIEnemy in GameObject '" + gameObject.name + "'!");
+        mRenderer = GetComponentInChildren<MeshRenderer>();
+        UnityEngine.Assertions.Assert.IsNotNull(mRenderer, "Error: No MeshRenderer found for children of AIEnemy in GameObject '" + gameObject.name + "'!");
+        mRenderer.material.color = initialColor;
     }
 
     private void Start()
     {
         UnityEngine.Assertions.Assert.IsNotNull(zoneController, "Error: zoneController is null for AIEnemy in GameObject '" + gameObject.name + "'!");
         UpdateTarget();
+        currentHealth = baseHealth;
     }
 
     private void Update()
@@ -44,6 +56,12 @@ public class AIEnemy : MonoBehaviour, IDamageable
             {
                 Attack();
             }
+        }
+
+        if (hit)
+        {
+            hit = false;
+            TakeDamage(healthToReduce, AttackType.ENEMY);
         }
     }
     #endregion
@@ -82,11 +100,16 @@ public class AIEnemy : MonoBehaviour, IDamageable
     // Called by the AIPlayer or an Attack to damage the AIEnemy
     public void TakeDamage(float damage, AttackType attacktype)
     {
+        if (IsDead())
+            return;
+
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
             currentHealth = 0;
+            Die();
         }
+        AdjustMaterials();
     }
 
     // Called by the Area-type Trap to retarget the AIEnemy after exploding
@@ -101,6 +124,30 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private void Attack()
     {
         currentTarget.TakeDamage(dps * Time.deltaTime, AttackType.ENEMY);
+    }
+
+    private void AdjustMaterials()
+    {
+        Color finalColor;
+        float normalizedHealth = currentHealth / baseHealth;
+
+        if (normalizedHealth < 0.5f)
+        {
+            normalizedHealth *= 2;
+            finalColor = deadColor * (1 - normalizedHealth) + halfColor * normalizedHealth;
+        }
+        else
+        {
+            normalizedHealth = (normalizedHealth - 0.5f) * 2;
+            finalColor = halfColor * (1 - normalizedHealth) + initialColor * normalizedHealth;
+        }
+        mRenderer.material.color = finalColor;
+    }
+
+    private void Die()
+    {
+        zoneController.RemoveEnemy(this);
+        Destroy(gameObject);
     }
     #endregion
 }

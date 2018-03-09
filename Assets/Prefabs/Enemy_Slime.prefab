@@ -217,8 +217,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackRange: 5
-  dps: 0.5
-  baseHealth: 50
+  dps: 1
+  baseHealth: 10
+  initialColor: {r: 0, g: 1, b: 0, a: 1}
+  halfColor: {r: 1, g: 1, b: 0, a: 1}
+  deadColor: {r: 1, g: 0, b: 0, a: 1}
+  damage: 1
+  hit: 0
 --- !u!135 &135265434565542322
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -226,7 +231,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1551222707621714}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
