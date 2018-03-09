@@ -16,8 +16,10 @@ public class AIEnemy : MonoBehaviour, IDamageable
     public float attackRange = 5;
     public float dps = 0.5f;
 
+    [Header("Health information")]
     [Tooltip("The initial amount of hit points for the conquerable building.")]
     public float baseHealth;
+    public int evilKillReward;
 
     protected float currentHealth;
 
@@ -147,6 +149,11 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private void Die()
     {
         zoneController.RemoveEnemy(this);
+        Player player = GameManager.instance.GetPlayer1();
+        if (player != null)
+        {
+            player.ReceiveEvilPoints(evilKillReward);
+        }
         Destroy(gameObject);
     }
     #endregion

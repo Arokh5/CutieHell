@@ -210,6 +210,8 @@ public abstract class Player
 {
     // Called by Trap in case it gets conquered by AIEnemy
     public abstract void StopTrapUse();
+    // Called by AIEnemy to give Evil Points to the Player when the AIEnemy is killed
+    public abstract void ReceiveEvilPoints(int evilPoints);
 }
 
 public abstract class UIManager
