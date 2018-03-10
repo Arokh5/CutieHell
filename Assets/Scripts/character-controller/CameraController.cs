@@ -107,7 +107,7 @@ public class CameraController : MonoBehaviour {
 
         y = ClampAngle(y, yMinLimit, yMaxLimit);
 
-        switch (playerScript.state) 
+        switch (playerScript.nextState) 
         {
             case Player.PlayerStates.STILL:
                 break;
@@ -138,20 +138,14 @@ public class CameraController : MonoBehaviour {
             case Player.PlayerStates.TURRET: 
                 {
                     Quaternion rotation = Quaternion.Euler(y, x, 0);
-                    float noCollisionDistance = t_distance;
-
-                    for (float zOffset = t_distance; zOffset >= 0.5f; zOffset -= 0.05f) {
-                        noCollisionDistance = zOffset;
-                        Vector3 tempPos = rotation * new Vector3(t_cameraX, t_cameraY, -noCollisionDistance) + player.position;
-
-                        if (DoubleViewingPosCheck(tempPos, zOffset)) {
-                            break;
-                        }
-                    }
-                    Vector3 position = rotation * new Vector3(t_cameraX, t_cameraY, -noCollisionDistance) + player.position;
-                    transform.position = position;
+                    playerScript.actualTrap.transform.rotation = rotation;
+                    this.transform.SetParent(playerScript.actualTrap.transform);
+                    this.transform.localPosition = new Vector3(0.0f, 1.8f, -1.0f);
+                    this.transform.localRotation = Quaternion.identity;
+                    //Vector3 position = rotation * new Vector3(t_cameraX, t_cameraY, -noCollisionDistance) + player.position;
+                    //transform.position = position;
                     SetPlayerDirection(rotation.eulerAngles.y);
-                    this.transform.LookAt(player.transform.position + player.transform.up * t_focusY + player.transform.right * t_focusX + player.transform.forward * t_focusDistance);
+                    //this.transform.LookAt(player.transform.position + player.transform.up * t_focusY + player.transform.right * t_focusX + player.transform.forward * t_focusDistance);
                 }
                 break;
             default:

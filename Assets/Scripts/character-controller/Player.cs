@@ -12,13 +12,16 @@ public class Player : MonoBehaviour {
     private Rigidbody rb;
     private Vector3 speedDirection;
     private GameObject[] traps;
+    public GameObject actualTrap;
     private const int maxEvilLevel = 20;
     public PlayerStates state, nextState;
+    public MeshRenderer meshRenderer;
 
     public enum PlayerStates { STILL, MOVE, WOLF, FOG, TURRET}
 
 	void Start () 
     {
+        meshRenderer = this.GetComponentInChildren<MeshRenderer>();
         rb = this.GetComponent<Rigidbody>();
         state = nextState = PlayerStates.MOVE;
         ResetTrapList();
@@ -87,22 +90,38 @@ public class Player : MonoBehaviour {
 
     public void UseTrap() 
     {
-        for(int i = 0; i < traps.Length; i++) 
+        if (actualTrap == null && state != PlayerStates.TURRET) 
         {
-            if(Vector3.Distance(this.transform.position, traps[i].transform.position) < 3.0f) {
-                if (InputManager.instance.GetXButtonDown()) 
+            for (int i = 0; i < traps.Length; i++) 
+            {
+                if (Vector3.Distance(this.transform.position, traps[i].transform.position) < 3.0f) 
                 {
-                    //Trap trapScript = traps[i].GetComponent<Trap>();
-                    //if (trapScript.CanUse()) 
-                    //{
-                    //    this.transform.position = traps[i].transform.position;
-                    //    trapScript.Activate(this);
-                    //    nextState = PlayerStates.TURRET;
-                    //}
-                    this.transform.position = traps[i].transform.position;
-                    //trapScript.Activate(this);
-                    nextState = PlayerStates.TURRET;
+                    if (InputManager.instance.GetXButtonDown()) 
+                    {
+                        //Trap trapScript = traps[i].GetComponent<Trap>();
+                        //if (trapScript.CanUse()) 
+                        //{
+                        //    this.transform.position = traps[i].transform.position;
+                        //    trapScript.Activate(this);
+                        //    nextState = PlayerStates.TURRET;
+                        //}
+                        this.transform.position = traps[i].transform.position;
+                        meshRenderer.enabled = false;
+                        actualTrap = traps[i];
+                        //trapScript.Activate(this);
+                        nextState = PlayerStates.TURRET;
+                    }
                 }
+            }
+        }
+        else
+        {
+            if (InputManager.instance.GetXButtonDown()) 
+            {
+                meshRenderer.enabled = true;
+                this.transform.position = actualTrap.transform.position - actualTrap.transform.forward * 3f;
+                actualTrap = null;
+                nextState = PlayerStates.MOVE;
             }
         }
     }
