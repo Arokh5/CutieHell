@@ -59,6 +59,7 @@ GameObject:
   - component: {fileID: 64193554458429458}
   - component: {fileID: 23978678512325324}
   - component: {fileID: 114594301022996558}
+  - component: {fileID: 54910832721290748}
   m_Layer: 0
   m_Name: StrongAttack
   m_TagString: Untagged
@@ -184,6 +185,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1963629278039076}
   m_Mesh: {fileID: 4300000, guid: 752e49f15e9c89341b3a0343b2f0570c, type: 3}
+--- !u!54 &54910832721290748
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1963629278039076}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!64 &64193554458429458
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -228,6 +244,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fc352d058edb814aa74f162725b037f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionTimeRange: 0.5
+  strongAttackCadency: 5
+  evilCost: -10
+  damage: 10
 --- !u!114 &114896511705891846
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -256,6 +276,8 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 256
+  sphereCastRadius: 0.5
+  basicAttackCadency: 1
 --- !u!124 &124509821206504046
 Behaviour:
   m_ObjectHideFlags: 1
