@@ -8,6 +8,7 @@ public class InputManager : MonoBehaviour {
 
     public static InputManager instance;
     private bool L2buttonPrevState = false;
+    private bool R2buttonPrevState = false;
 
     #endregion
 
@@ -209,9 +210,49 @@ public class InputManager : MonoBehaviour {
 
     /* Top side */
 
+    public bool GetR2ButtonDown()
+    {
+        bool buttonDown = false;
+
+        if (GetR2Button())
+        {
+            if (!R2buttonPrevState)
+            {
+                buttonDown = true;
+                R2buttonPrevState = true;
+            }
+        }
+        else
+        {
+            R2buttonPrevState = false;
+        }
+
+        return buttonDown;
+    }
+
     public bool GetR2Button()
     {
         return Input.GetAxis("PS4_R2") > 0.1;
+    }
+
+    public bool GetR2ButtonUp()
+    {
+        bool buttonUp = false;
+
+        if (!GetR2Button())
+        {
+            if (R2buttonPrevState)
+            {
+                buttonUp = true;
+                R2buttonPrevState = false;
+            }
+        }
+        else
+        {
+            R2buttonPrevState = true;
+        }
+
+        return buttonUp;
     }
 
     public float GetR2ButtonValue()
@@ -242,6 +283,26 @@ public class InputManager : MonoBehaviour {
     public bool GetL2Button()
     {
         return Input.GetAxis("PS4_L2") > 0.1;
+    }
+
+    public bool GetL2ButtonUp()
+    {
+        bool buttonUp = false;
+
+        if (!GetL2Button())
+        {
+            if (L2buttonPrevState)
+            {
+                buttonUp = true;
+                L2buttonPrevState = false;
+            }
+        }
+        else
+        {
+            L2buttonPrevState = true;
+        }
+
+        return buttonUp;
     }
 
     public float GetL2ButtonValue()

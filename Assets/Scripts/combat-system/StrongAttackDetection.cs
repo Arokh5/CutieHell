@@ -47,15 +47,25 @@ public class StrongAttackDetection : MonoBehaviour
 
     private void StrongAttackActivation()
     {
-        if (InputManager.instance.GetL2ButtonDown() && !activateAttack && GameManager.instance.GetPlayerOne().GetEvilLevel() >= Mathf.Abs(evilCost) && cadencyTime >= strongAttackCadency)
+        if (InputManager.instance.GetL2Button() && !activateAttack && GameManager.instance.GetPlayerOne().GetEvilLevel() >= Mathf.Abs(evilCost) && cadencyTime >= strongAttackCadency)
         {
             if (actionTime < actionTimeRange)
             {
-                activateAttack = true;
-                GameManager.instance.GetPlayerOne().SetEvilLevel(evilCost);
                 GetComponent<MeshCollider>().enabled = true;
                 GetComponent<Renderer>().enabled = true;
+
+                if (InputManager.instance.GetR2ButtonDown())
+                {
+                    activateAttack = true;
+                    GameManager.instance.GetPlayerOne().SetEvilLevel(evilCost);
+                }
             }
+        }
+
+        if (InputManager.instance.GetL2ButtonUp())
+        {
+            GetComponent<MeshCollider>().enabled = false;
+            GetComponent<Renderer>().enabled = false;
         }
 
         if (activateAttack)
