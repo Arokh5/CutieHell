@@ -4,16 +4,28 @@ using UnityEngine;
 
 public class AIZoneController : MonoBehaviour {
 
-    uint zoneID;
-    [SerializeField]
+    #region Fields
+    private uint zoneID;
     public Monument monument;
 
     [SerializeField]
     private Building currentZoneTarget;
 
     // List that contains all AIEnemy that were spawned on this ZoneController's area and are still alive
-    List<AIEnemy> aiEnemies;
+    [SerializeField]
+    private List<AIEnemy> aiEnemies;
+    #endregion
 
+    #region MonoBehaviour Methods
+    private void Awake()
+    {
+        UnityEngine.Assertions.Assert.IsNotNull(monument, "Error: monument not set for AIZoneController in gameObject '" + gameObject.name + "'");
+        currentZoneTarget = monument;
+    }
+
+    #endregion
+
+    #region Public Methods
     // Called by Monument when it gets repaired
     public void OnMonumentRepaired()
     {
@@ -23,25 +35,35 @@ public class AIZoneController : MonoBehaviour {
     // Called by Monument when it gets conquered. The method is meant to open the door
     public void OnMonumentTaken()
     {
-        Debug.LogError("NOT IMPLEMENTED: AIZoneController::OnMonumentTaken");
+        Debug.LogWarning("NOT FULLY IMPLEMENTED: AIZoneController::OnMonumentTaken");
+        GameManager.instance.OnGameLost();
     }
 
     // Called by Trap when it gets activated by Player
     public void OnTrapActivated(Building trap)
     {
-        Debug.LogError("NOT IMPLEMENTED: AIZoneController::OnTrapActivated");
+        currentZoneTarget = trap;
+        OnTargetBuildingChanged();
     }
 
     // Called by Trap when it gets deactivated by Player
     public void OnTrapDeactivated()
     {
-        Debug.LogError("NOT IMPLEMENTED: AIZoneController::OnTrapDeactivated");
+        currentZoneTarget = monument;
+        OnTargetBuildingChanged();
     }
 
     // Called by AIEnemy when it finishes conquering a Building or when the trap it was attacking becomes inactive
-    public IDamageable GetTargetBuilding()
+    public Building GetTargetBuilding()
     {
-        return currentZoneTarget;
+        if (currentZoneTarget)
+        {
+            return currentZoneTarget;
+        }
+        else
+        {
+            return monument;
+        }
     }
 
     // Called by AIEnemy during its configuration to add it to the aiEnemies list
@@ -58,4 +80,15 @@ public class AIZoneController : MonoBehaviour {
     {
         return aiEnemies.Remove(aiEnemy);
     }
+    #endregion
+
+    #region Private Methods
+    private void OnTargetBuildingChanged()
+    {
+        foreach (AIEnemy enemy in aiEnemies)
+        {
+            enemy.SetCurrentTarget(currentZoneTarget);
+        }
+    }
+    #endregion
 }

@@ -11,9 +11,11 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     [SerializeField]
     protected AIZoneController zoneController;
     [Tooltip("The initial amount of hit points for the conquerable building.")]
-    public int baseHealth;
+    public float baseHealth;
     public int fullRepairCost;
 
+    [SerializeField]
+    [ShowOnly]
     protected float currentHealth;
 
     [Header("Elements setup")]
@@ -54,16 +56,10 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     [Header("Damage testing")]
     public bool reset = false; // TEST
     public bool loseHitPoints = false; // TEST
-    public int lifeLossPerSecond = 0; // TEST
+    public float lifeLossPerSecond = 0; // TEST
     public bool restoreLife = false;
-    private float accumulatedLifeLoss = 0;
 
     #endregion
-
-    #region Properties
-
-    #endregion
-
 
     #region MonoBehaviour Methods
     // Use this for initialization
@@ -103,7 +99,7 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     }
 
     // Update is called once per frame
-    private void Update()
+    protected void Update()
     {
         Test();
 
@@ -174,7 +170,7 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
 
         if (conquered)
         {
-            Reset();
+            Unconquer();
         }
     }
 
@@ -202,7 +198,7 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
         {
             reset = false;
             loseHitPoints = false;
-            Unconquer();
+            FullRepair();
         }
 
         if (restoreLife)
@@ -213,14 +209,9 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
 
         if (loseHitPoints)
         {
-            accumulatedLifeLoss += lifeLossPerSecond * Time.deltaTime;
-            if (accumulatedLifeLoss > 1)
-            {
-                accumulatedLifeLoss -= 1;
-                TakeDamage(1, AttackType.ENEMY);
-                if (conquered)
-                    loseHitPoints = false;
-            }
+            TakeDamage(lifeLossPerSecond * Time.deltaTime, AttackType.ENEMY);
+            if (conquered)
+                loseHitPoints = false;
         }
     }
 

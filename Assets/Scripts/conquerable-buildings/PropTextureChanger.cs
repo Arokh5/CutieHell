@@ -9,7 +9,6 @@ public class PropTextureChanger : Convertible {
     [Tooltip("The time (in seconds) it takes to blend from one texture to the other")]
     public float convertionDuration = 0.5f;
     private float convertionElapsedTime = 0;
-    private bool isCute = false;
 
     private void Awake()
     {
@@ -34,12 +33,12 @@ public class PropTextureChanger : Convertible {
                 if (converting)
                 {
                     converting = false;
-                    isCute = true;
+                    isConverted = true;
                 }
                 else if (unconverting)
                 {
                     unconverting = false;
-                    isCute = false;
+                    isConverted = false;
                 }
             }
         }

@@ -7,11 +7,9 @@ public class GameManager : MonoBehaviour {
     #region Public Data
 
     public static GameManager instance;
-    public enum GameStates { OnStartMenu, InGame, OnGameEnd };
-    public GameStates gameState;
+    public enum GameStates { Init, Cutscene, Management, Wave, Stats, GameOver };
 
-    [SerializeField]
-    private Player player;
+    public GameStates gameState;
 
 	#endregion
 	
@@ -43,25 +41,24 @@ public class GameManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
-	#endregion
-	
-	#region Public Methods
-	
-    public Player GetPlayerOne()
-    {
-        return player;
-    }
+    #endregion
 
+    #region Public Methods
     public void OnGameWon()
     {
-        gameState = GameStates.OnStartMenu;
+        Debug.LogError("NOT IMPLEMENTED: GameManager::OnGameWon");
     }
 
     public void OnGameLost()
     {
-        gameState = GameStates.OnStartMenu;
+        Debug.LogError("NOT IMPLEMENTED: GameManager::OnGameLost");
     }
 
+    public Player GetPlayer1()
+    {
+        Debug.LogError("NOT IMPLEMENTED: GameManager::GetPlayer1");
+        return null;
+    }
 	#endregion
 	
 	#region Private Methods

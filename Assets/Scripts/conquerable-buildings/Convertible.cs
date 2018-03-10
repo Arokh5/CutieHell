@@ -6,6 +6,7 @@ public abstract class Convertible : MonoBehaviour {
 
     protected bool converting = false;
     protected bool unconverting = false;
+    protected bool isConverted = false;
 
     public bool IsConverting()
     {
@@ -15,6 +16,11 @@ public abstract class Convertible : MonoBehaviour {
     public bool IsUnconverting()
     {
         return unconverting;
+    }
+
+    public bool IsConverted()
+    {
+        return isConverted;
     }
 
     public abstract void Convert();
