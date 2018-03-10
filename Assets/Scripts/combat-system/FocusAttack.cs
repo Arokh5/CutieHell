@@ -8,12 +8,13 @@ public class FocusAttack : MonoBehaviour
 
     [SerializeField]
     private LayerMask layerMask;
-
-    private const float sphereCastRadius = 0.5f;
-    private const float basicAttackCadency = 1f;
+    [SerializeField]
+    private float sphereCastRadius;
+    [SerializeField]
+    private float basicAttackCadency;
 
     private RaycastHit hit;
-    private float time = basicAttackCadency;
+    private float time;
 
     #endregion
 
@@ -22,6 +23,11 @@ public class FocusAttack : MonoBehaviour
     #endregion
 
     #region MonoBehaviour Methods
+
+    private void Awake()
+    {
+        time = basicAttackCadency;
+    }
 
     private void Update()
     {

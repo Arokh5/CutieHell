@@ -5,14 +5,18 @@ public class StrongAttackDetection : MonoBehaviour
 {
     #region Fields
 
-    private const float actionTimeRange = 0.5f;
-    private const float strongAttackCadency = 5f;
-    private const int evilCost = -10;
-    private const int damage = 10;
-    private List<AIEnemy> damagedEnemies = new List<AIEnemy>();
+    [SerializeField]
+    private float actionTimeRange;
+    [SerializeField]
+    private float strongAttackCadency;
+    [SerializeField]
+    private int evilCost;
+    [SerializeField]
+    private int damage;
 
+    private List<AIEnemy> damagedEnemies = new List<AIEnemy>();
     private float actionTime = 0f;
-    private float cadencyTime = strongAttackCadency;
+    private float cadencyTime;
     private bool activateAttack = false;
 
     #endregion
@@ -22,6 +26,11 @@ public class StrongAttackDetection : MonoBehaviour
     #endregion
 
     #region MonoBehaviour Methods
+
+    private void Awake()
+    {
+        cadencyTime = strongAttackCadency;
+    }
 
     private void Update()
     {

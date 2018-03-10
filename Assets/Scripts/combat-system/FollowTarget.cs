@@ -4,9 +4,12 @@ public class FollowTarget : MonoBehaviour
 {
     #region Fields
 
-    private const float attackSpeed = 15f;
-    private const float lifeTime = 10f;
-    private const int damage = 5;
+    [SerializeField]
+    private float attackSpeed;
+    [SerializeField]
+    private float lifeTime;
+    [SerializeField]
+    private int damage;
 
     private Transform enemy = null;
     private float time = 0;
