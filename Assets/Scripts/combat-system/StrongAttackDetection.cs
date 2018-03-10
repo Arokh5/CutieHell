@@ -9,7 +9,7 @@ public class StrongAttackDetection : MonoBehaviour
     private const float strongAttackCadency = 5f;
     private const int evilCost = -10;
     private const int damage = 10;
-    private List<AIEnemy_temp> damagedEnemies = new List<AIEnemy_temp>();
+    private List<AIEnemy> damagedEnemies = new List<AIEnemy>();
 
     private float actionTime = 0f;
     private float cadencyTime = strongAttackCadency;
@@ -34,7 +34,7 @@ public class StrongAttackDetection : MonoBehaviour
         {
             if (other.gameObject.layer == 8)
             {
-                HurtEnemies(other.GetComponent<AIEnemy_temp>());
+                HurtEnemies(other.GetComponent<AIEnemy>());
             }
         }
     }
@@ -49,7 +49,7 @@ public class StrongAttackDetection : MonoBehaviour
 
     private void StrongAttackActivation()
     {
-        if (InputManager.instance.GetL2Button() && !activateAttack && GameManager.instance.GetPlayerOne().GetEvilLevel() >= Mathf.Abs(evilCost) && cadencyTime >= strongAttackCadency)
+        if (InputManager.instance.GetL2Button() && !activateAttack && GameManager.instance.GetPlayer1().GetEvilLevel() >= Mathf.Abs(evilCost) && cadencyTime >= strongAttackCadency)
         {
             if (actionTime < actionTimeRange)
             {
@@ -59,7 +59,7 @@ public class StrongAttackDetection : MonoBehaviour
                 if (InputManager.instance.GetR2ButtonDown())
                 {
                     activateAttack = true;
-                    GameManager.instance.GetPlayerOne().SetEvilLevel(evilCost);
+                    GameManager.instance.GetPlayer1().SetEvilLevel(evilCost);
                 }
             }
         }
@@ -88,11 +88,11 @@ public class StrongAttackDetection : MonoBehaviour
         cadencyTime += Time.deltaTime;
     }
 
-    private void HurtEnemies(AIEnemy_temp enemy)
+    private void HurtEnemies(AIEnemy enemy)
     {
         bool repeated = false;
 
-        foreach (AIEnemy_temp damagedEnemy in damagedEnemies)
+        foreach (AIEnemy damagedEnemy in damagedEnemies)
         {
             if (enemy == damagedEnemy)
             {

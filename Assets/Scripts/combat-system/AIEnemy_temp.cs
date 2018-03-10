@@ -32,7 +32,7 @@ public class AIEnemy_temp : MonoBehaviour, IDamageable
 
         if (health <= 0)
         {
-            GameManager.instance.GetPlayerOne().SetEvilLevel(evilnessReward);
+            GameManager.instance.GetPlayer1().SetEvilLevel(evilnessReward);
             Destroy(gameObject);
         }
     }

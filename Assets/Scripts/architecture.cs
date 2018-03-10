@@ -206,29 +206,29 @@ using UnityEngine;
 #endregion
 
 
-public abstract class Player
-{
-    // Called by Trap in case it gets conquered by AIEnemy
-    public abstract void StopTrapUse();
-    // Called by AIEnemy to give Evil Points to the Player when the AIEnemy is killed
-    public abstract void ReceiveEvilPoints(int evilPoints);
-}
+//public abstract class Player
+//{
+//    // Called by Trap in case it gets conquered by AIEnemy
+//    public abstract void StopTrapUse();
+//    // Called by AIEnemy to give Evil Points to the Player when the AIEnemy is killed
+//    public abstract void ReceiveEvilPoints(int evilPoints);
+//}
 
-public abstract class UIManager
-{
-    // Called by Player when using or earning Evil Points
-    public abstract void SetEvilBarValue(int value);
-    // Called by Player when increasing its maximum of Evil Point
-    public abstract void SetEvilBarMaxValue(int maxValue);
-    // Called by ZonesConnection when the connection gets opened
-    public abstract void ZoneConnectionOpened(uint zoneConnectionID);
-    // Called by Trap to update its remaining health
-    public abstract void SetTrapHealth(uint zoneID, uint TrapID, float normalizedHealth);
-    // Called by Trap to update its remaining health
-    public abstract void SetMonumentHealth(uint zoneID, float normalizedHealth);
-    // Called by AISpawnController to move the Wave indicator forward
-    public abstract void SetWaveNumberAndProgress(uint waveNumber, float normalizedProgress);
-}
+//public abstract class UIManager
+//{
+//    // Called by Player when using or earning Evil Points
+//    public abstract void SetEvilBarValue(int value);
+//    // Called by Player when increasing its maximum of Evil Point
+//    public abstract void SetEvilBarMaxValue(int maxValue);
+//    // Called by ZonesConnection when the connection gets opened
+//    public abstract void ZoneConnectionOpened(uint zoneConnectionID);
+//    // Called by Trap to update its remaining health
+//    public abstract void SetTrapHealth(uint zoneID, uint TrapID, float normalizedHealth);
+//    // Called by Trap to update its remaining health
+//    public abstract void SetMonumentHealth(uint zoneID, float normalizedHealth);
+//    // Called by AISpawnController to move the Wave indicator forward
+//    public abstract void SetWaveNumberAndProgress(uint waveNumber, float normalizedProgress);
+//}
 
 //public abstract class StatsManager
 //{

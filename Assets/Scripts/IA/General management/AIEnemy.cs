@@ -154,8 +154,9 @@ public class AIEnemy : MonoBehaviour, IDamageable
         Player player = GameManager.instance.GetPlayer1();
         if (player != null)
         {
-            player.ReceiveEvilPoints(evilKillReward);
+            player.SetEvilLevel(evilKillReward);
         }
+
         Destroy(gameObject);
     }
     #endregion
