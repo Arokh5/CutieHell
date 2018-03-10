@@ -6,7 +6,7 @@ public class FollowTarget : MonoBehaviour
 
     private const float attackSpeed = 15f;
     private const float lifeTime = 10f;
-    private const int damage = 1;
+    private const int damage = 5;
 
     private Transform enemy = null;
     private float time = 0;

@@ -5,10 +5,12 @@ public class StrongAttackDetection : MonoBehaviour
     #region Fields
 
     private const float actionTimeRange = 1f;
+    private const float strongAttackCadency = 5f;
     private const int evilCost = -10;
-    private const int damage = 3;
+    private const int damage = 10;
 
     private float actionTime = 0f;
+    private float cadencyTime = strongAttackCadency;
     private bool activateAttack = false;
 
     #endregion
@@ -45,7 +47,7 @@ public class StrongAttackDetection : MonoBehaviour
 
     private void StrongAttackActivation()
     {
-        if (InputManager.instance.GetL2ButtonDown() && !activateAttack && GameManager.instance.GetPlayerOne().GetEvilLevel() >= Mathf.Abs(evilCost))
+        if (InputManager.instance.GetL2ButtonDown() && !activateAttack && GameManager.instance.GetPlayerOne().GetEvilLevel() >= Mathf.Abs(evilCost) && cadencyTime >= strongAttackCadency)
         {
             if (actionTime < actionTimeRange)
             {
@@ -65,9 +67,12 @@ public class StrongAttackDetection : MonoBehaviour
         {
             activateAttack = false;
             actionTime = 0f;
+            cadencyTime = 0f;
             GetComponent<MeshCollider>().enabled = false;
             GetComponent<Renderer>().enabled = false;
         }
+
+        cadencyTime += Time.deltaTime;
     }
 
 	#endregion

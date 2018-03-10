@@ -10,7 +10,7 @@ public class FocusAttack : MonoBehaviour
     private LayerMask layerMask;
 
     private const float sphereCastRadius = 0.5f;
-    private const float basicAttackCadency = 0.5f;
+    private const float basicAttackCadency = 1f;
 
     private RaycastHit hit;
     private float time = basicAttackCadency;

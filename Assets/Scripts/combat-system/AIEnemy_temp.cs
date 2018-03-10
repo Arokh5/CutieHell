@@ -5,7 +5,7 @@ public class AIEnemy_temp : MonoBehaviour, IDamageable
     #region Fields
 
     public int evilnessReward = 1;
-    private float health = 3;
+    private float health = 20;
 
     #endregion
 
