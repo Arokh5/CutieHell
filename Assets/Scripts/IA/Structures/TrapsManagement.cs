@@ -12,7 +12,6 @@ public class TrapsManagement : MonoBehaviour {
 
     public Transform trapTransform;
 
-    // Use this for initialization
     void Start()
     { 
         

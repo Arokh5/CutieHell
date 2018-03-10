@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour {
 
-    [SerializeField]
     private Transform player;
+    private Player playerScript;
 
     private const float xSpeed = 2.5f;
     private const float ySpeed = 1.2f;
@@ -19,34 +19,60 @@ public class CameraController : MonoBehaviour {
     private float x;
     private float y;
 
+    [Header("Debug components to drag")]
     //For debugg position
-    public bool debugCamera = false;
-    public GameObject debugCanvas;
-    public float distance;
-    public float cameraX;
-    public float cameraY;
-    public float focusDistance;
-    public float focusX;
-    public float focusY;
-    public Text instructions;
-    public Image grid;
-    public bool gridOn;
+    [SerializeField]
+    private GameObject debugCanvas;
+    [SerializeField]
+    private Text values;
+    [SerializeField]
+    private Image grid;
+
+    /* Player camera values */
+    private bool debugCamera = false;
+    private bool gridOn;
+    private float distance;
+    private float cameraX;
+    private float cameraY;
+    private float focusDistance;
+    private float focusX;
+    private float focusY;
+
+
+    /* Turret camera values */
+    private float t_distance;
+    private float t_cameraX;
+    private float t_cameraY;
+    private float t_focusDistance;
+    private float t_focusX;
+    private float t_focusY;
+
 
     private void Awake()
     {
-        collisionLayers = 1 << 4;
         //distance = 3.0f;
         x = 0f;
         y = 0f;
 
+        player = GameObject.Find("Player").transform;
+        playerScript = player.gameObject.GetComponent<Player>();
+
         //For debugg position
+        gridOn = false;
         distance = 3.0f;
         cameraX = 0.5f;
         cameraY = 1.75f;
         focusDistance = 0.4f;
         focusX = 0.3f;
         focusY = 1.7f;
-        gridOn = false;
+
+        t_distance = 3.0f;
+        t_cameraX = 0.0f;
+        t_cameraY = 1.75f;
+        t_focusDistance = 0.4f;
+        t_focusX = 0.0f;
+        t_focusY = 1.7f;
+
     }
 
     private void Start()
@@ -70,53 +96,61 @@ public class CameraController : MonoBehaviour {
                 debugCanvas.SetActive(false);
             }
         }
-
     }
 
     private void RotateCamera()
     {
-        if(InputManager.instance.GetRightStickLeft() || InputManager.instance.GetRightStickRight())
+        if (InputManager.instance.GetRightStickLeft() || InputManager.instance.GetRightStickRight())
             x += xSpeed * InputManager.instance.GetRightStickLeftValue();
-        if(InputManager.instance.GetRightStickUp() || InputManager.instance.GetRightStickDown())
+        if (InputManager.instance.GetRightStickUp() || InputManager.instance.GetRightStickDown())
             y += ySpeed * InputManager.instance.GetRightStickUpValue();
 
         y = ClampAngle(y, yMinLimit, yMaxLimit);
 
-        Quaternion rotation = Quaternion.Euler(y, x, 0);
-
-        /* Checks for collisions */
-        float noCollisionDistance = distance;
-
-        for( float zOffset = distance; zOffset >= 0.5f; zOffset -= 0.05f) 
+        switch (playerScript.nextState) 
         {
-            noCollisionDistance = zOffset;
-            Vector3 tempPos = rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position;
-
-            if (DoubleViewingPosCheck(tempPos, zOffset)) 
-            {
+            case Player.PlayerStates.STILL:
                 break;
-            }
+            case Player.PlayerStates.MOVE: 
+                {
+                    Quaternion rotation = Quaternion.Euler(y, x, 0);
+                    float noCollisionDistance = distance;
+
+                    for (float zOffset = distance; zOffset >= 0.5f; zOffset -= 0.05f) {
+                        noCollisionDistance = zOffset;
+                        Vector3 tempPos = rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position;
+
+                        if (DoubleViewingPosCheck(tempPos, zOffset)) {
+                            break;
+                        }
+                    }
+                    Vector3 position = rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position;
+                    transform.position = position;
+                    SetPlayerDirection(rotation.eulerAngles.y);
+                    this.transform.LookAt(player.transform.position + player.transform.up * focusY + player.transform.right * focusX + player.transform.forward * focusDistance);
+                }
+
+                break;
+            case Player.PlayerStates.WOLF:
+                break;
+            case Player.PlayerStates.FOG:
+                break;
+            case Player.PlayerStates.TURRET: 
+                {
+                    Quaternion rotation = Quaternion.Euler(y, x, 0);
+                    playerScript.actualTrap.transform.rotation = rotation;
+                    this.transform.SetParent(playerScript.actualTrap.transform);
+                    this.transform.localPosition = new Vector3(0.0f, 1.8f, -1.0f);
+                    this.transform.localRotation = Quaternion.identity;
+                    //Vector3 position = rotation * new Vector3(t_cameraX, t_cameraY, -noCollisionDistance) + player.position;
+                    //transform.position = position;
+                    SetPlayerDirection(rotation.eulerAngles.y);
+                    //this.transform.LookAt(player.transform.position + player.transform.up * t_focusY + player.transform.right * t_focusX + player.transform.forward * t_focusDistance);
+                }
+                break;
+            default:
+                break;
         }
-        /* Ends collision detection */
-
-        Vector3 position = rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position;
-
-        transform.position = position;
-
-        SetPlayerDirection(rotation.eulerAngles.y);
-
-        this.transform.LookAt(player.transform.position + player.transform.up  * focusY + player.transform.right * focusX + player.transform.forward * focusDistance);
-    }
-
-    private float LerpRotation(float cameraRotationY)
-    {
-        float playerRotationY = player.rotation.eulerAngles.y;
-
-        if (cameraRotationY != playerRotationY)
-        {
-            playerRotationY = Mathf.LerpAngle(playerRotationY, cameraRotationY, lerpSpeed);
-        }
-        return playerRotationY;
     }
 
     private void SetPlayerDirection(float rotation)
@@ -149,7 +183,7 @@ public class CameraController : MonoBehaviour {
 
         if (Physics.Raycast(checkPos, player.position + (Vector3.up * deltaPlayerHeight) - checkPos, out hit)) 
         {
-            if (hit.transform.gameObject.layer == 4) 
+            if (hit.transform.gameObject.layer == 9) 
             {
                 return false;
             }
@@ -162,7 +196,7 @@ public class CameraController : MonoBehaviour {
         Debug.DrawRay(player.position + (Vector3.up * deltaPlayerHeight), checkPos - player.position, Color.green);
         if (Physics.Raycast(player.position + (Vector3.up * deltaPlayerHeight), checkPos - player.position, out hit, offset)) 
         {   
-            if (hit.transform.gameObject.layer == 4) 
+            if (hit.transform.gameObject.layer == 9) 
             {
                 return false;
             }
@@ -172,57 +206,114 @@ public class CameraController : MonoBehaviour {
 
     private void DebugCamera() 
     {
-        if (Input.GetKeyDown(KeyCode.Z)) 
-        {
-            gridOn = !gridOn;
+        switch (playerScript.state) {
+            case Player.PlayerStates.MOVE:
+                if (Input.GetKeyDown(KeyCode.Z)) {
+                    gridOn = !gridOn;
+                }
+                grid.gameObject.SetActive(gridOn);
+                if (Input.GetKey(KeyCode.X)) {
+                    distance += Time.deltaTime * 0.5f;
+                }
+                if (Input.GetKey(KeyCode.C)) {
+                    distance -= Time.deltaTime * 0.5f;
+                }
+                if (Input.GetKey(KeyCode.V)) {
+                    cameraX -= Time.deltaTime * 0.5f;
+                }
+                if (Input.GetKey(KeyCode.B)) {
+                    cameraX += Time.deltaTime * 0.5f;
+                }
+                if (Input.GetKey(KeyCode.N)) {
+                    cameraY += Time.deltaTime * 0.5f;
+                }
+                if (Input.GetKey(KeyCode.M)) {
+                    cameraY -= Time.deltaTime * 0.5f;
+                }
+                if (Input.GetKey(KeyCode.F)) {
+                    focusDistance += Time.deltaTime * 0.5f;
+                }
+                if (Input.GetKey(KeyCode.G)) {
+                    focusDistance -= Time.deltaTime * 0.5f;
+                }
+                if (Input.GetKey(KeyCode.H)) {
+                    focusX -= Time.deltaTime * 0.5f;
+                }
+                if (Input.GetKey(KeyCode.J)) {
+                    focusX += Time.deltaTime * 0.5f;
+                }
+                if (Input.GetKey(KeyCode.K)) {
+                    focusY += Time.deltaTime * 0.5f;
+                }
+                if (Input.GetKey(KeyCode.L)) {
+                    focusY -= Time.deltaTime * 0.5f;
+                }
+                if (Input.GetKeyDown(KeyCode.Return)) {
+                    distance = 3.0f;
+                    cameraX = 0.5f;
+                    cameraY = 1.75f;
+                    focusDistance = 0.4f;
+                    focusX = 0.3f;
+                    focusY = 1.7f;
+                    gridOn = true;
+                }
+                values.text = "Distance : " + distance + "\nCameraX : " + cameraX + "\nCameraY : " + cameraY + "\nFocus Distance" +
+                    focusDistance + "\nFocusX : " + focusX + "\nFocusY : " + focusY;
+                break;
+            case Player.PlayerStates.TURRET:
+                if (Input.GetKeyDown(KeyCode.Z)) {
+                    gridOn = !gridOn;
+                }
+                grid.gameObject.SetActive(gridOn);
+                if (Input.GetKey(KeyCode.X)) {
+                    t_distance += Time.deltaTime * 0.5f;
+                }
+                if (Input.GetKey(KeyCode.C)) {
+                    t_distance -= Time.deltaTime * 0.5f;
+                }
+                if (Input.GetKey(KeyCode.V)) {
+                    t_cameraX -= Time.deltaTime * 0.5f;
+                }
+                if (Input.GetKey(KeyCode.B)) {
+                    t_cameraX += Time.deltaTime * 0.5f;
+                }
+                if (Input.GetKey(KeyCode.N)) {
+                    t_cameraY += Time.deltaTime * 0.5f;
+                }
+                if (Input.GetKey(KeyCode.M)) {
+                    t_cameraY -= Time.deltaTime * 0.5f;
+                }
+                if (Input.GetKey(KeyCode.F)) {
+                    t_focusDistance += Time.deltaTime * 0.5f;
+                }
+                if (Input.GetKey(KeyCode.G)) {
+                    t_focusDistance -= Time.deltaTime * 0.5f;
+                }
+                if (Input.GetKey(KeyCode.H)) {
+                    t_focusX -= Time.deltaTime * 0.5f;
+                }
+                if (Input.GetKey(KeyCode.J)) {
+                    t_focusX += Time.deltaTime * 0.5f;
+                }
+                if (Input.GetKey(KeyCode.K)) {
+                    t_focusY += Time.deltaTime * 0.5f;
+                }
+                if (Input.GetKey(KeyCode.L)) {
+                    t_focusY -= Time.deltaTime * 0.5f;
+                }
+                if (Input.GetKeyDown(KeyCode.Return)) {
+                    t_distance = 3.0f;
+                    t_cameraX = 0.0f;
+                    t_cameraY = 1.75f;
+                    t_focusDistance = 0.4f;
+                    t_focusX = 0.0f;
+                    t_focusY = 1.7f;
+                    gridOn = true;
+                }
+                values.text = "Distance : " + t_distance + "\nCameraX : " + t_cameraX + "\nCameraY : " + t_cameraY + "\nFocus Distance" +
+                    t_focusDistance + "\nFocusX : " + t_focusX + "\nFocusY : " + t_focusY;
+                break;
         }
-        grid.gameObject.SetActive(gridOn);
-        if (Input.GetKey(KeyCode.X)) {
-            distance += Time.deltaTime * 0.5f;
-        }
-        if (Input.GetKey(KeyCode.C)) {
-            distance -= Time.deltaTime * 0.5f;
-        }
-        if (Input.GetKey(KeyCode.V)) {
-            cameraX -= Time.deltaTime * 0.5f;
-        }
-        if (Input.GetKey(KeyCode.B)) {
-            cameraX += Time.deltaTime * 0.5f;
-        }
-        if (Input.GetKey(KeyCode.N)) {
-            cameraY += Time.deltaTime * 0.5f;
-        }
-        if (Input.GetKey(KeyCode.M)) {
-            cameraY -= Time.deltaTime * 0.5f;
-        }
-        if (Input.GetKey(KeyCode.F)) {
-            focusDistance += Time.deltaTime * 0.5f;
-        }
-        if (Input.GetKey(KeyCode.G)) {
-            focusDistance -= Time.deltaTime * 0.5f;
-        }
-        if (Input.GetKey(KeyCode.H)) {
-            focusX -= Time.deltaTime * 0.5f;
-        }
-        if (Input.GetKey(KeyCode.J)) {
-            focusX += Time.deltaTime * 0.5f;
-        }
-        if (Input.GetKey(KeyCode.K)) {
-            focusY += Time.deltaTime * 0.5f;
-        }
-        if (Input.GetKey(KeyCode.L)) {
-            focusY -= Time.deltaTime * 0.5f;
-        }
-        if (Input.GetKeyDown(KeyCode.Return)) {
-            distance = 3.0f;
-            cameraX = 0.5f;
-            cameraY = 1.75f;
-            focusDistance = 0.4f;
-            focusX = 0.3f;
-            focusY = 1.7f;
-            gridOn = true;
-        }
-        instructions.text = "Distance : " + distance + "\nCameraX : " + cameraX + "\nCameraY : " + cameraY + "\nFocus Distance" +
-            focusDistance + "\nFocusX : " + focusX + "\nFocusY : " + focusY;
+
     }
 }
