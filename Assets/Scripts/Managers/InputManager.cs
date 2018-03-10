@@ -9,6 +9,10 @@ public class InputManager : MonoBehaviour {
     public static InputManager instance;
     private bool L2buttonPrevState = false;
     private bool R2buttonPrevState = false;
+    private bool leftStickDownPrevState = false;
+    private bool leftStickUpPrevState = false;
+    private bool padDownPrevState = false;
+    private bool padUpPrevState = false;
 
     #endregion
 
@@ -116,6 +120,26 @@ public class InputManager : MonoBehaviour {
         return Input.GetAxis("PS4_L_Horizontal");
     }
 
+    public bool GetLeftStickUpDown()
+    {
+        bool buttonDown = false;
+
+        if (GetLeftStickUp())
+        {
+            if (!leftStickUpPrevState)
+            {
+                buttonDown = true;
+                leftStickUpPrevState = true;
+            }
+        }
+        else
+        {
+            leftStickUpPrevState = false;
+        }
+
+        return buttonDown;
+    }
+
     public bool GetLeftStickUp()
     {
         return Input.GetAxis("PS4_L_Vertical") < -0.1;
@@ -124,6 +148,26 @@ public class InputManager : MonoBehaviour {
     public float GetLeftStickUpValue()
     {
         return Input.GetAxis("PS4_L_Vertical");
+    }
+
+    public bool GetLeftStickDownDown()
+    {
+        bool buttonDown = false;
+
+        if (GetLeftStickDown())
+        {
+            if (!leftStickDownPrevState)
+            {
+                buttonDown = true;
+                leftStickDownPrevState = true;
+            }
+        }
+        else
+        {
+            leftStickDownPrevState = false;
+        }
+
+        return buttonDown;
     }
 
     public bool GetLeftStickDown()
@@ -342,9 +386,49 @@ public class InputManager : MonoBehaviour {
 
     /* D-Pad */
 
+    public bool GetPadUpDown()
+    {
+        bool buttonDown = false;
+
+        if (GetPadUp())
+        {
+            if (!padUpPrevState)
+            {
+                buttonDown = true;
+                padUpPrevState = true;
+            }
+        }
+        else
+        {
+            padUpPrevState = false;
+        }
+
+        return buttonDown;
+    }
+
     public bool GetPadUp()
     {
         return Input.GetAxis("PS4_D_Y") == 1;
+    }
+
+    public bool GetPadDownDown()
+    {
+        bool buttonDown = false;
+
+        if (GetPadDown())
+        {
+            if (!padDownPrevState)
+            {
+                buttonDown = true;
+                padDownPrevState = true;
+            }
+        }
+        else
+        {
+            padDownPrevState = false;
+        }
+
+        return buttonDown;
     }
 
     public bool GetPadDown()

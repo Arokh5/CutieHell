@@ -43,6 +43,21 @@ public class GameManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Update()
+    {
+        switch (gameState)
+        {
+            case GameStates.OnStartMenu:
+                break;
+
+            case GameStates.InGame:
+                break;
+
+            case GameStates.OnGameEnd:
+                break;
+        }
+    }
+
     #endregion
 
     #region Public Methods
