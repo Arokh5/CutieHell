@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
-    #region Public Data
+    #region Fields
 
     public static GameManager instance;
     public enum GameStates { OnStartMenu, InGame, OnGameEnd };
@@ -12,14 +11,6 @@ public class GameManager : MonoBehaviour {
 
     [SerializeField]
     private Player player;
-
-    #endregion
-
-    #region Private Serialized Fields
-
-    #endregion
-
-    #region Private Non-Serialized Fields
 
     #endregion
 
@@ -31,16 +22,7 @@ public class GameManager : MonoBehaviour {
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
-
-        DontDestroyOnLoad(gameObject);
+        instance = this;
     }
 
     private void Update()
@@ -65,11 +47,13 @@ public class GameManager : MonoBehaviour {
     public void OnGameWon()
     {
         gameState = GameStates.OnStartMenu;
+        SceneManager.LoadScene("TitleScreen", LoadSceneMode.Single);
     }
 
     public void OnGameLost()
     {
         gameState = GameStates.OnStartMenu;
+        SceneManager.LoadScene("TitleScreen", LoadSceneMode.Single);
     }
 
     public Player GetPlayer1()

@@ -9,12 +9,21 @@ public class Player : MonoBehaviour {
     public float maxSpeed = 10;
     public float acceleration = 50;
 
+    [Header("Evilness")]
+    [SerializeField]
+    private int maxEvilLevel = 20;
+    [SerializeField]
+    [ShowOnly]
+    private int evilLevel;
+
     private Rigidbody rb;
     private Vector3 speedDirection;
     private GameObject[] traps;
+
+    [Header("Actual Trap")]
     public GameObject actualTrap;
-    private const int maxEvilLevel = 20;
-    private int evilLevel = maxEvilLevel;
+
+    [Header("Player States")]
     public PlayerStates state, nextState;
     public MeshRenderer meshRenderer;
 
@@ -22,6 +31,7 @@ public class Player : MonoBehaviour {
 
 	void Start () 
     {
+        evilLevel = maxEvilLevel;
         meshRenderer = this.GetComponentInChildren<MeshRenderer>();
         rb = this.GetComponent<Rigidbody>();
         state = nextState = PlayerStates.MOVE;

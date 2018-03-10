@@ -74,7 +74,6 @@ public class InitGame : MonoBehaviour
             switch (index)
             {
                 case 0:
-                    GameManager.instance.gameState = GameManager.GameStates.InGame;
                     SceneManager.LoadScene("Test Scene", LoadSceneMode.Single);
                     break;
 
