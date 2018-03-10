@@ -7,8 +7,11 @@ public class GameManager : MonoBehaviour {
     #region Public Data
 
     public static GameManager instance;
-    public enum GameStates { Init, Cutscene, Management, Wave, Stats, GameOver };
+    public enum GameStates { OnStartMenu, InGame, OnGameEnd };
     public GameStates gameState;
+
+    [SerializeField]
+    private Player player;
 
 	#endregion
 	
@@ -44,6 +47,21 @@ public class GameManager : MonoBehaviour {
 	
 	#region Public Methods
 	
+    public Player GetPlayerOne()
+    {
+        return player;
+    }
+
+    public void OnGameWon()
+    {
+        gameState = GameStates.OnStartMenu;
+    }
+
+    public void OnGameLost()
+    {
+        gameState = GameStates.OnStartMenu;
+    }
+
 	#endregion
 	
 	#region Private Methods

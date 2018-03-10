@@ -14,7 +14,7 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     public int baseHealth;
     public int fullRepairCost;
 
-    protected int currentHealth;
+    protected float currentHealth;
 
     [Header("Elements setup")]
     [SerializeField]
@@ -140,7 +140,7 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     }
 
     // IDamageable
-    public virtual void TakeDamage(int damage, AttackType attacktype)
+    public virtual void TakeDamage(float damage, AttackType attacktype)
     {
         if (conquering || conquered)
             return;

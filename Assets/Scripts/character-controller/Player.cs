@@ -14,6 +14,7 @@ public class Player : MonoBehaviour {
     private GameObject[] traps;
     public GameObject actualTrap;
     private const int maxEvilLevel = 20;
+    private int evilLevel = maxEvilLevel;
     public PlayerStates state, nextState;
     public MeshRenderer meshRenderer;
 
@@ -135,5 +136,26 @@ public class Player : MonoBehaviour {
     public int GetMaxEvilLevel() 
     {
         return maxEvilLevel;
+    }
+
+    public int GetEvilLevel()
+    {
+        return evilLevel;
+    }
+
+    public void SetEvilLevel(int value)
+    {
+        evilLevel += value;
+
+        if (evilLevel < 0)
+        {
+            evilLevel = 0;
+        }
+        else if (evilLevel > maxEvilLevel)
+        {
+            evilLevel = maxEvilLevel;
+        }
+
+        UIManager.instance.SetEvilBarValue(evilLevel);
     }
 }
