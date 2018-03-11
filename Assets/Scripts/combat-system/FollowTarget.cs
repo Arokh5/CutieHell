@@ -35,14 +35,10 @@ public class FollowTarget : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer != 10)
-        {
-            Destroy(gameObject);
-        }
-
-        if (other.gameObject.layer == 8)
+        if (other.transform == enemy)
         {
             other.GetComponent<AIEnemy>().TakeDamage(damage, AttackType.WEAK);
+            Destroy(gameObject);
         }
     }
 
