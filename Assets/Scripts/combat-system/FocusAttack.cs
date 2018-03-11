@@ -34,6 +34,15 @@ public class FocusAttack : MonoBehaviour
         FocusBasicAttack();
     }
 
+    private void FixedUpdate()
+    {
+        foreach (AIEnemy enemy in FindObjectsOfType<AIEnemy>())
+        {
+            enemy.ChangeMaterial(enemy.isTarget);
+            enemy.isTarget = false;
+        }
+    }
+
     #endregion
 
     #region Public Methods
@@ -69,12 +78,6 @@ public class FocusAttack : MonoBehaviour
         if (Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, 100, layerMask.value))
         {
             hit.transform.GetComponent<AIEnemy>().isTarget = true;
-        }
-
-        foreach (AIEnemy enemy in FindObjectsOfType<AIEnemy>())
-        {
-            enemy.ChangeMaterial(enemy.isTarget);
-            enemy.isTarget = false;
         }
     }
 

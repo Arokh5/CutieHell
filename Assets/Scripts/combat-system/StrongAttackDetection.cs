@@ -39,6 +39,11 @@ public class StrongAttackDetection : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        if (other.gameObject.layer == 8)
+        {
+            other.GetComponent<AIEnemy>().isTarget = true;
+        }
+
         if (activateAttack)
         {
             if (other.gameObject.layer == 8)
