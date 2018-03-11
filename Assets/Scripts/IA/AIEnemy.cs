@@ -12,6 +12,12 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private NavMeshAgent agent;
     private Renderer mRenderer;
 
+    [Header("Materials")]
+    [SerializeField]
+    private Material basicMat;
+    [SerializeField]
+    private Material outlinedMat;
+
     [Header("Attack information")]
     public float attackRange;
     public float dps;
@@ -120,6 +126,12 @@ public class AIEnemy : MonoBehaviour, IDamageable
     public void UpdateTarget()
     {
         currentTarget = zoneController.GetTargetBuilding();
+    }
+
+    public void ChangeMaterial(bool isTarget)
+    {
+        mRenderer.material = isTarget ? outlinedMat : basicMat;
+        AdjustMaterials();
     }
 
     #endregion

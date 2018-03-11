@@ -65,6 +65,11 @@ public class FocusAttack : MonoBehaviour
                 time = 0f;
             }
         }
+
+        if (Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, 100, layerMask.value))
+        {
+            hit.transform.GetComponent<AIEnemy>().ChangeMaterial(true);
+        }
     }
 
     #endregion
