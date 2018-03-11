@@ -75,7 +75,7 @@ public class FocusAttack : MonoBehaviour
             }
         }
 
-        if (Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, 100, layerMask.value))
+        if (Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, 100, layerMask.value) && !InputManager.instance.GetL2Button())
         {
             hit.transform.GetComponent<AIEnemy>().isTarget = true;
         }
