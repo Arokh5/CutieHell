@@ -35,7 +35,10 @@ public class FollowTarget : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Destroy(gameObject);
+        if (other.gameObject.layer != 10)
+        {
+            Destroy(gameObject);
+        }
 
         if (other.gameObject.layer == 8)
         {
