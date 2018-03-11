@@ -35,6 +35,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     public Color deadColor;
     public float healthToReduce = 1;
     public bool hit;
+    public bool isTarget = false;
     #endregion
 
     #region MonoBehaviour Methods
