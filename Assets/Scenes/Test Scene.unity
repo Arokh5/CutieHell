@@ -527,6 +527,31 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 114386524282915284, guid: 182da881c3eee6548aa68ab299d1e64c,
+        type: 2}
+      propertyPath: acceleration
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 114386524282915284, guid: 182da881c3eee6548aa68ab299d1e64c,
+        type: 2}
+      propertyPath: maxSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 224111177711927824, guid: 182da881c3eee6548aa68ab299d1e64c,
+        type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 224111177711927824, guid: 182da881c3eee6548aa68ab299d1e64c,
+        type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 224111177711927824, guid: 182da881c3eee6548aa68ab299d1e64c,
+        type: 2}
+      propertyPath: m_LocalScale.z
+      value: 1.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
   m_IsPrefabParent: 0
@@ -700,6 +725,16 @@ Prefab:
       propertyPath: grid
       value: 
       objectReference: {fileID: 1056185799}
+    - target: {fileID: 114594301022996558, guid: a893a4d01d9e4a74d9192cd140455d9e,
+        type: 2}
+      propertyPath: strongAttackCadency
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114942734402132228, guid: a893a4d01d9e4a74d9192cd140455d9e,
+        type: 2}
+      propertyPath: basicAttackCadency
+      value: 0.7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a893a4d01d9e4a74d9192cd140455d9e, type: 2}
   m_IsPrefabParent: 0
@@ -1154,7 +1189,7 @@ MonoBehaviour:
   elapsedTime: 0
   currentWaveIndex: 0
   wavesInfo:
-  - waveDuration: 40
+  - waveDuration: 60
     spawnInfos:
     - spawnTime: 0
       spawnerIndex: 0

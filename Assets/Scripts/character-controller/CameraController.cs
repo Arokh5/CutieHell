@@ -8,8 +8,8 @@ public class CameraController : MonoBehaviour {
     private Transform player;
     private Player playerScript;
 
-    private const float xSpeed = 2.5f;
-    private const float ySpeed = 1.2f;
+    private const float xSpeed = 2.25f; //2.5f
+    private const float ySpeed = 1.0f; // 1.2f
     private const float yMinLimit = -20f;
     private const float yMaxLimit = 40f;
     private const float lerpSpeed = 0.1f;
@@ -57,7 +57,8 @@ public class CameraController : MonoBehaviour {
         player = GameObject.Find("Player").transform;
         playerScript = player.gameObject.GetComponent<Player>();
 
-        //For debugg position
+        //For debug position
+        /*
         gridOn = false;
         distance = 3.0f;
         cameraX = 0.5f;
@@ -65,13 +66,21 @@ public class CameraController : MonoBehaviour {
         focusDistance = 0.4f;
         focusX = 0.3f;
         focusY = 1.7f;
+        */
+        gridOn = false;
+        distance = 2.8f;
+        cameraX = 0.45f;
+        cameraY = 1.8f;
+        focusDistance = 0.65f;
+        focusX = 0.55f;
+        focusY = 1.65f;
 
-        t_distance = 3.0f;
-        t_cameraX = 0.0f;
-        t_cameraY = 1.75f;
-        t_focusDistance = 0.4f;
-        t_focusX = 0.0f;
-        t_focusY = 1.7f;
+        t_distance = 2.8f;
+        t_cameraX = 0.45f;
+        t_cameraY = 1.8f;
+        t_focusDistance = 0.65f;
+        t_focusX = 0.55f;
+        t_focusY = 1.65f;
 
     }
 
