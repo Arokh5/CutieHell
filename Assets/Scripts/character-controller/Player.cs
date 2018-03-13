@@ -24,7 +24,7 @@ public class Player : MonoBehaviour {
     public GameObject actualTrap;
 
     [Header("Player States")]
-    public PlayerStates state, nextState;
+    public PlayerStates state;
     public MeshRenderer meshRenderer;
 
     public enum PlayerStates { STILL, MOVE, WOLF, FOG, TURRET}
@@ -34,7 +34,7 @@ public class Player : MonoBehaviour {
         evilLevel = maxEvilLevel;
         meshRenderer = this.GetComponentInChildren<MeshRenderer>();
         rb = this.GetComponent<Rigidbody>();
-        state = nextState = PlayerStates.MOVE;
+        state = PlayerStates.MOVE;
         ResetTrapList();
     }
 
@@ -61,7 +61,6 @@ public class Player : MonoBehaviour {
             default:
                 break;
         }
-        state = nextState;
     }
 
     public void StopTrapUse() 
@@ -120,7 +119,7 @@ public class Player : MonoBehaviour {
                         meshRenderer.enabled = false;
                         actualTrap = traps[i];
                         //trapScript.Activate(this);
-                        nextState = PlayerStates.TURRET;
+                        state = PlayerStates.TURRET;
                     }
                 }
             }
@@ -132,7 +131,7 @@ public class Player : MonoBehaviour {
                 meshRenderer.enabled = true;
                 this.transform.position = actualTrap.transform.position - actualTrap.transform.forward * 3f;
                 actualTrap = null;
-                nextState = PlayerStates.MOVE;
+                state = PlayerStates.MOVE;
             }
         }
     }
