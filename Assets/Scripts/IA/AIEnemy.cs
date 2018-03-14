@@ -19,8 +19,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private Material outlinedMat;
 
     [Header("Attack information")]
-    public float attackRange;
-    public float dps;
+    [SerializeField]
+    private AIAttackLogic attackLogic;
 
     [Header("Health information")]
     [Tooltip("The initial amount of hit points for the conquerable building.")]
@@ -62,10 +62,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         {
             agent.SetDestination(currentTarget.transform.position);
 
-            if (Vector3.Distance(transform.position, currentTarget.transform.position) < attackRange)
-            {
-                Attack();
-            }
+            attackLogic.AttemptAttack(currentTarget);
         }
 
         // Testing
@@ -138,11 +135,6 @@ public class AIEnemy : MonoBehaviour, IDamageable
     #endregion
 
     #region Private Methods
-    private void Attack()
-    {
-        currentTarget.TakeDamage(dps * Time.deltaTime, AttackType.ENEMY);
-    }
-
     private void AdjustMaterials()
     {
         Color finalColor;

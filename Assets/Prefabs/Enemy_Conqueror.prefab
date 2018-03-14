@@ -38,6 +38,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4186511766280888}
   - component: {fileID: 114740570205452148}
+  - component: {fileID: 114463877151687510}
   - component: {fileID: 195787584487073338}
   - component: {fileID: 136000831054568286}
   m_Layer: 8
@@ -54,7 +55,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1759230899310346}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4807442828283524}
@@ -132,6 +133,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114463877151687510
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1759230899310346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c109a7ec7f3c844b8d177ab9327af4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackRange: 0
+  dps: 0
 --- !u!114 &114740570205452148
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -145,8 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basicMat: {fileID: 2100000, guid: 183ad624eb7dec84eb76041e61763f61, type: 2}
   outlinedMat: {fileID: 2100000, guid: 4415fe801d83133459d3dea77e776a0d, type: 2}
-  attackRange: 2
-  dps: 1000
+  attackLogic: {fileID: 0}
   baseHealth: 25
   evilKillReward: 25
   initialColor: {r: 0, g: 1, b: 0, a: 1}
@@ -154,6 +167,7 @@ MonoBehaviour:
   deadColor: {r: 1, g: 0, b: 0, a: 1}
   healthToReduce: 2
   hit: 0
+  isTarget: 0
 --- !u!136 &136000831054568286
 CapsuleCollider:
   m_ObjectHideFlags: 1

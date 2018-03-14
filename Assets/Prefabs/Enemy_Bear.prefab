@@ -38,6 +38,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4558206706090340}
   - component: {fileID: 114901561687965822}
+  - component: {fileID: 114893852269955944}
   - component: {fileID: 195783828132357088}
   - component: {fileID: 136500549007356268}
   m_Layer: 8
@@ -132,6 +133,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114893852269955944
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1842331153523508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c109a7ec7f3c844b8d177ab9327af4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackRange: 10
+  dps: 5
 --- !u!114 &114901561687965822
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -145,8 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basicMat: {fileID: 2100000, guid: 183ad624eb7dec84eb76041e61763f61, type: 2}
   outlinedMat: {fileID: 2100000, guid: 4415fe801d83133459d3dea77e776a0d, type: 2}
-  attackRange: 5
-  dps: 5
+  attackLogic: {fileID: 114893852269955944}
   baseHealth: 20
   evilKillReward: 10
   initialColor: {r: 0, g: 1, b: 0, a: 1}
@@ -154,6 +167,7 @@ MonoBehaviour:
   deadColor: {r: 1, g: 0, b: 0, a: 1}
   healthToReduce: 2
   hit: 0
+  isTarget: 0
 --- !u!136 &136500549007356268
 CapsuleCollider:
   m_ObjectHideFlags: 1
