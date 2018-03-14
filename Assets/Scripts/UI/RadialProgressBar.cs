@@ -5,30 +5,30 @@ using UnityEngine.UI;
 
 public class RadialProgressBar : MonoBehaviour
 {
-    public Transform LoadingBar;
-    public Transform TextProgress;
-    [SerializeField] private float currentAmount;
+    public Image loadingBar;
+    public Text textProgress;
+    [SerializeField] private float currentNormalizedAmount;
 
     // Use this for initialization
     void Start()
     {
-        currentAmount = 0.0f;
+        currentNormalizedAmount = 0.0f;
 
-        TextProgress.GetComponent<Text>().text = ((int)currentAmount).ToString() + "%";
-        LoadingBar.GetComponent<Image>().fillAmount = currentAmount / 100;
+        textProgress.text = ((int)currentNormalizedAmount).ToString() + "%";
+        loadingBar.fillAmount = currentNormalizedAmount / 100;
     }
 
-    public void SetCurrentAmount(float amount)
+    public void SetNormalizedAmount(float normalizedAmount)
     {
-        currentAmount = amount;
+        currentNormalizedAmount = normalizedAmount;
 
-        if (currentAmount < 0.0f)
-            currentAmount = 0.0f;
+        if (currentNormalizedAmount < 0.0f)
+            currentNormalizedAmount = 0.0f;
 
-        if (currentAmount > 100.0f)
-            currentAmount = 100.0f;
+        if (currentNormalizedAmount > 1.0f)
+            currentNormalizedAmount = 1.0f;
 
-        TextProgress.GetComponent<Text>().text = ((int)currentAmount).ToString() + "%";
-        LoadingBar.GetComponent<Image>().fillAmount = currentAmount / 100;
+        textProgress.text = ((int)(100 * currentNormalizedAmount)).ToString() + "%";
+        loadingBar.fillAmount = currentNormalizedAmount;
     }
 }

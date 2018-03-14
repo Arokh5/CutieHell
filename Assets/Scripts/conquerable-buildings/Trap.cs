@@ -6,9 +6,9 @@ public class Trap : Building, IUsable {
 
     #region Fields
     [Header("Trap setup")]
+    [SerializeField]
+    private int trapID;
     public int usageCost;
-
-    private uint trapID;
     private Player player;
 
     [Header("Trap testing")]
@@ -38,6 +38,14 @@ public class Trap : Building, IUsable {
     #endregion
 
     #region Public Methods
+    // IDamageable
+    // If this method is called, it should inform the UIManager
+    public override void FullRepair()
+    {
+        base.FullRepair();
+        UIManager.instance.SetTrapConquerRate(zoneController.GetZoneId(), trapID, 0);
+    }
+
     // IUsable
     // Called by Player
     public bool CanUse()
@@ -87,6 +95,12 @@ public class Trap : Building, IUsable {
             Debug.LogError("Trap is still in testing mode using a null Player for activation!");
         }
         Deactivate();
+    }
+
+    protected override void InformUIManager()
+    {
+        float conquerRate = (baseHealth - currentHealth) / baseHealth;
+        UIManager.instance.SetTrapConquerRate(zoneController.GetZoneId(), trapID, conquerRate);
     }
     #endregion
 }
