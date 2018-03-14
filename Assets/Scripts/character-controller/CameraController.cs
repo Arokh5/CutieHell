@@ -13,9 +13,11 @@ public class CameraController : MonoBehaviour {
     private const float yMinLimit = -20f;
     private const float yMaxLimit = 40f;
     private const float lerpSpeed = 0.1f;
+    private const float transitionTime = 2.0f;
+    private float timeOnTransition = 10.0f;
+    private Player.PlayerStates lastState;
 
     private int collisionLayers;
-    //private float distance;
     private float x;
     private float y;
 
@@ -89,6 +91,7 @@ public class CameraController : MonoBehaviour {
         Vector2 angles = transform.eulerAngles;
         x = angles.y;
         y = angles.x;
+        lastState = playerScript.state;
     }
 
     private void Update()
@@ -115,8 +118,10 @@ public class CameraController : MonoBehaviour {
             y += ySpeed * InputManager.instance.GetRightStickUpValue();
 
         y = ClampAngle(y, yMinLimit, yMaxLimit);
-
-        switch (playerScript.nextState) 
+        if(playerScript.state != lastState) {
+            timeOnTransition = 0.0f;
+        }
+        switch (playerScript.state) 
         {
             case Player.PlayerStates.STILL:
                 break;
@@ -125,7 +130,7 @@ public class CameraController : MonoBehaviour {
                     Quaternion rotation = Quaternion.Euler(y, x, 0);
                     float noCollisionDistance = distance;
 
-                    for (float zOffset = distance; zOffset >= 0.5f; zOffset -= 0.05f) {
+                    for (float zOffset = distance; zOffset >= 0.5f; zOffset -= 0.025f) {
                         noCollisionDistance = zOffset;
                         Vector3 tempPos = rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position;
 
@@ -133,8 +138,17 @@ public class CameraController : MonoBehaviour {
                             break;
                         }
                     }
-                    Vector3 position = rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position;
-                    transform.position = position;
+                    if (timeOnTransition < transitionTime) 
+                    {
+                        Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60, 0.1f);
+                        timeOnTransition += Time.deltaTime;
+                        this.transform.position = Vector3.Lerp(this.transform.position, rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position, timeOnTransition / 2f);
+                    } 
+                    else 
+                    {
+                        Vector3 position = rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position;
+                        this.transform.position = position;
+                    }
                     SetPlayerDirection(rotation.eulerAngles.y);
                     this.transform.LookAt(player.transform.position + player.transform.up * focusY + player.transform.right * focusX + player.transform.forward * focusDistance);
                 }
@@ -149,17 +163,24 @@ public class CameraController : MonoBehaviour {
                     Quaternion rotation = Quaternion.Euler(y, x, 0);
                     playerScript.actualTrap.transform.rotation = rotation;
                     this.transform.SetParent(playerScript.actualTrap.transform);
-                    this.transform.localPosition = new Vector3(0.0f, 1.8f, -1.0f);
+                    if (timeOnTransition < transitionTime) 
+                    {
+                        timeOnTransition += Time.deltaTime;
+                        this.transform.localPosition = Vector3.Lerp(this.transform.localPosition, new Vector3(0.0f, 1.8f, -1.0f), timeOnTransition / 2f);
+                        Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 40, 0.1f);
+                    } 
+                    else 
+                    {
+                        this.transform.localPosition = new Vector3(0.0f, 1.8f, -1.0f);
+                    }
                     this.transform.localRotation = Quaternion.identity;
-                    //Vector3 position = rotation * new Vector3(t_cameraX, t_cameraY, -noCollisionDistance) + player.position;
-                    //transform.position = position;
                     SetPlayerDirection(rotation.eulerAngles.y);
-                    //this.transform.LookAt(player.transform.position + player.transform.up * t_focusY + player.transform.right * t_focusX + player.transform.forward * t_focusDistance);
                 }
                 break;
             default:
                 break;
         }
+        lastState = playerScript.state;
     }
 
     private void SetPlayerDirection(float rotation)
