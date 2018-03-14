@@ -29,12 +29,16 @@ public class Player : MonoBehaviour {
 
     public enum PlayerStates { STILL, MOVE, WOLF, FOG, TURRET}
 
-	void Start () 
+    private void Awake() 
+    {
+        state = PlayerStates.MOVE;
+    }
+
+    void Start () 
     {
         evilLevel = maxEvilLevel;
         meshRenderer = this.GetComponentInChildren<MeshRenderer>();
         rb = this.GetComponent<Rigidbody>();
-        state = PlayerStates.MOVE;
         ResetTrapList();
     }
 
@@ -108,18 +112,15 @@ public class Player : MonoBehaviour {
                 {
                     if (InputManager.instance.GetXButtonDown()) 
                     {
-                        //Trap trapScript = traps[i].GetComponent<Trap>();
-                        //if (trapScript.CanUse()) 
-                        //{
-                        //    this.transform.position = traps[i].transform.position;
-                        //    trapScript.Activate(this);
-                        //    nextState = PlayerStates.TURRET;
-                        //}
-                        this.transform.position = traps[i].transform.position;
-                        meshRenderer.enabled = false;
-                        actualTrap = traps[i];
-                        //trapScript.Activate(this);
-                        state = PlayerStates.TURRET;
+                        Trap trapScript = traps[i].GetComponent<Trap>();
+                        if (trapScript.CanUse()) 
+                        {
+                            this.transform.position = traps[i].transform.position;
+                            trapScript.Activate(this);
+                            state = PlayerStates.TURRET;
+                            meshRenderer.enabled = false;
+                            actualTrap = traps[i];
+                        }
                     }
                 }
             }
@@ -129,7 +130,8 @@ public class Player : MonoBehaviour {
             if (InputManager.instance.GetXButtonDown()) 
             {
                 meshRenderer.enabled = true;
-                this.transform.position = actualTrap.transform.position - actualTrap.transform.forward * 3f;
+                Vector3 nextPos = actualTrap.transform.forward * 3f;
+                this.transform.position = actualTrap.transform.position - new Vector3(nextPos.x,0,nextPos.z);
                 actualTrap = null;
                 state = PlayerStates.MOVE;
             }

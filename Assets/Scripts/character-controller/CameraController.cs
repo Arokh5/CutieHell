@@ -140,6 +140,7 @@ public class CameraController : MonoBehaviour {
                     }
                     if (timeOnTransition < transitionTime) 
                     {
+                        Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60, 0.1f);
                         timeOnTransition += Time.deltaTime;
                         this.transform.position = Vector3.Lerp(this.transform.position, rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position, timeOnTransition / 2f);
                     } 
@@ -162,18 +163,18 @@ public class CameraController : MonoBehaviour {
                     Quaternion rotation = Quaternion.Euler(y, x, 0);
                     playerScript.actualTrap.transform.rotation = rotation;
                     this.transform.SetParent(playerScript.actualTrap.transform);
-                    if (timeOnTransition < transitionTime) {
+                    if (timeOnTransition < transitionTime) 
+                    {
                         timeOnTransition += Time.deltaTime;
                         this.transform.localPosition = Vector3.Lerp(this.transform.localPosition, new Vector3(0.0f, 1.8f, -1.0f), timeOnTransition / 2f);
-                    } else {
+                        Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 40, 0.1f);
+                    } 
+                    else 
+                    {
                         this.transform.localPosition = new Vector3(0.0f, 1.8f, -1.0f);
                     }
-
                     this.transform.localRotation = Quaternion.identity;
-                    //Vector3 position = rotation * new Vector3(t_cameraX, t_cameraY, -noCollisionDistance) + player.position;
-                    //transform.position = position;
                     SetPlayerDirection(rotation.eulerAngles.y);
-                    //this.transform.LookAt(player.transform.position + player.transform.up * t_focusY + player.transform.right * t_focusX + player.transform.forward * t_focusDistance);
                 }
                 break;
             default:

@@ -23,7 +23,7 @@ public class InstantiateAttack : MonoBehaviour
 	
     public void InstantiateRedOrb(Transform enemy)
     {
-        GameObject mainAttackClone = Instantiate(mainAttack, transform.GetChild(0).position, transform.rotation * Quaternion.Euler(0f, -90f, 0f));
+        GameObject mainAttackClone = Instantiate(mainAttack, transform.GetChild(0).position, transform.rotation);
         mainAttackClone.GetComponent<FollowTarget>().SetEnemy(enemy);
     }
 
