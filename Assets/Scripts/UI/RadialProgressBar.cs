@@ -13,16 +13,6 @@ public class RadialProgressBar : MonoBehaviour
     void Start()
     {
         currentAmount = 0.0f;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (currentAmount < 0.0f)
-            currentAmount = 0.0f;
-
-        if (currentAmount > 100.0f)
-            currentAmount = 100.0f;
 
         TextProgress.GetComponent<Text>().text = ((int)currentAmount).ToString() + "%";
         LoadingBar.GetComponent<Image>().fillAmount = currentAmount / 100;
@@ -31,5 +21,14 @@ public class RadialProgressBar : MonoBehaviour
     public void SetCurrentAmount(float amount)
     {
         currentAmount = amount;
+
+        if (currentAmount < 0.0f)
+            currentAmount = 0.0f;
+
+        if (currentAmount > 100.0f)
+            currentAmount = 100.0f;
+
+        TextProgress.GetComponent<Text>().text = ((int)currentAmount).ToString() + "%";
+        LoadingBar.GetComponent<Image>().fillAmount = currentAmount / 100;
     }
 }
