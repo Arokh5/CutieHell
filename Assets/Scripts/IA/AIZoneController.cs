@@ -5,7 +5,7 @@ using UnityEngine;
 public class AIZoneController : MonoBehaviour {
 
     #region Fields
-    private uint zoneID;
+    private int zoneID;
     public Monument monument;
 
     [SerializeField]
@@ -26,6 +26,12 @@ public class AIZoneController : MonoBehaviour {
     #endregion
 
     #region Public Methods
+    // Called by Buildings to obtain zoneId
+    public int GetZoneId()
+    {
+        return zoneID;
+    }
+
     // Called by Monument when it gets repaired
     public void OnMonumentRepaired()
     {
