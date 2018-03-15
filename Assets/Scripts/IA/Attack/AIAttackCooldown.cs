@@ -10,6 +10,9 @@ public class AIAttackCooldown : AIAttackLogic
     [Tooltip("Time expressed in seconds.")]
     public float cooldownDuration;
 
+    public Transform attackSpawnPoint;
+    public EnemyRangeAttack attackPrefab;
+
     private float lastAttackTime = 0;
     #endregion
 
@@ -27,7 +30,9 @@ public class AIAttackCooldown : AIAttackLogic
     #region Private Methods
     private void Attack(Building target)
     {
-        target.TakeDamage(attackDamage, AttackType.ENEMY);
+        EnemyRangeAttack currentAttack = Instantiate(attackPrefab, attackSpawnPoint.position, attackSpawnPoint.rotation);
+        currentAttack.Fire(target, attackDamage);
+        //target.TakeDamage(attackDamage, AttackType.ENEMY);
     }
     #endregion
 }
