@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114386524282915284}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -224,13 +224,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1001fc1c05d1f242abd7f8a8c02112f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
-  acceleration: 200
+  maxSpeed: 5
+  acceleration: 30
   maxEvilLevel: 20
   evilLevel: 0
   actualTrap: {fileID: 0}
   state: 0
-  nextState: 0
   meshRenderer: {fileID: 0}
 --- !u!114 &114760987351094524
 MonoBehaviour:
@@ -295,7 +294,7 @@ RectTransform:
   m_GameObject: {fileID: 1599052210636464}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_Children: []
   m_Father: {fileID: 224739185710059266}
   m_RootOrder: 0
