@@ -90,6 +90,12 @@ public class DebugManager : MonoBehaviour {
                 if (Input.GetKey(KeyCode.M)) {
                     cameraController.cameraY -= Time.deltaTime * 0.5f;
                 }
+                if (Input.GetKey(KeyCode.S)) {
+                    cameraController.fov += Time.deltaTime * 4f;
+                }
+                if (Input.GetKey(KeyCode.D)) {
+                    cameraController.fov -= Time.deltaTime * 4f;
+                }
                 if (Input.GetKey(KeyCode.F)) {
                     cameraController.focusDistance += Time.deltaTime * 0.5f;
                 }
@@ -115,11 +121,13 @@ public class DebugManager : MonoBehaviour {
                     cameraController.focusDistance = 0.4f;
                     cameraController.focusX = 0.3f;
                     cameraController.focusY = 1.7f;
+                    cameraController.fov = 60;
                     showGrid = false;
                 }
                 values.text = "Distance : " + cameraController.distance + "\nCameraX : " + 
                     cameraController.cameraX + "\nCameraY : " + cameraController.cameraY + "\nFocus Distance" +
-                    cameraController.focusDistance + "\nFocusX : " + cameraController.focusX + "\nFocusY : " + cameraController.focusY;
+                    cameraController.focusDistance + "\nFocusX : " + cameraController.focusX + "\nFocusY : " + cameraController.focusY
+                    + "\nFOV : " + cameraController.fov;
                 break;
             case Player.PlayerStates.TURRET:
                 if (Input.GetKeyDown(KeyCode.Z)) {
@@ -132,51 +140,27 @@ public class DebugManager : MonoBehaviour {
                 if (Input.GetKey(KeyCode.C)) {
                     cameraController.t_distance -= Time.deltaTime * 0.5f;
                 }
-                if (Input.GetKey(KeyCode.V)) {
-                    cameraController.t_cameraX -= Time.deltaTime * 0.5f;
-                }
-                if (Input.GetKey(KeyCode.B)) {
-                    cameraController.t_cameraX += Time.deltaTime * 0.5f;
-                }
                 if (Input.GetKey(KeyCode.N)) {
                     cameraController.t_cameraY += Time.deltaTime * 0.5f;
                 }
                 if (Input.GetKey(KeyCode.M)) {
                     cameraController.t_cameraY -= Time.deltaTime * 0.5f;
                 }
-                if (Input.GetKey(KeyCode.F)) {
-                    cameraController.t_focusDistance += Time.deltaTime * 0.5f;
+                if (Input.GetKey(KeyCode.S)) {
+                    cameraController.t_fov += Time.deltaTime * 4f;
                 }
-                if (Input.GetKey(KeyCode.G)) {
-                    cameraController.t_focusDistance -= Time.deltaTime * 0.5f;
-                }
-                if (Input.GetKey(KeyCode.H)) {
-                    cameraController.t_focusX -= Time.deltaTime * 0.5f;
-                }
-                if (Input.GetKey(KeyCode.J)) {
-                    cameraController.t_focusX += Time.deltaTime * 0.5f;
-                }
-                if (Input.GetKey(KeyCode.K)) {
-                    cameraController.t_focusY += Time.deltaTime * 0.5f;
-                }
-                if (Input.GetKey(KeyCode.L)) {
-                    cameraController.t_focusY -= Time.deltaTime * 0.5f;
+                if (Input.GetKey(KeyCode.D)) {
+                    cameraController.t_fov -= Time.deltaTime * 4f;
                 }
                 if (Input.GetKeyDown(KeyCode.Return)) {
                     cameraController.t_distance = 3.0f;
-                    cameraController.t_cameraX = 0.0f;
                     cameraController.t_cameraY = 1.75f;
-                    cameraController.t_focusDistance = 0.4f;
-                    cameraController.t_focusX = 0.0f;
-                    cameraController.t_focusY = 1.7f;
+                    cameraController.t_fov = 40;
                     showGrid = false;
                 }
-                values.text = "Distance : " + cameraController.t_distance + "\nCameraX : " + 
-                    cameraController.t_cameraX + "\nCameraY : " + cameraController.t_cameraY + 
-                    "\nFocus Distance : " + cameraController.t_focusDistance + "\nFocusX : " + cameraController.t_focusX + 
-                    "\nFocusY : " + cameraController.t_focusY;
+                values.text = "Distance : " + cameraController.t_distance + "\nCameraY : " + cameraController.t_cameraY +
+                    "\nFOV : " + cameraController.t_fov;
                 break;
         }
-
     }
 }

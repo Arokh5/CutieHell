@@ -28,15 +28,13 @@ public class CameraController : MonoBehaviour {
     public float focusDistance;
     public float focusX;
     public float focusY;
+    public float fov;
 
 
     /* Turret camera values */
     public float t_distance;
-    public float t_cameraX;
     public float t_cameraY;
-    public float t_focusDistance;
-    public float t_focusX;
-    public float t_focusY;
+    public float t_fov;
 
 
     private void Awake()
@@ -61,13 +59,11 @@ public class CameraController : MonoBehaviour {
         focusDistance = 0.65f;
         focusX = 0.55f;
         focusY = 1.65f;
+        fov = 60f;
 
-        t_distance = 2.8f;
-        t_cameraX = 0.45f;
+        t_distance = -1.0f;
         t_cameraY = 1.8f;
-        t_focusDistance = 0.65f;
-        t_focusX = 0.55f;
-        t_focusY = 1.65f;
+        t_fov = 40f;
 
     }
 
@@ -114,12 +110,13 @@ public class CameraController : MonoBehaviour {
                     }
                     if (timeOnTransition < transitionTime) 
                     {
-                        Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 60, 0.1f);
+                        Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, fov, 0.1f);
                         timeOnTransition += Time.deltaTime;
                         this.transform.position = Vector3.Lerp(this.transform.position, rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position, timeOnTransition / 2f);
                     } 
                     else 
                     {
+                        Camera.main.fieldOfView = fov;
                         Vector3 position = rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position;
                         this.transform.position = position;
                     }
@@ -140,12 +137,13 @@ public class CameraController : MonoBehaviour {
                     if (timeOnTransition < transitionTime) 
                     {
                         timeOnTransition += Time.deltaTime;
-                        this.transform.localPosition = Vector3.Lerp(this.transform.localPosition, new Vector3(0.0f, 1.8f, -1.0f), timeOnTransition / 2f);
-                        Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 40, 0.1f);
+                        this.transform.localPosition = Vector3.Lerp(this.transform.localPosition, new Vector3(0.0f, t_cameraY, t_distance), timeOnTransition / 2f);
+                        Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, t_fov, 0.1f);
                     } 
                     else 
                     {
-                        this.transform.localPosition = new Vector3(0.0f, 1.8f, -1.0f);
+                        Camera.main.fieldOfView = t_fov;
+                        this.transform.localPosition = new Vector3(0.0f,t_cameraY, t_distance);
                     }
                     this.transform.localRotation = Quaternion.identity;
                     SetPlayerDirection(rotation.eulerAngles.y);
