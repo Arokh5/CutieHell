@@ -23,17 +23,19 @@ public class StatsDebug : MonoBehaviour {
     }
 
     void Update() {
-        timeleft -= Time.deltaTime;
-        accum += Time.timeScale / Time.deltaTime;
-        ++frames;
+        if (Show_Stats) {
+            timeleft -= Time.deltaTime;
+            accum += Time.timeScale / Time.deltaTime;
+            ++frames;
 
-        if (timeleft <= 0.0) {
-            fps = accum / frames;
-            string format = System.String.Format("{0:n} FPS", fps);
-            timeleft = updateInterval;
-            accum = 0.0F;
-            frames = 0;
-            GetObjectStats();
+            if (timeleft <= 0.0) {
+                fps = accum / frames;
+                string format = System.String.Format("{0:n} FPS", fps);
+                timeleft = updateInterval;
+                accum = 0.0F;
+                frames = 0;
+                GetObjectStats();
+            }
         }
     }
 
