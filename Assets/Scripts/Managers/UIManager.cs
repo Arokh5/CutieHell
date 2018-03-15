@@ -11,6 +11,11 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     private GameObject evilnessBar;
+    [SerializeField]
+    private List<RadialProgressBar> monumentsRadialProgressBars;
+
+    [SerializeField]
+    private List<RadialProgressBar> zone1TrapsRadialProgressBars;
 
     #endregion
 
@@ -28,11 +33,6 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #region Public Methods
-
-    #endregion
-
-    #region Private Methods
-
     // Called by Player when using or earning Evil Points
     public void SetEvilBarValue(int value)
     {
@@ -40,5 +40,42 @@ public class UIManager : MonoBehaviour
         evilnessBar.GetComponent<Image>().fillAmount = ((float)value / GameManager.instance.GetPlayer1().GetMaxEvilLevel());
     }
 
+    // Called by Player when increasing its maximum of Evil Point
+    public void SetEvilBarMaxValue(int maxValue)
+    {
+        Debug.LogError("NOT IMPLEMENTED:UIManager::SetEvilBarMaxValue");
+    }
+    // Called by ZonesConnection when the connection gets opened
+    public void ZoneConnectionOpened(int zoneConnectionID)
+    {
+        Debug.LogError("NOT IMPLEMENTED:UIManager::ZoneConnectionOpened");
+    }
+    // Called by Trap to update its remaining health
+    public void SetTrapConquerRate(int zoneID, int trapID, float normalizedConquerRate)
+    {
+        if (zoneID == 0)
+        {
+            RadialProgressBar progressBar = zone1TrapsRadialProgressBars[trapID];
+            progressBar.SetNormalizedAmount(normalizedConquerRate);
+        }
+    }
+
+    // Called by Trap to update its remaining health
+    public void SetMonumentConquerRate(int zoneID, float normalizedConquerdRate)
+    {
+        RadialProgressBar progressBar = monumentsRadialProgressBars[zoneID];
+        progressBar.SetNormalizedAmount(normalizedConquerdRate);
+    }
+
+    // Called by AISpawnController to move the Wave indicator forward
+    public void SetWaveNumberAndProgress(int waveNumber, float normalizedProgress)
+    {
+        Debug.LogError("NOT IMPLEMENTED:UIManager::SetWaveNumberAndProgress");
+    }
+
+    #endregion
+
+    #region Private Methods
+    
     #endregion
 }

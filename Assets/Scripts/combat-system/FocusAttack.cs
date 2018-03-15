@@ -63,12 +63,12 @@ public class FocusAttack : MonoBehaviour
 
                 if (Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, 100, layerMask.value))
                 {
-                    GetComponent<InstantiateAttack>().InstantiateRedOrb(hit.transform);
+                    GetComponent<AttackController>().InstantiateAttack(hit.transform);
                     Debug.Log("Hit enemy");
                 }
                 else
                 {
-                    GetComponent<InstantiateAttack>().InstantiateRedOrb(null);
+                    GetComponent<AttackController>().InstantiateAttack(null);
                 }
 
                 time = 0f;
