@@ -61,8 +61,8 @@ public class CameraController : MonoBehaviour {
         focusY = 1.65f;
         fov = 60f;
 
-        t_distance = -1.0f;
-        t_cameraY = 1.8f;
+        t_distance = -1.6f;
+        t_cameraY = 0.6f;
         t_fov = 40f;
 
     }
