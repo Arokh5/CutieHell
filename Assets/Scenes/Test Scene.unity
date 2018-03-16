@@ -537,6 +537,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1337953828}
+  - component: {fileID: 1337953829}
   m_Layer: 0
   m_Name: Scenario
   m_TagString: Untagged
@@ -559,6 +560,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1337953829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1337953827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa57f1e41ebb95044a8771d987788efe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1384049754
 GameObject:
   m_ObjectHideFlags: 0
@@ -1070,6 +1082,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monument: {fileID: 1840064091}
   currentZoneTarget: {fileID: 0}
+  scenario: {fileID: 0}
   aiEnemies: []
 --- !u!114 &2061369192
 MonoBehaviour:
@@ -1212,6 +1225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f766371a38eee3f4897540cef5b2744e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scenario: {fileID: 0}
   elapsedTime: 0
   currentWaveIndex: 0
   wavesInfo:

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIZoneController : MonoBehaviour {
+public class AIZoneController : MonoBehaviour
+{
 
     #region Fields
     private int zoneID;
@@ -10,6 +11,8 @@ public class AIZoneController : MonoBehaviour {
 
     [SerializeField]
     private Building currentZoneTarget;
+    [SerializeField]
+    GameObject scenario;
 
     // List that contains all AIEnemy that were spawned on this ZoneController's area and are still alive
     [SerializeField]
@@ -19,6 +22,12 @@ public class AIZoneController : MonoBehaviour {
     #region MonoBehaviour Methods
     private void Awake()
     {
+        if (!scenario)
+        {
+            scenario = this.GetComponentInParent<ScenarioController>().gameObject;
+            UnityEngine.Assertions.Assert.IsNotNull(scenario, "Error: Scenario not set for AIZoneController in gameObject '" + gameObject.name + "'");
+        }
+
         UnityEngine.Assertions.Assert.IsNotNull(monument, "Error: monument not set for AIZoneController in gameObject '" + gameObject.name + "'");
         currentZoneTarget = monument;
     }
@@ -37,7 +46,7 @@ public class AIZoneController : MonoBehaviour {
     {
         Debug.LogError("NOT IMPLEMENTED: AIZoneController::OnMonumentRepaired");
     }
-    
+
     // Called by Monument when it gets conquered. The method is meant to open the door
     public void OnMonumentTaken()
     {
@@ -84,7 +93,12 @@ public class AIZoneController : MonoBehaviour {
     // Called by AIEnemy in its OnDestroy method to remove from the aiEnemies list
     public bool RemoveEnemy(AIEnemy aiEnemy)
     {
-        return aiEnemies.Remove(aiEnemy);
+        bool removed;
+        removed = aiEnemies.Remove(aiEnemy);
+
+        CheckAllEnemiesAreDead();
+
+        return removed;
     }
     #endregion
 
@@ -94,6 +108,23 @@ public class AIZoneController : MonoBehaviour {
         foreach (AIEnemy enemy in aiEnemies)
         {
             enemy.SetCurrentTarget(currentZoneTarget);
+        }
+    }
+
+    // Called by AIEnemy in its OnDestroy method to check wheter it was the lastEney or not and comunicate it to the ScenarioController
+    private void CheckAllEnemiesAreDead()
+    {
+        if (aiEnemies.Count == 0)
+        {
+            scenario.GetComponent<ScenarioController>().SetNoEnemiesAlive(true);
+            if (scenario.GetComponent<ScenarioController>().GetLastSpawnIsOver())
+            {
+                GameManager.instance.OnWaveWon();
+            }
+        }
+        else
+        {
+            scenario.GetComponent<ScenarioController>().SetNoEnemiesAlive(false);
         }
     }
     #endregion

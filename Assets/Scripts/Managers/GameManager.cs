@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour {
+public class GameManager : MonoBehaviour
+{
 
     #region Fields
 
@@ -43,6 +44,12 @@ public class GameManager : MonoBehaviour {
     #endregion
 
     #region Public Methods
+
+    public void OnWaveWon()
+    {
+        OnGameWon();
+        Debug.LogError("Substitute the current OnGameWon for the own OnWaveWon logic");
+    }
 
     public void OnGameWon()
     {
