@@ -97,6 +97,7 @@ public class CameraController : MonoBehaviour {
                 break;
             case Player.PlayerStates.MOVE: 
                 {
+                    if (this.transform.parent != null) this.transform.parent = null;
                     Quaternion rotation = Quaternion.Euler(y, x, 0);
                     float noCollisionDistance = distance;
 
