@@ -45,7 +45,7 @@ public class StatsDebug : MonoBehaviour {
     }
 
     void ShowStatistics() {
-        GUILayout.BeginArea(new Rect(Screen.width - 200, Screen.height - 280, 300, 300));
+        GUILayout.BeginArea(new Rect(Screen.width - 200, Screen.height - 300, 300, 300));
         if (Show_FPS) {
             string fpsdisplay = fps.ToString("0.00 fps");
             GUIStyle style = new GUIStyle(GUI.skin.label);
