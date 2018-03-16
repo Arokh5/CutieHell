@@ -12,7 +12,6 @@ public class EnemyRangeAttack : MonoBehaviour {
 
     private Vector3 initialPosition;
     private Vector3 fullMotion;
-    private Vector3 motionDirection;
     private float motionDistance;
     private float lifeTime;
     private float elapsedTime;
@@ -42,7 +41,6 @@ public class EnemyRangeAttack : MonoBehaviour {
         fullMotion = target.transform.position - initialPosition;
         fullMotion.y = 0;
         motionDistance = fullMotion.magnitude;
-        motionDirection = fullMotion / motionDistance;
         lifeTime = motionDistance / speed;
     }
     #endregion

@@ -35,7 +35,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
     public Color deadColor;
     public float healthToReduce = 1;
     public bool hit;
-    public bool isTarget = false;
+    private bool isTargetable = true;
+    private bool isTarget = false;
     #endregion
 
     #region MonoBehaviour Methods
@@ -108,7 +109,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     // Called by the AIPlayer or an Attack to damage the AIEnemy
     public void TakeDamage(float damage, AttackType attacktype)
     {
-        if (IsDead())
+        if (IsDead() || !isTargetable)
             return;
 
         currentHealth -= damage;
@@ -126,10 +127,31 @@ public class AIEnemy : MonoBehaviour, IDamageable
         currentTarget = zoneController.GetTargetBuilding();
     }
 
-    public void ChangeMaterial(bool isTarget)
+    public bool MarkAsTarget(bool isTarget)
     {
-        mRenderer.material = isTarget ? outlinedMat : basicMat;
-        AdjustMaterials();
+        if (isTargetable && this.isTarget != isTarget)
+        {
+            this.isTarget = isTarget;
+            mRenderer.material = isTarget ? outlinedMat : basicMat;
+            AdjustMaterials();
+            return true;
+        }
+
+        return false;
+    }
+
+    public void SetIsTargetable(bool isTargetable)
+    {
+        if (this.isTargetable != isTargetable)
+        {
+            this.isTargetable = isTargetable;
+            if (!isTargetable && isTarget)
+            {
+                isTarget = false;
+                mRenderer.material = basicMat;
+                AdjustMaterials();
+            }
+        }
     }
 
     #endregion

@@ -41,7 +41,7 @@ public class StrongAttackDetection : MonoBehaviour
     {
         if (other.gameObject.layer == 8)
         {
-            other.GetComponent<AIEnemy>().isTarget = true;
+            other.GetComponent<AIEnemy>().MarkAsTarget(true);
         }
 
         if (activateAttack)
