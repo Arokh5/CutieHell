@@ -28,7 +28,7 @@ public class RadialProgressBar : MonoBehaviour
         if (currentNormalizedAmount > 1.0f)
             currentNormalizedAmount = 1.0f;
 
-        textProgress.text = ((int)(100 * currentNormalizedAmount)).ToString() + "%";
+        textProgress.text = (Mathf.RoundToInt(100 * currentNormalizedAmount)).ToString() + "%";
         loadingBar.fillAmount = currentNormalizedAmount;
     }
 }

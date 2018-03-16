@@ -36,7 +36,6 @@ public class UIManager : MonoBehaviour
     // Called by Player when using or earning Evil Points
     public void SetEvilBarValue(int value)
     {
-        Debug.Log("Evil: " + ((float)value / GameManager.instance.GetPlayer1().GetMaxEvilLevel()));
         evilnessBar.GetComponent<Image>().fillAmount = ((float)value / GameManager.instance.GetPlayer1().GetMaxEvilLevel());
     }
 
