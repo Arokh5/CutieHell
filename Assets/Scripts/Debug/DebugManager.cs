@@ -25,6 +25,8 @@ public class DebugManager : MonoBehaviour {
     [Header("World camera debug")]
     [SerializeField]
     private GameObject worldCamera;
+    [SerializeField]
+    private GameObject instructionsWorldCamera;
 
     private CameraController cameraController;
     private Player playerScript;
@@ -42,6 +44,7 @@ public class DebugManager : MonoBehaviour {
         cameraController = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         player = GameObject.FindGameObjectWithTag("Player");
+        worldCameraComponent = worldCamera.GetComponent<Camera>();
     }
 
 	void Update () {
@@ -51,6 +54,14 @@ public class DebugManager : MonoBehaviour {
 
     private void ProcessInput() 
     {
+        if (Input.GetKeyDown(KeyCode.I)) 
+        {
+            showWorldCamera = !showWorldCamera;
+            if (showCameraDebug) 
+            {
+                showCameraDebug = false;
+            }
+        }
         if (Input.GetKeyDown(KeyCode.O)) 
         {
             showStats = !showStats;
@@ -58,9 +69,10 @@ public class DebugManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.P)) 
         {
             showCameraDebug = !showCameraDebug;
-        }
-        if (Input.GetKeyDown(KeyCode.I)) {
-            showWorldCamera = !showWorldCamera;
+            if (showWorldCamera) 
+            {
+                showWorldCamera = false;
+            }
         }
     }
     private void ActivateDebug() 
@@ -80,9 +92,11 @@ public class DebugManager : MonoBehaviour {
         }
         if (showWorldCamera) {
             worldCamera.SetActive(true);
+            instructionsWorldCamera.SetActive(true);
             WorldCameraDebug();
         } else {
             worldCamera.SetActive(false);
+            instructionsWorldCamera.SetActive(false);
         }
     }
     private void DebugCamera() {
@@ -185,9 +199,35 @@ public class DebugManager : MonoBehaviour {
     }
 
     private void WorldCameraDebug() {
+
         if (Input.GetKeyDown(KeyCode.C)) followPlayer = !followPlayer;
+
+        if (Input.GetKey(KeyCode.Z)) {
+            if (worldCameraComponent.orthographicSize > 1) {
+                worldCameraComponent.orthographicSize -= Time.deltaTime * 7;
+            }
+        }
+        if (Input.GetKey(KeyCode.X)) {
+            if (worldCameraComponent.orthographicSize < 50) {
+                worldCameraComponent.orthographicSize += Time.deltaTime * 7;
+            }
+        }
+
         if (followPlayer) {
             worldCamera.transform.position = player.transform.position + Vector3.up * 50;
+        } else {
+            if (Input.GetKey(KeyCode.UpArrow)) {
+                worldCamera.transform.Translate(Vector3.up * Time.deltaTime * 10);
+            }
+            if (Input.GetKey(KeyCode.DownArrow)) {
+                worldCamera.transform.Translate(Vector3.up * Time.deltaTime * -10);
+            }
+            if (Input.GetKey(KeyCode.LeftArrow)) {
+                worldCamera.transform.Translate(Vector3.left * Time.deltaTime * 10);
+            }
+            if (Input.GetKey(KeyCode.RightArrow)) {
+                worldCamera.transform.Translate(Vector3.left * Time.deltaTime * -10);
+            }
         }
     }
 }
