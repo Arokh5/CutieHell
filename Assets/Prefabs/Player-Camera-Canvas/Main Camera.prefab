@@ -100,7 +100,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1558515104831888}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: -9.192624, y: 3.37, z: 5.459627}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4000995128787070}
@@ -133,12 +133,12 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: -1
+  m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
-  m_AllowMSAA: 1
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -246,7 +246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionTimeRange: 0.1
-  strongAttackCadency: 5
+  strongAttackCadency: 0
   evilCost: -10
   damage: 10
 --- !u!114 &114896511705891846
@@ -260,9 +260,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c015a187724cb2b4186a6c255309225f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugCanvas: {fileID: 0}
-  values: {fileID: 0}
-  grid: {fileID: 0}
+  distance: 0
+  cameraX: 0
+  cameraY: 0
+  focusDistance: 0
+  focusX: 0
+  focusY: 0
+  fov: 0
+  t_distance: 0
+  t_cameraY: 0
+  t_fov: 0
 --- !u!114 &114942734402132228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -278,7 +285,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   sphereCastRadius: 0.1
-  basicAttackCadency: 1
+  basicAttackCadency: 0.7
 --- !u!124 &124509821206504046
 Behaviour:
   m_ObjectHideFlags: 1

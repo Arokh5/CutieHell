@@ -21,16 +21,27 @@ public class DebugManager : MonoBehaviour {
     [SerializeField]
     private Image grid;
 
+    [Space]
+    [Header("World camera debug")]
+    [SerializeField]
+    private GameObject worldCamera;
+
     private CameraController cameraController;
     private Player playerScript;
+    private Camera worldCameraComponent;
 
     private bool showStats = false;
     private bool showCameraDebug = false;
+    private bool showWorldCamera = false;
     private bool showGrid = false;
+    private bool followPlayer = true;
+
+    private GameObject player;
 
 	void Start () {
         cameraController = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
 	void Update () {
@@ -48,6 +59,9 @@ public class DebugManager : MonoBehaviour {
         {
             showCameraDebug = !showCameraDebug;
         }
+        if (Input.GetKeyDown(KeyCode.I)) {
+            showWorldCamera = !showWorldCamera;
+        }
     }
     private void ActivateDebug() 
     {
@@ -63,6 +77,12 @@ public class DebugManager : MonoBehaviour {
             DebugCamera();
         } else {
             debugCameraCanvas.SetActive(false);
+        }
+        if (showWorldCamera) {
+            worldCamera.SetActive(true);
+            WorldCameraDebug();
+        } else {
+            worldCamera.SetActive(false);
         }
     }
     private void DebugCamera() {
@@ -161,6 +181,13 @@ public class DebugManager : MonoBehaviour {
                 values.text = "Distance : " + cameraController.t_distance + "\nCameraY : " + cameraController.t_cameraY +
                     "\nFOV : " + cameraController.t_fov;
                 break;
+        }
+    }
+
+    private void WorldCameraDebug() {
+        if (Input.GetKeyDown(KeyCode.C)) followPlayer = !followPlayer;
+        if (followPlayer) {
+            worldCamera.transform.position = player.transform.position + Vector3.up * 50;
         }
     }
 }
