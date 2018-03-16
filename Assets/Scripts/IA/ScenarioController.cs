@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ScenarioController : MonoBehaviour
 {
+    #region Fields
+    private bool lastSpawnIsOver;
+    private bool noEnemiesAlive;
+    #endregion
 
     #region Public Methods
     // Called by a ZoneController when its Monument has been conquered and an AIEnemy request for a Target
@@ -32,10 +34,5 @@ public class ScenarioController : MonoBehaviour
     {
         noEnemiesAlive = noEnemiesAliveValue;
     }
-    #endregion
-
-    #region Private Methods
-    private bool lastSpawnIsOver;
-    private bool noEnemiesAlive;
     #endregion
 }
