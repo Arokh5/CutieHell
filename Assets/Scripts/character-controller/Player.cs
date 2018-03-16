@@ -69,7 +69,13 @@ public class Player : MonoBehaviour {
 
     public void StopTrapUse() 
     {
-
+        Trap trapScript = actualTrap.GetComponent<Trap>();
+        trapScript.Deactivate();
+        meshRenderer.enabled = true;
+        Vector3 nextPos = actualTrap.transform.forward * 3f;
+        this.transform.position = actualTrap.transform.position - new Vector3(nextPos.x, 0, nextPos.z);
+        actualTrap = null;
+        state = PlayerStates.MOVE;
     }
 
     private void MovePlayer() 
@@ -129,11 +135,7 @@ public class Player : MonoBehaviour {
         {
             if (InputManager.instance.GetXButtonDown()) 
             {
-                meshRenderer.enabled = true;
-                Vector3 nextPos = actualTrap.transform.forward * 3f;
-                this.transform.position = actualTrap.transform.position - new Vector3(nextPos.x,0,nextPos.z);
-                actualTrap = null;
-                state = PlayerStates.MOVE;
+                StopTrapUse();
             }
         }
     }
