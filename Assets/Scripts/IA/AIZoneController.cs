@@ -10,9 +10,10 @@ public class AIZoneController : MonoBehaviour
     public Monument monument;
 
     [SerializeField]
-    private Building currentZoneTarget;
+    ScenarioController scenario;
     [SerializeField]
-    GameObject scenario;
+    [ShowOnly]
+    private Building currentZoneTarget;
 
     // List that contains all AIEnemy that were spawned on this ZoneController's area and are still alive
     [SerializeField]
@@ -24,7 +25,7 @@ public class AIZoneController : MonoBehaviour
     {
         if (!scenario)
         {
-            scenario = this.GetComponentInParent<ScenarioController>().gameObject;
+            scenario = GetComponentInParent<ScenarioController>();
             UnityEngine.Assertions.Assert.IsNotNull(scenario, "Error: Scenario not set for AIZoneController in gameObject '" + gameObject.name + "'");
         }
 
@@ -116,15 +117,15 @@ public class AIZoneController : MonoBehaviour
     {
         if (aiEnemies.Count == 0)
         {
-            scenario.GetComponent<ScenarioController>().SetNoEnemiesAlive(true);
-            if (scenario.GetComponent<ScenarioController>().GetLastSpawnIsOver())
+            scenario.SetNoEnemiesAlive(true);
+            if (scenario.GetLastSpawnIsOver())
             {
                 GameManager.instance.OnWaveWon();
             }
         }
         else
         {
-            scenario.GetComponent<ScenarioController>().SetNoEnemiesAlive(false);
+            scenario.SetNoEnemiesAlive(false);
         }
     }
     #endregion

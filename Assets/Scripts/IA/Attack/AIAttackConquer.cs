@@ -34,11 +34,14 @@ public class AIAttackConquer : AIAttackLogic {
     {
         if (inAttackAnimation)
         {
-            AttackAnimation();
-            elapsedTime += Time.deltaTime;
-            if (elapsedTime >= animationDuration)
+            if (elapsedTime < animationDuration)
             {
-                Attack(target);
+                AttackAnimation();
+                elapsedTime += Time.deltaTime;
+                if (elapsedTime >= animationDuration)
+                {
+                    Attack(target);
+                }
             }
         }
         else
