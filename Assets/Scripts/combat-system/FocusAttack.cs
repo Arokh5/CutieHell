@@ -13,6 +13,7 @@ public class FocusAttack : MonoBehaviour
     [SerializeField]
     private float basicAttackCadency;
 
+    private AIEnemy currentTarget = null;
     private RaycastHit hit;
     private float time;
 
@@ -32,14 +33,6 @@ public class FocusAttack : MonoBehaviour
     private void Update()
     {
         FocusBasicAttack();
-    }
-
-    private void FixedUpdate()
-    {
-        foreach (AIEnemy enemy in FindObjectsOfType<AIEnemy>())
-        {
-            enemy.MarkAsTarget(false);
-        }
     }
 
     #endregion
@@ -74,10 +67,33 @@ public class FocusAttack : MonoBehaviour
             }
         }
 
-        if (Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, 100, layerMask.value) && !InputManager.instance.GetL2Button())
+        AIEnemy newTarget = null;
+        if (!InputManager.instance.GetL2Button() && Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, 100, layerMask.value))
         {
-            hit.transform.GetComponent<AIEnemy>().MarkAsTarget(true);
+            newTarget = hit.transform.GetComponent<AIEnemy>();
         }
+
+
+        if (currentTarget)
+        {
+            if (!newTarget)
+            {
+                currentTarget.MarkAsTarget(false);
+                currentTarget = null;
+            }
+            else if (currentTarget != newTarget)
+            {
+                currentTarget.MarkAsTarget(false);
+                newTarget.MarkAsTarget(true);
+                currentTarget = newTarget;
+            }
+        }
+        else if (newTarget)
+        {
+            newTarget.MarkAsTarget(true);
+            currentTarget = newTarget;
+        }
+
     }
 
     #endregion
