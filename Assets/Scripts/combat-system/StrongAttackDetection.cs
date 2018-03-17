@@ -6,18 +6,17 @@ public class StrongAttackDetection : MonoBehaviour
     #region Fields
 
     [SerializeField]
-    private float actionTimeRange;
-    [SerializeField]
     private float strongAttackCadency;
     [SerializeField]
     private int evilCost;
     [SerializeField]
     private int damage;
 
-    private List<AIEnemy> damagedEnemies = new List<AIEnemy>();
-    private float actionTime = 0f;
+    private MeshCollider meshCollider;
+    private Renderer mRenderer;
+    private List<AIEnemy> targetEnemies = new List<AIEnemy>();
+
     private float cadencyTime;
-    private bool activateAttack = false;
 
     #endregion
 
@@ -30,6 +29,8 @@ public class StrongAttackDetection : MonoBehaviour
     private void Awake()
     {
         cadencyTime = strongAttackCadency;
+        meshCollider = GetComponent<MeshCollider>();
+        mRenderer = GetComponent<Renderer>();
     }
 
     private void Update()
@@ -37,22 +38,25 @@ public class StrongAttackDetection : MonoBehaviour
         StrongAttackActivation();
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == 8)
         {
-            other.GetComponent<AIEnemy>().MarkAsTarget(true);
-        }
-
-        if (activateAttack)
-        {
-            if (other.gameObject.layer == 8)
-            {
-                HurtEnemies(other.GetComponent<AIEnemy>());
-            }
+            AIEnemy aIEnemy = other.GetComponent<AIEnemy>();
+            aIEnemy.MarkAsTarget(true);
+            targetEnemies.Add(aIEnemy);
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == 8)
+        {
+            AIEnemy aIEnemy = other.GetComponent<AIEnemy>();
+            aIEnemy.MarkAsTarget(false);
+            targetEnemies.Remove(aIEnemy);
+        }
+    }
 	#endregion
 	
 	#region Public Methods
@@ -63,66 +67,48 @@ public class StrongAttackDetection : MonoBehaviour
 
     private void StrongAttackActivation()
     {
-        if (InputManager.instance.GetL2Button() && !activateAttack && GameManager.instance.GetPlayer1().GetEvilLevel() >= Mathf.Abs(evilCost) && cadencyTime >= strongAttackCadency)
+        if (cadencyTime >= strongAttackCadency && InputManager.instance.GetL2Button() && GameManager.instance.GetPlayer1().GetEvilLevel() >= Mathf.Abs(evilCost))
         {
             if (GameManager.instance.GetPlayer1().state != Player.PlayerStates.TURRET)
             {
-                if (actionTime < actionTimeRange)
-                {
-                    GetComponent<MeshCollider>().enabled = true;
-                    GetComponent<Renderer>().enabled = true;
+                meshCollider.enabled = true;
+                mRenderer.enabled = true;
 
-                    if (InputManager.instance.GetR2ButtonDown())
-                    {
-                        activateAttack = true;
-                        GameManager.instance.GetPlayer1().SetEvilLevel(evilCost);
-                    }
+                if (InputManager.instance.GetR2ButtonDown())
+                {
+                    GameManager.instance.GetPlayer1().SetEvilLevel(evilCost);
+                    HurtEnemies();
                 }
+
             }
         }
 
         if (InputManager.instance.GetL2ButtonUp())
         {
-            GetComponent<MeshCollider>().enabled = false;
-            GetComponent<Renderer>().enabled = false;
-        }
-
-        if (activateAttack)
-        {
-            actionTime += Time.deltaTime;
-        }
-
-        if (actionTime >= actionTimeRange)
-        {
-            activateAttack = false;
-            actionTime = 0f;
-            cadencyTime = 0f;
-            damagedEnemies.Clear();
-            GetComponent<MeshCollider>().enabled = false;
-            GetComponent<Renderer>().enabled = false;
+            meshCollider.enabled = false;
+            mRenderer.enabled = false;
+            /* Untarget all enemies */
+            foreach (AIEnemy aiEnemy in targetEnemies)
+            {
+                aiEnemy.MarkAsTarget(false);
+            }
+            targetEnemies.Clear();
         }
 
         cadencyTime += Time.deltaTime;
     }
 
-    private void HurtEnemies(AIEnemy enemy)
+    private void HurtEnemies()
     {
-        bool repeated = false;
-
-        foreach (AIEnemy damagedEnemy in damagedEnemies)
+        foreach (AIEnemy aiEnemy in targetEnemies)
         {
-            if (enemy == damagedEnemy)
-            {
-                repeated = true;
-                break;
-            }
+            aiEnemy.TakeDamage(damage, AttackType.STRONG);
         }
+        targetEnemies.Clear();
 
-        if (!repeated)
-        {
-            damagedEnemies.Add(enemy);
-            enemy.TakeDamage(damage, AttackType.STRONG);
-        }
+        cadencyTime = 0f;
+        meshCollider.enabled = false;
+        mRenderer.enabled = false;
     }
 
 	#endregion
