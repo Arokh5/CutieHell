@@ -24,26 +24,10 @@ GameObject:
   - component: {fileID: 81432992218196556}
   - component: {fileID: 114896511705891846}
   - component: {fileID: 114942734402132228}
-  - component: {fileID: 114190087488480054}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1852233294990714
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4000995128787070}
-  m_Layer: 0
-  m_Name: AttackSpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -67,19 +51,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4000995128787070
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1852233294990714}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4701428711814196}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4355689865544980
 Transform:
   m_ObjectHideFlags: 1
@@ -91,7 +62,7 @@ Transform:
   m_LocalScale: {x: 0.02, y: 0.08, z: 0.02}
   m_Children: []
   m_Father: {fileID: 4701428711814196}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!4 &4701428711814196
 Transform:
@@ -103,7 +74,6 @@ Transform:
   m_LocalPosition: {x: -9.192624, y: 3.37, z: 5.459627}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4000995128787070}
   - {fileID: 4355689865544980}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -221,19 +191,6 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1558515104831888}
   m_Enabled: 1
---- !u!114 &114190087488480054
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1558515104831888}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f1a18965cbb26d4986fb0d97ff2be40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainAttack: {fileID: 1247621087027588, guid: adec29cbc94218a4e8d6f6343d74ebb8, type: 2}
-  batAttack: {fileID: 1657675845699234, guid: 63f190b45c871e74a8ff2a66794fc3f2, type: 2}
 --- !u!114 &114594301022996558
 MonoBehaviour:
   m_ObjectHideFlags: 1

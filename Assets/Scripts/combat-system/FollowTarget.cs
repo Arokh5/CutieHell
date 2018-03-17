@@ -11,6 +11,9 @@ public class FollowTarget : MonoBehaviour
     [SerializeField]
     private int damage;
 
+    private Transform mainCamera;
+    private Vector3 camForwardDir;
+    private bool directionSet = false;
     private Transform enemy = null;
     private Vector3 hitPoint;
     private float time = 0;
@@ -32,6 +35,11 @@ public class FollowTarget : MonoBehaviour
     #endregion
 
     #region MonoBehaviour Methods
+
+    private void Awake()
+    {
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera").transform;
+    }
 
     private void Update()
     {
@@ -67,7 +75,13 @@ public class FollowTarget : MonoBehaviour
         }
         else
         {
-            transform.Translate(Vector3.forward * attackSpeed * Time.deltaTime);
+            if (!directionSet)
+            {
+                camForwardDir = transform.InverseTransformDirection(mainCamera.forward);
+                directionSet = true;
+            }
+            
+            transform.Translate(camForwardDir * attackSpeed * Time.deltaTime);
         }
     }
 
