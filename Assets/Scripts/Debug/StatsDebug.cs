@@ -63,14 +63,14 @@ public class StatsDebug : MonoBehaviour {
             string trisdisplay = tris.ToString("###,###,### tris");
             GUIStyle style = new GUIStyle(GUI.skin.label);
             style.fontSize = 30;
-            style.normal.textColor = Color.black;
+            style.normal.textColor = Color.white;
             GUILayout.Label(trisdisplay, style);
         }
         if (Show_Verts) {
             string vertsdisplay = verts.ToString("###,###,### verts");
             GUIStyle style = new GUIStyle(GUI.skin.label);
             style.fontSize = 30;
-            style.normal.textColor = Color.black;
+            style.normal.textColor = Color.white;
             GUILayout.Label(vertsdisplay, style);
         }
         GUILayout.EndArea();
