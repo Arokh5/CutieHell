@@ -62,12 +62,12 @@ public class FocusAttack : MonoBehaviour
 
                 if (Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, 100, layerMask.value))
                 {
-                    GetComponent<AttackController>().InstantiateAttack(hit.transform);
+                    GetComponent<AttackController>().InstantiateAttack(hit.transform, hit.point);
                     Debug.Log("Hit enemy");
                 }
                 else
                 {
-                    GetComponent<AttackController>().InstantiateAttack(null);
+                    GetComponent<AttackController>().InstantiateAttack(null, Vector3.zero);
                 }
 
                 time = 0f;

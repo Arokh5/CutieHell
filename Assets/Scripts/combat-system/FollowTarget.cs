@@ -12,6 +12,7 @@ public class FollowTarget : MonoBehaviour
     private int damage;
 
     private Transform enemy = null;
+    private Vector3 hitPoint;
     private float time = 0;
 
     #endregion
@@ -21,6 +22,11 @@ public class FollowTarget : MonoBehaviour
     public void SetEnemy(Transform enemy)
     {
         this.enemy = enemy;
+    }
+
+    public void SetHitPoint(Vector3 hitPoint)
+    {
+        this.hitPoint = hitPoint;
     }
 
     #endregion
@@ -54,7 +60,10 @@ public class FollowTarget : MonoBehaviour
     {
         if (enemy != null)
         {
-            transform.position = Vector3.MoveTowards(transform.position, enemy.position, attackSpeed * Time.deltaTime);
+            float yOffset = Mathf.Abs(enemy.position.y - hitPoint.y);
+            Vector3 hitPos = new Vector3(enemy.position.x, enemy.position.y + yOffset, enemy.position.z);
+
+            transform.position = Vector3.MoveTowards(transform.position, hitPos, attackSpeed * Time.deltaTime);
         }
         else
         {

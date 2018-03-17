@@ -23,12 +23,13 @@ public class AttackController : MonoBehaviour
 	
 	#region Public Methods
 	
-    public void InstantiateAttack(Transform enemy)
+    public void InstantiateAttack(Transform enemy, Vector3 hitPoint)
     {
         GameObject attack = (GameManager.instance.GetPlayer1().state == Player.PlayerStates.TURRET) ? batAttack : mainAttack;
 
         GameObject attackClone = Instantiate(attack, transform.GetChild(0).position, transform.rotation);
         attackClone.GetComponent<FollowTarget>().SetEnemy(enemy);
+        attackClone.GetComponent<FollowTarget>().SetHitPoint(hitPoint);
     }
 
 	#endregion
