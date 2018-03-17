@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -12,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private Player player;
+    [SerializeField]
+    private GameObject gameOverPanel;
 
     #endregion
 
@@ -37,6 +40,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameStates.OnGameEnd:
+                GoToTitleScreen();
                 break;
         }
     }
@@ -53,19 +57,30 @@ public class GameManager : MonoBehaviour
 
     public void OnGameWon()
     {
-        gameState = GameStates.OnStartMenu;
-        SceneManager.LoadScene("TitleScreen", LoadSceneMode.Single);
+        gameOverPanel.SetActive(true);
+        gameOverPanel.transform.GetChild(1).GetComponent<Text>().text = "YOU WIN!";
+        gameState = GameStates.OnGameEnd;
     }
 
     public void OnGameLost()
     {
-        gameState = GameStates.OnStartMenu;
-        SceneManager.LoadScene("TitleScreen", LoadSceneMode.Single);
+        gameOverPanel.SetActive(true);
+        gameOverPanel.transform.GetChild(1).GetComponent<Text>().text = "YOU LOSE!";
+        gameState = GameStates.OnGameEnd;
     }
 
     public Player GetPlayer1()
     {
         return player;
+    }
+
+    public void GoToTitleScreen()
+    {
+        if (InputManager.instance.GetXButtonDown())
+        {
+            gameState = GameStates.OnStartMenu;
+            SceneManager.LoadScene("TitleScreen", LoadSceneMode.Single);
+        }
     }
 
     #endregion
