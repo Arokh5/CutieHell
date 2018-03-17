@@ -108,7 +108,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4504046273204654}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4444819664441314
 Transform:
@@ -121,7 +121,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4504046273204654}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4504046273204654
 Transform:
@@ -133,9 +133,9 @@ Transform:
   m_LocalPosition: {x: -8.11, y: 0.5, z: 9.64}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4444819664441314}
   - {fileID: 4387418689309814}
   - {fileID: 224739185710059266}
+  - {fileID: 4444819664441314}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -256,6 +256,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainAttack: {fileID: 1247621087027588, guid: adec29cbc94218a4e8d6f6343d74ebb8, type: 2}
   batAttack: {fileID: 1657675845699234, guid: 63f190b45c871e74a8ff2a66794fc3f2, type: 2}
+  basicTrap: {fileID: 0}
 --- !u!114 &114386524282915284
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -359,7 +360,7 @@ RectTransform:
   m_Children:
   - {fileID: 224111177711927824}
   m_Father: {fileID: 4504046273204654}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

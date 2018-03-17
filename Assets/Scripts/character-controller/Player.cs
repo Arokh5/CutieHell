@@ -19,6 +19,7 @@ public class Player : MonoBehaviour {
     private Rigidbody rb;
     private Vector3 speedDirection;
     private GameObject[] traps;
+    private Vector3 initialBulletSpawnPointPos;
 
     [Header("Actual Trap")]
     public GameObject actualTrap;
@@ -32,6 +33,7 @@ public class Player : MonoBehaviour {
     private void Awake() 
     {
         state = PlayerStates.MOVE;
+        initialBulletSpawnPointPos = new Vector3(0.8972f, 1.3626f, 0.1209f);
     }
 
     void Start () 
@@ -69,6 +71,10 @@ public class Player : MonoBehaviour {
 
     public void StopTrapUse() 
     {
+        Transform bulletSpawnPoint = actualTrap.transform.GetChild(0);
+        bulletSpawnPoint.SetParent(transform);
+        bulletSpawnPoint.localPosition = initialBulletSpawnPointPos;
+        bulletSpawnPoint.rotation = Quaternion.identity;
         Trap trapScript = actualTrap.GetComponent<Trap>();
         trapScript.Deactivate();
         meshRenderer.enabled = true;
@@ -122,6 +128,8 @@ public class Player : MonoBehaviour {
                         if (trapScript.CanUse()) 
                         {
                             this.transform.position = traps[i].transform.position;
+                            transform.GetChild(2).SetParent(traps[i].transform);
+                            traps[i].transform.GetChild(0).localPosition = new Vector3(0f, 0.3f, 0.7f);
                             trapScript.Activate(this);
                             state = PlayerStates.TURRET;
                             meshRenderer.enabled = false;

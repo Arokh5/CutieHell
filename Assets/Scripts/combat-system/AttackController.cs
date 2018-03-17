@@ -10,6 +10,8 @@ public class AttackController : MonoBehaviour
     private GameObject mainAttack;
     [SerializeField]
     private GameObject batAttack;
+    [SerializeField]
+    private Transform basicTrap;
 
 	#endregion
 	
@@ -26,12 +28,12 @@ public class AttackController : MonoBehaviour
     public void InstantiateAttack(Transform enemy, Vector3 hitPoint)
     {
         GameObject attack = (GameManager.instance.GetPlayer1().state == Player.PlayerStates.TURRET) ? batAttack : mainAttack;
+        Vector3 spawningPos = (GameManager.instance.GetPlayer1().state == Player.PlayerStates.TURRET) ? basicTrap.GetChild(0).position : transform.GetChild(2).position;
 
-        GameObject attackClone = Instantiate(attack, transform.GetChild(0).position, transform.rotation);
+        GameObject attackClone = Instantiate(attack, spawningPos, transform.rotation);
         attackClone.GetComponent<FollowTarget>().SetEnemy(enemy);
         attackClone.GetComponent<FollowTarget>().SetHitPoint(hitPoint);
     }
 
 	#endregion
-	
 }
