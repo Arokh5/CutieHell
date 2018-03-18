@@ -129,6 +129,11 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     #endregion
 
     #region Public Methods
+    public float GetMaxHealth()
+    {
+        return baseHealth;
+    }
+
     // IDamageable
     public bool IsDead()
     {

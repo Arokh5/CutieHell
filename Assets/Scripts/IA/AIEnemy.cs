@@ -61,8 +61,10 @@ public class AIEnemy : MonoBehaviour, IDamageable
         // Motion through NavMeshAgent
         if (currentTarget)
         {
-            agent.SetDestination(currentTarget.transform.position);
-
+            if (agent.enabled)
+            {
+                agent.SetDestination(currentTarget.transform.position);
+            }
             attackLogic.AttemptAttack(currentTarget);
         }
 
@@ -76,6 +78,11 @@ public class AIEnemy : MonoBehaviour, IDamageable
     #endregion
 
     #region Public Methods
+    public AIZoneController GetZoneController()
+    {
+        return zoneController;
+    }
+
     // Called by AISpawner when instantiating an AIEnemy. This method should inform the ZoneController about this AIEnemy's creation
     public void SetZoneController(AIZoneController newZoneController)
     {
