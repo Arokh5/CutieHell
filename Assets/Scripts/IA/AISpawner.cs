@@ -6,7 +6,7 @@ public class AISpawner : MonoBehaviour {
 
     #region Fields
     [SerializeField]
-    private AIZoneController zonecontroller;
+    private AIZoneController zoneController;
     [SerializeField]
     private AISpawnController spawnController;
     [SerializeField]
@@ -41,7 +41,7 @@ public class AISpawner : MonoBehaviour {
                 Quaternion randomRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
 
                 AIEnemy instantiatedEnemy = Instantiate(enemyPrefab, randomPosition, randomRotation, spawnController.transform);
-                instantiatedEnemy.SetZoneController(zonecontroller);
+                instantiatedEnemy.SetZoneController(zoneController);
             }
 
             if (spawnInfo.nextSpawnIndex >= spawnInfo.enemiesToSpawn.Count)

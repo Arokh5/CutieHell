@@ -122,23 +122,26 @@ public class Player : MonoBehaviour {
     public void UseTrap() 
     {
         timeSinceLastTrapUse += Time.deltaTime;
-        if (actualTrap == null && state != PlayerStates.TURRET && timeSinceLastTrapUse > trapUseCooldown) 
+        if (actualTrap == null && state != PlayerStates.TURRET) 
         {
-            for (int i = 0; i < traps.Length; i++) 
+            if (timeSinceLastTrapUse > trapUseCooldown)
             {
-                if (Vector3.Distance(this.transform.position, traps[i].transform.position) < 3.0f) 
+                for (int i = 0; i < traps.Length; i++)
                 {
-                    if (InputManager.instance.GetXButtonDown()) 
+                    if (Vector3.Distance(this.transform.position, traps[i].transform.position) < 3.0f)
                     {
-                        Trap trapScript = traps[i].GetComponent<Trap>();
-                        if (trapScript.CanUse()) 
+                        if (InputManager.instance.GetXButtonDown())
                         {
-                            transform.GetChild(2).SetParent(traps[i].transform);
-                            traps[i].transform.GetChild(0).localPosition = new Vector3(0f, 0.3f, 0.7f);
-                            trapScript.Activate(this);
-                            state = PlayerStates.TURRET;
-                            meshRenderer.enabled = false;
-                            actualTrap = traps[i];
+                            Trap trapScript = traps[i].GetComponent<Trap>();
+                            if (trapScript.CanUse())
+                            {
+                                transform.GetChild(2).SetParent(traps[i].transform);
+                                traps[i].transform.GetChild(0).localPosition = new Vector3(0f, 0.3f, 0.7f);
+                                trapScript.Activate(this);
+                                state = PlayerStates.TURRET;
+                                meshRenderer.enabled = false;
+                                actualTrap = traps[i];
+                            }
                         }
                     }
                 }
