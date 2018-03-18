@@ -79,7 +79,7 @@ public class Player : MonoBehaviour {
         trapScript.Deactivate();
         meshRenderer.enabled = true;
         Vector3 nextPos = actualTrap.transform.forward * 3f;
-        this.transform.position = actualTrap.transform.position - new Vector3(nextPos.x, 0, nextPos.z);
+        this.transform.position = new Vector3(actualTrap.transform.position.x - nextPos.x, this.transform.position.y, actualTrap.transform.position.z - nextPos.z);
         actualTrap = null;
         state = PlayerStates.MOVE;
     }
@@ -127,7 +127,6 @@ public class Player : MonoBehaviour {
                         Trap trapScript = traps[i].GetComponent<Trap>();
                         if (trapScript.CanUse()) 
                         {
-                            this.transform.position = traps[i].transform.position;
                             transform.GetChild(2).SetParent(traps[i].transform);
                             traps[i].transform.GetChild(0).localPosition = new Vector3(0f, 0.3f, 0.7f);
                             trapScript.Activate(this);
