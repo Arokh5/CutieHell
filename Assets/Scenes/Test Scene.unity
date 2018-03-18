@@ -182,6 +182,23 @@ Transform:
   m_PrefabParentObject: {fileID: 4473051620570346, guid: eb4c50dffc1813641a89258147c00a72,
     type: 2}
   m_PrefabInternal: {fileID: 10095964}
+--- !u!1 &133538871 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1697076548964064, guid: 4aedfac906d9e3d4e8ab4a8d62b174a5,
+    type: 2}
+  m_PrefabInternal: {fileID: 1033940083}
+--- !u!65 &133538875
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 133538871}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.8423607, y: 0.08971721, z: 1.8061694}
+  m_Center: {x: -0.0348157, y: 0.031020602, z: -0.025345445}
 --- !u!1001 &174718481
 Prefab:
   m_ObjectHideFlags: 0
@@ -658,7 +675,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4739638542351880, guid: 4aedfac906d9e3d4e8ab4a8d62b174a5, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -4.2
+      value: -2.5
       objectReference: {fileID: 0}
     - target: {fileID: 4739638542351880, guid: 4aedfac906d9e3d4e8ab4a8d62b174a5, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2051,7 +2068,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f766371a38eee3f4897540cef5b2744e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scenario: {fileID: 0}
+  scenario: {fileID: 1337953829}
   elapsedTime: 0
   currentWaveIndex: 0
   wavesInfo:
@@ -2081,6 +2098,10 @@ MonoBehaviour:
     lastEnemySpawnTime: 0
   aiSpawners:
   - {fileID: 1112174741}
+  - {fileID: 1938014524}
+  - {fileID: 1138384362}
+  - {fileID: 204830959}
+  - {fileID: 1664801963}
   enemyTypes: 000000000100000002000000
   enemyPrefabs:
   - {fileID: 114618707455404838, guid: 25af1e6ba7fbb3e4dac1e5beaa521757, type: 2}
