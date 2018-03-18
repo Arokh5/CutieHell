@@ -46,13 +46,14 @@ public class AIZoneController : MonoBehaviour
     public void OnMonumentRepaired()
     {
         Debug.LogError("NOT IMPLEMENTED: AIZoneController::OnMonumentRepaired");
+        scenario.OnZoneRecovered();
     }
 
     // Called by Monument when it gets conquered. The method is meant to open the door
     public void OnMonumentTaken()
     {
         Debug.LogWarning("NOT FULLY IMPLEMENTED: AIZoneController::OnMonumentTaken");
-        GameManager.instance.OnGameLost();
+        scenario.OnZoneConquered();
     }
 
     // Called by Trap when it gets activated by Player
@@ -88,6 +89,11 @@ public class AIZoneController : MonoBehaviour
         if (!aiEnemies.Contains(aiEnemy))
         {
             aiEnemies.Add(aiEnemy);
+            /* If we just added a first enemy*/
+            if (aiEnemies.Count == 1)
+            {
+                scenario.OnZoneNotEmpty();
+            }
         }
     }
 
@@ -96,10 +102,21 @@ public class AIZoneController : MonoBehaviour
     {
         bool removed;
         removed = aiEnemies.Remove(aiEnemy);
-
-        CheckAllEnemiesAreDead();
-
+        if (aiEnemies.Count == 0)
+        {
+            scenario.OnZoneEmpty();
+        }
         return removed;
+    }
+
+    public void DestroyAllEnemies()
+    {
+        foreach (AIEnemy aiEnemy in aiEnemies)
+        {
+            Destroy(aiEnemy.gameObject);
+        }
+        aiEnemies.Clear();
+        scenario.OnZoneEmpty();
     }
     #endregion
 
@@ -109,23 +126,6 @@ public class AIZoneController : MonoBehaviour
         foreach (AIEnemy enemy in aiEnemies)
         {
             enemy.SetCurrentTarget(currentZoneTarget);
-        }
-    }
-
-    // Called by AIEnemy in its OnDestroy method to check wheter it was the lastEney or not and comunicate it to the ScenarioController
-    private void CheckAllEnemiesAreDead()
-    {
-        if (aiEnemies.Count == 0)
-        {
-            scenario.SetNoEnemiesAlive(true);
-            if (scenario.GetLastSpawnIsOver())
-            {
-                GameManager.instance.OnWaveWon();
-            }
-        }
-        else
-        {
-            scenario.SetNoEnemiesAlive(false);
         }
     }
     #endregion

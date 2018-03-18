@@ -75,7 +75,7 @@ public class AISpawnController : MonoBehaviour
 
             if (elapsedTime >= wavesInfo[currentWaveIndex].lastEnemySpawnTime)
             {
-                scenario.SetLastSpawnIsOver(true);
+                scenario.OnLastEnemySpawned();
             }
 
             if (elapsedTime > wavesInfo[currentWaveIndex].waveDuration)
@@ -128,7 +128,7 @@ public class AISpawnController : MonoBehaviour
         else
         {
             waveRunning = false;
-            GameManager.instance.OnWaveWon();
+            scenario.OnWaveTimeOver();
         }
     }
     #endregion

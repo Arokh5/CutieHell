@@ -7,6 +7,21 @@ public class ScenarioController : MonoBehaviour
     #region Fields
     private bool lastSpawnIsOver;
     private bool noEnemiesAlive;
+
+    [SerializeField]
+    private List<AIZoneController> zoneControllers;
+    private int zonesWithEnemiesCount = 0;
+    private int zonesConqueredCount = 0;
+    #endregion
+
+    #region MonoBehaviour Methods
+    private void Awake()
+    {
+        if (zoneControllers == null)
+        {
+            zoneControllers = new List<AIZoneController>(GetComponentsInChildren<AIZoneController>());
+        }
+    }
     #endregion
 
     #region Public Methods
@@ -17,22 +32,46 @@ public class ScenarioController : MonoBehaviour
         return null;
     }
 
-    public bool GetLastSpawnIsOver()
+    public void OnWaveTimeOver()
     {
-        return lastSpawnIsOver;
-    }
-    public void SetLastSpawnIsOver(bool lastSpawnIsOverValue)
-    {
-        lastSpawnIsOver = lastSpawnIsOverValue;
+        foreach (AIZoneController zoneController in zoneControllers)
+        {
+            zoneController.DestroyAllEnemies();
+        }
+        /* Destroying all enemies of each zoneController will cause calls to OnZoneEmpty. the last call will trigger an GameManager::OnWaveWon */
     }
 
-    public bool GetNoEnemiesAlive()
+    public void OnLastEnemySpawned()
     {
-        return noEnemiesAlive;
+        lastSpawnIsOver = true;
     }
-    public void SetNoEnemiesAlive(bool noEnemiesAliveValue)
+
+    public void OnZoneConquered()
     {
-        noEnemiesAlive = noEnemiesAliveValue;
+        ++zonesConqueredCount;
+        if (zonesConqueredCount == zoneControllers.Count)
+        {
+            GameManager.instance.OnGameLost();
+        }
+    }
+
+    public void OnZoneRecovered()
+    {
+        --zonesConqueredCount;
+    }
+
+    public void OnZoneEmpty()
+    {
+        --zonesWithEnemiesCount;
+        if (lastSpawnIsOver && zonesWithEnemiesCount == 0)
+        {
+            GameManager.instance.OnWaveWon();
+        }
+    }
+
+    public void OnZoneNotEmpty()
+    {
+        ++zonesWithEnemiesCount;
     }
     #endregion
 }
