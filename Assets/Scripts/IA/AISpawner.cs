@@ -28,20 +28,7 @@ public class AISpawner : MonoBehaviour {
             if (spawnInfo.elapsedTime >= spawnInfo.nextSpawnTime)
             {
                 EnemyType enemyType = spawnInfo.enemiesToSpawn[spawnInfo.nextSpawnIndex];
-                ++spawnInfo.nextSpawnIndex;
-                spawnInfo.nextSpawnTime = spawnInfo.nextSpawnIndex * spawnInfo.spawnDuration / spawnInfo.enemiesToSpawn.Count;
-
-                AIEnemy enemyPrefab = spawnController.enemies[enemyType];
-                Vector3 randomPosition = new Vector3(
-                    Random.Range( 0.5f * -spawnerArea.x, 0.5f * spawnerArea.x),
-                    Random.Range( 0.5f * -spawnerArea.y, 0.5f * spawnerArea.y),
-                    Random.Range( 0.5f * -spawnerArea.z, 0.5f * spawnerArea.z)
-                );
-                randomPosition += transform.position;
-                Quaternion randomRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
-
-                AIEnemy instantiatedEnemy = Instantiate(enemyPrefab, randomPosition, randomRotation, spawnController.transform);
-                instantiatedEnemy.SetZoneController(zoneController);
+                SpawnEnemy(spawnInfo, enemyType);
             }
 
             if (spawnInfo.nextSpawnIndex >= spawnInfo.enemiesToSpawn.Count)
@@ -72,6 +59,25 @@ public class AISpawner : MonoBehaviour {
             spawnInfo.nextSpawnIndex = 0;
             spawnInfo.nextSpawnTime = (spawnInfo.nextSpawnIndex + 1) * spawnInfo.spawnDuration / spawnInfo.enemiesToSpawn.Count;
         }
+    }
+    #endregion
+
+    #region Private methods
+    void SpawnEnemy (SpawnInfo spawnInfo, EnemyType enemyType)
+    {
+        ++spawnInfo.nextSpawnIndex;
+        spawnInfo.nextSpawnTime = spawnInfo.nextSpawnIndex * spawnInfo.spawnDuration / spawnInfo.enemiesToSpawn.Count;
+
+        AIEnemy enemyPrefab = spawnController.enemies[enemyType];
+        Vector3 randomPosition = new Vector3(
+            Random.Range(0.5f * -spawnerArea.x, 0.5f * spawnerArea.x),
+            Random.Range(0.5f * -spawnerArea.y, 0.5f * spawnerArea.y),
+            Random.Range(0.5f * -spawnerArea.z, 0.5f * spawnerArea.z)
+        );
+        randomPosition += transform.position;
+
+        AIEnemy instantiatedEnemy = Instantiate(enemyPrefab, randomPosition, Quaternion.LookRotation(transform.forward, transform.up), spawnController.transform);
+        instantiatedEnemy.SetZoneController(zoneController);
     }
     #endregion
 }

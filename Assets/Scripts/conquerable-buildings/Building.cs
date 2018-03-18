@@ -39,6 +39,8 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     [Tooltip("The duration (in seconds) that the dark to cute conversion takes.")]
     [SerializeField]
     private float conquerEffectDuration = 1;
+    [ShowOnly]
+    public GameObject attachedConqueror;
 
     private float underAttackElapsedTime = 0;
     private float conquerEffectElapsedTime = 0;
@@ -170,7 +172,15 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     // IRepairable
     public virtual void FullRepair()
     {
-        currentHealth = baseHealth;
+        Debug.LogWarning("REMINDER: To prevent: Repairing a building while it's losing health due to a conqueror " +
+            "will cause the conqueror to finish its attack without fully conquering the trap!");
+
+        if (currentHealth == 0 && attachedConqueror)
+        {
+            Destroy(attachedConqueror);
+        }
+
+        currentHealth = baseHealth;       
 
         AdjustMaterials();
 

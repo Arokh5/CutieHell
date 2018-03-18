@@ -22,7 +22,7 @@ public class AIAttackConquer : AIAttackLogic {
     [SerializeField]
     private Renderer alternateModelRenderer;
     [SerializeField]
-    private Transform postConquestProp;
+    private GameObject postConquestProp;
 
     private NavMeshAgent navMeshAgent;
     private AIEnemy aiEnemy;
@@ -47,7 +47,8 @@ public class AIAttackConquer : AIAttackLogic {
 
         if (converted)
         {
-            Instantiate(postConquestProp, transform.position, transform.rotation);
+            GameObject prop = Instantiate(postConquestProp, transform.position, transform.rotation);
+            targetInConquest.attachedConqueror = prop;
             aiEnemy.GetZoneController().RemoveEnemy(aiEnemy);
             Destroy(gameObject);
         }
@@ -86,9 +87,10 @@ public class AIAttackConquer : AIAttackLogic {
     {
         if (!targetInConquest)
         {
-            if (Vector3.Distance(transform.position, target.transform.position) < attackRange)
+            if (target.attachedConqueror == null && Vector3.Distance(transform.position, target.transform.position) < attackRange)
             {
                 targetInConquest = target;
+                target.attachedConqueror = gameObject;
                 inTransformationAnimation = true;
                 elapsedTime = 0;
                 navMeshAgent.enabled = false;
