@@ -83,6 +83,10 @@ public class InitGame : MonoBehaviour
                     break;
 
                 case 2:
+                    SceneManager.LoadScene("CreditsScreen", LoadSceneMode.Single);
+                    break;
+
+                case 3:
                     Application.Quit();
                     break;
             }
