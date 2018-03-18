@@ -8,8 +8,11 @@ public class InitGame : MonoBehaviour
 
     [SerializeField]
     private GameObject[] buttons;
+    [SerializeField]
+    private GameObject controlsList;
 
     private int index = 0;
+    private bool showControls = false;
 
 	#endregion
 	
@@ -25,14 +28,18 @@ public class InitGame : MonoBehaviour
         PressButton();
     }
 
-	#endregion
-	
-	#region Public Methods
-	
-	#endregion
-	
-	#region Private Methods
-	
+    #endregion
+
+    #region Public Methods
+
+    #endregion
+
+    #region Private Methods
+
+    private void Start() {
+        controlsList.SetActive(showControls);
+    }
+
     private void ToggleBetweenButtons()
     {
         if (InputManager.instance.GetPadDownDown() || InputManager.instance.GetLeftStickDownDown())
@@ -78,6 +85,7 @@ public class InitGame : MonoBehaviour
                     break;
 
                 case 1:
+                    showControls = !showControls;
                     break;
 
                 case 2:
@@ -85,6 +93,8 @@ public class InitGame : MonoBehaviour
                     break;
             }
         }
+        controlsList.SetActive(showControls);
+
     }
 
 	#endregion
