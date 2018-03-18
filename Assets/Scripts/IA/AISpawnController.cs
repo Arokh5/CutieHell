@@ -104,7 +104,7 @@ public class AISpawnController : MonoBehaviour
         else
         {
             waveRunning = false;
-            if (GameManager.instance.gameState == GameManager.GameStates.InGame) GameManager.instance.OnWaveWon();
+            GameManager.instance.OnWaveWon();
         }
     }
     #endregion

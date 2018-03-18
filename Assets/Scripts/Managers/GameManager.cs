@@ -51,22 +51,31 @@ public class GameManager : MonoBehaviour
 
     public void OnWaveWon()
     {
-        OnGameWon();
+        if (gameState == GameStates.InGame)
+        {
+            OnGameWon();
+        }
         Debug.LogError("Substitute the current OnGameWon for the own OnWaveWon logic");
     }
 
     public void OnGameWon()
     {
-        gameOverPanel.SetActive(true);
-        gameOverPanel.transform.GetChild(1).GetComponent<Text>().text = "YOU WIN!";
-        gameState = GameStates.OnGameEnd;
+        if (gameState == GameStates.InGame)
+        {
+            gameOverPanel.SetActive(true);
+            gameOverPanel.transform.GetChild(1).GetComponent<Text>().text = "YOU WIN!";
+            gameState = GameStates.OnGameEnd;
+        }
     }
 
     public void OnGameLost()
     {
-        gameOverPanel.SetActive(true);
-        gameOverPanel.transform.GetChild(1).GetComponent<Text>().text = "YOU LOSE!";
-        gameState = GameStates.OnGameEnd;
+        if (gameState == GameStates.InGame)
+        {
+            gameOverPanel.SetActive(true);
+            gameOverPanel.transform.GetChild(1).GetComponent<Text>().text = "YOU LOSE!";
+            gameState = GameStates.OnGameEnd;
+        }
     }
 
     public Player GetPlayer1()
