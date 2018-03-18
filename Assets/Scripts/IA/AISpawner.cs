@@ -70,8 +70,7 @@ public class AISpawner : MonoBehaviour {
             activeSpawnInfos.Add(spawnInfo);
             spawnInfo.elapsedTime = 0;
             spawnInfo.nextSpawnIndex = 0;
-            spawnInfo.nextSpawnTime = spawnInfo.nextSpawnIndex * spawnInfo.spawnDuration / spawnInfo.enemiesToSpawn.Count;
-            
+            spawnInfo.nextSpawnTime = (spawnInfo.nextSpawnIndex + 1) * spawnInfo.spawnDuration / spawnInfo.enemiesToSpawn.Count;
         }
     }
     #endregion
