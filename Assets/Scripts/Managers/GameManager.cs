@@ -62,6 +62,8 @@ public class GameManager : MonoBehaviour
     {
         if (gameState == GameStates.InGame)
         {
+            GameObject crosshair = player.transform.Find("Canvas").Find("Crosshair").gameObject;
+            crosshair.SetActive(false);
             gameOverPanel.SetActive(true);
             gameOverPanel.transform.GetChild(1).GetComponent<Text>().text = "YOU WIN!";
             gameState = GameStates.OnGameEnd;
@@ -72,6 +74,8 @@ public class GameManager : MonoBehaviour
     {
         if (gameState == GameStates.InGame)
         {
+            GameObject crosshair = player.transform.Find("Canvas").Find("Crosshair").gameObject;
+            crosshair.SetActive(false);
             gameOverPanel.SetActive(true);
             gameOverPanel.transform.GetChild(1).GetComponent<Text>().text = "YOU LOSE!";
             gameState = GameStates.OnGameEnd;

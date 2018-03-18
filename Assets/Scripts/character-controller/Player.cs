@@ -20,9 +20,12 @@ public class Player : MonoBehaviour {
     private Vector3 speedDirection;
     private GameObject[] traps;
     private Vector3 initialBulletSpawnPointPos;
+    private float timeSinceLastTrapUse;
 
     [Header("Actual Trap")]
     public GameObject actualTrap;
+    [SerializeField]
+    private int trapUseCooldown = 10;
 
     [Header("Player States")]
     public PlayerStates state;
@@ -42,6 +45,7 @@ public class Player : MonoBehaviour {
         meshRenderer = this.GetComponentInChildren<MeshRenderer>();
         rb = this.GetComponent<Rigidbody>();
         ResetTrapList();
+        timeSinceLastTrapUse = trapUseCooldown;
     }
 
     private void Update() 
@@ -82,6 +86,7 @@ public class Player : MonoBehaviour {
         this.transform.position = new Vector3(actualTrap.transform.position.x - nextPos.x, this.transform.position.y, actualTrap.transform.position.z - nextPos.z);
         actualTrap = null;
         state = PlayerStates.MOVE;
+        timeSinceLastTrapUse = 0f;
     }
 
     private void MovePlayer() 
@@ -116,7 +121,8 @@ public class Player : MonoBehaviour {
 
     public void UseTrap() 
     {
-        if (actualTrap == null && state != PlayerStates.TURRET) 
+        timeSinceLastTrapUse += Time.deltaTime;
+        if (actualTrap == null && state != PlayerStates.TURRET && timeSinceLastTrapUse > trapUseCooldown) 
         {
             for (int i = 0; i < traps.Length; i++) 
             {
