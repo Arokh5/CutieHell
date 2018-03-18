@@ -12,6 +12,7 @@ public class ScenarioController : MonoBehaviour
     private List<AIZoneController> zoneControllers;
     private int zonesWithEnemiesCount = 0;
     private int zonesConqueredCount = 0;
+    private bool waveEndTriggered = false;
     #endregion
 
     #region MonoBehaviour Methods
@@ -34,11 +35,15 @@ public class ScenarioController : MonoBehaviour
 
     public void OnWaveTimeOver()
     {
-        foreach (AIZoneController zoneController in zoneControllers)
+        if (!waveEndTriggered)
         {
-            zoneController.DestroyAllEnemies();
+            /* Destroying all enemies of each zoneController will cause calls to OnZoneEmpty. the last call will trigger an GameManager::OnWaveWon */
+            foreach (AIZoneController zoneController in zoneControllers)
+            {
+                zoneController.DestroyAllEnemies();
+            }
         }
-        /* Destroying all enemies of each zoneController will cause calls to OnZoneEmpty. the last call will trigger an GameManager::OnWaveWon */
+        
     }
 
     public void OnLastEnemySpawned()
@@ -49,9 +54,10 @@ public class ScenarioController : MonoBehaviour
     public void OnZoneConquered()
     {
         ++zonesConqueredCount;
-        if (zonesConqueredCount == zoneControllers.Count)
+        if (!waveEndTriggered && zonesConqueredCount == zoneControllers.Count)
         {
             GameManager.instance.OnGameLost();
+            waveEndTriggered = true;
         }
     }
 
@@ -63,9 +69,10 @@ public class ScenarioController : MonoBehaviour
     public void OnZoneEmpty()
     {
         --zonesWithEnemiesCount;
-        if (lastSpawnIsOver && zonesWithEnemiesCount == 0)
+        if (!waveEndTriggered &&  lastSpawnIsOver && zonesWithEnemiesCount == 0)
         {
             GameManager.instance.OnWaveWon();
+            waveEndTriggered = true;
         }
     }
 

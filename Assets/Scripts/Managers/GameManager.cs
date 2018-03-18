@@ -51,11 +51,11 @@ public class GameManager : MonoBehaviour
 
     public void OnWaveWon()
     {
+        Debug.LogError("Substitute the current OnGameWon for the own OnWaveWon logic");
         if (gameState == GameStates.InGame)
         {
             OnGameWon();
         }
-        Debug.LogError("Substitute the current OnGameWon for the own OnWaveWon logic");
     }
 
     public void OnGameWon()
