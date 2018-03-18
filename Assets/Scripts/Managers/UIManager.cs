@@ -11,9 +11,15 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     private GameObject evilnessBar;
+
+    private int currentWaveNumber = -1;
+    [SerializeField]
+    private Text waveNumberText;
+
+    [SerializeField]
+    private RadialProgressBar waveRadialProgressBar;
     [SerializeField]
     private List<RadialProgressBar> monumentsRadialProgressBars;
-
     [SerializeField]
     private List<RadialProgressBar> zone1TrapsRadialProgressBars;
 
@@ -69,12 +75,17 @@ public class UIManager : MonoBehaviour
     // Called by AISpawnController to move the Wave indicator forward
     public void SetWaveNumberAndProgress(int waveNumber, float normalizedProgress)
     {
-        Debug.LogError("NOT IMPLEMENTED:UIManager::SetWaveNumberAndProgress");
+        if (currentWaveNumber != waveNumber)
+        {
+            currentWaveNumber = waveNumber;
+            waveNumberText.text = "Wave: " + currentWaveNumber;
+        }
+        waveRadialProgressBar.SetNormalizedAmount(normalizedProgress);
     }
 
     #endregion
 
     #region Private Methods
-    
+
     #endregion
 }

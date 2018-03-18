@@ -240,26 +240,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
-        type: 2}
-      propertyPath: listRadialProgressBar.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
-        type: 2}
-      propertyPath: monumentsRadialProgressBar.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
-        type: 2}
-      propertyPath: monumentsRadialProgressBars.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
-        type: 2}
-      propertyPath: zone1TrapsRadialProgressBars.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4826908789460672, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -299,14 +279,14 @@ Prefab:
       objectReference: {fileID: 1089832577}
     - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
         type: 2}
-      propertyPath: listRadialProgressBar.Array.data[0]
+      propertyPath: waveNumberText
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1356088103}
     - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
         type: 2}
-      propertyPath: monumentsRadialProgressBar.Array.data[0]
+      propertyPath: waveRadialProgressBar
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1356088104}
     - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
         type: 2}
       propertyPath: monumentsRadialProgressBars.Array.data[0]
@@ -366,7 +346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35ee3c6c0cc97134d9f20eb6fbebbba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zonecontroller: {fileID: 2061369191}
+  zoneController: {fileID: 2061369191}
   spawnController: {fileID: 2110414889}
   spawnerArea: {x: 5, y: 0, z: 5}
   activeSpawnInfos: []
@@ -459,6 +439,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa57f1e41ebb95044a8771d987788efe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnController: {fileID: 0}
+  zoneControllers: []
 --- !u!1001 &1356088102
 Prefab:
   m_ObjectHideFlags: 0
@@ -559,6 +541,18 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a469ef08a24a81f49a590b2416f2fc2d, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1356088103 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114475705321330776, guid: a469ef08a24a81f49a590b2416f2fc2d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1356088102}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &1356088104 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114178360775422598, guid: a469ef08a24a81f49a590b2416f2fc2d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1356088102}
+  m_Script: {fileID: 11500000, guid: 24df0cff233dcc947afe0b0b96eff1c0, type: 3}
 --- !u!1 &1384049754
 GameObject:
   m_ObjectHideFlags: 0
@@ -1242,6 +1236,7 @@ MonoBehaviour:
       elapsedTime: 0
       nextSpawnTime: 0
       nextSpawnIndex: 0
+    lastEnemySpawnTime: 0
   aiSpawners:
   - {fileID: 1112174741}
   enemyTypes: 000000000100000002000000

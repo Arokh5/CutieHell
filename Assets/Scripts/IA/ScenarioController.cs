@@ -9,6 +9,8 @@ public class ScenarioController : MonoBehaviour
     private bool noEnemiesAlive;
 
     [SerializeField]
+    private AISpawnController spawnController;
+    [SerializeField]
     private List<AIZoneController> zoneControllers;
     private int zonesWithEnemiesCount = 0;
     private int zonesConqueredCount = 0;
@@ -18,10 +20,17 @@ public class ScenarioController : MonoBehaviour
     #region MonoBehaviour Methods
     private void Awake()
     {
-        if (zoneControllers == null)
+        if (spawnController == null)
+        {
+            spawnController = GetComponentInChildren<AISpawnController>();
+        }
+        UnityEngine.Assertions.Assert.IsNotNull(spawnController, "ERROR: No AISpawnController found by the ScenarioController in gameObject '" + gameObject.name + "'");
+
+        if (zoneControllers == null || zoneControllers.Count == 0)
         {
             zoneControllers = new List<AIZoneController>(GetComponentsInChildren<AIZoneController>());
         }
+        UnityEngine.Assertions.Assert.IsTrue(zoneControllers.Count > 0, "ERROR: No AIZoneControllers found by the ScenarioController in gameObject '" + gameObject.name + "'");
     }
     #endregion
 
@@ -57,6 +66,7 @@ public class ScenarioController : MonoBehaviour
         if (!waveEndTriggered && zonesConqueredCount == zoneControllers.Count)
         {
             GameManager.instance.OnGameLost();
+            spawnController.StopWave();
             waveEndTriggered = true;
         }
     }
@@ -72,6 +82,7 @@ public class ScenarioController : MonoBehaviour
         if (!waveEndTriggered &&  lastSpawnIsOver && zonesWithEnemiesCount == 0)
         {
             GameManager.instance.OnWaveWon();
+            spawnController.StopWave();
             waveEndTriggered = true;
         }
     }

@@ -61,9 +61,11 @@ public class AISpawnController : MonoBehaviour
 
         if (waveRunning)
         {
-            if (nextSpawnIndex < wavesInfo[currentWaveIndex].spawnInfos.Count)
+            WaveInfo currentWaveInfo = wavesInfo[currentWaveIndex];
+
+            if (nextSpawnIndex < currentWaveInfo.spawnInfos.Count)
             {
-                SpawnInfo spawnInfo = wavesInfo[currentWaveIndex].spawnInfos[nextSpawnIndex];
+                SpawnInfo spawnInfo = currentWaveInfo.spawnInfos[nextSpawnIndex];
                 if (elapsedTime >= spawnInfo.spawnTime)
                 {
                     AISpawner spawner = aiSpawners[spawnInfo.spawnerIndex];
@@ -73,16 +75,26 @@ public class AISpawnController : MonoBehaviour
             }
             elapsedTime += Time.deltaTime;
 
-            if (elapsedTime >= wavesInfo[currentWaveIndex].lastEnemySpawnTime)
+            /* Update UI */
+            UIManager.instance.SetWaveNumberAndProgress(currentWaveIndex + 1, elapsedTime / currentWaveInfo.waveDuration);
+
+            if (elapsedTime >= currentWaveInfo.lastEnemySpawnTime)
             {
                 scenario.OnLastEnemySpawned();
             }
 
-            if (elapsedTime > wavesInfo[currentWaveIndex].waveDuration)
+            if (elapsedTime > currentWaveInfo.waveDuration)
             {
                 WaveFinished();
             }
         }
+    }
+    #endregion
+
+    #region Public Methods
+    public void StopWave()
+    {
+        waveRunning = false;
     }
     #endregion
 
