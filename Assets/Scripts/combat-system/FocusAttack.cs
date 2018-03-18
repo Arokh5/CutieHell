@@ -12,6 +12,11 @@ public class FocusAttack : MonoBehaviour
     private float sphereCastRadius;
     [SerializeField]
     private float basicAttackCadency;
+    [SerializeField]
+    private float turretTrapCadency;
+    [SerializeField]
+    private Player player;
+
 
     private AIEnemy currentTarget = null;
     private RaycastHit hit;
@@ -49,7 +54,15 @@ public class FocusAttack : MonoBehaviour
 
         if (InputManager.instance.GetR2Button() && !InputManager.instance.GetL2Button())
         {
-            if (time >= basicAttackCadency)
+            float cadency = 0f;
+
+            if (player.state == Player.PlayerStates.MOVE)
+                cadency = basicAttackCadency;
+
+            if (player.state == Player.PlayerStates.TURRET)
+                cadency = turretTrapCadency;
+
+            if (time >= cadency)
             {
                 Debug.DrawRay(transform.position, transform.forward * 100, Color.red, 2);
 
