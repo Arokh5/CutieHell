@@ -102,6 +102,7 @@ public class StrongAttackDetection : MonoBehaviour
     {
         foreach (AIEnemy aiEnemy in targetEnemies)
         {
+            aiEnemy.MarkAsTarget(false);
             aiEnemy.TakeDamage(damage, AttackType.STRONG);
         }
         targetEnemies.Clear();
