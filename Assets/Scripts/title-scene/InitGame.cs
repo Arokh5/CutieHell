@@ -8,11 +8,8 @@ public class InitGame : MonoBehaviour
 
     [SerializeField]
     private GameObject[] buttons;
-    [SerializeField]
-    private GameObject controlsList;
 
     private int index = 0;
-    private bool showControls = false;
 
 	#endregion
 	
@@ -36,9 +33,6 @@ public class InitGame : MonoBehaviour
 
     #region Private Methods
 
-    private void Start() {
-        controlsList.SetActive(showControls);
-    }
 
     private void ToggleBetweenButtons()
     {
@@ -85,7 +79,7 @@ public class InitGame : MonoBehaviour
                     break;
 
                 case 1:
-                    showControls = !showControls;
+                    SceneManager.LoadScene("OptionsScreen", LoadSceneMode.Single);
                     break;
 
                 case 2:
@@ -93,7 +87,6 @@ public class InitGame : MonoBehaviour
                     break;
             }
         }
-        controlsList.SetActive(showControls);
 
     }
 
