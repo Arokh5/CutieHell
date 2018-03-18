@@ -13,22 +13,23 @@ public class AttackController : MonoBehaviour
     [SerializeField]
     private Transform basicTrap;
 
-	#endregion
-	
-	#region Properties
-	
     #endregion
-	
-	#region MonoBehaviour Methods
-	
-	#endregion
-	
-	#region Public Methods
-	
+
+    #region Properties
+
+    #endregion
+
+    #region MonoBehaviour Methods
+    
+    #endregion
+
+    #region Public Methods
+
     public void InstantiateAttack(Transform enemy, Vector3 hitPoint)
     {
-        GameObject attack = (GameManager.instance.GetPlayer1().state == Player.PlayerStates.TURRET) ? batAttack : mainAttack;
-        Vector3 spawningPos = (GameManager.instance.GetPlayer1().state == Player.PlayerStates.TURRET) ? basicTrap.GetChild(0).position : transform.GetChild(1).position;
+        Player player = GameManager.instance.GetPlayer1();
+        GameObject attack = (player.state == Player.PlayerStates.TURRET) ? batAttack : mainAttack;
+        Vector3 spawningPos = player.bulletSpawnPoint.position;
 
         GameObject attackClone = Instantiate(attack, spawningPos, transform.rotation);
         attackClone.GetComponent<FollowTarget>().SetEnemy(enemy);

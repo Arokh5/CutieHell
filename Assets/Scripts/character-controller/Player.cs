@@ -22,6 +22,10 @@ public class Player : MonoBehaviour {
     private Vector3 initialBulletSpawnPointPos;
     private float timeSinceLastTrapUse;
 
+    [Header("Attacks")]
+    [SerializeField]
+    public Transform bulletSpawnPoint;
+
     [Header("Actual Trap")]
     public GameObject actualTrap;
     [SerializeField]
@@ -75,7 +79,6 @@ public class Player : MonoBehaviour {
 
     public void StopTrapUse() 
     {
-        Transform bulletSpawnPoint = actualTrap.transform.GetChild(0);
         bulletSpawnPoint.SetParent(transform);
         bulletSpawnPoint.localPosition = initialBulletSpawnPointPos;
         bulletSpawnPoint.rotation = Quaternion.identity;
@@ -135,8 +138,8 @@ public class Player : MonoBehaviour {
                             Trap trapScript = traps[i].GetComponent<Trap>();
                             if (trapScript.CanUse())
                             {
-                                transform.GetChild(2).SetParent(traps[i].transform);
-                                traps[i].transform.GetChild(0).localPosition = new Vector3(0f, 0.3f, 0.7f);
+                                bulletSpawnPoint.SetParent(traps[i].transform);
+                                bulletSpawnPoint.localPosition = new Vector3(0f, 0.3f, 0.7f);
                                 trapScript.Activate(this);
                                 state = PlayerStates.TURRET;
                                 meshRenderer.enabled = false;
