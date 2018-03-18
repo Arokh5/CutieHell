@@ -86,13 +86,10 @@ public class Trap : Building, IUsable {
     protected override void BuildingKilled()
     {
         isActive = false;
+        /* Trap could be killed by a Conqueror after the player got off */
         if (player != null)
         {
             player.StopTrapUse();
-        }
-        else
-        {
-            Debug.LogError("Trap is still in testing mode using a null Player for activation!");
         }
         Deactivate();
     }

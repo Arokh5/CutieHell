@@ -21,30 +21,40 @@ public class AIAttackConquer : AIAttackLogic {
     private Renderer mainModelRenderer;
     [SerializeField]
     private Renderer alternateModelRenderer;
+    [SerializeField]
+    private Transform postConquestProp;
+
     private NavMeshAgent navMeshAgent;
     private AIEnemy aiEnemy;
+    private Building targetInConquest;
 
     #endregion
 
     #region MonoBehaviour Methods
     private void Awake()
     {
+        UnityEngine.Assertions.Assert.IsNotNull(postConquestProp, "ERROR: postConquestProp was not assigned in the Inspector for the AIAttackConquer script in GameOBject " + gameObject.name);
         aiEnemy = GetComponent<AIEnemy>();
         UnityEngine.Assertions.Assert.IsNotNull(aiEnemy, "ERROR: Can't find an AIEnemy script from the AIAttackConquer script in GameOBject " + gameObject.name);
         navMeshAgent = GetComponent<NavMeshAgent>();
         UnityEngine.Assertions.Assert.IsNotNull(navMeshAgent, "ERROR: Can't find a NavMeshAgent script from the AIAttackConquer script in GameOBject " + gameObject.name);
     }
-    #endregion
 
-    #region Public Methods
-    public override void AttemptAttack(Building target)
+    private void Update()
     {
-        if (converted)
+        if (!targetInConquest)
             return;
+
+        if (converted)
+        {
+            Instantiate(postConquestProp, transform.position, transform.rotation);
+            aiEnemy.GetZoneController().RemoveEnemy(aiEnemy);
+            Destroy(gameObject);
+        }
 
         if (inConquest)
         {
-            Attack(target);
+            Attack(targetInConquest);
             elapsedTime += Time.deltaTime;
             if (elapsedTime > conquestDuration)
             {
@@ -52,7 +62,6 @@ public class AIAttackConquer : AIAttackLogic {
                 inConquest = false;
                 elapsedTime = 0;
                 dps = 0;
-                aiEnemy.enabled = false;
             }
         }
         else if (inTransformationAnimation)
@@ -69,10 +78,17 @@ public class AIAttackConquer : AIAttackLogic {
                 }
             }
         }
-        else
+    }
+    #endregion
+
+    #region Public Methods
+    public override void AttemptAttack(Building target)
+    {
+        if (!targetInConquest)
         {
             if (Vector3.Distance(transform.position, target.transform.position) < attackRange)
             {
+                targetInConquest = target;
                 inTransformationAnimation = true;
                 elapsedTime = 0;
                 navMeshAgent.enabled = false;
