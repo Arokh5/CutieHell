@@ -28,7 +28,7 @@ public class AttackController : MonoBehaviour
     public void InstantiateAttack(Transform enemy, Vector3 hitPoint)
     {
         GameObject attack = (GameManager.instance.GetPlayer1().state == Player.PlayerStates.TURRET) ? batAttack : mainAttack;
-        Vector3 spawningPos = (GameManager.instance.GetPlayer1().state == Player.PlayerStates.TURRET) ? basicTrap.GetChild(0).position : transform.GetChild(2).position;
+        Vector3 spawningPos = (GameManager.instance.GetPlayer1().state == Player.PlayerStates.TURRET) ? basicTrap.GetChild(0).position : transform.GetChild(1).position;
 
         GameObject attackClone = Instantiate(attack, spawningPos, transform.rotation);
         attackClone.GetComponent<FollowTarget>().SetEnemy(enemy);
