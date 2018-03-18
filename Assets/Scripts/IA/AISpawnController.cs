@@ -7,7 +7,7 @@ public class AISpawnController : MonoBehaviour
 
     #region Fields
     [SerializeField]
-    GameObject scenario;
+    ScenarioController scenario;
     [SerializeField]
     [ShowOnly]
     private float elapsedTime;
@@ -22,6 +22,7 @@ public class AISpawnController : MonoBehaviour
     public List<AIEnemy> enemyPrefabs;
     public Dictionary<EnemyType, AIEnemy> enemies;
 
+    private bool validWavesInfo = true;
     private bool waveRunning = false;
     private int nextSpawnIndex;
 
@@ -35,7 +36,7 @@ public class AISpawnController : MonoBehaviour
     {
         if (!scenario)
         {
-            scenario = this.GetComponentInParent<ScenarioController>().gameObject;
+            scenario = GetComponentInParent<ScenarioController>();
             UnityEngine.Assertions.Assert.IsNotNull(scenario, "Error: Scenario not set for AISpawnController in gameObject '" + gameObject.name + "'");
         }
 
@@ -45,12 +46,12 @@ public class AISpawnController : MonoBehaviour
         {
             enemies.Add(enemyTypes[i], enemyPrefabs[i]);
         }
-        VerifyWaveInfos();
+        validWavesInfo = VerifyWaveInfos();
     }
 
     private void Update()
     {
-        if (startWave)
+        if (startWave && validWavesInfo)
         {
             startWave = false;
             waveRunning = true;
@@ -70,15 +71,12 @@ public class AISpawnController : MonoBehaviour
                     ++nextSpawnIndex;
                 }
             }
-            else
-            {
-                SpawnInfo spawnInfo = wavesInfo[currentWaveIndex].spawnInfos[nextSpawnIndex - 1];
-                if (elapsedTime > spawnInfo.spawnTime + spawnInfo.spawnDuration && elapsedTime < spawnInfo.spawnTime + spawnInfo.spawnDuration + Time.deltaTime * 10)
-                {
-                    scenario.GetComponent<ScenarioController>().SetLastSpawnIsOver(true);
-                }
-            }
             elapsedTime += Time.deltaTime;
+
+            if (elapsedTime >= wavesInfo[currentWaveIndex].lastEnemySpawnTime)
+            {
+                scenario.SetLastSpawnIsOver(true);
+            }
 
             if (elapsedTime > wavesInfo[currentWaveIndex].waveDuration)
             {
@@ -89,9 +87,35 @@ public class AISpawnController : MonoBehaviour
     #endregion
 
     #region Private Methods
-    void VerifyWaveInfos()
+    bool VerifyWaveInfos()
     {
-        Debug.LogError("NOT IMPLEMENTED: AISpawnController::VerifyWaveInfos");
+        for (int w = 0; w < wavesInfo.Count; ++w)
+        {
+            WaveInfo waveInfo = wavesInfo[w];
+            float lastSpawnTime = -1;
+            waveInfo.lastEnemySpawnTime = -1;
+            for (int s = 0; s < waveInfo.spawnInfos.Count; ++s)
+            {
+                SpawnInfo spawnInfo = waveInfo.spawnInfos[s];
+                if (spawnInfo.spawnTime < lastSpawnTime)
+                {
+                    Debug.LogError("ERROR: WavesInfo error on AISpawnController. In Wave " + w + ", SpawnInfo " + s + ", has a spawn time that is smaller than the previous SpawnInfo!");
+                    return false;
+                }
+                float lastEnemySpawnTime = spawnInfo.spawnTime + spawnInfo.spawnDuration;
+                if (lastEnemySpawnTime > waveInfo.lastEnemySpawnTime)
+                {
+                    waveInfo.lastEnemySpawnTime = lastEnemySpawnTime;
+                }
+            }
+
+            if (waveInfo.waveDuration <= waveInfo.lastEnemySpawnTime)
+            {
+                Debug.LogError("ERROR: WavesInfo error on AISpawnController. In Wave " + w + ", the last enemy would be spawned after the wave duration has finished!");
+                return false;
+            }
+        }
+        return true;
     }
 
     void WaveFinished()
