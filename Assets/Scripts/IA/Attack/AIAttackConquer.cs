@@ -1,22 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AIAttackConquer : AIAttackLogic {
 
     #region Fields
     public float attackRange;
-    public float dps;
-
-    [Tooltip("Duration expressed in seconds.")]
+    [Tooltip("Time it takes (in seconds) to shrink the base model and grow the flow model.")]
     public float animationDuration;
+    [Tooltip("Time it takes (in seconds) to fully conquest the Building AFTER the flower has fully grown.")]
+    public float conquestDuration;
+    private float dps;
 
-    private bool inAttackAnimation = false;
+    private bool inTransformationAnimation = false;
+    private bool inConquest = false;
+    private bool converted = false;
     private float elapsedTime = 0;
     [SerializeField]
     private Renderer mainModelRenderer;
     [SerializeField]
     private Renderer alternateModelRenderer;
+    private NavMeshAgent navMeshAgent;
     private AIEnemy aiEnemy;
 
     #endregion
@@ -25,14 +30,32 @@ public class AIAttackConquer : AIAttackLogic {
     private void Awake()
     {
         aiEnemy = GetComponent<AIEnemy>();
-        UnityEngine.Assertions.Assert.IsNotNull(aiEnemy, "ERROR: Can't find an AIEnemy script from the AiAttackConquer script in GameOBject " + gameObject.name);
+        UnityEngine.Assertions.Assert.IsNotNull(aiEnemy, "ERROR: Can't find an AIEnemy script from the AIAttackConquer script in GameOBject " + gameObject.name);
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        UnityEngine.Assertions.Assert.IsNotNull(navMeshAgent, "ERROR: Can't find a NavMeshAgent script from the AIAttackConquer script in GameOBject " + gameObject.name);
     }
     #endregion
 
     #region Public Methods
     public override void AttemptAttack(Building target)
     {
-        if (inAttackAnimation)
+        if (converted)
+            return;
+
+        if (inConquest)
+        {
+            Attack(target);
+            elapsedTime += Time.deltaTime;
+            if (elapsedTime > conquestDuration)
+            {
+                converted = true;
+                inConquest = false;
+                elapsedTime = 0;
+                dps = 0;
+                aiEnemy.enabled = false;
+            }
+        }
+        else if (inTransformationAnimation)
         {
             if (elapsedTime < animationDuration)
             {
@@ -40,7 +63,9 @@ public class AIAttackConquer : AIAttackLogic {
                 elapsedTime += Time.deltaTime;
                 if (elapsedTime >= animationDuration)
                 {
-                    Attack(target);
+                    inConquest = true;
+                    inTransformationAnimation = false;
+                    elapsedTime = 0;
                 }
             }
         }
@@ -48,9 +73,13 @@ public class AIAttackConquer : AIAttackLogic {
         {
             if (Vector3.Distance(transform.position, target.transform.position) < attackRange)
             {
-                inAttackAnimation = true;
+                inTransformationAnimation = true;
+                elapsedTime = 0;
+                navMeshAgent.enabled = false;
                 aiEnemy.SetIsTargetable(false);
                 mainModelRenderer.material.color = Color.cyan;
+                /* Now we calculate the actual dps */
+                dps = conquestDuration == 0 ? -1 : target.GetMaxHealth() / conquestDuration;
             }
         }
     }
@@ -76,7 +105,14 @@ public class AIAttackConquer : AIAttackLogic {
 
     private void Attack(Building target)
     {
-        target.TakeDamage(dps * Time.deltaTime, AttackType.ENEMY);
+        if (dps != -1)
+        {
+            target.TakeDamage(dps * Time.deltaTime, AttackType.ENEMY);
+        }
+        else
+        {
+            target.TakeDamage(target.GetMaxHealth(), AttackType.ENEMY);
+        }
     }
     #endregion
 }

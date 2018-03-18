@@ -61,8 +61,10 @@ public class AIEnemy : MonoBehaviour, IDamageable
         // Motion through NavMeshAgent
         if (currentTarget)
         {
-            agent.SetDestination(currentTarget.transform.position);
-
+            if (agent.enabled)
+            {
+                agent.SetDestination(currentTarget.transform.position);
+            }
             attackLogic.AttemptAttack(currentTarget);
         }
 
