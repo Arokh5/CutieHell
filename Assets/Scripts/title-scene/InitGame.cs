@@ -25,14 +25,15 @@ public class InitGame : MonoBehaviour
         PressButton();
     }
 
-	#endregion
-	
-	#region Public Methods
-	
-	#endregion
-	
-	#region Private Methods
-	
+    #endregion
+
+    #region Public Methods
+
+    #endregion
+
+    #region Private Methods
+
+
     private void ToggleBetweenButtons()
     {
         if (InputManager.instance.GetPadDownDown() || InputManager.instance.GetLeftStickDownDown())
@@ -78,6 +79,7 @@ public class InitGame : MonoBehaviour
                     break;
 
                 case 1:
+                    SceneManager.LoadScene("OptionsScreen", LoadSceneMode.Single);
                     break;
 
                 case 2:
@@ -85,6 +87,7 @@ public class InitGame : MonoBehaviour
                     break;
             }
         }
+
     }
 
 	#endregion
