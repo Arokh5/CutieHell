@@ -67,6 +67,11 @@ public class StrongAttackDetection : MonoBehaviour
 
     private void StrongAttackActivation()
     {
+        if (GameManager.instance.gameIsPaused)
+        {
+            return;
+        }
+
         if (cadencyTime >= strongAttackCadency && InputManager.instance.GetL2Button() && GameManager.instance.GetPlayer1().GetEvilLevel() >= Mathf.Abs(evilCost))
         {
             if (GameManager.instance.GetPlayer1().state != Player.PlayerStates.TURRET)

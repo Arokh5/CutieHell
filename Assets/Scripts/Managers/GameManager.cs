@@ -8,13 +8,22 @@ public class GameManager : MonoBehaviour
     #region Fields
 
     public static GameManager instance;
-    public enum GameStates { OnStartMenu, InGame, OnGameEnd };
+
+    public bool gameIsPaused;
+    private GameObject[] pauseButtons = new GameObject[2];
+    private int pauseIndex = 0;
+
+    public enum GameStates { OnStartMenu, InGame, OnGameEnd, OnGamePaused };
     public GameStates gameState;
 
     [SerializeField]
     private Player player;
     [SerializeField]
     private GameObject gameOverPanel;
+    [SerializeField]
+    private GameObject pauseMenu;
+
+    private GameObject crosshair;
 
     #endregion
 
@@ -26,6 +35,11 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        crosshair = GameObject.Find("Crosshair");
+        gameIsPaused = false;
+        pauseButtons[0] = pauseMenu.transform.GetChild(1).gameObject; //RestartGameBtn
+        pauseButtons[1] = pauseMenu.transform.GetChild(2).gameObject; //ExitTitleSreenBtn
+        instance = this;
         instance = this;
     }
 
@@ -37,10 +51,26 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameStates.InGame:
+
+                if (InputManager.instance.GetPS4OptionsDown())
+                {
+                    OnGamePaused();
+                }
                 break;
 
             case GameStates.OnGameEnd:
                 GoToTitleScreen();
+                break;
+
+            case GameStates.OnGamePaused:
+                if (InputManager.instance.GetPS4OptionsDown())
+                {
+                    ResumeGamePaused();
+                }
+                else
+                {
+                    HandlePause();
+                }
                 break;
         }
     }
@@ -62,7 +92,6 @@ public class GameManager : MonoBehaviour
     {
         if (gameState == GameStates.InGame)
         {
-            GameObject crosshair = GameObject.Find("Crosshair");
             crosshair.SetActive(false);
             gameOverPanel.SetActive(true);
             gameOverPanel.transform.GetChild(1).GetComponent<Text>().text = "YOU WIN!";
@@ -74,11 +103,38 @@ public class GameManager : MonoBehaviour
     {
         if (gameState == GameStates.InGame)
         {
-            GameObject crosshair = GameObject.Find("Crosshair");
             crosshair.SetActive(false);
             gameOverPanel.SetActive(true);
             gameOverPanel.transform.GetChild(1).GetComponent<Text>().text = "YOU LOSE!";
             gameState = GameStates.OnGameEnd;
+        }
+    }
+
+    public void OnGamePaused()
+    {
+        if (gameState == GameStates.InGame)
+        {
+            Time.timeScale = 0.0f;
+            crosshair.SetActive(false);
+            pauseMenu.SetActive(true);
+
+            gameIsPaused = true;
+
+            gameState = GameStates.OnGamePaused;
+        }
+    }
+
+    public void ResumeGamePaused()
+    {
+        if (gameState == GameStates.OnGamePaused)
+        {
+            crosshair.SetActive(true);
+            pauseMenu.SetActive(false);
+            Time.timeScale = 1.0f;
+
+            gameIsPaused = false;
+
+            gameState = GameStates.InGame;
         }
     }
 
@@ -89,16 +145,69 @@ public class GameManager : MonoBehaviour
 
     public void GoToTitleScreen()
     {
-        if (InputManager.instance.GetXButtonDown())
+        if (InputManager.instance.GetXButtonDown() || gameIsPaused)
         {
+            gameIsPaused = false;
             gameState = GameStates.OnStartMenu;
             SceneManager.LoadScene("TitleScreen", LoadSceneMode.Single);
         }
+    }
+
+    public void RestartGame()
+    {
+        gameIsPaused = false;
+        gameState = GameStates.InGame;
+        SceneManager.LoadScene("Garden Scene", LoadSceneMode.Single);
     }
 
     #endregion
 
     #region Private Methods
 
+    private void HandlePause()
+    {
+        if (InputManager.instance.GetPadDownDown() || InputManager.instance.GetLeftStickDownDown())
+        {
+            pauseButtons[pauseIndex].GetComponent<Outline>().enabled = false;
+            if (pauseIndex == pauseButtons.Length - 1)
+            {
+                pauseIndex = 0;
+            }
+            else
+            {
+                pauseIndex++;
+            }
+            pauseButtons[pauseIndex].GetComponent<Outline>().enabled = true;
+        }
+        else if (InputManager.instance.GetPadUpDown() || InputManager.instance.GetLeftStickUpDown())
+        {
+            pauseButtons[pauseIndex].GetComponent<Outline>().enabled = false;
+            if (pauseIndex == 0)
+            {
+                pauseIndex = pauseButtons.Length - 1;
+            }
+            else
+            {
+                pauseIndex--;
+            }
+            pauseButtons[pauseIndex].GetComponent<Outline>().enabled = true;
+        }
+
+        if (InputManager.instance.GetXButtonDown())
+        {
+            Time.timeScale = 1.0f;
+
+            switch (pauseIndex)
+            {
+                case 0:
+                    RestartGame();
+                    break;
+
+                case 1:
+                    gameState = GameStates.OnGameEnd;
+                    break;
+            }
+        }
+    }
     #endregion
 }

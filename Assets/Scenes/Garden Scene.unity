@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.06337484, g: 0.054631945, b: 0.17093112, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -89,7 +89,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 112000006, guid: 9a156f05df1562943b872395c5ce54ad,
+  m_LightingDataAsset: {fileID: 112000002, guid: 6cac001ceacc1e44a9f9fe6d82458ada,
     type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -3028,11 +3028,6 @@ MonoBehaviour:
   - {fileID: 114740570205452148, guid: 2e01eb15f009a7343bc25ce6fb74a6a4, type: 2}
   startWave: 1
   loopWaves: 0
---- !u!4 &464088714 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4444819664441314, guid: 182da881c3eee6548aa68ab299d1e64c,
-    type: 2}
-  m_PrefabInternal: {fileID: 613718701}
 --- !u!1 &468782353
 GameObject:
   m_ObjectHideFlags: 0
@@ -3229,9 +3224,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8f1269efa60b0449a042ce49db70d0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameIsPaused: 0
   gameState: 1
   player: {fileID: 214831664}
   gameOverPanel: {fileID: 397045763}
+  pauseMenu: {fileID: 1356088105}
 --- !u!114 &540122737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3791,7 +3788,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4504046273204654, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 3.48
+      value: 3.04
       objectReference: {fileID: 0}
     - target: {fileID: 4504046273204654, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
       propertyPath: m_LocalPosition.z
@@ -3822,11 +3819,6 @@ Prefab:
       propertyPath: basicTrap
       value: 
       objectReference: {fileID: 1718740723}
-    - target: {fileID: 114386524282915284, guid: 182da881c3eee6548aa68ab299d1e64c,
-        type: 2}
-      propertyPath: bulletSpawnPoint
-      value: 
-      objectReference: {fileID: 464088714}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
   m_IsPrefabParent: 0
@@ -8357,9 +8349,9 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1467483190669762, guid: a469ef08a24a81f49a590b2416f2fc2d, type: 2}
+    - target: {fileID: 1831141532368792, guid: a469ef08a24a81f49a590b2416f2fc2d, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a469ef08a24a81f49a590b2416f2fc2d, type: 2}
@@ -8376,6 +8368,11 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1356088102}
   m_Script: {fileID: 11500000, guid: 24df0cff233dcc947afe0b0b96eff1c0, type: 3}
+--- !u!1 &1356088105 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1831141532368792, guid: a469ef08a24a81f49a590b2416f2fc2d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1356088102}
 --- !u!1 &1357068453
 GameObject:
   m_ObjectHideFlags: 0

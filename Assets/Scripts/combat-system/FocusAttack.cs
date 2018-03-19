@@ -50,8 +50,13 @@ public class FocusAttack : MonoBehaviour
 
     private void FocusBasicAttack()
     {
-        time += Time.deltaTime;
+        if (GameManager.instance.gameIsPaused)
+        {
+            return;
+        }
 
+        time += Time.deltaTime;
+        
         if (InputManager.instance.GetR2Button() && !InputManager.instance.GetL2Button())
         {
             float cadency = 0f;
