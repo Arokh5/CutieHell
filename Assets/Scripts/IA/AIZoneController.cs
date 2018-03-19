@@ -123,9 +123,25 @@ public class AIZoneController : MonoBehaviour
     #region Private Methods
     private void OnTargetBuildingChanged()
     {
-        foreach (AIEnemy enemy in aiEnemies)
+        if (currentZoneTarget.attractionRadius != 0)
         {
-            enemy.SetCurrentTarget(currentZoneTarget);
+            foreach (AIEnemy enemy in aiEnemies)
+            {
+                if (currentZoneTarget.attractionRadius < 0)
+                {
+                    enemy.SetCurrentTarget(currentZoneTarget);
+                }
+                else
+                {
+                    /* Consider distance in XZ-Plane */
+                    Vector3 buildingToEnemy = enemy.transform.position - currentZoneTarget.transform.position;
+                    buildingToEnemy.y = 0;
+                    if (buildingToEnemy.sqrMagnitude < currentZoneTarget.attractionRadius * currentZoneTarget.attractionRadius)
+                    {
+                        enemy.SetCurrentTarget(currentZoneTarget);
+                    }
+                }
+            }
         }
     }
     #endregion
