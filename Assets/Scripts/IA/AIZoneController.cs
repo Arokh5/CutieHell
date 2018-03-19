@@ -71,9 +71,11 @@ public class AIZoneController : MonoBehaviour
     }
 
     // Called by AIEnemy when it finishes conquering a Building or when the trap it was attacking becomes inactive
-    public Building GetTargetBuilding()
+    public Building GetTargetBuilding(Transform location)
     {
-        if (currentZoneTarget)
+        Vector3 buildingToLocation = location.position - currentZoneTarget.transform.position;
+        buildingToLocation.y = 0;
+        if (buildingToLocation.sqrMagnitude < currentZoneTarget.attractionRadius * currentZoneTarget.attractionRadius)
         {
             return currentZoneTarget;
         }

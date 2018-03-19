@@ -131,7 +131,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     // Called by the Area-type Trap to retarget the AIEnemy after exploding
     public void UpdateTarget()
     {
-        currentTarget = zoneController.GetTargetBuilding();
+        currentTarget = zoneController.GetTargetBuilding(transform);
     }
 
     public bool MarkAsTarget(bool isTarget)
