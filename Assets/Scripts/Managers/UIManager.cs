@@ -23,6 +23,9 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private List<RadialProgressBar> zone1TrapsRadialProgressBars;
 
+    [SerializeField]
+    private GameObject repairTrapText;
+
     #endregion
 
     #region Properties
@@ -82,6 +85,16 @@ public class UIManager : MonoBehaviour
             waveNumberText.text = "Wave: " + currentWaveNumber;
         }
         waveRadialProgressBar.SetNormalizedAmount(normalizedProgress);
+    }
+
+    public void ShowRepairTrapText()
+    {
+        repairTrapText.SetActive(true);
+    }
+
+    public void HideRepairTrapText()
+    {
+        repairTrapText.SetActive(false);
     }
 
     #endregion

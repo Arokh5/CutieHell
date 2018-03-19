@@ -130,6 +130,7 @@ public class Player : MonoBehaviour {
 
     public void UseTrap() 
     {
+        UIManager.instance.HideRepairTrapText();
         timeSinceLastTrapUse += Time.deltaTime;
         if (actualTrap == null && state != PlayerStates.TURRET) 
         {
@@ -139,9 +140,9 @@ public class Player : MonoBehaviour {
                 {
                     if (Vector3.Distance(this.transform.position, traps[i].transform.position) < 3.0f)
                     {
+                        Trap trapScript = traps[i].GetComponent<Trap>();
                         if (InputManager.instance.GetXButtonDown())
                         {
-                            Trap trapScript = traps[i].GetComponent<Trap>();
                             if (trapScript.CanUse())
                             {
                                 bulletSpawnPoint.SetParent(traps[i].transform);
@@ -150,6 +151,17 @@ public class Player : MonoBehaviour {
                                 state = PlayerStates.TURRET;
                                 meshRenderer.enabled = false;
                                 actualTrap = traps[i];
+                            }
+                        }
+                        if (!trapScript.HasFullHealth() && trapScript.GetRepairCost() <= evilLevel)
+                        {
+                            UIManager.instance.ShowRepairTrapText();
+
+                            if (InputManager.instance.GetTriangleButtonDown())
+                            {
+                                SetEvilLevel(-trapScript.GetRepairCost());
+                                trapScript.FullRepair();
+                                UIManager.instance.HideRepairTrapText();
                             }
                         }
                     }

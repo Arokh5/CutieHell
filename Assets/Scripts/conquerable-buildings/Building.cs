@@ -201,7 +201,25 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     // IRepairable
     public int GetRepairCost()
     {
-        return fullRepairCost;
+        float normalizedDamageTaken = ( (baseHealth - currentHealth ) / baseHealth );
+
+        if (normalizedDamageTaken < 0.25f)
+        {
+            return fullRepairCost * 1/4;
+        }
+        else if (normalizedDamageTaken < 0.50f)
+        {
+            return fullRepairCost * 2/4;
+        }
+        else if (normalizedDamageTaken < 0.75f)
+        {
+            return fullRepairCost * 3/4;
+        }
+        else
+        {
+            return fullRepairCost;
+        }
+        
     }
     #endregion
 
