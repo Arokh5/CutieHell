@@ -5,9 +5,11 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
 
-    [Header("Speed Variabes")]
+    [Header("Movement Variabes")]
     public float maxSpeed = 10;
     public float acceleration = 50;
+    [SerializeField]
+    private Transform teleportPoint;
 
     [Header("Evilness")]
     [SerializeField]
@@ -55,6 +57,10 @@ public class Player : MonoBehaviour {
     private void Update() 
     {
         UseTrap();
+
+        if (InputManager.instance.GetL1ButtonDown())
+            transform.position = teleportPoint.position;
+
     }
 
     private void FixedUpdate() 
