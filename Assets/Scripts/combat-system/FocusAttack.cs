@@ -50,8 +50,13 @@ public class FocusAttack : MonoBehaviour
 
     private void FocusBasicAttack()
     {
-        time += Time.deltaTime;
+        if (GameManager.instance.gameIsPaused)
+        {
+            return;
+        }
 
+        time += Time.deltaTime;
+        
         if (InputManager.instance.GetR2Button() && !InputManager.instance.GetL2Button())
         {
             float cadency = 0f;
@@ -68,8 +73,15 @@ public class FocusAttack : MonoBehaviour
 
                 if (Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, 100, layerMask.value))
                 {
-                    GameManager.instance.GetPlayer1().GetComponent<AttackController>().InstantiateAttack(hit.transform, hit.point);
-                    //Debug.Log("Hit enemy");
+                    if (hit.transform.GetComponent<AIEnemy>())
+                    {
+                        GameManager.instance.GetPlayer1().GetComponent<AttackController>().InstantiateAttack(hit.transform, hit.point);
+                        //Debug.Log("Hit enemy");
+                    }
+                    else
+                    {
+                        GameManager.instance.GetPlayer1().GetComponent<AttackController>().InstantiateAttack(null, Vector3.zero);
+                    }
                 }
                 else
                 {

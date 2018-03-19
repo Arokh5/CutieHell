@@ -82,7 +82,7 @@ public class CameraController : MonoBehaviour {
 
     private void RotateCamera()
     {
-        if(!GameManager.gameIsPaused)
+        if(!GameManager.instance.gameIsPaused)
         {
             if (InputManager.instance.GetRightStickLeft() || InputManager.instance.GetRightStickRight())
                 x += xSpeed * InputManager.instance.GetRightStickLeftValue();

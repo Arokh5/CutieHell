@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.06337484, g: 0.054631945, b: 0.17093112, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -89,7 +89,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 112000006, guid: 9a156f05df1562943b872395c5ce54ad,
+  m_LightingDataAsset: {fileID: 112000004, guid: 17d2fb7e54e646a4c99d5e91a33d6bef,
     type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -125,6 +125,11 @@ GameObject:
   m_PrefabParentObject: {fileID: 1996623288143964, guid: a469ef08a24a81f49a590b2416f2fc2d,
     type: 2}
   m_PrefabInternal: {fileID: 1356088102}
+--- !u!4 &449410197 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4444819664441314, guid: 182da881c3eee6548aa68ab299d1e64c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1225579334}
 --- !u!1001 &497415912
 Prefab:
   m_ObjectHideFlags: 0
@@ -213,6 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8f1269efa60b0449a042ce49db70d0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameIsPaused: 0
   gameState: 1
   player: {fileID: 214831664}
   gameOverPanel: {fileID: 397045763}
@@ -400,6 +406,11 @@ Prefab:
       propertyPath: trapUseCooldown
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114386524282915284, guid: 182da881c3eee6548aa68ab299d1e64c,
+        type: 2}
+      propertyPath: bulletSpawnPoint
+      value: 
+      objectReference: {fileID: 449410197}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
   m_IsPrefabParent: 0
@@ -561,7 +572,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24df0cff233dcc947afe0b0b96eff1c0, type: 3}
 --- !u!1 &1356088105 stripped
 GameObject:
-  m_PrefabParentObject: {fileID: 1904419250501976, guid: a469ef08a24a81f49a590b2416f2fc2d,
+  m_PrefabParentObject: {fileID: 1831141532368792, guid: a469ef08a24a81f49a590b2416f2fc2d,
     type: 2}
   m_PrefabInternal: {fileID: 1356088102}
 --- !u!1 &1384049754
@@ -1109,9 +1120,9 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.33333334
+  m_VoxelSize: 0.23333333
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: b8cfbc380477e1242ae71188fb22f01f, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 1ebd99d03c74a124a9b487f5fc71963a, type: 2}
 --- !u!114 &2061369193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1137,9 +1148,9 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.26666668
+  m_VoxelSize: 0.23333333
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: 168fcb9105646a84293ce8c7b852add1, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 1a07db713969cf144bc4e721f3a26abf, type: 2}
 --- !u!4 &2061369195
 Transform:
   m_ObjectHideFlags: 0
@@ -1183,7 +1194,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.23333333
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: 7846c3f91bb94fb4685b385c5e78dbb7, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: e447a41b6a9a29945b82237ae2c5724c, type: 2}
 --- !u!1 &2110414887
 GameObject:
   m_ObjectHideFlags: 0

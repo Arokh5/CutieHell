@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 4772001068405164}
   - component: {fileID: 33593319602250614}
   - component: {fileID: 23852908311771770}
+  - component: {fileID: 136173406567779082}
   m_Layer: 0
   m_Name: Building
   m_TagString: Untagged
@@ -153,7 +154,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4248980007503370}
   - component: {fileID: 33508847985568518}
-  - component: {fileID: 64655333030321300}
   - component: {fileID: 23727109569774930}
   m_Layer: 0
   m_Name: Area of Effect
@@ -239,7 +239,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1322869400541654}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15, y: 0, z: 15}
+  m_LocalPosition: {x: -0.18, y: 3.08, z: 26.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4772001068405164}
@@ -605,20 +605,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1236176720464054}
   m_Mesh: {fileID: 4300000, guid: fd56d3fb73a2c06498112a166e9aa42c, type: 3}
---- !u!64 &64655333030321300
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1682747309024618}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &114026547309153366
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -644,6 +630,7 @@ MonoBehaviour:
   - {fileID: 114878777246952102}
   underAttackStateDuration: 2
   conquerEffectDuration: 0.75
+  attachedConqueror: {fileID: 0}
   shakeAmplitude: 0.05
   shakeSpeed: 5
   reset: 0
@@ -682,3 +669,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   convertionDuration: 0.5
+--- !u!136 &136173406567779082
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1292524240094754}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.382857
+  m_Height: 4
+  m_Direction: 1
+  m_Center: {x: 0.00000017881393, y: 0.6296663, z: -0.47119212}

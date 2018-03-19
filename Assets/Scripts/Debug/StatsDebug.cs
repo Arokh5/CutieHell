@@ -94,8 +94,11 @@ public class StatsDebug : MonoBehaviour {
         Component[] filters;
         filters = obj.GetComponentsInChildren<MeshFilter>();
         foreach (MeshFilter f in filters) {
-            tris += f.sharedMesh.triangles.Length / 3;
-            verts += f.sharedMesh.vertexCount;
+            if (f.sharedMesh)
+            {
+                tris += f.sharedMesh.triangles.Length / 3;
+                verts += f.sharedMesh.vertexCount;
+            }
         }
     }
 }

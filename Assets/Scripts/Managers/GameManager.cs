@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
 
-    public static bool gameIsPaused;
+    public bool gameIsPaused;
     private GameObject[] pauseButtons = new GameObject[2];
     private int pauseIndex = 0;
 
@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject pauseMenu;
 
+    private GameObject crosshair;
+
     #endregion
 
     #region Properties
@@ -33,6 +35,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        crosshair = GameObject.Find("Crosshair");
         gameIsPaused = false;
         pauseButtons[0] = pauseMenu.transform.GetChild(1).gameObject; //RestartGameBtn
         pauseButtons[1] = pauseMenu.transform.GetChild(2).gameObject; //ExitTitleSreenBtn
@@ -89,7 +92,6 @@ public class GameManager : MonoBehaviour
     {
         if (gameState == GameStates.InGame)
         {
-            GameObject crosshair = player.transform.Find("Canvas").Find("Crosshair").gameObject;
             crosshair.SetActive(false);
             gameOverPanel.SetActive(true);
             gameOverPanel.transform.GetChild(1).GetComponent<Text>().text = "YOU WIN!";
@@ -101,7 +103,6 @@ public class GameManager : MonoBehaviour
     {
         if (gameState == GameStates.InGame)
         {
-            GameObject crosshair = player.transform.Find("Canvas").Find("Crosshair").gameObject;
             crosshair.SetActive(false);
             gameOverPanel.SetActive(true);
             gameOverPanel.transform.GetChild(1).GetComponent<Text>().text = "YOU LOSE!";
@@ -114,7 +115,6 @@ public class GameManager : MonoBehaviour
         if (gameState == GameStates.InGame)
         {
             Time.timeScale = 0.0f;
-            GameObject crosshair = player.transform.Find("Canvas").Find("Crosshair").gameObject;
             crosshair.SetActive(false);
             pauseMenu.SetActive(true);
 
@@ -128,7 +128,6 @@ public class GameManager : MonoBehaviour
     {
         if (gameState == GameStates.OnGamePaused)
         {
-            GameObject crosshair = player.transform.Find("Canvas").Find("Crosshair").gameObject;
             crosshair.SetActive(true);
             pauseMenu.SetActive(false);
             Time.timeScale = 1.0f;
@@ -158,7 +157,7 @@ public class GameManager : MonoBehaviour
     {
         gameIsPaused = false;
         gameState = GameStates.InGame;
-        SceneManager.LoadScene("Test Scene", LoadSceneMode.Single);
+        SceneManager.LoadScene("Garden Scene", LoadSceneMode.Single);
     }
 
     #endregion
