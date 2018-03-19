@@ -134,7 +134,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1399357589262498
 GameObject:
   m_ObjectHideFlags: 1
@@ -210,7 +210,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1135769280871330}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -407.1454, y: -175.59474, z: 8.493393}
+  m_LocalPosition: {x: -381.9619, y: -162.76993, z: 0.4685212}
   m_LocalScale: {x: 0.8810573, y: 0.88105774, z: 0.88105774}
   m_Children: []
   m_Father: {fileID: 224760219708366330}
@@ -298,7 +298,19 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 'Distance : 2.8
+
+    CameraX : 0.45
+
+    CameraY : 1.8
+
+    Focus Distance0.65
+
+    FocusX : 0.55
+
+    FocusY : 1.65
+
+    FOV : 60'
 --- !u!114 &114266013611426490
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -377,7 +389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2f102ea5cdc7394bb194bf1cef8eeaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Show_Stats: 1
+  Show_Stats: 0
   Show_FPS: 1
   Show_Tris: 1
   Show_Verts: 1
@@ -452,7 +464,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -517,7 +529,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -909,7 +921,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -75, y: 28.000015}
+  m_AnchoredPosition: {x: -75, y: 0}
   m_SizeDelta: {x: 233.11, y: 350}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224907032943651188
