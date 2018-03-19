@@ -7,13 +7,14 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: GA_Fountain_Water_Hell
-  m_Shader: {fileID: 4800000, guid: c5617dffeb9944fa3a50334e9f9f8c5e, type: 3}
-  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _GLOSSYREFLECTIONS_OFF
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _GLOSSYREFLECTIONS_OFF _NORMALMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 3000
+  stringTagMap:
+    RenderType: Transparent
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -75,7 +76,7 @@ Material:
     - _FresnelScale: 0.15
     - _GerstnerIntensity: 1
     - _GlossMapScale: 1
-    - _Glossiness: 0.206
+    - _Glossiness: 0.242
     - _GlossyReflections: 0
     - _MaxTreshold: 0
     - _Metallic: 0.735
@@ -100,7 +101,7 @@ Material:
     - _BaseColor: {r: 0.43744594, g: 0.523704, b: 0.6397059, a: 0.5}
     - _BumpDirection: {r: 1, g: 1, b: -1, a: 1}
     - _BumpTiling: {r: 0.2, g: 0.2, b: 0.2, a: 0.2}
-    - _Color: {r: 0, g: 0.1355969, b: 0.24264705, a: 1}
+    - _Color: {r: 0.56228375, g: 0.7822359, b: 0.9558824, a: 1}
     - _DistortParams: {r: 1, g: 1, b: 2, a: 1.15}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _GAmplitude: {r: 0.1, g: 0.1, b: 0.1, a: -0.26}

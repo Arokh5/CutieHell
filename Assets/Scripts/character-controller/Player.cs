@@ -58,7 +58,7 @@ public class Player : MonoBehaviour {
     {
         UseTrap();
 
-        if (InputManager.instance.GetL1ButtonDown())
+        if (InputManager.instance.GetL1ButtonDown() && state == PlayerStates.MOVE)
             transform.position = teleportPoint.position;
 
     }
