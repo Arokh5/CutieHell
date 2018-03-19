@@ -13,7 +13,7 @@ public class Player : MonoBehaviour {
 
     [Header("Evilness")]
     [SerializeField]
-    private int maxEvilLevel = 20;
+    private int maxEvilLevel = 50;
     [SerializeField]
     [ShowOnly]
     private int evilLevel;
