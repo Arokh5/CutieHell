@@ -75,7 +75,7 @@ public class InitGame : MonoBehaviour
             switch (index)
             {
                 case 0:
-                    SceneManager.LoadScene("Test Scene", LoadSceneMode.Single);
+                    SceneManager.LoadScene("Garden Scene", LoadSceneMode.Single);
                     break;
 
                 case 1:
