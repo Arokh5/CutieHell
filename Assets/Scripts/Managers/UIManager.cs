@@ -50,6 +50,7 @@ public class UIManager : MonoBehaviour
     {
         Debug.LogError("NOT IMPLEMENTED:UIManager::SetEvilBarMaxValue");
     }
+
     // Called by ZonesConnection when the connection gets opened
     public void ZoneConnectionOpened(int zoneConnectionID)
     {
