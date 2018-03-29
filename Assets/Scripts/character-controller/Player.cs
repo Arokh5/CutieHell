@@ -9,7 +9,9 @@ public class Player : MonoBehaviour {
     public float maxSpeed = 10;
     public float acceleration = 50;
     [SerializeField]
-    private Transform teleportPoint;
+    private Transform centerTeleportPoint;
+    [SerializeField]
+    private Transform statueTeleportPoint;
 
     [Header("Evilness")]
     [SerializeField]
@@ -59,7 +61,10 @@ public class Player : MonoBehaviour {
         UseTrap();
 
         if (InputManager.instance.GetL1ButtonDown() && state == PlayerStates.MOVE)
-            transform.position = teleportPoint.position;
+            transform.position = statueTeleportPoint.position;
+
+        if (InputManager.instance.GetR1ButtonDown() && state == PlayerStates.MOVE)
+            transform.position = centerTeleportPoint.position;
 
     }
 
