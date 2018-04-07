@@ -20,6 +20,38 @@ public class PathNode : MonoBehaviour
             UnityEngine.Assertions.Assert.IsTrue(outlets == null || outlets.Count == 0, "ERROR: PathNode in gameObject '" + gameObject.name + "' is marked as end of path and shouldn't have any outlets!");
         else
             UnityEngine.Assertions.Assert.IsTrue(outlets != null && outlets.Count >= 2 || outlets != null && outlets.Count >= 1 && outlets[0].pathNodeLayer < pathNodeLayer, "ERROR: PathNode in gameObject '" + gameObject.name + "' contains less than 2 outlets (Count: " + outlets.Count + "). All PathNodes should have at least 2 outlets (or 1 from a lower-numbered layer)!");
+
+        foreach (PathNode pathNode in outlets)
+        {
+            UnityEngine.Assertions.Assert.IsTrue(pathNode != this, "ERROR: PathNode in gameObject '" + gameObject.name + "' has set itself as an outlet!");
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Color layerColor = GetLayerColor(pathNodeLayer);
+        Gizmos.color = layerColor;
+        Gizmos.DrawWireSphere(transform.position, radius);
+
+        foreach (PathNode pathNode in outlets)
+        {
+            if (!pathNode)
+                continue;
+
+            Gizmos.color = layerColor;
+            if (pathNode.pathNodeLayer == pathNodeLayer)
+            {
+                GizmosHelper.DrawLine(transform.position, pathNode.transform.position, 4);
+            }
+            else
+            {
+                Color lineEndColor = GetLayerColor(pathNode.pathNodeLayer);
+                Vector3 midPoint = transform.position + 0.5f * (pathNode.transform.position - transform.position);
+                GizmosHelper.DrawLine(transform.position, midPoint, 4);
+                Gizmos.color = lineEndColor;
+                GizmosHelper.DrawLine(midPoint, pathNode.transform.position, 4);
+            }
+        }
     }
     #endregion
 
@@ -49,6 +81,32 @@ public class PathNode : MonoBehaviour
         }
 
         return outlets[index];
+    }
+    #endregion
+
+    #region Private Methods
+    private Color GetLayerColor(int layer)
+    {
+        Color layerColor;
+        switch (layer)
+        {
+            case 1:
+                layerColor = Color.green;
+                break;
+            case 2:
+                layerColor = Color.yellow;
+                break;
+            case 3:
+                layerColor = Color.blue;
+                break;
+            case 4:
+                layerColor = Color.magenta;
+                break;
+            default:
+                layerColor = Color.white;
+                break;
+        }
+        return layerColor;
     }
     #endregion
 }
