@@ -18,6 +18,9 @@ public class AIZoneController : MonoBehaviour
     // List that contains all AIEnemy that were spawned on this ZoneController's area and are still alive
     [SerializeField]
     private List<AIEnemy> aiEnemies;
+
+    // Properties used to draw an alternate texture in the proximity of enemies
+    private Vector4[] array;
     #endregion
 
     #region MonoBehaviour Methods
@@ -31,11 +34,28 @@ public class AIZoneController : MonoBehaviour
 
         UnityEngine.Assertions.Assert.IsNotNull(monument, "Error: monument not set for AIZoneController in gameObject '" + gameObject.name + "'");
         currentZoneTarget = monument;
+        array = new Vector4[128];
     }
 
+    private void Update()
+    {
+        for (int i = 0; i < aiEnemies.Count && i < 128; ++i)
+        {
+            array[i].x = aiEnemies[i].transform.position.x;
+            array[i].y = aiEnemies[i].transform.position.y;
+            array[i].z = aiEnemies[i].transform.position.z;
+            array[i].w = 0.0f;
+        }
+    }
     #endregion
 
     #region Public Methods
+    public void UpdateMaterialWithEnemyPositions(Material material)
+    {
+        material.SetVectorArray("_Positions", array);
+        material.SetInt("_ActivePositions", aiEnemies.Count);
+    }
+
     // Called by Buildings to obtain zoneId
     public int GetZoneId()
     {
