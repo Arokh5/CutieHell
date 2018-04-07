@@ -23,6 +23,7 @@ public class PathNode : MonoBehaviour
 
         foreach (PathNode pathNode in outlets)
         {
+            UnityEngine.Assertions.Assert.IsNotNull(pathNode, "ERROR: PathNode in gameObject '" + gameObject.name + "' has a null as an outlet!");
             UnityEngine.Assertions.Assert.IsTrue(pathNode != this, "ERROR: PathNode in gameObject '" + gameObject.name + "' has set itself as an outlet!");
         }
     }

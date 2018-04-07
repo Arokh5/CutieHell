@@ -6,20 +6,27 @@ public class PathsController : MonoBehaviour
 {
     #region Fields
     [SerializeField]
-    private List<PathNode> startingPathNodes = null;
+    private List<PathNode> startingPathNodes;
+    private List<PathNode> allPathNodes;
     #endregion
 
     #region MonoBehaviour Methods
     private void Awake()
     {
         UnityEngine.Assertions.Assert.IsTrue(startingPathNodes != null && startingPathNodes.Count > 0, "ERROR: The PathsController in gameObject '" + gameObject.name + "' doesn't have any startingPathNodes. There should be at least 1 element in startingPathNodes!");
+
+        allPathNodes = new List<PathNode>(GetComponentsInChildren<PathNode>());
+        foreach (PathNode pathNode in startingPathNodes)
+        {
+            UnityEngine.Assertions.Assert.IsTrue(allPathNodes.Contains(pathNode), "ERROR: The PathsController in gameObject '" + gameObject.name + "' doesn't have the PathNode from gameObject'" + pathNode.gameObject.name + "' as one of its children!");
+        }
     }
     #endregion
 
     #region Public Methods
     public List<PathNode> GetPath(Vector3 startingPos)
     {
-        List<PathNode> path = null;
+        List<PathNode> path = new List<PathNode>();
 
         PathNode currentNode = FindClosestPathNode(startingPos);
 
@@ -34,6 +41,7 @@ public class PathsController : MonoBehaviour
                 path.Add(nextNode);
                 previousNode = currentNode;
                 currentNode = nextNode;
+                
             }
         }
 
@@ -47,15 +55,8 @@ public class PathsController : MonoBehaviour
         PathNode closestNode = null;
         float distance = float.MaxValue;
 
-        Stack<PathNode> stack = new Stack<PathNode>();
-        foreach (PathNode outletNode in startingPathNodes)
+        foreach (PathNode pathNode in allPathNodes)
         {
-            stack.Push(outletNode);
-        }
-
-        while (stack.Count > 0)
-        {
-            PathNode pathNode = stack.Pop();
             float currentNodeDistance = Vector3.Distance(referencePos, pathNode.transform.position);
 
             // Early exit in case the referencePos is within a certain node's radius,
@@ -67,11 +68,6 @@ public class PathsController : MonoBehaviour
             {
                 distance = currentNodeDistance;
                 closestNode = pathNode;
-            }
-
-            foreach (PathNode outletNode in pathNode.outlets)
-            {
-                stack.Push(outletNode);
             }
         }
 
