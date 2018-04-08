@@ -1,6 +1,7 @@
 ﻿Shader "Custom/TextureChanger" {
 	Properties{
 		_Color ("Color", Color) = (1,1,1,1)
+		_BlendRadius("Blend Radius Start", Range(0.0, 1.0)) = 0.5
 		_MainTex ("Main Texture", 2D) = "white" {}
 		_AlternateTex("Alternate Texture", 2D) = "white" {}
 		[Normal]
@@ -24,6 +25,7 @@
 		float _AiEffectRadius[128];
 
 		fixed4 _Color;
+		float _BlendRadius;
 		sampler2D _MainTex;
 		sampler2D _AlternateTex;
 		sampler2D _NormalMap;
@@ -48,17 +50,27 @@
 		void surf (Input IN, inout SurfaceOutputStandard o) {
 			// Albedo comes from a texture tinted by color
 			fixed4 c;
+			float distanceToEnemy;
+			float effectRadius;
 			bool found = false;
 			for (int i = 0; i < _ActiveEnemies; ++i)
 			{
-				if (distance(IN.worldPos.xyz, _AiPositions[i]) < _AiEffectRadius[i])
+				distanceToEnemy = distance(IN.worldPos.xyz, _AiPositions[i]);
+				if (distanceToEnemy < _AiEffectRadius[i])
 				{
+					effectRadius = _AiEffectRadius[i];
 					found = true;
 					break;
 				}
 			}
 			if (found)
-				c = tex2D(_AlternateTex, IN.uv_AlternateTex) * _Color;
+			{
+				float progress = distanceToEnemy / effectRadius;
+				if (progress < _BlendRadius)
+					c = tex2D(_AlternateTex, IN.uv_AlternateTex) * _Color;
+				else
+					c = lerp(tex2D(_AlternateTex, IN.uv_AlternateTex), tex2D(_MainTex, IN.uv_MainTex), (progress - _BlendRadius) / (1 - _BlendRadius));
+			}
 			else
 				c = tex2D(_MainTex, IN.uv_MainTex) * _Color;
 
