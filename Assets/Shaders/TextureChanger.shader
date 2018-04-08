@@ -6,7 +6,7 @@
 		[Normal]
 		_NormalMap("Normal Map", 2D) = "bump" {}
 		_NormalPower("Normal Power", Float) = 1.0
-		_RoughnessMap("Roughness Map", 2D) = "black" {}
+		_RoughnessMap("Roughness Map", 2D) = "white" {}
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
