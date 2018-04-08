@@ -160,6 +160,10 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Garden Scene", LoadSceneMode.Single);
     }
 
+    public void SetCrosshairActivate(bool activate)
+    {
+        crosshair.SetActive(activate);
+    }
     #endregion
 
     #region Private Methods

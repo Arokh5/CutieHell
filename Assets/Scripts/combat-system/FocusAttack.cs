@@ -37,7 +37,15 @@ public class FocusAttack : MonoBehaviour
 
     private void Update()
     {
-        FocusBasicAttack();
+        if (player.state == Player.PlayerStates.MOVE || player.state == Player.PlayerStates.TURRET)
+        {
+            FocusBasicAttack();
+        }
+        else if (player.state == Player.PlayerStates.SEDUCTIVE)
+        {
+
+        }
+        
     }
 
     #endregion
