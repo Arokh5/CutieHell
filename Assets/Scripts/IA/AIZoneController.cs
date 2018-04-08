@@ -20,7 +20,8 @@ public class AIZoneController : MonoBehaviour
     private List<AIEnemy> aiEnemies;
 
     // Properties used to draw an alternate texture in the proximity of enemies
-    private Vector4[] array;
+    private Vector4[] aiPositions;
+    private float[] aiEffectRadius;
     #endregion
 
     #region MonoBehaviour Methods
@@ -34,17 +35,19 @@ public class AIZoneController : MonoBehaviour
 
         UnityEngine.Assertions.Assert.IsNotNull(monument, "Error: monument not set for AIZoneController in gameObject '" + gameObject.name + "'");
         currentZoneTarget = monument;
-        array = new Vector4[128];
+        aiPositions = new Vector4[128];
+        aiEffectRadius = new float[128];
     }
 
     private void Update()
     {
         for (int i = 0; i < aiEnemies.Count && i < 128; ++i)
         {
-            array[i].x = aiEnemies[i].transform.position.x;
-            array[i].y = aiEnemies[i].transform.position.y;
-            array[i].z = aiEnemies[i].transform.position.z;
-            array[i].w = 0.0f;
+            aiPositions[i].x = aiEnemies[i].transform.position.x;
+            aiPositions[i].y = aiEnemies[i].transform.position.y;
+            aiPositions[i].z = aiEnemies[i].transform.position.z;
+            aiPositions[i].w = 0.0f;
+            aiEffectRadius[i] = aiEnemies[i].effectOnMapRadius;
         }
     }
     #endregion
@@ -52,8 +55,9 @@ public class AIZoneController : MonoBehaviour
     #region Public Methods
     public void UpdateMaterialWithEnemyPositions(Material material)
     {
-        material.SetVectorArray("_Positions", array);
-        material.SetInt("_ActivePositions", aiEnemies.Count);
+        material.SetInt("_ActiveEnemies", aiEnemies.Count);
+        material.SetVectorArray("_AiPositions", aiPositions);
+        material.SetFloatArray("_AiEffectRadius", aiEffectRadius);
     }
 
     // Called by Buildings to obtain zoneId
