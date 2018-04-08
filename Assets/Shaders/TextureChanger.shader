@@ -6,6 +6,7 @@
 		[Normal]
 		_NormalMap("Normal Map", 2D) = "bump" {}
 		_NormalPower("Normal Power", Float) = 1.0
+		_RoughnessMap("Roughness Map", 2D) = "black" {}
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
@@ -27,6 +28,7 @@
 		sampler2D _AlternateTex;
 		sampler2D _NormalMap;
 		float _NormalPower;
+		sampler2D _RoughnessMap;
 
 		// Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
 		// See https://docs.unity3d.com/Manual/GPUInstancing.html for more information about instancing.
@@ -39,6 +41,7 @@
 			float2 uv_MainTex;
 			float2 uv_AlternateTex;
 			float2 uv_NormalMap;
+			float2 uv_RoughnessMap;
 			float3 worldPos;
 		};
 
@@ -62,6 +65,7 @@
 			o.Albedo = c.rgb;
 			o.Alpha = c.a;
 			o.Normal = lerp(UnpackNormal(tex2D(_NormalMap, IN.uv_NormalMap)), fixed3(0,0,1), -_NormalPower + 1.0f);
+			o.Smoothness = float4(1,1,1,1) - tex2D(_RoughnessMap, IN.uv_RoughnessMap);
 		}
 		ENDCG
 	}
