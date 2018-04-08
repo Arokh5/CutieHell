@@ -49,27 +49,30 @@
 
 		void surf (Input IN, inout SurfaceOutputStandard o) {
 			// Albedo comes from a texture tinted by color
-			fixed4 c;
-			float distanceToEnemy;
-			float effectRadius;
-			bool found = false;
+			float finalInPct = 1;
+			bool inEffectRadius = false;
+			
 			for (int i = 0; i < _ActiveEnemies; ++i)
 			{
-				distanceToEnemy = distance(IN.worldPos.xyz, _AiPositions[i]);
+				float distanceToEnemy = distance(IN.worldPos.xyz, _AiPositions[i]);
 				if (distanceToEnemy < _AiEffectRadius[i])
 				{
-					effectRadius = _AiEffectRadius[i];
-					found = true;
-					break;
+					inEffectRadius = true;
+					float inPct = distanceToEnemy / _AiEffectRadius[i];
+					if (inPct < finalInPct)
+						finalInPct = inPct;
+					if (finalInPct <= _BlendRadius)
+						break;
 				}
 			}
-			if (found)
+
+			fixed4 c;
+			if (inEffectRadius)
 			{
-				float progress = distanceToEnemy / effectRadius;
-				if (progress < _BlendRadius)
+				if (finalInPct <= _BlendRadius)
 					c = tex2D(_AlternateTex, IN.uv_AlternateTex) * _Color;
 				else
-					c = lerp(tex2D(_AlternateTex, IN.uv_AlternateTex), tex2D(_MainTex, IN.uv_MainTex), (progress - _BlendRadius) / (1 - _BlendRadius));
+					c = lerp(tex2D(_AlternateTex, IN.uv_AlternateTex), tex2D(_MainTex, IN.uv_MainTex), (finalInPct - _BlendRadius) / (1 - _BlendRadius));
 			}
 			else
 				c = tex2D(_MainTex, IN.uv_MainTex) * _Color;
