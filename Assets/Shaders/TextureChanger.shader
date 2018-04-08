@@ -21,7 +21,8 @@
 		#pragma target 3.0
 
 		int _ActiveEnemies = 0;
-		float3 _AiPositions[128];
+		int _BuildingsCount = 0;
+		float4 _AiPositions[128];
 		float _AiEffectRadius[128];
 
 		fixed4 _Color;
@@ -49,30 +50,35 @@
 
 		void surf (Input IN, inout SurfaceOutputStandard o) {
 			// Albedo comes from a texture tinted by color
-			float finalInPct = 1;
+			float finalLerpFactor = 1;
 			bool inEffectRadius = false;
 			
-			for (int i = 0; i < _ActiveEnemies; ++i)
+			for (int i = 0; i < _BuildingsCount + _ActiveEnemies; ++i)
 			{
-				float distanceToEnemy = distance(IN.worldPos.xyz, _AiPositions[i]);
+				float distanceToEnemy = distance(IN.worldPos.xyz, _AiPositions[i].xyz);
 				if (distanceToEnemy < _AiEffectRadius[i])
 				{
 					inEffectRadius = true;
 					float inPct = distanceToEnemy / _AiEffectRadius[i];
-					if (inPct < finalInPct)
-						finalInPct = inPct;
-					if (finalInPct <= _BlendRadius)
+					float blendRadius = i < _BuildingsCount ? _AiPositions[i].w : _BlendRadius;
+					float lerpFactor = (inPct - blendRadius) / (1 - blendRadius);
+					if (lerpFactor < finalLerpFactor)
+						finalLerpFactor = lerpFactor;
+					if (finalLerpFactor <= 0)
+					{
+						finalLerpFactor = 0;
 						break;
+					}
 				}
 			}
 
 			fixed4 c;
 			if (inEffectRadius)
 			{
-				if (finalInPct <= _BlendRadius)
+				if (finalLerpFactor <= 0)
 					c = tex2D(_AlternateTex, IN.uv_AlternateTex) * _Color;
 				else
-					c = lerp(tex2D(_AlternateTex, IN.uv_AlternateTex), tex2D(_MainTex, IN.uv_MainTex), (finalInPct - _BlendRadius) / (1 - _BlendRadius));
+					c = lerp(tex2D(_AlternateTex, IN.uv_AlternateTex), tex2D(_MainTex, IN.uv_MainTex), finalLerpFactor);
 			}
 			else
 				c = tex2D(_MainTex, IN.uv_MainTex) * _Color;

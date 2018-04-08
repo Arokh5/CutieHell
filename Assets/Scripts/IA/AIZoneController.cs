@@ -18,6 +18,7 @@ public class AIZoneController : MonoBehaviour
     // List that contains all AIEnemy that were spawned on this ZoneController's area and are still alive
     [SerializeField]
     private List<AIEnemy> aiEnemies;
+    public List<Building> buildings;
 
     // Properties used to draw an alternate texture in the proximity of enemies
     private Vector4[] aiPositions;
@@ -41,13 +42,25 @@ public class AIZoneController : MonoBehaviour
 
     private void Update()
     {
-        for (int i = 0; i < aiEnemies.Count && i < 128; ++i)
+        for (int i = 0; i < buildings.Count + aiEnemies.Count && i < 128; ++i)
         {
-            aiPositions[i].x = aiEnemies[i].transform.position.x;
-            aiPositions[i].y = aiEnemies[i].transform.position.y;
-            aiPositions[i].z = aiEnemies[i].transform.position.z;
-            aiPositions[i].w = 0.0f;
-            aiEffectRadius[i] = aiEnemies[i].effectOnMapRadius;
+            if (i < buildings.Count)
+            {
+                aiPositions[i].x = buildings[i].transform.position.x;
+                aiPositions[i].y = buildings[i].transform.position.y;
+                aiPositions[i].z = buildings[i].transform.position.z;
+                /* The w component is used to pass the blendStartRadius of the building */
+                aiPositions[i].w = buildings[i].GetBlendRadius();
+                aiEffectRadius[i] = buildings[i].effectOnMapRadius;
+            }
+            else
+            {
+                aiPositions[i].x = aiEnemies[i - buildings.Count].transform.position.x;
+                aiPositions[i].y = aiEnemies[i - buildings.Count].transform.position.y;
+                aiPositions[i].z = aiEnemies[i - buildings.Count].transform.position.z;
+                aiPositions[i].w = 0.0f;
+                aiEffectRadius[i] = aiEnemies[i - buildings.Count].effectOnMapRadius;
+            }
         }
     }
     #endregion
@@ -56,6 +69,7 @@ public class AIZoneController : MonoBehaviour
     public void UpdateMaterialWithEnemyPositions(Material material)
     {
         material.SetInt("_ActiveEnemies", aiEnemies.Count);
+        material.SetInt("_BuildingsCount", buildings.Count);
         material.SetVectorArray("_AiPositions", aiPositions);
         material.SetFloatArray("_AiEffectRadius", aiEffectRadius);
     }
