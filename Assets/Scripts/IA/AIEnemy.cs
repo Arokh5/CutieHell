@@ -7,9 +7,18 @@ public class AIEnemy : MonoBehaviour, IDamageable
 {
     #region Fields
     private AIZoneController zoneController;
+    private PathsController pathsController;
     private SubZoneType currentSubZone;
+
     private Building currentTarget;
+    [SerializeField]
+    private List<PathNode> currentPath;
+    [SerializeField]
+    private PathNode currentNode;
+    private int currentNodeIndex = -1;
+
     private NavMeshAgent agent;
+    private float originalStoppingDistance;
     private Renderer mRenderer;
 
     [Header("Materials")]
@@ -47,6 +56,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         mRenderer = GetComponentInChildren<MeshRenderer>();
         UnityEngine.Assertions.Assert.IsNotNull(mRenderer, "Error: No MeshRenderer found for children of AIEnemy in GameObject '" + gameObject.name + "'!");
         mRenderer.material.color = initialColor;
+        originalStoppingDistance = agent.stoppingDistance;
     }
 
     private void Start()
@@ -59,12 +69,33 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private void Update()
     {
         // Motion through NavMeshAgent
-        if (currentTarget)
+        if (currentTarget && agent.enabled)
         {
-            if (agent.enabled)
+            
+            if (currentNode == null || currentTarget.GetType() != typeof(Monument))
             {
+                agent.stoppingDistance = originalStoppingDistance;
                 agent.SetDestination(currentTarget.transform.position);
             }
+            else
+            {
+                agent.stoppingDistance = 0.0f;
+                agent.SetDestination(currentNode.transform.position);
+                if ((transform.position - currentNode.transform.position).sqrMagnitude < currentNode.radius * currentNode.radius)
+                {
+                    if (currentNodeIndex < currentPath.Count - 1)
+                    {
+                        ++currentNodeIndex;
+                        currentNode = currentPath[currentNodeIndex];
+                    }
+                    else
+                    {
+                        currentNodeIndex = -1;
+                        currentNode = null;
+                    }
+                }
+            }
+
             attackLogic.AttemptAttack(currentTarget);
         }
 
@@ -99,11 +130,22 @@ public class AIEnemy : MonoBehaviour, IDamageable
         zoneController = newZoneController;
     }
 
+    // Called by AISpawner when instantiating an AIEnemy.
+    public void SetPathsController(PathsController newPathsController)
+    {
+        pathsController = newPathsController;
+
+        UpdateNodePath();
+    }
+
     // Called by the ZoneController in case the Monument gets repaired (this will cause all AIEnemy to return to the ZoneController's area)
     // or when a Trap gets deactivated or when the area-type Trap explodes
     public void SetCurrentTarget(Building target)
     {
-        currentTarget = target;
+        if (currentTarget != target)
+        {
+            currentTarget = target;
+        }
     }
 
     // IDamageable
@@ -192,6 +234,22 @@ public class AIEnemy : MonoBehaviour, IDamageable
         }
 
         Destroy(gameObject);
+    }
+
+    private void UpdateNodePath()
+    {
+        /* Update path and nextNode */
+        currentPath = pathsController.GetPath(transform.position);
+        if (currentPath != null && currentPath.Count > 0)
+        {
+            currentNodeIndex = 0;
+            currentNode = currentPath[0];
+        }
+        else
+        {
+            currentNodeIndex = -1;
+            currentNode = null;
+        }
     }
     #endregion
 }
