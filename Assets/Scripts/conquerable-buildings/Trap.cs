@@ -35,6 +35,12 @@ public class Trap : Building, IUsable {
         }
         base.Update();
     }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = new Color(1, 0, 0 ,0.5f);
+        Gizmos.DrawWireSphere(transform.position, attractionRadius);
+    }
     #endregion
 
     #region Public Methods

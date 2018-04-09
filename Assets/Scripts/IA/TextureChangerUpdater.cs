@@ -13,6 +13,8 @@ public class TextureChangerUpdater : MonoBehaviour {
     #region MonoBehaviour Methods
     private void Awake()
     {
+        if (zoneController == null)
+            zoneController = GetComponentInParent<AIZoneController>();
         UnityEngine.Assertions.Assert.IsNotNull(zoneController, "ERROR: TextureChangerUpdater in gameObject '" + gameObject.name + "' doesn't have an AIZoneController assigned!");
         mRenderer = GetComponent<Renderer>();
         UnityEngine.Assertions.Assert.IsNotNull(mRenderer, "ERROR: TextureChangerUpdater in gameObject '" + gameObject.name + "' couldn't find a Renderer in its GameObject!");

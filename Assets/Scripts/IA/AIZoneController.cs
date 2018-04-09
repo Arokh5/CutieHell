@@ -42,6 +42,23 @@ public class AIZoneController : MonoBehaviour
 
     private void Update()
     {
+        /* Trap as target */
+        if (currentZoneTarget.GetType() == typeof(Trap))
+        {
+            foreach (AIEnemy aiEnemy in aiEnemies)
+            {
+                /* Consider distance in XZ-Plane */
+                Vector3 buildingToEnemy = aiEnemy.transform.position - currentZoneTarget.transform.position;
+                buildingToEnemy.y = 0;
+                if (buildingToEnemy.sqrMagnitude < currentZoneTarget.attractionRadius * currentZoneTarget.attractionRadius)
+                {
+                    aiEnemy.SetCurrentTarget(currentZoneTarget);
+                }
+            }
+        }
+
+
+        /* Shader data update */
         for (int i = 0; i < buildings.Count + aiEnemies.Count && i < 128; ++i)
         {
             if (i < buildings.Count)
