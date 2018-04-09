@@ -10,18 +10,20 @@ public class Trap : Building, IUsable
     [SerializeField]
     private int trapID;
     public TrapTypes trapType;
-    public Material seductiveRangeMaterial;
     public int usageCost;
     private Player player;
 
     [Header("Seductive Trap setup")]
     [SerializeField]
     public GameObject seductiveTrapActiveArea;
+    [SerializeField]
+    public GameObject seductiveProjection;
     public float seductiveTrapDuration;
     public float blinkingSpeed;
     private float seductiveTrapCurrentTimeActive = 0;
     private float areaBlinkingTime = 0;
-        
+    private GameObject instantiatedEnemyProjection;
+
     [Header("Trap testing")]
     public bool activate = false;
     public bool deactivate = false;
@@ -40,6 +42,14 @@ public class Trap : Building, IUsable
             if(trapType == TrapTypes.SEDUCTIVE)
             {
                 seductiveTrapActiveArea.SetActive(true);
+                Vector3 startPosition = new Vector3(0.0f, 0.0f, 0.0f) + transform.forward * transform.parent.transform.parent.GetComponentInChildren<Projector>().orthographicSize * 0.7f;
+                Debug.Log("Hacer esto más limpio, en un metodo propio y pasar por el mismo sitio esta información aquí y a enemyprojection");
+                startPosition.y = 0.0f;
+                Debug.Log("Este último valor tiene que ser en función del ortographic size del SeductiveProjector");
+
+                instantiatedEnemyProjection = Instantiate(seductiveProjection, startPosition, Quaternion.LookRotation(transform.forward, transform.up), transform.parent.transform);
+                instantiatedEnemyProjection.transform.localPosition = startPosition;
+                instantiatedEnemyProjection.AddComponent<EnemyProjection>();
             }
             isActive = true;
             activate = false;
@@ -47,7 +57,8 @@ public class Trap : Building, IUsable
         else if (deactivate)
         {
             isActive = false;
-            deactivate = false;    
+            deactivate = false;
+            Destroy(instantiatedEnemyProjection);
         }
 
         if (isActive)
@@ -124,7 +135,6 @@ public class Trap : Building, IUsable
         {
             player.StopTrapUse();
         }
-        Deactivate();
     }
 
     protected override void InformUIManager()
