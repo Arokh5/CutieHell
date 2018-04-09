@@ -12,6 +12,8 @@ public class Player : MonoBehaviour {
     private Transform centerTeleportPoint;
     [SerializeField]
     private Transform statueTeleportPoint;
+    [SerializeField]
+    private GameObject footSteps;
 
     [Header("Evilness")]
     [SerializeField]
@@ -49,6 +51,7 @@ public class Player : MonoBehaviour {
 
     void Start () 
     {
+        footSteps.SetActive(false);
         evilLevel = maxEvilLevel;
         meshRenderer = this.GetComponentInChildren<MeshRenderer>();
         rb = this.GetComponent<Rigidbody>();
@@ -122,8 +125,10 @@ public class Player : MonoBehaviour {
 
         if (speedDirection.magnitude > 0.0f) {
             rb.drag = 0.0f;
+            footSteps.SetActive(true);
         } else {
             rb.drag = 10.0f;
+            footSteps.SetActive(false);
         }
 
         rb.AddRelativeForce(speedDirection * acceleration, ForceMode.Acceleration);
