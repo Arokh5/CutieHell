@@ -130,9 +130,9 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     public float GetBlendRadius()
     {
         if (conquered)
-            return 0.8f; // maxEffectRadius / attractionRadius;
+            return maxEffectRadius / attractionRadius;
         else if (conquering)
-            return conquerEffectElapsedTime / conquerEffectDuration; // (conquerEffectElapsedTime / conquerEffectDuration) * (maxEffectRadius / attractionRadius);
+            return (conquerEffectElapsedTime / conquerEffectDuration) * (maxEffectRadius / attractionRadius);
         else
             return 0.0f;
     }
@@ -284,7 +284,7 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
         }
 
         float progress = conquerEffectElapsedTime / conquerEffectDuration;
-        //effectOnMapRadius = maxEffectRadius + progress * (attractionRadius - maxEffectRadius);
+        effectOnMapRadius = maxEffectRadius + progress * (attractionRadius - maxEffectRadius);
 
         if (progress < 0.5f)
         {
