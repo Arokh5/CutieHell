@@ -26,6 +26,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private Material basicMat;
     [SerializeField]
     private Material outlinedMat;
+    public float effectOnMapRadius = 1.0f;
 
     [Header("Attack information")]
     [SerializeField]

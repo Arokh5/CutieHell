@@ -25,12 +25,11 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     private MeshRenderer buildingRenderer;
     [SerializeField]
     private MeshRenderer alternateBuildingRenderer;
-    [SerializeField]
-    private MeshRenderer areaRenderer;
 
     [Header("Area of Effect")]
+    public float effectOnMapRadius = 0.0f;
     [SerializeField]
-    private float effectRadius = 5;
+    private float maxEffectRadius = 5.0f;
     [SerializeField]
     private List<Convertible> convertibles;
 
@@ -79,10 +78,7 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
         buildingRenderer.material.SetFloat("_ShakeAmplitude", shakeAmplitude);
         buildingRenderer.material.SetFloat("_ShakeSpeed", shakeSpeed);
         alternateBuildingRenderer.material.SetFloat("_SizeFactor", 0);
-        areaRenderer.material.SetFloat("_AlternateStartRadius", 0);
-        areaRenderer.material.SetFloat("_ConquerFactor", 0);
-        areaRenderer.material.SetFloat("_Conquered", 0);
-
+        effectOnMapRadius = 0.0f;
         conquered = false;
     }
 
@@ -90,11 +86,9 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     {
         UnityEngine.Assertions.Assert.IsNotNull(buildingRenderer, "Building Renderer not assigned for ConquerableBuilding script in GameObject " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(alternateBuildingRenderer, "Alternate Building Renderer not assigned for ConquerableBuilding script in GameObject " + gameObject.name);
-        UnityEngine.Assertions.Assert.IsNotNull(areaRenderer, "Area Renderer not assigned for ConquerableBuilding script in GameObject " + gameObject.name);
         buildingRenderer.gameObject.SetActive(true);
         alternateBuildingRenderer.gameObject.SetActive(false);
-        areaRenderer.gameObject.SetActive(true);
-        areaRenderer.transform.localScale = new Vector3(effectRadius * 2 / 10, effectRadius * 2 / 10, effectRadius * 2 / 10);
+        effectOnMapRadius = 0.0f;
     }
 
     private void Start()
@@ -133,6 +127,16 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     #endregion
 
     #region Public Methods
+    public float GetBlendRadius()
+    {
+        if (conquered)
+            return maxEffectRadius / attractionRadius;
+        else if (conquering)
+            return (conquerEffectElapsedTime / conquerEffectDuration) * (maxEffectRadius / attractionRadius);
+        else
+            return 0.0f;
+    }
+
     public float GetMaxHealth()
     {
         return baseHealth;
@@ -280,7 +284,7 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
         }
 
         float progress = conquerEffectElapsedTime / conquerEffectDuration;
-        areaRenderer.material.SetFloat("_AlternateStartRadius", progress);
+        effectOnMapRadius = maxEffectRadius + progress * (attractionRadius - maxEffectRadius);
 
         if (progress < 0.5f)
         {
@@ -299,7 +303,7 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
 
         // Now we attempt to convert convertible props
 
-        float limitRadius = effectRadius * progress;
+        float limitRadius = maxEffectRadius * progress;
         foreach (Convertible convertible in convertibles)
         {
             if (!convertible.IsConverting() && Vector3.Distance(transform.position, convertible.transform.position) < limitRadius)
@@ -314,7 +318,6 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
         conquering = false;
         conquerEffectElapsedTime = 0;
         alternateBuildingRenderer.material.SetFloat("_SizeFactor", 1);
-        areaRenderer.material.SetFloat("_Conquered", 1);
         conquered = true;
     }
 
@@ -332,7 +335,7 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     {
         float conqueredFactor = (baseHealth - currentHealth) / (float)baseHealth;
         buildingRenderer.material.SetFloat("_ConquerFactor", conqueredFactor);
-        areaRenderer.material.SetFloat("_ConquerFactor", conqueredFactor);
+        effectOnMapRadius = conqueredFactor * maxEffectRadius;
     }
     #endregion
 }

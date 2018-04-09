@@ -1700,6 +1700,7 @@ GameObject:
   - component: {fileID: 33353227426507568}
   - component: {fileID: 23107256635036560}
   - component: {fileID: 95278839304166542}
+  - component: {fileID: 114992938622080198}
   m_Layer: 0
   m_Name: CH_GA_prop_X_Way_Hell
   m_TagString: Untagged
@@ -1738,6 +1739,7 @@ GameObject:
   - component: {fileID: 23813137586269662}
   - component: {fileID: 95210640467674348}
   - component: {fileID: 65423658253892326}
+  - component: {fileID: 114078683358408114}
   m_Layer: 0
   m_Name: CH_GA_Terrain_Hell
   m_TagString: Untagged
@@ -2544,6 +2546,7 @@ GameObject:
   - component: {fileID: 23424182040148554}
   - component: {fileID: 95156201943987766}
   - component: {fileID: 64165628333212744}
+  - component: {fileID: 114701985709454740}
   m_Layer: 0
   m_Name: CH_GA_prop_Podium_Hell
   m_TagString: Untagged
@@ -8638,7 +8641,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 6ed1bf6b602ec894faffd5a3090b105a, type: 2}
+  - {fileID: 2100000, guid: f2c2bfc3d531cc04a83670e871fff8bc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10842,7 +10845,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 6ed1bf6b602ec894faffd5a3090b105a, type: 2}
+  - {fileID: 2100000, guid: f2c2bfc3d531cc04a83670e871fff8bc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -13912,7 +13915,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 91d5b525c3014d748b47c5026b9571ba, type: 2}
+  - {fileID: 2100000, guid: 7cb7757e0ba68d34c88096ff3b50ccb5, type: 2}
   - {fileID: 2100000, guid: 5dd65e928af3001468850e755b8371b3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -22183,6 +22186,42 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114078683358408114
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1413666872835698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6cc5f4bec045f04193616f67e93a408, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoneController: {fileID: 0}
+--- !u!114 &114701985709454740
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1563354265198640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6cc5f4bec045f04193616f67e93a408, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoneController: {fileID: 0}
+--- !u!114 &114992938622080198
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1408250343176464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6cc5f4bec045f04193616f67e93a408, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoneController: {fileID: 0}
 --- !u!136 &136012840238879070
 CapsuleCollider:
   m_ObjectHideFlags: 1
