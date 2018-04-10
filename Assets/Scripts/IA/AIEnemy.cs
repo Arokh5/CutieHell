@@ -36,6 +36,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
     [Tooltip("The initial amount of hit points for the conquerable building.")]
     public float baseHealth;
     public int evilKillReward;
+    [SerializeField]
+    private GameObject getHitVFX;
 
     protected float currentHealth;
 
@@ -163,6 +165,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
             return;
 
         currentHealth -= damage;
+        if (getHitVFX != null) Destroy(Instantiate(getHitVFX, this.transform.position + Vector3.up, this.transform.rotation), 0.9f);
         if (currentHealth <= 0)
         {
             currentHealth = 0;
