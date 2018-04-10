@@ -38,6 +38,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
     public int evilKillReward;
     [SerializeField]
     private GameObject getHitVFX;
+    [SerializeField]
+    private GameObject deathVFX;
 
     protected float currentHealth;
 
@@ -236,7 +238,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         {
             player.SetEvilLevel(evilKillReward);
         }
-
+        if(deathVFX != null) Destroy(Instantiate(deathVFX, this.transform.position, this.transform.rotation),0.9f);
         Destroy(gameObject);
     }
 
