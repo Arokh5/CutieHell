@@ -70,7 +70,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1842331153523508}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 36.71008, y: 3.0251136, z: 17.595348}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4616715330324598}
@@ -200,6 +200,7 @@ MonoBehaviour:
   evilKillReward: 10
   getHitVFX: {fileID: 1569433772751694, guid: 2b5dad98c6fb37d4fb643b69e96bac3e, type: 2}
   deathVFX: {fileID: 1192293397352202, guid: ab7d3ffbb16031741a985c5bd17a7a2b, type: 2}
+  heightOffset: 0
   initialColor: {r: 0, g: 1, b: 0, a: 1}
   halfColor: {r: 1, g: 1, b: 0, a: 1}
   deadColor: {r: 1, g: 0, b: 0, a: 1}
@@ -215,9 +216,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 1
-  m_Height: 3
+  m_Height: 2.5
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 1.25, z: 0}
 --- !u!195 &195783828132357088
 NavMeshAgent:
   m_ObjectHideFlags: 1

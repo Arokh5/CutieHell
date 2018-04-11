@@ -40,6 +40,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private GameObject getHitVFX;
     [SerializeField]
     private GameObject deathVFX;
+    [HideInInspector]
+    public float heightOffset;
 
     protected float currentHealth;
 
@@ -69,6 +71,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         UnityEngine.Assertions.Assert.IsNotNull(zoneController, "Error: zoneController is null for AIEnemy in GameObject '" + gameObject.name + "'!");
         UpdateTarget();
         currentHealth = baseHealth;
+        heightOffset = this.GetComponent<Collider>().bounds.size.y / 2.0f;
     }
 
     private void Update()
@@ -167,7 +170,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
             return;
 
         currentHealth -= damage;
-        if (getHitVFX != null) Destroy(Instantiate(getHitVFX, this.transform.position + Vector3.up, this.transform.rotation), 0.9f);
+        if (getHitVFX != null) Destroy(Instantiate(getHitVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation), 0.9f);
         if (currentHealth <= 0)
         {
             currentHealth = 0;
@@ -238,7 +241,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         {
             player.SetEvilLevel(evilKillReward);
         }
-        if(deathVFX != null) Destroy(Instantiate(deathVFX, this.transform.position, this.transform.rotation),0.9f);
+        if(deathVFX != null) Destroy(Instantiate(deathVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation),0.9f);
         Destroy(gameObject);
     }
 
