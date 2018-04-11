@@ -13,6 +13,8 @@ public class AISpawner : MonoBehaviour {
     private AISpawnController spawnController;
     [SerializeField]
     private Vector3 spawnerArea;
+    [SerializeField]
+    private ActivateGameObjectOnTime spawnVFX;
 
     [SerializeField]
     private List<SpawnInfo> activeSpawnInfos;
@@ -88,6 +90,17 @@ public class AISpawner : MonoBehaviour {
         AIEnemy instantiatedEnemy = Instantiate(enemyPrefab, randomPosition, Quaternion.LookRotation(transform.forward, transform.up), spawnController.transform);
         instantiatedEnemy.SetZoneController(zoneController);
         instantiatedEnemy.SetPathsController(pathsController);
+
+        /* For particle effects */
+        ActivateGameObjectOnTime spawnVfx = Instantiate(
+            spawnVFX,
+            instantiatedEnemy.transform.position + instantiatedEnemy.GetComponent<Collider>().bounds.size.y * Vector3.up / 2.0f, 
+            this.transform.rotation
+        );
+        spawnVfx.objectToActivate = instantiatedEnemy.gameObject;
+        spawnVfx.timeToActivate = 0.6f;
+        Destroy(spawnVfx.gameObject, 1.0f);
+        instantiatedEnemy.gameObject.SetActive(false);
     }
     #endregion
 }
