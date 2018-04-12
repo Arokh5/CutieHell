@@ -14,7 +14,6 @@ public class ScenarioController : MonoBehaviour
     private List<AIZoneController> zoneControllers;
     private int zonesWithEnemiesCount = 0;
     private int zonesConqueredCount = 0;
-    private bool waveEndTriggered = false;
     #endregion
 
     #region MonoBehaviour Methods
@@ -35,6 +34,7 @@ public class ScenarioController : MonoBehaviour
     #endregion
 
     #region Public Methods
+
     // Called by a ZoneController when its Monument has been conquered and an AIEnemy request for a Target
     public AIZoneController GetAlternateZone(AIZoneController currentZone)
     {
@@ -44,15 +44,16 @@ public class ScenarioController : MonoBehaviour
 
     public void OnWaveTimeOver()
     {
-        if (!waveEndTriggered)
+        /* Destroying all enemies of each zoneController will cause calls to OnZoneEmpty. the last call will trigger an GameManager::OnWaveWon */
+        foreach (AIZoneController zoneController in zoneControllers)
         {
-            /* Destroying all enemies of each zoneController will cause calls to OnZoneEmpty. the last call will trigger an GameManager::OnWaveWon */
-            foreach (AIZoneController zoneController in zoneControllers)
-            {
-                zoneController.DestroyAllEnemies();
-            }
+            zoneController.DestroyAllEnemies();
         }
-        
+    }
+
+    public void OnNewWaveStarted()
+    {
+        lastSpawnIsOver = false;
     }
 
     public void OnLastEnemySpawned()
@@ -63,11 +64,10 @@ public class ScenarioController : MonoBehaviour
     public void OnZoneConquered()
     {
         ++zonesConqueredCount;
-        if (!waveEndTriggered && zonesConqueredCount == zoneControllers.Count)
+        if (zonesConqueredCount == zoneControllers.Count)
         {
-            GameManager.instance.OnGameLost();
             spawnController.StopWave();
-            waveEndTriggered = true;
+            GameManager.instance.OnGameLost();
         }
     }
 
@@ -79,11 +79,10 @@ public class ScenarioController : MonoBehaviour
     public void OnZoneEmpty()
     {
         --zonesWithEnemiesCount;
-        if (!waveEndTriggered &&  lastSpawnIsOver && zonesWithEnemiesCount == 0)
+        if (lastSpawnIsOver && zonesWithEnemiesCount == 0)
         {
-            GameManager.instance.OnWaveWon();
             spawnController.StopWave();
-            waveEndTriggered = true;
+            GameManager.instance.OnWaveWon();
         }
     }
 
