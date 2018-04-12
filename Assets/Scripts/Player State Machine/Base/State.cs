@@ -11,18 +11,18 @@ public class State : ScriptableObject
     #endregion
 
     #region Public Methods
-    public void UpdateState(StateMachineController controller)
+    public void UpdateState(Player player)
     {
         foreach (StateAction action in stateActions)
         {
-            action.Act(controller);
+            action.Act(player);
         }
 
         foreach(Transition transition in  transitions)
         {
-            if (transition.decision.Decide(controller))
+            if (transition.decision.Decide(player))
             {
-                controller.TransitionToState(transition.targetState);
+                player.TransitionToState(transition.targetState);
                 break;
             }
         }

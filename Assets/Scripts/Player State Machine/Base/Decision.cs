@@ -2,5 +2,5 @@
 
 public abstract class Decision : ScriptableObject
 {
-    public abstract bool Decide(StateMachineController controller);
+    public abstract bool Decide(Player player);
 }

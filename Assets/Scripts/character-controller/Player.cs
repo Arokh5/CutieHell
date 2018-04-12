@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-
+    #region Fields
     [Header("Movement Variabes")]
     public float maxSpeed = 10;
     public float acceleration = 50;
@@ -38,18 +38,21 @@ public class Player : MonoBehaviour {
     private int trapUseCooldown = 10;
 
     [Header("Player States")]
+    [SerializeField]
+    private State currentState;
     public PlayerStates state;
     public MeshRenderer meshRenderer;
-
+    #endregion
     public enum PlayerStates { STILL, MOVE, WOLF, FOG, TURRET}
 
+    #region MonoBehaviour Methods
     private void Awake() 
     {
         state = PlayerStates.MOVE;
         initialBulletSpawnPointPos = new Vector3(0.8972f, 1.3626f, 0.1209f);
     }
 
-    void Start () 
+    private void Start () 
     {
         footSteps.SetActive(false);
         evilLevel = maxEvilLevel;
@@ -90,6 +93,19 @@ public class Player : MonoBehaviour {
                 break;
         }
     }
+    #endregion
+
+    #region Public Methods
+    public virtual void TransitionToState(State targetState)
+    {
+        if (currentState.onExitAction)
+            currentState.onExitAction.Act(this);
+
+        if (targetState.onEnterAction)
+            targetState.onEnterAction.Act(this);
+
+        currentState = targetState;
+    }
 
     public void StopTrapUse() 
     {
@@ -104,38 +120,6 @@ public class Player : MonoBehaviour {
         actualTrap = null;
         state = PlayerStates.MOVE;
         timeSinceLastTrapUse = 0f;
-    }
-
-    private void MovePlayer() 
-    {
-        speedDirection = Vector3.zero;
-
-        if (InputManager.instance.GetLeftStickUp()) {
-            speedDirection += new Vector3(0.0f, 0.0f, 0.5f);
-        }
-        if (InputManager.instance.GetLeftStickDown()) {
-            speedDirection += new Vector3(0.0f, 0.0f, -0.5f);
-        }
-        if (InputManager.instance.GetLeftStickLeft()) {
-            speedDirection += new Vector3(-0.5f, 0.0f, 0.0f);
-        }
-        if (InputManager.instance.GetLeftStickRight()) {
-            speedDirection += new Vector3(0.5f, 0.0f, 0.0f);
-        }
-
-        if (speedDirection.magnitude > 0.0f) {
-            rb.drag = 0.0f;
-            footSteps.SetActive(true);
-        } else {
-            rb.drag = 10.0f;
-            footSteps.SetActive(false);
-        }
-
-        rb.AddRelativeForce(speedDirection * acceleration, ForceMode.Acceleration);
-
-        if (rb.velocity.magnitude > maxSpeed) {
-            rb.velocity = rb.velocity.normalized * maxSpeed;
-        }
     }
 
     public void UseTrap() 
@@ -218,4 +202,47 @@ public class Player : MonoBehaviour {
 
         UIManager.instance.SetEvilBarValue(evilLevel);
     }
+    #endregion
+
+    #region Private Methods
+    private void MovePlayer()
+    {
+        speedDirection = Vector3.zero;
+
+        if (InputManager.instance.GetLeftStickUp())
+        {
+            speedDirection += new Vector3(0.0f, 0.0f, 0.5f);
+        }
+        if (InputManager.instance.GetLeftStickDown())
+        {
+            speedDirection += new Vector3(0.0f, 0.0f, -0.5f);
+        }
+        if (InputManager.instance.GetLeftStickLeft())
+        {
+            speedDirection += new Vector3(-0.5f, 0.0f, 0.0f);
+        }
+        if (InputManager.instance.GetLeftStickRight())
+        {
+            speedDirection += new Vector3(0.5f, 0.0f, 0.0f);
+        }
+
+        if (speedDirection.magnitude > 0.0f)
+        {
+            rb.drag = 0.0f;
+            footSteps.SetActive(true);
+        }
+        else
+        {
+            rb.drag = 10.0f;
+            footSteps.SetActive(false);
+        }
+
+        rb.AddRelativeForce(speedDirection * acceleration, ForceMode.Acceleration);
+
+        if (rb.velocity.magnitude > maxSpeed)
+        {
+            rb.velocity = rb.velocity.normalized * maxSpeed;
+        }
+    }
+    #endregion
 }

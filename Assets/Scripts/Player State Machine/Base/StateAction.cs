@@ -2,5 +2,5 @@
 
 public abstract class StateAction : ScriptableObject
 {
-    public abstract void Act(StateMachineController controller);
+    public abstract void Act(Player player);
 }
