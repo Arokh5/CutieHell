@@ -468,6 +468,58 @@ MonoBehaviour:
   elapsedTime: 0
   currentWaveIndex: 0
   wavesInfo:
+  - waveDuration: 150
+    spawnInfos:
+    - spawnTime: 0
+      spawnerIndex: 1
+      spawnDuration: 25
+      enemiesToSpawn: 00000000000000000000000000000000000000000100000000000000000000000000000000000000010000000000000000000000000000000100000001000000
+      elapsedTime: 0
+      nextSpawnTime: 0
+      nextSpawnIndex: 0
+    - spawnTime: 30
+      spawnerIndex: 0
+      spawnDuration: 30
+      enemiesToSpawn: 0000000000000000000000000000000000000000000000000000000000000000000000000000000001000000010000000100000002000000
+      elapsedTime: 0
+      nextSpawnTime: 0
+      nextSpawnIndex: 0
+    - spawnTime: 30
+      spawnerIndex: 2
+      spawnDuration: 30
+      enemiesToSpawn: 0000000000000000000000000000000000000000000000000000000000000000000000000000000001000000010000000100000002000000
+      elapsedTime: 0
+      nextSpawnTime: 0
+      nextSpawnIndex: 0
+    - spawnTime: 45
+      spawnerIndex: 1
+      spawnDuration: 3
+      enemiesToSpawn: 010000000200000001000000
+      elapsedTime: 0
+      nextSpawnTime: 0
+      nextSpawnIndex: 0
+    - spawnTime: 80
+      spawnerIndex: 0
+      spawnDuration: 20
+      enemiesToSpawn: 000000000000000000000000000000000000000001000000010000000100000000000000
+      elapsedTime: 0
+      nextSpawnTime: 0
+      nextSpawnIndex: 0
+    - spawnTime: 80
+      spawnerIndex: 1
+      spawnDuration: 20
+      enemiesToSpawn: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+      elapsedTime: 0
+      nextSpawnTime: 0
+      nextSpawnIndex: 0
+    - spawnTime: 80
+      spawnerIndex: 2
+      spawnDuration: 20
+      enemiesToSpawn: 020000000100000001000000010000000000000000000000000000000000000000000000
+      elapsedTime: 0
+      nextSpawnTime: 0
+      nextSpawnIndex: 0
+    lastEnemySpawnTime: 0
   - waveDuration: 340
     spawnInfos:
     - spawnTime: 0
@@ -758,7 +810,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4504046273204654, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 3.3
+      value: 4.43
       objectReference: {fileID: 0}
     - target: {fileID: 4504046273204654, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
       propertyPath: m_LocalPosition.y
@@ -766,7 +818,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4504046273204654, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 4.4
+      value: 5.23
       objectReference: {fileID: 0}
     - target: {fileID: 4504046273204654, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1640,6 +1692,10 @@ Prefab:
     - target: {fileID: 224050234008403358, guid: a469ef08a24a81f49a590b2416f2fc2d,
         type: 2}
       propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1996623288143964, guid: a469ef08a24a81f49a590b2416f2fc2d, type: 2}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
