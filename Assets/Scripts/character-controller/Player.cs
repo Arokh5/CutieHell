@@ -23,10 +23,10 @@ public class Player : MonoBehaviour {
 
     [HideInInspector]
     public Rigidbody rb;
-    private Vector3 speedDirection;
     private GameObject[] traps;
     private Vector3 initialBulletSpawnPointPos;
     private float timeSinceLastTrapUse;
+    private MeshRenderer meshRenderer;
 
     [Header("Attacks")]
     [SerializeField]
@@ -41,8 +41,13 @@ public class Player : MonoBehaviour {
     [SerializeField]
     private State currentState;
     public PlayerStates state;
-    public MeshRenderer meshRenderer;
+    [HideInInspector]
+    public float timeSinceLastAttack = 1000.0f;
+    [HideInInspector]
+    public AIEnemy currentBasicAttackTarget = null;
+
     #endregion
+
     public enum PlayerStates { STILL, MOVE, WOLF, FOG, TURRET}
 
     #region MonoBehaviour Methods
@@ -64,6 +69,10 @@ public class Player : MonoBehaviour {
 
     private void Update() 
     {
+        if (GameManager.instance.gameIsPaused)
+        {
+            return;
+        }
         currentState.UpdateState(this);
 
         UseTrap();

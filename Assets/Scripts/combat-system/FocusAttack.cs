@@ -24,10 +24,6 @@ public class FocusAttack : MonoBehaviour
 
     #endregion
 
-    #region Properties
-
-    #endregion
-
     #region MonoBehaviour Methods
 
     private void Awake()
@@ -39,10 +35,6 @@ public class FocusAttack : MonoBehaviour
     {
         FocusBasicAttack();
     }
-
-    #endregion
-
-    #region Public Methods
 
     #endregion
 
