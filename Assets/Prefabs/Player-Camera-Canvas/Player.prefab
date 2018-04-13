@@ -222,11 +222,21 @@ MonoBehaviour:
   footSteps: {fileID: 1822885356027288}
   maxEvilLevel: 50
   evilLevel: 0
-  bulletSpawnPoint: {fileID: 4444819664441314}
-  actualTrap: {fileID: 0}
-  trapUseCooldown: 1
-  state: 0
+  rb: {fileID: 0}
+  initialBulletSpawnPointPos: {x: 0, y: 0, z: 0}
+  timeSinceLastTrapUse: 0
   meshRenderer: {fileID: 0}
+  bulletSpawnPoint: {fileID: 4444819664441314}
+  allTraps: []
+  nearbyTrap: {fileID: 0}
+  currentTrap: {fileID: 0}
+  trapUseCooldown: 1
+  trapMaxUseDistance: 3
+  shouldExitTrap: 0
+  currentState: {fileID: 11400000, guid: 7876ea8555f7f6c4cb97c6dd742b336b, type: 2}
+  state: 0
+  timeSinceLastAttack: 1000
+  currentBasicAttackTarget: {fileID: 0}
 --- !u!136 &136079893593462112
 CapsuleCollider:
   m_ObjectHideFlags: 1

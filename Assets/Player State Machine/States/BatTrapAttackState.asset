@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1418da0e4d857ce4fb2339e94e78f9a8, type: 3}
+  m_Name: BatTrapAttackState
+  m_EditorClassIdentifier: 
+  onEnterActions:
+  - {fileID: 11400000, guid: 3c46f5289815fc248b70954556c8a89d, type: 2}
+  - {fileID: 11400000, guid: 16322c002eafbc545adf6dbd9156d0a4, type: 2}
+  onExitActions:
+  - {fileID: 11400000, guid: 78508cb3eb7f094408bea7b1eb8bde7e, type: 2}
+  stateActions:
+  - {fileID: 11400000, guid: fc8d2d81d28c66a4482a4303bcc368c5, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: 8457d5c85e935ae4a9be6e3c21df4a0a, type: 2}
+    targetState: {fileID: 11400000, guid: 7876ea8555f7f6c4cb97c6dd742b336b, type: 2}

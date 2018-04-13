@@ -138,8 +138,8 @@ public class CameraController : MonoBehaviour {
                 case Player.PlayerStates.TURRET:
                     {
                         Quaternion rotation = Quaternion.Euler(y, x, 0);
-                        playerScript.actualTrap.transform.rotation = rotation;
-                        this.transform.SetParent(playerScript.actualTrap.transform);
+                        playerScript.currentTrap.transform.rotation = rotation;
+                        this.transform.SetParent(playerScript.currentTrap.transform);
                         if (timeOnTransition < transitionTime)
                         {
                             timeOnTransition += Time.deltaTime;

@@ -17,32 +17,38 @@ public class Player : MonoBehaviour {
     [Header("Evilness")]
     [SerializeField]
     private int maxEvilLevel = 50;
-    [SerializeField]
-    [ShowOnly]
-    private int evilLevel;
+    public int evilLevel;
 
     [HideInInspector]
     public Rigidbody rb;
-    private GameObject[] traps;
-    private Vector3 initialBulletSpawnPointPos;
-    private float timeSinceLastTrapUse;
-    private MeshRenderer meshRenderer;
+    [HideInInspector]
+    public Vector3 initialBulletSpawnPointPos;
+    [HideInInspector]
+    public float timeSinceLastTrapUse;
+    [HideInInspector]
+    public MeshRenderer meshRenderer;
 
     [Header("Attacks")]
     [SerializeField]
     public Transform bulletSpawnPoint;
 
     [Header("Actual Trap")]
-    public GameObject actualTrap;
+    [HideInInspector]
+    public Trap[] allTraps;
+    public Trap nearbyTrap;
+    public Trap currentTrap;
     [SerializeField]
-    private int trapUseCooldown = 10;
+    private int trapUseCooldown;
+    public float trapMaxUseDistance;
+    [HideInInspector]
+    public bool shouldExitTrap = false;
 
     [Header("Player States")]
     [SerializeField]
     private State currentState;
     public PlayerStates state;
     [HideInInspector]
-    public float timeSinceLastAttack = 1000.0f;
+    public float timeSinceLastAttack;
     [HideInInspector]
     public AIEnemy currentBasicAttackTarget = null;
 
@@ -55,16 +61,22 @@ public class Player : MonoBehaviour {
     {
         state = PlayerStates.MOVE;
         initialBulletSpawnPointPos = new Vector3(0.8972f, 1.3626f, 0.1209f);
+        meshRenderer = this.GetComponentInChildren<MeshRenderer>();
+        rb = this.GetComponent<Rigidbody>();
+        GameObject[] allTrapsGameObjects = GameObject.FindGameObjectsWithTag("Traps");
+        allTraps = new Trap[allTrapsGameObjects.Length];
+        for (int i = 0; i < allTrapsGameObjects.Length; ++i)
+        {
+            allTraps[i] = allTrapsGameObjects[i].GetComponent<Trap>();
+        }
     }
 
     private void Start () 
     {
         footSteps.SetActive(false);
         evilLevel = maxEvilLevel;
-        meshRenderer = this.GetComponentInChildren<MeshRenderer>();
-        rb = this.GetComponent<Rigidbody>();
-        ResetTrapList();
         timeSinceLastTrapUse = trapUseCooldown;
+        timeSinceLastAttack = 1000.0f;
     }
 
     private void Update() 
@@ -74,8 +86,6 @@ public class Player : MonoBehaviour {
             return;
         }
         currentState.UpdateState(this);
-
-        UseTrap();
 
         if (InputManager.instance.GetL1ButtonDown() && state == PlayerStates.MOVE)
             transform.position = statueTeleportPoint.position;
@@ -89,83 +99,18 @@ public class Player : MonoBehaviour {
     #region Public Methods
     public virtual void TransitionToState(State targetState)
     {
-        if (currentState.onExitAction)
-            currentState.onExitAction.Act(this);
+        for (int i = 0; i < currentState.onExitActions.Length; ++i)
+            currentState.onExitActions[i].Act(this);
 
-        if (targetState.onEnterAction)
-            targetState.onEnterAction.Act(this);
+        for (int i = 0; i < targetState.onEnterActions.Length; ++i)
+            targetState.onEnterActions[i].Act(this);
 
         currentState = targetState;
     }
 
     public void StopTrapUse() 
     {
-        bulletSpawnPoint.SetParent(transform);
-        bulletSpawnPoint.localPosition = initialBulletSpawnPointPos;
-        bulletSpawnPoint.rotation = Quaternion.identity;
-        Trap trapScript = actualTrap.GetComponent<Trap>();
-        trapScript.Deactivate();
-        meshRenderer.enabled = true;
-        Vector3 nextPos = actualTrap.transform.forward * 3f;
-        this.transform.position = new Vector3(actualTrap.transform.position.x - nextPos.x, this.transform.position.y, actualTrap.transform.position.z - nextPos.z);
-        actualTrap = null;
-        state = PlayerStates.MOVE;
-        timeSinceLastTrapUse = 0f;
-    }
-
-    public void UseTrap() 
-    {
-        UIManager.instance.HideRepairTrapText();
-        timeSinceLastTrapUse += Time.deltaTime;
-        if (actualTrap == null && state != PlayerStates.TURRET) 
-        {
-            if (timeSinceLastTrapUse > trapUseCooldown)
-            {
-                for (int i = 0; i < traps.Length; i++)
-                {
-                    if (Vector3.Distance(this.transform.position, traps[i].transform.position) < 3.0f)
-                    {
-                        Trap trapScript = traps[i].GetComponent<Trap>();
-                        if (InputManager.instance.GetXButtonDown())
-                        {
-                            if (trapScript.CanUse())
-                            {
-                                bulletSpawnPoint.SetParent(traps[i].transform);
-                                bulletSpawnPoint.localPosition = new Vector3(0f, 0.3f, 0.7f);
-                                trapScript.Activate(this);
-                                state = PlayerStates.TURRET;
-                                meshRenderer.enabled = false;
-                                actualTrap = traps[i];
-                            }
-                        }
-                        if (!trapScript.HasFullHealth() && trapScript.GetRepairCost() <= evilLevel)
-                        {
-                            UIManager.instance.ShowRepairTrapText();
-
-                            if (InputManager.instance.GetTriangleButtonDown())
-                            {
-                                SetEvilLevel(-trapScript.GetRepairCost());
-                                trapScript.FullRepair();
-                                UIManager.instance.HideRepairTrapText();
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        else
-        {
-            if (InputManager.instance.GetXButtonDown()) 
-            {
-                StopTrapUse();
-            }
-        }
-    }
-
-    public void ResetTrapList() 
-    {
-        traps = null;
-        traps = GameObject.FindGameObjectsWithTag("Traps");
+        shouldExitTrap = true;
     }
 
     public int GetMaxEvilLevel() 

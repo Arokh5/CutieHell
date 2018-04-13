@@ -4,8 +4,8 @@
 public class State : ScriptableObject
 {
     #region Fields
-    public StateAction onEnterAction;
-    public StateAction onExitAction;
+    public StateAction[] onEnterActions;
+    public StateAction[] onExitActions;
     public StateAction[] stateActions;
     public Transition[] transitions;
     #endregion
