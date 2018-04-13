@@ -20,10 +20,6 @@ public class StrongAttackDetection : MonoBehaviour
 
     #endregion
 
-    #region Properties
-
-    #endregion
-
     #region MonoBehaviour Methods
 
     private void Awake()
@@ -57,10 +53,6 @@ public class StrongAttackDetection : MonoBehaviour
             targetEnemies.Remove(aIEnemy);
         }
     }
-	#endregion
-	
-	#region Public Methods
-	
 	#endregion
 	
 	#region Private Methods
