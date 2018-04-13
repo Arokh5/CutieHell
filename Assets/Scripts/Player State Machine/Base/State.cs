@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu (menuName ="State Machine/State")]
+[CreateAssetMenu (menuName ="Player State Machine/State")]
 public class State : ScriptableObject
 {
     #region Fields

@@ -12,8 +12,7 @@ public class Player : MonoBehaviour {
     private Transform centerTeleportPoint;
     [SerializeField]
     private Transform statueTeleportPoint;
-    [SerializeField]
-    private GameObject footSteps;
+    public GameObject footSteps;
 
     [Header("Evilness")]
     [SerializeField]
@@ -22,7 +21,8 @@ public class Player : MonoBehaviour {
     [ShowOnly]
     private int evilLevel;
 
-    private Rigidbody rb;
+    [HideInInspector]
+    public Rigidbody rb;
     private Vector3 speedDirection;
     private GameObject[] traps;
     private Vector3 initialBulletSpawnPointPos;
@@ -64,6 +64,8 @@ public class Player : MonoBehaviour {
 
     private void Update() 
     {
+        currentState.UpdateState(this);
+
         UseTrap();
 
         if (InputManager.instance.GetL1ButtonDown() && state == PlayerStates.MOVE)
@@ -72,26 +74,6 @@ public class Player : MonoBehaviour {
         if (InputManager.instance.GetR1ButtonDown() && state == PlayerStates.MOVE)
             transform.position = centerTeleportPoint.position;
 
-    }
-
-    private void FixedUpdate() 
-    {
-        switch (state) 
-        {
-            case PlayerStates.STILL:
-                break;
-            case PlayerStates.MOVE:
-                MovePlayer();
-                break;
-            case PlayerStates.WOLF:
-                break;
-            case PlayerStates.FOG:
-                break;
-            case PlayerStates.TURRET:
-                break;
-            default:
-                break;
-        }
     }
     #endregion
 
@@ -201,48 +183,6 @@ public class Player : MonoBehaviour {
         }
 
         UIManager.instance.SetEvilBarValue(evilLevel);
-    }
-    #endregion
-
-    #region Private Methods
-    private void MovePlayer()
-    {
-        speedDirection = Vector3.zero;
-
-        if (InputManager.instance.GetLeftStickUp())
-        {
-            speedDirection += new Vector3(0.0f, 0.0f, 0.5f);
-        }
-        if (InputManager.instance.GetLeftStickDown())
-        {
-            speedDirection += new Vector3(0.0f, 0.0f, -0.5f);
-        }
-        if (InputManager.instance.GetLeftStickLeft())
-        {
-            speedDirection += new Vector3(-0.5f, 0.0f, 0.0f);
-        }
-        if (InputManager.instance.GetLeftStickRight())
-        {
-            speedDirection += new Vector3(0.5f, 0.0f, 0.0f);
-        }
-
-        if (speedDirection.magnitude > 0.0f)
-        {
-            rb.drag = 0.0f;
-            footSteps.SetActive(true);
-        }
-        else
-        {
-            rb.drag = 10.0f;
-            footSteps.SetActive(false);
-        }
-
-        rb.AddRelativeForce(speedDirection * acceleration, ForceMode.Acceleration);
-
-        if (rb.velocity.magnitude > maxSpeed)
-        {
-            rb.velocity = rb.velocity.normalized * maxSpeed;
-        }
     }
     #endregion
 }
