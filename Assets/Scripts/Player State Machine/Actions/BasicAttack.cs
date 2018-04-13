@@ -4,7 +4,10 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Player State Machine/Actions/BasicAttack")]
 public class BasicAttack : StateAction {
-    public BasicAttackData attackData;
+    public LayerMask layerMask;
+    public float sphereCastRadius;
+    public float attackCadency;
+    public FollowTarget attackPrefab;
 
     public override void Act(Player player)
     {
@@ -12,7 +15,7 @@ public class BasicAttack : StateAction {
 
         AIEnemy newTarget = null;
         RaycastHit hit;
-        bool raycastHit = Physics.SphereCast(Camera.main.transform.position, attackData.sphereCastRadius, Camera.main.transform.forward, out hit, 100, attackData.layerMask.value);
+        bool raycastHit = Physics.SphereCast(Camera.main.transform.position, sphereCastRadius, Camera.main.transform.forward, out hit, 100, layerMask.value);
 
         /* Targetting */
         if (raycastHit)
@@ -40,7 +43,7 @@ public class BasicAttack : StateAction {
         }
 
         /* Shooting */
-        if (InputManager.instance.GetR2Button() && player.timeSinceLastAttack >= attackData.attackCadency)
+        if (InputManager.instance.GetR2Button() && player.timeSinceLastAttack >= attackCadency)
         {
             Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 100, Color.red, 2);
 
@@ -57,7 +60,7 @@ public class BasicAttack : StateAction {
     {
         Vector3 spawningPos = player.bulletSpawnPoint.position;
 
-        FollowTarget attackClone = Instantiate(attackData.attackPrefab, spawningPos, player.transform.rotation);
+        FollowTarget attackClone = Instantiate(attackPrefab, spawningPos, player.transform.rotation);
         attackClone.SetEnemy(enemy);
         attackClone.SetHitPoint(hitPoint);
     }
