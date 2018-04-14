@@ -83,9 +83,12 @@ public class Player : MonoBehaviour {
     {
         footSteps.SetActive(false);
         evilLevel = maxEvilLevel;
+
         timeSinceLastTrapUse = trapUseCooldown;
         timeSinceLastAttack = 1000.0f;
         timeSinceLastStrongAttack = 1000.0f;
+
+        currentState.EnterState(this);
     }
 
     private void Update() 
@@ -112,12 +115,8 @@ public class Player : MonoBehaviour {
     #region Public Methods
     public virtual void TransitionToState(State targetState)
     {
-        for (int i = 0; i < currentState.onExitActions.Length; ++i)
-            currentState.onExitActions[i].Act(this);
-
-        for (int i = 0; i < targetState.onEnterActions.Length; ++i)
-            targetState.onEnterActions[i].Act(this);
-
+        currentState.ExitState(this);
+        targetState.EnterState(this);
         currentState = targetState;
     }
 

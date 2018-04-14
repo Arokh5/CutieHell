@@ -27,5 +27,17 @@ public class State : ScriptableObject
             }
         }
     }
+
+    public void EnterState(Player player)
+    {
+        for (int i = 0; i < onEnterActions.Length; ++i)
+            onEnterActions[i].Act(player);
+    }
+
+    public void ExitState(Player player)
+    {
+        for (int i = 0; i < onExitActions.Length; ++i)
+            onExitActions[i].Act(player);
+    }
     #endregion
 }
