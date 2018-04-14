@@ -7,6 +7,6 @@ public class L2Up : Decision
 {
     public override bool Decide(Player player)
     {
-        return InputManager.instance.   GetL2ButtonUp();
+        return InputManager.instance.GetL2ButtonUp();
     }
 }
