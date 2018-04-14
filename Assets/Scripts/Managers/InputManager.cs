@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour {
 
-
     private enum ButtonState { IDLE, DOWN, PRESSED, UP }
     private enum AxisAsButton { L2, R2, LS_DOWN, LS_UP, PAD_DOWN, PAD_UP }
 
@@ -13,13 +12,8 @@ public class InputManager : MonoBehaviour {
     public static InputManager instance;
     private ButtonState[] buttonStates;
     private int axisAsButtonsCount;
-    private bool leftStickDownPrevState = false;
-    private bool leftStickUpPrevState = false;
-    private bool padDownPrevState = false;
-    private bool padUpPrevState = false;
 
     #endregion
-
 
     #region MonoBehaviour Methods
 
