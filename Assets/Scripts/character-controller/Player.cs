@@ -43,7 +43,7 @@ public class Player : MonoBehaviour {
     [Header("Player States")]
     [SerializeField]
     private State currentState;
-    public PlayerStates state;
+    public CameraState cameraState;
 
     [Header("Basic Attacks")]
     [HideInInspector]
@@ -60,12 +60,12 @@ public class Player : MonoBehaviour {
     public List<AIEnemy> currentStrongAttackTargets = new List<AIEnemy>();
     #endregion
 
-    public enum PlayerStates { STILL, MOVE, WOLF, FOG, TURRET}
+    public enum CameraState { STILL, MOVE, WOLF, FOG, TURRET}
 
     #region MonoBehaviour Methods
     private void Awake() 
     {
-        state = PlayerStates.MOVE;
+        cameraState = CameraState.MOVE;
         initialBulletSpawnPointPos = new Vector3(0.8972f, 1.3626f, 0.1209f);
         meshRenderer = this.GetComponentInChildren<MeshRenderer>();
         rb = this.GetComponent<Rigidbody>();

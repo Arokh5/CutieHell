@@ -53,10 +53,10 @@ public class FocusAttack : MonoBehaviour
         {
             float cadency = 0f;
 
-            if (player.state == Player.PlayerStates.MOVE)
+            if (player.cameraState == Player.CameraState.MOVE)
                 cadency = basicAttackCadency;
 
-            if (player.state == Player.PlayerStates.TURRET)
+            if (player.cameraState == Player.CameraState.TURRET)
                 cadency = turretTrapCadency;
 
             if (time >= cadency)
