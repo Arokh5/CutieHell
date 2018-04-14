@@ -7,6 +7,7 @@ public class InputManager : MonoBehaviour {
     #region Fields
 
     public static InputManager instance;
+    private ButtonState stateL2 = ButtonState.IDLE;
     private bool L2buttonPrevState = false;
     private bool R2buttonPrevState = false;
     private bool leftStickDownPrevState = false;
@@ -16,11 +17,47 @@ public class InputManager : MonoBehaviour {
 
     #endregion
 
+    private enum ButtonState { IDLE, DOWN, PRESSED, UP }
+
     #region MonoBehaviour Methods
 
     private void Awake()
     {
-        instance = this;
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(this);
+    }
+
+    private void Update()
+    {
+        /* QuickFix to get L2Down and Up methods to work */
+        bool l2CurrentlyPressed = GetL2Button();
+        switch (stateL2)
+        {
+            case ButtonState.IDLE:
+                if (l2CurrentlyPressed)
+                    stateL2 = ButtonState.DOWN;
+                break;
+            case ButtonState.DOWN:
+                if (l2CurrentlyPressed)
+                    stateL2 = ButtonState.PRESSED;
+                else
+                    stateL2 = ButtonState.UP;
+                break;
+            case ButtonState.PRESSED:
+                if (!l2CurrentlyPressed)
+                    stateL2 = ButtonState.UP;
+                break;
+            case ButtonState.UP:
+                if (l2CurrentlyPressed)
+                    stateL2 = ButtonState.DOWN;
+                else
+                    stateL2 = ButtonState.IDLE;
+                break;
+            default:
+                break;
+        }
     }
 
     #endregion
@@ -297,6 +334,8 @@ public class InputManager : MonoBehaviour {
 
     public bool GetL2ButtonDown()
     {
+        return stateL2 == ButtonState.DOWN;
+
         bool buttonDown = false;
 
         if (GetL2Button())
@@ -322,6 +361,8 @@ public class InputManager : MonoBehaviour {
 
     public bool GetL2ButtonUp()
     {
+        return stateL2 == ButtonState.UP;
+
         bool buttonUp = false;
 
         if (!GetL2Button())
