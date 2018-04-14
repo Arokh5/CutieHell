@@ -8,10 +8,5 @@ public class TrapExitCheck : Decision {
     public override bool Decide(Player player)
     {
         return player.shouldExitTrap || InputManager.instance.GetXButtonDown();
-        if (player.shouldExitTrap)
-            return true;
-        if (InputManager.instance.GetXButtonDown())
-            return true;
-        return false;
     }
 }

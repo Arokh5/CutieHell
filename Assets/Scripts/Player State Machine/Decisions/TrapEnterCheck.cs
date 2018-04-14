@@ -7,6 +7,6 @@ public class TrapEnterCheck : Decision
 {
     public override bool Decide(Player player)
     {
-        return player.nearbyTrap && InputManager.instance.GetXButtonDown() && player.nearbyTrap.CanUse();
+        return player.nearbyTrap && player.timeSinceLastTrapUse > player.trapUseCooldown && InputManager.instance.GetXButtonDown() && player.nearbyTrap.CanUse();
     }
 }

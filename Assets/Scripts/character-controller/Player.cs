@@ -37,8 +37,7 @@ public class Player : MonoBehaviour {
     public Trap[] allTraps;
     public Trap nearbyTrap;
     public Trap currentTrap;
-    [SerializeField]
-    private int trapUseCooldown;
+    public int trapUseCooldown;
     public float trapMaxUseDistance;
     [HideInInspector]
     public bool shouldExitTrap = false;
@@ -85,6 +84,8 @@ public class Player : MonoBehaviour {
         {
             return;
         }
+
+        timeSinceLastTrapUse += Time.deltaTime;
         currentState.UpdateState(this);
 
         if (InputManager.instance.GetL1ButtonDown() && state == PlayerStates.MOVE)
