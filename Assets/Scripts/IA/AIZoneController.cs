@@ -18,6 +18,7 @@ public class AIZoneController : MonoBehaviour
     // List that contains all AIEnemy that were spawned on this ZoneController's area and are still alive
     [SerializeField]
     private List<AIEnemy> aiEnemies;
+    private List<EnemyProjection> enemyProjections = new List<EnemyProjection>();
     #endregion
 
     #region MonoBehaviour Methods
@@ -119,6 +120,69 @@ public class AIZoneController : MonoBehaviour
         }
         aiEnemies.Clear();
         scenario.OnZoneEmpty();
+    }
+
+    public void AddEnemyProjection(EnemyProjection enemyProjection)
+    {
+        if(enemyProjection != null)
+        {
+            enemyProjections.Add(enemyProjection);
+        }
+    }
+
+    public void RemoveEnemyProjection(EnemyProjection enemyProjection)
+    {
+        if (enemyProjection != null)
+        {
+            enemyProjections.Remove(enemyProjection);
+        }
+
+        for (int i = 0; i < aiEnemies.Count; i++)
+        {
+            AIEnemy aiEnemy = aiEnemies[i];
+            if (aiEnemy.GetCurrentVirtualTarget() != null)
+            {
+                if (aiEnemy.GetCurrentVirtualTarget().Equals(enemyProjection))
+                {
+                    aiEnemy.SetCurrentVirtualTarget(null);
+                }
+            }
+        }
+    }
+
+    public void EvaluateEnemiesTargettingProjections()
+    {
+        for (int i = 0; i < enemyProjections.Count; i++)
+        {
+            EnemyProjection enemyProjection = enemyProjections[i];
+            for (int j = 0; j < aiEnemies.Count; j++)
+            {
+                AIEnemy aiEnemy = aiEnemies[j];
+                if (!aiEnemy.isCurrentlyAttractedByAProjection())
+                {
+                    if (Vector3.Distance(enemyProjection.transform.position, aiEnemy.transform.position) < enemyProjection.attractionRadius)
+                    {
+                        aiEnemy.SetCurrentVirtualTarget(enemyProjection);
+                        enemyProjection.SetEnemyAttracted(aiEnemy);
+                    }
+                }
+            }
+        }
+    }
+
+    public void CancelSpecificTargettingProjection(EnemyProjection enemyProjectionGone)
+    {
+        for (int i = 0; i < aiEnemies.Count; i++)
+        {
+            AIEnemy aiEnemy = aiEnemies[i];
+            if (aiEnemy.isCurrentlyAttractedByAProjection())
+            {
+                if (aiEnemy.GetCurrentVirtualTarget().Equals(enemyProjectionGone))
+                {
+                    aiEnemy.SetCurrentVirtualTarget(null);
+                }
+            }
+        }
     }
     #endregion
 

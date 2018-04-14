@@ -22,6 +22,8 @@ public class FocusAttack : MonoBehaviour
     private RaycastHit hit;
     private float time;
 
+    private float seductiveLastLaunchedTime = 0;
+
     #endregion
 
     #region Properties
@@ -40,12 +42,15 @@ public class FocusAttack : MonoBehaviour
         if (player.state == Player.PlayerStates.MOVE || player.state == Player.PlayerStates.TURRET)
         {
             FocusBasicAttack();
+            seductiveLastLaunchedTime = 0;
+            Debug.Log("Find a way to avoid this cheap but repetitive assignation");
         }
         else if (player.state == Player.PlayerStates.SEDUCTIVE)
         {
-
+            seductiveLastLaunchedTime += Time.deltaTime;
+            FocusSeductiveAttack();
         }
-        
+      
     }
 
     #endregion
@@ -129,5 +134,22 @@ public class FocusAttack : MonoBehaviour
 
     }
 
+    private void FocusSeductiveAttack()
+    {
+        if (InputManager.instance.GetR2ButtonDown())
+        {
+            Trap attackingTrap = GameManager.instance.GetTrapBeingUsed();
+            if (seductiveLastLaunchedTime >= attackingTrap.cooldownBetweenSeductiveProjections || 
+                attackingTrap.GetLandedEnemyProjectionsCount() == 0)
+            {
+                if (GameManager.instance.GetTrapBeingUsed() != null)
+                {
+                    attackingTrap.LandSeductiveEnemyProjection();
+                    attackingTrap.InstantiateSeductiveEnemyProjection();
+                    seductiveLastLaunchedTime = Time.deltaTime;
+                }
+            }
+        }
+    }
     #endregion
 }

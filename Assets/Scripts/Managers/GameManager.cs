@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     private GameObject pauseMenu;
 
     private GameObject crosshair;
+    private Trap trapBeingUsed;
 
     #endregion
 
@@ -141,6 +142,16 @@ public class GameManager : MonoBehaviour
     public Player GetPlayer1()
     {
         return player;
+    }
+
+    public Trap GetTrapBeingUsed()
+    {
+        return trapBeingUsed;
+    }
+
+    public void SetTrapBeingUsed(Trap trap)
+    {
+        trapBeingUsed = trap;
     }
 
     public void GoToTitleScreen()

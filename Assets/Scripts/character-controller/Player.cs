@@ -34,6 +34,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int trapUseCooldown = 10;
 
+ 
+
     [Header("Player States")]
     public PlayerStates state;
     public MeshRenderer meshRenderer;
@@ -90,17 +92,14 @@ public class Player : MonoBehaviour
     private void PrepareTrapUse(Trap trapToUse)
     {
         Trap.TrapTypes trapType = trapToUse.trapType;
-        trapToUse.Activate(this);
-        actualTrap = trapToUse.gameObject;
-        meshRenderer.enabled = false;
-
+       
         switch (trapType)
         {
             case Trap.TrapTypes.TURRET:
 
                 bulletSpawnPoint.SetParent(trapToUse.transform);
                 bulletSpawnPoint.localPosition = new Vector3(0f, 0.3f, 0.7f);
-
+                
                 state = PlayerStates.TURRET;
                 break;
             case Trap.TrapTypes.SEDUCTIVE:
@@ -109,6 +108,10 @@ public class Player : MonoBehaviour
                 state = PlayerStates.SEDUCTIVE;
                 break;
         }
+        trapToUse.Activate(this);
+        actualTrap = trapToUse.gameObject;
+        meshRenderer.enabled = false;
+        GameManager.instance.SetTrapBeingUsed(actualTrap.GetComponent<Trap>());
     }
 
     public void StopTrapUse()
@@ -122,6 +125,7 @@ public class Player : MonoBehaviour
         Vector3 nextPos = actualTrap.transform.forward * 3f;
         this.transform.position = new Vector3(actualTrap.transform.position.x - nextPos.x, this.transform.position.y, actualTrap.transform.position.z - nextPos.z);
         actualTrap = null;
+        GameManager.instance.SetTrapBeingUsed(null);
 
         if (state == PlayerStates.SEDUCTIVE)
         {

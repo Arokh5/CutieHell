@@ -14,7 +14,8 @@ public enum AttackType
     WOLF,
     FOG,
     TRAP_BASIC,
-    TRAP_AREA
+    TRAP_AREA,
+    SEDUCTIVE_PROJECTION
 }
 
 

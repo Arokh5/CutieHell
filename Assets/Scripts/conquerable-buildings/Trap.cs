@@ -15,14 +15,19 @@ public class Trap : Building, IUsable
 
     [Header("Seductive Trap setup")]
     [SerializeField]
+    private GameObject trapBasicSummonerEyes;
+    public BeamProjection trapBasicSummonerBeam;
     public GameObject seductiveTrapActiveArea;
-    [SerializeField]
     public GameObject seductiveProjection;
-    public float seductiveTrapDuration;
-    public float blinkingSpeed;
-    private float seductiveTrapCurrentTimeActive = 0;
-    private float areaBlinkingTime = 0;
-    private GameObject instantiatedEnemyProjection;
+    public float cooldownBetweenSeductiveProjections;
+    private bool firstProjection;
+    private GameObject nonLandedProjection;
+
+    [Header("Cameras")]
+    public GameObject mainCamera;
+    public GameObject summonerTrapCamera;
+
+    private List<GameObject> landedEnemyProjection =  new List<GameObject>();
 
     [Header("Trap testing")]
     public bool activate = false;
@@ -39,36 +44,36 @@ public class Trap : Building, IUsable
     {
         if (activate)
         {
-            if(trapType == TrapTypes.SEDUCTIVE)
-            {
-                seductiveTrapActiveArea.SetActive(true);
-                Vector3 startPosition = new Vector3(0.0f, 0.0f, 0.0f) + transform.forward * transform.parent.transform.parent.GetComponentInChildren<Projector>().orthographicSize * 0.7f;
-                Debug.Log("Hacer esto más limpio, en un metodo propio y pasar por el mismo sitio esta información aquí y a enemyprojection");
-                startPosition.y = 0.0f;
-                Debug.Log("Este último valor tiene que ser en función del ortographic size del SeductiveProjector");
-
-                instantiatedEnemyProjection = Instantiate(seductiveProjection, startPosition, Quaternion.LookRotation(transform.forward, transform.up), transform.parent.transform);
-                instantiatedEnemyProjection.transform.localPosition = startPosition;
-                instantiatedEnemyProjection.AddComponent<EnemyProjection>();
-            }
             isActive = true;
             activate = false;
         }
         else if (deactivate)
         {
             isActive = false;
-            deactivate = false;
-            Destroy(instantiatedEnemyProjection);
+            deactivate = false;         
         }
 
         if (isActive)
         {
             if (trapType == TrapTypes.SEDUCTIVE)
             {
-                HandleSeductiveAreaBlinking();
+                LookAtSeductiveEnemyProjection();                
             }
         }
+
+        if (landedEnemyProjection.Count > 0)
+        {
+            zoneController.EvaluateEnemiesTargettingProjections();
+        }
+
         base.Update();
+    }
+
+    void OnDrawGizmos()
+    {
+        // Display the explosion radius when selected
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(transform.position, attractionRadius);
     }
     #endregion
 
@@ -101,7 +106,17 @@ public class Trap : Building, IUsable
         {
             this.player = player;
             zoneController.OnTrapActivated(this);
-            activate = true;
+            if (player.state == Player.PlayerStates.SEDUCTIVE)
+            {
+                mainCamera.SetActive(false);
+                summonerTrapCamera.SetActive(true);
+                seductiveTrapActiveArea.SetActive(true);
+
+                firstProjection = true;
+                InstantiateSeductiveEnemyProjection();
+                trapBasicSummonerBeam.gameObject.SetActive(true);                
+            }
+            activate = true; 
             return true;
         }
         else
@@ -113,16 +128,78 @@ public class Trap : Building, IUsable
     // Called by Player. A call to this method should inform the ZoneController
     public void Deactivate()
     {
-        if(player.state == Player.PlayerStates.SEDUCTIVE)
+        if (player.state == Player.PlayerStates.SEDUCTIVE)
         {
-            areaBlinkingTime = 0.0f;
             seductiveTrapActiveArea.SetActive(false);
-            seductiveTrapCurrentTimeActive = 0.0f;
+            mainCamera.SetActive(true);
+            summonerTrapCamera.SetActive(false);
+            trapBasicSummonerBeam.gameObject.SetActive(false);
+            GameObject.Destroy(nonLandedProjection);
         }
 
         player = null;
         deactivate = true;
-        zoneController.OnTrapDeactivated();     
+        zoneController.OnTrapDeactivated();        
+    }
+
+
+    public void InstantiateSeductiveEnemyProjection()
+    {
+        Vector3 localStartPosition;
+
+        // New generated projections (but not landed) will show up right where the player landed the previous one, first projection, exceptionally will land right in front of the trap
+        if (firstProjection)
+        {
+            localStartPosition = transform.forward *
+                        seductiveTrapActiveArea.GetComponent<Projector>().orthographicSize * 0.5f;
+            
+            Debug.Log("Hacer esto más limpio, en un metodo propio y pasar por el mismo sitio esta información aquí y a enemyprojection");
+        }
+        else
+        {
+            localStartPosition = nonLandedProjection.transform.localPosition;
+        }
+
+        nonLandedProjection = Instantiate(seductiveProjection,
+            localStartPosition, Quaternion.LookRotation(transform.forward, transform.up), this.transform);
+        nonLandedProjection.transform.localPosition = localStartPosition;
+
+        nonLandedProjection.GetComponent<EnemyProjection>().SetLimitedPlacingDistance(seductiveTrapActiveArea.GetComponent<Projector>().orthographicSize * 0.7f);
+        trapBasicSummonerBeam.enemyProjectionTargetPoint = nonLandedProjection.GetComponent<EnemyProjection>().headTransform;
+
+        Debug.Log("Cambiar el getComponent");
+
+    }
+
+    public void LandSeductiveEnemyProjection()
+    {
+        landedEnemyProjection.Add(nonLandedProjection);
+        landedEnemyProjection[GetLandedEnemyProjectionsCount()-1].GetComponent<EnemyProjection>().SetEnemyProjectionLanded(true);
+        landedEnemyProjection[GetLandedEnemyProjectionsCount()-1].GetComponent<Renderer>().material.SetColor("_Color",Color.blue);
+
+        zoneController.AddEnemyProjection(landedEnemyProjection[GetLandedEnemyProjectionsCount() - 1].GetComponent<EnemyProjection>());
+
+        if (landedEnemyProjection.Count == 1)
+        {
+            firstProjection = false;
+        }
+    }
+
+    public void LookAtSeductiveEnemyProjection()
+    {
+        trapBasicSummonerEyes.transform.rotation = Quaternion.LookRotation(nonLandedProjection.transform.position - trapBasicSummonerEyes.transform.position);
+    }
+
+    public int GetLandedEnemyProjectionsCount()
+    {
+        return landedEnemyProjection.Count;
+    }
+
+    public void DestroyEnemyProjection(GameObject deadEnemyProjection)
+    {
+        zoneController.RemoveEnemyProjection(deadEnemyProjection.GetComponent<EnemyProjection>());
+        GameObject.Destroy(landedEnemyProjection[landedEnemyProjection.IndexOf(deadEnemyProjection)]);
+        landedEnemyProjection.Remove(deadEnemyProjection);
     }
     #endregion
 
@@ -145,36 +222,16 @@ public class Trap : Building, IUsable
     #endregion
 
     #region Private Methods
-    private void HandleSeductiveAreaBlinking()
-    {
-        if (seductiveTrapCurrentTimeActive < seductiveTrapDuration)
+    private void EraseAllLandedEnemyProjections()
+    {       
+        while (landedEnemyProjection.Count > 0)
         {
-            //Start Area blinking after 3/4 parts of the time has been consumed
-            if (seductiveTrapCurrentTimeActive > (seductiveTrapDuration * 0.75))
-            {
-                if (seductiveTrapCurrentTimeActive > (seductiveTrapDuration * 0.9))
-                {
-                    areaBlinkingTime += blinkingSpeed * Time.deltaTime;
-                }
-                else
-                {
-                    areaBlinkingTime += blinkingSpeed * 2 * Time.deltaTime;
-                }
-
-                if (areaBlinkingTime > 1)
-                {
-                    seductiveTrapActiveArea.SetActive(!seductiveTrapActiveArea.activeSelf);
-                    areaBlinkingTime = 0f;
-                }
-
-            }
-            seductiveTrapCurrentTimeActive += Time.deltaTime;
-        }
-        else
-        {
-            player.StopTrapUse();
-        }
+            GameObject.Destroy(landedEnemyProjection[0]);
+            landedEnemyProjection.RemoveAt(0);
+        }      
     }
+
+    
     #endregion
 
 }

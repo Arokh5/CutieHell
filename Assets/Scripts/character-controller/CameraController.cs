@@ -136,7 +136,6 @@ public class CameraController : MonoBehaviour {
                 case Player.PlayerStates.FOG:
                     break;
                 case Player.PlayerStates.TURRET:
-                case Player.PlayerStates.SEDUCTIVE:
                     {
                         Quaternion rotation = Quaternion.Euler(y, x, 0);
                         playerScript.actualTrap.transform.rotation = rotation;

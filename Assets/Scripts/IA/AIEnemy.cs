@@ -8,8 +8,11 @@ public class AIEnemy : MonoBehaviour, IDamageable
     #region Fields
     private AIZoneController zoneController;
     private SubZoneType currentSubZone;
+    [ShowOnly]
     private Building currentTarget;
+    private EnemyProjection currentVirtualTarget;
     private NavMeshAgent agent;
+    private float initialAgentStoppingDistance;
     private Renderer mRenderer;
 
     [Header("Materials")]
@@ -44,6 +47,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     {
         agent = GetComponent<NavMeshAgent>();
         UnityEngine.Assertions.Assert.IsNotNull(agent, "Error: No NavMeshAgent found for AIEnemy in GameObject '" + gameObject.name + "'!");
+        initialAgentStoppingDistance = agent.stoppingDistance;
         mRenderer = GetComponentInChildren<MeshRenderer>();
         UnityEngine.Assertions.Assert.IsNotNull(mRenderer, "Error: No MeshRenderer found for children of AIEnemy in GameObject '" + gameObject.name + "'!");
         mRenderer.material.color = initialColor;
@@ -63,7 +67,15 @@ public class AIEnemy : MonoBehaviour, IDamageable
         {
             if (agent.enabled)
             {
-                agent.SetDestination(currentTarget.transform.position);
+                if(this.currentVirtualTarget != null)
+                {
+                    agent.SetDestination(currentVirtualTarget.transform.position);
+                }
+                else
+                {
+                    agent.SetDestination(currentTarget.transform.position);
+                }
+                
             }
             attackLogic.AttemptAttack(currentTarget);
         }
@@ -106,6 +118,37 @@ public class AIEnemy : MonoBehaviour, IDamageable
         currentTarget = target;
     }
 
+    // Called by the ZoneController in case the AIEnemy is affected by the attracion power of the EnemyProjection
+    public void SetCurrentVirtualTarget(EnemyProjection virtualTarget)
+    {
+        if (virtualTarget != null) //AIEnemies will ignore stopping distance if they are chasing projections
+        {
+            agent.stoppingDistance = 0;
+        }
+        else
+        {
+            agent.stoppingDistance = initialAgentStoppingDistance;
+        }
+        currentVirtualTarget = virtualTarget;
+    }
+
+    // Called by the ZoneController to know if an specific enemy is currently attracted by a certain enemyprojection
+    public EnemyProjection GetCurrentVirtualTarget()
+    {
+        return currentVirtualTarget;
+    }
+
+    // Called by the ZoneController to know if an specific enemy is currently attracted by a seductive projection
+    public bool isCurrentlyAttractedByAProjection()
+    {
+        bool currentlyAttracted = false;
+        if(currentVirtualTarget != null)
+        {
+            currentlyAttracted = true;
+        }
+        return currentlyAttracted;
+    }
+
     // IDamageable
     // Called by the AIPlayer or an Attack to determine if this AIEnemy should be targetted
     public bool IsDead()
@@ -124,6 +167,10 @@ public class AIEnemy : MonoBehaviour, IDamageable
         {
             currentHealth = 0;
             Die();
+            if (currentVirtualTarget != null && attacktype != AttackType.SEDUCTIVE_PROJECTION)
+            {
+                currentVirtualTarget.RemoveEnemyAttracted(this);
+            }
         }
         AdjustMaterials();
     }

@@ -2,60 +2,114 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyProjection : MonoBehaviour {
+public class EnemyProjection : MonoBehaviour
+{
 
-    private Transform transform;
-    private GameObject trap;
+    #region Properties 
+
+    private GameObject summonerTrap;
+    private Trap summonerTrapScript;
+
+    public Transform headTransform;
+    public float enemyProjectionSpeed;
+    public float enemyProjectionRotationSpeedY;
+    public float attractionRadius;
+    public float explosionTriggerRadius;
+    public float explosionRadius;
 
     private float limitedPlacingDistance;
-    // Use this for initialization
-    void Start ()
-    {
-        transform = this.GetComponent<Transform>();
-        trap = GameObject.Find("Trap_Seductive").transform.GetChild(0).GetChild(0).gameObject;
+    private bool enemyProjectionLanded;
 
-        limitedPlacingDistance = transform.parent.transform.parent.GetComponentInChildren<Projector>().orthographicSize * 0.7f;
+    private List<AIEnemy> attractedEnemies = new List<AIEnemy>();
+
+    #endregion
+
+    #region MonoBehaviour Methods
+    // Use this for initialization
+    void Start()
+    {
+        enemyProjectionLanded = false;
+        summonerTrap = transform.parent.gameObject;
+        summonerTrapScript = summonerTrap.GetComponent<Trap>();
+
         Debug.Log("Serializar");
     }
+
     // Update is called once per frame
-    void Update ()
+    void Update()
     {
-        MoveEnemyProjection();
-        RotateEnemyProjection();
+        if (!enemyProjectionLanded)
+        {
+            MoveEnemyProjection();
+            RotateEnemyProjection();
+        }
+        else
+        {
+            EvaluateSelfExplosion();
+        }
     }
+    #endregion
+
+    #region Public Methods
+    public void SetEnemyProjectionLanded(bool landed)
+    {
+        enemyProjectionLanded = landed;
+    }
+
+    public bool GetEnemyProjectionLanded()
+    {
+        return enemyProjectionLanded;
+    }
+
+    public void SetLimitedPlacingDistance(float limitedPlacingDistanceValue)
+    {
+        limitedPlacingDistance = limitedPlacingDistanceValue;
+    }
+
+    public void SetEnemyAttracted(AIEnemy aiEnemyattracted)
+    {
+        attractedEnemies.Add(aiEnemyattracted);
+    }
+
+    public void RemoveEnemyAttracted(AIEnemy deadAIEnemyByOtherWays)
+    {
+        attractedEnemies.Remove(deadAIEnemyByOtherWays);
+    }
+    #endregion
+
     #region Private Methods
     private void MoveEnemyProjection()
-    { 
+    {
         if (InputManager.instance.GetLeftStickUp())
         {
-            transform.localPosition += transform.forward * Time.deltaTime;
-            if (Vector3.Distance(transform.position, trap.transform.position) > limitedPlacingDistance)
+            transform.localPosition += transform.forward * Time.deltaTime * enemyProjectionSpeed;
+            if (Vector3.Distance(transform.position, summonerTrap.transform.position) > limitedPlacingDistance)
             {
-                transform.localPosition -= transform.forward * Time.deltaTime;
+                transform.localPosition -= transform.forward * Time.deltaTime * enemyProjectionSpeed;
             }
         }
         if (InputManager.instance.GetLeftStickDown())
         {
-            transform.localPosition += -transform.forward * Time.deltaTime;
-            if (Vector3.Distance(transform.position, trap.transform.position) > limitedPlacingDistance)
+            transform.localPosition += -transform.forward * Time.deltaTime * enemyProjectionSpeed;
+            if (Vector3.Distance(transform.position, summonerTrap.transform.position) > limitedPlacingDistance)
             {
-                transform.localPosition += transform.forward * Time.deltaTime;
+                transform.localPosition += transform.forward * Time.deltaTime * enemyProjectionSpeed;
             }
         }
         if (InputManager.instance.GetLeftStickLeft())
         {
-            transform.localPosition += -transform.right * Time.deltaTime;
-            if (Vector3.Distance(transform.position, trap.transform.position) > limitedPlacingDistance)
+            transform.localPosition += -transform.right * Time.deltaTime * enemyProjectionSpeed;
+            if (Vector3.Distance(transform.position, summonerTrap.transform.position) > limitedPlacingDistance)
             {
-                transform.localPosition += transform.right * Time.deltaTime;
+                transform.localPosition += transform.right * Time.deltaTime * enemyProjectionSpeed;
             }
         }
         if (InputManager.instance.GetLeftStickRight())
         {
-            transform.localPosition += transform.right * Time.deltaTime;
-            if (Vector3.Distance(transform.position, trap.transform.position) > limitedPlacingDistance)
+            transform.localPosition += transform.right * Time.deltaTime * enemyProjectionSpeed;
+            if (Vector3.Distance(transform.position, summonerTrap.transform.position) > limitedPlacingDistance)
             {
-                transform.localPosition += -transform.right * Time.deltaTime;
+                transform.localPosition += -transform.right * Time.deltaTime * enemyProjectionSpeed;
             }
         }
 
@@ -63,13 +117,53 @@ public class EnemyProjection : MonoBehaviour {
 
     private void RotateEnemyProjection()
     {
-        transform.rotation = trap.transform.rotation;
+        float y = transform.rotation.eulerAngles.y;
+
+        if (InputManager.instance.GetRightStickLeft() || InputManager.instance.GetRightStickRight())
+            y += enemyProjectionRotationSpeedY * InputManager.instance.GetRightStickLeftValue();
+
+        transform.rotation = Quaternion.Euler(0, y, 0);
     }
+
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("COlision detectada");
+        Debug.Log("Colision detectada");
         transform.localPosition -= transform.forward * Time.deltaTime;
+    }
+
+    private void EvaluateSelfExplosion()
+    {
+        for (int i = 0; i < attractedEnemies.Count; i++)
+        {
+            AIEnemy attractedEnemy = attractedEnemies[i];
+            if (Vector3.Distance(this.transform.position, attractedEnemy.transform.position) < this.explosionTriggerRadius)
+            {
+                ActivateSelfExplosion();
+                break;
+            }
+        }       
+    }
+
+    private void ActivateSelfExplosion()
+    {
+        List<AIEnemy> enemiesToRemove = new List<AIEnemy>();
+        for (int i = 0; i < attractedEnemies.Count; i++)
+        {
+            AIEnemy attractedEnemy = attractedEnemies[i];
+            if (Vector3.Distance(this.transform.position, attractedEnemy.transform.position) < this.explosionRadius)
+            {
+                attractedEnemy.TakeDamage(attractedEnemy.baseHealth, AttackType.SEDUCTIVE_PROJECTION);
+                enemiesToRemove.Add(attractedEnemy);
+            }
+        }
+        
+        for (int i = 0; i < enemiesToRemove.Count; i++)
+        {
+            RemoveEnemyAttracted(enemiesToRemove[i]);
+        }
+        summonerTrapScript.DestroyEnemyProjection(this.gameObject);
+        GameObject.Destroy(this);
     }
     #endregion
 }

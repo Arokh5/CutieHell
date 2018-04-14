@@ -21,12 +21,26 @@ GameObject:
   - component: {fileID: 4498779585295922}
   - component: {fileID: 33320124573473196}
   - component: {fileID: 23116006294628064}
-  - component: {fileID: 95050242295678922}
   - component: {fileID: 114768660342309618}
   - component: {fileID: 136446941496510934}
   - component: {fileID: 54714553936003590}
   m_Layer: 0
   m_Name: Enemy_Seductive_Projection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1638844468154314
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4939859404844888}
+  m_Layer: 0
+  m_Name: Enemy_Seductive_Projection_Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,8 +55,22 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 4.541456, y: 2.995, z: 6.7475986}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4939859404844888}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4939859404844888
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1638844468154314}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4498779585295922}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23116006294628064
@@ -96,28 +124,11 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!95 &95050242295678922
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1375956373627436}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 22fc1b149fe6b0840bd51f2b27ec0cac, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114768660342309618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -129,6 +140,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a081601f5d23b324c94e4f726e143ccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  headTransform: {fileID: 4939859404844888}
+  enemyProjectionSpeed: 2
+  enemyProjectionRotationSpeedY: 1
+  attractionRadius: 15
+  explosionTriggerRadius: 2
+  explosionRadius: 0
 --- !u!136 &136446941496510934
 CapsuleCollider:
   m_ObjectHideFlags: 1
