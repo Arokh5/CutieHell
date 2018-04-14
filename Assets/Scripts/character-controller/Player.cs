@@ -8,10 +8,8 @@ public class Player : MonoBehaviour {
     [Header("Movement Variabes")]
     public float maxSpeed = 10;
     public float acceleration = 50;
-    [SerializeField]
-    private Transform centerTeleportPoint;
-    [SerializeField]
-    private Transform statueTeleportPoint;
+    public Transform centerTeleportPoint;
+    public Transform statueTeleportPoint;
     public GameObject footSteps;
 
     [Header("Evilness")]
@@ -102,13 +100,6 @@ public class Player : MonoBehaviour {
         timeSinceLastAttack += Time.deltaTime;
         timeSinceLastStrongAttack += Time.deltaTime;
         currentState.UpdateState(this);
-
-        if (InputManager.instance.GetL1ButtonDown() && state == PlayerStates.MOVE)
-            transform.position = statueTeleportPoint.position;
-
-        if (InputManager.instance.GetR1ButtonDown() && state == PlayerStates.MOVE)
-            transform.position = centerTeleportPoint.position;
-
     }
     #endregion
 
