@@ -46,11 +46,20 @@ public class Player : MonoBehaviour {
     [SerializeField]
     private State currentState;
     public PlayerStates state;
+
+    [Header("Basic Attacks")]
     [HideInInspector]
     public float timeSinceLastAttack;
     [HideInInspector]
     public AIEnemy currentBasicAttackTarget = null;
 
+    [Header("Strong Attack")]
+    public MeshCollider strongAttackMeshCollider;
+    public Renderer strongAttackRenderer;
+    [HideInInspector]
+    public float timeSinceLastStrongAttack;
+    [HideInInspector]
+    public List<AIEnemy> currentStrongAttackTargets = new List<AIEnemy>();
     #endregion
 
     public enum PlayerStates { STILL, MOVE, WOLF, FOG, TURRET}
@@ -76,6 +85,7 @@ public class Player : MonoBehaviour {
         evilLevel = maxEvilLevel;
         timeSinceLastTrapUse = trapUseCooldown;
         timeSinceLastAttack = 1000.0f;
+        timeSinceLastStrongAttack = 1000.0f;
     }
 
     private void Update() 
@@ -86,6 +96,8 @@ public class Player : MonoBehaviour {
         }
 
         timeSinceLastTrapUse += Time.deltaTime;
+        timeSinceLastAttack += Time.deltaTime;
+        timeSinceLastStrongAttack += Time.deltaTime;
         currentState.UpdateState(this);
 
         if (InputManager.instance.GetL1ButtonDown() && state == PlayerStates.MOVE)

@@ -9,19 +9,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1418da0e4d857ce4fb2339e94e78f9a8, type: 3}
-  m_Name: WeakAttackState
+  m_Name: StrongAttackState
   m_EditorClassIdentifier: 
   onEnterActions:
   - {fileID: 11400000, guid: 0eed128db3a246842be6b329e9898312, type: 2}
   onExitActions:
-  - {fileID: 11400000, guid: e0e642a1fc98ce54cacab513f133b2d7, type: 2}
+  - {fileID: 11400000, guid: 5ba46e5a9ddd9954798451421d48950e, type: 2}
   stateActions:
   - {fileID: 11400000, guid: 0114d4abe69aa214eafa844b779ee729, type: 2}
-  - {fileID: 11400000, guid: b5768c2aefeb0c447a84135bb57dbfa9, type: 2}
-  - {fileID: 11400000, guid: 756c2075258297a4b89f9a59efb894ff, type: 2}
-  - {fileID: 11400000, guid: 8a86646c190c3c34380d76b08c76b1d5, type: 2}
+  - {fileID: 11400000, guid: bb5a9c3516442844781837a33297fa7a, type: 2}
   transitions:
   - decision: {fileID: 11400000, guid: efe713f616b2706469b3990e34e691cc, type: 2}
     targetState: {fileID: 11400000, guid: a0847d52fa22a944ab8bb74fe031aa69, type: 2}
-  - decision: {fileID: 11400000, guid: 2c3ac20ad51e1f04da6774977aca9aa6, type: 2}
-    targetState: {fileID: 11400000, guid: 0dbb3663c0e2a5c449ee53c8860ffbb5, type: 2}
+  - decision: {fileID: 11400000, guid: c7b5ad24fdcd46b4bacc58cb157c96e4, type: 2}
+    targetState: {fileID: 11400000, guid: 7876ea8555f7f6c4cb97c6dd742b336b, type: 2}

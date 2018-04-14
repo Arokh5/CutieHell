@@ -11,8 +11,6 @@ public class BasicAttack : StateAction {
 
     public override void Act(Player player)
     {
-        player.timeSinceLastAttack += Time.deltaTime;
-
         AIEnemy newTarget = null;
         RaycastHit hit;
         bool raycastHit = Physics.SphereCast(Camera.main.transform.position, sphereCastRadius, Camera.main.transform.forward, out hit, 100, layerMask.value);

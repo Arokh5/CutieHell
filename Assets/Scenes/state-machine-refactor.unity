@@ -798,6 +798,16 @@ Prefab:
       propertyPath: statueTeleportPoint
       value: 
       objectReference: {fileID: 278855699}
+    - target: {fileID: 114386524282915284, guid: 182da881c3eee6548aa68ab299d1e64c,
+        type: 2}
+      propertyPath: strongAttackMeshCollider
+      value: 
+      objectReference: {fileID: 1632283401}
+    - target: {fileID: 114386524282915284, guid: 182da881c3eee6548aa68ab299d1e64c,
+        type: 2}
+      propertyPath: strongAttackRenderer
+      value: 
+      objectReference: {fileID: 1632283400}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
   m_IsPrefabParent: 0
@@ -1717,6 +1727,16 @@ Transform:
   m_PrefabParentObject: {fileID: 4473051620570346, guid: eb4c50dffc1813641a89258147c00a72,
     type: 2}
   m_PrefabInternal: {fileID: 497415912}
+--- !u!23 &1632283400 stripped
+MeshRenderer:
+  m_PrefabParentObject: {fileID: 23978678512325324, guid: a893a4d01d9e4a74d9192cd140455d9e,
+    type: 2}
+  m_PrefabInternal: {fileID: 1789317506}
+--- !u!64 &1632283401 stripped
+MeshCollider:
+  m_PrefabParentObject: {fileID: 64193554458429458, guid: a893a4d01d9e4a74d9192cd140455d9e,
+    type: 2}
+  m_PrefabInternal: {fileID: 1789317506}
 --- !u!1 &1725969774
 GameObject:
   m_ObjectHideFlags: 0
@@ -1949,6 +1969,11 @@ Prefab:
         type: 2}
       propertyPath: layerMask.m_Bits
       value: 768
+      objectReference: {fileID: 0}
+    - target: {fileID: 114594301022996558, guid: a893a4d01d9e4a74d9192cd140455d9e,
+        type: 2}
+      propertyPath: layerMask.m_Bits
+      value: 256
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a893a4d01d9e4a74d9192cd140455d9e, type: 2}
