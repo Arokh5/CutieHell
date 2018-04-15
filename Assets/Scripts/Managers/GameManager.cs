@@ -9,6 +9,11 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
 
+    [SerializeField]
+    private AISpawnController aiSpawnController;
+    [SerializeField]
+    private ScenarioController scenarioController;
+
     public bool gameIsPaused;
     private GameObject[] pauseButtons = new GameObject[2];
     private int pauseIndex = 0;
@@ -36,12 +41,22 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        UnityEngine.Assertions.Assert.IsNotNull(aiSpawnController, "ERROR: The GameManager in gameObject '" + gameObject.name + "' doesn't have an AISpawnController assigned!");
+        UnityEngine.Assertions.Assert.IsNotNull(scenarioController, "ERROR: The GameManager in gameObject '" + gameObject.name + "' doesn't have a ScenarioController assigned!");
+
         crosshair = GameObject.Find("Crosshair");
         gameIsPaused = false;
         pauseButtons[0] = pauseMenu.transform.GetChild(1).gameObject; //RestartGameBtn
         pauseButtons[1] = pauseMenu.transform.GetChild(2).gameObject; //ExitTitleSreenBtn
         instance = this;
         instance = this;
+    }
+
+    private void Start()
+    {
+        aiSpawnController.StartNextWave();
+        scenarioController.OnNewWaveStarted();
+        Debug.Log("Starting wave " + aiSpawnController.GetCurrentWaveIndex() + "!");
     }
 
     private void Update()
@@ -82,9 +97,16 @@ public class GameManager : MonoBehaviour
 
     public void OnWaveWon()
     {
-        Debug.LogError("Substitute the current OnGameWon for the own OnWaveWon logic");
-        if (gameState == GameStates.InGame)
+        Debug.Log("Wave " + aiSpawnController.GetCurrentWaveIndex() + " finished!");
+
+        if (aiSpawnController.StartNextWave())  
         {
+            scenarioController.OnNewWaveStarted();
+            Debug.Log("Starting wave " + aiSpawnController.GetCurrentWaveIndex() + "!");
+        }
+        else
+        {
+            Debug.Log("No more waves available!");
             OnGameWon();
         }
     }

@@ -12,7 +12,9 @@ public class AISpawnController : MonoBehaviour
     [ShowOnly]
     private float elapsedTime;
     [SerializeField]
-    private int currentWaveIndex;
+    private int currentWaveIndex = -1;
+    [SerializeField]
+    private int nextSpawnIndex;
     [SerializeField]
     private List<WaveInfo> wavesInfo;
     [SerializeField]
@@ -24,11 +26,6 @@ public class AISpawnController : MonoBehaviour
 
     private bool validWavesInfo = true;
     private bool waveRunning = false;
-    private int nextSpawnIndex;
-
-    [Header("Testing")]
-    public bool startWave = false;
-    public bool loopWaves = false;
     #endregion
 
     #region MonoBehaviour Methods
@@ -47,18 +44,11 @@ public class AISpawnController : MonoBehaviour
             enemies.Add(enemyTypes[i], enemyPrefabs[i]);
         }
         validWavesInfo = VerifyWaveInfos();
+        currentWaveIndex = -1;
     }
 
     private void Update()
     {
-        if (startWave && validWavesInfo)
-        {
-            startWave = false;
-            waveRunning = true;
-            elapsedTime = 0;
-            nextSpawnIndex = 0;
-        }
-
         if (waveRunning)
         {
             WaveInfo currentWaveInfo = wavesInfo[currentWaveIndex];
@@ -92,13 +82,38 @@ public class AISpawnController : MonoBehaviour
     #endregion
 
     #region Public Methods
+    public bool StartNextWave()
+    {
+        ++currentWaveIndex;
+        if (validWavesInfo && currentWaveIndex < wavesInfo.Count)
+        {
+            waveRunning = true;
+            elapsedTime = 0;
+            nextSpawnIndex = 0;
+            return true;
+        }
+        else
+            return false;
+    }
+
     public void StopWave()
     {
         waveRunning = false;
     }
+
+    public int GetCurrentWaveIndex()
+    {
+        return currentWaveIndex;
+    }
     #endregion
 
     #region Private Methods
+    void WaveFinished()
+    {
+        waveRunning = false;
+        scenario.OnWaveTimeOver();
+    }
+
     bool VerifyWaveInfos()
     {
         for (int w = 0; w < wavesInfo.Count; ++w)
@@ -128,20 +143,6 @@ public class AISpawnController : MonoBehaviour
             }
         }
         return true;
-    }
-
-    void WaveFinished()
-    {
-        if (loopWaves)
-        {
-            elapsedTime = 0;
-            nextSpawnIndex = 0;
-        }
-        else
-        {
-            waveRunning = false;
-            scenario.OnWaveTimeOver();
-        }
     }
     #endregion
 }

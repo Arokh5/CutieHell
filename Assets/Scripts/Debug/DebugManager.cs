@@ -100,8 +100,8 @@ public class DebugManager : MonoBehaviour {
         }
     }
     private void DebugCamera() {
-        switch (playerScript.state) {
-            case Player.PlayerStates.MOVE:
+        switch (playerScript.cameraState) {
+            case Player.CameraState.MOVE:
                 if (Input.GetKeyDown(KeyCode.Z)) {
                     showGrid = !showGrid;
                 }
@@ -163,7 +163,7 @@ public class DebugManager : MonoBehaviour {
                     cameraController.focusDistance + "\nFocusX : " + cameraController.focusX + "\nFocusY : " + cameraController.focusY
                     + "\nFOV : " + cameraController.fov;
                 break;
-            case Player.PlayerStates.TURRET:
+            case Player.CameraState.TURRET:
                 if (Input.GetKeyDown(KeyCode.Z)) {
                     showGrid = !showGrid;
                 }

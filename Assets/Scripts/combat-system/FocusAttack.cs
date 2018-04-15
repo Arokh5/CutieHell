@@ -26,10 +26,6 @@ public class FocusAttack : MonoBehaviour
 
     #endregion
 
-    #region Properties
-
-    #endregion
-
     #region MonoBehaviour Methods
 
     private void Awake()
@@ -38,25 +34,9 @@ public class FocusAttack : MonoBehaviour
     }
 
     private void Update()
-    {
-        if (player.state == Player.PlayerStates.MOVE || player.state == Player.PlayerStates.TURRET)
-        {
-            FocusBasicAttack();
-            seductiveLastLaunchedTime = 0;
-            Debug.Log("Find a way to avoid this cheap but repetitive assignation");
-        }
-        else if (player.state == Player.PlayerStates.SEDUCTIVE)
-        {
-            seductiveLastLaunchedTime += Time.deltaTime;
-            FocusSeductiveAttack();
-        }
-      
+    {       
+        FocusBasicAttack();
     }
-
-    #endregion
-
-    #region Public Methods
-
     #endregion
 
     #region Private Methods
@@ -74,10 +54,10 @@ public class FocusAttack : MonoBehaviour
         {
             float cadency = 0f;
 
-            if (player.state == Player.PlayerStates.MOVE)
+            if (player.cameraState == Player.CameraState.MOVE)
                 cadency = basicAttackCadency;
 
-            if (player.state == Player.PlayerStates.TURRET)
+            if (player.cameraState == Player.CameraState.TURRET)
                 cadency = turretTrapCadency;
 
             if (time >= cadency)
@@ -132,24 +112,6 @@ public class FocusAttack : MonoBehaviour
             currentTarget = newTarget;
         }
 
-    }
-
-    private void FocusSeductiveAttack()
-    {
-        if (InputManager.instance.GetR2ButtonDown())
-        {
-            Trap attackingTrap = GameManager.instance.GetTrapBeingUsed();
-            if (seductiveLastLaunchedTime >= attackingTrap.cooldownBetweenSeductiveProjections || 
-                attackingTrap.GetLandedEnemyProjectionsCount() == 0)
-            {
-                if (GameManager.instance.GetTrapBeingUsed() != null)
-                {
-                    attackingTrap.LandSeductiveEnemyProjection();
-                    attackingTrap.InstantiateSeductiveEnemyProjection();
-                    seductiveLastLaunchedTime = Time.deltaTime;
-                }
-            }
-        }
     }
     #endregion
 }

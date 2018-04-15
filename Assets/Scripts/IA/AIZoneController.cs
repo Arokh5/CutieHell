@@ -19,6 +19,13 @@ public class AIZoneController : MonoBehaviour
     [SerializeField]
     private List<AIEnemy> aiEnemies;
     private List<EnemyProjection> enemyProjections = new List<EnemyProjection>();
+    public List<Building> buildings;
+
+    // Properties used to draw an alternate texture in the proximity of enemies
+    private Vector4[] aiPositions;
+    private float[] aiEffectRadius;
+    private int activeEnemies = 0;
+
     #endregion
 
     #region MonoBehaviour Methods
@@ -32,11 +39,67 @@ public class AIZoneController : MonoBehaviour
 
         UnityEngine.Assertions.Assert.IsNotNull(monument, "Error: monument not set for AIZoneController in gameObject '" + gameObject.name + "'");
         currentZoneTarget = monument;
+        aiPositions = new Vector4[128];
+        aiEffectRadius = new float[128];
     }
 
+    private void Update()
+    {
+        /* Trap as target */
+        if (currentZoneTarget.GetType() == typeof(Trap))
+        {
+            foreach (AIEnemy aiEnemy in aiEnemies)
+            {
+                /* Consider distance in XZ-Plane */
+                Vector3 buildingToEnemy = aiEnemy.transform.position - currentZoneTarget.transform.position;
+                buildingToEnemy.y = 0;
+                if (buildingToEnemy.sqrMagnitude < currentZoneTarget.attractionRadius * currentZoneTarget.attractionRadius)
+                {
+                    aiEnemy.SetCurrentTarget(currentZoneTarget);
+                }
+            }
+        }
+        int skippedEnemies = 0;
+        activeEnemies = 0;
+
+        /* Shader data update */
+        for (int i = 0; i < buildings.Count + aiEnemies.Count && i < 128; ++i)
+        {
+            if (i < buildings.Count)
+            {
+                aiPositions[i].x = buildings[i].transform.position.x;
+                aiPositions[i].y = buildings[i].transform.position.y;
+                aiPositions[i].z = buildings[i].transform.position.z;
+                /* The w component is used to pass the blendStartRadius of the building */
+                aiPositions[i].w = buildings[i].GetBlendRadius();
+                aiEffectRadius[i] = buildings[i].effectOnMapRadius;
+            }
+            else
+            {
+                if (aiEnemies[i - buildings.Count].gameObject.activeSelf)
+                {
+                    aiPositions[i - skippedEnemies].x = aiEnemies[i - buildings.Count].transform.position.x;
+                    aiPositions[i - skippedEnemies].y = aiEnemies[i - buildings.Count].transform.position.y;
+                    aiPositions[i - skippedEnemies].z = aiEnemies[i - buildings.Count].transform.position.z;
+                    aiPositions[i - skippedEnemies].w = 0.0f;
+                    aiEffectRadius[i - skippedEnemies] = aiEnemies[i - buildings.Count].effectOnMapRadius;
+                    ++activeEnemies;
+                }
+                else ++skippedEnemies;
+            }
+        }
+    }
     #endregion
 
     #region Public Methods
+    public void UpdateMaterialWithEnemyPositions(Material material)
+    {
+        material.SetInt("_ActiveEnemies", activeEnemies);
+        material.SetInt("_BuildingsCount", buildings.Count);
+        material.SetVectorArray("_AiPositions", aiPositions);
+        material.SetFloatArray("_AiEffectRadius", aiEffectRadius);
+    }
+
     // Called by Buildings to obtain zoneId
     public int GetZoneId()
     {

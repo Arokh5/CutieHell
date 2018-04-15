@@ -38,6 +38,9 @@ public class AIAttackConquer : AIAttackLogic {
         UnityEngine.Assertions.Assert.IsNotNull(aiEnemy, "ERROR: Can't find an AIEnemy script from the AIAttackConquer script in GameOBject " + gameObject.name);
         navMeshAgent = GetComponent<NavMeshAgent>();
         UnityEngine.Assertions.Assert.IsNotNull(navMeshAgent, "ERROR: Can't find a NavMeshAgent script from the AIAttackConquer script in GameOBject " + gameObject.name);
+        UnityEngine.Assertions.Assert.IsNotNull(mainModelRenderer, "ERROR: mainModelRenderer was not assigned in the Inspector for the AIAttackConquer script in GameOBject " + gameObject.name);
+        UnityEngine.Assertions.Assert.IsNotNull(alternateModelRenderer, "ERROR: alternateModelRenderer was not assigned in the Inspector for the AIAttackConquer script in GameOBject " + gameObject.name);
+        alternateModelRenderer.material.SetFloat("_Size", 0.0f);
     }
 
     private void Update()

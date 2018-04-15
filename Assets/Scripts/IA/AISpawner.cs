@@ -8,9 +8,13 @@ public class AISpawner : MonoBehaviour {
     [SerializeField]
     private AIZoneController zoneController;
     [SerializeField]
+    private PathsController pathsController;
+    [SerializeField]
     private AISpawnController spawnController;
     [SerializeField]
     private Vector3 spawnerArea;
+    [SerializeField]
+    private ActivateGameObjectOnTime spawnVFX;
 
     [SerializeField]
     private List<SpawnInfo> activeSpawnInfos;
@@ -19,6 +23,13 @@ public class AISpawner : MonoBehaviour {
     #endregion
 
     #region MonoBehaviour Methods
+    private void Awake()
+    {
+        UnityEngine.Assertions.Assert.IsNotNull(zoneController, "ERROR: ZoneController not set for AISpawner in gameObject '" + gameObject.name + "'");
+        UnityEngine.Assertions.Assert.IsNotNull(pathsController, "ERROR: PathsController not set for AISpawner in gameObject '" + gameObject.name + "'");
+        UnityEngine.Assertions.Assert.IsNotNull(spawnController, "ERROR: SpawnController not set for AISpawner in gameObject '" + gameObject.name + "'");
+    }
+
     private void Update()
     {
         foreach (SpawnInfo spawnInfo in activeSpawnInfos)
@@ -78,6 +89,18 @@ public class AISpawner : MonoBehaviour {
 
         AIEnemy instantiatedEnemy = Instantiate(enemyPrefab, randomPosition, Quaternion.LookRotation(transform.forward, transform.up), spawnController.transform);
         instantiatedEnemy.SetZoneController(zoneController);
+        instantiatedEnemy.SetPathsController(pathsController);
+
+        /* For particle effects */
+        ActivateGameObjectOnTime spawnVfx = Instantiate(
+            spawnVFX,
+            instantiatedEnemy.transform.position + instantiatedEnemy.GetComponent<Collider>().bounds.size.y * Vector3.up / 2.0f, 
+            this.transform.rotation
+        );
+        spawnVfx.objectToActivate = instantiatedEnemy.gameObject;
+        spawnVfx.timeToActivate = 0.6f;
+        Destroy(spawnVfx.gameObject, 1.0f);
+        instantiatedEnemy.gameObject.SetActive(false);
     }
     #endregion
 }

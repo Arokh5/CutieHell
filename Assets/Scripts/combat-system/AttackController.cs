@@ -28,7 +28,7 @@ public class AttackController : MonoBehaviour
     public void InstantiateAttack(Transform enemy, Vector3 hitPoint)
     {
         Player player = GameManager.instance.GetPlayer1();
-        GameObject attack = (player.state == Player.PlayerStates.TURRET) ? batAttack : mainAttack;
+        GameObject attack = (player.cameraState == Player.CameraState.TURRET) ? batAttack : mainAttack;
         Vector3 spawningPos = player.bulletSpawnPoint.position;
 
         GameObject attackClone = Instantiate(attack, spawningPos, transform.rotation);

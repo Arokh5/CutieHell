@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour {
 
+    private enum ButtonState { IDLE, DOWN, PRESSED, UP }
+    private enum AxisAsButton { L2, R2, LS_DOWN, LS_UP, PAD_DOWN, PAD_UP }
+
     #region Fields
 
     public static InputManager instance;
-    private bool L2buttonPrevState = false;
-    private bool R2buttonPrevState = false;
-    private bool leftStickDownPrevState = false;
-    private bool leftStickUpPrevState = false;
-    private bool padDownPrevState = false;
-    private bool padUpPrevState = false;
+    private ButtonState[] buttonStates;
+    private int axisAsButtonsCount;
 
     #endregion
 
@@ -20,7 +19,71 @@ public class InputManager : MonoBehaviour {
 
     private void Awake()
     {
-        instance = this;
+        if (instance == null)
+        {
+            instance = this;
+            axisAsButtonsCount = System.Enum.GetNames(typeof(AxisAsButton)).Length;
+            buttonStates = new ButtonState[axisAsButtonsCount];
+        }
+        else
+            Destroy(this);
+    }
+
+    private void Update()
+    {
+        for (int i = 0; i < axisAsButtonsCount; ++i)
+        {
+            bool currentlyPressed = false;
+            switch ((AxisAsButton)i)
+            {
+                case AxisAsButton.L2:
+                    currentlyPressed = GetL2Button();
+                    break;
+                case AxisAsButton.R2:
+                    currentlyPressed = GetR2Button();
+                    break;
+                case AxisAsButton.LS_DOWN:
+                    currentlyPressed = GetLeftStickDown();
+                    break;
+                case AxisAsButton.LS_UP:
+                    currentlyPressed = GetLeftStickUp();
+                    break;
+                case AxisAsButton.PAD_DOWN:
+                    currentlyPressed = GetPadDown();
+                    break;
+                case AxisAsButton.PAD_UP:
+                    currentlyPressed = GetPadUp();
+                    break;
+                default:
+                    break;
+            }
+
+            switch (buttonStates[i])
+            {
+                case ButtonState.IDLE:
+                    if (currentlyPressed)
+                        buttonStates[i] = ButtonState.DOWN;
+                    break;
+                case ButtonState.DOWN:
+                    if (currentlyPressed)
+                        buttonStates[i] = ButtonState.PRESSED;
+                    else
+                        buttonStates[i] = ButtonState.UP;
+                    break;
+                case ButtonState.PRESSED:
+                    if (!currentlyPressed)
+                        buttonStates[i] = ButtonState.UP;
+                    break;
+                case ButtonState.UP:
+                    if (currentlyPressed)
+                        buttonStates[i] = ButtonState.DOWN;
+                    else
+                        buttonStates[i] = ButtonState.IDLE;
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     #endregion
@@ -113,22 +176,7 @@ public class InputManager : MonoBehaviour {
 
     public bool GetLeftStickUpDown()
     {
-        bool buttonDown = false;
-
-        if (GetLeftStickUp())
-        {
-            if (!leftStickUpPrevState)
-            {
-                buttonDown = true;
-                leftStickUpPrevState = true;
-            }
-        }
-        else
-        {
-            leftStickUpPrevState = false;
-        }
-
-        return buttonDown;
+        return buttonStates[(int)AxisAsButton.LS_UP] == ButtonState.DOWN;
     }
 
     public bool GetLeftStickUp()
@@ -143,22 +191,7 @@ public class InputManager : MonoBehaviour {
 
     public bool GetLeftStickDownDown()
     {
-        bool buttonDown = false;
-
-        if (GetLeftStickDown())
-        {
-            if (!leftStickDownPrevState)
-            {
-                buttonDown = true;
-                leftStickDownPrevState = true;
-            }
-        }
-        else
-        {
-            leftStickDownPrevState = false;
-        }
-
-        return buttonDown;
+        return buttonStates[(int)AxisAsButton.LS_DOWN] == ButtonState.DOWN;
     }
 
     public bool GetLeftStickDown()
@@ -247,22 +280,7 @@ public class InputManager : MonoBehaviour {
 
     public bool GetR2ButtonDown()
     {
-        bool buttonDown = false;
-
-        if (GetR2Button())
-        {
-            if (!R2buttonPrevState)
-            {
-                buttonDown = true;
-                R2buttonPrevState = true;
-            }
-        }
-        else
-        {
-            R2buttonPrevState = false;
-        }
-
-        return buttonDown;
+        return buttonStates[(int)AxisAsButton.R2] == ButtonState.DOWN;
     }
 
     public bool GetR2Button()
@@ -272,22 +290,7 @@ public class InputManager : MonoBehaviour {
 
     public bool GetR2ButtonUp()
     {
-        bool buttonUp = false;
-
-        if (!GetR2Button())
-        {
-            if (R2buttonPrevState)
-            {
-                buttonUp = true;
-                R2buttonPrevState = false;
-            }
-        }
-        else
-        {
-            R2buttonPrevState = true;
-        }
-
-        return buttonUp;
+        return buttonStates[(int)AxisAsButton.R2] == ButtonState.UP;
     }
 
     public float GetR2ButtonValue()
@@ -297,22 +300,7 @@ public class InputManager : MonoBehaviour {
 
     public bool GetL2ButtonDown()
     {
-        bool buttonDown = false;
-
-        if (GetL2Button())
-        {
-            if (!L2buttonPrevState)
-            {
-                buttonDown = true;
-                L2buttonPrevState = true;
-            }
-        }
-        else
-        {
-            L2buttonPrevState = false;
-        }
-
-        return buttonDown;
+        return buttonStates[(int)AxisAsButton.L2] == ButtonState.DOWN;
     }
 
     public bool GetL2Button()
@@ -322,22 +310,7 @@ public class InputManager : MonoBehaviour {
 
     public bool GetL2ButtonUp()
     {
-        bool buttonUp = false;
-
-        if (!GetL2Button())
-        {
-            if (L2buttonPrevState)
-            {
-                buttonUp = true;
-                L2buttonPrevState = false;
-            }
-        }
-        else
-        {
-            L2buttonPrevState = true;
-        }
-
-        return buttonUp;
+        return buttonStates[(int)AxisAsButton.L2] == ButtonState.UP;
     }
 
     public float GetL2ButtonValue()
@@ -379,22 +352,7 @@ public class InputManager : MonoBehaviour {
 
     public bool GetPadUpDown()
     {
-        bool buttonDown = false;
-
-        if (GetPadUp())
-        {
-            if (!padUpPrevState)
-            {
-                buttonDown = true;
-                padUpPrevState = true;
-            }
-        }
-        else
-        {
-            padUpPrevState = false;
-        }
-
-        return buttonDown;
+        return buttonStates[(int)AxisAsButton.PAD_UP] == ButtonState.DOWN;
     }
 
     public bool GetPadUp()
@@ -404,22 +362,7 @@ public class InputManager : MonoBehaviour {
 
     public bool GetPadDownDown()
     {
-        bool buttonDown = false;
-
-        if (GetPadDown())
-        {
-            if (!padDownPrevState)
-            {
-                buttonDown = true;
-                padDownPrevState = true;
-            }
-        }
-        else
-        {
-            padDownPrevState = false;
-        }
-
-        return buttonDown;
+        return buttonStates[(int)AxisAsButton.PAD_DOWN] == ButtonState.DOWN;
     }
 
     public bool GetPadDown()

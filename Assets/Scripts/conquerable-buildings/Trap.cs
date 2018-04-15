@@ -13,6 +13,7 @@ public class Trap : Building, IUsable
     public int usageCost;
     private Player player;
 
+    //TODO: Mover estos campos de Seductive a su lugar
     [Header("Seductive Trap setup")]
     [SerializeField]
     private GameObject trapBasicSummonerEyes;
@@ -69,11 +70,10 @@ public class Trap : Building, IUsable
         base.Update();
     }
 
-    void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
-        // Display the explosion radius when selected
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(transform.position, attractionRadius);
+        Gizmos.color = new Color(1, 0, 0 ,0.5f);
+        Gizmos.DrawWireSphere(transform.position, attractionRadius);
     }
     #endregion
 
@@ -106,16 +106,6 @@ public class Trap : Building, IUsable
         {
             this.player = player;
             zoneController.OnTrapActivated(this);
-            if (player.state == Player.PlayerStates.SEDUCTIVE)
-            {
-                mainCamera.SetActive(false);
-                summonerTrapCamera.SetActive(true);
-                seductiveTrapActiveArea.SetActive(true);
-
-                firstProjection = true;
-                InstantiateSeductiveEnemyProjection();
-                trapBasicSummonerBeam.gameObject.SetActive(true);                
-            }
             activate = true; 
             return true;
         }
@@ -128,15 +118,6 @@ public class Trap : Building, IUsable
     // Called by Player. A call to this method should inform the ZoneController
     public void Deactivate()
     {
-        if (player.state == Player.PlayerStates.SEDUCTIVE)
-        {
-            seductiveTrapActiveArea.SetActive(false);
-            mainCamera.SetActive(true);
-            summonerTrapCamera.SetActive(false);
-            trapBasicSummonerBeam.gameObject.SetActive(false);
-            GameObject.Destroy(nonLandedProjection);
-        }
-
         player = null;
         deactivate = true;
         zoneController.OnTrapDeactivated();        

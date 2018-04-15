@@ -7,12 +7,21 @@ public class AIEnemy : MonoBehaviour, IDamageable
 {
     #region Fields
     private AIZoneController zoneController;
+    private PathsController pathsController;
     private SubZoneType currentSubZone;
-    [ShowOnly]
+
     private Building currentTarget;
-    private EnemyProjection currentVirtualTarget;
+    [SerializeField]
+    private List<PathNode> currentPath;
+    [SerializeField]
+    private PathNode currentNode;
+    private int currentNodeIndex = -1;
+
     private NavMeshAgent agent;
-    private float initialAgentStoppingDistance;
+    private float originalStoppingDistance;
+
+    private EnemyProjection currentVirtualTarget;
+
     private Renderer mRenderer;
 
     [Header("Materials")]
@@ -20,6 +29,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private Material basicMat;
     [SerializeField]
     private Material outlinedMat;
+    public float effectOnMapRadius = 1.0f;
 
     [Header("Attack information")]
     [SerializeField]
@@ -29,6 +39,12 @@ public class AIEnemy : MonoBehaviour, IDamageable
     [Tooltip("The initial amount of hit points for the conquerable building.")]
     public float baseHealth;
     public int evilKillReward;
+    [SerializeField]
+    private GameObject getHitVFX;
+    [SerializeField]
+    private GameObject deathVFX;
+    [HideInInspector]
+    public float heightOffset;
 
     protected float currentHealth;
 
@@ -47,10 +63,10 @@ public class AIEnemy : MonoBehaviour, IDamageable
     {
         agent = GetComponent<NavMeshAgent>();
         UnityEngine.Assertions.Assert.IsNotNull(agent, "Error: No NavMeshAgent found for AIEnemy in GameObject '" + gameObject.name + "'!");
-        initialAgentStoppingDistance = agent.stoppingDistance;
         mRenderer = GetComponentInChildren<MeshRenderer>();
         UnityEngine.Assertions.Assert.IsNotNull(mRenderer, "Error: No MeshRenderer found for children of AIEnemy in GameObject '" + gameObject.name + "'!");
         mRenderer.material.color = initialColor;
+        originalStoppingDistance = agent.stoppingDistance;
     }
 
     private void Start()
@@ -58,14 +74,16 @@ public class AIEnemy : MonoBehaviour, IDamageable
         UnityEngine.Assertions.Assert.IsNotNull(zoneController, "Error: zoneController is null for AIEnemy in GameObject '" + gameObject.name + "'!");
         UpdateTarget();
         currentHealth = baseHealth;
+        heightOffset = this.GetComponent<Collider>().bounds.size.y / 2.0f;
     }
 
     private void Update()
     {
         // Motion through NavMeshAgent
-        if (currentTarget)
+        if (currentTarget && agent.enabled)
         {
-            if (agent.enabled)
+            agent.stoppingDistance = 0.0f;
+            if (currentNode == null || currentTarget.GetType() != typeof(Monument))
             {
                 if(this.currentVirtualTarget != null)
                 {
@@ -73,10 +91,28 @@ public class AIEnemy : MonoBehaviour, IDamageable
                 }
                 else
                 {
+                    agent.stoppingDistance = originalStoppingDistance;
                     agent.SetDestination(currentTarget.transform.position);
-                }
-                
+                }                
             }
+            else
+            {    
+                agent.SetDestination(currentNode.transform.position);
+                if ((transform.position - currentNode.transform.position).sqrMagnitude < currentNode.radius * currentNode.radius)
+                {
+                    if (currentNodeIndex < currentPath.Count - 1)
+                    {
+                        ++currentNodeIndex;
+                        currentNode = currentPath[currentNodeIndex];
+                    }
+                    else
+                    {
+                        currentNodeIndex = -1;
+                        currentNode = null;
+                    }
+                }
+            }
+
             attackLogic.AttemptAttack(currentTarget);
         }
 
@@ -111,11 +147,22 @@ public class AIEnemy : MonoBehaviour, IDamageable
         zoneController = newZoneController;
     }
 
+    // Called by AISpawner when instantiating an AIEnemy.
+    public void SetPathsController(PathsController newPathsController)
+    {
+        pathsController = newPathsController;
+
+        UpdateNodePath();
+    }
+
     // Called by the ZoneController in case the Monument gets repaired (this will cause all AIEnemy to return to the ZoneController's area)
     // or when a Trap gets deactivated or when the area-type Trap explodes
     public void SetCurrentTarget(Building target)
     {
-        currentTarget = target;
+        if (currentTarget != target)
+        {
+            currentTarget = target;
+        }
     }
 
     // Called by the ZoneController in case the AIEnemy is affected by the attracion power of the EnemyProjection
@@ -123,13 +170,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
     {
         if (virtualTarget != null) //AIEnemies will ignore stopping distance if they are chasing projections
         {
-            agent.stoppingDistance = 0;
-        }
-        else
-        {
-            agent.stoppingDistance = initialAgentStoppingDistance;
-        }
-        currentVirtualTarget = virtualTarget;
+            currentVirtualTarget = virtualTarget;
+        }     
     }
 
     // Called by the ZoneController to know if an specific enemy is currently attracted by a certain enemyprojection
@@ -163,6 +205,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
             return;
 
         currentHealth -= damage;
+        if (getHitVFX != null) Destroy(Instantiate(getHitVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation), 0.9f);
         if (currentHealth <= 0)
         {
             currentHealth = 0;
@@ -237,8 +280,24 @@ public class AIEnemy : MonoBehaviour, IDamageable
         {
             player.SetEvilLevel(evilKillReward);
         }
-
+        if(deathVFX != null) Destroy(Instantiate(deathVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation),0.9f);
         Destroy(gameObject);
+    }
+
+    private void UpdateNodePath()
+    {
+        /* Update path and nextNode */
+        currentPath = pathsController.GetPath(transform.position);
+        if (currentPath != null && currentPath.Count > 0)
+        {
+            currentNodeIndex = 0;
+            currentNode = currentPath[0];
+        }
+        else
+        {
+            currentNodeIndex = -1;
+            currentNode = null;
+        }
     }
     #endregion
 }
