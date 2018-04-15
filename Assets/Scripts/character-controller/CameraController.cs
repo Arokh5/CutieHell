@@ -15,7 +15,7 @@ public class CameraController : MonoBehaviour {
     private const float lerpSpeed = 0.1f;
     private const float transitionTime = 2.0f;
     private float timeOnTransition = 10.0f;
-    private Player.PlayerStates lastState;
+    private Player.CameraState lastState;
 
     private int collisionLayers;
     private float x;
@@ -72,7 +72,7 @@ public class CameraController : MonoBehaviour {
         Vector2 angles = transform.eulerAngles;
         x = angles.y;
         y = angles.x;
-        lastState = playerScript.state;
+        lastState = playerScript.cameraState;
     }
 
     private void Update()
@@ -90,15 +90,15 @@ public class CameraController : MonoBehaviour {
                 y += ySpeed * InputManager.instance.GetRightStickUpValue();
 
             y = ClampAngle(y, yMinLimit, yMaxLimit);
-            if (playerScript.state != lastState)
+            if (playerScript.cameraState != lastState)
             {
                 timeOnTransition = 0.0f;
             }
-            switch (playerScript.state)
+            switch (playerScript.cameraState)
             {
-                case Player.PlayerStates.STILL:
+                case Player.CameraState.STILL:
                     break;
-                case Player.PlayerStates.MOVE:
+                case Player.CameraState.MOVE:
                     {
                         if (this.transform.parent != null) this.transform.parent = null;
                         Quaternion rotation = Quaternion.Euler(y, x, 0);
@@ -131,15 +131,15 @@ public class CameraController : MonoBehaviour {
                     }
 
                     break;
-                case Player.PlayerStates.WOLF:
+                case Player.CameraState.WOLF:
                     break;
-                case Player.PlayerStates.FOG:
+                case Player.CameraState.FOG:
                     break;
-                case Player.PlayerStates.TURRET:
+                case Player.CameraState.TURRET:
                     {
                         Quaternion rotation = Quaternion.Euler(y, x, 0);
-                        playerScript.actualTrap.transform.rotation = rotation;
-                        this.transform.SetParent(playerScript.actualTrap.transform);
+                        playerScript.currentTrap.transform.rotation = rotation;
+                        this.transform.SetParent(playerScript.currentTrap.transform);
                         if (timeOnTransition < transitionTime)
                         {
                             timeOnTransition += Time.deltaTime;
@@ -158,7 +158,7 @@ public class CameraController : MonoBehaviour {
                 default:
                     break;
             }
-            lastState = playerScript.state;
+            lastState = playerScript.cameraState;
         }
     }
 

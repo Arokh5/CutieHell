@@ -4,193 +4,116 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-
+    #region Fields
     [Header("Movement Variabes")]
     public float maxSpeed = 10;
     public float acceleration = 50;
-    [SerializeField]
-    private Transform centerTeleportPoint;
-    [SerializeField]
-    private Transform statueTeleportPoint;
-    [SerializeField]
-    private GameObject footSteps;
+    public Transform centerTeleportPoint;
+    public Transform statueTeleportPoint;
+    public GameObject footSteps;
 
     [Header("Evilness")]
     [SerializeField]
     private int maxEvilLevel = 50;
-    [SerializeField]
-    [ShowOnly]
-    private int evilLevel;
+    public int evilLevel;
 
-    private Rigidbody rb;
-    private Vector3 speedDirection;
-    private GameObject[] traps;
-    private Vector3 initialBulletSpawnPointPos;
-    private float timeSinceLastTrapUse;
+    [HideInInspector]
+    public Rigidbody rb;
+    [HideInInspector]
+    public Vector3 initialBulletSpawnPointPos;
+    [HideInInspector]
+    public float timeSinceLastTrapUse;
+    [HideInInspector]
+    public MeshRenderer meshRenderer;
 
     [Header("Attacks")]
     [SerializeField]
     public Transform bulletSpawnPoint;
 
     [Header("Actual Trap")]
-    public GameObject actualTrap;
-    [SerializeField]
-    private int trapUseCooldown = 10;
+    [HideInInspector]
+    public Trap[] allTraps;
+    public Trap nearbyTrap;
+    public Trap currentTrap;
+    public int trapUseCooldown;
+    public float trapMaxUseDistance;
+    [HideInInspector]
+    public bool shouldExitTrap = false;
 
     [Header("Player States")]
-    public PlayerStates state;
-    public MeshRenderer meshRenderer;
+    [SerializeField]
+    private State currentState;
+    public CameraState cameraState;
 
-    public enum PlayerStates { STILL, MOVE, WOLF, FOG, TURRET}
+    [Header("Basic Attacks")]
+    [HideInInspector]
+    public float timeSinceLastAttack;
+    [HideInInspector]
+    public AIEnemy currentBasicAttackTarget = null;
 
+    [Header("Strong Attack")]
+    public MeshCollider strongAttackMeshCollider;
+    public Renderer strongAttackRenderer;
+    [HideInInspector]
+    public float timeSinceLastStrongAttack;
+    [HideInInspector]
+    public List<AIEnemy> currentStrongAttackTargets = new List<AIEnemy>();
+    #endregion
+
+    public enum CameraState { STILL, MOVE, WOLF, FOG, TURRET}
+
+    #region MonoBehaviour Methods
     private void Awake() 
     {
-        state = PlayerStates.MOVE;
+        cameraState = CameraState.MOVE;
         initialBulletSpawnPointPos = new Vector3(0.8972f, 1.3626f, 0.1209f);
+        meshRenderer = this.GetComponentInChildren<MeshRenderer>();
+        rb = this.GetComponent<Rigidbody>();
+        GameObject[] allTrapsGameObjects = GameObject.FindGameObjectsWithTag("Traps");
+        allTraps = new Trap[allTrapsGameObjects.Length];
+        for (int i = 0; i < allTrapsGameObjects.Length; ++i)
+        {
+            allTraps[i] = allTrapsGameObjects[i].GetComponent<Trap>();
+        }
     }
 
-    void Start () 
+    private void Start () 
     {
         footSteps.SetActive(false);
         evilLevel = maxEvilLevel;
-        meshRenderer = this.GetComponentInChildren<MeshRenderer>();
-        rb = this.GetComponent<Rigidbody>();
-        ResetTrapList();
+
         timeSinceLastTrapUse = trapUseCooldown;
+        timeSinceLastAttack = 1000.0f;
+        timeSinceLastStrongAttack = 1000.0f;
+
+        currentState.EnterState(this);
     }
 
     private void Update() 
     {
-        UseTrap();
-
-        if (InputManager.instance.GetL1ButtonDown() && state == PlayerStates.MOVE)
-            transform.position = statueTeleportPoint.position;
-
-        if (InputManager.instance.GetR1ButtonDown() && state == PlayerStates.MOVE)
-            transform.position = centerTeleportPoint.position;
-
-    }
-
-    private void FixedUpdate() 
-    {
-        switch (state) 
+        if (GameManager.instance.gameIsPaused)
         {
-            case PlayerStates.STILL:
-                break;
-            case PlayerStates.MOVE:
-                MovePlayer();
-                break;
-            case PlayerStates.WOLF:
-                break;
-            case PlayerStates.FOG:
-                break;
-            case PlayerStates.TURRET:
-                break;
-            default:
-                break;
+            return;
         }
+
+        timeSinceLastTrapUse += Time.deltaTime;
+        timeSinceLastAttack += Time.deltaTime;
+        timeSinceLastStrongAttack += Time.deltaTime;
+        currentState.UpdateState(this);
+    }
+    #endregion
+
+    #region Public Methods
+    public virtual void TransitionToState(State targetState)
+    {
+        currentState.ExitState(this);
+        targetState.EnterState(this);
+        currentState = targetState;
     }
 
     public void StopTrapUse() 
     {
-        bulletSpawnPoint.SetParent(transform);
-        bulletSpawnPoint.localPosition = initialBulletSpawnPointPos;
-        bulletSpawnPoint.rotation = Quaternion.identity;
-        Trap trapScript = actualTrap.GetComponent<Trap>();
-        trapScript.Deactivate();
-        meshRenderer.enabled = true;
-        Vector3 nextPos = actualTrap.transform.forward * 3f;
-        this.transform.position = new Vector3(actualTrap.transform.position.x - nextPos.x, this.transform.position.y, actualTrap.transform.position.z - nextPos.z);
-        actualTrap = null;
-        state = PlayerStates.MOVE;
-        timeSinceLastTrapUse = 0f;
-    }
-
-    private void MovePlayer() 
-    {
-        speedDirection = Vector3.zero;
-
-        if (InputManager.instance.GetLeftStickUp()) {
-            speedDirection += new Vector3(0.0f, 0.0f, 0.5f);
-        }
-        if (InputManager.instance.GetLeftStickDown()) {
-            speedDirection += new Vector3(0.0f, 0.0f, -0.5f);
-        }
-        if (InputManager.instance.GetLeftStickLeft()) {
-            speedDirection += new Vector3(-0.5f, 0.0f, 0.0f);
-        }
-        if (InputManager.instance.GetLeftStickRight()) {
-            speedDirection += new Vector3(0.5f, 0.0f, 0.0f);
-        }
-
-        if (speedDirection.magnitude > 0.0f) {
-            rb.drag = 0.0f;
-            footSteps.SetActive(true);
-        } else {
-            rb.drag = 10.0f;
-            footSteps.SetActive(false);
-        }
-
-        rb.AddRelativeForce(speedDirection * acceleration, ForceMode.Acceleration);
-
-        if (rb.velocity.magnitude > maxSpeed) {
-            rb.velocity = rb.velocity.normalized * maxSpeed;
-        }
-    }
-
-    public void UseTrap() 
-    {
-        UIManager.instance.HideRepairTrapText();
-        timeSinceLastTrapUse += Time.deltaTime;
-        if (actualTrap == null && state != PlayerStates.TURRET) 
-        {
-            if (timeSinceLastTrapUse > trapUseCooldown)
-            {
-                for (int i = 0; i < traps.Length; i++)
-                {
-                    if (Vector3.Distance(this.transform.position, traps[i].transform.position) < 3.0f)
-                    {
-                        Trap trapScript = traps[i].GetComponent<Trap>();
-                        if (InputManager.instance.GetXButtonDown())
-                        {
-                            if (trapScript.CanUse())
-                            {
-                                bulletSpawnPoint.SetParent(traps[i].transform);
-                                bulletSpawnPoint.localPosition = new Vector3(0f, 0.3f, 0.7f);
-                                trapScript.Activate(this);
-                                state = PlayerStates.TURRET;
-                                meshRenderer.enabled = false;
-                                actualTrap = traps[i];
-                            }
-                        }
-                        if (!trapScript.HasFullHealth() && trapScript.GetRepairCost() <= evilLevel)
-                        {
-                            UIManager.instance.ShowRepairTrapText();
-
-                            if (InputManager.instance.GetTriangleButtonDown())
-                            {
-                                SetEvilLevel(-trapScript.GetRepairCost());
-                                trapScript.FullRepair();
-                                UIManager.instance.HideRepairTrapText();
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        else
-        {
-            if (InputManager.instance.GetXButtonDown()) 
-            {
-                StopTrapUse();
-            }
-        }
-    }
-
-    public void ResetTrapList() 
-    {
-        traps = null;
-        traps = GameObject.FindGameObjectsWithTag("Traps");
+        shouldExitTrap = true;
     }
 
     public int GetMaxEvilLevel() 
@@ -218,4 +141,5 @@ public class Player : MonoBehaviour {
 
         UIManager.instance.SetEvilBarValue(evilLevel);
     }
+    #endregion
 }
