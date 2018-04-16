@@ -13,8 +13,8 @@ public class StrongAttack : StateAction
     {
         if (player.timeSinceLastStrongAttack >= strongAttackCadency && player.GetEvilLevel() >= Mathf.Abs(evilCost))
         {
+            player.projector.SwitchToDefaultColor();
             player.strongAttackMeshCollider.enabled = true;
-            player.strongAttackRenderer.enabled = true;
 
             if (InputManager.instance.GetR2ButtonDown())
             {
@@ -24,8 +24,8 @@ public class StrongAttack : StateAction
         }
         else
         {
+            player.projector.SwitchToAlternateColor();
             player.strongAttackMeshCollider.enabled = false;
-            player.strongAttackRenderer.enabled = false;
         }
     }
 
@@ -40,6 +40,5 @@ public class StrongAttack : StateAction
 
         player.timeSinceLastStrongAttack = 0f;
         player.strongAttackMeshCollider.enabled = false;
-        player.strongAttackRenderer.enabled = false;
     }
 }

@@ -7,8 +7,9 @@ public class StrongAttackExit : StateAction
 {
     public override void Act(Player player)
     {
+        player.strongAttackObject.SetActive(false);
         player.strongAttackMeshCollider.enabled = false;
-        player.strongAttackRenderer.enabled = false;
+
         /* Untarget all enemies */
         foreach (AIEnemy aiEnemy in player.currentStrongAttackTargets)
         {

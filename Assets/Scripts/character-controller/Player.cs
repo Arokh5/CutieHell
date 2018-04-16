@@ -52,8 +52,9 @@ public class Player : MonoBehaviour {
     public AIEnemy currentBasicAttackTarget = null;
 
     [Header("Strong Attack")]
+    public GameObject strongAttackObject;
+    public ProjectorColorChange projector;
     public MeshCollider strongAttackMeshCollider;
-    public Renderer strongAttackRenderer;
     [HideInInspector]
     public float timeSinceLastStrongAttack;
     [HideInInspector]
