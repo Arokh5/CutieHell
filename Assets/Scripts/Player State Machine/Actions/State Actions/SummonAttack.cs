@@ -22,7 +22,7 @@ public class SummonAttack : StateAction
     {
         if (InputManager.instance.GetR2ButtonDown())
         {
-            if (seductiveLastLaunchedTime >= summonerTrap.cooldownBetweenSeductiveProjections|| summonerTrap.GetLandedEnemyProjectionsCount() == 0)
+            if (player.evilLevel >= summonCost && (seductiveLastLaunchedTime >= summonerTrap.cooldownBetweenSeductiveProjections || summonerTrap.GetLandedEnemyProjectionsCount() == 0))
             {    
                 summonerTrap.LandSeductiveEnemyProjection();
                 summonerTrap.InstantiateSeductiveEnemyProjection();
