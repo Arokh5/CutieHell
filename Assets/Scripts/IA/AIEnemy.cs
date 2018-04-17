@@ -207,10 +207,6 @@ public class AIEnemy : MonoBehaviour, IDamageable
         {
             currentHealth = 0;
             Die();
-            if (currentVirtualTarget != null && attacktype != AttackType.SEDUCTIVE_PROJECTION)
-            {
-                currentVirtualTarget.RemoveEnemyAttracted(this);
-            }
         }
         AdjustMaterials();
     }
@@ -278,6 +274,10 @@ public class AIEnemy : MonoBehaviour, IDamageable
             player.SetEvilLevel(evilKillReward);
         }
         if(deathVFX != null) Destroy(Instantiate(deathVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation),0.9f);
+
+        if (currentVirtualTarget)
+            currentVirtualTarget.RemoveEnemyAttracted(this);
+
         Destroy(gameObject);
     }
 

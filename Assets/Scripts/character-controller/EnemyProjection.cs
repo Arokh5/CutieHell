@@ -120,9 +120,7 @@ public class EnemyProjection : MonoBehaviour
 
     private void RotateEnemyProjection()
     {
-
         float y = camera.transform.rotation.eulerAngles.y;
-
         transform.rotation = Quaternion.Euler(0, y, 0);
     }
 
