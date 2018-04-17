@@ -45,6 +45,7 @@ public class Player : MonoBehaviour {
     [SerializeField]
     private State currentState;
     public CameraState cameraState;
+    public Camera mainCamera;
 
     [Header("Basic Attacks")]
     [HideInInspector]
@@ -61,7 +62,7 @@ public class Player : MonoBehaviour {
     public List<AIEnemy> currentStrongAttackTargets = new List<AIEnemy>();
     #endregion
 
-    public enum CameraState { STILL, MOVE, WOLF, FOG, TURRET}
+    public enum CameraState { STILL, MOVE, WOLF, FOG, TURRET, SUMMONER}
 
     #region MonoBehaviour Methods
     private void Awake() 

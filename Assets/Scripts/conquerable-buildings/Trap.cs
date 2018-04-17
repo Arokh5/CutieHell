@@ -13,23 +13,6 @@ public class Trap : Building, IUsable
     public int usageCost;
     private Player player;
 
-    //TODO: Mover estos campos de Seductive a su lugar
-    [Header("Seductive Trap setup")]
-    [SerializeField]
-    private GameObject trapBasicSummonerEyes;
-    public BeamProjection trapBasicSummonerBeam;
-    public GameObject seductiveTrapActiveArea;
-    public GameObject seductiveProjection;
-    public float cooldownBetweenSeductiveProjections;
-    private bool firstProjection;
-    private GameObject nonLandedProjection;
-
-    [Header("Cameras")]
-    public GameObject mainCamera;
-    public GameObject summonerTrapCamera;
-
-    private List<GameObject> landedEnemyProjection =  new List<GameObject>();
-
     [Header("Trap testing")]
     public bool activate = false;
     public bool deactivate = false;
@@ -38,7 +21,7 @@ public class Trap : Building, IUsable
     public bool isActive = false;
     #endregion
 
-    public enum TrapTypes { TURRET, SEDUCTIVE }
+    public enum TrapTypes { TURRET, SUMMONER }
 
     #region MonoBehaviour Methods
     private new void Update()
@@ -56,15 +39,7 @@ public class Trap : Building, IUsable
 
         if (isActive)
         {
-            if (trapType == TrapTypes.SEDUCTIVE)
-            {
-                LookAtSeductiveEnemyProjection();                
-            }
-        }
-
-        if (landedEnemyProjection.Count > 0)
-        {
-            zoneController.EvaluateEnemiesTargettingProjections();
+         
         }
 
         base.Update();
@@ -123,65 +98,6 @@ public class Trap : Building, IUsable
         zoneController.OnTrapDeactivated();        
     }
 
-
-    public void InstantiateSeductiveEnemyProjection()
-    {
-        Vector3 localStartPosition;
-
-        // New generated projections (but not landed) will show up right where the player landed the previous one, first projection, exceptionally will land right in front of the trap
-        if (firstProjection)
-        {
-            localStartPosition = transform.forward *
-                        seductiveTrapActiveArea.GetComponent<Projector>().orthographicSize * 0.5f;
-            
-            Debug.Log("Hacer esto más limpio, en un metodo propio y pasar por el mismo sitio esta información aquí y a enemyprojection");
-        }
-        else
-        {
-            localStartPosition = nonLandedProjection.transform.localPosition;
-        }
-
-        nonLandedProjection = Instantiate(seductiveProjection,
-            localStartPosition, Quaternion.LookRotation(transform.forward, transform.up), this.transform);
-        nonLandedProjection.transform.localPosition = localStartPosition;
-
-        nonLandedProjection.GetComponent<EnemyProjection>().SetLimitedPlacingDistance(seductiveTrapActiveArea.GetComponent<Projector>().orthographicSize * 0.7f);
-        trapBasicSummonerBeam.enemyProjectionTargetPoint = nonLandedProjection.GetComponent<EnemyProjection>().headTransform;
-
-        Debug.Log("Cambiar el getComponent");
-
-    }
-
-    public void LandSeductiveEnemyProjection()
-    {
-        landedEnemyProjection.Add(nonLandedProjection);
-        landedEnemyProjection[GetLandedEnemyProjectionsCount()-1].GetComponent<EnemyProjection>().SetEnemyProjectionLanded(true);
-        landedEnemyProjection[GetLandedEnemyProjectionsCount()-1].GetComponent<Renderer>().material.SetColor("_Color",Color.blue);
-
-        zoneController.AddEnemyProjection(landedEnemyProjection[GetLandedEnemyProjectionsCount() - 1].GetComponent<EnemyProjection>());
-
-        if (landedEnemyProjection.Count == 1)
-        {
-            firstProjection = false;
-        }
-    }
-
-    public void LookAtSeductiveEnemyProjection()
-    {
-        trapBasicSummonerEyes.transform.rotation = Quaternion.LookRotation(nonLandedProjection.transform.position - trapBasicSummonerEyes.transform.position);
-    }
-
-    public int GetLandedEnemyProjectionsCount()
-    {
-        return landedEnemyProjection.Count;
-    }
-
-    public void DestroyEnemyProjection(GameObject deadEnemyProjection)
-    {
-        zoneController.RemoveEnemyProjection(deadEnemyProjection.GetComponent<EnemyProjection>());
-        GameObject.Destroy(landedEnemyProjection[landedEnemyProjection.IndexOf(deadEnemyProjection)]);
-        landedEnemyProjection.Remove(deadEnemyProjection);
-    }
     #endregion
 
     #region Protected Methods
@@ -202,17 +118,5 @@ public class Trap : Building, IUsable
     }
     #endregion
 
-    #region Private Methods
-    private void EraseAllLandedEnemyProjections()
-    {       
-        while (landedEnemyProjection.Count > 0)
-        {
-            GameObject.Destroy(landedEnemyProjection[0]);
-            landedEnemyProjection.RemoveAt(0);
-        }      
-    }
-
-    
-    #endregion
 
 }

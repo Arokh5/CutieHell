@@ -247,6 +247,20 @@ public class AIZoneController : MonoBehaviour
             }
         }
     }
+
+    public List<AIEnemy> DetectEnemiesWithinAnSpecificRange(Transform originPoint, float range)
+    {
+        List<AIEnemy> enemiesInRange = new List<AIEnemy>();
+        for (int i = 0; i < aiEnemies.Count; i++)
+        {
+            AIEnemy aIEnemy = aiEnemies[i];
+            if (Vector3.Distance(aIEnemy.transform.position, originPoint.transform.position) < range)
+            {
+                enemiesInRange.Add(aIEnemy);
+            }
+        }
+        return enemiesInRange;
+    }
     #endregion
 
     #region Private Methods

@@ -7,15 +7,16 @@ public class EnemyProjection : MonoBehaviour
 
     #region Properties 
 
-    private GameObject summonerTrap;
-    private Trap summonerTrapScript;
-
+    public GameObject summonerTrap;
+    public SummonerTrap summonerTrapScript;
     public Transform headTransform;
     public float enemyProjectionSpeed;
     public float enemyProjectionRotationSpeedY;
     public float attractionRadius;
     public float explosionTriggerRadius;
     public float explosionRadius;
+    public int explosionDamage;
+    public GameObject explosionVFX;
 
     private float limitedPlacingDistance;
     private bool enemyProjectionLanded;
@@ -30,9 +31,10 @@ public class EnemyProjection : MonoBehaviour
     {
         enemyProjectionLanded = false;
         summonerTrap = transform.parent.gameObject;
-        summonerTrapScript = summonerTrap.GetComponent<Trap>();
+        summonerTrapScript = summonerTrap.GetComponent<SummonerTrap>();
 
-        Debug.Log("Serializar");
+
+        Debug.Log("Use the inspector (seductiveEnemyProjection prefab is not storing TrapSummoner go or script");
     }
 
     // Update is called once per frame
@@ -140,6 +142,8 @@ public class EnemyProjection : MonoBehaviour
             if (Vector3.Distance(this.transform.position, attractedEnemy.transform.position) < this.explosionTriggerRadius)
             {
                 ActivateSelfExplosion();
+                if (explosionVFX != null) Destroy(Instantiate(explosionVFX, this.transform.position + Vector3.up * 1, this.transform.rotation), 0.9f);
+                Debug.Log("Improve instantiation of explosion FX");
                 break;
             }
         }       
@@ -147,20 +151,15 @@ public class EnemyProjection : MonoBehaviour
 
     private void ActivateSelfExplosion()
     {
-        List<AIEnemy> enemiesToRemove = new List<AIEnemy>();
-        for (int i = 0; i < attractedEnemies.Count; i++)
-        {
-            AIEnemy attractedEnemy = attractedEnemies[i];
-            if (Vector3.Distance(this.transform.position, attractedEnemy.transform.position) < this.explosionRadius)
-            {
-                attractedEnemy.TakeDamage(attractedEnemy.baseHealth, AttackType.SEDUCTIVE_PROJECTION);
-                enemiesToRemove.Add(attractedEnemy);
-            }
-        }
+        List<AIEnemy> enemiesToRemove = summonerTrapScript.ObtainEnemiesAffectdByProjectionExplosion(this.transform, explosionRadius);
         
         for (int i = 0; i < enemiesToRemove.Count; i++)
         {
-            RemoveEnemyAttracted(enemiesToRemove[i]);
+            enemiesToRemove[i].TakeDamage(explosionDamage,AttackType.SEDUCTIVE_PROJECTION);
+            if (enemiesToRemove[i] == null)
+            {
+                RemoveEnemyAttracted(enemiesToRemove[i]);
+            }
         }
         summonerTrapScript.DestroyEnemyProjection(this.gameObject);
         GameObject.Destroy(this);

@@ -83,17 +83,14 @@ public class AIEnemy : MonoBehaviour, IDamageable
         if (currentTarget && agent.enabled)
         {
             agent.stoppingDistance = 0.0f;
-            if (currentNode == null || currentTarget.GetType() != typeof(Monument))
+            if (this.currentVirtualTarget != null)
             {
-                if(this.currentVirtualTarget != null)
-                {
-                    agent.SetDestination(currentVirtualTarget.transform.position);
-                }
-                else
-                {
+                agent.SetDestination(currentVirtualTarget.transform.position);
+            }
+            else if (currentNode == null || currentTarget.GetType() != typeof(Monument))
+            {
                     agent.stoppingDistance = originalStoppingDistance;
-                    agent.SetDestination(currentTarget.transform.position);
-                }                
+                    agent.SetDestination(currentTarget.transform.position);               
             }
             else
             {    

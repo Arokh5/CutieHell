@@ -36,6 +36,8 @@ public class CameraController : MonoBehaviour {
     public float t_cameraY;
     public float t_fov;
 
+    /*Summoner camera attributes */
+    private EnemyProjection summonedProjectionToFollow; 
 
     private void Awake()
     {
@@ -64,6 +66,8 @@ public class CameraController : MonoBehaviour {
         t_distance = -2.2f;
         t_cameraY = 0.6f;
         t_fov = 40f;
+
+
 
     }
 
@@ -153,6 +157,14 @@ public class CameraController : MonoBehaviour {
                         }
                         this.transform.localRotation = Quaternion.identity;
                         SetPlayerDirection(rotation.eulerAngles.y);
+                        break;
+                    }
+                case Player.CameraState.SUMMONER:
+                    {
+                        if(summonedProjectionToFollow != null)
+                        {
+                            this.transform.rotation = Quaternion.LookRotation(summonedProjectionToFollow.transform.position - this.transform.position);
+                        }
                     }
                     break;
                 default:
@@ -211,5 +223,10 @@ public class CameraController : MonoBehaviour {
             }
         }
         return true;
-    }   
+    }  
+
+    public void SetSummonedProjectionToFollow(EnemyProjection enemyProjectionToFollow)
+    {
+        summonedProjectionToFollow = enemyProjectionToFollow;
+    }
 }

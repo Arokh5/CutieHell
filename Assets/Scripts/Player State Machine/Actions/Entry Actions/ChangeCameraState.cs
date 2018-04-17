@@ -11,4 +11,5 @@ public class ChangeCameraState : StateAction {
     {
         player.cameraState = targetCameraState;
     }
+
 }
