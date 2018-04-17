@@ -71,6 +71,7 @@ GameObject:
   - component: {fileID: 23405325997727836}
   - component: {fileID: 95737173041485480}
   - component: {fileID: 114508264605746284}
+  - component: {fileID: 136075088291189372}
   m_Layer: 0
   m_Name: Trap_Basic_Summoner
   m_TagString: Traps
@@ -174,7 +175,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1142985145579492}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalPosition: {x: 0, y: 3.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4774135443765106}
@@ -348,6 +349,7 @@ MonoBehaviour:
   seductiveProjection: {fileID: 1517466187262322, guid: 055b99f2e823eed4dbe6c189e286e09f,
     type: 2}
   cooldownBetweenSeductiveProjections: 1
+  firstProjection: 1
   camera: {fileID: 0}
 --- !u!119 &119126350225903084
 Projector:
@@ -455,3 +457,16 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!136 &136075088291189372
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1536920626450404}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.5045948
+  m_Height: 4.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.3, z: 0}

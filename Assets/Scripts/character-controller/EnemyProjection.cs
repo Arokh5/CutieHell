@@ -21,6 +21,8 @@ public class EnemyProjection : MonoBehaviour
     private float limitedPlacingDistance;
     private bool enemyProjectionLanded;
 
+    private CameraController camera;
+
     private List<AIEnemy> attractedEnemies = new List<AIEnemy>();
 
     #endregion
@@ -32,8 +34,7 @@ public class EnemyProjection : MonoBehaviour
         enemyProjectionLanded = false;
         summonerTrap = transform.parent.gameObject;
         summonerTrapScript = summonerTrap.GetComponent<SummonerTrap>();
-
-
+        camera = summonerTrapScript.camera;
         Debug.Log("Use the inspector (seductiveEnemyProjection prefab is not storing TrapSummoner go or script");
     }
 
@@ -119,10 +120,8 @@ public class EnemyProjection : MonoBehaviour
 
     private void RotateEnemyProjection()
     {
-        float y = transform.rotation.eulerAngles.y;
 
-        if (InputManager.instance.GetRightStickLeft() || InputManager.instance.GetRightStickRight())
-            y += enemyProjectionRotationSpeedY * InputManager.instance.GetRightStickLeftValue();
+        float y = camera.transform.rotation.eulerAngles.y;
 
         transform.rotation = Quaternion.Euler(0, y, 0);
     }
