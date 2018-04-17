@@ -44,7 +44,7 @@ public class ActivateDeactivateOnTime : MonoBehaviour {
         DEACTIVATED3
     }
 
-    void Start () {
+    void OnEnable () {
         projector = this.GetComponent<Projector>();
         Color newColor = projector.material.GetColor("_TintColor");
         newColor = startColorOnActivate;

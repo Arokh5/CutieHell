@@ -60,7 +60,7 @@ public class Player : MonoBehaviour {
     [HideInInspector]
     public List<AIEnemy> currentStrongAttackTargets = new List<AIEnemy>();
     #endregion
-
+    
     public enum CameraState { STILL, MOVE, WOLF, FOG, TURRET}
 
     #region MonoBehaviour Methods

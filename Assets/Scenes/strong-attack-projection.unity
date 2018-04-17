@@ -353,6 +353,11 @@ MonoBehaviour:
   spawnerArea: {x: 5, y: 0, z: 5}
   spawnVFX: {fileID: 114739611197360472, guid: 72a50551b77ab554192883532e62dac9, type: 2}
   activeSpawnInfos: []
+--- !u!4 &338187999 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4308265177092768, guid: 235f19784349b7f40aba293d79512be7,
+    type: 2}
+  m_PrefabInternal: {fileID: 976378899}
 --- !u!114 &365548354 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114026547309153366, guid: eb4c50dffc1813641a89258147c00a72,
@@ -930,6 +935,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnController: {fileID: 460162199}
   zoneControllers: []
+--- !u!4 &870550894 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4484810682184834, guid: 235f19784349b7f40aba293d79512be7,
+    type: 2}
+  m_PrefabInternal: {fileID: 976378899}
 --- !u!1 &878575432
 GameObject:
   m_ObjectHideFlags: 0
@@ -1979,24 +1989,34 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4504046273204654, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4504046273204654, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.38268343
+      value: 0.9414366
       objectReference: {fileID: 0}
     - target: {fileID: 4504046273204654, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4504046273204654, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.92387956
+      value: 0.33719015
       objectReference: {fileID: 0}
     - target: {fileID: 4504046273204654, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 114386524282915284, guid: 182da881c3eee6548aa68ab299d1e64c,
+        type: 2}
+      propertyPath: centerTeleportPoint
+      value: 
+      objectReference: {fileID: 870550894}
+    - target: {fileID: 114386524282915284, guid: 182da881c3eee6548aa68ab299d1e64c,
+        type: 2}
+      propertyPath: statueTeleportPoint
+      value: 
+      objectReference: {fileID: 338187999}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
   m_IsPrefabParent: 0
