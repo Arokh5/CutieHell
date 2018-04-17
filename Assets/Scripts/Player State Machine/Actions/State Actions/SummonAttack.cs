@@ -8,17 +8,17 @@ public class SummonAttack : StateAction
 {
     public SummonerTrap summonerTrap;
     public float seductiveLastLaunchedTime = 0f;
+    public int summonCost = 5;
 
     public override void Act(Player player)
     {
         summonerTrap = player.currentTrap.GetComponent<SummonerTrap>();
         Debug.Log("Avoid this assignment in every act frame");
-        FocusSeductiveAttack();
-
+        FocusSeductiveAttack(player);
         seductiveLastLaunchedTime += Time.deltaTime;
-        }
+    }
 
-    private void FocusSeductiveAttack()
+    private void FocusSeductiveAttack(Player player)
     {
         if (InputManager.instance.GetR2ButtonDown())
         {
@@ -26,7 +26,8 @@ public class SummonAttack : StateAction
             {    
                 summonerTrap.LandSeductiveEnemyProjection();
                 summonerTrap.InstantiateSeductiveEnemyProjection();
-                seductiveLastLaunchedTime = Time.deltaTime;     
+                seductiveLastLaunchedTime = Time.deltaTime;
+                player.SetEvilLevel(-summonCost);
             }
         }
     }
