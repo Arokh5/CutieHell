@@ -7,13 +7,13 @@ public class UICompass : MonoBehaviour {
 
     #region Fields
     public Transform referenceTransform;
-    public RectTransform iconImagePrefab;
+    public CompassIcon compassIconPrefab;
     [Range(60, 180)]
     public float fovDegrees = 90.0f;
     public CompassIconData[] compassIconsData;
 
     private RectTransform rectTransform;
-    private RectTransform[] iconsRectTranforms;
+    private CompassIcon[] compassIcons;
     private Vector2 size;
     #endregion
 
@@ -38,13 +38,12 @@ public class UICompass : MonoBehaviour {
         size = rectTransform.sizeDelta;
 
         // Create the spawnerIcon images
-        iconsRectTranforms = new RectTransform[compassIconsData.Length];
-        for (int i = 0; i < iconsRectTranforms.Length; ++i)
+        compassIcons = new CompassIcon[compassIconsData.Length];
+        for (int i = 0; i < compassIcons.Length; ++i)
         {
-            iconsRectTranforms[i] = Instantiate(iconImagePrefab, gameObject.transform, false);
-            Image image = iconsRectTranforms[i].GetComponent<Image>();
-            image.sprite = compassIconsData[i].iconSprite;
-            //iconsRectTranforms[i].gameObject.SetActive(false);
+            compassIcons[i] = Instantiate(compassIconPrefab, gameObject.transform, false);
+            compassIcons[i].SetImage(compassIconsData[i].iconSprite);
+            compassIcons[i].gameObject.SetActive(false);
         }
     }
 
@@ -66,13 +65,13 @@ public class UICompass : MonoBehaviour {
 
             if (Mathf.Abs(angle) > 0.5f * fovDegrees)
             {
-                iconsRectTranforms[i].gameObject.SetActive(false);
+                compassIcons[i].gameObject.SetActive(false);
             }
             else
             {
-                iconsRectTranforms[i].gameObject.SetActive(true);
+                compassIcons[i].gameObject.SetActive(true);
                 float xPos = angle / (0.5f * fovDegrees) * 0.5f * size.x;
-                iconsRectTranforms[i].localPosition = xPos * Vector3.right;
+                compassIcons[i].localPosition = xPos * Vector3.right;
             }
         }
     }
