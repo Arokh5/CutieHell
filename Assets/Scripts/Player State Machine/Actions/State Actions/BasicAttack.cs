@@ -78,7 +78,7 @@ public class BasicAttack : StateAction {
     {
         if (badComboCount == enemiesToBadCombo)
         {
-            Debug.Log("NOOB!!");
+            //Debug.Log("NOOB!!");
             badComboCount = 0;
             player.SetEvilLevel(badComboPenalty);
             UIManager.instance.ShowComboText(UIManager.ComboTypes.BadCombo);

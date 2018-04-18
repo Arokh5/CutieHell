@@ -178,10 +178,10 @@ public class UIManager : MonoBehaviour
         switch (activeCombo)
         {
             case ComboTypes.StrongCombo:
-                if (strongCombo.transform.localScale.x < 1f)
+                if (strongCombo.transform.localScale.x < 0.75f)
                 {
                     strongComboscaleModifier += Time.deltaTime;
-                    strongCombo.transform.localScale = new Vector3(strongCombo.transform.localScale.x + strongComboscaleModifier * strongComboScaleVelocity, strongCombo.transform.localScale.y + strongComboscaleModifier * strongComboScaleVelocity, strongCombo.transform.localScale.z + strongComboscaleModifier * strongComboScaleVelocity);
+                    strongCombo.transform.localScale = new Vector3(strongCombo.transform.localScale.x + strongComboscaleModifier * strongComboScaleVelocity, strongCombo.transform.localScale.y + strongComboscaleModifier * strongComboScaleVelocity, strongCombo.transform.localScale.z);
                 }
                 else
                 {
@@ -205,7 +205,7 @@ public class UIManager : MonoBehaviour
                 if (badCombo.transform.localScale.x < 1f)
                 {
                     badComboscaleModifier += Time.deltaTime;
-                    badCombo.transform.localScale = new Vector3(badCombo.transform.localScale.x + badComboscaleModifier * badComboScaleVelocity, badCombo.transform.localScale.y + badComboscaleModifier * badComboScaleVelocity, badCombo.transform.localScale.z + badComboscaleModifier * badComboScaleVelocity);
+                    badCombo.transform.localScale = new Vector3(badCombo.transform.localScale.x + badComboscaleModifier * badComboScaleVelocity, badCombo.transform.localScale.y + badComboscaleModifier * badComboScaleVelocity, badCombo.transform.localScale.z);
                 }
                 else
                 {
