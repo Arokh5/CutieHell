@@ -90,11 +90,18 @@ public class SummonerTrap : Trap
         landedEnemyProjection.Remove(deadEnemyProjection);
     }
 
-    public List<AIEnemy> ObtainEnemiesAffectdByProjectionExplosion(Transform enemyProjectionTransform, float explosionRange)
+    public List<AIEnemy> ObtainEnemiesAffectedByProjectionExplosion(Transform enemyProjectionTransform, float explosionRange)
     {
         List<AIEnemy> affectedEnemies = zoneController.DetectEnemiesWithinAnSpecificRange(enemyProjectionTransform, explosionRange);
 
         return affectedEnemies;
+    }
+
+    public List<EnemyProjection> ObtainEnemyProjectionsAffectedByProjectionExplosion(Transform enemyProjectionTransform, float explosionRange)
+    {
+        List<EnemyProjection> affectedEnemyProjections = zoneController.DetectEnemyProjectionsWithinAnSpecificRange(enemyProjectionTransform, explosionRange);
+
+        return affectedEnemyProjections;
     }
     #endregion
 

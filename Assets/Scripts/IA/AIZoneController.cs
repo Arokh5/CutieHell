@@ -261,6 +261,20 @@ public class AIZoneController : MonoBehaviour
         }
         return enemiesInRange;
     }
+
+    public List<EnemyProjection> DetectEnemyProjectionsWithinAnSpecificRange(Transform originPoint, float range)
+    {
+        List<EnemyProjection> enemyProjectionsInRange = new List<EnemyProjection>();
+        for (int i = 0; i < enemyProjections.Count; i++)
+        {
+            EnemyProjection enemyProjection = enemyProjections[i];
+            if (Vector3.Distance(enemyProjection.transform.position, originPoint.transform.position) < range)
+            {
+                enemyProjectionsInRange.Add(enemyProjection);
+            }
+        }
+        return enemyProjectionsInRange;
+    }
     #endregion
 
     #region Private Methods
