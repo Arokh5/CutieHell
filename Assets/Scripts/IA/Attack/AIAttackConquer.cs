@@ -13,7 +13,6 @@ public class AIAttackConquer : AIAttackLogic {
     public float conquestDuration;
     private float dps;
 
-    private bool inTransformationAnimation = false;
     private bool inConquest = false;
     private bool converted = false;
     private float elapsedTime = 0;
@@ -94,7 +93,6 @@ public class AIAttackConquer : AIAttackLogic {
     public void EndTransformation()
     {
         inConquest = true;
-        inTransformationAnimation = false;
         elapsedTime = 0;
     }
     #endregion

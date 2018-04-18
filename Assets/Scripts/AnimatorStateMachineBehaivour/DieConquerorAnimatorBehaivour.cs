@@ -8,6 +8,7 @@ public class DieConquerorAnimatorBehaivour : StateMachineBehaviour {
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.SetBool("Dead", true);
+        animator.gameObject.GetComponent<AIEnemy>().SetIsTargetable(false);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
