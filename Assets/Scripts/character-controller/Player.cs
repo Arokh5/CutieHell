@@ -63,6 +63,7 @@ public class Player : MonoBehaviour {
     public GameObject strongAttackObject;
     public ProjectorColorChange projector;
     public MeshCollider strongAttackMeshCollider;
+    public GameObject strongAttackExplosion;
     [HideInInspector]
     public float timeSinceLastStrongAttack;
     [HideInInspector]
@@ -172,6 +173,16 @@ public class Player : MonoBehaviour {
         FollowTarget attackClone = Instantiate(attackPrefab, spawningPos, transform.rotation);
         attackClone.SetEnemy(enemy);
         attackClone.SetHitPoint(hitPoint);
+    }
+
+    public void InstantiateStrongAttack(int evilCost)
+    {
+        SetEvilLevel(evilCost);
+        GameObject strongAttackReference = Instantiate(strongAttackExplosion, transform.position, transform.rotation);
+        strongAttackReference.transform.SetParent(this.transform);
+        strongAttackReference.transform.localPosition = new Vector3(0.0f, 1.5f, 0.0f);
+        strongAttackReference.transform.localRotation = Quaternion.Euler(new Vector3(-90, 180, 0));
+        strongAttackReference.transform.SetParent(null);
     }
     #endregion
 }
