@@ -42,10 +42,14 @@ public class StrongAttackBehaviour : MonoBehaviour {
             comboCount++;
         }
 
-        if (comboCount >= enemiesToCombo)
-            Debug.Log("COMBO!!");
-
+        CheckIfCombo();
         enemiesList.currentStrongAttackTargets.Clear();
         GameManager.instance.GetPlayer1().timeSinceLastStrongAttack = 0f;
+    }
+
+    private void CheckIfCombo()
+    {
+        if (comboCount >= enemiesToCombo)
+            Debug.Log("COMBO!!");
     }
 }

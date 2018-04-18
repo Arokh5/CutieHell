@@ -9,6 +9,9 @@ public class BasicAttack : StateAction {
     public float attackCadency;
     public FollowTarget attackPrefab;
 
+    private const int enemiesToBadCombo = 5;
+    private int badComboCount = 0;
+
     public override void Act(Player player)
     {
         AIEnemy newTarget = null;
@@ -46,10 +49,17 @@ public class BasicAttack : StateAction {
             Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 100, Color.red, 2);
 
             if (raycastHit && hit.transform.GetComponent<AIEnemy>())
+            {
                 InstantiateAttack(player, hit.transform, hit.point);
+                badComboCount = 0;
+            }
             else
+            {
                 InstantiateAttack(player, null, Vector3.zero);
+                badComboCount++;
+            }
 
+            CheckIfBadCombo();
             player.timeSinceLastAttack = 0f;
         }
     }
@@ -61,5 +71,14 @@ public class BasicAttack : StateAction {
         FollowTarget attackClone = Instantiate(attackPrefab, spawningPos, player.transform.rotation);
         attackClone.SetEnemy(enemy);
         attackClone.SetHitPoint(hitPoint);
+    }
+
+    private void CheckIfBadCombo()
+    {
+        if (badComboCount == 5)
+        {
+            Debug.Log("NOOB!!");
+            badComboCount = 0;
+        }
     }
 }
