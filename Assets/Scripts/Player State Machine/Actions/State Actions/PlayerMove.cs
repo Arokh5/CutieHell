@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerMove : StateAction
 {
     public float maxSpeed = 5;
+
     public override void Act(Player player)
     {
         Vector3 speedDirection = Vector3.zero;
@@ -31,11 +32,13 @@ public class PlayerMove : StateAction
         {
             player.rb.drag = 0.0f;
             player.footSteps.SetActive(true);
+            player.animator.SetBool("Move", true);
         }
         else
         {
             player.rb.drag = 10.0f;
             player.footSteps.SetActive(false);
+            player.animator.SetBool("Move", false);
         }
 
         player.rb.AddRelativeForce(speedDirection * player.acceleration, ForceMode.Acceleration);

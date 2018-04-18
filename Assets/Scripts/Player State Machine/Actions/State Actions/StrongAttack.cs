@@ -12,7 +12,7 @@ public class StrongAttack : StateAction
 
     public override void Act(Player player)
     {
-        if (player.timeSinceLastStrongAttack >= strongAttackCadency && player.GetEvilLevel() >= Mathf.Abs(evilCost))
+        if (player.timeSinceLastStrongAttack >= strongAttackCadency && player.GetEvilLevel() >= Mathf.Abs(evilCost) && !player.animatingAttack)
         {
             player.projector.SwitchToDefaultColor();
             player.strongAttackMeshCollider.enabled = true;

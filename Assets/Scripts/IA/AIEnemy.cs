@@ -244,6 +244,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         mRenderer.material.color = finalColor;
     }
 
+    // Called on Animator
     public void Die()
     {
         zoneController.RemoveEnemy(this);
