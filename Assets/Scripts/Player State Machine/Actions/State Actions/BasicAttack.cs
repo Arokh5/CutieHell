@@ -76,11 +76,12 @@ public class BasicAttack : StateAction {
 
     private void CheckIfBadCombo(Player player)
     {
-        if (badComboCount == 5)
+        if (badComboCount == enemiesToBadCombo)
         {
             Debug.Log("NOOB!!");
             badComboCount = 0;
             player.SetEvilLevel(badComboPenalty);
+            UIManager.instance.ShowComboText(UIManager.ComboTypes.BadCombo);
         }
     }
 }

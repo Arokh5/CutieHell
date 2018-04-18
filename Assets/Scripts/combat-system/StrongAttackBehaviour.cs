@@ -54,6 +54,9 @@ public class StrongAttackBehaviour : MonoBehaviour {
         {
             Debug.Log("COMBO!!");
             GameManager.instance.GetPlayer1().SetEvilLevel(evilComboReward);
+            UIManager.instance.ShowComboText(UIManager.ComboTypes.StrongCombo);
         }
+
+        comboCount = 0;
     }
 }
