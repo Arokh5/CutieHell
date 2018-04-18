@@ -7,10 +7,11 @@ public class StrongAttackBehaviour : MonoBehaviour {
     public LayerMask layerMask;
     public int damage;
     public StrongAttackExplosionDetection enemiesList;
+    public int enemiesToCombo;
+    public int evilComboReward;
+    private int comboCount;
     private float timer;
     private float timerToDisable;
-    private const int enemiesToCombo = 5;
-    private int comboCount;
 
     private void OnEnable () {
         enemiesList.currentStrongAttackTargets.Clear();
@@ -50,6 +51,9 @@ public class StrongAttackBehaviour : MonoBehaviour {
     private void CheckIfCombo()
     {
         if (comboCount >= enemiesToCombo)
+        {
             Debug.Log("COMBO!!");
+            GameManager.instance.GetPlayer1().SetEvilLevel(evilComboReward);
+        }
     }
 }

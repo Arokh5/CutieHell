@@ -10,6 +10,7 @@ public class BasicAttack : StateAction {
     public FollowTarget attackPrefab;
 
     private const int enemiesToBadCombo = 5;
+    private const int badComboPenalty = -5;
     private int badComboCount = 0;
 
     public override void Act(Player player)
@@ -59,7 +60,7 @@ public class BasicAttack : StateAction {
                 badComboCount++;
             }
 
-            CheckIfBadCombo();
+            CheckIfBadCombo(player);
             player.timeSinceLastAttack = 0f;
         }
     }
@@ -73,12 +74,13 @@ public class BasicAttack : StateAction {
         attackClone.SetHitPoint(hitPoint);
     }
 
-    private void CheckIfBadCombo()
+    private void CheckIfBadCombo(Player player)
     {
         if (badComboCount == 5)
         {
             Debug.Log("NOOB!!");
             badComboCount = 0;
+            player.SetEvilLevel(badComboPenalty);
         }
     }
 }
