@@ -209,11 +209,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1202017035}
   m_Script: {fileID: 11500000, guid: d75e485d6f6435b489ef603ec97f582a, type: 3}
---- !u!4 &206753246 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4484810682184834, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 976378899}
 --- !u!1 &213798384
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,11 +311,6 @@ MonoBehaviour:
   spawnerArea: {x: 5, y: 0, z: 5}
   spawnVFX: {fileID: 114739611197360472, guid: 72a50551b77ab554192883532e62dac9, type: 2}
   activeSpawnInfos: []
---- !u!4 &278855699 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4308265177092768, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 976378899}
 --- !u!114 &365548354 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114026547309153366, guid: eb4c50dffc1813641a89258147c00a72,
@@ -473,47 +463,47 @@ MonoBehaviour:
     spawnInfos:
     - spawnTime: 0
       spawnerIndex: 1
-      spawnDuration: 25
-      enemiesToSpawn: 00000000000000000000000000000000000000000100000000000000000000000000000000000000010000000000000000000000000000000100000001000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 30
-      spawnerIndex: 0
-      spawnDuration: 30
-      enemiesToSpawn: 0000000000000000000000000000000000000000000000000000000000000000000000000000000001000000010000000100000002000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 30
-      spawnerIndex: 2
-      spawnDuration: 30
-      enemiesToSpawn: 0000000000000000000000000000000000000000000000000000000000000000000000000000000001000000010000000100000002000000
+      spawnDuration: 40
+      enemiesToSpawn: 0000000000000000000000000000000000000000010000000000000000000000010000000100000001000000000000000000000000000000000000000000000001000000010000000100000002000000
       elapsedTime: 0
       nextSpawnTime: 0
       nextSpawnIndex: 0
     - spawnTime: 45
+      spawnerIndex: 0
+      spawnDuration: 20
+      enemiesToSpawn: 00000000000000000000000000000000000000000000000001000000010000000100000002000000
+      elapsedTime: 0
+      nextSpawnTime: 0
+      nextSpawnIndex: 0
+    - spawnTime: 45
+      spawnerIndex: 2
+      spawnDuration: 20
+      enemiesToSpawn: 00000000000000000000000000000000000000000000000001000000010000000100000002000000
+      elapsedTime: 0
+      nextSpawnTime: 0
+      nextSpawnIndex: 0
+    - spawnTime: 60
       spawnerIndex: 1
       spawnDuration: 3
       enemiesToSpawn: 010000000200000001000000
       elapsedTime: 0
       nextSpawnTime: 0
       nextSpawnIndex: 0
-    - spawnTime: 80
+    - spawnTime: 90
       spawnerIndex: 0
       spawnDuration: 20
       enemiesToSpawn: 000000000000000000000000000000000000000001000000010000000100000000000000
       elapsedTime: 0
       nextSpawnTime: 0
       nextSpawnIndex: 0
-    - spawnTime: 80
+    - spawnTime: 90
       spawnerIndex: 1
       spawnDuration: 20
       enemiesToSpawn: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
       elapsedTime: 0
       nextSpawnTime: 0
       nextSpawnIndex: 0
-    - spawnTime: 80
+    - spawnTime: 90
       spawnerIndex: 2
       spawnDuration: 20
       enemiesToSpawn: 020000000100000001000000010000000000000000000000000000000000000000000000
@@ -841,28 +831,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 114386524282915284, guid: 182da881c3eee6548aa68ab299d1e64c,
-        type: 2}
-      propertyPath: centerTeleportPoint
-      value: 
-      objectReference: {fileID: 206753246}
-    - target: {fileID: 114386524282915284, guid: 182da881c3eee6548aa68ab299d1e64c,
-        type: 2}
-      propertyPath: statueTeleportPoint
-      value: 
-      objectReference: {fileID: 278855699}
-    - target: {fileID: 114386524282915284, guid: 182da881c3eee6548aa68ab299d1e64c,
-        type: 2}
-      propertyPath: strongAttackRenderer
-      value: 
-      objectReference: {fileID: 1789317509}
-    - target: {fileID: 114386524282915284, guid: 182da881c3eee6548aa68ab299d1e64c,
-        type: 2}
-      propertyPath: strongAttackMeshCollider
-      value: 
-      objectReference: {fileID: 1789317510}
-    m_RemovedComponents:
-    - {fileID: 114372979673165218, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &711558576 stripped
@@ -2044,16 +2013,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: 9b5d336669ef4d747a398ef0c2750704, type: 2}
---- !u!23 &1789317509 stripped
-MeshRenderer:
-  m_PrefabParentObject: {fileID: 23978678512325324, guid: a893a4d01d9e4a74d9192cd140455d9e,
-    type: 2}
-  m_PrefabInternal: {fileID: 1789317506}
---- !u!64 &1789317510 stripped
-MeshCollider:
-  m_PrefabParentObject: {fileID: 64193554458429458, guid: a893a4d01d9e4a74d9192cd140455d9e,
-    type: 2}
-  m_PrefabInternal: {fileID: 1789317506}
 --- !u!1 &1918455879
 GameObject:
   m_ObjectHideFlags: 0
