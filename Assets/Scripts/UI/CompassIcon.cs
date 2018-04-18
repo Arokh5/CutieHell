@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class CompassIcon : MonoBehaviour {
@@ -71,11 +69,7 @@ public class CompassIcon : MonoBehaviour {
             alertTimeLeft -= Time.deltaTime;
 
             if (alertTimeLeft <= 0)
-            {
-                alertTimeLeft = 0;
-                blurImage.enabled = false;
-                ResetSizes();
-            }
+                ResetAlert();
         }
     }
     #endregion
@@ -102,8 +96,10 @@ public class CompassIcon : MonoBehaviour {
         fixedImageRectTransform.sizeDelta = new Vector2(referenceSize.x * (1 - imageShrinkPercent * sinValue), referenceSize.y * (1 - imageShrinkPercent * sinValue));
     }
 
-    private void ResetSizes()
+    private void ResetAlert()
     {
+        alertTimeLeft = 0;
+        blurImage.enabled = false;
         rectTransform.sizeDelta = referenceSize;
         fixedImageRectTransform.sizeDelta = referenceSize;
     }
