@@ -90,6 +90,7 @@ public class AISpawner : MonoBehaviour {
         AIEnemy instantiatedEnemy = Instantiate(enemyPrefab, randomPosition, Quaternion.LookRotation(transform.forward, transform.up), spawnController.transform);
         instantiatedEnemy.SetZoneController(zoneController);
         instantiatedEnemy.SetPathsController(pathsController);
+        instantiatedEnemy.enemyType = enemyType;
 
         /* For particle effects */
         ActivateGameObjectOnTime spawnVfx = Instantiate(

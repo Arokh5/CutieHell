@@ -53,6 +53,9 @@ public class AIEnemy : MonoBehaviour, IDamageable
     public bool hit;
     private bool isTargetable = true;
     private bool isTarget = false;
+
+    public EnemyType enemyType;
+
     #endregion
 
     #region MonoBehaviour Methods
@@ -235,6 +238,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
     private void Die()
     {
+        StatsManager.instance.RegisterKill(enemyType);
         zoneController.RemoveEnemy(this);
         Player player = GameManager.instance.GetPlayer1();
         if (player != null)

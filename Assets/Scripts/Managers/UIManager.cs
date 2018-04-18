@@ -51,6 +51,13 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private float fadeOutBadComboVelocity;
 
+    [SerializeField]
+    private Text basicEnemies;
+    [SerializeField]
+    private Text rangeEnemies;
+    [SerializeField]
+    private Text conquerorEnemies;
+
     #endregion
 
     #region Properties
@@ -153,6 +160,13 @@ public class UIManager : MonoBehaviour
                 activeCombo = ComboTypes.BadCombo;
                 break;
         }
+    }
+
+    public void SetEnemiesKilledCount()
+    {
+        basicEnemies.text = "Basic: " + StatsManager.instance.GetBasicEnemiesKilled().ToString();
+        rangeEnemies.text = "Range: " + StatsManager.instance.GetRangeEnemiesKilled().ToString();
+        conquerorEnemies.text = "Conqueror: " + StatsManager.instance.GetConquerorEnemiesKilled().ToString();
     }
 
     #endregion
