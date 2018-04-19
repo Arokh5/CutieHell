@@ -44,13 +44,14 @@ public class BatTurretAttack : StateAction
         /* Shooting */
         if (InputManager.instance.GetR2Button() && player.timeSinceLastAttack >= attackCadency)
         {
-            Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * 100, Color.red, 2);
-
             if (raycastHit && hit.transform.GetComponent<AIEnemy>())
+            {
                 player.InstantiateAttack(attackPrefab, hit.transform, hit.point);
+            }
             else
+            {
                 player.InstantiateAttack(attackPrefab, null, Vector3.zero);
-
+            }
             player.timeSinceLastAttack = 0f;
         }
     }

@@ -9,6 +9,10 @@ public class WeakAttack : StateAction
     public float sphereCastRadius;
     public float attackCadency;
 
+    private const int enemiesToBadCombo = 5;
+    private const int badComboPenalty = -5;
+    private int badComboCount = 0;
+
     public override void Act(Player player)
     {
         AIEnemy newTarget = null;
@@ -47,14 +51,28 @@ public class WeakAttack : StateAction
             {
                 player.weakAttackTargetHitPoint = hit.point;
                 player.weakAttackTargetTransform = hit.transform;
+                badComboCount = 0;
             }
             else
             {
                 player.weakAttackTargetHitPoint = Vector3.zero;
                 player.weakAttackTargetTransform = null;
+                badComboCount++;
             }
             player.animator.SetTrigger("Attack");
             player.timeSinceLastAttack = 0f;
+            CheckIfBadCombo(player);
+        }
+    }
+
+    private void CheckIfBadCombo(Player player)
+    {
+        if (badComboCount == enemiesToBadCombo)
+        {
+            //Debug.Log("NOOB!!");
+            badComboCount = 0;
+            player.SetEvilLevel(badComboPenalty);
+            UIManager.instance.ShowComboText(UIManager.ComboTypes.BadCombo);
         }
     }
 }
