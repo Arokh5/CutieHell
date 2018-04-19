@@ -43,6 +43,7 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     [ShowOnly]
     public GameObject attachedConqueror;
 
+    private CompassIconOwner compassIconOwner;
     private float underAttackElapsedTime = 0;
     private float conquerEffectElapsedTime = 0;
     private bool underAttack = false;
@@ -84,11 +85,16 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
 
     private void Awake()
     {
-        UnityEngine.Assertions.Assert.IsNotNull(buildingRenderer, "Building Renderer not assigned for ConquerableBuilding script in GameObject " + gameObject.name);
-        UnityEngine.Assertions.Assert.IsNotNull(alternateBuildingRenderer, "Alternate Building Renderer not assigned for ConquerableBuilding script in GameObject " + gameObject.name);
+        UnityEngine.Assertions.Assert.IsNotNull(buildingRenderer, "ERROR: Building Renderer not assigned for ConquerableBuilding script in GameObject " + gameObject.name);
+        UnityEngine.Assertions.Assert.IsNotNull(alternateBuildingRenderer, "ERROR: Alternate Building Renderer not assigned for ConquerableBuilding script in GameObject " + gameObject.name);
         buildingRenderer.gameObject.SetActive(true);
         alternateBuildingRenderer.gameObject.SetActive(false);
         effectOnMapRadius = 0.0f;
+
+        if (!compassIconOwner)
+            compassIconOwner = GetComponent<CompassIconOwner>();
+
+        UnityEngine.Assertions.Assert.IsNotNull(compassIconOwner, "ERROR: Building could not find a CompassIconOwner in gameObject '" + gameObject.name + "'!");
     }
 
     private void Start()
@@ -155,6 +161,8 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
             return;
 
         // Reset the underAttackElapsedTime timer
+        if (compassIconOwner)
+            UIManager.instance.compass.SetAlertForIcon(compassIconOwner);
         SetUnderAttack(true);
         underAttackElapsedTime = 0;
 

@@ -13,7 +13,7 @@ public class SummonerTrapEnterAction : StateAction
         UIManager.instance.HideRepairTrapText();
         player.currentTrap = player.nearbyTrap;
         player.currentTrap.Activate(player);
-        player.meshRenderer.enabled = false;
+        player.SetRenderersVisibility(false);
 
         summonerTrap = player.currentTrap.GetComponent<SummonerTrap>();
         player.mainCamera.transform.position = summonerTrap.trapBasicSummonerEyes.transform.position;

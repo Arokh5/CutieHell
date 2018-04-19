@@ -29,7 +29,7 @@ public class ActivateDeactivateOnTime : MonoBehaviour {
     [SerializeField]
     private float timeToFadeOut;
 
-    private float timer, timeOnFade,sizeInDiference, sizeOutDiference;
+    private float timer,sizeInDiference, sizeOutDiference;
     private Projector projector;
     private ProjectorStates state;
     private Color startColorDiference, endColorDiference;
@@ -44,13 +44,13 @@ public class ActivateDeactivateOnTime : MonoBehaviour {
         DEACTIVATED3
     }
 
-    void Start () {
+    void OnEnable () {
         projector = this.GetComponent<Projector>();
         Color newColor = projector.material.GetColor("_TintColor");
         newColor = startColorOnActivate;
         projector.material.SetColor("_TintColor", newColor);
         projector.orthographicSize = startSizeOnActivate;
-        timer = timeOnFade = 0.0f;
+        timer = 0.0f;
         state = ProjectorStates.DEACTIVATED;
         startColorDiference = endColorOnActivate - startColorOnActivate;
         endColorDiference = endColorOnDeactivate - startColorOnDeactivate;

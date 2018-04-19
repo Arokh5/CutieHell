@@ -25,7 +25,9 @@ public class Player : MonoBehaviour {
     [HideInInspector]
     public float timeSinceLastTrapUse;
     [HideInInspector]
-    public MeshRenderer meshRenderer;
+    public Renderer[] renderers;
+    [HideInInspector]
+    public Animator animator;
 
     [Header("Attacks")]
     [SerializeField]
@@ -52,10 +54,18 @@ public class Player : MonoBehaviour {
     public float timeSinceLastAttack;
     [HideInInspector]
     public AIEnemy currentBasicAttackTarget = null;
+    [HideInInspector]
+    public bool animatingAttack = false;
+    [HideInInspector]
+    public Vector3 weakAttackTargetHitPoint;
+    [HideInInspector]
+    public Transform weakAttackTargetTransform;
 
     [Header("Strong Attack")]
+    public GameObject strongAttackObject;
+    public ProjectorColorChange projector;
     public MeshCollider strongAttackMeshCollider;
-    public Renderer strongAttackRenderer;
+    public GameObject strongAttackExplosion;
     [HideInInspector]
     public float timeSinceLastStrongAttack;
     [HideInInspector]
@@ -70,8 +80,9 @@ public class Player : MonoBehaviour {
         cameraState = CameraState.MOVE;
         initialBulletSpawnPointPos = new Vector3(0.8972f, 1.3626f, 0.1209f);
 
-        meshRenderer = this.GetComponentInChildren<MeshRenderer>();
+        renderers = this.GetComponentsInChildren<Renderer>();
         rb = this.GetComponent<Rigidbody>();
+        animator = this.GetComponent<Animator>();
         GameObject[] allTrapsGameObjects = GameObject.FindGameObjectsWithTag("Traps");
         allTraps = new Trap[allTrapsGameObjects.Length];
         for (int i = 0; i < allTrapsGameObjects.Length; ++i)
@@ -94,6 +105,11 @@ public class Player : MonoBehaviour {
    
     private void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            animator.Rebind();
+        }
         if (GameManager.instance.gameIsPaused)
         {
             return;
@@ -143,6 +159,33 @@ public class Player : MonoBehaviour {
         }
 
         UIManager.instance.SetEvilBarValue(evilLevel);
+    }
+
+    public void SetRenderersVisibility(bool visible)
+    {
+        for(int i = 0; i < renderers.Length; i++)
+        {
+            renderers[i].enabled = visible;
+        }
+    }
+
+    public void InstantiateAttack(FollowTarget attackPrefab, Transform enemy, Vector3 hitPoint)
+    {
+        Vector3 spawningPos = bulletSpawnPoint.position;
+
+        FollowTarget attackClone = Instantiate(attackPrefab, spawningPos, transform.rotation);
+        attackClone.SetEnemy(enemy);
+        attackClone.SetHitPoint(hitPoint);
+    }
+
+    public void InstantiateStrongAttack(int evilCost)
+    {
+        SetEvilLevel(evilCost);
+        GameObject strongAttackReference = Instantiate(strongAttackExplosion, transform.position, transform.rotation);
+        strongAttackReference.transform.SetParent(this.transform);
+        strongAttackReference.transform.localPosition = new Vector3(0.0f, 1.5f, 0.0f);
+        strongAttackReference.transform.localRotation = Quaternion.Euler(new Vector3(-90, 180, 0));
+        strongAttackReference.transform.SetParent(null);
     }
     #endregion
 }

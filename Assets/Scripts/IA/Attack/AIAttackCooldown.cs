@@ -12,8 +12,18 @@ public class AIAttackCooldown : AIAttackLogic
 
     public Transform attackSpawnPoint;
     public EnemyRangeAttack attackPrefab;
+    public bool makeAttack;
 
     private float lastAttackTime = 0;
+    private Animator animator;
+    #endregion
+
+    #region MonoBehaviour Methods
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+        makeAttack = false;
+    }
     #endregion
 
     #region Public Methods
@@ -21,8 +31,13 @@ public class AIAttackCooldown : AIAttackLogic
     {
         if (Time.time - lastAttackTime > cooldownDuration && Vector3.Distance(transform.position, target.transform.position) < attackRange)
         {
-            Attack(target);
+            animator.SetTrigger("Attack");
             lastAttackTime = Time.time;
+        }
+        if (makeAttack)
+        {
+            Attack(target);
+            makeAttack = false;
         }
     }
     #endregion

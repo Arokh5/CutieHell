@@ -118,6 +118,7 @@ public class GameManager : MonoBehaviour
             crosshair.SetActive(false);
             gameOverPanel.SetActive(true);
             gameOverPanel.transform.GetChild(1).GetComponent<Text>().text = "YOU WIN!";
+            UIManager.instance.SetEnemiesKilledCount();
             gameState = GameStates.OnGameEnd;
         }
     }
@@ -129,6 +130,7 @@ public class GameManager : MonoBehaviour
             crosshair.SetActive(false);
             gameOverPanel.SetActive(true);
             gameOverPanel.transform.GetChild(1).GetComponent<Text>().text = "YOU LOSE!";
+            UIManager.instance.SetEnemiesKilledCount();
             gameState = GameStates.OnGameEnd;
         }
     }

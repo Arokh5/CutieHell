@@ -74,8 +74,8 @@ public class CameraController : MonoBehaviour {
     private void Start()
     {
         Vector2 angles = transform.eulerAngles;
-        x = angles.y;
-        y = angles.x;
+        x = 35.5f;
+        y = 0.0f;
         lastState = playerScript.cameraState;
     }
 

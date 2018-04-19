@@ -17,7 +17,7 @@ public class SummonerTrapExitAction : StateAction
         player.currentTrap.Deactivate();
 
         player.shouldExitTrap = false;
-        player.meshRenderer.enabled = true;
+        player.SetRenderersVisibility(true);
         player.mainCamera.transform.position = player.transform.position;
 
         Vector3 nextPos = player.currentTrap.transform.forward * 3f;

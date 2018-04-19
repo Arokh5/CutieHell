@@ -23,6 +23,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private EnemyProjection currentVirtualTarget;
 
     private Renderer mRenderer;
+    private Animator animator;
 
     [Header("Materials")]
     [SerializeField]
@@ -56,6 +57,9 @@ public class AIEnemy : MonoBehaviour, IDamageable
     public bool hit;
     private bool isTargetable = true;
     private bool isTarget = false;
+
+    public EnemyType enemyType;
+
     #endregion
 
     #region MonoBehaviour Methods
@@ -63,8 +67,12 @@ public class AIEnemy : MonoBehaviour, IDamageable
     {
         agent = GetComponent<NavMeshAgent>();
         UnityEngine.Assertions.Assert.IsNotNull(agent, "Error: No NavMeshAgent found for AIEnemy in GameObject '" + gameObject.name + "'!");
-        mRenderer = GetComponentInChildren<MeshRenderer>();
+        mRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+        if (mRenderer == null)
+            mRenderer = GetComponentInChildren<MeshRenderer>();
         UnityEngine.Assertions.Assert.IsNotNull(mRenderer, "Error: No MeshRenderer found for children of AIEnemy in GameObject '" + gameObject.name + "'!");
+        animator = this.GetComponent<Animator>();
+        UnityEngine.Assertions.Assert.IsNotNull(animator, "Error: No Animator found in GameObject '" + gameObject.name + "'!");
         mRenderer.material.color = initialColor;
         originalStoppingDistance = agent.stoppingDistance;
     }
@@ -206,7 +214,13 @@ public class AIEnemy : MonoBehaviour, IDamageable
         if (currentHealth <= 0)
         {
             currentHealth = 0;
-            Die();
+            agent.enabled = false;
+            animator.SetBool("DieStandard", true);
+            //Die();
+        }
+        else
+        {
+            animator.SetBool("GetHit", true);
         }
         AdjustMaterials();
     }
@@ -265,8 +279,10 @@ public class AIEnemy : MonoBehaviour, IDamageable
         mRenderer.material.color = finalColor;
     }
 
-    private void Die()
+    // Called on Animator
+    public void Die()
     {
+        StatsManager.instance.RegisterKill(enemyType);
         zoneController.RemoveEnemy(this);
         Player player = GameManager.instance.GetPlayer1();
         if (player != null)
