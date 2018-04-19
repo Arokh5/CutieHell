@@ -267,6 +267,7 @@ GameObject:
   m_Component:
   - component: {fileID: 258126721}
   - component: {fileID: 258126722}
+  - component: {fileID: 258126723}
   m_Layer: 0
   m_Name: Spawner2
   m_TagString: Untagged
@@ -305,6 +306,18 @@ MonoBehaviour:
   spawnerArea: {x: 5, y: 0, z: 5}
   spawnVFX: {fileID: 114739611197360472, guid: 72a50551b77ab554192883532e62dac9, type: 2}
   activeSpawnInfos: []
+--- !u!114 &258126723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 258126720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f46665e59a96f6478156a2433bcb437, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconSprite: {fileID: 21300000, guid: d6a4b2aa0a85ea741bab382e89c2249f, type: 3}
 --- !u!114 &301294940 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114580650670945556, guid: 182da881c3eee6548aa68ab299d1e64c,
@@ -776,15 +789,15 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1322869400541654, guid: eb4c50dffc1813641a89258147c00a72, type: 2}
+      propertyPath: m_Name
+      value: Trap_Basic_1
+      objectReference: {fileID: 0}
     - target: {fileID: 114026547309153366, guid: eb4c50dffc1813641a89258147c00a72,
         type: 2}
       propertyPath: zoneController
       value: 
       objectReference: {fileID: 1955635918}
-    - target: {fileID: 1322869400541654, guid: eb4c50dffc1813641a89258147c00a72, type: 2}
-      propertyPath: m_Name
-      value: Trap_Basic_1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eb4c50dffc1813641a89258147c00a72, type: 2}
   m_IsPrefabParent: 0
@@ -977,22 +990,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   referenceTransform: {fileID: 2040376110}
+  leftLight: {fileID: 1221933291}
+  rightLight: {fileID: 1562811020}
   compassIconPrefab: {fileID: 114909564030098822, guid: 13b264de38001f84aa3eeac604fcf05d,
     type: 2}
   fovDegrees: 90
-  compassIconsData:
-  - iconSprite: {fileID: 21300000, guid: 73b05bfa2b79ac84da6e3d1ffca6c96c, type: 3}
-    transform: {fileID: 2036540554}
-  - iconSprite: {fileID: 21300000, guid: 182083510ba592c48b7bdd7dbf510ae1, type: 3}
-    transform: {fileID: 1433715853}
-  - iconSprite: {fileID: 21300000, guid: 182083510ba592c48b7bdd7dbf510ae1, type: 3}
-    transform: {fileID: 711558576}
-  - iconSprite: {fileID: 21300000, guid: d6a4b2aa0a85ea741bab382e89c2249f, type: 3}
-    transform: {fileID: 1090187992}
-  - iconSprite: {fileID: 21300000, guid: d6a4b2aa0a85ea741bab382e89c2249f, type: 3}
-    transform: {fileID: 1281987909}
-  - iconSprite: {fileID: 21300000, guid: d6a4b2aa0a85ea741bab382e89c2249f, type: 3}
-    transform: {fileID: 258126721}
+  minDistanceToDisplayIcon: 5
+  alertDuration: 2
+  alertFrequency: 2
+  blurGrowthPercent: 0.2
+  imageShrinkPercent: 0.2
 --- !u!4 &711558576 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4473051620570346, guid: eb4c50dffc1813641a89258147c00a72,
@@ -1578,6 +1585,11 @@ Prefab:
       propertyPath: conquerorEnemies
       value: 
       objectReference: {fileID: 1356088107}
+    - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
+        type: 2}
+      propertyPath: compass
+      value: 
+      objectReference: {fileID: 619282600}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5, type: 2}
   m_IsPrefabParent: 0
@@ -1595,6 +1607,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1090187992}
   - component: {fileID: 1090187993}
+  - component: {fileID: 1090187994}
   m_Layer: 0
   m_Name: Spawner0
   m_TagString: Untagged
@@ -1633,6 +1646,18 @@ MonoBehaviour:
   spawnerArea: {x: 5, y: 0, z: 5}
   spawnVFX: {fileID: 114739611197360472, guid: 72a50551b77ab554192883532e62dac9, type: 2}
   activeSpawnInfos: []
+--- !u!114 &1090187994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1090187991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f46665e59a96f6478156a2433bcb437, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconSprite: {fileID: 21300000, guid: d6a4b2aa0a85ea741bab382e89c2249f, type: 3}
 --- !u!1001 &1202017035
 Prefab:
   m_ObjectHideFlags: 0
@@ -1684,6 +1709,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eb4c50dffc1813641a89258147c00a72, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1221933291 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114534310750122788, guid: 04f6420bf7e133d46aa235d425309775,
+    type: 2}
+  m_PrefabInternal: {fileID: 422593253}
+  m_Script: {fileID: 11500000, guid: 90c1d882a4c6a2a40901ba6d02a24c2c, type: 3}
 --- !u!224 &1276631904 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224975815353682298, guid: 04f6420bf7e133d46aa235d425309775,
@@ -1698,6 +1729,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1281987909}
   - component: {fileID: 1281987910}
+  - component: {fileID: 1281987911}
   m_Layer: 0
   m_Name: Spawner1
   m_TagString: Untagged
@@ -1736,6 +1768,18 @@ MonoBehaviour:
   spawnerArea: {x: 5, y: 0, z: 5}
   spawnVFX: {fileID: 114739611197360472, guid: 72a50551b77ab554192883532e62dac9, type: 2}
   activeSpawnInfos: []
+--- !u!114 &1281987911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1281987908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f46665e59a96f6478156a2433bcb437, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconSprite: {fileID: 21300000, guid: d6a4b2aa0a85ea741bab382e89c2249f, type: 3}
 --- !u!1 &1338041779
 GameObject:
   m_ObjectHideFlags: 0
@@ -2203,6 +2247,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 04f6420bf7e133d46aa235d425309775, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1562811020 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114534310750122788, guid: 04f6420bf7e133d46aa235d425309775,
+    type: 2}
+  m_PrefabInternal: {fileID: 1548017733}
+  m_Script: {fileID: 11500000, guid: 90c1d882a4c6a2a40901ba6d02a24c2c, type: 3}
 --- !u!1 &1643444357
 GameObject:
   m_ObjectHideFlags: 0
@@ -2834,6 +2884,7 @@ GameObject:
   - component: {fileID: 2036540554}
   - component: {fileID: 2036540555}
   - component: {fileID: 2036540556}
+  - component: {fileID: 2036540557}
   m_Layer: 0
   m_Name: Monument
   m_TagString: Untagged
@@ -2898,6 +2949,18 @@ CapsuleCollider:
   m_Height: 5
   m_Direction: 1
   m_Center: {x: 0, y: 1.01, z: 0}
+--- !u!114 &2036540557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2036540553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f46665e59a96f6478156a2433bcb437, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconSprite: {fileID: 21300000, guid: 73b05bfa2b79ac84da6e3d1ffca6c96c, type: 3}
 --- !u!4 &2040376110 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4121203388434420, guid: 182da881c3eee6548aa68ab299d1e64c,
@@ -2958,3 +3021,20 @@ Transform:
   m_Father: {fileID: 878575433}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2115019624 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1177652445436934, guid: eb4c50dffc1813641a89258147c00a72,
+    type: 2}
+  m_PrefabInternal: {fileID: 1202017035}
+--- !u!114 &2115019628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2115019624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f46665e59a96f6478156a2433bcb437, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconSprite: {fileID: 21300000, guid: 182083510ba592c48b7bdd7dbf510ae1, type: 3}

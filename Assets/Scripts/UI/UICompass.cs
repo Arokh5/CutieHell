@@ -12,6 +12,7 @@ public class UICompass : MonoBehaviour
     public CompassIcon compassIconPrefab;
     [Range(60, 180)]
     public float fovDegrees = 90.0f;
+    public float minDistanceToDisplayIcon = 5.0f;
     [Header("Compass Icons config")]
     public float alertDuration = 2.0f;
     [Range(1.0f, 5.0f)]
@@ -76,27 +77,33 @@ public class UICompass : MonoBehaviour
         foreach (CompassIconOwner owner in compassIcons.Keys)
         {
             CompassIcon compassIcon = compassIcons[owner];
+
             Vector3 referenceToIconV3 = owner.transform.position - referenceTransform.position;
             Vector2 referenceToIcon = new Vector2(referenceToIconV3.x, referenceToIconV3.z);
-            float angle = -Vector2.SignedAngle(referenceForward, referenceToIcon);
-
-            if (Mathf.Abs(angle) > 0.5f * fovDegrees)
+            if (referenceToIcon.sqrMagnitude > minDistanceToDisplayIcon * minDistanceToDisplayIcon)
             {
-                compassIcon.TurnOff();
-                if (compassIcon.alertTimeLeft > 0)
+                float angle = -Vector2.SignedAngle(referenceForward, referenceToIcon);
+
+                if (Mathf.Abs(angle) > 0.5f * fovDegrees)
                 {
-                    if (angle < 0)
-                        ++leftLightRequests;
-                    else
-                        ++rightLightRequests;
+                    compassIcon.TurnOff();
+                    if (compassIcon.alertTimeLeft > 0)
+                    {
+                        if (angle < 0)
+                            ++leftLightRequests;
+                        else
+                            ++rightLightRequests;
+                    }
+                }
+                else
+                {
+                    compassIcon.TurnOn();
+                    float xPos = angle / (0.5f * fovDegrees) * 0.5f * size.x;
+                    compassIcon.localPosition = xPos * Vector3.right;
                 }
             }
             else
-            {
-                compassIcon.TurnOn();
-                float xPos = angle / (0.5f * fovDegrees) * 0.5f * size.x;
-                compassIcon.localPosition = xPos * Vector3.right;
-            }
+                compassIcon.TurnOff();
         }
     }
 
