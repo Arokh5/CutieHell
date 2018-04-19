@@ -2,12 +2,19 @@
 	Properties{
 		_Color ("Color", Color) = (1,1,1,1)
 		_BlendRadius("Blend Radius Start", Range(0.0, 1.0)) = 0.5
+		[Header(Default Textures)]
 		_MainTex ("Main Texture", 2D) = "white" {}
-		_AlternateTex("Alternate Texture", 2D) = "white" {}
 		[Normal]
 		_NormalMap("Normal Map", 2D) = "bump" {}
 		_NormalPower("Normal Power", Float) = 1.0
 		_RoughnessMap("Roughness Map", 2D) = "white" {}
+		[Header(Alternate Texture)]
+		_AlternateTex("Alternate Texture", 2D) = "white" {}
+		[Normal]
+		_AlternateNormalMap("Alternate Normal Map", 2D) = "bump" {}
+		_AlternateNormalPower("Alternate Normal Power", Float) = 1.0
+		_AlternateRoughnessMap("Alternate Roughness Map", 2D) = "white" {}
+
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
@@ -27,11 +34,16 @@
 
 		fixed4 _Color;
 		float _BlendRadius;
+
 		sampler2D _MainTex;
-		sampler2D _AlternateTex;
 		sampler2D _NormalMap;
 		float _NormalPower;
 		sampler2D _RoughnessMap;
+
+		sampler2D _AlternateTex;
+		sampler2D _AlternateNormalMap;
+		float _AlternateNormalPower;
+		sampler2D _AlternateRoughnessMap;
 
 		// Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
 		// See https://docs.unity3d.com/Manual/GPUInstancing.html for more information about instancing.
@@ -42,9 +54,12 @@
 
 		struct Input {
 			float2 uv_MainTex;
-			float2 uv_AlternateTex;
 			float2 uv_NormalMap;
 			float2 uv_RoughnessMap;
+			float2 uv_AlternateTex;
+			float2 uv_AlternateNormalMap;
+			float2 uv_AlternateRoughnessMap;
+
 			float3 worldPos;
 		};
 
@@ -72,21 +87,35 @@
 				}
 			}
 
-			fixed4 c;
+			fixed4 color;
+			fixed4 normal;
+			fixed4 roughness;
 			if (inEffectRadius)
 			{
 				if (finalLerpFactor <= 0)
-					c = tex2D(_AlternateTex, IN.uv_AlternateTex) * _Color;
+				{
+					color = tex2D(_AlternateTex, IN.uv_AlternateTex) * _Color;
+					normal = tex2D(_AlternateNormalMap, IN.uv_AlternateNormalMap);
+					roughness = tex2D(_AlternateRoughnessMap, IN.uv_AlternateRoughnessMap);
+				}
 				else
-					c = lerp(tex2D(_AlternateTex, IN.uv_AlternateTex), tex2D(_MainTex, IN.uv_MainTex), finalLerpFactor);
+				{
+					color = lerp(tex2D(_AlternateTex, IN.uv_AlternateTex), tex2D(_MainTex, IN.uv_MainTex), finalLerpFactor) * _Color;
+					normal = lerp(tex2D(_AlternateNormalMap, IN.uv_AlternateNormalMap), tex2D(_NormalMap, IN.uv_NormalMap), finalLerpFactor);
+					roughness = lerp(tex2D(_AlternateRoughnessMap, IN.uv_AlternateRoughnessMap), tex2D(_RoughnessMap, IN.uv_RoughnessMap), finalLerpFactor);
+				}
 			}
 			else
-				c = tex2D(_MainTex, IN.uv_MainTex) * _Color;
+			{
+				color = tex2D(_MainTex, IN.uv_MainTex) * _Color;
+				normal = tex2D(_NormalMap, IN.uv_NormalMap);
+				roughness = tex2D(_RoughnessMap, IN.uv_RoughnessMap);
+			}
 
-			o.Albedo = c.rgb;
-			o.Alpha = c.a;
-			o.Normal = lerp(UnpackNormal(tex2D(_NormalMap, IN.uv_NormalMap)), fixed3(0,0,1), -_NormalPower + 1.0f);
-			o.Smoothness = float4(1,1,1,1) - tex2D(_RoughnessMap, IN.uv_RoughnessMap);
+			o.Albedo = color.rgb;
+			o.Alpha = color.a;
+			o.Normal = lerp(UnpackNormal(normal), fixed3(0,0,1), -_NormalPower + 1.0f);
+			o.Smoothness = float4(1,1,1,1) - roughness;
 		}
 		ENDCG
 	}
