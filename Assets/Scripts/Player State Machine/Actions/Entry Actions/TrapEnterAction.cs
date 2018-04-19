@@ -12,6 +12,6 @@ public class TrapEnterAction : StateAction {
         player.bulletSpawnPoint.SetParent(player.nearbyTrap.transform);
         player.bulletSpawnPoint.localPosition = new Vector3(0f, 0.3f, 0.7f);
         player.currentTrap.Activate(player);
-        player.meshRenderer.enabled = false;
+        player.SetRenderersVisibility(false);
     }
 }

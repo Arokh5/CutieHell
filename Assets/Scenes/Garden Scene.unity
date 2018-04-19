@@ -209,11 +209,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1202017035}
   m_Script: {fileID: 11500000, guid: d75e485d6f6435b489ef603ec97f582a, type: 3}
---- !u!4 &206753246 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4484810682184834, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 976378899}
 --- !u!1 &213798384
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,12 +258,6 @@ MonoBehaviour:
   outlets:
   - {fileID: 531871369}
   - {fileID: 981256135}
---- !u!114 &214831664 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114386524282915284, guid: 182da881c3eee6548aa68ab299d1e64c,
-    type: 2}
-  m_PrefabInternal: {fileID: 613718701}
-  m_Script: {fileID: 11500000, guid: a1001fc1c05d1f242abd7f8a8c02112f, type: 3}
 --- !u!1 &258126720
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,11 +305,6 @@ MonoBehaviour:
   spawnerArea: {x: 5, y: 0, z: 5}
   spawnVFX: {fileID: 114739611197360472, guid: 72a50551b77ab554192883532e62dac9, type: 2}
   activeSpawnInfos: []
---- !u!4 &278855699 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4308265177092768, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 976378899}
 --- !u!114 &365548354 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114026547309153366, guid: eb4c50dffc1813641a89258147c00a72,
@@ -469,26 +453,26 @@ MonoBehaviour:
   currentWaveIndex: -1
   nextSpawnIndex: 0
   wavesInfo:
-  - waveDuration: 150
+  - waveDuration: 180
     spawnInfos:
     - spawnTime: 0
       spawnerIndex: 1
-      spawnDuration: 40
-      enemiesToSpawn: 0000000000000000000000000000000000000000010000000000000000000000010000000100000001000000000000000000000000000000000000000000000001000000010000000100000002000000
+      spawnDuration: 35
+      enemiesToSpawn: 00000000000000000000000000000000000000000100000000000000000000000000000000000000010000000000000000000000000000000100000001000000
       elapsedTime: 0
       nextSpawnTime: 0
       nextSpawnIndex: 0
     - spawnTime: 45
       spawnerIndex: 0
-      spawnDuration: 20
-      enemiesToSpawn: 00000000000000000000000000000000000000000000000001000000010000000100000002000000
+      spawnDuration: 30
+      enemiesToSpawn: 00000000000000000000000000000000000000000000000000000000010000000100000002000000
       elapsedTime: 0
       nextSpawnTime: 0
       nextSpawnIndex: 0
     - spawnTime: 45
       spawnerIndex: 2
-      spawnDuration: 20
-      enemiesToSpawn: 00000000000000000000000000000000000000000000000001000000010000000100000002000000
+      spawnDuration: 30
+      enemiesToSpawn: 00000000000000000000000000000000000000000000000000000000010000000100000002000000
       elapsedTime: 0
       nextSpawnTime: 0
       nextSpawnIndex: 0
@@ -499,24 +483,97 @@ MonoBehaviour:
       elapsedTime: 0
       nextSpawnTime: 0
       nextSpawnIndex: 0
-    - spawnTime: 90
+    - spawnTime: 100
       spawnerIndex: 0
       spawnDuration: 20
-      enemiesToSpawn: 000000000000000000000000000000000000000001000000010000000100000000000000
+      enemiesToSpawn: 02000000000000000000000000000000010000000100000001000000000000000000000000000000
       elapsedTime: 0
       nextSpawnTime: 0
       nextSpawnIndex: 0
-    - spawnTime: 90
+    - spawnTime: 100
       spawnerIndex: 1
       spawnDuration: 20
       enemiesToSpawn: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
       elapsedTime: 0
       nextSpawnTime: 0
       nextSpawnIndex: 0
-    - spawnTime: 90
+    - spawnTime: 100
       spawnerIndex: 2
       spawnDuration: 20
-      enemiesToSpawn: 020000000100000001000000010000000000000000000000000000000000000000000000
+      enemiesToSpawn: 02000000000000000000000000000000010000000100000001000000000000000000000000000000
+      elapsedTime: 0
+      nextSpawnTime: 0
+      nextSpawnIndex: 0
+    lastEnemySpawnTime: 0
+  - waveDuration: 250
+    spawnInfos:
+    - spawnTime: 0
+      spawnerIndex: 1
+      spawnDuration: 10
+      enemiesToSpawn: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+      elapsedTime: 0
+      nextSpawnTime: 0
+      nextSpawnIndex: 0
+    - spawnTime: 30
+      spawnerIndex: 0
+      spawnDuration: 1
+      enemiesToSpawn: 010000000200000001000000
+      elapsedTime: 0
+      nextSpawnTime: 0
+      nextSpawnIndex: 0
+    - spawnTime: 30
+      spawnerIndex: 2
+      spawnDuration: 1
+      enemiesToSpawn: 010000000200000001000000
+      elapsedTime: 0
+      nextSpawnTime: 0
+      nextSpawnIndex: 0
+    - spawnTime: 65
+      spawnerIndex: 1
+      spawnDuration: 15
+      enemiesToSpawn: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+      elapsedTime: 0
+      nextSpawnTime: 0
+      nextSpawnIndex: 0
+    - spawnTime: 75
+      spawnerIndex: 0
+      spawnDuration: 5
+      enemiesToSpawn: 02000000010000000100000001000000010000000100000002000000
+      elapsedTime: 0
+      nextSpawnTime: 0
+      nextSpawnIndex: 0
+    - spawnTime: 85
+      spawnerIndex: 2
+      spawnDuration: 5
+      enemiesToSpawn: 02000000010000000100000001000000010000000100000002000000
+      elapsedTime: 0
+      nextSpawnTime: 0
+      nextSpawnIndex: 0
+    - spawnTime: 135
+      spawnerIndex: 1
+      spawnDuration: 3
+      enemiesToSpawn: 020000000100000002000000
+      elapsedTime: 0
+      nextSpawnTime: 0
+      nextSpawnIndex: 0
+    - spawnTime: 145
+      spawnerIndex: 0
+      spawnDuration: 20
+      enemiesToSpawn: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
+      elapsedTime: 0
+      nextSpawnTime: 0
+      nextSpawnIndex: 0
+    - spawnTime: 145
+      spawnerIndex: 2
+      spawnDuration: 20
+      enemiesToSpawn: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
+      elapsedTime: 0
+      nextSpawnTime: 0
+      nextSpawnIndex: 0
+    - spawnTime: 175
+      spawnerIndex: 1
+      spawnDuration: 20
+      enemiesToSpawn: 020000000100000001000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000010000000100000002000000
       elapsedTime: 0
       nextSpawnTime: 0
       nextSpawnIndex: 0
@@ -581,8 +638,8 @@ MonoBehaviour:
       nextSpawnIndex: 0
     - spawnTime: 200
       spawnerIndex: 2
-      spawnDuration: 60
-      enemiesToSpawn: 000000000000000000000000000000000100000000000000000000000000000001000000020000000000000000000000000000000000000000000000000000000000000001000000010000000200000000000000000000000000000000000000000000000000000001000000010000000100000002000000
+      spawnDuration: 10
+      enemiesToSpawn: 00000000000000000000000000000000000000000000000000000000010000000100000002000000
       elapsedTime: 0
       nextSpawnTime: 0
       nextSpawnIndex: 0
@@ -635,9 +692,9 @@ MonoBehaviour:
   - {fileID: 258126722}
   enemyTypes: 000000000100000002000000
   enemyPrefabs:
-  - {fileID: 114618707455404838, guid: 25af1e6ba7fbb3e4dac1e5beaa521757, type: 2}
-  - {fileID: 114901561687965822, guid: 9f2cfe467856c9447808a78c6d4a9e93, type: 2}
-  - {fileID: 114740570205452148, guid: 2e01eb15f009a7343bc25ce6fb74a6a4, type: 2}
+  - {fileID: 114281369883354696, guid: 7c8295c6ba172da4ab01ca928701fcc5, type: 2}
+  - {fileID: 114700444110497872, guid: 662d7a466b731c64fbb634294a74925a, type: 2}
+  - {fileID: 114853848441839558, guid: d732fd1a594d6c74c9655df97bdc5cb2, type: 2}
 --- !u!1001 &497415912
 Prefab:
   m_ObjectHideFlags: 0
@@ -748,6 +805,7 @@ GameObject:
   - component: {fileID: 540122735}
   - component: {fileID: 540122737}
   - component: {fileID: 540122736}
+  - component: {fileID: 540122738}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -766,7 +824,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &540122736
 MonoBehaviour:
@@ -783,7 +841,7 @@ MonoBehaviour:
   scenarioController: {fileID: 804468631}
   gameIsPaused: 0
   gameState: 1
-  player: {fileID: 214831664}
+  player: {fileID: 731348623}
   gameOverPanel: {fileID: 397045763}
   pauseMenu: {fileID: 1356088105}
 --- !u!114 &540122737
@@ -795,6 +853,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e796f52dfb0a47408b3deaad32859c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &540122738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 540122734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a14d2ce0f595b6343a3cf892968c1d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &612996261 stripped
@@ -841,28 +910,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 114386524282915284, guid: 182da881c3eee6548aa68ab299d1e64c,
-        type: 2}
-      propertyPath: centerTeleportPoint
-      value: 
-      objectReference: {fileID: 206753246}
-    - target: {fileID: 114386524282915284, guid: 182da881c3eee6548aa68ab299d1e64c,
-        type: 2}
-      propertyPath: statueTeleportPoint
-      value: 
-      objectReference: {fileID: 278855699}
-    - target: {fileID: 114386524282915284, guid: 182da881c3eee6548aa68ab299d1e64c,
-        type: 2}
-      propertyPath: strongAttackRenderer
-      value: 
-      objectReference: {fileID: 1789317509}
-    - target: {fileID: 114386524282915284, guid: 182da881c3eee6548aa68ab299d1e64c,
-        type: 2}
-      propertyPath: strongAttackMeshCollider
-      value: 
-      objectReference: {fileID: 1789317510}
-    m_RemovedComponents:
-    - {fileID: 114372979673165218, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
+    - target: {fileID: 4121203388434420, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &711558576 stripped
@@ -870,6 +922,12 @@ Transform:
   m_PrefabParentObject: {fileID: 4473051620570346, guid: eb4c50dffc1813641a89258147c00a72,
     type: 2}
   m_PrefabInternal: {fileID: 1202017035}
+--- !u!114 &731348623 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114580650670945556, guid: 182da881c3eee6548aa68ab299d1e64c,
+    type: 2}
+  m_PrefabInternal: {fileID: 613718701}
+  m_Script: {fileID: 11500000, guid: a1001fc1c05d1f242abd7f8a8c02112f, type: 3}
 --- !u!1 &758845858
 GameObject:
   m_ObjectHideFlags: 0
@@ -1063,7 +1121,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4920fa8567d938e468dba6079630a080, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 4920fa8567d938e468dba6079630a080, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1320,7 +1378,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4826908789460672, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
         type: 2}
@@ -1357,6 +1415,31 @@ Prefab:
       propertyPath: repairTrapText
       value: 
       objectReference: {fileID: 72274882}
+    - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
+        type: 2}
+      propertyPath: strongCombo
+      value: 
+      objectReference: {fileID: 1356088107}
+    - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
+        type: 2}
+      propertyPath: badCombo
+      value: 
+      objectReference: {fileID: 1356088106}
+    - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
+        type: 2}
+      propertyPath: basicEnemies
+      value: 
+      objectReference: {fileID: 1356088110}
+    - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
+        type: 2}
+      propertyPath: rangeEnemies
+      value: 
+      objectReference: {fileID: 1356088109}
+    - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
+        type: 2}
+      propertyPath: conquerorEnemies
+      value: 
+      objectReference: {fileID: 1356088108}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5, type: 2}
   m_IsPrefabParent: 0
@@ -1654,7 +1737,7 @@ Prefab:
     - target: {fileID: 224050234008403358, guid: a469ef08a24a81f49a590b2416f2fc2d,
         type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 224050234008403358, guid: a469ef08a24a81f49a590b2416f2fc2d,
         type: 2}
@@ -1730,6 +1813,34 @@ GameObject:
   m_PrefabParentObject: {fileID: 1831141532368792, guid: a469ef08a24a81f49a590b2416f2fc2d,
     type: 2}
   m_PrefabInternal: {fileID: 1356088102}
+--- !u!1 &1356088106 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1331383231380748, guid: a469ef08a24a81f49a590b2416f2fc2d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1356088102}
+--- !u!1 &1356088107 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1427906568776642, guid: a469ef08a24a81f49a590b2416f2fc2d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1356088102}
+--- !u!114 &1356088108 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114920106971672552, guid: a469ef08a24a81f49a590b2416f2fc2d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1356088102}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &1356088109 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114517631015208300, guid: a469ef08a24a81f49a590b2416f2fc2d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1356088102}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &1356088110 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114898579314221012, guid: a469ef08a24a81f49a590b2416f2fc2d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1356088102}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &1386551791
 GameObject:
   m_ObjectHideFlags: 0
@@ -1848,7 +1959,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 140.866, y: -344.389, z: 79.00099}
 --- !u!23 &1772673287 stripped
 MeshRenderer:
@@ -2007,7 +2118,7 @@ Prefab:
         type: 2}
       propertyPath: player
       value: 
-      objectReference: {fileID: 214831664}
+      objectReference: {fileID: 0}
     - target: {fileID: 114594301022996558, guid: a893a4d01d9e4a74d9192cd140455d9e,
         type: 2}
       propertyPath: strongAttackCadency
@@ -2027,33 +2138,6 @@ Prefab:
     - {fileID: 114942734402132228, guid: a893a4d01d9e4a74d9192cd140455d9e, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: a893a4d01d9e4a74d9192cd140455d9e, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1789317507 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1558515104831888, guid: a893a4d01d9e4a74d9192cd140455d9e,
-    type: 2}
-  m_PrefabInternal: {fileID: 1789317506}
---- !u!114 &1789317508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1789317507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: 9b5d336669ef4d747a398ef0c2750704, type: 2}
---- !u!23 &1789317509 stripped
-MeshRenderer:
-  m_PrefabParentObject: {fileID: 23978678512325324, guid: a893a4d01d9e4a74d9192cd140455d9e,
-    type: 2}
-  m_PrefabInternal: {fileID: 1789317506}
---- !u!64 &1789317510 stripped
-MeshCollider:
-  m_PrefabParentObject: {fileID: 64193554458429458, guid: a893a4d01d9e4a74d9192cd140455d9e,
-    type: 2}
-  m_PrefabInternal: {fileID: 1789317506}
 --- !u!1 &1918455879
 GameObject:
   m_ObjectHideFlags: 0

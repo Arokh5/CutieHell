@@ -12,7 +12,7 @@ public class TrapExitAction : StateAction {
         player.bulletSpawnPoint.localPosition = player.initialBulletSpawnPointPos;
         player.bulletSpawnPoint.rotation = Quaternion.identity;
         player.currentTrap.Deactivate();
-        player.meshRenderer.enabled = true;
+        player.SetRenderersVisibility(true);
 
         Vector3 nextPos = player.currentTrap.transform.forward * 3f;
         player.transform.position = new Vector3(player.currentTrap.transform.position.x - nextPos.x, player.transform.position.y, player.currentTrap.transform.position.z - nextPos.z);

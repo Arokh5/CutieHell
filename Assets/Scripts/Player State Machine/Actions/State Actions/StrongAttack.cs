@@ -8,24 +8,31 @@ public class StrongAttack : StateAction
     public float strongAttackCadency;
     public int evilCost;
     public int damage;
+    public GameObject strongAttackVFX;
 
     public override void Act(Player player)
     {
-        if (player.timeSinceLastStrongAttack >= strongAttackCadency && player.GetEvilLevel() >= Mathf.Abs(evilCost))
+        if (player.timeSinceLastStrongAttack >= strongAttackCadency && player.GetEvilLevel() >= Mathf.Abs(evilCost) && !player.animatingAttack)
         {
+            player.projector.SwitchToDefaultColor();
             player.strongAttackMeshCollider.enabled = true;
-            player.strongAttackRenderer.enabled = true;
 
             if (InputManager.instance.GetR2ButtonDown())
             {
-                player.SetEvilLevel(evilCost);
-                HurtEnemies(player);
+                player.animator.SetTrigger("StrongAttack");
+                //player.SetEvilLevel(evilCost);
+                //GameObject strongAttackExplosion = Instantiate(strongAttackVFX, player.transform.position, player.transform.rotation);
+                //strongAttackExplosion.transform.SetParent(player.transform);
+                //strongAttackExplosion.transform.localPosition = new Vector3(0.0f, 1.5f, 0.0f);
+                //strongAttackExplosion.transform.localRotation = Quaternion.Euler(new Vector3(-90, 180, 0));
+                //strongAttackExplosion.transform.SetParent(null);
+                //HurtEnemies(player);
             }
         }
         else
         {
+            player.projector.SwitchToAlternateColor();
             player.strongAttackMeshCollider.enabled = false;
-            player.strongAttackRenderer.enabled = false;
         }
     }
 
@@ -40,6 +47,5 @@ public class StrongAttack : StateAction
 
         player.timeSinceLastStrongAttack = 0f;
         player.strongAttackMeshCollider.enabled = false;
-        player.strongAttackRenderer.enabled = false;
     }
 }
