@@ -9,12 +9,6 @@ public class CompassAlert : MonoBehaviour {
     public float blinkFrequency = 1.0f;
 
     private Image blurImage;
-    [SerializeField]
-    private int onRequests = 0;
-    private float elapsedTime;
-
-    public bool on;
-    public bool off;
     #endregion
 
     #region MonoBehaviour Methods
@@ -28,43 +22,19 @@ public class CompassAlert : MonoBehaviour {
 
     private void Update()
     {
-        if (on)
-        {
-            on = false;
-            RequestOn();
-        }
-        if (off)
-        {
-            off = false;
-            RequestOff();
-        }
-
-        if (onRequests > 0)
-        {
-            Blink();
-            elapsedTime += Time.deltaTime;
-        }
+        Blink();
     }
     #endregion
 
     #region Public Methods
-    public void RequestOn()
+    public void TurnOn()
     {
-        if (onRequests == 0)
-        {
-            elapsedTime = 0.0f;
-            gameObject.SetActive(true);
-        }
-        ++onRequests;
+        gameObject.SetActive(true);
     }
 
-    public void RequestOff()
+    public void TurnOff()
     {
-        --onRequests;
-        if (onRequests == 0)
-        {
-            gameObject.SetActive(false);
-        }
+        gameObject.SetActive(false);
     }
     #endregion
 

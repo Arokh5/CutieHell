@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class CompassIcon : MonoBehaviour {
-
+public class CompassIcon : MonoBehaviour
+{
     #region Fields
     public float alertDuration = 2.0f;
     [Range(1.0f, 5.0f)]
@@ -12,14 +12,14 @@ public class CompassIcon : MonoBehaviour {
     [Range(0.0f, 0.5f)]
     public float imageShrinkPercent = 0.2f;
 
+    [HideInInspector]
+    public float alertTimeLeft = 0;
+
     private RectTransform rectTransform;
     private Image blurImage;
     private Image fixedImage;
     private RectTransform fixedImageRectTransform;
-    private float alertTimeLeft = 0;
     private Vector2 referenceSize;
-
-    public bool alert = false;
     #endregion
 
     #region Properties
@@ -35,7 +35,6 @@ public class CompassIcon : MonoBehaviour {
         }
     }
     #endregion
-
 
     #region MonoBehaviour Methods
     private void Awake()
@@ -53,16 +52,11 @@ public class CompassIcon : MonoBehaviour {
             fixedImageRectTransform = GetComponentsInChildren<RectTransform>()[1];
 
         referenceSize = rectTransform.sizeDelta;
-        blurImage.enabled = false;
+        TurnOff();
     }
 
     private void Update()
     {
-        if (alert)
-        {
-            SetAlert();
-        }
-
         if (alertTimeLeft > 0)
         {
             Blink();
@@ -84,7 +78,18 @@ public class CompassIcon : MonoBehaviour {
     public void SetAlert()
     {
         alertTimeLeft = alertDuration;
+    }
+
+    public void TurnOn()
+    {
         blurImage.enabled = true;
+        fixedImage.enabled = true;
+    }
+
+    public void TurnOff()
+    {
+        blurImage.enabled = false;
+        fixedImage.enabled = false;
     }
     #endregion
 
