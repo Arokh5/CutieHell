@@ -32,10 +32,9 @@ public class EnemyProjection : MonoBehaviour
     void Start()
     {
         enemyProjectionLanded = false;
-        summonerTrap = transform.parent.gameObject;
+        summonerTrap = transform.parent.gameObject; //Summoner Traps instantiate enemyProjections and set up them as a their child
         summonerTrapScript = summonerTrap.GetComponent<SummonerTrap>();
         camera = summonerTrapScript.camera;
-        Debug.Log("Use the inspector (seductiveEnemyProjection prefab is not storing TrapSummoner go or script");
     }
 
     // Update is called once per frame
@@ -143,7 +142,6 @@ public class EnemyProjection : MonoBehaviour
                 {
                     ActivateSelfExplosion(null);
                     if (explosionVFX != null) Destroy(Instantiate(explosionVFX, this.transform.position + Vector3.up * 1, this.transform.rotation), 0.9f);
-                    Debug.Log("Improve instantiation of explosion FX");
                     break;
                 }
             }
