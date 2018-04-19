@@ -141,7 +141,7 @@ public class EnemyProjection : MonoBehaviour
                 AIEnemy triggeringEnemy = enemiesWithinTheExplosionTriggerRaddius[i];
                 if (Vector3.Distance(this.transform.position, triggeringEnemy.transform.position) < this.explosionTriggerRadius)
                 {
-                    ActivateSelfExplosion();
+                    ActivateSelfExplosion(null);
                     if (explosionVFX != null) Destroy(Instantiate(explosionVFX, this.transform.position + Vector3.up * 1, this.transform.rotation), 0.9f);
                     Debug.Log("Improve instantiation of explosion FX");
                     break;
@@ -151,10 +151,15 @@ public class EnemyProjection : MonoBehaviour
                
     }
 
-    private void ActivateSelfExplosion()
+    private void ActivateSelfExplosion(List<EnemyProjection> enemyProjectionsAffected)
     {
         List<AIEnemy> enemiesDamaged = summonerTrapScript.ObtainEnemiesAffectedByProjectionExplosion(this.transform, explosionRadius);
-        List<EnemyProjection> enemyProjectionsAffected = summonerTrapScript.ObtainEnemyProjectionsAffectedByProjectionExplosion(this.transform, explosionRadius);
+        if(enemyProjectionsAffected == null)
+        {
+            enemyProjectionsAffected = summonerTrapScript.ObtainEnemyProjectionsAffectedByProjectionExplosion(this.transform, explosionRadius);
+        }
+
+        enemyProjectionsAffected.Remove(this);
 
         if(enemiesDamaged != null)
         {
@@ -175,7 +180,7 @@ public class EnemyProjection : MonoBehaviour
             {
                 if(!this.Equals(enemyProjectionsAffected[i]))
                 {
-                    enemyProjectionsAffected[i].ActivateSelfExplosion();
+                    enemyProjectionsAffected[i].ActivateSelfExplosion(enemyProjectionsAffected);
                 }
             }
         }
