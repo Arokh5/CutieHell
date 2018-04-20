@@ -45,7 +45,6 @@ public class StatsManager : MonoBehaviour {
             Destroy(gameObject);
         }
 
-        DontDestroyOnLoad(gameObject);
         ResetKillCounts();
     }
 
