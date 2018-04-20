@@ -29,6 +29,14 @@ public class Player : MonoBehaviour {
     [HideInInspector]
     public Animator animator;
 
+    /* Teleport variables */
+    [HideInInspector]
+    public bool teleported;
+    [HideInInspector]
+    public float timeSinceLastTeleport;
+    [HideInInspector]
+    public TeleportStates teleportState;
+
     [Header("Attacks")]
     [SerializeField]
     public Transform bulletSpawnPoint;
@@ -72,12 +80,14 @@ public class Player : MonoBehaviour {
     public List<AIEnemy> currentStrongAttackTargets = new List<AIEnemy>();
     #endregion
 
-    public enum CameraState { STILL, MOVE, WOLF, FOG, TURRET, SUMMONER}
+    public enum CameraState { STILL, MOVE, WOLF, FOG, TURRET, SUMMONER, TRANSITION, ZOOMOUT, ZOOMIN}
+    public enum TeleportStates { OUT, TRAVEL, IN}
 
     #region MonoBehaviour Methods
     private void Awake() 
     {
         cameraState = CameraState.MOVE;
+        teleportState = TeleportStates.OUT;
         initialBulletSpawnPointPos = new Vector3(0.8972f, 1.3626f, 0.1209f);
 
         renderers = this.GetComponentsInChildren<Renderer>();
@@ -99,6 +109,8 @@ public class Player : MonoBehaviour {
         timeSinceLastTrapUse = trapUseCooldown;
         timeSinceLastAttack = 1000.0f;
         timeSinceLastStrongAttack = 1000.0f;
+        timeSinceLastTeleport = 0.0f;
+        teleported = false;
 
         currentState.EnterState(this);
     }
