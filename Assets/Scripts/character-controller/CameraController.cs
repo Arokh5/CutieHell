@@ -167,6 +167,47 @@ public class CameraController : MonoBehaviour {
                         }
                     }
                     break;
+                case Player.CameraState.ZOOMOUT:
+                    this.transform.Translate((this.transform.forward * -4 + this.transform.up * 2) * Time.deltaTime, Space.World);
+                    break;
+                case Player.CameraState.ZOOMIN:
+                    {
+                        Quaternion rotation = this.transform.rotation;
+                        float noCollisionDistance = distance;
+                        timeOnTransition += Time.deltaTime;
+                        for (float zOffset = distance; zOffset >= 0.5f; zOffset -= 0.025f)
+                        {
+                            noCollisionDistance = zOffset;
+                            Vector3 tempPos = rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position;
+
+                            if (DoubleViewingPosCheck(tempPos, zOffset))
+                            {
+                                break;
+                            }
+                        }
+                        this.transform.position = Vector3.Lerp(this.transform.position, rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position, 4.0f);
+                        this.transform.LookAt(player.transform.position + player.transform.up * focusY + player.transform.right * focusX + player.transform.forward * focusDistance);
+                        break;
+                    }
+                case Player.CameraState.TRANSITION:
+                    {
+                        Quaternion rotation = this.transform.rotation;
+                        float noCollisionDistance = distance;
+                        timeOnTransition += Time.deltaTime;
+                        for (float zOffset = distance; zOffset >= 0.5f; zOffset -= 0.025f)
+                        {
+                            noCollisionDistance = zOffset;
+                            Vector3 tempPos = rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position;
+
+                            if (DoubleViewingPosCheck(tempPos, zOffset))
+                            {
+                                break;
+                            }
+                        }
+                        this.transform.position = Vector3.Lerp(this.transform.position, rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position, timeOnTransition / 2f);
+                        this.transform.LookAt(player.transform.position + player.transform.up * focusY + player.transform.right * focusX + player.transform.forward * focusDistance);
+                        break;
+                    }
                 default:
                     break;
             }

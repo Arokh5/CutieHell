@@ -12,5 +12,7 @@ public class BasicAttackExit : StateAction
             player.currentBasicAttackTarget.MarkAsTarget(false);
             player.currentBasicAttackTarget = null;
         }
+        player.rb.drag = 1000.0f;
+        player.footSteps.SetActive(false);
     }
 }

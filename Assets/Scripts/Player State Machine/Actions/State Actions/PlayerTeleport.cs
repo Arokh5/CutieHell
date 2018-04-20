@@ -15,30 +15,27 @@ public class PlayerTeleport : StateAction
         switch (player.teleportState)
         {
             case Player.TeleportStates.OUT:
-                Debug.Log("WAAAA");
                 if (player.timeSinceLastTeleport >= timeToGoOut)
                 {
                     player.timeSinceLastTeleport = 0.0f;
-                    player.cameraState = Player.CameraState.ZOOMOUT;
+                    player.cameraState = Player.CameraState.TRANSITION;
                     player.teleportState = Player.TeleportStates.TRAVEL;
+                    player.transform.position = destination.position;
 
                 }
                 break;
             case Player.TeleportStates.TRAVEL:
-                Debug.Log("WEEEE");
                 if (player.timeSinceLastTeleport >= timeToTravel)
                 {
                     player.timeSinceLastTeleport = 0.0f;
-                    player.cameraState = Player.CameraState.TRANSITION;
+                    //player.cameraState = Player.CameraState.ZOOMIN;
                     player.teleportState = Player.TeleportStates.IN;
                 }
                 break;
             case Player.TeleportStates.IN:
-                Debug.Log("WIIII");
                 if (player.timeSinceLastTeleport >= timeToGoIn)
                 {
                     player.timeSinceLastTeleport = 0.0f;
-                    player.cameraState = Player.CameraState.ZOOMIN;
                     player.teleported = true;
                 }
 

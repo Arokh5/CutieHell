@@ -10,7 +10,9 @@ public class TeleportBaseEnterAction : StateAction
     public override void Act(Player player)
     {
         player.SetRenderersVisibility(false);
+        player.teleported = false;
         player.timeSinceLastTeleport = 0.0f;
+        player.cameraState = Player.CameraState.ZOOMOUT;
         player.teleportState = Player.TeleportStates.OUT;
         Destroy(Instantiate(teleportIn, player.transform.position, teleportIn.transform.rotation), 1.5f);
     }
