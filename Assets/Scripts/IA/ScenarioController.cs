@@ -44,15 +44,19 @@ public class ScenarioController : MonoBehaviour
 
     public void OnWaveTimeOver()
     {
+        bool onZoneEmptyCalled = false;
         foreach (AIZoneController zoneController in zoneControllers)
         {
             if (zoneController.HasEnemies())
             {
                 zoneController.DestroyAllEnemies();
                 OnZoneEmpty();
+                onZoneEmptyCalled = true;
             }
-            CheckWaveWon();
         }
+
+        if (!onZoneEmptyCalled)
+            CheckWaveWon();
     }
 
     public void OnNewWaveStarted()

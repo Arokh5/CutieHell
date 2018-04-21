@@ -123,10 +123,13 @@ public class AISpawnController : MonoBehaviour
 
     public void WinCurrentWave()
     {
-        scenario.OnLastEnemySpawned();
-        WaveFinished();
-        foreach (AISpawner spawner in aiSpawners)
-            spawner.ClearSpawnInfos();
+        if (waveRunning)
+        {
+            scenario.OnLastEnemySpawned();
+            WaveFinished();
+            foreach (AISpawner spawner in aiSpawners)
+                spawner.ClearSpawnInfos();
+        }
     }
 
     public void RestartCurrentWave()
