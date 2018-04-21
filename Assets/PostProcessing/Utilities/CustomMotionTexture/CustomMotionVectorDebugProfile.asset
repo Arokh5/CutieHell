@@ -42,7 +42,7 @@ MonoBehaviour:
   ambientOcclusion:
     m_Enabled: 1
     m_Settings:
-      intensity: 1
+      intensity: 0.75
       radius: 0.18
       sampleCount: 10
       downsampling: 1
@@ -87,7 +87,7 @@ MonoBehaviour:
     m_Settings:
       lowPercent: 20.419388
       highPercent: 50.419376
-      minLuminance: -10
+      minLuminance: -3
       maxLuminance: 10
       keyValue: 0.1
       dynamicKeyValue: 1
@@ -100,10 +100,10 @@ MonoBehaviour:
     m_Enabled: 1
     m_Settings:
       bloom:
-        intensity: 0.68
-        threshold: 1.38
+        intensity: 0.28
+        threshold: 1.2
         softKnee: 0.083
-        radius: 5
+        radius: 4.5
         antiFlicker: 0
       lensDirt:
         texture: {fileID: 0}
@@ -124,8 +124,8 @@ MonoBehaviour:
         temperature: 0.4
         tint: 0
         hueShift: 0
-        saturation: 1.2
-        contrast: 1.2
+        saturation: 1.1
+        contrast: 1.4
       channelMixer:
         red: {x: 1, y: 0, z: 0}
         green: {x: 0, y: 1, z: 0}
@@ -298,7 +298,7 @@ MonoBehaviour:
       mode: 0
       color: {r: 0, g: 0, b: 0, a: 1}
       center: {x: 0.5, y: 0.5}
-      intensity: 0.419
+      intensity: 0.389
       smoothness: 0.2
       roundness: 1
       mask: {fileID: 0}
