@@ -41,7 +41,7 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     [SerializeField]
     private float conquerEffectDuration = 1;
     [ShowOnly]
-    public GameObject attachedConqueror;
+    public AIEnemy attachedConqueror;
 
     private CompassIconOwner compassIconOwner;
     private float underAttackElapsedTime = 0;
@@ -191,7 +191,9 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
 
         if (currentHealth == 0 && attachedConqueror)
         {
-            Destroy(attachedConqueror);
+            zoneController.RemoveEnemy(attachedConqueror);
+            Destroy(attachedConqueror.gameObject);
+            attachedConqueror = null;
         }
 
         currentHealth = baseHealth;       

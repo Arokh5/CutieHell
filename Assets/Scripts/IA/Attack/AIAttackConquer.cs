@@ -51,7 +51,7 @@ public class AIAttackConquer : AIAttackLogic {
 
         if (converted)
         {
-            targetInConquest.attachedConqueror = this.gameObject;
+            targetInConquest.attachedConqueror = aiEnemy;
         }
 
         if (inConquest)
@@ -77,7 +77,7 @@ public class AIAttackConquer : AIAttackLogic {
             if (target.attachedConqueror == null && Vector3.Distance(transform.position, target.transform.position) < attackRange)
             {
                 targetInConquest = target;
-                target.attachedConqueror = gameObject;
+                targetInConquest.attachedConqueror = aiEnemy;
                 //inTransformationAnimation = true;
                 animator.SetTrigger("Attack");
                 elapsedTime = 0;
