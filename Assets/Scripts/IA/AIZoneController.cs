@@ -175,6 +175,11 @@ public class AIZoneController : MonoBehaviour
         return removed;
     }
 
+    public bool HasEnemies()
+    {
+        return aiEnemies.Count > 0;
+    }
+
     public void DestroyAllEnemies()
     {
         foreach (AIEnemy aiEnemy in aiEnemies)

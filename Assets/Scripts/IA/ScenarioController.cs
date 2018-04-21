@@ -46,8 +46,12 @@ public class ScenarioController : MonoBehaviour
     {
         foreach (AIZoneController zoneController in zoneControllers)
         {
-            zoneController.DestroyAllEnemies();
-            OnZoneEmpty();
+            if (zoneController.HasEnemies())
+            {
+                zoneController.DestroyAllEnemies();
+                OnZoneEmpty();
+            }
+            CheckWaveWon();
         }
     }
 
@@ -79,16 +83,23 @@ public class ScenarioController : MonoBehaviour
     public void OnZoneEmpty()
     {
         --zonesWithEnemiesCount;
-        if (lastSpawnIsOver && zonesWithEnemiesCount == 0)
-        {
-            spawnController.StopWave();
-            GameManager.instance.OnWaveWon();
-        }
+        CheckWaveWon();
     }
 
     public void OnZoneNotEmpty()
     {
         ++zonesWithEnemiesCount;
+    }
+    #endregion
+
+    #region Private Methods
+    private void CheckWaveWon()
+    {
+        if (lastSpawnIsOver && zonesWithEnemiesCount == 0)
+        {
+            spawnController.StopWave();
+            GameManager.instance.OnWaveWon();
+        }
     }
     #endregion
 }
