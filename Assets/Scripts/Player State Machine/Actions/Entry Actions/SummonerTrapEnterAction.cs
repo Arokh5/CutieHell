@@ -13,6 +13,9 @@ public class SummonerTrapEnterAction : StateAction
         player.SetEvilLevel(player.currentTrap.usageCost);
 
         SummonerTrap summonerTrap = player.currentTrap.GetComponent<SummonerTrap>();
+        summonerTrap.trapBasicSummonerEyes.transform.rotation = Quaternion.Euler(summonerTrap.trapBasicSummonerEyes.transform.rotation.x,
+           player.mainCamera.transform.rotation.eulerAngles.y,
+           summonerTrap.trapBasicSummonerEyes.transform.rotation.z);
         player.mainCamera.transform.position = summonerTrap.trapBasicSummonerEyes.transform.position;
         summonerTrap.trapBasicSummonerBeam.gameObject.SetActive(true);
         summonerTrap.seductiveTrapActiveArea.gameObject.SetActive(true);

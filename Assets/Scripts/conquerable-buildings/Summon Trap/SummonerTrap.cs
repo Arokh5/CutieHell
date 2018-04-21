@@ -39,7 +39,7 @@ public class SummonerTrap : Trap
         // New generated projections (but not landed) will show up right where the player landed the previous one, first projection, exceptionally will land right in front of the trap
         if (firstProjection)
         {
-            localStartPosition = transform.forward * seductiveTrapActiveArea.orthographicSize * 0.5f;
+            localStartPosition = trapBasicSummonerEyes.transform.forward * seductiveTrapActiveArea.orthographicSize * 0.5f;
         }
         else
         {
