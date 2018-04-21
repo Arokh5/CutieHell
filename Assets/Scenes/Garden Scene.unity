@@ -329,6 +329,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconSprite: {fileID: 21300000, guid: a858f23d329c48f449a28899bd2c66bf, type: 3}
+  alertColor: {r: 0.92156863, g: 0.84313726, b: 0.1764706, a: 0}
+  iconImportance: 5
 --- !u!1 &397045763 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1996623288143964, guid: a469ef08a24a81f49a590b2416f2fc2d,
@@ -976,6 +978,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconSprite: {fileID: 21300000, guid: 6a70dfbee784b144387c01498f279d96, type: 3}
+  alertColor: {r: 0.9019608, g: 0.11764706, b: 0.15686275, a: 0}
+  iconImportance: -5
 --- !u!1 &804468629
 GameObject:
   m_ObjectHideFlags: 0
@@ -1523,6 +1527,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconSprite: {fileID: 21300000, guid: a858f23d329c48f449a28899bd2c66bf, type: 3}
+  alertColor: {r: 0.92156863, g: 0.84313726, b: 0.1764706, a: 0}
+  iconImportance: 5
 --- !u!1001 &1202017035
 Prefab:
   m_ObjectHideFlags: 0
@@ -1577,6 +1583,26 @@ Prefab:
       value: 
       objectReference: {fileID: 21300000, guid: 063baa24aeda9b945925988ae9d3bd72,
         type: 3}
+    - target: {fileID: 114454133219959688, guid: eb4c50dffc1813641a89258147c00a72,
+        type: 2}
+      propertyPath: iconImportance
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114454133219959688, guid: eb4c50dffc1813641a89258147c00a72,
+        type: 2}
+      propertyPath: alertColor.r
+      value: 0.1764706
+      objectReference: {fileID: 0}
+    - target: {fileID: 114454133219959688, guid: eb4c50dffc1813641a89258147c00a72,
+        type: 2}
+      propertyPath: alertColor.g
+      value: 0.8235294
+      objectReference: {fileID: 0}
+    - target: {fileID: 114454133219959688, guid: eb4c50dffc1813641a89258147c00a72,
+        type: 2}
+      propertyPath: alertColor.b
+      value: 0.9019608
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eb4c50dffc1813641a89258147c00a72, type: 2}
   m_IsPrefabParent: 0
@@ -1640,6 +1666,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconSprite: {fileID: 21300000, guid: a858f23d329c48f449a28899bd2c66bf, type: 3}
+  alertColor: {r: 0.92156863, g: 0.84313726, b: 0.1764706, a: 0}
+  iconImportance: 5
 --- !u!1 &1338041779
 GameObject:
   m_ObjectHideFlags: 0
@@ -1848,6 +1876,26 @@ Prefab:
     - target: {fileID: 1199924661244414, guid: a469ef08a24a81f49a590b2416f2fc2d, type: 2}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224690534089706748, guid: a469ef08a24a81f49a590b2416f2fc2d,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 224958023259546852, guid: a469ef08a24a81f49a590b2416f2fc2d,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 224318489643501880, guid: a469ef08a24a81f49a590b2416f2fc2d,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224818814651747670, guid: a469ef08a24a81f49a590b2416f2fc2d,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a469ef08a24a81f49a590b2416f2fc2d, type: 2}
@@ -2650,6 +2698,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconSprite: {fileID: 21300000, guid: 8384cf1258d7ce4488911637920af79f, type: 3}
+  alertColor: {r: 0.19607843, g: 0.8039216, b: 0.4117647, a: 0}
+  iconImportance: 10
 --- !u!114 &2045929044 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114943051599909610, guid: a469ef08a24a81f49a590b2416f2fc2d,

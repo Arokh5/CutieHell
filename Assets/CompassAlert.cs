@@ -9,6 +9,7 @@ public class CompassAlert : MonoBehaviour {
     public float blinkFrequency = 1.0f;
 
     private Image blurImage;
+    private Image fixedChildImage;
     #endregion
 
     #region MonoBehaviour Methods
@@ -16,6 +17,9 @@ public class CompassAlert : MonoBehaviour {
     {
         if(!blurImage)
             blurImage = GetComponent<Image>();
+
+        if(!fixedChildImage)
+            fixedChildImage = GetComponentsInChildren<Image>()[1];
 
         gameObject.SetActive(false);
     }
@@ -27,6 +31,13 @@ public class CompassAlert : MonoBehaviour {
     #endregion
 
     #region Public Methods
+    public void SetColor(Color color)
+    {
+        fixedChildImage.color = color;
+        color.a = blurImage.color.a;
+        blurImage.color = color;
+    }
+
     public void TurnOn()
     {
         gameObject.SetActive(true);

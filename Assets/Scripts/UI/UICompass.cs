@@ -25,8 +25,13 @@ public class UICompass : MonoBehaviour
     private RectTransform rectTransform;
     private Dictionary<CompassIconOwner, CompassIcon> compassIcons = new Dictionary<CompassIconOwner, CompassIcon>();
     private Vector2 size;
-    private int leftLightRequests = 0;
-    private int rightLightRequests = 0;
+    private bool leftLightOn = false;
+    private int leftLightHighestImportance = int.MinValue;
+    private Color leftLightColor = Color.white;
+    private bool rightLightOn = false;
+    private int rightLightHighestImportance = int.MinValue;
+    private Color rightLightColor = Color.white;
+
     #endregion
 
     #region MonoBehaviour Methods
@@ -43,8 +48,10 @@ public class UICompass : MonoBehaviour
 
     private void Update()
     {
-        leftLightRequests = 0;
-        rightLightRequests = 0;
+        leftLightOn = false;
+        leftLightHighestImportance = int.MinValue;
+        rightLightOn = false;
+        rightLightHighestImportance = int.MinValue;
         UpdateIcons();
         UpdateLights();
     }
@@ -90,9 +97,24 @@ public class UICompass : MonoBehaviour
                     if (compassIcon.alertTimeLeft > 0)
                     {
                         if (angle < 0)
-                            ++leftLightRequests;
+                        {
+                            leftLightOn = true;
+                            if (owner.iconImportance > leftLightHighestImportance)
+                            {
+                                leftLightHighestImportance = owner.iconImportance;
+                                leftLightColor = owner.alertColor;
+                            }
+
+                        }
                         else
-                            ++rightLightRequests;
+                        {
+                            rightLightOn = true;
+                            if (owner.iconImportance > rightLightHighestImportance)
+                            {
+                                rightLightHighestImportance = owner.iconImportance;
+                                rightLightColor = owner.alertColor;
+                            }
+                        }
                     }
                 }
                 else
@@ -109,13 +131,19 @@ public class UICompass : MonoBehaviour
 
     private void UpdateLights()
     {
-        if (leftLightRequests > 0)
+        if (leftLightOn)
+        {
+            leftLight.SetColor(leftLightColor);
             leftLight.TurnOn();
+        }
         else
             leftLight.TurnOff();
 
-        if (rightLightRequests > 0)
+        if (rightLightOn)
+        {
+            rightLight.SetColor(rightLightColor);
             rightLight.TurnOn();
+        }
         else
             rightLight.TurnOff();
     }
