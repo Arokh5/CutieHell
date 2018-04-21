@@ -1061,7 +1061,7 @@ Transform:
   - {fileID: 1386551792}
   - {fileID: 962717594}
   m_Father: {fileID: 1955635917}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &878575434
 MonoBehaviour:
@@ -1387,6 +1387,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
         type: 2}
+      propertyPath: compass
+      value: 
+      objectReference: {fileID: 1356088111}
+    - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
+        type: 2}
       propertyPath: evilnessBar
       value: 
       objectReference: {fileID: 1089832577}
@@ -1427,7 +1432,12 @@ Prefab:
       objectReference: {fileID: 1356088106}
     - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
         type: 2}
-      propertyPath: repairTrapText
+      propertyPath: repairText
+      value: 
+      objectReference: {fileID: 1356088112}
+    - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
+        type: 2}
+      propertyPath: useText
       value: 
       objectReference: {fileID: 72274882}
     - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
@@ -1445,11 +1455,6 @@ Prefab:
       propertyPath: conquerorEnemies
       value: 
       objectReference: {fileID: 1356088108}
-    - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
-        type: 2}
-      propertyPath: compass
-      value: 
-      objectReference: {fileID: 1356088111}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5, type: 2}
   m_IsPrefabParent: 0
@@ -1555,17 +1560,17 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4473051620570346, guid: eb4c50dffc1813641a89258147c00a72, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1322869400541654, guid: eb4c50dffc1813641a89258147c00a72, type: 2}
+      propertyPath: m_Name
+      value: Trap_Basic_2
       objectReference: {fileID: 0}
     - target: {fileID: 114026547309153366, guid: eb4c50dffc1813641a89258147c00a72,
         type: 2}
       propertyPath: zoneController
       value: 
       objectReference: {fileID: 1955635918}
-    - target: {fileID: 1322869400541654, guid: eb4c50dffc1813641a89258147c00a72, type: 2}
-      propertyPath: m_Name
-      value: Trap_Basic_2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eb4c50dffc1813641a89258147c00a72, type: 2}
   m_IsPrefabParent: 0
@@ -1884,6 +1889,11 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1356088102}
   m_Script: {fileID: 11500000, guid: 956da7c016f4e1a4982088a460d53449, type: 3}
+--- !u!1 &1356088112 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1199924661244414, guid: a469ef08a24a81f49a590b2416f2fc2d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1356088102}
 --- !u!1 &1386551791
 GameObject:
   m_ObjectHideFlags: 0
@@ -2211,9 +2221,9 @@ Transform:
   m_Children:
   - {fileID: 612996261}
   - {fileID: 2036540554}
+  - {fileID: 780310698}
   - {fileID: 711558576}
   - {fileID: 878575433}
-  - {fileID: 780310698}
   m_Father: {fileID: 804468630}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2357,7 +2367,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4774135443765106, guid: 2e3b3130f80e94c488d6ab21098657fb, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114508264605746284, guid: 2e3b3130f80e94c488d6ab21098657fb,
         type: 2}
@@ -2552,7 +2562,7 @@ GameObject:
   - component: {fileID: 2036540557}
   m_Layer: 0
   m_Name: Monument
-  m_TagString: Untagged
+  m_TagString: Monument
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2599,7 +2609,7 @@ MonoBehaviour:
   shakeSpeed: 10
   reset: 0
   loseHitPoints: 0
-  lifeLossPerSecond: 0
+  lifeLossPerSecond: 10
   restoreLife: 0
 --- !u!136 &2036540556
 CapsuleCollider:
