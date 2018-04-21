@@ -35,11 +35,13 @@ public class UIManager : MonoBehaviour
     private Vector3 badComboOriginalScale;
     private Color badComboOriginalColor;
 
+    [Header("Repair and Use panels")]
+    public Color lockedPanelTintColor = Color.red;
     [SerializeField]
-    private GameObject repairText;
+    private Image repairText;
     [SerializeField]
-    private GameObject useText;
-
+    private Image useText;
+        
     private float strongComboscaleModifier;
     private float strongComboColorModifier;
     [SerializeField]
@@ -172,22 +174,36 @@ public class UIManager : MonoBehaviour
 
     public void ShowRepairText()
     {
-        repairText.SetActive(true);
+        repairText.color = Color.white;
+        repairText.gameObject.SetActive(true);
+    }
+
+    public void ShowLockedRepairText()
+    {
+        repairText.color = lockedPanelTintColor;
+        repairText.gameObject.SetActive(true);
     }
 
     public void HideRepairText()
     {
-        repairText.SetActive(false);
+        repairText.gameObject.SetActive(false);
     }
 
     public void ShowUseText()
     {
-        useText.SetActive(true);
+        useText.color = Color.white;
+        useText.gameObject.SetActive(true);
+    }
+
+    public void ShowLockedUseText()
+    {
+        useText.color = lockedPanelTintColor;
+        useText.gameObject.SetActive(true);
     }
 
     public void HideUseText()
     {
-        useText.SetActive(false);
+        useText.gameObject.SetActive(false);
     }
 
     public void ShowComboText(ComboTypes comboType)

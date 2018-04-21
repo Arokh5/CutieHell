@@ -114,11 +114,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 531b53cf3613f4848abdd10705ed3815, type: 2}
---- !u!1 &72274882 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1978607790626004, guid: a469ef08a24a81f49a590b2416f2fc2d,
+--- !u!114 &72274884 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114879272397099092, guid: a469ef08a24a81f49a590b2416f2fc2d,
     type: 2}
   m_PrefabInternal: {fileID: 2075873121}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &153081673
 GameObject:
   m_ObjectHideFlags: 0
@@ -1425,12 +1426,12 @@ Prefab:
         type: 2}
       propertyPath: repairText
       value: 
-      objectReference: {fileID: 1356088112}
+      objectReference: {fileID: 1356088124}
     - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
         type: 2}
       propertyPath: useText
       value: 
-      objectReference: {fileID: 72274882}
+      objectReference: {fileID: 72274884}
     - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
         type: 2}
       propertyPath: basicEnemies
@@ -1448,14 +1449,24 @@ Prefab:
       objectReference: {fileID: 1356088108}
     - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
         type: 2}
+      propertyPath: waveEndText
+      value: 
+      objectReference: {fileID: 2075873123}
+    - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
+        type: 2}
       propertyPath: endBtnText
       value: 
       objectReference: {fileID: 2075873122}
     - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
         type: 2}
-      propertyPath: waveEndText
-      value: 
-      objectReference: {fileID: 2075873123}
+      propertyPath: lockedPanelTintColor.g
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
+        type: 2}
+      propertyPath: lockedPanelTintColor.b
+      value: 0.5019608
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5, type: 2}
   m_IsPrefabParent: 0
@@ -1777,17 +1788,18 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 2075873121}
   m_Script: {fileID: 11500000, guid: 956da7c016f4e1a4982088a460d53449, type: 3}
---- !u!1 &1356088112 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1199924661244414, guid: a469ef08a24a81f49a590b2416f2fc2d,
-    type: 2}
-  m_PrefabInternal: {fileID: 2075873121}
 --- !u!114 &1356088115 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114583121105349090, guid: a469ef08a24a81f49a590b2416f2fc2d,
     type: 2}
   m_PrefabInternal: {fileID: 2075873121}
   m_Script: {fileID: 11500000, guid: 98d724ffc6d9e514997a4e21a1e4c229, type: 3}
+--- !u!114 &1356088124 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114630228643227542, guid: a469ef08a24a81f49a590b2416f2fc2d,
+    type: 2}
+  m_PrefabInternal: {fileID: 2075873121}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &1386551791
 GameObject:
   m_ObjectHideFlags: 0
@@ -2685,6 +2697,21 @@ Prefab:
       propertyPath: referenceTransform
       value: 
       objectReference: {fileID: 613718702}
+    - target: {fileID: 114630228643227542, guid: a469ef08a24a81f49a590b2416f2fc2d,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114630228643227542, guid: a469ef08a24a81f49a590b2416f2fc2d,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114630228643227542, guid: a469ef08a24a81f49a590b2416f2fc2d,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a469ef08a24a81f49a590b2416f2fc2d, type: 2}
   m_IsPrefabParent: 0

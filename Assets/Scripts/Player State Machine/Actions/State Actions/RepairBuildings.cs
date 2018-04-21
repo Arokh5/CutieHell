@@ -10,30 +10,42 @@ public class RepairBuildings : StateAction
     public override void Act(Player player)
     {
         bool showMessage = false;
-        if (player.nearbyTrap && !player.nearbyTrap.HasFullHealth() && player.nearbyTrap.GetRepairCost() <= player.evilLevel)
-        {
-            showMessage = true;
+        bool showLockedMessage = false;
 
-            if (InputManager.instance.GetTriangleButtonDown())
+        if (player.nearbyTrap && !player.nearbyTrap.HasFullHealth())
+        {
+            showLockedMessage = true;
+            if (player.nearbyTrap.GetRepairCost() <= player.evilLevel)
             {
-                player.SetEvilLevel(-player.nearbyTrap.GetRepairCost());
-                player.nearbyTrap.FullRepair();
+                showMessage = true;
+
+                if (InputManager.instance.GetTriangleButtonDown())
+                {
+                    player.SetEvilLevel(-player.nearbyTrap.GetRepairCost());
+                    player.nearbyTrap.FullRepair();
+                }
             }
         }
         
-        if (!player.monument.HasFullHealth() && player.monument.GetRepairCost() <= player.evilLevel && Vector3.Distance(player.transform.position, player.monument.transform.position) < maxMonumentRepairDistance)
+        if (Vector3.Distance(player.transform.position, player.monument.transform.position) < maxMonumentRepairDistance && !player.monument.HasFullHealth())
         {
-            showMessage = true;
-
-            if (InputManager.instance.GetTriangleButtonDown())
+            showLockedMessage = true;
+            if (player.monument.GetRepairCost() <= player.evilLevel)
             {
-                player.SetEvilLevel(-player.monument.GetRepairCost());
-                player.monument.FullRepair();
+                showMessage = true;
+
+                if (InputManager.instance.GetTriangleButtonDown())
+                {
+                    player.SetEvilLevel(-player.monument.GetRepairCost());
+                    player.monument.FullRepair();
+                }
             }
         }
 
         if (showMessage)
             UIManager.instance.ShowRepairText();
+        else if (showLockedMessage)
+            UIManager.instance.ShowLockedRepairText();
         else
             UIManager.instance.HideRepairText();
     }
