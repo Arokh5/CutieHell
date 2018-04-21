@@ -36,7 +36,9 @@ public class UIManager : MonoBehaviour
     private Color badComboOriginalColor;
 
     [SerializeField]
-    private GameObject repairTrapText;
+    private GameObject repairText;
+    [SerializeField]
+    private GameObject useText;
 
     private float strongComboscaleModifier;
     private float strongComboColorModifier;
@@ -139,12 +141,22 @@ public class UIManager : MonoBehaviour
 
     public void ShowRepairText()
     {
-        repairTrapText.SetActive(true);
+        repairText.SetActive(true);
     }
 
     public void HideRepairText()
     {
-        repairTrapText.SetActive(false);
+        repairText.SetActive(false);
+    }
+
+    public void ShowUseText()
+    {
+        useText.SetActive(true);
+    }
+
+    public void HideUseText()
+    {
+        useText.SetActive(false);
     }
 
     public void ShowComboText(ComboTypes comboType)

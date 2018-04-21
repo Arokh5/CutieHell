@@ -116,7 +116,7 @@ NavMeshSettings:
   m_NavMeshData: {fileID: 23800000, guid: 531b53cf3613f4848abdd10705ed3815, type: 2}
 --- !u!1 &72274882 stripped
 GameObject:
-  m_PrefabParentObject: {fileID: 1978607790626004, guid: a469ef08a24a81f49a590b2416f2fc2d,
+  m_PrefabParentObject: {fileID: 1199924661244414, guid: a469ef08a24a81f49a590b2416f2fc2d,
     type: 2}
   m_PrefabInternal: {fileID: 1356088102}
 --- !u!1 &153081673
@@ -1387,6 +1387,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
         type: 2}
+      propertyPath: compass
+      value: 
+      objectReference: {fileID: 1356088111}
+    - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
+        type: 2}
       propertyPath: evilnessBar
       value: 
       objectReference: {fileID: 1089832577}
@@ -1427,7 +1432,12 @@ Prefab:
       objectReference: {fileID: 1356088106}
     - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
         type: 2}
-      propertyPath: repairTrapText
+      propertyPath: useText
+      value: 
+      objectReference: {fileID: 1356088112}
+    - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
+        type: 2}
+      propertyPath: repairText
       value: 
       objectReference: {fileID: 72274882}
     - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
@@ -1445,11 +1455,6 @@ Prefab:
       propertyPath: conquerorEnemies
       value: 
       objectReference: {fileID: 1356088108}
-    - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
-        type: 2}
-      propertyPath: compass
-      value: 
-      objectReference: {fileID: 1356088111}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5, type: 2}
   m_IsPrefabParent: 0
@@ -1830,10 +1835,6 @@ Prefab:
       propertyPath: referenceTransform
       value: 
       objectReference: {fileID: 613718702}
-    - target: {fileID: 1978607790626004, guid: a469ef08a24a81f49a590b2416f2fc2d, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a469ef08a24a81f49a590b2416f2fc2d, type: 2}
   m_IsPrefabParent: 0
@@ -1888,6 +1889,11 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1356088102}
   m_Script: {fileID: 11500000, guid: 956da7c016f4e1a4982088a460d53449, type: 3}
+--- !u!1 &1356088112 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1978607790626004, guid: a469ef08a24a81f49a590b2416f2fc2d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1356088102}
 --- !u!1 &1386551791
 GameObject:
   m_ObjectHideFlags: 0
