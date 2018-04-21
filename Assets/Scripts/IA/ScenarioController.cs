@@ -93,6 +93,7 @@ public class ScenarioController : MonoBehaviour
     #endregion
 
     #region Private Methods
+
     private void CheckWaveWon()
     {
         if (lastSpawnIsOver && zonesWithEnemiesCount == 0)
@@ -101,5 +102,6 @@ public class ScenarioController : MonoBehaviour
             GameManager.instance.OnWaveWon();
         }
     }
+
     #endregion
 }

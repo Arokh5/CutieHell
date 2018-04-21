@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         aiSpawnController.StartNextWave();
+        AISpawnController.waveRunning = true;
         scenarioController.OnNewWaveStarted();
         Debug.Log("Starting wave " + aiSpawnController.GetCurrentWaveIndex() + "!");
     }
@@ -204,6 +205,7 @@ public class GameManager : MonoBehaviour
             crosshair.SetActive(true);
             gameOverPanel.SetActive(false);
             UIManager.instance.ResetEnemiesCounters();
+            AISpawnController.waveRunning = true;
             scenarioController.OnNewWaveStarted();
             gameState = GameStates.InGame;
             Debug.Log("Starting wave " + aiSpawnController.GetCurrentWaveIndex() + "!");

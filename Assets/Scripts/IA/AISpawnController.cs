@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class AISpawnController : MonoBehaviour
 {
-
     #region Fields
+
     [SerializeField]
     ScenarioController scenario;
     [SerializeField]
@@ -25,10 +25,12 @@ public class AISpawnController : MonoBehaviour
     public Dictionary<EnemyType, AIEnemy> enemies;
 
     private bool validWavesInfo = true;
-    private bool waveRunning = false;
+    public static bool waveRunning = false;
+
     #endregion
 
     #region MonoBehaviour Methods
+
     private void Awake()
     {
         if (!scenario)
@@ -79,15 +81,17 @@ public class AISpawnController : MonoBehaviour
             }
         }
     }
+
     #endregion
 
     #region Public Methods
+
     public bool StartNextWave()
     {
         ++currentWaveIndex;
+
         if (validWavesInfo && currentWaveIndex < wavesInfo.Count)
         {
-            waveRunning = true;
             elapsedTime = 0;
             nextSpawnIndex = 0;
             return true;
