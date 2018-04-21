@@ -9,7 +9,6 @@ public class TrapEnterAction : StateAction
 
     public override void Act(Player player)
     {
-        UIManager.instance.HideRepairText();
         player.currentTrap = player.nearbyTrap;
         player.bulletSpawnPoint.SetParent(player.nearbyTrap.transform);
         player.bulletSpawnPoint.localPosition = new Vector3(0f, 0.3f, 0.7f);

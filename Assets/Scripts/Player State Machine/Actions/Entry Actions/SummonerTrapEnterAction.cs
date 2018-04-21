@@ -10,7 +10,6 @@ public class SummonerTrapEnterAction : StateAction
 
     public override void Act(Player player)
     {
-        UIManager.instance.HideRepairText();
         player.currentTrap = player.nearbyTrap;
         player.currentTrap.Activate(player);
         player.SetRenderersVisibility(false);

@@ -7,6 +7,7 @@ public class BasicAttackExit : StateAction
 {
     public override void Act(Player player)
     {
+        UIManager.instance.HideRepairText();
         if (player.currentBasicAttackTarget)
         {
             player.currentBasicAttackTarget.MarkAsTarget(false);
