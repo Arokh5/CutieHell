@@ -78,11 +78,13 @@ public class CompassIcon : MonoBehaviour
     public void SetAlert()
     {
         alertTimeLeft = alertDuration;
-        blurImage.enabled = true;
     }
 
     public void TurnOn()
     {
+        if (alertTimeLeft > 0)
+            blurImage.enabled = true;
+
         fixedImage.enabled = true;
     }
 

@@ -28,20 +28,16 @@ public class Trap : Building, IUsable
     {
         if (activate)
         {
-            isActive = true;
             activate = false;
+            isActive = true;
+            Activate(player);
         }
-        else if (deactivate)
+        if (deactivate)
         {
+            deactivate = false;
             isActive = false;
-            deactivate = false;         
+            Deactivate();
         }
-
-        if (isActive)
-        {
-         
-        }
-
         base.Update();
     }
 
@@ -81,7 +77,6 @@ public class Trap : Building, IUsable
         {
             this.player = player;
             zoneController.OnTrapActivated(this);
-            activate = true; 
             return true;
         }
         else
@@ -94,7 +89,6 @@ public class Trap : Building, IUsable
     public void Deactivate()
     {
         player = null;
-        deactivate = true;
         zoneController.OnTrapDeactivated();        
     }
 
