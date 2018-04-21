@@ -8,8 +8,10 @@ public class AISpawnController : MonoBehaviour
 
     [SerializeField]
     ScenarioController scenario;
-    [SerializeField]
+    public float firstWaveStartDelay = 0.0f;
+    public float nextWavesStartDelay = 10.0f;
     [ShowOnly]
+    [SerializeField]
     private float elapsedTime;
     [SerializeField]
     private int currentWaveIndex = -1;
@@ -92,7 +94,7 @@ public class AISpawnController : MonoBehaviour
 
         if (validWavesInfo && currentWaveIndex < wavesInfo.Count)
         {
-            elapsedTime = 0;
+            elapsedTime = currentWaveIndex == 0 ? -firstWaveStartDelay : -nextWavesStartDelay;
             nextSpawnIndex = 0;
             return true;
         }
