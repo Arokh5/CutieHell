@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RadialProgressBar : MonoBehaviour
+public class WaveTimer : MonoBehaviour
 {
     public Image loadingBar;
-    public Text textProgress;
+    public Transform clockHandRotation;
     [SerializeField] private float currentNormalizedAmount;
 
     // Use this for initialization
@@ -14,8 +14,7 @@ public class RadialProgressBar : MonoBehaviour
     {
         currentNormalizedAmount = 0.0f;
 
-        textProgress.text = ((int)currentNormalizedAmount).ToString() + "%";
-        loadingBar.fillAmount = currentNormalizedAmount / 100;
+        loadingBar.fillAmount = 1f - currentNormalizedAmount;
     }
 
     public void SetNormalizedAmount(float normalizedAmount)
@@ -28,7 +27,11 @@ public class RadialProgressBar : MonoBehaviour
         if (currentNormalizedAmount > 1.0f)
             currentNormalizedAmount = 1.0f;
 
-        textProgress.text = (Mathf.RoundToInt(100 * currentNormalizedAmount)).ToString() + "%";
-        loadingBar.fillAmount = currentNormalizedAmount;
+        float degreesRotated = 360f * currentNormalizedAmount;
+
+        Vector3 currentRotation = clockHandRotation.localEulerAngles;
+        currentRotation.z = -degreesRotated;
+        clockHandRotation.localEulerAngles = currentRotation;
+        loadingBar.fillAmount = 1f - currentNormalizedAmount;
     }
 }

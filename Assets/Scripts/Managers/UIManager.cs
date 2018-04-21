@@ -20,7 +20,7 @@ public class UIManager : MonoBehaviour
     private Text waveNumberText;
 
     [SerializeField]
-    private RadialProgressBar waveRadialProgressBar;
+    private WaveTimer waveRadialProgressBar;
     [SerializeField]
     private List<RadialProgressBar> monumentsRadialProgressBars;
     [SerializeField]
@@ -134,7 +134,7 @@ public class UIManager : MonoBehaviour
         if (currentWaveNumber != waveNumber)
         {
             currentWaveNumber = waveNumber;
-            waveNumberText.text = "Wave: " + currentWaveNumber;
+            waveNumberText.text = currentWaveNumber.ToString();
         }
         waveRadialProgressBar.SetNormalizedAmount(normalizedProgress);
     }
