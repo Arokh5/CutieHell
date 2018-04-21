@@ -137,12 +137,12 @@ public class UIManager : MonoBehaviour
         waveRadialProgressBar.SetNormalizedAmount(normalizedProgress);
     }
 
-    public void ShowRepairTrapText()
+    public void ShowRepairText()
     {
         repairTrapText.SetActive(true);
     }
 
-    public void HideRepairTrapText()
+    public void HideRepairText()
     {
         repairTrapText.SetActive(false);
     }

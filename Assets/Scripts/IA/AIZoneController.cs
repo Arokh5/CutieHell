@@ -107,7 +107,7 @@ public class AIZoneController : MonoBehaviour
     }
 
     // Called by Monument when it gets repaired
-    public void OnMonumentRepaired()
+    public void OnMonumentRetaken()
     {
         Debug.LogError("NOT IMPLEMENTED: AIZoneController::OnMonumentRepaired");
         scenario.OnZoneRecovered();

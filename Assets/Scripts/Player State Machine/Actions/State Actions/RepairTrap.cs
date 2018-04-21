@@ -25,8 +25,8 @@ public class RepairTrap : StateAction
         }
 
         if (showMessage)
-            UIManager.instance.ShowRepairTrapText();
+            UIManager.instance.ShowRepairText();
         else
-            UIManager.instance.HideRepairTrapText();
+            UIManager.instance.HideRepairText();
     }
 }

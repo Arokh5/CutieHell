@@ -33,6 +33,8 @@ public class Player : MonoBehaviour {
     [SerializeField]
     public Transform bulletSpawnPoint;
 
+    public Monument monument;
+
     [Header("Actual Trap")]
     [HideInInspector]
     public Trap[] allTraps;
@@ -89,6 +91,9 @@ public class Player : MonoBehaviour {
         {
             allTraps[i] = allTrapsGameObjects[i].GetComponent<Trap>();
         }
+
+        if (!monument)
+            monument = GameObject.FindGameObjectWithTag("Monument").GetComponent<Monument>();
     }
 
     private void Start () 

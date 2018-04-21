@@ -9,9 +9,10 @@ public class Monument : Building {
     // If this method is called, it should inform the ZoneController and UIManager
     public override void FullRepair()
     {
-        base.FullRepair();
         UIManager.instance.SetMonumentConquerRate(zoneController.GetZoneId(), 0);
-        zoneController.OnMonumentRepaired();
+        if (currentHealth == 0)
+            zoneController.OnMonumentRetaken();
+        base.FullRepair();
     }
     #endregion
 
