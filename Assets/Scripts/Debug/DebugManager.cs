@@ -28,23 +28,45 @@ public class DebugManager : MonoBehaviour {
     [SerializeField]
     private GameObject instructionsWorldCamera;
 
+    [Space]
+    [Header("Waves Debug")]
+    [SerializeField]
+    private GameObject wavesDebugInfo;
+
     private CameraController cameraController;
     private Player playerScript;
     private Camera worldCameraComponent;
+    private AISpawnController spawnController;
 
     private bool showStats = false;
     private bool showCameraDebug = false;
     private bool showWorldCamera = false;
     private bool showGrid = false;
     private bool followPlayer = true;
+    private bool showWavesDebug = false;
 
     private GameObject player;
+
+    private KeyCode[] numberKeyCodes =
+    {
+        KeyCode.Alpha0,
+        KeyCode.Alpha1,
+        KeyCode.Alpha2,
+        KeyCode.Alpha3,
+        KeyCode.Alpha4,
+        KeyCode.Alpha5,
+        KeyCode.Alpha6,
+        KeyCode.Alpha7,
+        KeyCode.Alpha8,
+        KeyCode.Alpha9
+    };
 
 	void Start () {
         cameraController = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         player = GameObject.FindGameObjectWithTag("Player");
         worldCameraComponent = worldCamera.GetComponent<Camera>();
+        spawnController = FindObjectOfType<AISpawnController>();
     }
 
 	void Update () {
@@ -52,15 +74,20 @@ public class DebugManager : MonoBehaviour {
         ActivateDebug();
 	}
 
+    private void ShowOneWindow(ref bool handler)
+    {
+        bool previousState = handler;
+        showCameraDebug = false;
+        showWorldCamera = false;
+        showWavesDebug = false;
+        handler = !previousState;
+    }
+
     private void ProcessInput() 
     {
         if (Input.GetKeyDown(KeyCode.I)) 
         {
-            showWorldCamera = !showWorldCamera;
-            if (showCameraDebug) 
-            {
-                showCameraDebug = false;
-            }
+            ShowOneWindow(ref showWorldCamera);
         }
         if (Input.GetKeyDown(KeyCode.O)) 
         {
@@ -68,13 +95,14 @@ public class DebugManager : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.P)) 
         {
-            showCameraDebug = !showCameraDebug;
-            if (showWorldCamera) 
-            {
-                showWorldCamera = false;
-            }
+            ShowOneWindow(ref showCameraDebug);
+        }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            ShowOneWindow(ref showWavesDebug);
         }
     }
+
     private void ActivateDebug() 
     {
         if(showStats) {
@@ -84,12 +112,14 @@ public class DebugManager : MonoBehaviour {
             statsDebug.Show_Stats = false;
             memoryUsage.SetActive(false);
         }
+
         if (showCameraDebug) {
             debugCameraCanvas.SetActive(true);
             DebugCamera();
         } else {
             debugCameraCanvas.SetActive(false);
         }
+
         if (showWorldCamera) {
             worldCamera.SetActive(true);
             instructionsWorldCamera.SetActive(true);
@@ -98,7 +128,18 @@ public class DebugManager : MonoBehaviour {
             worldCamera.SetActive(false);
             instructionsWorldCamera.SetActive(false);
         }
+
+        if (showWavesDebug)
+        {
+            wavesDebugInfo.SetActive(true);
+            WavesDebug();
+        }
+        else
+        {
+            wavesDebugInfo.SetActive(false);
+        }
     }
+
     private void DebugCamera() {
         switch (playerScript.cameraState) {
             case Player.CameraState.MOVE:
@@ -227,6 +268,28 @@ public class DebugManager : MonoBehaviour {
             }
             if (Input.GetKey(KeyCode.RightArrow)) {
                 worldCamera.transform.Translate(Vector3.left * Time.deltaTime * -10);
+            }
+        }
+    }
+
+    private void WavesDebug()
+    {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            spawnController.WinCurrentWave();
+        }
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            spawnController.RestartCurrentWave();
+        }
+
+        for (int i = 0; i < numberKeyCodes.Length; ++i)
+        {
+            if (Input.GetKeyDown(numberKeyCodes[i]))
+            {
+                if (i > 0)
+                    spawnController.ForceStartWave(i - 1);
             }
         }
     }

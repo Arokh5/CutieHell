@@ -20,7 +20,6 @@ public class AISpawner : MonoBehaviour {
     private List<SpawnInfo> activeSpawnInfos;
 
     private CompassIconOwner compassIconOwner;
-    private List<SpawnInfo> spawnInfosToRemove = new List<SpawnInfo>();
     #endregion
 
     #region MonoBehaviour Methods
@@ -43,6 +42,8 @@ public class AISpawner : MonoBehaviour {
         {
             UIManager.instance.compass.SetAlertForIcon(compassIconOwner);
         }
+
+        List<SpawnInfo> spawnInfosToRemove = new List<SpawnInfo>();
 
         foreach (SpawnInfo spawnInfo in activeSpawnInfos)
         {
@@ -82,6 +83,11 @@ public class AISpawner : MonoBehaviour {
             spawnInfo.nextSpawnIndex = 0;
             spawnInfo.nextSpawnTime = (spawnInfo.nextSpawnIndex + 1) * spawnInfo.spawnDuration / spawnInfo.enemiesToSpawn.Count;
         }
+    }
+
+    public void ClearSpawnInfos()
+    {
+        activeSpawnInfos.Clear();
     }
     #endregion
 

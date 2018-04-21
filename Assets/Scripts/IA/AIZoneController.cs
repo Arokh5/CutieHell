@@ -182,7 +182,6 @@ public class AIZoneController : MonoBehaviour
             Destroy(aiEnemy.gameObject);
         }
         aiEnemies.Clear();
-        scenario.OnZoneEmpty();
     }
 
     public void AddEnemyProjection(EnemyProjection enemyProjection)

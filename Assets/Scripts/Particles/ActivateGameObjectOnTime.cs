@@ -16,7 +16,7 @@ public class ActivateGameObjectOnTime : MonoBehaviour {
 	
 	void Update ()
     {
-        if (!objectToActivate.activeSelf)
+        if (objectToActivate && !objectToActivate.activeSelf)
         {
             if (timeElapsed < timeToActivate) timeElapsed += Time.deltaTime;
             if (timeToActivate < timeElapsed)

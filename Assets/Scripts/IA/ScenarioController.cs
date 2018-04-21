@@ -44,10 +44,10 @@ public class ScenarioController : MonoBehaviour
 
     public void OnWaveTimeOver()
     {
-        /* Destroying all enemies of each zoneController will cause calls to OnZoneEmpty. the last call will trigger an GameManager::OnWaveWon */
         foreach (AIZoneController zoneController in zoneControllers)
         {
             zoneController.DestroyAllEnemies();
+            OnZoneEmpty();
         }
     }
 

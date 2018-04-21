@@ -96,6 +96,40 @@ public class AISpawnController : MonoBehaviour
             return false;
     }
 
+    public bool ForceStartWave(int waveIndex)
+    {
+        if (validWavesInfo && waveIndex < wavesInfo.Count)
+        {
+            scenario.OnNewWaveStarted();
+            WaveFinished();
+
+            foreach (AISpawner spawner in aiSpawners)
+                spawner.ClearSpawnInfos();
+
+            currentWaveIndex = waveIndex;
+
+            waveRunning = true;
+            elapsedTime = 0;
+            nextSpawnIndex = 0;
+
+            return true;
+        }
+        return false;
+    }
+
+    public void WinCurrentWave()
+    {
+        scenario.OnLastEnemySpawned();
+        WaveFinished();
+        foreach (AISpawner spawner in aiSpawners)
+            spawner.ClearSpawnInfos();
+    }
+
+    public void RestartCurrentWave()
+    {
+        ForceStartWave(currentWaveIndex);
+    }
+
     public void StopWave()
     {
         waveRunning = false;
