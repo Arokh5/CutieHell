@@ -23,6 +23,7 @@ public class SummonerTrap : Trap
     #region MonoBehaviour Methods
     private new void Update()
     {
+        base.Update();
         if (landedEnemyProjection.Count > 0)
         {
             zoneController.EvaluateEnemiesTargettingProjections();
