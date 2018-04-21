@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     private GameObject[] pauseButtons = new GameObject[2];
     private int pauseIndex = 0;
 
-    public enum GameStates { OnStartMenu, InGame, OnGameEnd, OnGamePaused };
+    public enum GameStates { OnStartMenu, InGame, OnWaveEnd, OnGameEnd, OnGamePaused };
     public GameStates gameState;
 
     [SerializeField]
@@ -74,6 +74,10 @@ public class GameManager : MonoBehaviour
                 }
                 break;
 
+            case GameStates.OnWaveEnd:
+                GoToNextWave();
+                break;
+
             case GameStates.OnGameEnd:
                 GoToTitleScreen();
                 break;
@@ -101,13 +105,25 @@ public class GameManager : MonoBehaviour
 
         if (aiSpawnController.StartNextWave())  
         {
-            scenarioController.OnNewWaveStarted();
-            Debug.Log("Starting wave " + aiSpawnController.GetCurrentWaveIndex() + "!");
+            OnWaveEnd();
         }
         else
         {
             Debug.Log("No more waves available!");
             OnGameWon();
+        }
+    }
+
+    public void OnWaveEnd()
+    {
+        if (gameState == GameStates.InGame)
+        {
+            crosshair.SetActive(false);
+            gameOverPanel.SetActive(true);
+            UIManager.instance.SetEnemiesKilledCount();
+            UIManager.instance.ChangeWaveEndText("WAVE " + aiSpawnController.GetCurrentWaveIndex().ToString() + " SUCCEEDED");
+            UIManager.instance.ChangeEndBtnText("Go To Next Wave");
+            gameState = GameStates.OnWaveEnd;
         }
     }
 
@@ -117,8 +133,9 @@ public class GameManager : MonoBehaviour
         {
             crosshair.SetActive(false);
             gameOverPanel.SetActive(true);
-            gameOverPanel.transform.GetChild(1).GetComponent<Text>().text = "YOU WIN!";
             UIManager.instance.SetEnemiesKilledCount();
+            UIManager.instance.ChangeWaveEndText("YOU WIN!");
+            UIManager.instance.ChangeEndBtnText("Go To Title Screen");
             gameState = GameStates.OnGameEnd;
         }
     }
@@ -129,8 +146,9 @@ public class GameManager : MonoBehaviour
         {
             crosshair.SetActive(false);
             gameOverPanel.SetActive(true);
-            gameOverPanel.transform.GetChild(1).GetComponent<Text>().text = "YOU LOSE!";
             UIManager.instance.SetEnemiesKilledCount();
+            UIManager.instance.ChangeWaveEndText("YOU LOSE!");
+            UIManager.instance.ChangeEndBtnText("Go To Title Screen");
             gameState = GameStates.OnGameEnd;
         }
     }
@@ -176,6 +194,18 @@ public class GameManager : MonoBehaviour
     public void SetTrapBeingUsed(Trap trap)
     {
         trapBeingUsed = trap;
+    }
+
+    public void GoToNextWave()
+    {
+        if (InputManager.instance.GetXButtonDown())
+        {
+            crosshair.SetActive(true);
+            gameOverPanel.SetActive(false);
+            scenarioController.OnNewWaveStarted();
+            gameState = GameStates.InGame;
+            Debug.Log("Starting wave " + aiSpawnController.GetCurrentWaveIndex() + "!");
+        }
     }
 
     public void GoToTitleScreen()

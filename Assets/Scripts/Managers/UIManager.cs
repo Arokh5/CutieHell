@@ -61,6 +61,11 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Text conquerorEnemies;
 
+    [SerializeField]
+    private Text waveEndText;
+    [SerializeField]
+    private Text endBtnText;
+
     #endregion
 
     #region Properties
@@ -94,6 +99,17 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #region Public Methods
+
+    public void ChangeWaveEndText(string text)
+    {
+        waveEndText.text = text;
+    }
+
+    public void ChangeEndBtnText(string text)
+    {
+        endBtnText.text = text;
+    }
+
     // Called by Player when using or earning Evil Points
     public void SetEvilBarValue(int value)
     {
