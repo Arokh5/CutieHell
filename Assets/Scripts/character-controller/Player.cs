@@ -24,8 +24,8 @@ public class Player : MonoBehaviour {
     public Vector3 initialBulletSpawnPointPos;
     [HideInInspector]
     public float timeSinceLastTrapUse;
-    [HideInInspector]
-    public Renderer[] renderers;
+    private Renderer[] renderers;
+    private Collider[] colliders;
     [HideInInspector]
     public Animator animator;
 
@@ -83,6 +83,8 @@ public class Player : MonoBehaviour {
         initialBulletSpawnPointPos = new Vector3(0.8972f, 1.3626f, 0.1209f);
 
         renderers = this.GetComponentsInChildren<Renderer>();
+        colliders = this.GetComponentsInChildren<Collider>();
+
         rb = this.GetComponent<Rigidbody>();
         animator = this.GetComponent<Animator>();
         GameObject[] allTrapsGameObjects = GameObject.FindGameObjectsWithTag("Traps");
@@ -110,11 +112,6 @@ public class Player : MonoBehaviour {
    
     private void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            animator.Rebind();
-        }
         if (GameManager.instance.gameIsPaused)
         {
             return;
@@ -172,6 +169,11 @@ public class Player : MonoBehaviour {
         {
             renderers[i].enabled = visible;
         }
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            colliders[i].enabled = visible;
+        }
+        rb.isKinematic = !visible;
     }
 
     public void InstantiateAttack(FollowTarget attackPrefab, Transform enemy, Vector3 hitPoint)

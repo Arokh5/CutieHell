@@ -12,8 +12,8 @@ public class SummonAttack : StateAction
 
     public override void Act(Player player)
     {
-        summonerTrap = player.currentTrap.GetComponent<SummonerTrap>();
-        Debug.Log("Avoid this assignment in every act frame");
+        if (!summonerTrap)
+            summonerTrap = player.currentTrap.GetComponent<SummonerTrap>();
         FocusSeductiveAttack(player);
         seductiveLastLaunchedTime += Time.deltaTime;
     }
