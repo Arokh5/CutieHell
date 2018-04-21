@@ -6,9 +6,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Player State Machine/Actions/SummonAttack")]
 public class SummonAttack : StateAction
 {
-    public SummonerTrap summonerTrap;
-    public float seductiveLastLaunchedTime = 0f;
     public int summonCost = 5;
+    private SummonerTrap summonerTrap;
+    private float seductiveLastLaunchedTime = 0f;
 
     public override void Act(Player player)
     {
