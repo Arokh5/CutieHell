@@ -75,10 +75,14 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameStates.OnWaveEnd:
+                UIManager.instance.SetEnemiesKilledCount();
+                UIManager.instance.IncreaseEnemiesTimeCount();
                 GoToNextWave();
                 break;
 
             case GameStates.OnGameEnd:
+                UIManager.instance.SetEnemiesKilledCount();
+                UIManager.instance.IncreaseEnemiesTimeCount();
                 GoToTitleScreen();
                 break;
 
@@ -120,7 +124,6 @@ public class GameManager : MonoBehaviour
         {
             crosshair.SetActive(false);
             gameOverPanel.SetActive(true);
-            UIManager.instance.SetEnemiesKilledCount();
             UIManager.instance.ChangeWaveEndText("WAVE " + aiSpawnController.GetCurrentWaveIndex().ToString() + " SUCCEEDED");
             UIManager.instance.ChangeEndBtnText("Go To Next Wave");
             gameState = GameStates.OnWaveEnd;
@@ -133,7 +136,6 @@ public class GameManager : MonoBehaviour
         {
             crosshair.SetActive(false);
             gameOverPanel.SetActive(true);
-            UIManager.instance.SetEnemiesKilledCount();
             UIManager.instance.ChangeWaveEndText("YOU WIN!");
             UIManager.instance.ChangeEndBtnText("Go To Title Screen");
             gameState = GameStates.OnGameEnd;
@@ -146,7 +148,6 @@ public class GameManager : MonoBehaviour
         {
             crosshair.SetActive(false);
             gameOverPanel.SetActive(true);
-            UIManager.instance.SetEnemiesKilledCount();
             UIManager.instance.ChangeWaveEndText("YOU LOSE!");
             UIManager.instance.ChangeEndBtnText("Go To Title Screen");
             gameState = GameStates.OnGameEnd;
@@ -202,6 +203,7 @@ public class GameManager : MonoBehaviour
         {
             crosshair.SetActive(true);
             gameOverPanel.SetActive(false);
+            UIManager.instance.ResetEnemiesCounters();
             scenarioController.OnNewWaveStarted();
             gameState = GameStates.InGame;
             Debug.Log("Starting wave " + aiSpawnController.GetCurrentWaveIndex() + "!");

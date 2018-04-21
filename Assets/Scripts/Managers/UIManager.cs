@@ -66,6 +66,20 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Text endBtnText;
 
+    private const float enemiesCountVel = 0.15f;
+
+    private float basicEnemiesPrevTimeCount;
+    private float basicEnemiesTimeCount;
+    private int basicEnemiesCounter;
+
+    private float rangeEnemiesPrevTimeCount;
+    private float rangeEnemiesTimeCount;
+    private int rangeEnemiesCounter;
+
+    private float conquerorEnemiesPrevTimeCount;
+    private float conquerorEnemiesTimeCount;
+    private int conquerorEnemiesCounter;
+
     #endregion
 
     #region Properties
@@ -86,6 +100,7 @@ public class UIManager : MonoBehaviour
         strongComboColorModifier = 0f;
         badComboscaleModifier = 0f;
         badComboColorModifier = 0f;
+        ResetEnemiesCounters();
     }
 
     private void Update()
@@ -193,14 +208,77 @@ public class UIManager : MonoBehaviour
 
     public void SetEnemiesKilledCount()
     {
-        basicEnemies.text = "Basic: " + StatsManager.instance.GetBasicEnemiesKilled().ToString();
-        rangeEnemies.text = "Range: " + StatsManager.instance.GetRangeEnemiesKilled().ToString();
-        conquerorEnemies.text = "Conqueror: " + StatsManager.instance.GetConquerorEnemiesKilled().ToString();
+        if (basicEnemiesTimeCount - basicEnemiesPrevTimeCount >= enemiesCountVel)
+        {
+            if (basicEnemiesCounter < StatsManager.instance.GetBasicEnemiesKilled())
+            {
+                basicEnemies.text = "Basic: " + basicEnemiesCounter.ToString();
+                basicEnemiesCounter++;
+                basicEnemiesPrevTimeCount = basicEnemiesTimeCount;
+            }
+        }
+
+        if (rangeEnemiesTimeCount - rangeEnemiesPrevTimeCount >= enemiesCountVel)
+        {
+            if (rangeEnemiesCounter < StatsManager.instance.GetRangeEnemiesKilled())
+            {
+                rangeEnemies.text = "Range: " + rangeEnemiesCounter.ToString();
+                rangeEnemiesCounter++;
+                rangeEnemiesPrevTimeCount = rangeEnemiesTimeCount;
+            }
+        }
+
+        if (conquerorEnemiesTimeCount - conquerorEnemiesPrevTimeCount >= enemiesCountVel)
+        {
+            if (conquerorEnemiesCounter < StatsManager.instance.GetConquerorEnemiesKilled())
+            {
+                conquerorEnemies.text = "Conqueror: " + conquerorEnemiesCounter.ToString();
+                conquerorEnemiesCounter++;
+                conquerorEnemiesPrevTimeCount = conquerorEnemiesTimeCount;
+            }
+        }
+    }
+
+    public void ResetEnemiesCounters()
+    {
+        basicEnemiesTimeCount = enemiesCountVel;
+        basicEnemiesPrevTimeCount = 0f;
+        basicEnemiesCounter = 0;
+
+        rangeEnemiesTimeCount = enemiesCountVel;
+        rangeEnemiesPrevTimeCount = 0f;
+        rangeEnemiesCounter = 0;
+
+        conquerorEnemiesTimeCount = enemiesCountVel;
+        conquerorEnemiesPrevTimeCount = 0f;
+        conquerorEnemiesCounter = 0;
+    }
+
+    public void IncreaseEnemiesTimeCount()
+    {
+        IncreaseBasicEnemiesTimeCount();
+        IncreaseRangeEnemiesTimeCount();
+        IncreaseConquerorEnemiesTimeCount();
     }
 
     #endregion
 
     #region Private Methods
+
+    private void IncreaseBasicEnemiesTimeCount()
+    {
+        basicEnemiesTimeCount += Time.deltaTime;
+    }
+
+    private void IncreaseRangeEnemiesTimeCount()
+    {
+        rangeEnemiesTimeCount += Time.deltaTime;
+    }
+
+    private void IncreaseConquerorEnemiesTimeCount()
+    {
+        conquerorEnemiesTimeCount += Time.deltaTime;
+    }
 
     private void ComboFx()
     {
