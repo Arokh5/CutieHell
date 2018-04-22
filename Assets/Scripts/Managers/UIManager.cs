@@ -68,6 +68,9 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Text endBtnText;
 
+    [SerializeField]
+    private AudioClip coinEfx;
+
     private const float enemiesCountVel = 0.15f;
 
     private float basicEnemiesPrevTimeCount;
@@ -228,6 +231,7 @@ public class UIManager : MonoBehaviour
         {
             if (basicEnemiesCounter < StatsManager.instance.GetBasicEnemiesKilled())
             {
+                SoundManager.instance.PlayEfxClip(coinEfx);
                 basicEnemies.text = "Basic: " + basicEnemiesCounter.ToString();
                 basicEnemiesCounter++;
                 basicEnemiesPrevTimeCount = basicEnemiesTimeCount;
@@ -238,6 +242,7 @@ public class UIManager : MonoBehaviour
         {
             if (rangeEnemiesCounter < StatsManager.instance.GetRangeEnemiesKilled())
             {
+                SoundManager.instance.PlayEfxClip(coinEfx);
                 rangeEnemies.text = "Range: " + rangeEnemiesCounter.ToString();
                 rangeEnemiesCounter++;
                 rangeEnemiesPrevTimeCount = rangeEnemiesTimeCount;
@@ -248,6 +253,7 @@ public class UIManager : MonoBehaviour
         {
             if (conquerorEnemiesCounter < StatsManager.instance.GetConquerorEnemiesKilled())
             {
+                SoundManager.instance.PlayEfxClip(coinEfx);
                 conquerorEnemies.text = "Conqueror: " + conquerorEnemiesCounter.ToString();
                 conquerorEnemiesCounter++;
                 conquerorEnemiesPrevTimeCount = conquerorEnemiesTimeCount;
