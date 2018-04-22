@@ -88,12 +88,11 @@ public class AISpawnController : MonoBehaviour
 
     #region Public Methods
 
-    public bool StartNextWave()
+    public bool CanStartNextWave()
     {
-        ++currentWaveIndex;
-
         if (validWavesInfo && currentWaveIndex < wavesInfo.Count)
         {
+            ++currentWaveIndex;
             elapsedTime = currentWaveIndex == 0 ? -firstWaveStartDelay : -nextWavesStartDelay;
             nextSpawnIndex = 0;
             return true;

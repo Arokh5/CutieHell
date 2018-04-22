@@ -232,8 +232,8 @@ public class UIManager : MonoBehaviour
             if (basicEnemiesCounter < StatsManager.instance.GetBasicEnemiesKilled())
             {
                 SoundManager.instance.PlayEfxClip(coinEfx);
-                basicEnemies.text = "Basic: " + basicEnemiesCounter.ToString();
                 basicEnemiesCounter++;
+                basicEnemies.text = "Basic: " + basicEnemiesCounter.ToString();
                 basicEnemiesPrevTimeCount = basicEnemiesTimeCount;
             }
         }
@@ -243,8 +243,8 @@ public class UIManager : MonoBehaviour
             if (rangeEnemiesCounter < StatsManager.instance.GetRangeEnemiesKilled())
             {
                 SoundManager.instance.PlayEfxClip(coinEfx);
-                rangeEnemies.text = "Range: " + rangeEnemiesCounter.ToString();
                 rangeEnemiesCounter++;
+                rangeEnemies.text = "Range: " + rangeEnemiesCounter.ToString();
                 rangeEnemiesPrevTimeCount = rangeEnemiesTimeCount;
             }
         }
@@ -254,8 +254,8 @@ public class UIManager : MonoBehaviour
             if (conquerorEnemiesCounter < StatsManager.instance.GetConquerorEnemiesKilled())
             {
                 SoundManager.instance.PlayEfxClip(coinEfx);
-                conquerorEnemies.text = "Conqueror: " + conquerorEnemiesCounter.ToString();
                 conquerorEnemiesCounter++;
+                conquerorEnemies.text = "Conqueror: " + conquerorEnemiesCounter.ToString();
                 conquerorEnemiesPrevTimeCount = conquerorEnemiesTimeCount;
             }
         }
