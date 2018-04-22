@@ -21,5 +21,10 @@ public class SummonerTrapEnterAction : StateAction
         summonerTrap.seductiveTrapActiveArea.gameObject.SetActive(true);
         summonerTrap.firstProjection = true;
         summonerTrap.InstantiateSeductiveEnemyProjection();
+
+        if (player.evilLevel <= summonerTrap.summonCost)
+        {
+            summonerTrap.ChangeCurrentSummoningStatus(SummonerTrap.SummoningStatus.InsufficientEvil);
+        }
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SummonerTrap : Trap
 {
+    public enum SummoningStatus { Available, CoolDown, InsufficientEvil }
 
     [Header("Seductive Trap setup")]
     [SerializeField]
@@ -14,9 +15,12 @@ public class SummonerTrap : Trap
     public float cooldownBetweenSeductiveProjections;
 
     public bool firstProjection = true;
+    public int summonCost = 5;
     private GameObject nonLandedProjection;
     private EnemyProjection nonLandedProjectionScript;
     private List<GameObject> landedEnemyProjection = new List<GameObject>();
+
+    public SummoningStatus currentSummoningStatus = SummoningStatus.Available;
 
     public CameraController camera;
 
@@ -68,6 +72,22 @@ public class SummonerTrap : Trap
         }
     }
 
+    public void ChangeCurrentSummoningStatus(SummoningStatus newStatus)
+    {
+        switch (newStatus)
+        {
+            case SummoningStatus.Available:
+                nonLandedProjection.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
+                break;
+            case SummoningStatus.CoolDown:
+                break;
+            case SummoningStatus.InsufficientEvil:
+                nonLandedProjection.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+                break;
+        }
+        currentSummoningStatus = newStatus;
+    }
+
     public int GetLandedEnemyProjectionsCount()
     {
         return landedEnemyProjection.Count;
@@ -111,7 +131,7 @@ public class SummonerTrap : Trap
     }
 
     private void InitialSetUpForNewEnemyProjection()
-    { 
+    {
         nonLandedProjection.transform.localPosition = new Vector3(nonLandedProjection.transform.localPosition.x, -0.25f, nonLandedProjection.transform.localPosition.z); //Adjust y position 
 
         nonLandedProjectionScript = nonLandedProjection.GetComponent<EnemyProjection>();
@@ -119,6 +139,6 @@ public class SummonerTrap : Trap
         nonLandedProjectionScript.SetLimitedPlacingDistance(seductiveTrapActiveArea.orthographicSize * 0.7f); //Limit how far the enemyProjection can move
         trapBasicSummonerBeam.enemyProjectionTargetPoint = nonLandedProjectionScript.headTransform; // Beam showing the summoning effect
         camera.SetSummonedProjectionToFollow(nonLandedProjectionScript);
-    }     
+    }
     #endregion
 }
