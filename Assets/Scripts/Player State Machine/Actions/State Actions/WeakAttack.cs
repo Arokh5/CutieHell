@@ -16,8 +16,6 @@ public class WeakAttack : StateAction
     private int enemiesToBadCombo;
     [SerializeField]
     private int badComboPenalty;
-    [SerializeField]
-    private int badComboCount;
 
     public override void Act(Player player)
     {
@@ -59,13 +57,13 @@ public class WeakAttack : StateAction
             {
                 player.weakAttackTargetHitPoint = hit.point;
                 player.weakAttackTargetTransform = hit.transform;
-                badComboCount = 0;
+                GameManager.instance.badComboCount = 0;
             }
             else
             {
                 player.weakAttackTargetHitPoint = Vector3.zero;
                 player.weakAttackTargetTransform = null;
-                badComboCount++;
+                GameManager.instance.badComboCount++;
             }
             player.animator.SetTrigger("Attack");
             player.timeSinceLastAttack = 0f;
@@ -75,10 +73,10 @@ public class WeakAttack : StateAction
 
     private void CheckIfBadCombo(Player player)
     {
-        if (badComboCount == enemiesToBadCombo)
+        if (GameManager.instance.badComboCount == enemiesToBadCombo)
         {
             //Debug.Log("NOOB!!");
-            badComboCount = 0;
+            GameManager.instance.badComboCount = 0;
             player.SetEvilLevel(badComboPenalty);
             UIManager.instance.ShowComboText(UIManager.ComboTypes.BadCombo);
         }
