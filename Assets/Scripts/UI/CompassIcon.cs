@@ -15,7 +15,8 @@ public class CompassIcon : MonoBehaviour
     [HideInInspector]
     public float alertTimeLeft = 0;
 
-    private RectTransform rectTransform;
+    [HideInInspector]
+    public RectTransform rectTransform;
     private Image blurImage;
     [SerializeField]
     private Image backgroundImage;
