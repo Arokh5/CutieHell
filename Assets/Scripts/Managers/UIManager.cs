@@ -21,10 +21,6 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     private WaveTimer waveRadialProgressBar;
-    [SerializeField]
-    private List<RadialProgressBar> monumentsRadialProgressBars;
-    [SerializeField]
-    private List<RadialProgressBar> zone1TrapsRadialProgressBars;
 
     [SerializeField]
     private GameObject strongCombo;
@@ -146,22 +142,6 @@ public class UIManager : MonoBehaviour
     public void ZoneConnectionOpened(int zoneConnectionID)
     {
         Debug.LogError("NOT IMPLEMENTED:UIManager::ZoneConnectionOpened");
-    }
-    // Called by Trap to update its remaining health
-    public void SetTrapConquerRate(int zoneID, int trapID, float normalizedConquerRate)
-    {
-        if (zoneID == 0)
-        {
-            RadialProgressBar progressBar = zone1TrapsRadialProgressBars[trapID];
-            progressBar.SetNormalizedAmount(normalizedConquerRate);
-        }
-    }
-
-    // Called by Trap to update its remaining health
-    public void SetMonumentConquerRate(int zoneID, float normalizedConquerdRate)
-    {
-        RadialProgressBar progressBar = monumentsRadialProgressBars[zoneID];
-        progressBar.SetNormalizedAmount(normalizedConquerdRate);
     }
 
     // Called by AISpawnController to move the Wave indicator forward

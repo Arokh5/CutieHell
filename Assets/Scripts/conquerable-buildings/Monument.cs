@@ -9,7 +9,6 @@ public class Monument : Building {
     // If this method is called, it should inform the ZoneController and UIManager
     public override void FullRepair()
     {
-        UIManager.instance.SetMonumentConquerRate(zoneController.GetZoneId(), 0);
         if (currentHealth == 0)
             zoneController.OnMonumentRetaken();
         base.FullRepair();
