@@ -25,18 +25,20 @@ public class SoundManager : MonoBehaviour
 	#endregion
 	
 	#region Public Methods
-	
-    public void PlayMusicClip(AudioClip musicClip)
+
+    public void PlayMusicClip(AudioClip musicClip, float pitch = 1f)
     {
         musicSource.clip = musicClip;
+        musicSource.pitch = pitch;
         musicSource.Play();
     }
 
-    public void PlayEfxClip(AudioClip efxClip)
+    public void PlayEfxClip(AudioClip efxClip, float pitch = 1f)
     {
         efxSource.clip = efxClip;
+        efxSource.pitch = pitch;
         efxSource.Play();
     }
 
-	#endregion
+    #endregion
 }

@@ -9,9 +9,15 @@ public class WeakAttack : StateAction
     public float sphereCastRadius;
     public float attackCadency;
 
-    private const int enemiesToBadCombo = 5;
-    private const int badComboPenalty = -5;
-    private int badComboCount = 0;
+    [SerializeField]
+    private AudioClip attackSound;
+
+    [SerializeField]
+    private int enemiesToBadCombo;
+    [SerializeField]
+    private int badComboPenalty;
+    [SerializeField]
+    private int badComboCount;
 
     public override void Act(Player player)
     {
@@ -47,6 +53,8 @@ public class WeakAttack : StateAction
         /* Shooting */
         if (InputManager.instance.GetR2Button() && player.timeSinceLastAttack >= attackCadency && !player.animatingAttack)
         {
+            SoundManager.instance.PlayEfxClip(attackSound, 1.5f);
+
             if (raycastHit && hit.transform.GetComponent<AIEnemy>())
             {
                 player.weakAttackTargetHitPoint = hit.point;
