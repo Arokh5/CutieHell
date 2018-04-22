@@ -161,8 +161,6 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
             return;
 
         // Reset the underAttackElapsedTime timer
-        if (compassIconOwner)
-            UIManager.instance.compass.SetAlertForIcon(compassIconOwner);
         SetUnderAttack(true);
         underAttackElapsedTime = 0;
 
@@ -172,7 +170,12 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
         {
             currentHealth = 0;
         }
-        InformUIManager();
+
+        if (compassIconOwner)
+        {
+            UIManager.instance.compass.SetAlertForIcon(compassIconOwner);
+            UIManager.instance.compass.SetCompassIconFill(compassIconOwner, (baseHealth - currentHealth) / baseHealth);
+        }
 
         AdjustMaterials();
 
@@ -196,7 +199,9 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
             attachedConqueror = null;
         }
 
-        currentHealth = baseHealth;       
+        currentHealth = baseHealth;
+
+        UIManager.instance.compass.SetCompassIconFill(compassIconOwner, 0);
 
         AdjustMaterials();
 
@@ -239,7 +244,6 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
 
     #region Protected Methods
     protected abstract void BuildingKilled();
-    protected abstract void InformUIManager();
     #endregion
 
     #region Private Methods

@@ -21,11 +21,5 @@ public class Monument : Building {
     {
         zoneController.OnMonumentTaken();
     }
-
-    protected override void InformUIManager()
-    {
-        float conquerRate = (baseHealth - currentHealth) / baseHealth;
-        UIManager.instance.SetMonumentConquerRate(zoneController.GetZoneId(), conquerRate);
-    }
     #endregion
 }

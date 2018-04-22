@@ -65,9 +65,16 @@ public class UICompass : MonoBehaviour
         newIcon.alertFrequency = alertFrequency;
         newIcon.blurGrowthPercent = blurGrowthPercent;
         newIcon.imageShrinkPercent = imageShrinkPercent;
-        newIcon.SetImage(owner.iconSprite);
+        newIcon.SetBackground(owner.backgroundSprite);
+        newIcon.SetLogo(owner.logoSprite);
         newIcon.TurnOff();
         compassIcons[owner] = newIcon;
+    }
+
+    public void SetCompassIconFill(CompassIconOwner owner, float normalizedFillAmount)
+    {
+        CompassIcon compassIcon = compassIcons[owner];
+        compassIcon.SetFill(normalizedFillAmount);
     }
 
     public void SetAlertForIcon(CompassIconOwner owner)

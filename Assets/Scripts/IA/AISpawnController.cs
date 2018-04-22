@@ -90,7 +90,7 @@ public class AISpawnController : MonoBehaviour
 
     public bool CanStartNextWave()
     {
-        if (validWavesInfo && currentWaveIndex < wavesInfo.Count)
+        if (validWavesInfo && currentWaveIndex < wavesInfo.Count - 1)
         {
             ++currentWaveIndex;
             elapsedTime = currentWaveIndex == 0 ? -firstWaveStartDelay : -nextWavesStartDelay;

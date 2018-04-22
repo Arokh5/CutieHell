@@ -49,14 +49,6 @@ public class Trap : Building, IUsable
     #endregion
 
     #region Public Methods
-    // IDamageable
-    // If this method is called, it should inform the UIManager
-    public override void FullRepair()
-    {
-        base.FullRepair();
-        UIManager.instance.SetTrapConquerRate(zoneController.GetZoneId(), trapID, 0);
-    }
-
     // IUsable
     // Called by Player
     public bool CanUse()
@@ -103,12 +95,6 @@ public class Trap : Building, IUsable
         {
             player.StopTrapUse();
         }
-    }
-
-    protected override void InformUIManager()
-    {
-        float conquerRate = (baseHealth - currentHealth) / baseHealth;
-        UIManager.instance.SetTrapConquerRate(zoneController.GetZoneId(), trapID, conquerRate);
     }
     #endregion
 
