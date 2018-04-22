@@ -257,7 +257,6 @@ GameObject:
   - component: {fileID: 22555387}
   - component: {fileID: 22555391}
   - component: {fileID: 22555390}
-  - component: {fileID: 22555389}
   - component: {fileID: 22555388}
   m_Layer: 0
   m_Name: CH_GA_prop_ghost_Hell (8)
@@ -293,24 +292,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.2826397, y: 1.7499207, z: 0.84416556}
   m_Center: {x: -0.0036251545, y: 0.8764903, z: 0.12484151}
---- !u!95 &22555389
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95447445963431322, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 22555386}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: a23c88826ce4b1e4bb325eeb097ba945, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &22555390
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -467,7 +448,8 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95655566039514854, guid: 2e39bda1886716f4cb2ad318b5c59d48, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 2e39bda1886716f4cb2ad318b5c59d48, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &58877582 stripped
@@ -486,7 +468,6 @@ GameObject:
   - component: {fileID: 59910553}
   - component: {fileID: 59910557}
   - component: {fileID: 59910556}
-  - component: {fileID: 59910555}
   - component: {fileID: 59910554}
   m_Layer: 0
   m_Name: CH_GA_prop_Brush_Cat_Hell
@@ -522,24 +503,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.44671783, y: 1.7865585, z: 1.0284007}
   m_Center: {x: 0.026518092, y: 0.8667279, z: 0.012812585}
---- !u!95 &59910555
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95507648566392482, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 59910552}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 28c118c6dfb0d0b4ca0fb0fb5878ec89, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &59910556
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -595,7 +558,6 @@ GameObject:
   - component: {fileID: 62175200}
   - component: {fileID: 62175204}
   - component: {fileID: 62175203}
-  - component: {fileID: 62175202}
   - component: {fileID: 62175201}
   m_Layer: 0
   m_Name: CH_GA_prop_Brush_Spider_Hell (2)
@@ -631,24 +593,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.4752197, y: 0.902974, z: 1.0427579}
   m_Center: {x: 0, y: 0.4456095, z: -0.038092807}
---- !u!95 &62175202
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95708359325742412, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 62175199}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 66023b90a7861e542818ffd478979e0b, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &62175203
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1098,7 +1042,8 @@ Prefab:
       propertyPath: m_Name
       value: CH_GA_prop_StreetLight_Hell (12)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95032150847793770, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &142989514
@@ -1112,7 +1057,6 @@ GameObject:
   - component: {fileID: 142989515}
   - component: {fileID: 142989519}
   - component: {fileID: 142989518}
-  - component: {fileID: 142989517}
   - component: {fileID: 142989516}
   m_Layer: 0
   m_Name: CH_GA_prop_Brush_Skull_Hell (4)
@@ -1148,24 +1092,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0618793, y: 1.4995586, z: 1.1880301}
   m_Center: {x: -0.015299082, y: 0.7374224, z: -0.22929336}
---- !u!95 &142989517
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95595879886223494, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 142989514}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 09e10a13ab75c92478b7290fb492bb8c, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &142989518
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1498,7 +1424,6 @@ GameObject:
   - component: {fileID: 171579377}
   - component: {fileID: 171579381}
   - component: {fileID: 171579380}
-  - component: {fileID: 171579379}
   - component: {fileID: 171579378}
   m_Layer: 0
   m_Name: CH_GA_prop_Bench_Hell
@@ -1534,24 +1459,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.400713, y: 0.65023524, z: 1.0900064}
   m_Center: {x: -0.0000012516975, y: 0.31884125, z: 0}
---- !u!95 &171579379
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95912627523697380, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 171579376}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: a224ad8bab3740f48939cf449f6948c1, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &171579380
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1795,7 +1702,6 @@ GameObject:
   - component: {fileID: 192792940}
   - component: {fileID: 192792944}
   - component: {fileID: 192792943}
-  - component: {fileID: 192792942}
   - component: {fileID: 192792941}
   m_Layer: 10
   m_Name: CH_GA_prop_Platform_Trap_Hell (2)
@@ -1833,24 +1739,6 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 95514cf9172aaaa43b75627d6f2f88a4, type: 3}
---- !u!95 &192792942
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95975711233341274, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 192792939}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 35a7df644798fdd439f23153c6c98276, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &192792943
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1905,7 +1793,6 @@ GameObject:
   - component: {fileID: 200752667}
   - component: {fileID: 200752671}
   - component: {fileID: 200752670}
-  - component: {fileID: 200752669}
   - component: {fileID: 200752668}
   m_Layer: 0
   m_Name: CH_GA_prop_ghost_Hell (6)
@@ -1941,24 +1828,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.2826397, y: 1.7499207, z: 0.84416556}
   m_Center: {x: -0.0036251545, y: 0.8764903, z: 0.12484151}
---- !u!95 &200752669
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95868524181154786, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 200752666}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: a23c88826ce4b1e4bb325eeb097ba945, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &200752670
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2346,7 +2215,6 @@ GameObject:
   - component: {fileID: 257850287}
   - component: {fileID: 257850291}
   - component: {fileID: 257850290}
-  - component: {fileID: 257850289}
   - component: {fileID: 257850288}
   m_Layer: 0
   m_Name: CH_GA_prop_Brush_Spider_Hell (4)
@@ -2382,24 +2250,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.4752197, y: 0.902974, z: 1.0427579}
   m_Center: {x: 0, y: 0.4456095, z: -0.038092807}
---- !u!95 &257850289
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95082295850932478, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 257850286}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 66023b90a7861e542818ffd478979e0b, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &257850290
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2517,7 +2367,6 @@ GameObject:
   - component: {fileID: 259332490}
   - component: {fileID: 259332494}
   - component: {fileID: 259332493}
-  - component: {fileID: 259332492}
   - component: {fileID: 259332491}
   m_Layer: 0
   m_Name: CH_GA_prop_Plant_Rose_Hell (3)
@@ -2553,24 +2402,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.612067, y: 2.3567746, z: 1.1530743}
   m_Center: {x: 0.00000014901161, y: 1.1886643, z: 0.09833799}
---- !u!95 &259332492
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95449859861467168, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 259332489}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: fbae23ca98fd9b647a7905ef045f9dda, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &259332493
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2658,7 +2489,8 @@ Prefab:
       propertyPath: m_Name
       value: CH_GA_prop_StreetLight_Hell (8)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95032150847793770, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &278172890
@@ -2702,7 +2534,6 @@ GameObject:
   - component: {fileID: 286656416}
   - component: {fileID: 286656420}
   - component: {fileID: 286656419}
-  - component: {fileID: 286656418}
   - component: {fileID: 286656417}
   m_Layer: 0
   m_Name: CH_GA_prop_Brush_Spider_Hell (7)
@@ -2738,24 +2569,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.4752197, y: 0.902974, z: 1.0427579}
   m_Center: {x: 0, y: 0.4456095, z: -0.038092807}
---- !u!95 &286656418
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95875273613208742, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 286656415}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 66023b90a7861e542818ffd478979e0b, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &286656419
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2847,7 +2660,8 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 90.00001
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95032150847793770, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &302781702
@@ -2950,7 +2764,6 @@ GameObject:
   - component: {fileID: 307290851}
   - component: {fileID: 307290855}
   - component: {fileID: 307290854}
-  - component: {fileID: 307290853}
   - component: {fileID: 307290852}
   m_Layer: 0
   m_Name: CH_GA_prop_Bench_Hell (1)
@@ -2986,24 +2799,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.400713, y: 0.65023524, z: 1.0900064}
   m_Center: {x: -0.0000012516975, y: 0.31884125, z: 0}
---- !u!95 &307290853
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95273670681381202, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 307290850}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: a224ad8bab3740f48939cf449f6948c1, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &307290854
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3096,7 +2891,8 @@ Prefab:
       propertyPath: m_Name
       value: CH_GA_prop_StreetLight_Hell (9)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95032150847793770, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &317413651
@@ -3142,7 +2938,8 @@ Prefab:
       propertyPath: m_Name
       value: CH_GA_prop_StreetLight_Hell (14)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95032150847793770, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &321821009
@@ -3334,7 +3131,6 @@ GameObject:
   - component: {fileID: 350750060}
   - component: {fileID: 350750065}
   - component: {fileID: 350750064}
-  - component: {fileID: 350750063}
   - component: {fileID: 350750062}
   - component: {fileID: 350750061}
   m_Layer: 10
@@ -3384,24 +3180,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 105.80948, y: 0.0000012200326, z: 101.40967}
   m_Center: {x: 0.0000019073486, y: 0.025112916, z: 0}
---- !u!95 &350750063
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95210640467674348, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 350750059}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 26d1275e167a4e84dbcf7186d87b6c13, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &350750064
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3457,7 +3235,6 @@ GameObject:
   - component: {fileID: 362482876}
   - component: {fileID: 362482875}
   - component: {fileID: 419754576}
-  - component: {fileID: 362482874}
   - component: {fileID: 362482873}
   m_Layer: 0
   m_Name: CH_GA_prop_Statue_Vlad_Cute
@@ -3480,24 +3257,6 @@ CapsuleCollider:
   m_Height: 6.42
   m_Direction: 1
   m_Center: {x: -0.052229047, y: 2.13, z: -0.0042693615}
---- !u!95 &362482874
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95714466698867540, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 362482872}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: e7a12b4ae2b094147bdd176058e595a8, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!33 &362482875
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -3531,7 +3290,6 @@ GameObject:
   - component: {fileID: 380171201}
   - component: {fileID: 380171205}
   - component: {fileID: 380171204}
-  - component: {fileID: 380171203}
   - component: {fileID: 380171202}
   m_Layer: 0
   m_Name: CH_GA_prop_Brambles_Hell
@@ -3571,24 +3329,6 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 4.899, y: 2.7010002, z: 23.898}
   m_TimeToStationary: 0.5
---- !u!95 &380171203
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95620608321869278, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 380171200}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: f7ba871b89c564d419ffe6f2bca1a2fe, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &380171204
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3648,7 +3388,7 @@ GameObject:
   - component: {fileID: 396177266}
   - component: {fileID: 396177269}
   - component: {fileID: 396177268}
-  - component: {fileID: 396177267}
+  - component: {fileID: 396177270}
   m_Layer: 10
   m_Name: CH_GA_prop_Y_Way_Hell
   m_TagString: Untagged
@@ -3670,24 +3410,6 @@ Transform:
   m_Father: {fileID: 612996261}
   m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &396177267
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95064810390694834, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 396177265}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 3fec33305c8877e4fb3d5b78897e72d6, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &396177268
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3731,6 +3453,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 396177265}
   m_Mesh: {fileID: 4300000, guid: 3fec33305c8877e4fb3d5b78897e72d6, type: 3}
+--- !u!114 &396177270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 396177265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6cc5f4bec045f04193616f67e93a408, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoneController: {fileID: 1955635918}
 --- !u!1 &397045763 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1996623288143964, guid: a469ef08a24a81f49a590b2416f2fc2d,
@@ -3783,7 +3517,8 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 90.00001
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95032150847793770, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &405175641
@@ -3797,7 +3532,6 @@ GameObject:
   - component: {fileID: 405175642}
   - component: {fileID: 405175646}
   - component: {fileID: 405175645}
-  - component: {fileID: 405175644}
   - component: {fileID: 405175643}
   m_Layer: 0
   m_Name: CH_GA_prop_Skull_Bust_Hell (1)
@@ -3833,24 +3567,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4435376, y: 1.2118398, z: 0.43827638}
   m_Center: {x: -0.018272705, y: 0.60869664, z: 0.01753737}
---- !u!95 &405175644
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95029410479741912, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 405175641}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: bb7b5870673037f439d2d88572e26b01, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &405175645
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4159,7 +3875,6 @@ GameObject:
   - component: {fileID: 431346027}
   - component: {fileID: 431346031}
   - component: {fileID: 431346030}
-  - component: {fileID: 431346029}
   - component: {fileID: 431346028}
   m_Layer: 0
   m_Name: CH_GA_prop_Brush_Skull_Hell (1)
@@ -4195,24 +3910,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0618793, y: 1.4995586, z: 1.1880301}
   m_Center: {x: -0.015299082, y: 0.7374224, z: -0.22929336}
---- !u!95 &431346029
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95489818622222206, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 431346026}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 09e10a13ab75c92478b7290fb492bb8c, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &431346030
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4394,7 +4091,6 @@ GameObject:
   - component: {fileID: 448129791}
   - component: {fileID: 448129795}
   - component: {fileID: 448129794}
-  - component: {fileID: 448129793}
   - component: {fileID: 448129792}
   m_Layer: 0
   m_Name: CH_Tree_Hell_02
@@ -4431,24 +4127,6 @@ CapsuleCollider:
   m_Height: 4.286741
   m_Direction: 1
   m_Center: {x: 0.08, y: 1.3981268, z: -0.08}
---- !u!95 &448129793
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95738562530201356, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 448129790}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: e4b0f1b26c755c1459587507498baf91, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &448129794
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4592,7 +4270,6 @@ GameObject:
   - component: {fileID: 451714571}
   - component: {fileID: 451714575}
   - component: {fileID: 451714574}
-  - component: {fileID: 451714573}
   - component: {fileID: 451714572}
   m_Layer: 0
   m_Name: CH_GA_prop_Skull_Bust_Hell (2)
@@ -4628,24 +4305,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4435376, y: 1.2118398, z: 0.43827638}
   m_Center: {x: -0.018272705, y: 0.60869664, z: 0.01753737}
---- !u!95 &451714573
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95816023663835116, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 451714570}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: bb7b5870673037f439d2d88572e26b01, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &451714574
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -4741,7 +4400,8 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 90.00001
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95032150847793770, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &460162197
@@ -5083,7 +4743,8 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: -15.000001
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95032150847793770, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &482897895
@@ -5125,7 +4786,8 @@ Prefab:
       propertyPath: m_RootOrder
       value: 31
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95032150847793770, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &521370195
@@ -5442,7 +5104,6 @@ GameObject:
   - component: {fileID: 551575531}
   - component: {fileID: 551575535}
   - component: {fileID: 551575534}
-  - component: {fileID: 551575533}
   - component: {fileID: 551575532}
   m_Layer: 10
   m_Name: CH_GA_prop_Platform_Trap_Hell (1)
@@ -5480,24 +5141,6 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 95514cf9172aaaa43b75627d6f2f88a4, type: 3}
---- !u!95 &551575533
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95025331581333664, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 551575530}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 35a7df644798fdd439f23153c6c98276, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &551575534
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5557,7 +5200,6 @@ GameObject:
   - component: {fileID: 574495670}
   - component: {fileID: 574495674}
   - component: {fileID: 574495673}
-  - component: {fileID: 574495672}
   - component: {fileID: 574495671}
   m_Layer: 0
   m_Name: CH_GA_prop_Brush_Cat_Hell (2)
@@ -5593,24 +5235,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.44671783, y: 1.7865585, z: 1.0284007}
   m_Center: {x: 0.026518092, y: 0.8667279, z: 0.012812585}
---- !u!95 &574495672
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95122338834512918, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 574495669}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 28c118c6dfb0d0b4ca0fb0fb5878ec89, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &574495673
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5666,7 +5290,6 @@ GameObject:
   - component: {fileID: 574640616}
   - component: {fileID: 574640620}
   - component: {fileID: 574640619}
-  - component: {fileID: 574640618}
   - component: {fileID: 574640617}
   m_Layer: 0
   m_Name: CH_GA_prop_Bench_Hell (3)
@@ -5702,24 +5325,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.400713, y: 0.65023524, z: 1.0900064}
   m_Center: {x: -0.0000012516975, y: 0.31884125, z: 0}
---- !u!95 &574640618
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95818437345945308, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 574640615}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: a224ad8bab3740f48939cf449f6948c1, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &574640619
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6083,7 +5688,8 @@ Prefab:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 230846840}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95434171238879272, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &613718702 stripped
@@ -6134,7 +5740,8 @@ Prefab:
       propertyPath: m_Name
       value: CH_GA_prop_StreetLight_Hell (11)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95032150847793770, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &616042531
@@ -6148,7 +5755,6 @@ GameObject:
   - component: {fileID: 616042532}
   - component: {fileID: 616042536}
   - component: {fileID: 616042535}
-  - component: {fileID: 616042534}
   - component: {fileID: 616042533}
   m_Layer: 0
   m_Name: CH_GA_prop_Brush_Skull_Hell
@@ -6184,24 +5790,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0618793, y: 1.4995586, z: 1.1880301}
   m_Center: {x: -0.015299082, y: 0.7374224, z: -0.22929336}
---- !u!95 &616042534
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95345770940942562, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 616042531}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 09e10a13ab75c92478b7290fb492bb8c, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &616042535
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6257,7 +5845,6 @@ GameObject:
   - component: {fileID: 627483592}
   - component: {fileID: 627483595}
   - component: {fileID: 627483594}
-  - component: {fileID: 627483593}
   m_Layer: 0
   m_Name: CH_GA_Trap_Fountain_Hell
   m_TagString: Untagged
@@ -6279,24 +5866,6 @@ Transform:
   m_Father: {fileID: 1477739562}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &627483593
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95712553028814696, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 627483591}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 18ab0d4bcbf8e0346966c61cd4da0304, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &627483594
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6618,7 +6187,6 @@ GameObject:
   - component: {fileID: 650766203}
   - component: {fileID: 650766207}
   - component: {fileID: 650766206}
-  - component: {fileID: 650766205}
   - component: {fileID: 650766204}
   m_Layer: 0
   m_Name: CH_GA_prop_Brush_Spider_Hell (6)
@@ -6654,24 +6222,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.4752197, y: 0.902974, z: 1.0427579}
   m_Center: {x: 0, y: 0.4456095, z: -0.038092807}
---- !u!95 &650766205
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95982912288481946, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 650766202}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 66023b90a7861e542818ffd478979e0b, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &650766206
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6759,7 +6309,8 @@ Prefab:
       propertyPath: m_Name
       value: CH_GA_prop_StreetLight_Hell (3)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95032150847793770, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &673468478
@@ -6773,7 +6324,6 @@ GameObject:
   - component: {fileID: 673468479}
   - component: {fileID: 673468483}
   - component: {fileID: 673468482}
-  - component: {fileID: 673468481}
   - component: {fileID: 673468480}
   m_Layer: 0
   m_Name: CH_GA_prop_ghost_Hell (2)
@@ -6809,24 +6359,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.2826397, y: 1.7499207, z: 0.84416556}
   m_Center: {x: -0.0036251545, y: 0.8764903, z: 0.12484151}
---- !u!95 &673468481
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95325270936564208, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 673468478}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: a23c88826ce4b1e4bb325eeb097ba945, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &673468482
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7060,7 +6592,6 @@ GameObject:
   - component: {fileID: 694033907}
   - component: {fileID: 694033910}
   - component: {fileID: 694033909}
-  - component: {fileID: 694033908}
   m_Layer: 0
   m_Name: CH_GA_prop_Walls_Litte_Hell
   m_TagString: Untagged
@@ -7082,24 +6613,6 @@ Transform:
   m_Father: {fileID: 612996261}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &694033908
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95801351069065684, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 694033906}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 5d11289efe6260a4884705a01ea83287, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &694033909
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7320,7 +6833,8 @@ Prefab:
       propertyPath: m_Name
       value: CH_GA_prop_StreetLight_Hell (2)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95032150847793770, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &723816438
@@ -7840,7 +7354,6 @@ GameObject:
   - component: {fileID: 812788427}
   - component: {fileID: 812788431}
   - component: {fileID: 812788430}
-  - component: {fileID: 812788429}
   - component: {fileID: 812788428}
   m_Layer: 0
   m_Name: CH_GA_prop_Brush_Cat_Hell (3)
@@ -7876,24 +7389,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.44671783, y: 1.7865585, z: 1.0284007}
   m_Center: {x: 0.026518092, y: 0.8667279, z: 0.012812585}
---- !u!95 &812788429
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95678285395550708, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 812788426}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 28c118c6dfb0d0b4ca0fb0fb5878ec89, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &812788430
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8074,7 +7569,8 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 90.00001
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95032150847793770, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &831255739
@@ -8221,7 +7717,8 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95539481049565378, guid: 1d0af27063d778546ad51429a7bff6b1, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 1d0af27063d778546ad51429a7bff6b1, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &832022124
@@ -8449,7 +7946,8 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 90.00001
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95032150847793770, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &878575432
@@ -8522,7 +8020,6 @@ GameObject:
   - component: {fileID: 887217916}
   - component: {fileID: 887217915}
   - component: {fileID: 1772673287}
-  - component: {fileID: 887217914}
   - component: {fileID: 887217913}
   m_Layer: 0
   m_Name: CH_GA_prop_Statue_Vlad_Hell
@@ -8545,24 +8042,6 @@ CapsuleCollider:
   m_Height: 6.42
   m_Direction: 1
   m_Center: {x: -0.052229047, y: 2.13, z: -0.0042693615}
---- !u!95 &887217914
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95924287634820882, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 887217912}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: e7a12b4ae2b094147bdd176058e595a8, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!33 &887217915
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -8774,7 +8253,7 @@ GameObject:
   - component: {fileID: 912605406}
   - component: {fileID: 912605409}
   - component: {fileID: 912605408}
-  - component: {fileID: 912605407}
+  - component: {fileID: 912605410}
   m_Layer: 0
   m_Name: CH_GA_Wall_Brush_C_Hell (1)
   m_TagString: Untagged
@@ -8797,24 +8276,6 @@ Transform:
   m_Father: {fileID: 612996261}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 90.00001, z: 0}
---- !u!95 &912605407
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95887326651574994, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 912605405}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: c8c46e061a032e742b1c45243daa0020, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &912605408
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8858,6 +8319,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 912605405}
   m_Mesh: {fileID: 4300000, guid: c8c46e061a032e742b1c45243daa0020, type: 3}
+--- !u!114 &912605410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 912605405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6cc5f4bec045f04193616f67e93a408, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoneController: {fileID: 1955635918}
 --- !u!1 &913131820
 GameObject:
   m_ObjectHideFlags: 0
@@ -8869,7 +8342,6 @@ GameObject:
   - component: {fileID: 913131821}
   - component: {fileID: 913131825}
   - component: {fileID: 913131824}
-  - component: {fileID: 913131823}
   - component: {fileID: 913131822}
   m_Layer: 0
   m_Name: CH_GA_prop_Brambles_Hell (1)
@@ -8909,24 +8381,6 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 5, y: 2.7010002, z: 23.898}
   m_TimeToStationary: 0.5
---- !u!95 &913131823
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95281529867642592, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 913131820}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: f7ba871b89c564d419ffe6f2bca1a2fe, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &913131824
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8981,7 +8435,7 @@ GameObject:
   - component: {fileID: 919631072}
   - component: {fileID: 919631075}
   - component: {fileID: 919631074}
-  - component: {fileID: 919631073}
+  - component: {fileID: 919631076}
   m_Layer: 0
   m_Name: CH_GA_Wall_Brush_A_Hell (1)
   m_TagString: Untagged
@@ -9004,24 +8458,6 @@ Transform:
   m_Father: {fileID: 612996261}
   m_RootOrder: 68
   m_LocalEulerAnglesHint: {x: 0, y: 90.00001, z: 0}
---- !u!95 &919631073
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95463119060448174, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 919631071}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 47e8a987198d53242a19f85a14f2d017, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &919631074
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9065,6 +8501,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 919631071}
   m_Mesh: {fileID: 4300000, guid: 47e8a987198d53242a19f85a14f2d017, type: 3}
+--- !u!114 &919631076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 919631071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6cc5f4bec045f04193616f67e93a408, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoneController: {fileID: 1955635918}
 --- !u!114 &934149782 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114008128030213408, guid: a469ef08a24a81f49a590b2416f2fc2d,
@@ -9724,7 +9172,6 @@ GameObject:
   - component: {fileID: 986784387}
   - component: {fileID: 986784390}
   - component: {fileID: 986784389}
-  - component: {fileID: 986784388}
   m_Layer: 0
   m_Name: CH_GA_prop_Fountain_Water_Hell
   m_TagString: Untagged
@@ -9746,24 +9193,6 @@ Transform:
   m_Father: {fileID: 1477739562}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 45.000004, z: 0}
---- !u!95 &986784388
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95628046573992586, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 986784386}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 499ab4ee571054144bace673d8ab7833, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &986784389
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9818,7 +9247,6 @@ GameObject:
   - component: {fileID: 989156980}
   - component: {fileID: 989156984}
   - component: {fileID: 989156983}
-  - component: {fileID: 989156982}
   - component: {fileID: 989156981}
   m_Layer: 0
   m_Name: CH_GA_prop_Form_Brush_Hell (1)
@@ -9854,24 +9282,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.2595068, y: 3.4889123, z: 1.5002079}
   m_Center: {x: 0.022178948, y: 1.7444562, z: -0.048219115}
---- !u!95 &989156982
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95270442251572780, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 989156979}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 39ccb25dafecb774093820701b941830, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &989156983
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10376,7 +9786,8 @@ Prefab:
       propertyPath: m_Name
       value: CH_GA_prop_StreetLight_Hell (23)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95032150847793770, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1075195607
@@ -10390,7 +9801,6 @@ GameObject:
   - component: {fileID: 1075195608}
   - component: {fileID: 1075195612}
   - component: {fileID: 1075195611}
-  - component: {fileID: 1075195610}
   - component: {fileID: 1075195609}
   m_Layer: 0
   m_Name: CH_GA_prop_Brush_Spider_Hell (3)
@@ -10426,24 +9836,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.4752197, y: 0.902974, z: 1.0427579}
   m_Center: {x: 0, y: 0.4456095, z: -0.038092807}
---- !u!95 &1075195610
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95985775120359562, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1075195607}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 66023b90a7861e542818ffd478979e0b, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1075195611
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -10833,7 +10225,6 @@ GameObject:
   - component: {fileID: 1100767162}
   - component: {fileID: 1100767166}
   - component: {fileID: 1100767165}
-  - component: {fileID: 1100767164}
   - component: {fileID: 1100767163}
   m_Layer: 0
   m_Name: CH_GA_prop_ghost_Hell
@@ -10869,24 +10260,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.2826397, y: 1.7499207, z: 0.84416556}
   m_Center: {x: -0.0036251545, y: 0.8764903, z: 0.12484151}
---- !u!95 &1100767164
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95539803231379490, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1100767161}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: a23c88826ce4b1e4bb325eeb097ba945, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1100767165
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11184,7 +10557,6 @@ GameObject:
   - component: {fileID: 1161277062}
   - component: {fileID: 1161277066}
   - component: {fileID: 1161277065}
-  - component: {fileID: 1161277064}
   - component: {fileID: 1161277063}
   m_Layer: 0
   m_Name: CH_CE_prop_Tree_Hell_01 (1)
@@ -11221,24 +10593,6 @@ CapsuleCollider:
   m_Height: 6.1532483
   m_Direction: 1
   m_Center: {x: 0.22, y: 2.2991812, z: 0.12}
---- !u!95 &1161277064
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95555060237999244, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1161277061}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 2b3965c194c3af547b9e5501501f9c61, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1161277065
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11507,7 +10861,8 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95032150847793770, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1191146185
@@ -11661,7 +11016,6 @@ GameObject:
   - component: {fileID: 1205492596}
   - component: {fileID: 1205492600}
   - component: {fileID: 1205492599}
-  - component: {fileID: 1205492598}
   - component: {fileID: 1205492597}
   m_Layer: 0
   m_Name: CH_GA_prop_Brush_Spider_Hell (5)
@@ -11697,24 +11051,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.4752197, y: 0.902974, z: 1.0427579}
   m_Center: {x: 0, y: 0.4456095, z: -0.038092807}
---- !u!95 &1205492598
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95491313349494158, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1205492595}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 66023b90a7861e542818ffd478979e0b, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1205492599
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11984,7 +11320,8 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 90.00001
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95032150847793770, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1227521290
@@ -12626,7 +11963,6 @@ GameObject:
   - component: {fileID: 1277744900}
   - component: {fileID: 1277744904}
   - component: {fileID: 1277744903}
-  - component: {fileID: 1277744902}
   - component: {fileID: 1277744901}
   m_Layer: 0
   m_Name: CH_GA_prop_ghost_Hell
@@ -12662,24 +11998,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.2826397, y: 1.7499207, z: 0.84416556}
   m_Center: {x: -0.0036251545, y: 0.8764903, z: 0.12484151}
---- !u!95 &1277744902
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95906380766192288, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1277744899}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: a23c88826ce4b1e4bb325eeb097ba945, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1277744903
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -13110,7 +12428,6 @@ GameObject:
   - component: {fileID: 1308416336}
   - component: {fileID: 1308416340}
   - component: {fileID: 1308416339}
-  - component: {fileID: 1308416338}
   - component: {fileID: 1308416337}
   m_Layer: 10
   m_Name: CH_GA_prop_Platform_Trap_Hell (3)
@@ -13148,24 +12465,6 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 95514cf9172aaaa43b75627d6f2f88a4, type: 3}
---- !u!95 &1308416338
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95233094449804718, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1308416335}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 35a7df644798fdd439f23153c6c98276, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1308416339
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -13220,7 +12519,6 @@ GameObject:
   - component: {fileID: 1310790185}
   - component: {fileID: 1310790189}
   - component: {fileID: 1310790188}
-  - component: {fileID: 1310790187}
   - component: {fileID: 1310790186}
   m_Layer: 0
   m_Name: CH_GA_prop_Brush_Cat_Hell (1)
@@ -13256,24 +12554,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.44671783, y: 1.7865585, z: 1.0284007}
   m_Center: {x: 0.026518092, y: 0.8667279, z: 0.012812585}
---- !u!95 &1310790187
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95808384078370300, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1310790184}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 28c118c6dfb0d0b4ca0fb0fb5878ec89, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1310790188
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -13329,7 +12609,6 @@ GameObject:
   - component: {fileID: 1322816956}
   - component: {fileID: 1322816960}
   - component: {fileID: 1322816959}
-  - component: {fileID: 1322816958}
   - component: {fileID: 1322816957}
   m_Layer: 0
   m_Name: CH_GA_prop_Brush_Skull_Hell (3)
@@ -13365,24 +12644,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0618793, y: 1.4995586, z: 1.1880301}
   m_Center: {x: -0.015299082, y: 0.7374224, z: -0.22929336}
---- !u!95 &1322816958
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95076379950139650, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1322816955}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 09e10a13ab75c92478b7290fb492bb8c, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1322816959
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -13438,7 +12699,6 @@ GameObject:
   - component: {fileID: 1329537182}
   - component: {fileID: 1329537186}
   - component: {fileID: 1329537185}
-  - component: {fileID: 1329537184}
   - component: {fileID: 1329537183}
   m_Layer: 0
   m_Name: CH_GA_prop_Brush_Skull_Hell (6)
@@ -13474,24 +12734,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0618793, y: 1.4995586, z: 1.1880301}
   m_Center: {x: -0.015299082, y: 0.7374224, z: -0.22929336}
---- !u!95 &1329537184
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95184873335708856, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1329537181}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 09e10a13ab75c92478b7290fb492bb8c, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1329537185
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -13637,7 +12879,6 @@ GameObject:
   - component: {fileID: 1341704678}
   - component: {fileID: 1341704682}
   - component: {fileID: 1341704681}
-  - component: {fileID: 1341704680}
   - component: {fileID: 1341704679}
   m_Layer: 0
   m_Name: CH_GA_prop_Platform_Trap_Hell
@@ -13675,24 +12916,6 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 95514cf9172aaaa43b75627d6f2f88a4, type: 3}
---- !u!95 &1341704680
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95581494130402030, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1341704677}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 35a7df644798fdd439f23153c6c98276, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1341704681
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -13797,7 +13020,6 @@ GameObject:
   - component: {fileID: 1344969525}
   - component: {fileID: 1344969528}
   - component: {fileID: 1344969527}
-  - component: {fileID: 1344969526}
   m_Layer: 0
   m_Name: CH_GA_prop_Fountain_Walls_Little_Hell
   m_TagString: Untagged
@@ -13819,24 +13041,6 @@ Transform:
   m_Father: {fileID: 1477739562}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 45.000004, z: 0}
---- !u!95 &1344969526
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95732534661834058, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1344969524}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 55cd43668af6a074ba2a29270c069969, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1344969527
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -14160,7 +13364,8 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95032150847793770, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1399552955
@@ -14174,7 +13379,6 @@ GameObject:
   - component: {fileID: 1399552956}
   - component: {fileID: 1399552960}
   - component: {fileID: 1399552959}
-  - component: {fileID: 1399552958}
   - component: {fileID: 1399552957}
   m_Layer: 0
   m_Name: CH_GA_Fountain_COLLIDER
@@ -14212,24 +13416,6 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: b2d9f823c8eef1d4e910406961d837f8, type: 3}
---- !u!95 &1399552958
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95045712038039430, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1399552955}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: b2d9f823c8eef1d4e910406961d837f8, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1399552959
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -14284,7 +13470,6 @@ GameObject:
   - component: {fileID: 1401335503}
   - component: {fileID: 1401335507}
   - component: {fileID: 1401335506}
-  - component: {fileID: 1401335505}
   - component: {fileID: 1401335504}
   m_Layer: 0
   m_Name: CH_Tree_Hell_03
@@ -14321,24 +13506,6 @@ CapsuleCollider:
   m_Height: 4.9668326
   m_Direction: 1
   m_Center: {x: -0.08, y: 1.7381727, z: -0.07}
---- !u!95 &1401335505
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95401121356338180, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1401335502}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: eb29b970cdfd96747981fedaa0ca58da, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1401335506
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -14430,7 +13597,8 @@ Prefab:
       propertyPath: m_Name
       value: CH_GA_prop_StreetLight_Hell (13)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95032150847793770, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1425723274
@@ -14444,7 +13612,6 @@ GameObject:
   - component: {fileID: 1425723275}
   - component: {fileID: 1425723279}
   - component: {fileID: 1425723278}
-  - component: {fileID: 1425723277}
   - component: {fileID: 1425723276}
   m_Layer: 0
   m_Name: CH_GA_prop_ghost_Hell (5)
@@ -14480,24 +13647,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.2826397, y: 1.7499207, z: 0.84416556}
   m_Center: {x: -0.0036251545, y: 0.8764903, z: 0.12484151}
---- !u!95 &1425723277
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95431850837785650, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1425723274}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: a23c88826ce4b1e4bb325eeb097ba945, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1425723278
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -14686,7 +13835,8 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95539481049565378, guid: 1d0af27063d778546ad51429a7bff6b1, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 1d0af27063d778546ad51429a7bff6b1, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &1450278488 stripped
@@ -14705,7 +13855,7 @@ GameObject:
   - component: {fileID: 1450993858}
   - component: {fileID: 1450993861}
   - component: {fileID: 1450993860}
-  - component: {fileID: 1450993859}
+  - component: {fileID: 1450993862}
   m_Layer: 10
   m_Name: CH_GA_prop_Y_Way_Hell (1)
   m_TagString: Untagged
@@ -14727,24 +13877,6 @@ Transform:
   m_Father: {fileID: 612996261}
   m_RootOrder: 69
   m_LocalEulerAnglesHint: {x: 0, y: 90.00001, z: 0}
---- !u!95 &1450993859
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95757942882107948, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1450993857}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 3fec33305c8877e4fb3d5b78897e72d6, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1450993860
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -14788,6 +13920,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1450993857}
   m_Mesh: {fileID: 4300000, guid: 3fec33305c8877e4fb3d5b78897e72d6, type: 3}
+--- !u!114 &1450993862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1450993857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6cc5f4bec045f04193616f67e93a408, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoneController: {fileID: 1955635918}
 --- !u!1001 &1452216538
 Prefab:
   m_ObjectHideFlags: 0
@@ -14831,7 +13975,8 @@ Prefab:
       propertyPath: m_Name
       value: CH_GA_prop_StreetLight_Hell (16)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95032150847793770, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1462305077
@@ -14845,7 +13990,6 @@ GameObject:
   - component: {fileID: 1462305078}
   - component: {fileID: 1462305082}
   - component: {fileID: 1462305081}
-  - component: {fileID: 1462305080}
   - component: {fileID: 1462305079}
   m_Layer: 0
   m_Name: CH_CE_prop_Tree_Hell_01
@@ -14882,24 +14026,6 @@ CapsuleCollider:
   m_Height: 6.1532483
   m_Direction: 1
   m_Center: {x: 0.22, y: 2.2991812, z: 0.12}
---- !u!95 &1462305080
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95966595323033600, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1462305077}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 2b3965c194c3af547b9e5501501f9c61, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1462305081
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -15082,7 +14208,7 @@ GameObject:
   - component: {fileID: 1478350975}
   - component: {fileID: 1478350978}
   - component: {fileID: 1478350977}
-  - component: {fileID: 1478350976}
+  - component: {fileID: 1478350979}
   m_Layer: 0
   m_Name: CH_GA_Wall_Brush_B_Hell (1)
   m_TagString: Untagged
@@ -15105,24 +14231,6 @@ Transform:
   m_Father: {fileID: 612996261}
   m_RootOrder: 43
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1478350976
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95022701009851452, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1478350974}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: f66dd455dd010b54ead08be6a771417e, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1478350977
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -15166,6 +14274,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1478350974}
   m_Mesh: {fileID: 4300000, guid: f66dd455dd010b54ead08be6a771417e, type: 3}
+--- !u!114 &1478350979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1478350974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6cc5f4bec045f04193616f67e93a408, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoneController: {fileID: 1955635918}
 --- !u!1 &1478633905
 GameObject:
   m_ObjectHideFlags: 0
@@ -15177,7 +14297,6 @@ GameObject:
   - component: {fileID: 1478633906}
   - component: {fileID: 1478633910}
   - component: {fileID: 1478633909}
-  - component: {fileID: 1478633908}
   - component: {fileID: 1478633907}
   m_Layer: 0
   m_Name: CH_GA_prop_Plant_Rose_Hell (5)
@@ -15213,24 +14332,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.612067, y: 2.3567746, z: 1.1530743}
   m_Center: {x: 0.00000014901161, y: 1.1886643, z: 0.09833799}
---- !u!95 &1478633908
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95217865861765314, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1478633905}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: fbae23ca98fd9b647a7905ef045f9dda, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1478633909
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -15496,7 +14597,8 @@ Prefab:
       propertyPath: m_Name
       value: CH_GA_prop_StreetLight_Hell (24)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95032150847793770, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &1493729172 stripped
@@ -15515,7 +14617,6 @@ GameObject:
   - component: {fileID: 1497789749}
   - component: {fileID: 1497789753}
   - component: {fileID: 1497789752}
-  - component: {fileID: 1497789751}
   - component: {fileID: 1497789750}
   m_Layer: 0
   m_Name: CH_GA_prop_ghost_Hell (7)
@@ -15551,24 +14652,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.2826397, y: 1.7499207, z: 0.84416556}
   m_Center: {x: -0.0036251545, y: 0.8764903, z: 0.12484151}
---- !u!95 &1497789751
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95833001101559156, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1497789748}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: a23c88826ce4b1e4bb325eeb097ba945, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1497789752
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -16200,7 +15283,8 @@ Prefab:
       propertyPath: m_Name
       value: CH_GA_prop_StreetLight_Hell (20)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95032150847793770, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &1607252399 stripped
@@ -16580,7 +15664,6 @@ GameObject:
   - component: {fileID: 1658328362}
   - component: {fileID: 1658328366}
   - component: {fileID: 1658328365}
-  - component: {fileID: 1658328364}
   - component: {fileID: 1658328363}
   m_Layer: 0
   m_Name: CH_GA_prop_Plant_Rose_Hell (4)
@@ -16616,24 +15699,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.612067, y: 2.3567746, z: 1.1530743}
   m_Center: {x: 0.00000014901161, y: 1.1886643, z: 0.09833799}
---- !u!95 &1658328364
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95484782884639362, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1658328361}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: fbae23ca98fd9b647a7905ef045f9dda, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1658328365
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -16689,7 +15754,6 @@ GameObject:
   - component: {fileID: 1663420406}
   - component: {fileID: 1663420410}
   - component: {fileID: 1663420409}
-  - component: {fileID: 1663420408}
   - component: {fileID: 1663420407}
   m_Layer: 0
   m_Name: CH_GA_prop_Brush_Skull_Hell (7)
@@ -16725,24 +15789,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0618793, y: 1.4995586, z: 1.1880301}
   m_Center: {x: -0.015299082, y: 0.7374224, z: -0.22929336}
---- !u!95 &1663420408
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95359103126886718, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1663420405}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 09e10a13ab75c92478b7290fb492bb8c, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1663420409
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -16830,7 +15876,8 @@ Prefab:
       propertyPath: m_Name
       value: CH_GA_prop_StreetLight_Hell (5)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95032150847793770, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1674143956
@@ -17027,7 +16074,6 @@ GameObject:
   - component: {fileID: 1698084498}
   - component: {fileID: 1698084502}
   - component: {fileID: 1698084501}
-  - component: {fileID: 1698084500}
   - component: {fileID: 1698084499}
   m_Layer: 0
   m_Name: CH_GA_prop_Skull_Bust_Hell
@@ -17063,24 +16109,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4435376, y: 1.2118398, z: 0.43827638}
   m_Center: {x: -0.018272705, y: 0.60869664, z: 0.01753737}
---- !u!95 &1698084500
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95313216296549816, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1698084497}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: bb7b5870673037f439d2d88572e26b01, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1698084501
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -17145,7 +16173,6 @@ GameObject:
   - component: {fileID: 1707601038}
   - component: {fileID: 1707601042}
   - component: {fileID: 1707601041}
-  - component: {fileID: 1707601040}
   - component: {fileID: 1707601039}
   m_Layer: 10
   m_Name: CH_GA_prop_X_Way_Hell
@@ -17181,24 +16208,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneController: {fileID: 1955635918}
---- !u!95 &1707601040
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95278839304166542, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1707601037}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: f8615d5e31c5f8c429af68b15d663996, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1707601041
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -17463,7 +16472,8 @@ Prefab:
       propertyPath: m_Name
       value: CH_GA_Gargoyle_Hell (2)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95539481049565378, guid: 1d0af27063d778546ad51429a7bff6b1, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 1d0af27063d778546ad51429a7bff6b1, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1720407321
@@ -17566,7 +16576,6 @@ GameObject:
   - component: {fileID: 1725480634}
   - component: {fileID: 1725480638}
   - component: {fileID: 1725480637}
-  - component: {fileID: 1725480636}
   - component: {fileID: 1725480635}
   m_Layer: 0
   m_Name: CH_GA_prop_Center_COLLIDER
@@ -17604,24 +16613,6 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: adaf0d2157cf1b344906bb2bb8be5843, type: 3}
---- !u!95 &1725480636
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95883030192879926, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1725480633}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: adaf0d2157cf1b344906bb2bb8be5843, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1725480637
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -17830,7 +16821,6 @@ GameObject:
   - component: {fileID: 1731199515}
   - component: {fileID: 1731199519}
   - component: {fileID: 1731199518}
-  - component: {fileID: 1731199517}
   - component: {fileID: 1731199516}
   m_Layer: 0
   m_Name: CH_GA_prop_Platform_Trap_Hell (4)
@@ -17868,24 +16858,6 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 95514cf9172aaaa43b75627d6f2f88a4, type: 3}
---- !u!95 &1731199517
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95543971530151836, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1731199514}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 35a7df644798fdd439f23153c6c98276, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1731199518
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -18509,7 +17481,6 @@ GameObject:
   - component: {fileID: 1775956537}
   - component: {fileID: 1775956541}
   - component: {fileID: 1775956540}
-  - component: {fileID: 1775956539}
   - component: {fileID: 1775956538}
   m_Layer: 0
   m_Name: CH_GA_prop_Brush_Skull_Hell (8)
@@ -18545,24 +17516,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0618793, y: 1.4995586, z: 1.1880301}
   m_Center: {x: -0.015299082, y: 0.7374224, z: -0.22929336}
---- !u!95 &1775956539
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95637865607136836, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1775956536}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 09e10a13ab75c92478b7290fb492bb8c, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1775956540
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -18618,7 +17571,6 @@ GameObject:
   - component: {fileID: 1778580986}
   - component: {fileID: 1778580990}
   - component: {fileID: 1778580989}
-  - component: {fileID: 1778580988}
   - component: {fileID: 1778580987}
   m_Layer: 0
   m_Name: CH_GA_Trap_Fountain_Control_Hell
@@ -18654,24 +17606,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.7622168, y: 1.3850348, z: 0.7622131}
   m_Center: {x: -0.0063671917, y: 0.6925174, z: 0.0077337623}
---- !u!95 &1778580988
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95953535554622540, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1778580985}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 5ed888083e30e71478b9772250c38ce8, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1778580989
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -18815,7 +17749,6 @@ GameObject:
   - component: {fileID: 1786479737}
   - component: {fileID: 1786479741}
   - component: {fileID: 1786479740}
-  - component: {fileID: 1786479739}
   - component: {fileID: 1786479738}
   m_Layer: 0
   m_Name: CH_GA_prop_Brush_Skull_Hell (2)
@@ -18851,24 +17784,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0618793, y: 1.4995586, z: 1.1880301}
   m_Center: {x: -0.015299082, y: 0.7374224, z: -0.22929336}
---- !u!95 &1786479739
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95545442896853554, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1786479736}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 09e10a13ab75c92478b7290fb492bb8c, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1786479740
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -19233,7 +18148,6 @@ GameObject:
   - component: {fileID: 1801611420}
   - component: {fileID: 1801611424}
   - component: {fileID: 1801611423}
-  - component: {fileID: 1801611422}
   - component: {fileID: 1801611421}
   m_Layer: 0
   m_Name: CH_GA_prop_Plant_Rose_Hell (2)
@@ -19269,24 +18183,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.612067, y: 2.3567746, z: 1.1530743}
   m_Center: {x: 0.00000014901161, y: 1.1886643, z: 0.09833799}
---- !u!95 &1801611422
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95914019917818412, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1801611419}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: fbae23ca98fd9b647a7905ef045f9dda, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1801611423
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -19431,7 +18327,6 @@ GameObject:
   - component: {fileID: 1804850523}
   - component: {fileID: 1804850526}
   - component: {fileID: 1804850525}
-  - component: {fileID: 1804850524}
   m_Layer: 0
   m_Name: CH_GA_prop_Center_Hell
   m_TagString: Untagged
@@ -19455,24 +18350,6 @@ Transform:
   m_Father: {fileID: 612996261}
   m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1804850524
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95427258393124232, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1804850522}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: a92894ff73e4f5a4bbff89d681995fe0, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1804850525
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -19527,7 +18404,6 @@ GameObject:
   - component: {fileID: 1824138805}
   - component: {fileID: 1824138808}
   - component: {fileID: 1824138807}
-  - component: {fileID: 1824138806}
   m_Layer: 0
   m_Name: CH_CA_Castle
   m_TagString: Untagged
@@ -19549,24 +18425,6 @@ Transform:
   m_Father: {fileID: 612996261}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 45.000004, z: 0}
---- !u!95 &1824138806
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95834561521314360, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1824138804}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: b22158f5fdcbc394da6683cdc9733c7c, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1824138807
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -19626,7 +18484,6 @@ GameObject:
   - component: {fileID: 1848869645}
   - component: {fileID: 1848869649}
   - component: {fileID: 1848869648}
-  - component: {fileID: 1848869647}
   - component: {fileID: 1848869646}
   m_Layer: 0
   m_Name: CH_GA_prop_Bench_Hell (2)
@@ -19662,24 +18519,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.400713, y: 0.65023524, z: 1.0900064}
   m_Center: {x: -0.0000012516975, y: 0.31884125, z: 0}
---- !u!95 &1848869647
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95811510284539354, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1848869644}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: a224ad8bab3740f48939cf449f6948c1, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1848869648
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -19734,7 +18573,7 @@ GameObject:
   - component: {fileID: 1851641672}
   - component: {fileID: 1851641675}
   - component: {fileID: 1851641674}
-  - component: {fileID: 1851641673}
+  - component: {fileID: 1851641676}
   m_Layer: 0
   m_Name: CH_GA_Wall_Brush_C_Hell
   m_TagString: Untagged
@@ -19757,24 +18596,6 @@ Transform:
   m_Father: {fileID: 612996261}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1851641673
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95669176848990658, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1851641671}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: c8c46e061a032e742b1c45243daa0020, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1851641674
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -19818,6 +18639,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1851641671}
   m_Mesh: {fileID: 4300000, guid: c8c46e061a032e742b1c45243daa0020, type: 3}
+--- !u!114 &1851641676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1851641671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6cc5f4bec045f04193616f67e93a408, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoneController: {fileID: 1955635918}
 --- !u!1001 &1865066183
 Prefab:
   m_ObjectHideFlags: 0
@@ -19857,7 +18690,8 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95539481049565378, guid: 1d0af27063d778546ad51429a7bff6b1, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 1d0af27063d778546ad51429a7bff6b1, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1866631912
@@ -19915,7 +18749,8 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95539481049565378, guid: 1d0af27063d778546ad51429a7bff6b1, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 1d0af27063d778546ad51429a7bff6b1, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &1883476934 stripped
@@ -19934,7 +18769,7 @@ GameObject:
   - component: {fileID: 1898379175}
   - component: {fileID: 1898379178}
   - component: {fileID: 1898379177}
-  - component: {fileID: 1898379176}
+  - component: {fileID: 1898379179}
   m_Layer: 0
   m_Name: CH_GA_Wall_Brush_B_Hell
   m_TagString: Untagged
@@ -19957,24 +18792,6 @@ Transform:
   m_Father: {fileID: 612996261}
   m_RootOrder: 39
   m_LocalEulerAnglesHint: {x: 0, y: 90.00001, z: 0}
---- !u!95 &1898379176
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95236864253767888, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1898379174}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: f66dd455dd010b54ead08be6a771417e, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1898379177
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -20018,6 +18835,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1898379174}
   m_Mesh: {fileID: 4300000, guid: f66dd455dd010b54ead08be6a771417e, type: 3}
+--- !u!114 &1898379179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1898379174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6cc5f4bec045f04193616f67e93a408, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoneController: {fileID: 1955635918}
 --- !u!1 &1899737100
 GameObject:
   m_ObjectHideFlags: 0
@@ -20029,7 +18858,6 @@ GameObject:
   - component: {fileID: 1899737101}
   - component: {fileID: 1899737106}
   - component: {fileID: 1899737105}
-  - component: {fileID: 1899737104}
   - component: {fileID: 1899737103}
   - component: {fileID: 1899737102}
   m_Layer: 10
@@ -20081,24 +18909,6 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 2da278abcff990044adcc2adbaf91de0, type: 3}
---- !u!95 &1899737104
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95156201943987766, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1899737100}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 2da278abcff990044adcc2adbaf91de0, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1899737105
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -20185,7 +18995,8 @@ Prefab:
       propertyPath: m_Name
       value: CH_GA_prop_StreetLight_Hell (19)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95032150847793770, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1907724378
@@ -20545,7 +19356,6 @@ GameObject:
   - component: {fileID: 1934853642}
   - component: {fileID: 1934853646}
   - component: {fileID: 1934853645}
-  - component: {fileID: 1934853644}
   - component: {fileID: 1934853643}
   m_Layer: 0
   m_Name: CH_GA_prop_Form_Brush_Hell
@@ -20581,24 +19391,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.2595068, y: 3.4889123, z: 1.5002079}
   m_Center: {x: 0.022178948, y: 1.7444562, z: -0.048219115}
---- !u!95 &1934853644
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95121592902447130, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1934853641}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 39ccb25dafecb774093820701b941830, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1934853645
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -20658,7 +19450,6 @@ GameObject:
   - component: {fileID: 1949912621}
   - component: {fileID: 1949912624}
   - component: {fileID: 1949912623}
-  - component: {fileID: 1949912622}
   m_Layer: 0
   m_Name: CH_GA_prop_Fountain_Walls_Hell
   m_TagString: Untagged
@@ -20681,24 +19472,6 @@ Transform:
   m_Father: {fileID: 612996261}
   m_RootOrder: 46
   m_LocalEulerAnglesHint: {x: 0, y: 45.000004, z: 0}
---- !u!95 &1949912622
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95164388291712368, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1949912620}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 1bbd716dd84069f49837fd26818c12be, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1949912623
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -21197,7 +19970,6 @@ GameObject:
   - component: {fileID: 1976949311}
   - component: {fileID: 1976949315}
   - component: {fileID: 1976949314}
-  - component: {fileID: 1976949313}
   - component: {fileID: 1976949312}
   m_Layer: 0
   m_Name: CH_GA_prop_Brush_Spider_Hell (1)
@@ -21233,24 +20005,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.4752197, y: 0.902974, z: 1.0427579}
   m_Center: {x: 0, y: 0.4456095, z: -0.038092807}
---- !u!95 &1976949313
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95447449104327792, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1976949310}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 66023b90a7861e542818ffd478979e0b, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1976949314
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -21395,7 +20149,6 @@ GameObject:
   - component: {fileID: 1988413025}
   - component: {fileID: 1988413029}
   - component: {fileID: 1988413028}
-  - component: {fileID: 1988413027}
   - component: {fileID: 1988413026}
   m_Layer: 0
   m_Name: CH_GA_prop_ghost_Hell (1)
@@ -21431,24 +20184,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.2826397, y: 1.7499207, z: 0.84416556}
   m_Center: {x: -0.0036251545, y: 0.8764903, z: 0.12484151}
---- !u!95 &1988413027
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95711579920138686, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1988413024}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: a23c88826ce4b1e4bb325eeb097ba945, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &1988413028
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -21625,7 +20360,8 @@ Prefab:
       propertyPath: m_Name
       value: CH_GA_Gargoyle_Hell (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95539481049565378, guid: 1d0af27063d778546ad51429a7bff6b1, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 1d0af27063d778546ad51429a7bff6b1, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &2016976028
@@ -21671,7 +20407,8 @@ Prefab:
       propertyPath: m_Name
       value: CH_GA_prop_StreetLight_Hell (4)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95032150847793770, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &2021265048
@@ -21836,7 +20573,6 @@ GameObject:
   - component: {fileID: 2026054813}
   - component: {fileID: 2026054817}
   - component: {fileID: 2026054816}
-  - component: {fileID: 2026054815}
   - component: {fileID: 2026054814}
   m_Layer: 0
   m_Name: CH_GA_prop_ghost_Hell (3)
@@ -21872,24 +20608,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.2826397, y: 1.7499207, z: 0.84416556}
   m_Center: {x: -0.0036251545, y: 0.8764903, z: 0.12484151}
---- !u!95 &2026054815
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95668912609269832, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2026054812}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: a23c88826ce4b1e4bb325eeb097ba945, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &2026054816
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -22173,7 +20891,6 @@ GameObject:
   - component: {fileID: 2035360652}
   - component: {fileID: 2035360656}
   - component: {fileID: 2035360655}
-  - component: {fileID: 2035360654}
   - component: {fileID: 2035360653}
   m_Layer: 0
   m_Name: CH_GA_prop_Brush_Skull_Hell (5)
@@ -22209,24 +20926,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0618793, y: 1.4995586, z: 1.1880301}
   m_Center: {x: -0.015299082, y: 0.7374224, z: -0.22929336}
---- !u!95 &2035360654
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95571762505357514, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2035360651}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 09e10a13ab75c92478b7290fb492bb8c, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &2035360655
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -22466,7 +21165,6 @@ GameObject:
   - component: {fileID: 2055801698}
   - component: {fileID: 2055801702}
   - component: {fileID: 2055801701}
-  - component: {fileID: 2055801700}
   - component: {fileID: 2055801699}
   m_Layer: 0
   m_Name: CH_GA_prop_Skull_Bust_Hell (3)
@@ -22502,24 +21200,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4435376, y: 1.2118398, z: 0.43827638}
   m_Center: {x: -0.018272705, y: 0.60869664, z: 0.01753737}
---- !u!95 &2055801700
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95775012460601250, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2055801697}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: bb7b5870673037f439d2d88572e26b01, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &2055801701
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -22663,7 +21343,6 @@ GameObject:
   - component: {fileID: 2064287404}
   - component: {fileID: 2064287408}
   - component: {fileID: 2064287407}
-  - component: {fileID: 2064287406}
   - component: {fileID: 2064287405}
   m_Layer: 0
   m_Name: CH_GA_prop_Form_Brush_Hell (2)
@@ -22699,24 +21378,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.2595068, y: 3.4889123, z: 1.5002079}
   m_Center: {x: 0.022178948, y: 1.7444562, z: -0.048219115}
---- !u!95 &2064287406
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95751160902154140, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2064287403}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 39ccb25dafecb774093820701b941830, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &2064287407
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -22903,7 +21564,6 @@ GameObject:
   - component: {fileID: 2078941571}
   - component: {fileID: 2078941575}
   - component: {fileID: 2078941574}
-  - component: {fileID: 2078941573}
   - component: {fileID: 2078941572}
   m_Layer: 0
   m_Name: CH_GA_prop_ghost_Hell (4)
@@ -22939,24 +21599,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.2826397, y: 1.7499207, z: 0.84416556}
   m_Center: {x: -0.0036251545, y: 0.8764903, z: 0.12484151}
---- !u!95 &2078941573
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95016563891709226, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2078941570}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: a23c88826ce4b1e4bb325eeb097ba945, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &2078941574
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -23155,7 +21797,6 @@ GameObject:
   - component: {fileID: 2105886716}
   - component: {fileID: 2105886719}
   - component: {fileID: 2105886718}
-  - component: {fileID: 2105886717}
   m_Layer: 0
   m_Name: CH_GA_prop_Walls_Hight_Hell
   m_TagString: Untagged
@@ -23178,24 +21819,6 @@ Transform:
   m_Father: {fileID: 612996261}
   m_RootOrder: 48
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &2105886717
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95306470087123802, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2105886715}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 05730bec5d51a744599f2c4baf7bebce, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &2105886718
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -23341,7 +21964,6 @@ GameObject:
   - component: {fileID: 2122262145}
   - component: {fileID: 2122262149}
   - component: {fileID: 2122262148}
-  - component: {fileID: 2122262147}
   - component: {fileID: 2122262146}
   m_Layer: 0
   m_Name: CH_GA_prop_Brush_Spider_Hell
@@ -23377,24 +21999,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.4752197, y: 0.902974, z: 1.0427579}
   m_Center: {x: 0, y: 0.4456095, z: -0.038092807}
---- !u!95 &2122262147
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95088212928550946, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2122262144}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 66023b90a7861e542818ffd478979e0b, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &2122262148
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -23482,7 +22086,8 @@ Prefab:
       propertyPath: m_Name
       value: CH_GA_prop_StreetLight_Hell (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95032150847793770, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &2130138861
@@ -23496,7 +22101,7 @@ GameObject:
   - component: {fileID: 2130138862}
   - component: {fileID: 2130138865}
   - component: {fileID: 2130138864}
-  - component: {fileID: 2130138863}
+  - component: {fileID: 2130138866}
   m_Layer: 0
   m_Name: CH_GA_Wall_Brush_A_Hell
   m_TagString: Untagged
@@ -23519,24 +22124,6 @@ Transform:
   m_Father: {fileID: 612996261}
   m_RootOrder: 71
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &2130138863
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95994862307685366, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2130138861}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 47e8a987198d53242a19f85a14f2d017, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &2130138864
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -23580,6 +22167,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2130138861}
   m_Mesh: {fileID: 4300000, guid: 47e8a987198d53242a19f85a14f2d017, type: 3}
+--- !u!114 &2130138866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2130138861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6cc5f4bec045f04193616f67e93a408, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoneController: {fileID: 1955635918}
 --- !u!1 &2136836593
 GameObject:
   m_ObjectHideFlags: 0
@@ -23680,7 +22279,6 @@ GameObject:
   - component: {fileID: 2142394392}
   - component: {fileID: 2142394396}
   - component: {fileID: 2142394395}
-  - component: {fileID: 2142394394}
   - component: {fileID: 2142394393}
   m_Layer: 0
   m_Name: CH_GA_prop_Plant_Rose_Hell
@@ -23716,24 +22314,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.612067, y: 2.3567746, z: 1.1530743}
   m_Center: {x: 0.00000014901161, y: 1.1886643, z: 0.09833799}
---- !u!95 &2142394394
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95714933380870208, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2142394391}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: fbae23ca98fd9b647a7905ef045f9dda, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &2142394395
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -23789,7 +22369,6 @@ GameObject:
   - component: {fileID: 2143084191}
   - component: {fileID: 2143084195}
   - component: {fileID: 2143084194}
-  - component: {fileID: 2143084193}
   - component: {fileID: 2143084192}
   m_Layer: 0
   m_Name: CH_GA_prop_Plant_Rose_Hell (1)
@@ -23825,24 +22404,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.612067, y: 2.3567746, z: 1.1530743}
   m_Center: {x: 0.00000014901161, y: 1.1886643, z: 0.09833799}
---- !u!95 &2143084193
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95958594652045450, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2143084190}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: fbae23ca98fd9b647a7905ef045f9dda, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &2143084194
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -23898,7 +22459,6 @@ GameObject:
   - component: {fileID: 2147303878}
   - component: {fileID: 2147303882}
   - component: {fileID: 2147303881}
-  - component: {fileID: 2147303880}
   - component: {fileID: 2147303879}
   m_Layer: 0
   m_Name: CH_GA_prop_Form_Brush_Hell (3)
@@ -23934,24 +22494,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.2595068, y: 3.4889123, z: 1.5002079}
   m_Center: {x: 0.022178948, y: 1.7444562, z: -0.048219115}
---- !u!95 &2147303880
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 95201846490525224, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2147303877}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 39ccb25dafecb774093820701b941830, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!23 &2147303881
 MeshRenderer:
   m_ObjectHideFlags: 0
