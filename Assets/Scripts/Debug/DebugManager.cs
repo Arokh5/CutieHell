@@ -284,6 +284,16 @@ public class DebugManager : MonoBehaviour {
             spawnController.RestartCurrentWave();
         }
 
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            player.GetComponent<Player>().SetEvilLevel(player.GetComponent<Player>().GetMaxEvilLevel());
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            player.GetComponent<Player>().SetEvilLevel(-player.GetComponent<Player>().GetEvilLevel());
+        }
+
         for (int i = 0; i < numberKeyCodes.Length; ++i)
         {
             if (Input.GetKeyDown(numberKeyCodes[i]))
