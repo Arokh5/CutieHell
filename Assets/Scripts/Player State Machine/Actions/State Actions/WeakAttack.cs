@@ -10,7 +10,7 @@ public class WeakAttack : StateAction
     public float attackCadency;
 
     [SerializeField]
-    private AudioClip attackSound;
+    private AudioClip attackSfx;
 
     public override void Act(Player player)
     {
@@ -46,7 +46,7 @@ public class WeakAttack : StateAction
         /* Shooting */
         if (InputManager.instance.GetR2Button() && player.timeSinceLastAttack >= attackCadency && !player.animatingAttack)
         {
-            SoundManager.instance.PlayEfxClip(attackSound, 1.5f);
+            SoundManager.instance.PlaySfxClip(attackSfx, 1.5f);
 
             if (raycastHit && hit.transform.GetComponent<AIEnemy>())
             {
