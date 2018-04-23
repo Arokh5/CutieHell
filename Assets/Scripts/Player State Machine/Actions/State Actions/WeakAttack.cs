@@ -9,9 +9,13 @@ public class WeakAttack : StateAction
     public float sphereCastRadius;
     public float attackCadency;
 
-    private const int enemiesToBadCombo = 5;
-    private const int badComboPenalty = -5;
-    private int badComboCount = 0;
+    [SerializeField]
+    private AudioClip attackSound;
+
+    [SerializeField]
+    private int enemiesToBadCombo;
+    [SerializeField]
+    private int badComboPenalty;
 
     public override void Act(Player player)
     {
@@ -47,17 +51,19 @@ public class WeakAttack : StateAction
         /* Shooting */
         if (InputManager.instance.GetR2Button() && player.timeSinceLastAttack >= attackCadency && !player.animatingAttack)
         {
+            SoundManager.instance.PlayEfxClip(attackSound, 1.5f);
+
             if (raycastHit && hit.transform.GetComponent<AIEnemy>())
             {
                 player.weakAttackTargetHitPoint = hit.point;
                 player.weakAttackTargetTransform = hit.transform;
-                badComboCount = 0;
+                GameManager.instance.badComboCount = 0;
             }
             else
             {
                 player.weakAttackTargetHitPoint = Vector3.zero;
                 player.weakAttackTargetTransform = null;
-                badComboCount++;
+                GameManager.instance.badComboCount++;
             }
             player.animator.SetTrigger("Attack");
             player.timeSinceLastAttack = 0f;
@@ -67,10 +73,10 @@ public class WeakAttack : StateAction
 
     private void CheckIfBadCombo(Player player)
     {
-        if (badComboCount == enemiesToBadCombo)
+        if (GameManager.instance.badComboCount == enemiesToBadCombo)
         {
             //Debug.Log("NOOB!!");
-            badComboCount = 0;
+            GameManager.instance.badComboCount = 0;
             player.SetEvilLevel(badComboPenalty);
             UIManager.instance.ShowComboText(UIManager.ComboTypes.BadCombo);
         }

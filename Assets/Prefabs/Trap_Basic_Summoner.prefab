@@ -72,6 +72,7 @@ GameObject:
   - component: {fileID: 95737173041485480}
   - component: {fileID: 114508264605746284}
   - component: {fileID: 136075088291189372}
+  - component: {fileID: 114242103779022558}
   m_Layer: 0
   m_Name: Trap_Basic_Summoner
   m_TagString: Traps
@@ -157,7 +158,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1536920626450404}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.05, y: 3.27, z: 31.4}
+  m_LocalPosition: {x: 0, y: 3.27, z: 31.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4364342566326418}
@@ -306,6 +307,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectionTrapCastPoint: {fileID: 4242454800972310}
   enemyProjectionTargetPoint: {fileID: 0}
+--- !u!114 &114242103779022558
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1536920626450404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f46665e59a96f6478156a2433bcb437, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundSprite: {fileID: 21300000, guid: d3c58b49547c9ba47a069e41c05d8981, type: 3}
+  logoSprite: {fileID: 21300000, guid: 2c6a7c5d889e06240948f1bc1a01c907, type: 3}
+  alertColor: {r: 0.9019608, g: 0.11764706, b: 0.15686275, a: 0}
+  iconImportance: -5
 --- !u!114 &114508264605746284
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -348,7 +364,7 @@ MonoBehaviour:
   seductiveTrapActiveArea: {fileID: 119126350225903084}
   seductiveProjection: {fileID: 1517466187262322, guid: 055b99f2e823eed4dbe6c189e286e09f,
     type: 2}
-  cooldownBetweenSeductiveProjections: 1
+  cooldownBetweenSeductiveProjections: 2
   firstProjection: 1
   camera: {fileID: 0}
 --- !u!119 &119126350225903084

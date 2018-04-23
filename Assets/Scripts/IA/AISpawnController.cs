@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class AISpawnController : MonoBehaviour
 {
-
     #region Fields
+
     [SerializeField]
     ScenarioController scenario;
-    [SerializeField]
+    public float firstWaveStartDelay = 0.0f;
+    public float nextWavesStartDelay = 10.0f;
     [ShowOnly]
+    [SerializeField]
     private float elapsedTime;
     [SerializeField]
     private int currentWaveIndex = -1;
@@ -25,10 +27,12 @@ public class AISpawnController : MonoBehaviour
     public Dictionary<EnemyType, AIEnemy> enemies;
 
     private bool validWavesInfo = true;
-    private bool waveRunning = false;
+    public static bool waveRunning = false;
+
     #endregion
 
     #region MonoBehaviour Methods
+
     private void Awake()
     {
         if (!scenario)
@@ -79,21 +83,59 @@ public class AISpawnController : MonoBehaviour
             }
         }
     }
+
     #endregion
 
     #region Public Methods
-    public bool StartNextWave()
+
+    public bool CanStartNextWave()
     {
-        ++currentWaveIndex;
-        if (validWavesInfo && currentWaveIndex < wavesInfo.Count)
+        if (validWavesInfo && currentWaveIndex < wavesInfo.Count - 1)
         {
-            waveRunning = true;
-            elapsedTime = 0;
+            ++currentWaveIndex;
+            elapsedTime = currentWaveIndex == 0 ? -firstWaveStartDelay : -nextWavesStartDelay;
             nextSpawnIndex = 0;
             return true;
         }
         else
             return false;
+    }
+
+    public bool ForceStartWave(int waveIndex)
+    {
+        if (validWavesInfo && waveIndex < wavesInfo.Count)
+        {
+            scenario.OnNewWaveStarted();
+            WaveFinished();
+
+            foreach (AISpawner spawner in aiSpawners)
+                spawner.ClearSpawnInfos();
+
+            currentWaveIndex = waveIndex;
+
+            waveRunning = true;
+            elapsedTime = 0;
+            nextSpawnIndex = 0;
+
+            return true;
+        }
+        return false;
+    }
+
+    public void WinCurrentWave()
+    {
+        if (waveRunning)
+        {
+            scenario.OnLastEnemySpawned();
+            WaveFinished();
+            foreach (AISpawner spawner in aiSpawners)
+                spawner.ClearSpawnInfos();
+        }
+    }
+
+    public void RestartCurrentWave()
+    {
+        ForceStartWave(currentWaveIndex);
     }
 
     public void StopWave()

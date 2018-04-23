@@ -44,11 +44,19 @@ public class ScenarioController : MonoBehaviour
 
     public void OnWaveTimeOver()
     {
-        /* Destroying all enemies of each zoneController will cause calls to OnZoneEmpty. the last call will trigger an GameManager::OnWaveWon */
+        bool onZoneEmptyCalled = false;
         foreach (AIZoneController zoneController in zoneControllers)
         {
-            zoneController.DestroyAllEnemies();
+            if (zoneController.HasEnemies())
+            {
+                zoneController.DestroyAllEnemies();
+                OnZoneEmpty();
+                onZoneEmptyCalled = true;
+            }
         }
+
+        if (!onZoneEmptyCalled)
+            CheckWaveWon();
     }
 
     public void OnNewWaveStarted()
@@ -79,6 +87,19 @@ public class ScenarioController : MonoBehaviour
     public void OnZoneEmpty()
     {
         --zonesWithEnemiesCount;
+        CheckWaveWon();
+    }
+
+    public void OnZoneNotEmpty()
+    {
+        ++zonesWithEnemiesCount;
+    }
+    #endregion
+
+    #region Private Methods
+
+    private void CheckWaveWon()
+    {
         if (lastSpawnIsOver && zonesWithEnemiesCount == 0)
         {
             spawnController.StopWave();
@@ -86,9 +107,5 @@ public class ScenarioController : MonoBehaviour
         }
     }
 
-    public void OnZoneNotEmpty()
-    {
-        ++zonesWithEnemiesCount;
-    }
     #endregion
 }

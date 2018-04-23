@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     private GameObject[] pauseButtons = new GameObject[2];
     private int pauseIndex = 0;
 
-    public enum GameStates { OnStartMenu, InGame, OnGameEnd, OnGamePaused };
+    public enum GameStates { OnStartMenu, InGame, OnWaveEnd, OnGameEnd, OnGamePaused };
     public GameStates gameState;
 
     [SerializeField]
@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour
 
     private GameObject crosshair;
     private Trap trapBeingUsed;
+
+    public int badComboCount;
 
     #endregion
 
@@ -49,12 +51,13 @@ public class GameManager : MonoBehaviour
         pauseButtons[0] = pauseMenu.transform.GetChild(1).gameObject; //RestartGameBtn
         pauseButtons[1] = pauseMenu.transform.GetChild(2).gameObject; //ExitTitleSreenBtn
         instance = this;
-        instance = this;
     }
 
     private void Start()
     {
-        aiSpawnController.StartNextWave();
+        ResetBadComboCount();
+        aiSpawnController.CanStartNextWave();
+        AISpawnController.waveRunning = true;
         scenarioController.OnNewWaveStarted();
         Debug.Log("Starting wave " + aiSpawnController.GetCurrentWaveIndex() + "!");
     }
@@ -74,7 +77,15 @@ public class GameManager : MonoBehaviour
                 }
                 break;
 
+            case GameStates.OnWaveEnd:
+                UIManager.instance.SetEnemiesKilledCount();
+                UIManager.instance.IncreaseEnemiesTimeCount();
+                GoToNextWave();
+                break;
+
             case GameStates.OnGameEnd:
+                UIManager.instance.SetEnemiesKilledCount();
+                UIManager.instance.IncreaseEnemiesTimeCount();
                 GoToTitleScreen();
                 break;
 
@@ -99,15 +110,26 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Wave " + aiSpawnController.GetCurrentWaveIndex() + " finished!");
 
-        if (aiSpawnController.StartNextWave())  
+        if (aiSpawnController.CanStartNextWave())  
         {
-            scenarioController.OnNewWaveStarted();
-            Debug.Log("Starting wave " + aiSpawnController.GetCurrentWaveIndex() + "!");
+            OnWaveEnd();
         }
         else
         {
             Debug.Log("No more waves available!");
             OnGameWon();
+        }
+    }
+
+    public void OnWaveEnd()
+    {
+        if (gameState == GameStates.InGame)
+        {
+            crosshair.SetActive(false);
+            gameOverPanel.SetActive(true);
+            UIManager.instance.ChangeWaveEndText("WAVE " + aiSpawnController.GetCurrentWaveIndex().ToString() + " SUCCEEDED");
+            UIManager.instance.ChangeEndBtnText("Go To Next Wave");
+            gameState = GameStates.OnWaveEnd;
         }
     }
 
@@ -117,8 +139,8 @@ public class GameManager : MonoBehaviour
         {
             crosshair.SetActive(false);
             gameOverPanel.SetActive(true);
-            gameOverPanel.transform.GetChild(1).GetComponent<Text>().text = "YOU WIN!";
-            UIManager.instance.SetEnemiesKilledCount();
+            UIManager.instance.ChangeWaveEndText("YOU WIN!");
+            UIManager.instance.ChangeEndBtnText("Go To Title Screen");
             gameState = GameStates.OnGameEnd;
         }
     }
@@ -129,8 +151,8 @@ public class GameManager : MonoBehaviour
         {
             crosshair.SetActive(false);
             gameOverPanel.SetActive(true);
-            gameOverPanel.transform.GetChild(1).GetComponent<Text>().text = "YOU LOSE!";
-            UIManager.instance.SetEnemiesKilledCount();
+            UIManager.instance.ChangeWaveEndText("YOU LOSE!");
+            UIManager.instance.ChangeEndBtnText("Go To Title Screen");
             gameState = GameStates.OnGameEnd;
         }
     }
@@ -178,6 +200,22 @@ public class GameManager : MonoBehaviour
         trapBeingUsed = trap;
     }
 
+    public void GoToNextWave()
+    {
+        if (InputManager.instance.GetXButtonDown())
+        {
+            crosshair.SetActive(true);
+            gameOverPanel.SetActive(false);
+            StatsManager.instance.ResetKillCounts();
+            UIManager.instance.ResetEnemiesCounters();
+            ResetBadComboCount();
+            AISpawnController.waveRunning = true;
+            scenarioController.OnNewWaveStarted();
+            gameState = GameStates.InGame;
+            Debug.Log("Starting wave " + aiSpawnController.GetCurrentWaveIndex() + "!");
+        }
+    }
+
     public void GoToTitleScreen()
     {
         if (InputManager.instance.GetXButtonDown() || gameIsPaused)
@@ -199,6 +237,12 @@ public class GameManager : MonoBehaviour
     {
         crosshair.SetActive(activate);
     }
+
+    public void ResetBadComboCount()
+    {
+        badComboCount = 0;
+    }
+
     #endregion
 
     #region Private Methods

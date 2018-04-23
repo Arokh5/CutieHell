@@ -10,9 +10,10 @@ public class UICompass : MonoBehaviour
     public CompassAlert leftLight;
     public CompassAlert rightLight;
     public CompassIcon compassIconPrefab;
+    public RectTransform compassIconsParent;
     [Range(60, 180)]
     public float fovDegrees = 90.0f;
-    public float minDistanceToDisplayIcon = 5.0f;
+    public float maxDistanceBeforeSnap = 5.0f;
     [Header("Compass Icons config")]
     public float alertDuration = 2.0f;
     [Range(1.0f, 5.0f)]
@@ -25,8 +26,13 @@ public class UICompass : MonoBehaviour
     private RectTransform rectTransform;
     private Dictionary<CompassIconOwner, CompassIcon> compassIcons = new Dictionary<CompassIconOwner, CompassIcon>();
     private Vector2 size;
-    private int leftLightRequests = 0;
-    private int rightLightRequests = 0;
+    private bool leftLightOn = false;
+    private int leftLightHighestImportance = int.MinValue;
+    private Color leftLightColor = Color.white;
+    private bool rightLightOn = false;
+    private int rightLightHighestImportance = int.MinValue;
+    private Color rightLightColor = Color.white;
+
     #endregion
 
     #region MonoBehaviour Methods
@@ -43,8 +49,10 @@ public class UICompass : MonoBehaviour
 
     private void Update()
     {
-        leftLightRequests = 0;
-        rightLightRequests = 0;
+        leftLightOn = false;
+        leftLightHighestImportance = int.MinValue;
+        rightLightOn = false;
+        rightLightHighestImportance = int.MinValue;
         UpdateIcons();
         UpdateLights();
     }
@@ -53,14 +61,21 @@ public class UICompass : MonoBehaviour
     #region Public Methods
     public void Register(CompassIconOwner owner)
     {
-        CompassIcon newIcon = Instantiate(compassIconPrefab, gameObject.transform, false);
+        CompassIcon newIcon = Instantiate(compassIconPrefab, compassIconsParent, false);
         newIcon.alertDuration = alertDuration;
         newIcon.alertFrequency = alertFrequency;
         newIcon.blurGrowthPercent = blurGrowthPercent;
         newIcon.imageShrinkPercent = imageShrinkPercent;
-        newIcon.SetImage(owner.iconSprite);
+        newIcon.SetBackground(owner.backgroundSprite);
+        newIcon.SetLogo(owner.logoSprite);
         newIcon.TurnOff();
         compassIcons[owner] = newIcon;
+    }
+
+    public void SetCompassIconFill(CompassIconOwner owner, float normalizedFillAmount)
+    {
+        CompassIcon compassIcon = compassIcons[owner];
+        compassIcon.SetFill(normalizedFillAmount);
     }
 
     public void SetAlertForIcon(CompassIconOwner owner)
@@ -80,8 +95,14 @@ public class UICompass : MonoBehaviour
 
             Vector3 referenceToIconV3 = owner.transform.position - referenceTransform.position;
             Vector2 referenceToIcon = new Vector2(referenceToIconV3.x, referenceToIconV3.z);
-            if (referenceToIcon.sqrMagnitude > minDistanceToDisplayIcon * minDistanceToDisplayIcon)
+            if (referenceToIcon.sqrMagnitude < maxDistanceBeforeSnap * maxDistanceBeforeSnap)
             {
+                compassIcon.TurnOn();
+                compassIcon.localPosition = Vector3.zero;
+                compassIcon.rectTransform.SetSiblingIndex(compassIcons.Count - 1);
+            }
+            else
+            { 
                 float angle = -Vector2.SignedAngle(referenceForward, referenceToIcon);
 
                 if (Mathf.Abs(angle) > 0.5f * fovDegrees)
@@ -90,9 +111,24 @@ public class UICompass : MonoBehaviour
                     if (compassIcon.alertTimeLeft > 0)
                     {
                         if (angle < 0)
-                            ++leftLightRequests;
+                        {
+                            leftLightOn = true;
+                            if (owner.iconImportance > leftLightHighestImportance)
+                            {
+                                leftLightHighestImportance = owner.iconImportance;
+                                leftLightColor = owner.alertColor;
+                            }
+
+                        }
                         else
-                            ++rightLightRequests;
+                        {
+                            rightLightOn = true;
+                            if (owner.iconImportance > rightLightHighestImportance)
+                            {
+                                rightLightHighestImportance = owner.iconImportance;
+                                rightLightColor = owner.alertColor;
+                            }
+                        }
                     }
                 }
                 else
@@ -102,20 +138,24 @@ public class UICompass : MonoBehaviour
                     compassIcon.localPosition = xPos * Vector3.right;
                 }
             }
-            else
-                compassIcon.TurnOff();
         }
     }
 
     private void UpdateLights()
     {
-        if (leftLightRequests > 0)
+        if (leftLightOn)
+        {
+            leftLight.SetColor(leftLightColor);
             leftLight.TurnOn();
+        }
         else
             leftLight.TurnOff();
 
-        if (rightLightRequests > 0)
+        if (rightLightOn)
+        {
+            rightLight.SetColor(rightLightColor);
             rightLight.TurnOn();
+        }
         else
             rightLight.TurnOff();
     }

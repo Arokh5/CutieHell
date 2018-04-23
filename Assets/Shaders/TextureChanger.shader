@@ -30,7 +30,7 @@
 		int _ActiveEnemies = 0;
 		int _BuildingsCount = 0;
 		float4 _AiPositions[128];
-		float _AiEffectRadius[128];
+		float _BuildingsBlendStartRadius[8];
 
 		fixed4 _Color;
 		float _BlendRadius;
@@ -67,15 +67,16 @@
 			// Albedo comes from a texture tinted by color
 			float finalLerpFactor = 1;
 			bool inEffectRadius = false;
-			
-			for (int i = 0; i < _BuildingsCount + _ActiveEnemies; ++i)
+			int totalElements = _BuildingsCount + _ActiveEnemies;
+
+			for (int i = 0; i < totalElements; ++i)
 			{
 				float distanceToEnemy = distance(IN.worldPos.xyz, _AiPositions[i].xyz);
-				if (distanceToEnemy < _AiEffectRadius[i])
+				if (distanceToEnemy < _AiPositions[i].w)
 				{
 					inEffectRadius = true;
-					float inPct = distanceToEnemy / _AiEffectRadius[i];
-					float blendRadius = i < _BuildingsCount ? _AiPositions[i].w : _BlendRadius;
+					float inPct = distanceToEnemy / _AiPositions[i].w;
+					float blendRadius = i < _BuildingsCount ? _BuildingsBlendStartRadius[i] : _BlendRadius;
 					float lerpFactor = (inPct - blendRadius) / (1 - blendRadius);
 					if (lerpFactor < finalLerpFactor)
 						finalLerpFactor = lerpFactor;

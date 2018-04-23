@@ -20,11 +20,7 @@ public class UIManager : MonoBehaviour
     private Text waveNumberText;
 
     [SerializeField]
-    private RadialProgressBar waveRadialProgressBar;
-    [SerializeField]
-    private List<RadialProgressBar> monumentsRadialProgressBars;
-    [SerializeField]
-    private List<RadialProgressBar> zone1TrapsRadialProgressBars;
+    private WaveTimer waveRadialProgressBar;
 
     [SerializeField]
     private GameObject strongCombo;
@@ -35,9 +31,15 @@ public class UIManager : MonoBehaviour
     private Vector3 badComboOriginalScale;
     private Color badComboOriginalColor;
 
+    [Header("Repair and Use panels")]
+    public Color lockedPanelTintColor = Color.red;
     [SerializeField]
-    private GameObject repairTrapText;
-
+    private float distanceBetweenPopUps = 500.0f;
+    [SerializeField]
+    private Image repairText;
+    [SerializeField]
+    private Image useText;
+        
     private float strongComboscaleModifier;
     private float strongComboColorModifier;
     [SerializeField]
@@ -59,6 +61,28 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Text conquerorEnemies;
 
+    [SerializeField]
+    private Text waveEndText;
+    [SerializeField]
+    private Text endBtnText;
+
+    [SerializeField]
+    private AudioClip coinEfx;
+
+    private const float enemiesCountVel = 0.15f;
+
+    private float basicEnemiesPrevTimeCount;
+    private float basicEnemiesTimeCount;
+    private int basicEnemiesCounter;
+
+    private float rangeEnemiesPrevTimeCount;
+    private float rangeEnemiesTimeCount;
+    private int rangeEnemiesCounter;
+
+    private float conquerorEnemiesPrevTimeCount;
+    private float conquerorEnemiesTimeCount;
+    private int conquerorEnemiesCounter;
+
     #endregion
 
     #region Properties
@@ -79,6 +103,7 @@ public class UIManager : MonoBehaviour
         strongComboColorModifier = 0f;
         badComboscaleModifier = 0f;
         badComboColorModifier = 0f;
+        ResetEnemiesCounters();
     }
 
     private void Update()
@@ -92,6 +117,17 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #region Public Methods
+
+    public void ChangeWaveEndText(string text)
+    {
+        waveEndText.text = text;
+    }
+
+    public void ChangeEndBtnText(string text)
+    {
+        endBtnText.text = text;
+    }
+
     // Called by Player when using or earning Evil Points
     public void SetEvilBarValue(int value)
     {
@@ -109,22 +145,6 @@ public class UIManager : MonoBehaviour
     {
         Debug.LogError("NOT IMPLEMENTED:UIManager::ZoneConnectionOpened");
     }
-    // Called by Trap to update its remaining health
-    public void SetTrapConquerRate(int zoneID, int trapID, float normalizedConquerRate)
-    {
-        if (zoneID == 0)
-        {
-            RadialProgressBar progressBar = zone1TrapsRadialProgressBars[trapID];
-            progressBar.SetNormalizedAmount(normalizedConquerRate);
-        }
-    }
-
-    // Called by Trap to update its remaining health
-    public void SetMonumentConquerRate(int zoneID, float normalizedConquerdRate)
-    {
-        RadialProgressBar progressBar = monumentsRadialProgressBars[zoneID];
-        progressBar.SetNormalizedAmount(normalizedConquerdRate);
-    }
 
     // Called by AISpawnController to move the Wave indicator forward
     public void SetWaveNumberAndProgress(int waveNumber, float normalizedProgress)
@@ -132,19 +152,49 @@ public class UIManager : MonoBehaviour
         if (currentWaveNumber != waveNumber)
         {
             currentWaveNumber = waveNumber;
-            waveNumberText.text = "Wave: " + currentWaveNumber;
+            waveNumberText.text = currentWaveNumber.ToString();
         }
         waveRadialProgressBar.SetNormalizedAmount(normalizedProgress);
     }
 
-    public void ShowRepairTrapText()
+    public void ShowRepairText()
     {
-        repairTrapText.SetActive(true);
+        repairText.color = Color.white;
+        repairText.gameObject.SetActive(true);
+        UpdatePopUpsPosition();
     }
 
-    public void HideRepairTrapText()
+    public void ShowLockedRepairText()
     {
-        repairTrapText.SetActive(false);
+        repairText.color = lockedPanelTintColor;
+        repairText.gameObject.SetActive(true);
+        UpdatePopUpsPosition();
+    }
+
+    public void HideRepairText()
+    {
+        repairText.gameObject.SetActive(false);
+        UpdatePopUpsPosition();
+    }
+
+    public void ShowUseText()
+    {
+        useText.color = Color.white;
+        useText.gameObject.SetActive(true);
+        UpdatePopUpsPosition();
+    }
+
+    public void ShowLockedUseText()
+    {
+        useText.color = lockedPanelTintColor;
+        useText.gameObject.SetActive(true);
+        UpdatePopUpsPosition();
+    }
+
+    public void HideUseText()
+    {
+        useText.gameObject.SetActive(false);
+        UpdatePopUpsPosition();
     }
 
     public void ShowComboText(ComboTypes comboType)
@@ -165,14 +215,100 @@ public class UIManager : MonoBehaviour
 
     public void SetEnemiesKilledCount()
     {
-        basicEnemies.text = "Basic: " + StatsManager.instance.GetBasicEnemiesKilled().ToString();
-        rangeEnemies.text = "Range: " + StatsManager.instance.GetRangeEnemiesKilled().ToString();
-        conquerorEnemies.text = "Conqueror: " + StatsManager.instance.GetConquerorEnemiesKilled().ToString();
+        if (basicEnemiesTimeCount - basicEnemiesPrevTimeCount >= enemiesCountVel)
+        {
+            if (basicEnemiesCounter < StatsManager.instance.GetBasicEnemiesKilled())
+            {
+                SoundManager.instance.PlayEfxClip(coinEfx);
+                basicEnemiesCounter++;
+                basicEnemies.text = "Basic: " + basicEnemiesCounter.ToString();
+                basicEnemiesPrevTimeCount = basicEnemiesTimeCount;
+            }
+        }
+
+        if (rangeEnemiesTimeCount - rangeEnemiesPrevTimeCount >= enemiesCountVel)
+        {
+            if (rangeEnemiesCounter < StatsManager.instance.GetRangeEnemiesKilled())
+            {
+                SoundManager.instance.PlayEfxClip(coinEfx);
+                rangeEnemiesCounter++;
+                rangeEnemies.text = "Range: " + rangeEnemiesCounter.ToString();
+                rangeEnemiesPrevTimeCount = rangeEnemiesTimeCount;
+            }
+        }
+
+        if (conquerorEnemiesTimeCount - conquerorEnemiesPrevTimeCount >= enemiesCountVel)
+        {
+            if (conquerorEnemiesCounter < StatsManager.instance.GetConquerorEnemiesKilled())
+            {
+                SoundManager.instance.PlayEfxClip(coinEfx);
+                conquerorEnemiesCounter++;
+                conquerorEnemies.text = "Conqueror: " + conquerorEnemiesCounter.ToString();
+                conquerorEnemiesPrevTimeCount = conquerorEnemiesTimeCount;
+            }
+        }
+    }
+
+    public void ResetEnemiesCounters()
+    {
+        basicEnemiesTimeCount = enemiesCountVel;
+        basicEnemiesPrevTimeCount = 0f;
+        basicEnemiesCounter = 0;
+
+        rangeEnemiesTimeCount = enemiesCountVel;
+        rangeEnemiesPrevTimeCount = 0f;
+        rangeEnemiesCounter = 0;
+
+        conquerorEnemiesTimeCount = enemiesCountVel;
+        conquerorEnemiesPrevTimeCount = 0f;
+        conquerorEnemiesCounter = 0;
+    }
+
+    public void IncreaseEnemiesTimeCount()
+    {
+        IncreaseBasicEnemiesTimeCount();
+        IncreaseRangeEnemiesTimeCount();
+        IncreaseConquerorEnemiesTimeCount();
     }
 
     #endregion
 
     #region Private Methods
+
+    private void UpdatePopUpsPosition()
+    {
+        if (useText.IsActive() && repairText.IsActive())
+        {
+            SetLocalXPos(useText.rectTransform, -0.5f * distanceBetweenPopUps);
+            SetLocalXPos(repairText.rectTransform, 0.5f * distanceBetweenPopUps);
+        }
+        else if (useText.IsActive())
+            SetLocalXPos(useText.rectTransform, 0);
+        else if (repairText.IsActive())
+            SetLocalXPos(repairText.rectTransform, 0);
+    }
+
+    private void SetLocalXPos(RectTransform rectTransform, float xValue)
+    {
+        Vector3 refPos = rectTransform.localPosition;
+        refPos.x = xValue;
+        rectTransform.localPosition = refPos;
+    }
+
+    private void IncreaseBasicEnemiesTimeCount()
+    {
+        basicEnemiesTimeCount += Time.deltaTime;
+    }
+
+    private void IncreaseRangeEnemiesTimeCount()
+    {
+        rangeEnemiesTimeCount += Time.deltaTime;
+    }
+
+    private void IncreaseConquerorEnemiesTimeCount()
+    {
+        conquerorEnemiesTimeCount += Time.deltaTime;
+    }
 
     private void ComboFx()
     {

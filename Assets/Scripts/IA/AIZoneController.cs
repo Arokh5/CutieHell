@@ -22,9 +22,12 @@ public class AIZoneController : MonoBehaviour
     public List<Building> buildings;
 
     // Properties used to draw an alternate texture in the proximity of enemies
+    private int maxElements = 128; // IMPORTANT: This number must be reflected in the TextureChanger.shader file
+    private int maxBuildings = 8; // IMPORTANT: This number must be reflected in the TextureChanger.shader file
     private Vector4[] aiPositions;
-    private float[] aiEffectRadius;
+    private float[] buildingsBlendStartRadius;
     private int activeEnemies = 0;
+
 
     #endregion
 
@@ -34,13 +37,14 @@ public class AIZoneController : MonoBehaviour
         if (!scenario)
         {
             scenario = GetComponentInParent<ScenarioController>();
-            UnityEngine.Assertions.Assert.IsNotNull(scenario, "Error: Scenario not set for AIZoneController in gameObject '" + gameObject.name + "'");
+            UnityEngine.Assertions.Assert.IsNotNull(scenario, "ERROR: Scenario not set for AIZoneController in gameObject '" + gameObject.name + "'");
         }
 
-        UnityEngine.Assertions.Assert.IsNotNull(monument, "Error: monument not set for AIZoneController in gameObject '" + gameObject.name + "'");
+        UnityEngine.Assertions.Assert.IsNotNull(monument, "ERROR: monument not set for AIZoneController in gameObject '" + gameObject.name + "'");
+        UnityEngine.Assertions.Assert.IsTrue(buildings.Count < maxBuildings, "ERROR: The amount of buildings is larger than the maximum amount of building accepted by the TextureChanger shader. The behaviour of the shader will be undefined!");
         currentZoneTarget = monument;
-        aiPositions = new Vector4[128];
-        aiEffectRadius = new float[128];
+        aiPositions = new Vector4[maxElements];
+        buildingsBlendStartRadius = new float[maxBuildings];
     }
 
     private void Update()
@@ -63,16 +67,17 @@ public class AIZoneController : MonoBehaviour
         activeEnemies = 0;
 
         /* Shader data update */
-        for (int i = 0; i < buildings.Count + aiEnemies.Count && i < 128; ++i)
+        for (int i = 0; i < buildings.Count + aiEnemies.Count && i < maxElements; ++i)
         {
             if (i < buildings.Count)
             {
                 aiPositions[i].x = buildings[i].transform.position.x;
                 aiPositions[i].y = buildings[i].transform.position.y;
                 aiPositions[i].z = buildings[i].transform.position.z;
-                /* The w component is used to pass the blendStartRadius of the building */
-                aiPositions[i].w = buildings[i].GetBlendRadius();
-                aiEffectRadius[i] = buildings[i].effectOnMapRadius;
+                /* The w component is used to pass the effectOnMapRadius of the building */
+                aiPositions[i].w = buildings[i].effectOnMapRadius;
+                
+                buildingsBlendStartRadius[i] = buildings[i].GetBlendRadius();
             }
             else
             {
@@ -81,8 +86,7 @@ public class AIZoneController : MonoBehaviour
                     aiPositions[i - skippedEnemies].x = aiEnemies[i - buildings.Count].transform.position.x;
                     aiPositions[i - skippedEnemies].y = aiEnemies[i - buildings.Count].transform.position.y;
                     aiPositions[i - skippedEnemies].z = aiEnemies[i - buildings.Count].transform.position.z;
-                    aiPositions[i - skippedEnemies].w = 0.0f;
-                    aiEffectRadius[i - skippedEnemies] = aiEnemies[i - buildings.Count].effectOnMapRadius;
+                    aiPositions[i - skippedEnemies].w = aiEnemies[i - buildings.Count].effectOnMapRadius;
                     ++activeEnemies;
                 }
                 else ++skippedEnemies;
@@ -97,7 +101,7 @@ public class AIZoneController : MonoBehaviour
         material.SetInt("_ActiveEnemies", activeEnemies);
         material.SetInt("_BuildingsCount", buildings.Count);
         material.SetVectorArray("_AiPositions", aiPositions);
-        material.SetFloatArray("_AiEffectRadius", aiEffectRadius);
+        material.SetFloatArray("_BuildingsBlendStartRadius", buildingsBlendStartRadius);
     }
 
     // Called by Buildings to obtain zoneId
@@ -107,7 +111,7 @@ public class AIZoneController : MonoBehaviour
     }
 
     // Called by Monument when it gets repaired
-    public void OnMonumentRepaired()
+    public void OnMonumentRetaken()
     {
         Debug.LogError("NOT IMPLEMENTED: AIZoneController::OnMonumentRepaired");
         scenario.OnZoneRecovered();
@@ -175,6 +179,11 @@ public class AIZoneController : MonoBehaviour
         return removed;
     }
 
+    public bool HasEnemies()
+    {
+        return aiEnemies.Count > 0;
+    }
+
     public void DestroyAllEnemies()
     {
         foreach (AIEnemy aiEnemy in aiEnemies)
@@ -182,7 +191,6 @@ public class AIZoneController : MonoBehaviour
             Destroy(aiEnemy.gameObject);
         }
         aiEnemies.Clear();
-        scenario.OnZoneEmpty();
     }
 
     public void AddEnemyProjection(EnemyProjection enemyProjection)

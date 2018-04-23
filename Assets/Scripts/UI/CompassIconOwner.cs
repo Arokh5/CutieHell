@@ -5,7 +5,15 @@ using UnityEngine;
 public class CompassIconOwner : MonoBehaviour {
 
     #region Fields
-    public Sprite iconSprite;
+    [Tooltip("The sprite used for this GameObject;s background in the compass")]
+    public Sprite backgroundSprite;
+    [Tooltip("The sprite used for this GameObject;s logo in the compass")]
+    public Sprite logoSprite;
+    [Tooltip("The color that the alert light displays when this GameObject is in alert state but falls outside of the compass range")]
+    public Color alertColor;
+    [Tooltip("If more than one icon is in alert state and falls outside of the compass range (on the same side)," +
+        "then the one with the highest importance takes preference and decides the light color")]
+    public int iconImportance = 0;
     #endregion
 
     #region MonoBehaviour Methods

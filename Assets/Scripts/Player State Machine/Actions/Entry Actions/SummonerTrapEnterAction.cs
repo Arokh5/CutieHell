@@ -5,21 +5,26 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Player State Machine/Actions/SummonerTrapEnterAction")]
 public class SummonerTrapEnterAction : StateAction
 {
-    public Camera camera;
-    public SummonerTrap summonerTrap;
-
     public override void Act(Player player)
     {
-        UIManager.instance.HideRepairTrapText();
         player.currentTrap = player.nearbyTrap;
         player.currentTrap.Activate(player);
         player.SetRenderersVisibility(false);
+        player.SetEvilLevel(player.currentTrap.usageCost);
 
-        summonerTrap = player.currentTrap.GetComponent<SummonerTrap>();
+        SummonerTrap summonerTrap = player.currentTrap.GetComponent<SummonerTrap>();
+        summonerTrap.trapBasicSummonerEyes.transform.rotation = Quaternion.Euler(summonerTrap.trapBasicSummonerEyes.transform.rotation.x,
+           player.mainCamera.transform.rotation.eulerAngles.y,
+           summonerTrap.trapBasicSummonerEyes.transform.rotation.z);
         player.mainCamera.transform.position = summonerTrap.trapBasicSummonerEyes.transform.position;
         summonerTrap.trapBasicSummonerBeam.gameObject.SetActive(true);
         summonerTrap.seductiveTrapActiveArea.gameObject.SetActive(true);
         summonerTrap.firstProjection = true;
         summonerTrap.InstantiateSeductiveEnemyProjection();
+
+        if (player.evilLevel <= summonerTrap.summonCost)
+        {
+            summonerTrap.ChangeCurrentSummoningStatus(SummonerTrap.SummoningStatus.InsufficientEvil);
+        }
     }
 }

@@ -399,7 +399,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4269728243133256}
   - component: {fileID: 33031399085674488}
-  - component: {fileID: 95434171238879272}
   - component: {fileID: 183519341441712350}
   - component: {fileID: 137922503858195014}
   m_Layer: 0
@@ -2424,23 +2423,6 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: d2068ef73ad9600438da2b3398d2128a, type: 3}
---- !u!95 &95434171238879272
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1329268659391382}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 94e0d7530f20e4d40a089074ede4bf0f, type: 3}
-  m_Controller: {fileID: 9100000, guid: 4b39cd17d809305499d36b9109ec61da, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &95838316095254996
 Animator:
   serializedVersion: 3
@@ -2502,19 +2484,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 5
   acceleration: 30
-  centerTeleportPoint: {fileID: 4484810682184834, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
-  statueTeleportPoint: {fileID: 4308265177092768, guid: 235f19784349b7f40aba293d79512be7,
-    type: 2}
+  centerTeleportPoint: {fileID: 0}
+  statueTeleportPoint: {fileID: 0}
   footSteps: {fileID: 1627844250683504}
   maxEvilLevel: 50
   evilLevel: 0
   rb: {fileID: 0}
   initialBulletSpawnPointPos: {x: 0, y: 0, z: 0}
   timeSinceLastTrapUse: 0
-  renderers: []
   animator: {fileID: 0}
   bulletSpawnPoint: {fileID: 4654924135499766}
+  monument: {fileID: 0}
   allTraps: []
   nearbyTrap: {fileID: 0}
   currentTrap: {fileID: 0}

@@ -165,6 +165,7 @@ public class CameraController : MonoBehaviour {
                         {
                             this.transform.rotation = Quaternion.LookRotation(summonedProjectionToFollow.transform.position - this.transform.position);
                         }
+                        SetPlayerDirection(this.transform.rotation.eulerAngles.y);
                     }
                     break;
                 case Player.CameraState.ZOOMOUT:
