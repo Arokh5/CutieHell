@@ -10,12 +10,7 @@ public class WeakAttack : StateAction
     public float attackCadency;
 
     [SerializeField]
-    private AudioClip attackSound;
-
-    [SerializeField]
-    private int enemiesToBadCombo;
-    [SerializeField]
-    private int badComboPenalty;
+    private AudioClip attackSfx;
 
     public override void Act(Player player)
     {
@@ -51,34 +46,20 @@ public class WeakAttack : StateAction
         /* Shooting */
         if (InputManager.instance.GetR2Button() && player.timeSinceLastAttack >= attackCadency && !player.animatingAttack)
         {
-            SoundManager.instance.PlayEfxClip(attackSound, 1.5f);
+            SoundManager.instance.PlaySfxClip(attackSfx, 1.5f);
 
             if (raycastHit && hit.transform.GetComponent<AIEnemy>())
             {
                 player.weakAttackTargetHitPoint = hit.point;
                 player.weakAttackTargetTransform = hit.transform;
-                GameManager.instance.badComboCount = 0;
             }
             else
             {
                 player.weakAttackTargetHitPoint = Vector3.zero;
                 player.weakAttackTargetTransform = null;
-                GameManager.instance.badComboCount++;
             }
             player.animator.SetTrigger("Attack");
             player.timeSinceLastAttack = 0f;
-            CheckIfBadCombo(player);
-        }
-    }
-
-    private void CheckIfBadCombo(Player player)
-    {
-        if (GameManager.instance.badComboCount == enemiesToBadCombo)
-        {
-            //Debug.Log("NOOB!!");
-            GameManager.instance.badComboCount = 0;
-            player.SetEvilLevel(badComboPenalty);
-            UIManager.instance.ShowComboText(UIManager.ComboTypes.BadCombo);
         }
     }
 }

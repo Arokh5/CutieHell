@@ -11,7 +11,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField]
     private AudioSource musicSource;
     [SerializeField]
-    private AudioSource efxSource;
+    private AudioSource sfxSource;
 
 	#endregion
 	
@@ -33,11 +33,11 @@ public class SoundManager : MonoBehaviour
         musicSource.Play();
     }
 
-    public void PlayEfxClip(AudioClip efxClip, float pitch = 1f)
+    public void PlaySfxClip(AudioClip efxClip, float pitch = 1f)
     {
-        efxSource.clip = efxClip;
-        efxSource.pitch = pitch;
-        efxSource.Play();
+        sfxSource.clip = efxClip;
+        sfxSource.pitch = pitch;
+        sfxSource.Play();
     }
 
     #endregion

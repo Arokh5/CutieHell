@@ -4,6 +4,8 @@ public class FollowTarget : MonoBehaviour
 {
     #region Fields
 
+    public AttackType attackType;
+    public LayerMask hitLayerMask;
     [SerializeField]
     private float attackSpeed;
     [SerializeField]
@@ -49,21 +51,27 @@ public class FollowTarget : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform == enemy)
+        if ((1 << other.gameObject.layer & hitLayerMask) != 0)
         {
-            other.GetComponent<AIEnemy>().TakeDamage(damage, AttackType.WEAK);
+            AIEnemy enemyHit = other.GetComponent<AIEnemy>();
+            if (enemyHit)
+            {
+                StatsManager.instance.RegisterWeakAttackHit();
+                enemyHit.TakeDamage(damage, AttackType.WEAK);
+                Destroy(gameObject);
+            }
+            else if (attackType != AttackType.TRAP_BASIC)
+            {
+                StatsManager.instance.RegisterWeakAttackMissed();
+            }
             Destroy(gameObject);
         }
     }
 
-	#endregion
-	
-	#region Public Methods
-	
-	#endregion
-	
-	#region Private Methods
-	
+    #endregion
+
+    #region Private Methods
+
     private void SetOrbDirection()
     {
         if (enemy != null)
@@ -91,6 +99,7 @@ public class FollowTarget : MonoBehaviour
 
         if (time >= lifeTime)
         {
+            StatsManager.instance.RegisterWeakAttackMissed();
             Destroy(gameObject);
         }
     }
