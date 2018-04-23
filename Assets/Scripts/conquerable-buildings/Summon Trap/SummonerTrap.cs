@@ -80,6 +80,7 @@ public class SummonerTrap : Trap
                 nonLandedProjection.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
                 break;
             case SummoningStatus.CoolDown:
+                nonLandedProjection.GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
                 break;
             case SummoningStatus.InsufficientEvil:
                 nonLandedProjection.GetComponent<Renderer>().material.SetColor("_Color", Color.red);

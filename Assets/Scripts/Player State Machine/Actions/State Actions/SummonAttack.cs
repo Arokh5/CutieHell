@@ -18,12 +18,20 @@ public class SummonAttack : StateAction
         FocusSeductiveAttack(player);
         seductiveLastLaunchedTime += Time.deltaTime;
 
-        if (summonerTrap.currentSummoningStatus == SummonerTrap.SummoningStatus.InsufficientEvil)
+        switch(summonerTrap.currentSummoningStatus)
         {
-            if (player.evilLevel >= summonerTrap.summonCost)
-            {
-                summonerTrap.ChangeCurrentSummoningStatus(SummonerTrap.SummoningStatus.Available);
-            }
+            case SummonerTrap.SummoningStatus.InsufficientEvil:
+                if (player.evilLevel >= summonerTrap.summonCost)
+                {
+                    summonerTrap.ChangeCurrentSummoningStatus(SummonerTrap.SummoningStatus.Available);
+                }
+                break;
+            case SummonerTrap.SummoningStatus.CoolDown:
+                if (seductiveLastLaunchedTime >= summonerTrap.cooldownBetweenSeductiveProjections)
+                {
+                    summonerTrap.ChangeCurrentSummoningStatus(SummonerTrap.SummoningStatus.Available);
+                }
+                break;
         }
     }
 
@@ -31,7 +39,7 @@ public class SummonAttack : StateAction
     {
         if (InputManager.instance.GetR2ButtonDown())
         {
-            if (player.evilLevel >= summonerTrap.summonCost && seductiveLastLaunchedTime >= summonerTrap.cooldownBetweenSeductiveProjections || summonerTrap.GetLandedEnemyProjectionsCount() == 0)
+            if (summonerTrap.currentSummoningStatus == SummonerTrap.SummoningStatus.Available)
             {
                 summonerTrap.LandSeductiveEnemyProjection();
                 summonerTrap.InstantiateSeductiveEnemyProjection();
@@ -41,6 +49,10 @@ public class SummonAttack : StateAction
                 if (player.evilLevel < summonerTrap.summonCost)
                 {
                     summonerTrap.ChangeCurrentSummoningStatus(SummonerTrap.SummoningStatus.InsufficientEvil);
+                }
+                else
+                {
+                    summonerTrap.ChangeCurrentSummoningStatus(SummonerTrap.SummoningStatus.CoolDown);
                 }
             }
         }
