@@ -31,8 +31,6 @@ public class GameManager : MonoBehaviour
     private GameObject crosshair;
     private Trap trapBeingUsed;
 
-    public int badComboCount;
-
     #endregion
 
     #region Properties
@@ -55,7 +53,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        ResetBadComboCount();
         aiSpawnController.CanStartNextWave();
         AISpawnController.waveRunning = true;
         scenarioController.OnNewWaveStarted();
@@ -208,7 +205,7 @@ public class GameManager : MonoBehaviour
             gameOverPanel.SetActive(false);
             StatsManager.instance.ResetKillCounts();
             UIManager.instance.ResetEnemiesCounters();
-            ResetBadComboCount();
+            StatsManager.instance.ResetBadComboCount();
             AISpawnController.waveRunning = true;
             scenarioController.OnNewWaveStarted();
             gameState = GameStates.InGame;
@@ -236,11 +233,6 @@ public class GameManager : MonoBehaviour
     public void SetCrosshairActivate(bool activate)
     {
         crosshair.SetActive(activate);
-    }
-
-    public void ResetBadComboCount()
-    {
-        badComboCount = 0;
     }
 
     #endregion
