@@ -218,10 +218,7 @@ public class CameraController : MonoBehaviour {
 
     private void SetPlayerDirection(float rotation)
     {
-        if (!Input.GetMouseButton(0))
-        {
-            player.rotation = Quaternion.Euler(player.rotation.x, rotation, player.rotation.z);
-        }
+        player.rotation = Quaternion.Euler(player.rotation.x, rotation, player.rotation.z);
     }
 
     private float ClampAngle(float angle, float min, float max)
