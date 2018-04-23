@@ -2,7 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Monument : Building {
+public class Monument : Building
+{
+
+    #region Attributes
+    [Header("Monument attributes")]
+    [SerializeField]
+    private Texture almostConqueredScreenTintTexture;
+    private float showAlmostConqueredScreenTintTexture = 0;
+    [Range(0, 1)]
+    [SerializeField]
+    private float lowHealthScreen;
+    #endregion
 
     #region Public Methods
     // IDamageable
@@ -12,6 +23,22 @@ public class Monument : Building {
         if (currentHealth == 0)
             zoneController.OnMonumentRetaken();
         base.FullRepair();
+    }
+
+    private void OnGUI()
+    {
+        if (currentHealth <= (baseHealth * lowHealthScreen) && currentHealth > 0)
+        {
+            if (showAlmostConqueredScreenTintTexture > 1)
+            {
+                GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), almostConqueredScreenTintTexture);
+            }
+            if (showAlmostConqueredScreenTintTexture > 2)
+            {
+                showAlmostConqueredScreenTintTexture = 0;
+            }
+            showAlmostConqueredScreenTintTexture += Time.deltaTime;
+        }
     }
     #endregion
 
