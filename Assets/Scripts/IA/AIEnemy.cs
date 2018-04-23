@@ -297,6 +297,12 @@ public class AIEnemy : MonoBehaviour, IDamageable
         Destroy(gameObject);
     }
 
+    public void DieAfterMatch()
+    {
+        if (deathVFX != null) Destroy(Instantiate(deathVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation), 0.9f);
+        Destroy(gameObject);
+    }
+
     private void UpdateNodePath()
     {
         /* Update path and nextNode */

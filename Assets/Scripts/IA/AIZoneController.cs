@@ -188,7 +188,8 @@ public class AIZoneController : MonoBehaviour
     {
         foreach (AIEnemy aiEnemy in aiEnemies)
         {
-            Destroy(aiEnemy.gameObject);
+            aiEnemy.DieAfterMatch();
+            //Destroy(aiEnemy.gameObject);
         }
         aiEnemies.Clear();
     }
