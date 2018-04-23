@@ -11,6 +11,5 @@ public class TeleportExitAction : StateAction
         player.SetRenderersVisibility(true);
         player.cameraState = Player.CameraState.MOVE;
         player.timeSinceLastTeleport = 0.0f;
-        Destroy(Instantiate(teleportOut, player.transform.position, teleportOut.transform.rotation), 1.5f);
     }
 }
