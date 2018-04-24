@@ -7,7 +7,7 @@ public class InitGame : MonoBehaviour
     #region Fields
 
     [SerializeField]
-    private GameObject[] buttons;
+    private MenuButton[] buttons;
 
     private int index = 0;
 
@@ -38,7 +38,7 @@ public class InitGame : MonoBehaviour
     {
         if (InputManager.instance.GetPadDownDown() || InputManager.instance.GetLeftStickDownDown())
         {
-            buttons[index].GetComponent<Outline>().enabled = false;
+            buttons[index].UnselectButton();
 
             if (index == buttons.Length - 1)
             {
@@ -49,11 +49,11 @@ public class InitGame : MonoBehaviour
                 index++;
             }
 
-            buttons[index].GetComponent<Outline>().enabled = true;
+            buttons[index].SelectButton();
         }
         else if (InputManager.instance.GetPadUpDown() || InputManager.instance.GetLeftStickUpDown())
         {
-            buttons[index].GetComponent<Outline>().enabled = false;
+            buttons[index].UnselectButton();
 
             if (index == 0)
             {
@@ -64,7 +64,7 @@ public class InitGame : MonoBehaviour
                 index--;
             }
 
-            buttons[index].GetComponent<Outline>().enabled = true;
+            buttons[index].SelectButton();
         }
     }
 
