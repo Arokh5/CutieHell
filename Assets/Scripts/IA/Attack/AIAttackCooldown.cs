@@ -16,12 +16,18 @@ public class AIAttackCooldown : AIAttackLogic
 
     private float lastAttackTime = 0;
     private Animator animator;
+    
+    private AudioSource bearSource;
+    [SerializeField]
+    private AudioClip bearClip;
     #endregion
 
     #region MonoBehaviour Methods
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        bearSource = GetComponent<AudioSource>();
+        bearSource.clip = bearClip;
         makeAttack = false;
     }
     #endregion
@@ -52,6 +58,7 @@ public class AIAttackCooldown : AIAttackLogic
     {
         EnemyRangeAttack currentAttack = Instantiate(attackPrefab, attackSpawnPoint.position, attackSpawnPoint.rotation);
         currentAttack.Fire(target, attackDamage);
+        bearSource.Play();
         //target.TakeDamage(attackDamage, AttackType.ENEMY);
     }
     #endregion

@@ -35,6 +35,11 @@ public class PlayerMove : StateAction
             player.rb.drag = 0.5f;
             player.footSteps.SetActive(true);
             player.animator.SetBool("Move", true);
+            if (!player.footstepsSource.isPlaying)
+            {
+                player.footstepsSource.Play();
+            }
+
         }
         else
         {
@@ -42,6 +47,7 @@ public class PlayerMove : StateAction
             player.rb.angularDrag = 10f;
             player.footSteps.SetActive(false);
             player.animator.SetBool("Move", false);
+            player.footstepsSource.Stop();
         }
 
         player.rb.AddRelativeForce(speedDirection * player.acceleration, ForceMode.Acceleration);

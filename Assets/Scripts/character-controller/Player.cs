@@ -80,10 +80,15 @@ public class Player : MonoBehaviour {
     public float timeSinceLastStrongAttack;
     [HideInInspector]
     public List<AIEnemy> currentStrongAttackTargets = new List<AIEnemy>();
+
+    [HideInInspector]
+    public AudioSource footstepsSource;
+    public AudioClip footstepsClip;
     #endregion
 
     public enum CameraState { STILL, MOVE, WOLF, FOG, TURRET, SUMMONER, TRANSITION, ZOOMOUT, ZOOMIN}
     public enum TeleportStates { OUT, TRAVEL, IN}
+    
 
     #region MonoBehaviour Methods
     private void Awake() 
@@ -106,6 +111,10 @@ public class Player : MonoBehaviour {
 
         if (!monument)
             monument = GameObject.FindGameObjectWithTag("Monument").GetComponent<Monument>();
+
+        footstepsSource = GetComponent<AudioSource>();
+        footstepsSource.clip = footstepsClip;
+        footstepsSource.loop = true;
     }
 
     private void Start () 
