@@ -15,7 +15,8 @@ public class GameManager : MonoBehaviour
     private ScenarioController scenarioController;
 
     public bool gameIsPaused;
-    private GameObject[] pauseButtons = new GameObject[2];
+    [SerializeField]
+    private MenuButton[] pauseButtons = new MenuButton[2];
     private int pauseIndex = 0;
 
     public enum GameStates { OnStartMenu, InGame, OnWaveEnd, OnGameEnd, OnGamePaused };
@@ -46,8 +47,6 @@ public class GameManager : MonoBehaviour
 
         crosshair = GameObject.Find("Crosshair");
         gameIsPaused = false;
-        pauseButtons[0] = pauseMenu.transform.GetChild(1).gameObject; //RestartGameBtn
-        pauseButtons[1] = pauseMenu.transform.GetChild(2).gameObject; //ExitTitleSreenBtn
         instance = this;
     }
 
@@ -243,7 +242,8 @@ public class GameManager : MonoBehaviour
     {
         if (InputManager.instance.GetPadDownDown() || InputManager.instance.GetLeftStickDownDown())
         {
-            pauseButtons[pauseIndex].GetComponent<Outline>().enabled = false;
+            pauseButtons[pauseIndex].UnselectButton();
+
             if (pauseIndex == pauseButtons.Length - 1)
             {
                 pauseIndex = 0;
@@ -252,11 +252,13 @@ public class GameManager : MonoBehaviour
             {
                 pauseIndex++;
             }
-            pauseButtons[pauseIndex].GetComponent<Outline>().enabled = true;
+
+            pauseButtons[pauseIndex].SelectButton();
         }
         else if (InputManager.instance.GetPadUpDown() || InputManager.instance.GetLeftStickUpDown())
         {
-            pauseButtons[pauseIndex].GetComponent<Outline>().enabled = false;
+            pauseButtons[pauseIndex].UnselectButton();
+
             if (pauseIndex == 0)
             {
                 pauseIndex = pauseButtons.Length - 1;
@@ -265,7 +267,8 @@ public class GameManager : MonoBehaviour
             {
                 pauseIndex--;
             }
-            pauseButtons[pauseIndex].GetComponent<Outline>().enabled = true;
+
+            pauseButtons[pauseIndex].SelectButton();
         }
 
         if (InputManager.instance.GetXButtonDown())
