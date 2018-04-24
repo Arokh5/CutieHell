@@ -75,6 +75,7 @@ public class InitGame : MonoBehaviour
             switch (index)
             {
                 case 0:
+                    Destroy(BackgroundMusic.instance.gameObject);
                     SceneManager.LoadScene("Garden Scene", LoadSceneMode.Single);
                     break;
 
