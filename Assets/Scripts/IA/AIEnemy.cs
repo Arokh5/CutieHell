@@ -120,13 +120,16 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
             attackLogic.AttemptAttack(currentTarget);
 
-            if (attackLogic.IsInAttackRange(currentTarget))
+            if (enemyType == EnemyType.RANGE)
             {
-                animator.SetBool("Move", false);
-            }
-            else
-            {
-                animator.SetBool("Move", true);
+                if (attackLogic.IsInAttackRange(currentTarget))
+                {
+                    animator.SetBool("Move", false);
+                }
+                else
+                {
+                    animator.SetBool("Move", true);
+                }
             }
         }
 
