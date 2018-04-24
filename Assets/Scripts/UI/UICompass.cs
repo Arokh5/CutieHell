@@ -23,6 +23,10 @@ public class UICompass : MonoBehaviour
     [Range(0.0f, 0.5f)]
     public float imageShrinkPercent = 0.2f;
 
+    [Header("Monument side indicator")]
+    [SerializeField]
+    private MonumentIndicator monumentIndicator;
+
     private RectTransform rectTransform;
     private Dictionary<CompassIconOwner, CompassIcon> compassIcons = new Dictionary<CompassIconOwner, CompassIcon>();
     private Vector2 size;
@@ -43,6 +47,8 @@ public class UICompass : MonoBehaviour
             rectTransform = GetComponent<RectTransform>();
             UnityEngine.Assertions.Assert.IsNotNull(rectTransform, "ERROR: The UICompass in gameObject '" + gameObject.name + "' doesn't have a RectTransform attached!");
         }
+
+        UnityEngine.Assertions.Assert.IsNotNull(monumentIndicator, "ERROR: The UICompass in gameObject '" + gameObject.name + "' doesn't have a monumentIndicator assigned!");
 
         size = rectTransform.sizeDelta;
     }
@@ -76,6 +82,11 @@ public class UICompass : MonoBehaviour
     {
         CompassIcon compassIcon = compassIcons[owner];
         compassIcon.SetFill(normalizedFillAmount);
+
+        if (owner.GetComponent<Monument>())
+        {
+            monumentIndicator.SetFill(normalizedFillAmount);
+        }
     }
 
     public void SetAlertForIcon(CompassIconOwner owner)
