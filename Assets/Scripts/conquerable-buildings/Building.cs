@@ -22,14 +22,14 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
 
     [Header("Elements setup")]
     [SerializeField]
-    private MeshRenderer buildingRenderer;
+    protected MeshRenderer buildingRenderer;
     [SerializeField]
-    private MeshRenderer alternateBuildingRenderer;
+    protected MeshRenderer alternateBuildingRenderer;
 
     [Header("Area of Effect")]
     public float effectOnMapRadius = 0.0f;
     [SerializeField]
-    private float maxEffectRadius = 5.0f;
+    protected float maxEffectRadius = 5.0f;
     [SerializeField]
     private List<Convertible> convertibles;
 
@@ -39,16 +39,16 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     private float underAttackStateDuration = 1;
     [Tooltip("The duration (in seconds) that the dark to cute conversion takes.")]
     [SerializeField]
-    private float conquerEffectDuration = 1;
+    protected float conquerEffectDuration = 1;
     [ShowOnly]
     public AIEnemy attachedConqueror;
 
     private CompassIconOwner compassIconOwner;
     private float underAttackElapsedTime = 0;
-    private float conquerEffectElapsedTime = 0;
+    protected float conquerEffectElapsedTime = 0;
     private bool underAttack = false;
-    private bool conquering = false;
-    private bool conquered = false;
+    protected bool conquering = false;
+    protected bool conquered = false;
 
     [Header("Model shaking")]
     [Range(0, 1)]
@@ -192,6 +192,9 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
         Debug.LogWarning("REMINDER: To prevent: Repairing a building while it's losing health due to a conqueror " +
             "will cause the conqueror to finish its attack without fully conquering the trap!");
 
+        if (zoneType == SubZoneType.MONUMENT)
+            return;
+
         if (currentHealth == 0 && attachedConqueror)
         {
             zoneController.RemoveEnemy(attachedConqueror);
@@ -286,7 +289,7 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
         underAttack = underAttackState;
     }
 
-    private void ConquerEffect()
+    protected virtual void ConquerEffect()
     {
         if (!conquering)
         {
@@ -327,7 +330,7 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
         }
     }
 
-    private void Conquer()
+    protected virtual void Conquer()
     {
         conquering = false;
         conquerEffectElapsedTime = 0;
