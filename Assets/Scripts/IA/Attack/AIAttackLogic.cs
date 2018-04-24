@@ -6,5 +6,6 @@ public abstract class AIAttackLogic : MonoBehaviour {
 
     #region Public Methods
     public abstract void AttemptAttack(Building target);
+    public abstract bool IsInAttackRange(Building target);
     #endregion
 }

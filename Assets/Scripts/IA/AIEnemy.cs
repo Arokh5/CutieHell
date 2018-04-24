@@ -97,11 +97,11 @@ public class AIEnemy : MonoBehaviour, IDamageable
             }
             else if (currentNode == null || currentTarget.GetType() != typeof(Monument))
             {
-                    agent.stoppingDistance = originalStoppingDistance;
-                    agent.SetDestination(currentTarget.transform.position);               
+                agent.stoppingDistance = originalStoppingDistance;
+                agent.SetDestination(currentTarget.transform.position);
             }
             else
-            {    
+            {
                 agent.SetDestination(currentNode.transform.position);
                 if ((transform.position - currentNode.transform.position).sqrMagnitude < currentNode.radius * currentNode.radius)
                 {
@@ -119,6 +119,15 @@ public class AIEnemy : MonoBehaviour, IDamageable
             }
 
             attackLogic.AttemptAttack(currentTarget);
+
+            if (attackLogic.IsInAttackRange(currentTarget))
+            {
+                animator.SetBool("Move", false);
+            }
+            else
+            {
+                animator.SetBool("Move", true);
+            }
         }
 
         // Testing

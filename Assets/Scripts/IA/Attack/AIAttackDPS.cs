@@ -17,6 +17,11 @@ public class AIAttackDPS : AIAttackLogic {
             Attack(target);
         }
     }
+
+    public override bool IsInAttackRange(Building target)
+    {
+        return Vector3.Distance(transform.position, target.transform.position) < attackRange;
+    }
     #endregion
 
     #region Private Methods

@@ -90,6 +90,11 @@ public class AIAttackConquer : AIAttackLogic {
         }
     }
 
+    public override bool IsInAttackRange(Building target)
+    {
+        return Vector3.Distance(transform.position, target.transform.position) < attackRange;
+    }
+
     public void EndTransformation()
     {
         inConquest = true;
