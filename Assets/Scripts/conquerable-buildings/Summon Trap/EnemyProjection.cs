@@ -7,8 +7,8 @@ public class EnemyProjection : MonoBehaviour
 
     #region Properties 
 
-    public GameObject summonerTrap;
-    public SummonerTrap summonerTrapScript;
+    private GameObject summonerTrap;
+    private SummonerTrap summonerTrapScript;
     public Transform headTransform;
     public float enemyProjectionSpeed;
     public float enemyProjectionRotationSpeedY;
@@ -16,6 +16,7 @@ public class EnemyProjection : MonoBehaviour
     public float explosionTriggerRadius;
     public float explosionRadius;
     public int explosionDamage;
+    public GameObject attractionFX;
     public GameObject explosionVFX;
 
     private float limitedPlacingDistance;

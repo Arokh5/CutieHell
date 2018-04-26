@@ -62,7 +62,7 @@ public class SummonerTrap : Trap
     {
         landedEnemyProjection.Add(nonLandedProjection);
         landedEnemyProjection[GetLandedEnemyProjectionsCount() - 1].GetComponent<EnemyProjection>().SetEnemyProjectionLanded(true);
-        landedEnemyProjection[GetLandedEnemyProjectionsCount() - 1].GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
+        landedEnemyProjection[GetLandedEnemyProjectionsCount() - 1].GetComponent<EnemyProjection>().attractionFX.SetActive(true);
 
         zoneController.AddEnemyProjection(landedEnemyProjection[GetLandedEnemyProjectionsCount() - 1].GetComponent<EnemyProjection>());
 
@@ -77,10 +77,10 @@ public class SummonerTrap : Trap
         switch (newStatus)
         {
             case SummoningStatus.Available:
-                nonLandedProjection.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
+                nonLandedProjection.GetComponent<Renderer>().material.SetColor("_Color", Color.gray);
                 break;
             case SummoningStatus.CoolDown:
-                nonLandedProjection.GetComponent<Renderer>().material.SetColor("_Color", Color.yellow);
+                nonLandedProjection.GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
                 break;
             case SummoningStatus.InsufficientEvil:
                 nonLandedProjection.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
