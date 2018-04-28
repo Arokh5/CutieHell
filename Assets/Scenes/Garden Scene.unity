@@ -5809,12 +5809,12 @@ Transform:
   - {fileID: 59910553}
   - {fileID: 1310790185}
   - {fileID: 1898945241}
+  - {fileID: 958827658}
   - {fileID: 854829257}
   - {fileID: 1456734929}
-  - {fileID: 958827658}
-  - {fileID: 1124078582}
   - {fileID: 396258210}
   - {fileID: 494820458}
+  - {fileID: 1124078582}
   - {fileID: 1774351320}
   - {fileID: 76154904}
   - {fileID: 1381697066}
@@ -9486,7 +9486,7 @@ Prefab:
         type: 2}
       propertyPath: evilnessBar
       value: 
-      objectReference: {fileID: 1089832577}
+      objectReference: {fileID: 1089832579}
     - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
         type: 2}
       propertyPath: waveNumberText
@@ -9501,12 +9501,12 @@ Prefab:
         type: 2}
       propertyPath: strongCombo
       value: 
-      objectReference: {fileID: 1356088107}
+      objectReference: {fileID: 1356088117}
     - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
         type: 2}
       propertyPath: badCombo
       value: 
-      objectReference: {fileID: 1356088106}
+      objectReference: {fileID: 1356088113}
     - target: {fileID: 114837128050638308, guid: 97e5f8c89aaaa8b49b9f8da9024cd7c5,
         type: 2}
       propertyPath: repairText
@@ -10456,11 +10456,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1075195607}
   m_Mesh: {fileID: 4300000, guid: 66023b90a7861e542818ffd478979e0b, type: 3}
---- !u!1 &1089832577 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1184726940295826, guid: a469ef08a24a81f49a590b2416f2fc2d,
+--- !u!114 &1089832579 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114067527316106920, guid: a469ef08a24a81f49a590b2416f2fc2d,
     type: 2}
   m_PrefabInternal: {fileID: 1420126449}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &1090187991
 GameObject:
   m_ObjectHideFlags: 0
@@ -13973,16 +13974,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7866ed7a8c9a0344c80e735e74717b8b, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1356088106 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1331383231380748, guid: a469ef08a24a81f49a590b2416f2fc2d,
-    type: 2}
-  m_PrefabInternal: {fileID: 1420126449}
---- !u!1 &1356088107 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1427906568776642, guid: a469ef08a24a81f49a590b2416f2fc2d,
-    type: 2}
-  m_PrefabInternal: {fileID: 1420126449}
 --- !u!114 &1356088108 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114920106971672552, guid: a469ef08a24a81f49a590b2416f2fc2d,
@@ -14007,12 +13998,24 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1420126449}
   m_Script: {fileID: 11500000, guid: 956da7c016f4e1a4982088a460d53449, type: 3}
+--- !u!114 &1356088113 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114469596431516316, guid: a469ef08a24a81f49a590b2416f2fc2d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1420126449}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!114 &1356088115 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114583121105349090, guid: a469ef08a24a81f49a590b2416f2fc2d,
     type: 2}
   m_PrefabInternal: {fileID: 1420126449}
   m_Script: {fileID: 11500000, guid: 98d724ffc6d9e514997a4e21a1e4c229, type: 3}
+--- !u!114 &1356088117 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114721672240144128, guid: a469ef08a24a81f49a590b2416f2fc2d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1420126449}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!114 &1356088124 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114630228643227542, guid: a469ef08a24a81f49a590b2416f2fc2d,

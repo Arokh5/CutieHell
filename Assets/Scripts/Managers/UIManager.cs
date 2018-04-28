@@ -13,7 +13,7 @@ public class UIManager : MonoBehaviour
 
     public UICompass compass;
     [SerializeField]
-    private GameObject evilnessBar;
+    private Image evilnessBar;
 
     private int currentWaveNumber = -1;
     [SerializeField]
@@ -23,11 +23,11 @@ public class UIManager : MonoBehaviour
     private WaveTimer waveRadialProgressBar;
 
     [SerializeField]
-    private GameObject strongCombo;
+    private Text strongCombo;
     private Vector3 strongComboOriginalScale;
     private Color strongComboOriginalColor;
     [SerializeField]
-    private GameObject badCombo;
+    private Text badCombo;
     private Vector3 badComboOriginalScale;
     private Color badComboOriginalColor;
 
@@ -96,9 +96,9 @@ public class UIManager : MonoBehaviour
         instance = this;
         activeCombo = ComboTypes.None;
         strongComboOriginalScale = strongCombo.transform.localScale;
-        strongComboOriginalColor = strongCombo.GetComponent<Text>().color;
+        strongComboOriginalColor = strongCombo.color;
         badComboOriginalScale = badCombo.transform.localScale;
-        badComboOriginalColor = badCombo.GetComponent<Text>().color;
+        badComboOriginalColor = badCombo.color;
         strongComboscaleModifier = 0f;
         strongComboColorModifier = 0f;
         badComboscaleModifier = 0f;
@@ -131,7 +131,7 @@ public class UIManager : MonoBehaviour
     // Called by Player when using or earning Evil Points
     public void SetEvilBarValue(int value)
     {
-        evilnessBar.GetComponent<Image>().fillAmount = ((float)value / GameManager.instance.GetPlayer1().GetMaxEvilLevel());
+        evilnessBar.fillAmount = ((float)value / GameManager.instance.GetPlayer1().GetMaxEvilLevel());
     }
 
     // Called by Player when increasing its maximum of Evil Point
@@ -202,12 +202,12 @@ public class UIManager : MonoBehaviour
         switch (comboType)
         {
             case ComboTypes.StrongCombo:
-                strongCombo.SetActive(true);
+                strongCombo.gameObject.SetActive(true);
                 activeCombo = ComboTypes.StrongCombo;
                 break;
 
             case ComboTypes.BadCombo:
-                badCombo.SetActive(true);
+                badCombo.gameObject.SetActive(true);
                 activeCombo = ComboTypes.BadCombo;
                 break;
         }
@@ -323,16 +323,16 @@ public class UIManager : MonoBehaviour
                 else
                 {
                     strongComboColorModifier += Time.deltaTime;
-                    strongCombo.GetComponent<Text>().color = new Color(strongComboOriginalColor.r, strongComboOriginalColor.g, strongComboOriginalColor.b, strongComboOriginalColor.a - strongComboColorModifier * fadeOutStrongComboVelocity);
+                    strongCombo.color = new Color(strongComboOriginalColor.r, strongComboOriginalColor.g, strongComboOriginalColor.b, strongComboOriginalColor.a - strongComboColorModifier * fadeOutStrongComboVelocity);
                     
-                    if (strongCombo.GetComponent<Text>().color.a <= 0)
+                    if (strongCombo.color.a <= 0)
                     {
                         strongCombo.transform.localScale = strongComboOriginalScale;
-                        strongCombo.GetComponent<Text>().color = strongComboOriginalColor;
+                        strongCombo.color = strongComboOriginalColor;
                         strongComboscaleModifier = 0f;
                         strongComboColorModifier = 0f;
                         activeCombo = ComboTypes.None;
-                        strongCombo.SetActive(false);
+                        strongCombo.gameObject.SetActive(false);
                     }
                 }
 
@@ -347,16 +347,16 @@ public class UIManager : MonoBehaviour
                 else
                 {
                     badComboColorModifier += Time.deltaTime;
-                    badCombo.GetComponent<Text>().color = new Color(badComboOriginalColor.r, badComboOriginalColor.g, badComboOriginalColor.b, badComboOriginalColor.a - badComboColorModifier * fadeOutBadComboVelocity);
+                    badCombo.color = new Color(badComboOriginalColor.r, badComboOriginalColor.g, badComboOriginalColor.b, badComboOriginalColor.a - badComboColorModifier * fadeOutBadComboVelocity);
 
-                    if (badCombo.GetComponent<Text>().color.a <= 0)
+                    if (badCombo.color.a <= 0)
                     {
                         badCombo.transform.localScale = badComboOriginalScale;
-                        badCombo.GetComponent<Text>().color = badComboOriginalColor;
+                        badCombo.color = badComboOriginalColor;
                         badComboscaleModifier = 0f;
                         badComboColorModifier = 0f;
                         activeCombo = ComboTypes.None;
-                        badCombo.SetActive(false);
+                        badCombo.gameObject.SetActive(false);
                     }
                 }
 
