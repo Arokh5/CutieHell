@@ -20,9 +20,10 @@ public class Monument : Building
     // If this method is called, it should inform the ZoneController and UIManager
     public override void FullRepair()
     {
-        if (currentHealth == 0)
-            zoneController.OnMonumentRetaken();
-        base.FullRepair();
+        if (currentHealth != 0)
+            base.FullRepair();
+        //else
+        //    zoneController.OnMonumentRetaken();
     }
 
     private void OnGUI()

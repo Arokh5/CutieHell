@@ -192,9 +192,6 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
         Debug.LogWarning("REMINDER: To prevent: Repairing a building while it's losing health due to a conqueror " +
             "will cause the conqueror to finish its attack without fully conquering the trap!");
 
-        if (zoneType == SubZoneType.MONUMENT)
-            return;
-
         if (currentHealth == 0 && attachedConqueror)
         {
             zoneController.RemoveEnemy(attachedConqueror);
