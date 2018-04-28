@@ -52,10 +52,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        aiSpawnController.CanStartNextWave();
-        AISpawnController.waveRunning = true;
+        aiSpawnController.StartNextWave();
         scenarioController.OnNewWaveStarted();
-        Debug.Log("Starting wave " + aiSpawnController.GetCurrentWaveIndex() + "!");
+        Debug.Log("Starting wave (index) " + aiSpawnController.GetCurrentWaveIndex() + "!");
     }
 
     private void Update()
@@ -104,9 +103,9 @@ public class GameManager : MonoBehaviour
 
     public void OnWaveWon()
     {
-        Debug.Log("Wave " + aiSpawnController.GetCurrentWaveIndex() + " finished!");
+        Debug.Log("Wave (index) " + aiSpawnController.GetCurrentWaveIndex() + " finished!");
 
-        if (aiSpawnController.CanStartNextWave())  
+        if (aiSpawnController.HasNextWave())  
         {
             OnWaveEnd();
         }
@@ -123,7 +122,7 @@ public class GameManager : MonoBehaviour
         {
             crosshair.SetActive(false);
             gameOverPanel.SetActive(true);
-            UIManager.instance.ChangeWaveEndText("WAVE " + aiSpawnController.GetCurrentWaveIndex().ToString() + " SUCCEEDED");
+            UIManager.instance.ChangeWaveEndText("WAVE " + (aiSpawnController.GetCurrentWaveIndex() + 1) + " SUCCEEDED");
             UIManager.instance.ChangeEndBtnText("Go To Next Wave");
             gameState = GameStates.OnWaveEnd;
         }
@@ -205,10 +204,10 @@ public class GameManager : MonoBehaviour
             StatsManager.instance.ResetKillCounts();
             UIManager.instance.ResetEnemiesCounters();
             StatsManager.instance.ResetBadComboCount();
-            AISpawnController.waveRunning = true;
+            aiSpawnController.StartNextWave();
             scenarioController.OnNewWaveStarted();
             gameState = GameStates.InGame;
-            Debug.Log("Starting wave " + aiSpawnController.GetCurrentWaveIndex() + "!");
+            Debug.Log("Starting wave (index)" + aiSpawnController.GetCurrentWaveIndex() + "!");
         }
     }
 

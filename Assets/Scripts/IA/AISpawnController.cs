@@ -27,7 +27,7 @@ public class AISpawnController : MonoBehaviour
     public Dictionary<EnemyType, AIEnemy> enemies;
 
     private bool validWavesInfo = true;
-    public static bool waveRunning = false;
+    private bool waveRunning = false;
 
     #endregion
 
@@ -88,13 +88,19 @@ public class AISpawnController : MonoBehaviour
 
     #region Public Methods
 
-    public bool CanStartNextWave()
+    public bool HasNextWave()
+    {
+        return validWavesInfo && currentWaveIndex < wavesInfo.Count - 1;
+    }
+
+    public bool StartNextWave()
     {
         if (validWavesInfo && currentWaveIndex < wavesInfo.Count - 1)
         {
             ++currentWaveIndex;
             elapsedTime = currentWaveIndex == 0 ? -firstWaveStartDelay : -nextWavesStartDelay;
             nextSpawnIndex = 0;
+            waveRunning = true;
             return true;
         }
         else
