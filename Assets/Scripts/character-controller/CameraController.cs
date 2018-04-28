@@ -7,6 +7,7 @@ public class CameraController : MonoBehaviour {
 
     private Transform player;
     private Player playerScript;
+    private CapsuleCollider playerCapsuleCollider;
 
     private const float xSpeed = 2.25f; //2.5f
     private const float ySpeed = 1.0f; // 1.2f
@@ -45,7 +46,8 @@ public class CameraController : MonoBehaviour {
         y = 0f;
 
         player = GameObject.Find("Player").transform;
-        playerScript = player.gameObject.GetComponent<Player>();
+        playerScript = player.GetComponent<Player>();
+        playerCapsuleCollider = player.GetComponent<CapsuleCollider>();
 
         /*
         distance = 3.0f;
@@ -233,7 +235,7 @@ public class CameraController : MonoBehaviour {
 
     private bool DoubleViewingPosCheck(Vector3 checkPos, float offset) 
     {
-        float playerFocusHeight = player.GetComponent<CapsuleCollider>().height * 0.5f;
+        float playerFocusHeight = playerCapsuleCollider.height * 0.5f;
         return ViewingPosCheck(checkPos, playerFocusHeight) && ReverseViewingPosCheck(checkPos, playerFocusHeight, offset);
     }
 

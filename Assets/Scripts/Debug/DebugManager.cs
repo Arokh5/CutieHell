@@ -286,12 +286,12 @@ public class DebugManager : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            player.GetComponent<Player>().SetEvilLevel(player.GetComponent<Player>().GetMaxEvilLevel());
+            playerScript.SetEvilLevel(playerScript.GetMaxEvilLevel());
         }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            player.GetComponent<Player>().SetEvilLevel(-player.GetComponent<Player>().GetEvilLevel());
+            playerScript.SetEvilLevel(-playerScript.GetEvilLevel());
         }
 
         for (int i = 0; i < numberKeyCodes.Length; ++i)
