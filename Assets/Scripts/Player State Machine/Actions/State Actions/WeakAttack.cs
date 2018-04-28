@@ -6,6 +6,7 @@ using UnityEngine;
 public class WeakAttack : StateAction
 {
     public LayerMask layerMask;
+    public LayerMask targetsLayerMask;
     public float sphereCastRadius;
     public float attackCadency;
 
@@ -14,14 +15,19 @@ public class WeakAttack : StateAction
 
     public override void Act(Player player)
     {
-        AIEnemy newTarget = null;
         RaycastHit hit;
         bool raycastHit = Physics.SphereCast(Camera.main.transform.position, sphereCastRadius, Camera.main.transform.forward, out hit, 100, layerMask.value);
 
-        /* Targetting */
-        if (raycastHit)
+        UpdatePlayerTarget(player, raycastHit, hit);
+        Shoot(player, raycastHit, hit);
+    }
+
+    private void UpdatePlayerTarget(Player player, bool hitSuccess, RaycastHit hitInfo)
+    {
+        AIEnemy newTarget = null;
+        if (hitSuccess && HitInEnemyLayer(hitInfo))
         {
-            newTarget = hit.transform.GetComponent<AIEnemy>();
+            newTarget = hitInfo.transform.GetComponent<AIEnemy>();
         }
         if (player.currentBasicAttackTarget)
         {
@@ -42,16 +48,18 @@ public class WeakAttack : StateAction
             newTarget.MarkAsTarget(true);
             player.currentBasicAttackTarget = newTarget;
         }
+    }
 
-        /* Shooting */
+    private void Shoot(Player player, bool hitSuccess, RaycastHit hitInfo)
+    {
         if (InputManager.instance.GetR2Button() && player.timeSinceLastAttack >= attackCadency && !player.animatingAttack)
         {
             SoundManager.instance.PlaySfxClip(attackSfx, 1.5f);
 
-            if (raycastHit && hit.transform.GetComponent<AIEnemy>())
+            if (hitSuccess && HitInEnemyLayer(hitInfo))
             {
-                player.weakAttackTargetHitPoint = hit.point;
-                player.weakAttackTargetTransform = hit.transform;
+                player.weakAttackTargetHitPoint = hitInfo.point;
+                player.weakAttackTargetTransform = hitInfo.transform;
             }
             else
             {
@@ -61,5 +69,10 @@ public class WeakAttack : StateAction
             player.animator.SetTrigger("Attack");
             player.timeSinceLastAttack = 0f;
         }
+    }
+
+    private bool HitInEnemyLayer(RaycastHit hit)
+    {
+        return ((1 << hit.transform.gameObject.layer) & targetsLayerMask) != 0;
     }
 }

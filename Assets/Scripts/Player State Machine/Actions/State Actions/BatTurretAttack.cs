@@ -6,20 +6,26 @@ using UnityEngine;
 public class BatTurretAttack : StateAction
 {
     public LayerMask layerMask;
+    public LayerMask targetsLayerMask;
     public float sphereCastRadius;
     public float attackCadency;
     public FollowTarget attackPrefab;
 
     public override void Act(Player player)
     {
-        AIEnemy newTarget = null;
         RaycastHit hit;
         bool raycastHit = Physics.SphereCast(Camera.main.transform.position, sphereCastRadius, Camera.main.transform.forward, out hit, 100, layerMask.value);
 
-        /* Targetting */
-        if (raycastHit)
+        UpdatePlayerTarget(player, raycastHit, hit);
+        Shoot(player, raycastHit, hit);
+    }
+
+    private void UpdatePlayerTarget(Player player, bool hitSuccess, RaycastHit hitInfo)
+    {
+        AIEnemy newTarget = null;
+        if (hitSuccess && HitInEnemyLayer(hitInfo))
         {
-            newTarget = hit.transform.GetComponent<AIEnemy>();
+            newTarget = hitInfo.transform.GetComponent<AIEnemy>();
         }
         if (player.currentBasicAttackTarget)
         {
@@ -40,13 +46,15 @@ public class BatTurretAttack : StateAction
             newTarget.MarkAsTarget(true);
             player.currentBasicAttackTarget = newTarget;
         }
+    }
 
-        /* Shooting */
+    private void Shoot(Player player, bool hitSuccess, RaycastHit hitInfo)
+    {
         if (InputManager.instance.GetR2Button() && player.timeSinceLastAttack >= attackCadency)
         {
-            if (raycastHit && hit.transform.GetComponent<AIEnemy>())
+            if (hitSuccess && HitInEnemyLayer(hitInfo))
             {
-                player.InstantiateAttack(attackPrefab, hit.transform, hit.point);
+                player.InstantiateAttack(attackPrefab, hitInfo.transform, hitInfo.point);
             }
             else
             {
@@ -54,5 +62,10 @@ public class BatTurretAttack : StateAction
             }
             player.timeSinceLastAttack = 0f;
         }
+    }
+
+    private bool HitInEnemyLayer(RaycastHit hit)
+    {
+        return ((1 << hit.transform.gameObject.layer) & targetsLayerMask) != 0;
     }
 }
