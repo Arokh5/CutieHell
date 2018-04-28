@@ -5,10 +5,14 @@ using UnityEngine.AI;
 
 public class GetHitSlime : StateMachineBehaviour {
 
+    private NavMeshAgent navMeshAgent;
+
 	 // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        CheckNavMeshAgent(animator);
         animator.SetBool("GetHit", false);
-        animator.gameObject.GetComponent<NavMeshAgent>().enabled = false;
+        navMeshAgent.enabled = false;
 	}
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -19,7 +23,8 @@ public class GetHitSlime : StateMachineBehaviour {
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.gameObject.GetComponent<NavMeshAgent>().enabled = true;
+        CheckNavMeshAgent(animator);
+        navMeshAgent.enabled = true;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here
@@ -31,4 +36,10 @@ public class GetHitSlime : StateMachineBehaviour {
     //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
     //
     //}
+
+    private void CheckNavMeshAgent(Animator animator)
+    {
+        if (!navMeshAgent)
+            navMeshAgent = animator.GetComponent<NavMeshAgent>();
+    }
 }

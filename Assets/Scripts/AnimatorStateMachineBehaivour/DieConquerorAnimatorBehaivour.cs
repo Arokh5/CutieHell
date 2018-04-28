@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class DieConquerorAnimatorBehaivour : StateMachineBehaviour {
 
+    private AIEnemy aiEnemy;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        CheckAIEnemy(animator);
         animator.SetBool("Dead", true);
-        animator.gameObject.GetComponent<AIEnemy>().SetIsTargetable(false);
+        aiEnemy.SetIsTargetable(false);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -16,7 +19,8 @@ public class DieConquerorAnimatorBehaivour : StateMachineBehaviour {
     {
         if(stateInfo.normalizedTime > 1.25f)
         {
-            animator.gameObject.GetComponent<AIEnemy>().Die();
+            CheckAIEnemy(animator);
+            aiEnemy.Die();
         }
     }
 
@@ -34,4 +38,10 @@ public class DieConquerorAnimatorBehaivour : StateMachineBehaviour {
     //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
     //
     //}
+
+    private void CheckAIEnemy(Animator animator)
+    {
+        if (!aiEnemy)
+            aiEnemy = animator.GetComponent<AIEnemy>();
+    }
 }
