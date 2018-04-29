@@ -16,8 +16,7 @@ public class GameManager : MonoBehaviour
 
     public bool gameIsPaused;
     [SerializeField]
-    private MenuButton[] pauseButtons = new MenuButton[2];
-    private int pauseIndex = 0;
+    PauseMenuController pauseMenuController;
 
     public enum GameStates { OnStartMenu, InGame, OnWaveEnd, OnGameEnd, OnGamePaused };
     public GameStates gameState;
@@ -26,11 +25,8 @@ public class GameManager : MonoBehaviour
     private Player player;
     [SerializeField]
     private GameObject gameOverPanel;
-    [SerializeField]
-    private GameObject pauseMenu;
 
     private GameObject crosshair;
-    private Trap trapBeingUsed;
 
     #endregion
 
@@ -85,14 +81,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameStates.OnGamePaused:
-                if (InputManager.instance.GetPS4OptionsDown())
-                {
-                    ResumeGamePaused();
-                }
-                else
-                {
-                    HandlePause();
-                }
+                pauseMenuController.HandlePause();
                 break;
         }
     }
@@ -158,7 +147,7 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 0.0f;
             crosshair.SetActive(false);
-            pauseMenu.SetActive(true);
+            pauseMenuController.gameObject.SetActive(true);
 
             gameIsPaused = true;
 
@@ -171,7 +160,7 @@ public class GameManager : MonoBehaviour
         if (gameState == GameStates.OnGamePaused)
         {
             crosshair.SetActive(true);
-            pauseMenu.SetActive(false);
+            pauseMenuController.gameObject.SetActive(false);
             Time.timeScale = 1.0f;
 
             gameIsPaused = false;
@@ -183,16 +172,6 @@ public class GameManager : MonoBehaviour
     public Player GetPlayer1()
     {
         return player;
-    }
-
-    public Trap GetTrapBeingUsed()
-    {
-        return trapBeingUsed;
-    }
-
-    public void SetTrapBeingUsed(Trap trap)
-    {
-        trapBeingUsed = trap;
     }
 
     public void GoToNextWave()
@@ -207,7 +186,7 @@ public class GameManager : MonoBehaviour
             aiSpawnController.StartNextWave();
             scenarioController.OnNewWaveStarted();
             gameState = GameStates.InGame;
-            Debug.Log("Starting wave (index)" + aiSpawnController.GetCurrentWaveIndex() + "!");
+            Debug.Log("Starting wave (index) " + aiSpawnController.GetCurrentWaveIndex() + "!");
         }
     }
 
@@ -235,56 +214,4 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    #region Private Methods
-
-    private void HandlePause()
-    {
-        if (InputManager.instance.GetPadDownDown() || InputManager.instance.GetLeftStickDownDown())
-        {
-            pauseButtons[pauseIndex].UnselectButton();
-
-            if (pauseIndex == pauseButtons.Length - 1)
-            {
-                pauseIndex = 0;
-            }
-            else
-            {
-                pauseIndex++;
-            }
-
-            pauseButtons[pauseIndex].SelectButton();
-        }
-        else if (InputManager.instance.GetPadUpDown() || InputManager.instance.GetLeftStickUpDown())
-        {
-            pauseButtons[pauseIndex].UnselectButton();
-
-            if (pauseIndex == 0)
-            {
-                pauseIndex = pauseButtons.Length - 1;
-            }
-            else
-            {
-                pauseIndex--;
-            }
-
-            pauseButtons[pauseIndex].SelectButton();
-        }
-
-        if (InputManager.instance.GetXButtonDown())
-        {
-            Time.timeScale = 1.0f;
-
-            switch (pauseIndex)
-            {
-                case 0:
-                    RestartGame();
-                    break;
-
-                case 1:
-                    gameState = GameStates.OnGameEnd;
-                    break;
-            }
-        }
-    }
-    #endregion
 }
