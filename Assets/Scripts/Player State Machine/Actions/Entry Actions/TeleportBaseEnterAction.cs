@@ -14,6 +14,6 @@ public class TeleportBaseEnterAction : StateAction
         player.timeSinceLastTeleport = 0.0f;
         player.cameraState = Player.CameraState.ZOOMOUT;
         player.teleportState = Player.TeleportStates.OUT;
-        Destroy(Instantiate(teleportIn, player.transform.position, teleportIn.transform.rotation), 1.5f);
+        Instantiate(teleportIn, player.transform.position, teleportIn.transform.rotation);
     }
 }

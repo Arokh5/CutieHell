@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 198235066216384972}
   - component: {fileID: 199728847750952384}
   - component: {fileID: 114739611197360472}
+  - component: {fileID: 114682104992200866}
   m_Layer: 0
   m_Name: EnemySpawnVFX
   m_TagString: Untagged
@@ -290,6 +291,18 @@ Transform:
   m_Father: {fileID: 4337310064260032}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114682104992200866
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1170901470507268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e109d844e7d95f46b86fca1a0f9a224, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToDestroy: 1
 --- !u!114 &114739611197360472
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -301,6 +314,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1585960a39f7a4d41bb36144bb662177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectToActivate: {fileID: 0}
+  timeToActivate: 0.6
 --- !u!198 &198010262239961090
 ParticleSystem:
   m_ObjectHideFlags: 1

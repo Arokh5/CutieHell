@@ -190,7 +190,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
             return;
 
         currentHealth -= damage;
-        if (getHitVFX != null) Destroy(Instantiate(getHitVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation), 0.9f);
+        if (getHitVFX != null) Instantiate(getHitVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation);
         if (currentHealth <= 0)
         {
             currentHealth = 0;
@@ -269,14 +269,14 @@ public class AIEnemy : MonoBehaviour, IDamageable
         {
             player.SetEvilLevel(evilKillReward);
         }
-        if(deathVFX != null) Destroy(Instantiate(deathVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation),0.9f);
+        if(deathVFX != null) Instantiate(deathVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation);
 
         Destroy(gameObject);
     }
 
     public void DieAfterMatch()
     {
-        if (deathVFX != null) Destroy(Instantiate(deathVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation), 0.9f);
+        if (deathVFX != null) Instantiate(deathVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation);
         Destroy(gameObject);
     }
 

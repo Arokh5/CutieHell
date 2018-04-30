@@ -31,7 +31,7 @@ public class PlayerTeleport : StateAction
                     player.timeSinceLastTeleport = 0.0f;
                     // player.cameraState = Player.CameraState.ZOOMIN;
                     player.teleportState = Player.TeleportStates.IN;
-                    Destroy(Instantiate(teleportVFX, player.transform.position, teleportVFX.transform.rotation), 1.5f);
+                    Instantiate(teleportVFX, player.transform.position, teleportVFX.transform.rotation);
                 }
                 break;
             case Player.TeleportStates.IN:

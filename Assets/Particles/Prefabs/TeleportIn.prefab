@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4512943708699568}
   - component: {fileID: 198285870730681700}
   - component: {fileID: 199766331779388788}
+  - component: {fileID: 114985275645038132}
   m_Layer: 0
   m_Name: TeleportIn
   m_TagString: Untagged
@@ -134,6 +135,18 @@ Transform:
   m_Father: {fileID: 4512943708699568}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114985275645038132
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1113419347175070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e109d844e7d95f46b86fca1a0f9a224, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToDestroy: 1.5
 --- !u!198 &198253631624440844
 ParticleSystem:
   m_ObjectHideFlags: 1

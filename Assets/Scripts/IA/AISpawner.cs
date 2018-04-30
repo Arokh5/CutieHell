@@ -104,8 +104,6 @@ public class AISpawner : MonoBehaviour {
             this.transform.rotation
         );
         spawnVfx.objectToActivate = instantiatedEnemy.gameObject;
-        spawnVfx.timeToActivate = 0.6f;
-        Destroy(spawnVfx.gameObject, 1.0f);
         instantiatedEnemy.gameObject.SetActive(false);
     }
     #endregion
