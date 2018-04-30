@@ -1721,12 +1721,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 175016129}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &176342884 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114026547309153366, guid: eb4c50dffc1813641a89258147c00a72,
-    type: 2}
-  m_PrefabInternal: {fileID: 1202017035}
-  m_Script: {fileID: 11500000, guid: d75e485d6f6435b489ef603ec97f582a, type: 3}
 --- !u!4 &176580373 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4977153795434354, guid: 560f482d560bd124290b508252cc3c17,
@@ -11611,18 +11605,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 1322869400541654, guid: eb4c50dffc1813641a89258147c00a72, type: 2}
-      propertyPath: m_Name
-      value: Trap_Basic_2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114026547309153366, guid: eb4c50dffc1813641a89258147c00a72,
+    - target: {fileID: 114318477810960220, guid: eb4c50dffc1813641a89258147c00a72,
         type: 2}
       propertyPath: zoneController
       value: 
       objectReference: {fileID: 1955635918}
-    - target: {fileID: 1588108929218874, guid: eb4c50dffc1813641a89258147c00a72, type: 2}
-      propertyPath: m_IsActive
-      value: 1
+    - target: {fileID: 1322869400541654, guid: eb4c50dffc1813641a89258147c00a72, type: 2}
+      propertyPath: m_Name
+      value: Trap_Basic_2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eb4c50dffc1813641a89258147c00a72, type: 2}
@@ -18348,6 +18338,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1744858913}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1754716909 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114318477810960220, guid: eb4c50dffc1813641a89258147c00a72,
+    type: 2}
+  m_PrefabInternal: {fileID: 1202017035}
+  m_Script: {fileID: 11500000, guid: d75e485d6f6435b489ef603ec97f582a, type: 3}
 --- !u!1 &1755539725
 GameObject:
   m_ObjectHideFlags: 0
@@ -20927,7 +20923,7 @@ MonoBehaviour:
   buildings:
   - {fileID: 2036540555}
   - {fileID: 780310700}
-  - {fileID: 176342884}
+  - {fileID: 1754716909}
 --- !u!114 &1955635919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21150,10 +21146,6 @@ Prefab:
       propertyPath: camera
       value: 
       objectReference: {fileID: 230846837}
-    - target: {fileID: 1393789861160970, guid: 2e3b3130f80e94c488d6ab21098657fb, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2e3b3130f80e94c488d6ab21098657fb, type: 2}
   m_IsPrefabParent: 0

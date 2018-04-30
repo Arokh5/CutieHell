@@ -12,6 +12,7 @@ public class Trap : Building, IUsable
     public TrapTypes trapType;
     public int usageCost;
     private Player player;
+    public Transform rotatingHead;
 
     [Header("Trap testing")]
     public bool activate = false;
