@@ -81,8 +81,11 @@ public class Trap : Building, IUsable
     // Called by Player. A call to this method should inform the ZoneController
     public void Deactivate()
     {
-        player = null;
-        zoneController.OnTrapDeactivated();        
+        if (isActive)
+        {
+            player = null;
+            zoneController.OnTrapDeactivated();
+        }
     }
 
     #endregion
@@ -96,6 +99,12 @@ public class Trap : Building, IUsable
         {
             player.StopTrapUse();
         }
+        zoneController.OnTrapDeactivated();
+    }
+
+    protected override void BuildingRecovered()
+    {
+        /* Nothing needs to be done here */
     }
     #endregion
 

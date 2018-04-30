@@ -19,130 +19,46 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     [SerializeField]
     [ShowOnly]
     protected float currentHealth;
-
-    [Header("Elements setup")]
-    [SerializeField]
-    protected MeshRenderer buildingRenderer;
-    [SerializeField]
-    protected MeshRenderer alternateBuildingRenderer;
-
-    [Header("Area of Effect")]
-    public float effectOnMapRadius = 0.0f;
-    [SerializeField]
-    protected float maxEffectRadius = 5.0f;
-    [SerializeField]
-    private List<Convertible> convertibles;
-
-    [Header("Life and stuff")]
-    [Tooltip("The duration (in seconds) for which the conquerable object is considered to be \"under attack\" after the last actual attack happened.")]
-    [SerializeField]
-    private float underAttackStateDuration = 1;
-    [Tooltip("The duration (in seconds) that the dark to cute conversion takes.")]
-    [SerializeField]
-    protected float conquerEffectDuration = 1;
+    
     [ShowOnly]
     public AIEnemy attachedConqueror;
 
     private CompassIconOwner compassIconOwner;
-    private float underAttackElapsedTime = 0;
-    protected float conquerEffectElapsedTime = 0;
-    private bool underAttack = false;
-    protected bool conquering = false;
-    protected bool conquered = false;
+    private BuildingEffects buildingEffects;
 
-    [Header("Model shaking")]
-    [Range(0, 1)]
-    [SerializeField]
-    private float shakeAmplitude;
-    [SerializeField]
-    private float shakeSpeed;
-
+   
     [Header("Damage testing")]
-    public bool reset = false; // TEST
-    public bool loseHitPoints = false; // TEST
+    public bool takeDamage = false; // TEST
     public float lifeLossPerSecond = 0; // TEST
-    public bool restoreLife = false;
+    public bool fullRepair = false;
 
     #endregion
 
     #region MonoBehaviour Methods
     // Use this for initialization
-    private void OnApplicationQuit()
-    {
-        Reset();
-    }
-
-    private void Reset()
-    {
-        currentHealth = baseHealth;
-        buildingRenderer.material.SetFloat("_ConquerFactor", 0);
-        buildingRenderer.material.SetFloat("_ShakeAmplitude", shakeAmplitude);
-        buildingRenderer.material.SetFloat("_ShakeSpeed", shakeSpeed);
-        alternateBuildingRenderer.material.SetFloat("_SizeFactor", 0);
-        effectOnMapRadius = 0.0f;
-        conquered = false;
-    }
-
     private void Awake()
     {
-        UnityEngine.Assertions.Assert.IsNotNull(buildingRenderer, "ERROR: Building Renderer not assigned for ConquerableBuilding script in GameObject " + gameObject.name);
-        UnityEngine.Assertions.Assert.IsNotNull(alternateBuildingRenderer, "ERROR: Alternate Building Renderer not assigned for ConquerableBuilding script in GameObject " + gameObject.name);
-        buildingRenderer.gameObject.SetActive(true);
-        alternateBuildingRenderer.gameObject.SetActive(false);
-        effectOnMapRadius = 0.0f;
-
-        if (!compassIconOwner)
-            compassIconOwner = GetComponent<CompassIconOwner>();
-
+        compassIconOwner = GetComponent<CompassIconOwner>();
         UnityEngine.Assertions.Assert.IsNotNull(compassIconOwner, "ERROR: Building could not find a CompassIconOwner in gameObject '" + gameObject.name + "'!");
+
+        buildingEffects = GetComponent<BuildingEffects>();
+        if (!buildingEffects)
+            Debug.LogWarning("WARNING: A BuildingEffects Component could not be found by Building in GameObject " + gameObject.name + ". No effects will be used.");
     }
 
     private void Start()
     {
-        Reset();
+        currentHealth = baseHealth;
     }
 
     // Update is called once per frame
     protected void Update()
     {
         Test();
-
-        if (underAttack)
-        {
-            underAttackElapsedTime += Time.deltaTime;
-            if (underAttackElapsedTime >= underAttackStateDuration)
-            {
-                SetUnderAttack(false);
-                underAttackElapsedTime = 0;
-            }
-        }
-
-        if (conquering)
-        {
-            conquerEffectElapsedTime += Time.deltaTime;
-            if (conquerEffectElapsedTime < conquerEffectDuration)
-            {
-                ConquerEffect();
-            }
-            else
-            {
-                Conquer();
-            }
-        }
     }
     #endregion
 
     #region Public Methods
-    public float GetBlendRadius()
-    {
-        if (conquered)
-            return maxEffectRadius / attractionRadius;
-        else if (conquering)
-            return (conquerEffectElapsedTime / conquerEffectDuration) * (maxEffectRadius / attractionRadius);
-        else
-            return 0.0f;
-    }
-
     public float GetMaxHealth()
     {
         return baseHealth;
@@ -157,19 +73,13 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     // IDamageable
     public virtual void TakeDamage(float damage, AttackType attacktype)
     {
-        if (conquering || conquered)
+        if (currentHealth == 0)
             return;
-
-        // Reset the underAttackElapsedTime timer
-        SetUnderAttack(true);
-        underAttackElapsedTime = 0;
 
         currentHealth -= damage;
 
         if (currentHealth <= 0)
-        {
             currentHealth = 0;
-        }
 
         if (compassIconOwner)
         {
@@ -177,12 +87,18 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
             UIManager.instance.compass.SetCompassIconFill(compassIconOwner, (baseHealth - currentHealth) / baseHealth);
         }
 
-        AdjustMaterials();
+        // Reset the underAttackElapsedTime timer
+        if (buildingEffects)
+        {
+            buildingEffects.SetUnderAttack(true);
+            buildingEffects.AdjustMaterials((baseHealth - currentHealth) / (float)baseHealth);
+        }
 
         if (currentHealth == 0)
         {
-            ConquerEffect();
-            BuildingKilled();
+            Conquer();
+            if (buildingEffects)
+                buildingEffects.StartConquerEffect();
         }
     }
 
@@ -199,16 +115,22 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
             attachedConqueror = null;
         }
 
+        if (currentHealth == 0)
+        {
+            if (buildingEffects)
+                buildingEffects.StartUnconquerEffect();
+            else
+                Unconquer();
+        }
+
         currentHealth = baseHealth;
 
         UIManager.instance.compass.SetCompassIconFill(compassIconOwner, 0);
 
-        AdjustMaterials();
+        if (buildingEffects)
+            buildingEffects.AdjustMaterials(0);
 
-        if (conquered)
-        {
-            Unconquer();
-        }
+        
     }
 
     // IRepairable
@@ -240,116 +162,40 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
         }
         
     }
+
+    /* Called by the BuildingEffects script if available */
+    public void Conquer()
+    {
+        BuildingKilled();
+    }
+
+    /* Called by the BuildingEffects script if available */
+    public void Unconquer()
+    {
+        BuildingRecovered();
+    }
     #endregion
 
     #region Protected Methods
     protected abstract void BuildingKilled();
+    protected abstract void BuildingRecovered();
     #endregion
 
     #region Private Methods
     private void Test()
     {
-        if (reset)
+        if (fullRepair)
         {
-            reset = false;
-            loseHitPoints = false;
+            fullRepair = false;
             FullRepair();
         }
 
-        if (restoreLife)
-        {
-            restoreLife = false;
-            FullRepair();
-        }
-
-        if (loseHitPoints)
+        if (takeDamage)
         {
             TakeDamage(lifeLossPerSecond * Time.deltaTime, AttackType.ENEMY);
-            if (conquered)
-                loseHitPoints = false;
+            if (currentHealth == 0)
+                takeDamage = false;
         }
-    }
-
-    private void SetUnderAttack(bool underAttackState)
-    {
-        if (underAttack != underAttackState)
-        {
-            if (underAttackState)
-            {
-                buildingRenderer.material.SetFloat("_UnderAttack", 1);
-            }
-            else
-            {
-                buildingRenderer.material.SetFloat("_UnderAttack", 0);
-            }
-        }
-        underAttack = underAttackState;
-    }
-
-    protected virtual void ConquerEffect()
-    {
-        if (!conquering)
-        {
-            conquering = true;
-            conquerEffectElapsedTime = 0;
-            buildingRenderer.material.SetFloat("_ShakeAmplitude", 0);
-            alternateBuildingRenderer.material.SetFloat("_SizeFactor", 0);
-            alternateBuildingRenderer.gameObject.SetActive(true);
-        }
-
-        float progress = conquerEffectElapsedTime / conquerEffectDuration;
-        effectOnMapRadius = maxEffectRadius + progress * (attractionRadius - maxEffectRadius);
-
-        if (progress < 0.5f)
-        {
-            buildingRenderer.material.SetFloat("_ShakeAmplitude", progress * 2);
-        }
-        else if (progress < 0.6f)
-        {
-            alternateBuildingRenderer.material.SetFloat("_SizeFactor", (progress - 0.5f) * 4);
-        }
-        else
-        {
-            // Rescale te progress to fall in the range [0,1]
-            progress = (progress - 0.6f) / (1 - 0.6f);
-            alternateBuildingRenderer.material.SetFloat("_SizeFactor", 1 + (0.2f / (1 + progress)) * Mathf.Sin(2 * Mathf.PI * 2 * progress));
-        }
-
-        // Now we attempt to convert convertible props
-
-        float limitRadius = maxEffectRadius * progress;
-        foreach (Convertible convertible in convertibles)
-        {
-            if (!convertible.IsConverting() && Vector3.Distance(transform.position, convertible.transform.position) < limitRadius)
-            {
-                convertible.Convert();
-            }
-        }
-    }
-
-    protected virtual void Conquer()
-    {
-        conquering = false;
-        conquerEffectElapsedTime = 0;
-        alternateBuildingRenderer.material.SetFloat("_SizeFactor", 1);
-        conquered = true;
-    }
-
-    private void Unconquer()
-    {
-        foreach (Convertible convertible in convertibles)
-        {
-            convertible.Unconvert();
-        }
-
-        Reset();
-    }
-
-    private void AdjustMaterials()
-    {
-        float conqueredFactor = (baseHealth - currentHealth) / (float)baseHealth;
-        buildingRenderer.material.SetFloat("_ConquerFactor", conqueredFactor);
-        effectOnMapRadius = conqueredFactor * maxEffectRadius;
     }
     #endregion
 }

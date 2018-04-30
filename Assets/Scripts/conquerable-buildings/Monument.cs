@@ -49,38 +49,9 @@ public class Monument : Building
         zoneController.OnMonumentTaken();
     }
 
-    protected override void ConquerEffect()
+    protected override void BuildingRecovered()
     {
-        if (!conquering)
-        {
-            conquering = true;
-            conquerEffectElapsedTime = 0;
-            alternateBuildingRenderer.transform.localScale = Vector3.zero;
-            alternateBuildingRenderer.gameObject.SetActive(true);
-        }
-
-        float progress = conquerEffectElapsedTime / conquerEffectDuration;
-        effectOnMapRadius = maxEffectRadius + progress * (attractionRadius - maxEffectRadius);
-
-        if (progress < 0.5f)
-        {
-            buildingRenderer.transform.localScale = (1 - 2 * progress) *  Vector3.one;
-        }
-        else
-        {
-            // Rescale te progress to fall in the range [0,1]
-            progress = (progress - 0.5f) / (1 - 0.5f);
-            alternateBuildingRenderer.transform.localScale = progress * Vector3.one;
-        }
-    }
-
-    protected override void Conquer ()
-    {
-        conquering = false;
-        conquerEffectElapsedTime = 0;
-        alternateBuildingRenderer.transform.localScale = Vector3.one;
-        buildingRenderer.gameObject.SetActive(true);
-        conquered = true;
+        zoneController.OnMonumentRetaken();
     }
     #endregion
 }
