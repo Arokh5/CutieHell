@@ -13,6 +13,9 @@ public class Monument : Building
     [Range(0, 1)]
     [SerializeField]
     private float lowHealthScreen;
+    [Space]
+    [SerializeField]
+    private MonumentIndicator monumentIndicator;
     #endregion
 
     #region Public Methods
@@ -25,6 +28,13 @@ public class Monument : Building
         //else
         //    zoneController.OnMonumentRetaken();
     }
+
+    public override void TakeDamage(float damage, AttackType attacktype)
+    {
+        base.TakeDamage(damage, attacktype);
+        monumentIndicator.SetFill((baseHealth - currentHealth) / baseHealth);
+    }
+
 
     private void OnGUI()
     {

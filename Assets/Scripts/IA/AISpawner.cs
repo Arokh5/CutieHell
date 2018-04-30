@@ -18,8 +18,6 @@ public class AISpawner : MonoBehaviour {
 
     [SerializeField]
     private List<SpawnInfo> activeSpawnInfos;
-
-    private CompassIconOwner compassIconOwner;
     #endregion
 
     #region MonoBehaviour Methods
@@ -28,21 +26,10 @@ public class AISpawner : MonoBehaviour {
         UnityEngine.Assertions.Assert.IsNotNull(zoneController, "ERROR: ZoneController not set for AISpawner in gameObject '" + gameObject.name + "'");
         UnityEngine.Assertions.Assert.IsNotNull(pathsController, "ERROR: PathsController not set for AISpawner in gameObject '" + gameObject.name + "'");
         UnityEngine.Assertions.Assert.IsNotNull(spawnController, "ERROR: SpawnController not set for AISpawner in gameObject '" + gameObject.name + "'");
-
-        if (!compassIconOwner)
-            compassIconOwner = GetComponent<CompassIconOwner>();
-
-        UnityEngine.Assertions.Assert.IsNotNull(compassIconOwner, "ERROR: AISpawner could not find a CompassIconOwner in gameObject '" + gameObject.name + "'!");
-
     }
 
     private void Update()
     {
-        if (compassIconOwner && activeSpawnInfos.Count > 0)
-        {
-            UIManager.instance.compass.SetAlertForIcon(compassIconOwner);
-        }
-
         List<SpawnInfo> spawnInfosToRemove = new List<SpawnInfo>();
 
         foreach (SpawnInfo spawnInfo in activeSpawnInfos)

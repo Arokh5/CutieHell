@@ -23,9 +23,7 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     [ShowOnly]
     public AIEnemy attachedConqueror;
 
-    private CompassIconOwner compassIconOwner;
     private BuildingEffects buildingEffects;
-
    
     [Header("Damage testing")]
     public bool takeDamage = false; // TEST
@@ -38,9 +36,6 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     // Use this for initialization
     private void Awake()
     {
-        compassIconOwner = GetComponent<CompassIconOwner>();
-        UnityEngine.Assertions.Assert.IsNotNull(compassIconOwner, "ERROR: Building could not find a CompassIconOwner in gameObject '" + gameObject.name + "'!");
-
         buildingEffects = GetComponent<BuildingEffects>();
         if (!buildingEffects)
             Debug.LogWarning("WARNING: A BuildingEffects Component could not be found by Building in GameObject " + gameObject.name + ". No effects will be used.");
@@ -81,12 +76,6 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
         if (currentHealth <= 0)
             currentHealth = 0;
 
-        if (compassIconOwner)
-        {
-            UIManager.instance.compass.SetAlertForIcon(compassIconOwner);
-            UIManager.instance.compass.SetCompassIconFill(compassIconOwner, (baseHealth - currentHealth) / baseHealth);
-        }
-
         // Reset the underAttackElapsedTime timer
         if (buildingEffects)
         {
@@ -125,12 +114,9 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
 
         currentHealth = baseHealth;
 
-        UIManager.instance.compass.SetCompassIconFill(compassIconOwner, 0);
-
         if (buildingEffects)
             buildingEffects.AdjustMaterials(0);
 
-        
     }
 
     // IRepairable
