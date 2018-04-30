@@ -20,8 +20,6 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private NavMeshAgent agent;
     private float originalStoppingDistance;
 
-    private EnemyProjection currentVirtualTarget;
-
     private Renderer mRenderer;
     private Animator animator;
 
@@ -91,11 +89,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         if (currentTarget && agent.enabled)
         {
             agent.stoppingDistance = 0.0f;
-            if (this.currentVirtualTarget != null)
-            {
-                agent.SetDestination(currentVirtualTarget.transform.position);
-            }
-            else if (currentNode == null || currentTarget.GetType() != typeof(Monument))
+            if (currentNode == null || currentTarget.GetType() != typeof(Monument))
             {
                 agent.stoppingDistance = originalStoppingDistance;
                 agent.SetDestination(currentTarget.transform.position);
@@ -180,32 +174,6 @@ public class AIEnemy : MonoBehaviour, IDamageable
         {
             currentTarget = target;
         }
-    }
-
-    // Called by the ZoneController in case the AIEnemy is affected by the attracion power of the EnemyProjection
-    public void SetCurrentVirtualTarget(EnemyProjection virtualTarget)
-    {
-        if (virtualTarget != null) //AIEnemies will ignore stopping distance if they are chasing projections
-        {
-            currentVirtualTarget = virtualTarget;
-        }     
-    }
-
-    // Called by the ZoneController to know if an specific enemy is currently attracted by a certain enemyprojection
-    public EnemyProjection GetCurrentVirtualTarget()
-    {
-        return currentVirtualTarget;
-    }
-
-    // Called by the ZoneController to know if an specific enemy is currently attracted by a seductive projection
-    public bool isCurrentlyAttractedByAProjection()
-    {
-        bool currentlyAttracted = false;
-        if(currentVirtualTarget != null)
-        {
-            currentlyAttracted = true;
-        }
-        return currentlyAttracted;
     }
 
     // IDamageable
@@ -302,9 +270,6 @@ public class AIEnemy : MonoBehaviour, IDamageable
             player.SetEvilLevel(evilKillReward);
         }
         if(deathVFX != null) Destroy(Instantiate(deathVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation),0.9f);
-
-        if (currentVirtualTarget)
-            currentVirtualTarget.RemoveEnemyAttracted(this);
 
         Destroy(gameObject);
     }

@@ -37,9 +37,6 @@ public class CameraController : MonoBehaviour {
     public float t_cameraY;
     public float t_fov;
 
-    /*Summoner camera attributes */
-    private EnemyProjection summonedProjectionToFollow; 
-
     private void Awake()
     {
         x = 0f;
@@ -161,15 +158,6 @@ public class CameraController : MonoBehaviour {
                         SetPlayerDirection(rotation.eulerAngles.y);
                         break;
                     }
-                case Player.CameraState.SUMMONER:
-                    {
-                        if(summonedProjectionToFollow != null)
-                        {
-                            this.transform.rotation = Quaternion.LookRotation(summonedProjectionToFollow.transform.position - this.transform.position);
-                        }
-                        SetPlayerDirection(this.transform.rotation.eulerAngles.y);
-                    }
-                    break;
                 case Player.CameraState.ZOOMOUT:
                     this.transform.Translate((this.transform.forward * -4 + this.transform.up * 2) * Time.deltaTime, Space.World);
                     break;
@@ -264,10 +252,6 @@ public class CameraController : MonoBehaviour {
             }
         }
         return true;
-    }  
-
-    public void SetSummonedProjectionToFollow(EnemyProjection enemyProjectionToFollow)
-    {
-        summonedProjectionToFollow = enemyProjectionToFollow;
     }
+
 }
