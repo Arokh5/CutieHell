@@ -75,7 +75,7 @@ public class Player : MonoBehaviour {
     public GameObject strongAttackObject;
     public ProjectorColorChange projector;
     public MeshCollider strongAttackMeshCollider;
-    public GameObject strongAttackExplosion;
+    public ParticleSystem strongAttackExplosion;
     [HideInInspector]
     public float timeSinceLastStrongAttack;
     [HideInInspector]
@@ -210,11 +210,12 @@ public class Player : MonoBehaviour {
     public void InstantiateStrongAttack(int evilCost)
     {
         SetEvilLevel(evilCost);
-        GameObject strongAttackReference = Instantiate(strongAttackExplosion, transform.position, transform.rotation);
+        ParticleSystem strongAttackReference = ParticlesManager.instance.LaunchParticleSystem(strongAttackExplosion, transform.position, transform.rotation);
+        Transform particlesParent = strongAttackReference.transform.parent;
         strongAttackReference.transform.SetParent(this.transform);
         strongAttackReference.transform.localPosition = new Vector3(0.0f, 1.5f, 0.0f);
         strongAttackReference.transform.localRotation = Quaternion.Euler(new Vector3(-90, 180, 0));
-        strongAttackReference.transform.SetParent(null);
+        strongAttackReference.transform.SetParent(particlesParent);
     }
     #endregion
 }

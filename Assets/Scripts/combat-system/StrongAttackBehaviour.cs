@@ -2,25 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StrongAttackBehaviour : MonoBehaviour {
-
+public class StrongAttackBehaviour : PooledParticleSystem
+{
+    #region Fields
     public LayerMask layerMask;
     public int damage;
     public StrongAttackExplosionDetection enemiesList;
     public int enemiesToCombo;
     public int evilComboReward;
+    public float hurtEnemiesDelay;
+    public float returnToPoolDelay;
     private int comboCount;
     private float timer;
     private float timerToDisable;
+    #endregion
 
-    private void OnEnable () {
-        enemiesList.currentStrongAttackTargets.Clear();
-        timer = 0.5f;
-        timerToDisable = 2.8f;
-        comboCount = 0;
-	}
-	
-	void Update () {
+    #region MonoBehaviour Methods
+	private void Update () {
         timer -= Time.deltaTime;
         timerToDisable -= Time.deltaTime;
         if(timer <= 0.0f)
@@ -30,10 +28,22 @@ public class StrongAttackBehaviour : MonoBehaviour {
         }
         if(timerToDisable <= 0.0f)
         {
-            this.gameObject.SetActive(false);
+            ReturnToPool();
         }
-	}
+    }
+    #endregion
 
+    #region Public Methods
+    public override void Restart()
+    {
+        enemiesList.currentStrongAttackTargets.Clear();
+        timer = hurtEnemiesDelay;
+        timerToDisable = returnToPoolDelay;
+        comboCount = 0;
+    }
+    #endregion
+
+    #region Private Methods
     private void HurtEnemies()
     {
         foreach (AIEnemy aiEnemy in enemiesList.currentStrongAttackTargets)
@@ -59,4 +69,5 @@ public class StrongAttackBehaviour : MonoBehaviour {
 
         comboCount = 0;
     }
+    #endregion
 }
