@@ -1,22 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PooledParticleSystem : MonoBehaviour
+public abstract class PooledParticleSystem : MonoBehaviour
 {
     #region Fields
-    public float timeToReturnToPool = 0;
-    [HideInInspector]
-    public ParticleSystem prefabKey;
-    private ParticleSystem particleSystem;
-    #endregion
-
-    #region MonoBehaviour Methods
-    private void Awake()
-    {
-        particleSystem = GetComponent<ParticleSystem>();
-        UnityEngine.Assertions.Assert.IsNotNull(particleSystem, "ERROR: No ParticleSystem Component could be found by PooledParticlesystem in gameObject '" + gameObject.name + "'!");
-    }
+    protected ParticleSystem prefabKey;
+    protected ParticleSystem particleSystemInstance;
     #endregion
 
     #region Public Methods
@@ -25,20 +13,22 @@ public class PooledParticleSystem : MonoBehaviour
         this.prefabKey = prefabKey;
     }
 
-    public void Restart()
-    {
-        StartCoroutine(TimedReturnToPool());
-    }
-    #endregion
+    public abstract void Restart();
 
-    #region Private Methods
-    private IEnumerator TimedReturnToPool()
+    public void ReturnToPool()
     {
-        yield return new WaitForSeconds(timeToReturnToPool);
-        if (particleSystem)
-            ParticlesManager.instance.ReturnParticleSystem(prefabKey, particleSystem);
+        if (!particleSystemInstance)
+        {
+            particleSystemInstance = GetComponent<ParticleSystem>();
+            UnityEngine.Assertions.Assert.IsNotNull(particleSystemInstance, "ERROR: No ParticleSystem Component could be found by PooledParticlesystem in gameObject '" + gameObject.name + "'!");
+        }
+
+        if (particleSystemInstance)
+            ParticlesManager.instance.ReturnParticleSystem(prefabKey, particleSystemInstance);
         else
             Destroy(gameObject);
     }
     #endregion
+
+    
 }

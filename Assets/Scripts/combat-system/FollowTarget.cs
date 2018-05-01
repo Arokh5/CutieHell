@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class FollowTarget : MonoBehaviour
+public class FollowTarget : PooledParticleSystem
 {
     #region Fields
 
@@ -19,20 +19,6 @@ public class FollowTarget : MonoBehaviour
     private Transform enemy = null;
     private Vector3 hitPoint;
     private float time = 0;
-
-    #endregion
-
-    #region Properties
-
-    public void SetEnemy(Transform enemy)
-    {
-        this.enemy = enemy;
-    }
-
-    public void SetHitPoint(Vector3 hitPoint)
-    {
-        this.hitPoint = hitPoint;
-    }
 
     #endregion
 
@@ -58,14 +44,33 @@ public class FollowTarget : MonoBehaviour
             {
                 StatsManager.instance.RegisterWeakAttackHit();
                 enemyHit.TakeDamage(damage, AttackType.WEAK);
-                Destroy(gameObject);
             }
             else if (attackType != AttackType.TRAP_BASIC)
             {
                 StatsManager.instance.RegisterWeakAttackMissed();
             }
-            Destroy(gameObject);
+            ReturnToPool();
         }
+    }
+
+    #endregion
+
+    #region Public Methods
+
+    public override void Restart()
+    {
+        time = 0;
+        directionSet = false;
+    }
+
+    public void SetEnemy(Transform enemy)
+    {
+        this.enemy = enemy;
+    }
+
+    public void SetHitPoint(Vector3 hitPoint)
+    {
+        this.hitPoint = hitPoint;
     }
 
     #endregion
@@ -99,10 +104,10 @@ public class FollowTarget : MonoBehaviour
 
         if (time >= lifeTime)
         {
-            StatsManager.instance.RegisterWeakAttackMissed();
-            Destroy(gameObject);
+            if (attackType != AttackType.TRAP_BASIC)
+                StatsManager.instance.RegisterWeakAttackMissed();
+            ReturnToPool();
         }
     }
-
-	#endregion
+    #endregion
 }

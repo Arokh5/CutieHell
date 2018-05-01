@@ -5,7 +5,7 @@ using UnityEngine;
 public class WeakAttackAnimatorBehaivour : StateMachineBehaviour {
 
     public float shotTriggerNormalizedTime;
-    public FollowTarget prefab;
+    public ParticleSystem prefab;
     private bool shotDone = false;
     private Player player;
 

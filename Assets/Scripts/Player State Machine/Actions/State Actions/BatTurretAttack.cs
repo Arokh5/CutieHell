@@ -9,7 +9,7 @@ public class BatTurretAttack : StateAction
     public LayerMask targetsLayerMask;
     public float sphereCastRadius;
     public float attackCadency;
-    public FollowTarget attackPrefab;
+    public ParticleSystem attackPrefab;
 
     public override void Act(Player player)
     {

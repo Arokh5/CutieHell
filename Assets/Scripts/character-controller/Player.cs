@@ -197,11 +197,12 @@ public class Player : MonoBehaviour {
         rb.isKinematic = !visible;
     }
 
-    public void InstantiateAttack(FollowTarget attackPrefab, Transform enemy, Vector3 hitPoint)
+    public void InstantiateAttack(ParticleSystem attackPrefab, Transform enemy, Vector3 hitPoint)
     {
         Vector3 spawningPos = bulletSpawnPoint.position;
 
-        FollowTarget attackClone = Instantiate(attackPrefab, spawningPos, transform.rotation);
+        ParticleSystem attack = ParticlesManager.instance.LaunchParticleSystem(attackPrefab, spawningPos, transform.rotation);
+        FollowTarget attackClone = attack.GetComponent<FollowTarget>();
         attackClone.SetEnemy(enemy);
         attackClone.SetHitPoint(hitPoint);
     }
