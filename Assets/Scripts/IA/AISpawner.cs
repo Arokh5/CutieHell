@@ -84,7 +84,6 @@ public class AISpawner : MonoBehaviour {
         ++spawnInfo.nextSpawnIndex;
         spawnInfo.nextSpawnTime = spawnInfo.nextSpawnIndex * spawnInfo.spawnDuration / spawnInfo.enemiesToSpawn.Count;
 
-        AIEnemy enemyPrefab = spawnController.enemies[enemyType];
         Vector3 randomPosition = new Vector3(
             Random.Range(0.5f * -spawnerArea.x, 0.5f * spawnerArea.x),
             Random.Range(0.5f * -spawnerArea.y, 0.5f * spawnerArea.y),
@@ -92,10 +91,14 @@ public class AISpawner : MonoBehaviour {
         );
         randomPosition += transform.position;
 
-        AIEnemy instantiatedEnemy = Instantiate(enemyPrefab, randomPosition, Quaternion.LookRotation(transform.forward, transform.up), spawnController.enemiesContainer);
+        AIEnemy instantiatedEnemy = spawnController.GetEnemy(enemyType);
+        instantiatedEnemy.transform.SetParent(spawnController.activeEnemies);
+        instantiatedEnemy.transform.position = randomPosition;
+        instantiatedEnemy.transform.rotation = Quaternion.LookRotation(transform.forward, transform.up);
         instantiatedEnemy.SetZoneController(zoneController);
         instantiatedEnemy.SetPathsController(pathsController);
-        instantiatedEnemy.enemyType = enemyType;
+
+        instantiatedEnemy.Restart();
 
         /* For particle effects */
         ActivateGameObjectOnTime spawnVfx = Instantiate(

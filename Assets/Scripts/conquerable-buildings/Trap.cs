@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Trap : Building, IUsable
 {
-
     #region Fields
     [Header("Trap setup")]
     [SerializeField]
@@ -69,6 +68,7 @@ public class Trap : Building, IUsable
         if (CanUse())
         {
             this.player = player;
+            isActive = true;
             zoneController.OnTrapActivated(this);
             return true;
         }
@@ -84,6 +84,7 @@ public class Trap : Building, IUsable
         if (isActive)
         {
             player = null;
+            isActive = false;
             zoneController.OnTrapDeactivated();
         }
     }
@@ -93,13 +94,18 @@ public class Trap : Building, IUsable
     #region Protected Methods
     protected override void BuildingKilled()
     {
-        isActive = false;
+        if (isActive)
+        {
+            isActive = false;
+            zoneController.OnTrapDeactivated();
+        }
+
         /* Trap could be killed by a Conqueror after the player got off */
         if (player != null)
         {
             player.StopTrapUse();
+            player = null;
         }
-        zoneController.OnTrapDeactivated();
     }
 
     protected override void BuildingRecovered()

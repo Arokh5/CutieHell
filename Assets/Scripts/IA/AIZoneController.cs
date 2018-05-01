@@ -166,7 +166,7 @@ public class AIZoneController : MonoBehaviour
         }
     }
 
-    // Called by AIEnemy in its OnDestroy method to remove from the aiEnemies list
+    // Called by AIEnemy when dying or changing zoneController
     public bool RemoveEnemy(AIEnemy aiEnemy)
     {
         bool removed;

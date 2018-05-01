@@ -6,6 +6,8 @@ using UnityEngine.AI;
 public class AIEnemy : MonoBehaviour, IDamageable
 {
     #region Fields
+    [HideInInspector]
+    public AISpawnController spawnController;
     private AIZoneController zoneController;
     private PathsController pathsController;
     private SubZoneType currentSubZone;
@@ -71,16 +73,12 @@ public class AIEnemy : MonoBehaviour, IDamageable
         UnityEngine.Assertions.Assert.IsNotNull(mRenderer, "Error: No MeshRenderer found for children of AIEnemy in GameObject '" + gameObject.name + "'!");
         animator = this.GetComponent<Animator>();
         UnityEngine.Assertions.Assert.IsNotNull(animator, "Error: No Animator found in GameObject '" + gameObject.name + "'!");
-        mRenderer.material.color = initialColor;
         originalStoppingDistance = agent.stoppingDistance;
     }
 
     private void Start()
     {
-        UnityEngine.Assertions.Assert.IsNotNull(zoneController, "Error: zoneController is null for AIEnemy in GameObject '" + gameObject.name + "'!");
-        UpdateTarget();
-        currentHealth = baseHealth;
-        heightOffset = this.GetComponent<Collider>().bounds.size.y / 2.0f;
+        Restart();
     }
 
     private void Update()
@@ -137,6 +135,19 @@ public class AIEnemy : MonoBehaviour, IDamageable
     #endregion
 
     #region Public Methods
+    public void Restart()
+    {
+        UnityEngine.Assertions.Assert.IsNotNull(zoneController, "Error: zoneController is null for AIEnemy in GameObject '" + gameObject.name + "'!");
+        UpdateTarget();
+        currentHealth = baseHealth;
+        mRenderer.material = basicMat;
+        mRenderer.material.color = initialColor;
+        heightOffset = this.GetComponent<Collider>().bounds.size.y / 2.0f;
+        agent.enabled = true;
+        isTargetable = true;
+        isTarget = false;
+    }
+
     public AIZoneController GetZoneController()
     {
         return zoneController;
@@ -195,6 +206,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         {
             currentHealth = 0;
             agent.enabled = false;
+            SetIsTargetable(false);
             animator.SetBool("DieStandard", true);
             //Die();
         }
@@ -222,6 +234,11 @@ public class AIEnemy : MonoBehaviour, IDamageable
         }
 
         return false;
+    }
+
+    public bool GetIsTargetable()
+    {
+        return isTargetable;
     }
 
     public void SetIsTargetable(bool isTargetable)
@@ -269,15 +286,21 @@ public class AIEnemy : MonoBehaviour, IDamageable
         {
             player.SetEvilLevel(evilKillReward);
         }
-        if(deathVFX != null) Instantiate(deathVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation);
 
-        Destroy(gameObject);
+        if(deathVFX != null) Instantiate(deathVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation);
+        DestroySelf();
     }
 
     public void DieAfterMatch()
     {
-        if (deathVFX != null) Instantiate(deathVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation);
-        Destroy(gameObject);
+        if(deathVFX != null) Instantiate(deathVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation);
+        DestroySelf();
+    }
+
+    public void DestroySelf()
+    {
+        animator.Rebind();
+        spawnController.ReturnEnemy(this);
     }
 
     private void UpdateNodePath()

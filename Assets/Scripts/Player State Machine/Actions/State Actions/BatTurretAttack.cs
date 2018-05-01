@@ -16,17 +16,23 @@ public class BatTurretAttack : StateAction
         RaycastHit hit;
         bool raycastHit = Physics.SphereCast(Camera.main.transform.position, sphereCastRadius, Camera.main.transform.forward, out hit, 100, layerMask.value);
 
-        UpdatePlayerTarget(player, raycastHit, hit);
+        UpdatePlayerTarget(player, ref raycastHit, hit);
         Shoot(player, raycastHit, hit);
     }
 
-    private void UpdatePlayerTarget(Player player, bool hitSuccess, RaycastHit hitInfo)
+    private void UpdatePlayerTarget(Player player, ref bool hitSuccess, RaycastHit hitInfo)
     {
         AIEnemy newTarget = null;
         if (hitSuccess && HitInEnemyLayer(hitInfo))
         {
             newTarget = hitInfo.transform.GetComponent<AIEnemy>();
+            if (!newTarget.GetIsTargetable())
+            {
+                newTarget = null;
+                hitSuccess = false;
+            }
         }
+
         if (player.currentBasicAttackTarget)
         {
             if (!newTarget)

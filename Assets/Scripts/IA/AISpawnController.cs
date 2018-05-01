@@ -29,11 +29,12 @@ public class AISpawnController : MonoBehaviour
     [SerializeField]
     private List<AISpawner> aiSpawners;
 
-    public Transform enemiesContainer;
+    public Transform pooledEnemies;
+    public Transform activeEnemies;
 
     [SerializeField]
     private EnemyTypePrefab[] enemyPrefabs;
-    public Dictionary<EnemyType, AIEnemy> enemies;
+    private Dictionary<EnemyType, ObjectPool<AIEnemy>> enemyPools;
 
     private bool validWavesInfo = true;
     private bool waveRunning = false;
@@ -52,10 +53,10 @@ public class AISpawnController : MonoBehaviour
 
         UnityEngine.Assertions.Assert.IsNotNull(scenario, "ERROR: enemiesContainer not assigned for AISpawnController in gameObject '" + gameObject.name + "'");
         UnityEngine.Assertions.Assert.IsTrue(enemyPrefabs.Length > 0, "WARNING: No enemyPrefabs have been assigned for AISpawnController in gameObject '" + gameObject.name + "'");
-        enemies = new Dictionary<EnemyType, AIEnemy>();
+        enemyPools = new Dictionary<EnemyType, ObjectPool<AIEnemy>>();
         for (int i = 0; i < enemyPrefabs.Length; ++i)
         {
-            enemies.Add(enemyPrefabs[i].type, enemyPrefabs[i].prefab);
+            enemyPools.Add(enemyPrefabs[i].type, new ObjectPool<AIEnemy>(enemyPrefabs[i].prefab, pooledEnemies));
         }
         validWavesInfo = VerifyWaveInfos();
         currentWaveIndex = -1;
@@ -97,6 +98,17 @@ public class AISpawnController : MonoBehaviour
     #endregion
 
     #region Public Methods
+    public AIEnemy GetEnemy(EnemyType enemyType)
+    {
+        AIEnemy enemy = enemyPools[enemyType].GetObject(false);
+        enemy.spawnController = this;
+        return enemy;
+    }
+
+    public void ReturnEnemy(AIEnemy enemy)
+    {
+        enemyPools[enemy.enemyType].ReturnToPool(enemy);
+    }
 
     public bool HasNextWave()
     {
