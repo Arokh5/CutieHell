@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class AISpawnController : MonoBehaviour
 {
+    [System.Serializable]
+    private class EnemyTypePrefab
+    {
+        public EnemyType type;
+        public AIEnemy prefab;
+    }
+
     #region Fields
 
     [SerializeField]
@@ -22,8 +29,10 @@ public class AISpawnController : MonoBehaviour
     [SerializeField]
     private List<AISpawner> aiSpawners;
 
-    public List<EnemyType> enemyTypes;
-    public List<AIEnemy> enemyPrefabs;
+    public Transform enemiesContainer;
+
+    [SerializeField]
+    private EnemyTypePrefab[] enemyPrefabs;
     public Dictionary<EnemyType, AIEnemy> enemies;
 
     private bool validWavesInfo = true;
@@ -38,14 +47,15 @@ public class AISpawnController : MonoBehaviour
         if (!scenario)
         {
             scenario = GetComponentInParent<ScenarioController>();
-            UnityEngine.Assertions.Assert.IsNotNull(scenario, "Error: Scenario not set for AISpawnController in gameObject '" + gameObject.name + "'");
+            UnityEngine.Assertions.Assert.IsNotNull(scenario, "ERROR: Scenario not set for AISpawnController in gameObject '" + gameObject.name + "'");
         }
 
-        UnityEngine.Assertions.Assert.IsTrue(enemyTypes.Count == enemyPrefabs.Count, "enemyTypes and enemyPrefabs have different lengths");
+        UnityEngine.Assertions.Assert.IsNotNull(scenario, "ERROR: enemiesContainer not assigned for AISpawnController in gameObject '" + gameObject.name + "'");
+        UnityEngine.Assertions.Assert.IsTrue(enemyPrefabs.Length > 0, "WARNING: No enemyPrefabs have been assigned for AISpawnController in gameObject '" + gameObject.name + "'");
         enemies = new Dictionary<EnemyType, AIEnemy>();
-        for (int i = 0; i < enemyTypes.Count; ++i)
+        for (int i = 0; i < enemyPrefabs.Length; ++i)
         {
-            enemies.Add(enemyTypes[i], enemyPrefabs[i]);
+            enemies.Add(enemyPrefabs[i].type, enemyPrefabs[i].prefab);
         }
         validWavesInfo = VerifyWaveInfos();
         currentWaveIndex = -1;

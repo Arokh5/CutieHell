@@ -92,7 +92,7 @@ public class AISpawner : MonoBehaviour {
         );
         randomPosition += transform.position;
 
-        AIEnemy instantiatedEnemy = Instantiate(enemyPrefab, randomPosition, Quaternion.LookRotation(transform.forward, transform.up), spawnController.transform);
+        AIEnemy instantiatedEnemy = Instantiate(enemyPrefab, randomPosition, Quaternion.LookRotation(transform.forward, transform.up), spawnController.enemiesContainer);
         instantiatedEnemy.SetZoneController(zoneController);
         instantiatedEnemy.SetPathsController(pathsController);
         instantiatedEnemy.enemyType = enemyType;
