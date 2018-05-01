@@ -237,8 +237,6 @@ MonoBehaviour:
   attackRange: 4
   animationDuration: 2
   conquestDuration: 2
-  postConquestProp: {fileID: 1304920198914334, guid: d685e337756a1624bbc5aa1978adf83d,
-    type: 2}
 --- !u!114 &114740570205452148
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -250,6 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18970bbfeee44414baae612fecd5dde6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnController: {fileID: 0}
   currentPath: []
   currentNode: {fileID: 0}
   basicMat: {fileID: 2100000, guid: b5befe24b33de3b4d85c8d6034dd67bc, type: 2}
@@ -266,6 +265,7 @@ MonoBehaviour:
   deadColor: {r: 1, g: 0, b: 0, a: 1}
   healthToReduce: 100
   hit: 0
+  enemyType: 2
 --- !u!136 &136000831054568286
 CapsuleCollider:
   m_ObjectHideFlags: 1

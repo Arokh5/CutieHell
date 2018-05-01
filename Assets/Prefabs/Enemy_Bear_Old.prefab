@@ -179,6 +179,8 @@ MonoBehaviour:
   attackSpawnPoint: {fileID: 4817924111955518}
   attackPrefab: {fileID: 114592894379979624, guid: 71906d6e44b0a7449ab06d04888afea7,
     type: 2}
+  makeAttack: 0
+  bearClip: {fileID: 0}
 --- !u!114 &114901561687965822
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -190,6 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18970bbfeee44414baae612fecd5dde6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnController: {fileID: 0}
   currentPath: []
   currentNode: {fileID: 0}
   basicMat: {fileID: 2100000, guid: b5befe24b33de3b4d85c8d6034dd67bc, type: 2}
@@ -206,6 +209,7 @@ MonoBehaviour:
   deadColor: {r: 1, g: 0, b: 0, a: 1}
   healthToReduce: 100
   hit: 0
+  enemyType: 1
 --- !u!136 &136500549007356268
 CapsuleCollider:
   m_ObjectHideFlags: 1

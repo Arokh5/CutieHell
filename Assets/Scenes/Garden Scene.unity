@@ -946,6 +946,34 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 78655241}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &86932761
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 86932762}
+  m_Layer: 0
+  m_Name: PooledEnemies
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &86932762
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 86932761}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 460162198}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &101719298
 GameObject:
   m_ObjectHideFlags: 0
@@ -2440,7 +2468,7 @@ Transform:
   m_Children:
   - {fileID: 412714511}
   m_Father: {fileID: 460162198}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &258126722
 MonoBehaviour:
@@ -4514,6 +4542,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 86932762}
   - {fileID: 1125989207}
   - {fileID: 1090187992}
   - {fileID: 1281987909}
@@ -4776,7 +4805,8 @@ MonoBehaviour:
   - {fileID: 1090187993}
   - {fileID: 1281987910}
   - {fileID: 258126722}
-  enemiesContainer: {fileID: 1125989207}
+  pooledEnemies: {fileID: 86932762}
+  activeEnemies: {fileID: 1125989207}
   enemyPrefabs:
   - type: 0
     prefab: {fileID: 114281369883354696, guid: 7c8295c6ba172da4ab01ca928701fcc5, type: 2}
@@ -10547,7 +10577,7 @@ Transform:
   m_Children:
   - {fileID: 1782435117}
   m_Father: {fileID: 460162198}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
 --- !u!114 &1090187993
 MonoBehaviour:
@@ -10995,7 +11025,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1125989207}
   m_Layer: 0
-  m_Name: EnemiesContainer
+  m_Name: ActiveEnemies
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11012,7 +11042,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 460162198}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1128934757
 GameObject:
@@ -12952,7 +12982,7 @@ Transform:
   m_Children:
   - {fileID: 153081674}
   m_Father: {fileID: 460162198}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 225, z: 0}
 --- !u!114 &1281987910
 MonoBehaviour:
