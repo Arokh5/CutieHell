@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public class ObjectPool<T> where T : MonoBehaviour
+public class ObjectPool<T> where T : Component
 {
     public T prefab;
     private Transform poolParent;

@@ -14,7 +14,7 @@ public class AISpawner : MonoBehaviour {
     [SerializeField]
     private Vector3 spawnerArea;
     [SerializeField]
-    private ActivateGameObjectOnTime spawnVFX;
+    private ParticleSystem spawnVFX;
 
     [SerializeField]
     private List<SpawnInfo> activeSpawnInfos;
@@ -101,12 +101,13 @@ public class AISpawner : MonoBehaviour {
         instantiatedEnemy.Restart();
 
         /* For particle effects */
-        ActivateGameObjectOnTime spawnVfx = Instantiate(
+        ParticleSystem spawnVfx = ParticlesManager.instance.LaunchParticleSystem(
             spawnVFX,
             instantiatedEnemy.transform.position + instantiatedEnemy.GetComponent<Collider>().bounds.size.y * Vector3.up / 2.0f, 
             this.transform.rotation
         );
-        spawnVfx.objectToActivate = instantiatedEnemy.gameObject;
+        ActivateGameObjectOnTime onTimeVFX = spawnVfx.GetComponent<ActivateGameObjectOnTime>();
+        onTimeVFX.objectToActivate = instantiatedEnemy.gameObject;
         instantiatedEnemy.gameObject.SetActive(false);
     }
     #endregion

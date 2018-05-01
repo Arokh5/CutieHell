@@ -41,9 +41,9 @@ public class AIEnemy : MonoBehaviour, IDamageable
     public float baseHealth;
     public int evilKillReward;
     [SerializeField]
-    private GameObject getHitVFX;
+    private ParticleSystem getHitVFX;
     [SerializeField]
-    private GameObject deathVFX;
+    private ParticleSystem deathVFX;
     [HideInInspector]
     public float heightOffset;
 
@@ -201,7 +201,9 @@ public class AIEnemy : MonoBehaviour, IDamageable
             return;
 
         currentHealth -= damage;
-        if (getHitVFX != null) Instantiate(getHitVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation);
+        if (getHitVFX != null)
+            ParticlesManager.instance.LaunchParticleSystem(getHitVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation);
+
         if (currentHealth <= 0)
         {
             currentHealth = 0;
@@ -287,13 +289,17 @@ public class AIEnemy : MonoBehaviour, IDamageable
             player.SetEvilLevel(evilKillReward);
         }
 
-        if(deathVFX != null) Instantiate(deathVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation);
+        if(deathVFX != null)
+            ParticlesManager.instance.LaunchParticleSystem(deathVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation);
+
         DestroySelf();
     }
 
     public void DieAfterMatch()
     {
-        if(deathVFX != null) Instantiate(deathVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation);
+        if(deathVFX != null)
+            ParticlesManager.instance.LaunchParticleSystem(deathVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation);
+
         DestroySelf();
     }
 

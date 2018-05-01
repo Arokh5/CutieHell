@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 198235066216384972}
   - component: {fileID: 199728847750952384}
   - component: {fileID: 114739611197360472}
-  - component: {fileID: 114682104992200866}
+  - component: {fileID: 114637242604304806}
   m_Layer: 0
   m_Name: EnemySpawnVFX
   m_TagString: Untagged
@@ -185,8 +185,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1170901470507268}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 1.9145188, y: 2.77, z: 4.88}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4678914182156730}
@@ -291,7 +291,7 @@ Transform:
   m_Father: {fileID: 4337310064260032}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114682104992200866
+--- !u!114 &114637242604304806
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -299,10 +299,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1170901470507268}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e109d844e7d95f46b86fca1a0f9a224, type: 3}
+  m_Script: {fileID: 11500000, guid: 0229de2b17efb8d43b239fd8ff7cf1ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToDestroy: 1
+  timeToReturnToPool: 1
+  prefabKey: {fileID: 0}
 --- !u!114 &114739611197360472
 MonoBehaviour:
   m_ObjectHideFlags: 1

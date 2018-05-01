@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4258869904052612}
   - component: {fileID: 198975771329515660}
   - component: {fileID: 199686018974641442}
-  - component: {fileID: 114237791455334328}
+  - component: {fileID: 114236389737542538}
   m_Layer: 0
   m_Name: EnemyDeathVFX
   m_TagString: Untagged
@@ -104,7 +104,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1192293397352202}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.081067085, y: 2.2176528, z: -1.0088654}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4615091921544592}
@@ -166,7 +166,7 @@ Transform:
   m_Father: {fileID: 4258869904052612}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114237791455334328
+--- !u!114 &114236389737542538
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -174,10 +174,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1192293397352202}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e109d844e7d95f46b86fca1a0f9a224, type: 3}
+  m_Script: {fileID: 11500000, guid: 0229de2b17efb8d43b239fd8ff7cf1ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToDestroy: 0.9
+  timeToReturnToPool: 0.9
+  prefabKey: {fileID: 0}
 --- !u!198 &198593961625563676
 ParticleSystem:
   m_ObjectHideFlags: 1
