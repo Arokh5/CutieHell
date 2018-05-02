@@ -7,6 +7,7 @@ public class EnemyRangeAttack : MonoBehaviour {
     #region Fields
     private Building target;
     private float damage;
+    public EnemyType enemyType;
     [Tooltip("Speed is expressed in meters per second")]
     public float speed;
 
@@ -34,6 +35,7 @@ public class EnemyRangeAttack : MonoBehaviour {
     #region Public Methods
     public void Fire(Building target, float damage)
     {
+        elapsedTime = 0;
         this.target = target;
         this.damage = damage;
         transform.LookAt(target.transform);
@@ -61,7 +63,7 @@ public class EnemyRangeAttack : MonoBehaviour {
     private void Attack()
     {
         target.TakeDamage(damage, AttackType.ENEMY);
-        Destroy(gameObject);
+        AttacksPool.instance.ReturnAttackObject(enemyType, gameObject);
     }
     #endregion
 }

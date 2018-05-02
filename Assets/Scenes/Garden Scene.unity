@@ -1000,7 +1000,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 460162198}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &101719298
 GameObject:
@@ -2496,7 +2496,7 @@ Transform:
   m_Children:
   - {fileID: 412714511}
   m_Father: {fileID: 460162198}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &258126722
 MonoBehaviour:
@@ -2657,6 +2657,34 @@ Transform:
   m_PrefabParentObject: {fileID: 4596488628732170, guid: 7866ed7a8c9a0344c80e735e74717b8b,
     type: 2}
   m_PrefabInternal: {fileID: 1355595407}
+--- !u!1 &284501676
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 284501677}
+  m_Layer: 0
+  m_Name: ActiveAttacks
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &284501677
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 284501676}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 662286859}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &286656415
 GameObject:
   m_ObjectHideFlags: 0
@@ -4570,6 +4598,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 662286859}
   - {fileID: 86932762}
   - {fileID: 1125989207}
   - {fileID: 1090187992}
@@ -6628,6 +6657,54 @@ Prefab:
     - {fileID: 95032150847793770, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 560f482d560bd124290b508252cc3c17, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &662286858
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 662286859}
+  - component: {fileID: 662286861}
+  m_Layer: 0
+  m_Name: AttacksPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &662286859
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 662286858}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1951841211}
+  - {fileID: 284501677}
+  m_Father: {fileID: 460162198}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &662286861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 662286858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 800a5a529d60db646a2a07145dc2ae35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackPrefabs:
+  - enemyType: 1
+    attackPrefab: {fileID: 1211327197456280, guid: 46ccdfb566002e64eb33999e5f82f669,
+      type: 2}
+  pooledAttacks: {fileID: 1951841211}
+  activeAttacks: {fileID: 284501677}
 --- !u!1 &673468478
 GameObject:
   m_ObjectHideFlags: 0
@@ -10633,7 +10710,7 @@ Transform:
   m_Children:
   - {fileID: 1782435117}
   m_Father: {fileID: 460162198}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
 --- !u!114 &1090187993
 MonoBehaviour:
@@ -11098,7 +11175,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 460162198}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1128934757
 GameObject:
@@ -13038,7 +13115,7 @@ Transform:
   m_Children:
   - {fileID: 153081674}
   m_Father: {fileID: 460162198}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 225, z: 0}
 --- !u!114 &1281987910
 MonoBehaviour:
@@ -20942,6 +21019,34 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1949912620}
   m_Mesh: {fileID: 4300000, guid: 1bbd716dd84069f49837fd26818c12be, type: 3}
+--- !u!1 &1951841210
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1951841211}
+  m_Layer: 0
+  m_Name: PooledAttacks
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1951841211
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1951841210}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 662286859}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1955635916
 GameObject:
   m_ObjectHideFlags: 0

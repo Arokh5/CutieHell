@@ -5,6 +5,7 @@ using UnityEngine;
 public class AIAttackCooldown : AIAttackLogic
 {
     #region Fields
+    public EnemyType enemyType;
     public float attackRange;
     public float attackDamage;
     [Tooltip("Time expressed in seconds.")]
@@ -56,10 +57,9 @@ public class AIAttackCooldown : AIAttackLogic
     #region Private Methods
     private void Attack(Building target)
     {
-        EnemyRangeAttack currentAttack = Instantiate(attackPrefab, attackSpawnPoint.position, attackSpawnPoint.rotation);
+        EnemyRangeAttack currentAttack = AttacksPool.instance.GetAttackObject(enemyType, attackSpawnPoint.position, attackSpawnPoint.rotation).GetComponent<EnemyRangeAttack>();
         currentAttack.Fire(target, attackDamage);
         bearSource.Play();
-        //target.TakeDamage(attackDamage, AttackType.ENEMY);
     }
     #endregion
 }

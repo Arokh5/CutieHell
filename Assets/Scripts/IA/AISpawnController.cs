@@ -53,6 +53,10 @@ public class AISpawnController : MonoBehaviour
 
         UnityEngine.Assertions.Assert.IsNotNull(scenario, "ERROR: enemiesContainer not assigned for AISpawnController in gameObject '" + gameObject.name + "'");
         UnityEngine.Assertions.Assert.IsTrue(enemyPrefabs.Length > 0, "WARNING: No enemyPrefabs have been assigned for AISpawnController in gameObject '" + gameObject.name + "'");
+
+        UnityEngine.Assertions.Assert.IsNotNull(pooledEnemies, "ERROR: pooledEnemies Transform not assigned for AISpawnController in gameObject '" + gameObject.name + "'");
+        UnityEngine.Assertions.Assert.IsNotNull(activeEnemies, "ERROR: activeEnemies Transform not assigned for AISpawnController in gameObject '" + gameObject.name + "'");
+
         enemyPools = new Dictionary<EnemyType, ObjectPool<AIEnemy>>();
         for (int i = 0; i < enemyPrefabs.Length; ++i)
         {
