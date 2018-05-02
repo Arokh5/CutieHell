@@ -135,6 +135,7 @@ public class Player : MonoBehaviour {
     {
         if (GameManager.instance.gameIsPaused)
         {
+            footstepsSource.Stop();
             return;
         }
 
