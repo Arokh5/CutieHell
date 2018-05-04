@@ -20,7 +20,7 @@ public class CameraController : MonoBehaviour {
     [HideInInspector]
     public float timeSinceLastAction = 0.0f;
     [HideInInspector]
-    public bool bigAction;
+    public bool slowAction, fastAction;
 
     private int collisionLayers;
     private float x;
@@ -45,7 +45,7 @@ public class CameraController : MonoBehaviour {
     {
         x = 0f;
         y = 0f;
-        bigAction = false;
+        slowAction = fastAction = false;
         player = GameObject.Find("Player").transform;
         playerScript = player.GetComponent<Player>();
         playerCapsuleCollider = player.GetComponent<CapsuleCollider>();
@@ -133,18 +133,22 @@ public class CameraController : MonoBehaviour {
                         if (timeSinceLastAction < 0.5f)
                         {
                             timeSinceLastAction += Time.deltaTime;
-                            if (!bigAction)
+                            if (fastAction)
                             {
-                                SetPlayerDirection(rotation.eulerAngles.y, playerScript.rb.velocity.magnitude / 10.0f);
+                                SetPlayerDirection(rotation.eulerAngles.y, 0.7f);
+                            }
+                            else if(slowAction)
+                            {
+                                SetPlayerDirection(rotation.eulerAngles.y, 0.2f);
                             }
                             else
                             {
-                                SetPlayerDirection(rotation.eulerAngles.y, 0.2f);
+                                SetPlayerDirection(rotation.eulerAngles.y, playerScript.rb.velocity.magnitude / 10.0f);
                             }
                         }
                         else
                         {
-                            bigAction = false;
+                            fastAction = slowAction = false;
                         }
                         this.transform.LookAt(player.transform.position + rotation * Vector3.up * focusY + rotation * Vector3.right * focusX + rotation * Vector3.forward * focusDistance);
                     }
@@ -223,7 +227,7 @@ public class CameraController : MonoBehaviour {
     }
     //set player lerp camera, get the higher
 
-    private void SetPlayerDirection(float rotation, float lerp = 4.0f)
+    private void SetPlayerDirection(float rotation, float lerp = 0.8f)
     {
         player.rotation = Quaternion.LerpUnclamped(player.rotation ,Quaternion.Euler(player.rotation.x, rotation, player.rotation.z), lerp);
     }
