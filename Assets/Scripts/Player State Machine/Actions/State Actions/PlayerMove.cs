@@ -10,24 +10,24 @@ public class PlayerMove : StateAction
     public override void Act(Player player)
     {
         Vector3 speedDirection = Vector3.zero;
-        Vector3 verticalSpeed = new Vector3(0f, 0f, 0.5f);
-        Vector3 horizontalSpeed = new Vector3(0.5f, 0f, 0f);
+        Vector3 verticalAcceleration = new Vector3(0f, 0f, 1.5f);
+        Vector3 horizontalAcceleration = new Vector3(1.5f, 0f, 0f);
 
         if (InputManager.instance.GetLeftStickUp())
         {
-            speedDirection += verticalSpeed * -InputManager.instance.GetLeftStickVerticalSqrValue();
+            speedDirection += verticalAcceleration * -InputManager.instance.GetLeftStickVerticalValue();
         }
         if (InputManager.instance.GetLeftStickDown())
         {
-            speedDirection += verticalSpeed * -InputManager.instance.GetLeftStickVerticalSqrValue();
+            speedDirection += verticalAcceleration * -InputManager.instance.GetLeftStickVerticalValue();
         }
         if (InputManager.instance.GetLeftStickLeft())
         {
-            speedDirection += horizontalSpeed * InputManager.instance.GetLeftStickHorizontalSqrValue();
+            speedDirection += horizontalAcceleration * InputManager.instance.GetLeftStickHorizontalValue();
         }
         if (InputManager.instance.GetLeftStickRight())
         {
-            speedDirection += horizontalSpeed * InputManager.instance.GetLeftStickHorizontalSqrValue();
+            speedDirection += horizontalAcceleration * InputManager.instance.GetLeftStickHorizontalValue();
         }
         
         if (speedDirection.magnitude > 0.2f)
@@ -52,9 +52,13 @@ public class PlayerMove : StateAction
 
         player.rb.AddRelativeForce(speedDirection * player.acceleration, ForceMode.Acceleration);
 
-        if (player.rb.velocity.magnitude > player.maxSpeed)
+        //if (player.rb.velocity.magnitude > player.maxSpeed)
+        //{
+        //    player.rb.velocity = player.rb.velocity.normalized * player.maxSpeed;
+        //}
+        if (player.rb.velocity.magnitude > player.maxSpeed * speedDirection.magnitude / 2.0f)
         {
-            player.rb.velocity = player.rb.velocity.normalized * player.maxSpeed;
+            player.rb.velocity = player.rb.velocity.normalized * player.maxSpeed * speedDirection.magnitude / 2.0f;
         }
     }
 }

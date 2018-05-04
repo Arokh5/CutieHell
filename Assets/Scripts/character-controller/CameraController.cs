@@ -17,6 +17,8 @@ public class CameraController : MonoBehaviour {
     private const float transitionTime = 2.0f;
     private float timeOnTransition = 10.0f;
     private Player.CameraState lastState;
+    [HideInInspector]
+    public float timeSinceLastAction = 0.0f;
 
     private int collisionLayers;
     private float x;
@@ -129,8 +131,16 @@ public class CameraController : MonoBehaviour {
                             Vector3 position = rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position;
                             this.transform.position = position;
                         }
-                        SetPlayerDirection(rotation.eulerAngles.y);
-                        this.transform.LookAt(player.transform.position + player.transform.up * focusY + player.transform.right * focusX + player.transform.forward * focusDistance);
+                        // if time since last action < 2
+                        if (timeSinceLastAction < 0.5f)
+                        {
+                            timeSinceLastAction += Time.deltaTime;
+                            SetPlayerDirection(rotation.eulerAngles.y, playerScript.rb.velocity.magnitude / 10.0f);
+                        }
+
+                        this.transform.LookAt(player.transform.position + rotation * Vector3.up * focusY + rotation * Vector3.right * focusX + rotation * Vector3.forward * focusDistance);
+
+
                     }
 
                     break;
@@ -205,10 +215,11 @@ public class CameraController : MonoBehaviour {
             lastState = playerScript.cameraState;
         }
     }
+    //set player lerp camera, get the higher
 
-    private void SetPlayerDirection(float rotation)
+    private void SetPlayerDirection(float rotation, float lerp = 4.0f)
     {
-        player.rotation = Quaternion.Euler(player.rotation.x, rotation, player.rotation.z);
+        player.rotation = Quaternion.LerpUnclamped(player.rotation ,Quaternion.Euler(player.rotation.x, rotation, player.rotation.z), lerp);
     }
 
     private float ClampAngle(float angle, float min, float max)
