@@ -43,9 +43,9 @@ public class FollowTarget : PooledParticleSystem
             if (enemyHit)
             {
                 StatsManager.instance.RegisterWeakAttackHit();
-                enemyHit.TakeDamage(damage, AttackType.WEAK);
+                enemyHit.TakeDamage(damage, attackType);
             }
-            else if (attackType != AttackType.TRAP_BASIC)
+            else if (attackType == AttackType.WEAK)
             {
                 StatsManager.instance.RegisterWeakAttackMissed();
             }
@@ -104,7 +104,7 @@ public class FollowTarget : PooledParticleSystem
 
         if (time >= lifeTime)
         {
-            if (attackType != AttackType.TRAP_BASIC)
+            if (attackType == AttackType.WEAK)
                 StatsManager.instance.RegisterWeakAttackMissed();
             ReturnToPool();
         }
