@@ -6,14 +6,12 @@ public class ScenarioController : MonoBehaviour
 {
     #region Fields
     private bool lastSpawnIsOver;
-    private bool noEnemiesAlive;
 
     [SerializeField]
     private AISpawnController spawnController;
     [SerializeField]
     private List<AIZoneController> zoneControllers;
     private int zonesWithEnemiesCount = 0;
-    private int zonesConqueredCount = 0;
     #endregion
 
     #region MonoBehaviour Methods
