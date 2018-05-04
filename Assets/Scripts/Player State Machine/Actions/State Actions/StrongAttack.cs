@@ -27,6 +27,9 @@ public class StrongAttack : StateAction
             player.projector.SwitchToAlternateColor();
             player.strongAttackMeshCollider.enabled = false;
         }
+        /* Player rotation */
+        player.mainCameraController.timeSinceLastAction = 0.0f;
+        player.mainCameraController.fastAction = true;
     }
 
     private void HurtEnemies(Player player)

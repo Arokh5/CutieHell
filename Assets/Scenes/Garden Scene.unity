@@ -2510,7 +2510,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneController: {fileID: 1955635918}
-  pathsController: {fileID: 878575434}
   spawnController: {fileID: 460162199}
   spawnerArea: {x: 5, y: 0, z: 5}
   spawnVFX: {fileID: 198235066216384972, guid: 72a50551b77ab554192883532e62dac9, type: 2}
@@ -10724,7 +10723,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneController: {fileID: 1955635918}
-  pathsController: {fileID: 878575434}
   spawnController: {fileID: 460162199}
   spawnerArea: {x: 5, y: 0, z: 5}
   spawnVFX: {fileID: 198235066216384972, guid: 72a50551b77ab554192883532e62dac9, type: 2}
@@ -13129,7 +13127,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneController: {fileID: 1955635918}
-  pathsController: {fileID: 878575434}
   spawnController: {fileID: 460162199}
   spawnerArea: {x: 5, y: 0, z: 5}
   spawnVFX: {fileID: 198235066216384972, guid: 72a50551b77ab554192883532e62dac9, type: 2}
@@ -21094,8 +21091,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 231e980f01b25284cbd01c07a6d7070f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  zoneID: 0
+  isFinalZone: 1
   monument: {fileID: 2036540555}
-  scenario: {fileID: 804468631}
+  traps:
+  - {fileID: 2001445312}
+  monumentTaken: 0
+  scenarioController: {fileID: 804468631}
+  pathsController: {fileID: 878575434}
   currentZoneTarget: {fileID: 0}
   aiEnemies: []
   buildingEffects:
@@ -21807,6 +21810,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1999164819}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &2001445312 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114318477810960220, guid: eb4c50dffc1813641a89258147c00a72,
+    type: 2}
+  m_PrefabInternal: {fileID: 1202017035}
+  m_Script: {fileID: 11500000, guid: d75e485d6f6435b489ef603ec97f582a, type: 3}
 --- !u!1001 &2014548164
 Prefab:
   m_ObjectHideFlags: 0

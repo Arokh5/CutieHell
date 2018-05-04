@@ -58,6 +58,8 @@ public class Player : MonoBehaviour {
     private State currentState;
     public CameraState cameraState;
     public Camera mainCamera;
+    [HideInInspector]
+    public CameraController mainCameraController;
 
     [Header("Basic Attacks")]
     [HideInInspector]
@@ -94,6 +96,7 @@ public class Player : MonoBehaviour {
     private void Awake() 
     {
         cameraState = CameraState.MOVE;
+        mainCameraController = mainCamera.GetComponent<CameraController>();
         teleportState = TeleportStates.OUT;
         initialBulletSpawnPointPos = new Vector3(0.8972f, 1.3626f, 0.1209f);
 

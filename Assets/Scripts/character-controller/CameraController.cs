@@ -17,6 +17,10 @@ public class CameraController : MonoBehaviour {
     private const float transitionTime = 2.0f;
     private float timeOnTransition = 10.0f;
     private Player.CameraState lastState;
+    [HideInInspector]
+    public float timeSinceLastAction = 0.0f;
+    [HideInInspector]
+    public bool slowAction, fastAction;
 
     private int collisionLayers;
     private float x;
@@ -41,7 +45,7 @@ public class CameraController : MonoBehaviour {
     {
         x = 0f;
         y = 0f;
-
+        slowAction = fastAction = false;
         player = GameObject.Find("Player").transform;
         playerScript = player.GetComponent<Player>();
         playerCapsuleCollider = player.GetComponent<CapsuleCollider>();
@@ -65,9 +69,6 @@ public class CameraController : MonoBehaviour {
         t_distance = -2.2f;
         t_cameraY = 0.6f;
         t_fov = 40f;
-
-
-
     }
 
     private void Start()
@@ -129,8 +130,27 @@ public class CameraController : MonoBehaviour {
                             Vector3 position = rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position;
                             this.transform.position = position;
                         }
-                        SetPlayerDirection(rotation.eulerAngles.y);
-                        this.transform.LookAt(player.transform.position + player.transform.up * focusY + player.transform.right * focusX + player.transform.forward * focusDistance);
+                        if (timeSinceLastAction < 0.5f)
+                        {
+                            timeSinceLastAction += Time.deltaTime;
+                            if (fastAction)
+                            {
+                                SetPlayerDirection(rotation.eulerAngles.y, 0.7f);
+                            }
+                            else if(slowAction)
+                            {
+                                SetPlayerDirection(rotation.eulerAngles.y, 0.2f);
+                            }
+                            else
+                            {
+                                SetPlayerDirection(rotation.eulerAngles.y, playerScript.rb.velocity.magnitude / 10.0f);
+                            }
+                        }
+                        else
+                        {
+                            fastAction = slowAction = false;
+                        }
+                        this.transform.LookAt(player.transform.position + rotation * Vector3.up * focusY + rotation * Vector3.right * focusX + rotation * Vector3.forward * focusDistance);
                     }
 
                     break;
@@ -205,10 +225,11 @@ public class CameraController : MonoBehaviour {
             lastState = playerScript.cameraState;
         }
     }
+    //set player lerp camera, get the higher
 
-    private void SetPlayerDirection(float rotation)
+    private void SetPlayerDirection(float rotation, float lerp = 0.8f)
     {
-        player.rotation = Quaternion.Euler(player.rotation.x, rotation, player.rotation.z);
+        player.rotation = Quaternion.LerpUnclamped(player.rotation ,Quaternion.Euler(player.rotation.x, rotation, player.rotation.z), lerp);
     }
 
     private float ClampAngle(float angle, float min, float max)
@@ -252,6 +273,11 @@ public class CameraController : MonoBehaviour {
             }
         }
         return true;
+    }
+
+    public void SetCameraLerp()
+    {
+
     }
 
 }
