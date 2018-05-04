@@ -159,19 +159,19 @@ public class InputManager : MonoBehaviour {
         return Input.GetAxis("PS4_L_Horizontal") > 0.1;
     }
 
-    public float GetLeftStickRightValue()
-    {
-        return Input.GetAxis("PS4_L_Horizontal");
-    }
-
     public bool GetLeftStickLeft()
     {
         return Input.GetAxis("PS4_L_Horizontal") < -0.1;
     }
 
-    public float GetLeftStickLeftValue()
+    public float GetLeftStickHorizontalValue()
     {
         return Input.GetAxis("PS4_L_Horizontal");
+    }
+
+    public float GetLeftStickHorizontalSqrValue()
+    {
+        return Input.GetAxis("PS4_L_Horizontal") * Input.GetAxis("PS4_L_Horizontal") * Mathf.Sign(Input.GetAxis("PS4_L_Horizontal"));
     }
 
     public bool GetLeftStickUpDown()
@@ -184,24 +184,24 @@ public class InputManager : MonoBehaviour {
         return Input.GetAxis("PS4_L_Vertical") < -0.1;
     }
 
-    public float GetLeftStickUpValue()
-    {
-        return Input.GetAxis("PS4_L_Vertical");
-    }
-
-    public bool GetLeftStickDownDown()
-    {
-        return buttonStates[(int)AxisAsButton.LS_DOWN] == ButtonState.DOWN;
-    }
-
     public bool GetLeftStickDown()
     {
         return Input.GetAxis("PS4_L_Vertical") > 0.1;
     }
 
-    public float GetLeftStickDownValue()
+    public float GetLeftStickVerticalValue()
     {
         return Input.GetAxis("PS4_L_Vertical");
+    }
+
+    public float GetLeftStickVerticalSqrValue()
+    {
+        return Input.GetAxis("PS4_L_Vertical") * Input.GetAxis("PS4_L_Vertical") * Mathf.Sign(Input.GetAxis("PS4_L_Vertical"));
+    }
+
+    public bool GetLeftStickDownDown()
+    {
+        return buttonStates[(int)AxisAsButton.LS_DOWN] == ButtonState.DOWN;
     }
 
     public bool GetLeftStickButtonDown()
@@ -226,19 +226,19 @@ public class InputManager : MonoBehaviour {
         return Input.GetAxis("PS4_R_Horizontal") > 0.1;
     }
 
-    public float GetRightStickRightValue()
-    {
-        return Input.GetAxis("PS4_R_Horizontal");
-    }
-
     public bool GetRightStickLeft()
     {
         return Input.GetAxis("PS4_R_Horizontal") < -0.1;
     }
 
-    public float GetRightStickLeftValue()
+    public float GetRightStickHorizontalValue()
     {
         return Input.GetAxis("PS4_R_Horizontal");
+    }
+
+    public float GetRightStickHorizontalSqrValue()
+    {
+        return Input.GetAxis("PS4_R_Horizontal") * Input.GetAxis("PS4_R_Horizontal") * Mathf.Sign(Input.GetAxis("PS4_R_Horizontal"));
     }
 
     public bool GetRightStickUp()
@@ -246,19 +246,19 @@ public class InputManager : MonoBehaviour {
         return Input.GetAxis("PS4_R_Vertical") < -0.1;
     }
 
-    public float GetRightStickUpValue()
-    {
-        return Input.GetAxis("PS4_R_Vertical");
-    }
-
     public bool GetRightStickDown()
     {
         return Input.GetAxis("PS4_R_Vertical") > 0.1;
     }
 
-    public float GetRightStickDownValue()
+    public float GetRightStickVerticalValue()
     {
         return Input.GetAxis("PS4_R_Vertical");
+    }
+
+    public float GetRightStickVerticalSqrValue()
+    {
+        return Input.GetAxis("PS4_R_Vertical") * Input.GetAxis("PS4_R_Vertical") * Mathf.Sign(Input.GetAxis("PS4_R_Vertical"));
     }
 
     public bool GetRightStickButtonDown()

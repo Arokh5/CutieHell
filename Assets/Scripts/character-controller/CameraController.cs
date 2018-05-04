@@ -88,9 +88,9 @@ public class CameraController : MonoBehaviour {
         if(!GameManager.instance.gameIsPaused)
         {
             if (InputManager.instance.GetRightStickLeft() || InputManager.instance.GetRightStickRight())
-                x += xSpeed * InputManager.instance.GetRightStickLeftValue();
+                x += xSpeed * InputManager.instance.GetRightStickHorizontalSqrValue();
             if (InputManager.instance.GetRightStickUp() || InputManager.instance.GetRightStickDown())
-                y += ySpeed * InputManager.instance.GetRightStickUpValue();
+                y += ySpeed * InputManager.instance.GetRightStickVerticalSqrValue();
 
             y = ClampAngle(y, yMinLimit, yMaxLimit);
             if (playerScript.cameraState != lastState)

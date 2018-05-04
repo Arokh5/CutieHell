@@ -15,19 +15,19 @@ public class PlayerMove : StateAction
 
         if (InputManager.instance.GetLeftStickUp())
         {
-            speedDirection += verticalSpeed * -InputManager.instance.GetLeftStickUpValue();
+            speedDirection += verticalSpeed * -InputManager.instance.GetLeftStickVerticalSqrValue();
         }
         if (InputManager.instance.GetLeftStickDown())
         {
-            speedDirection += verticalSpeed * -InputManager.instance.GetLeftStickDownValue();
+            speedDirection += verticalSpeed * -InputManager.instance.GetLeftStickVerticalSqrValue();
         }
         if (InputManager.instance.GetLeftStickLeft())
         {
-            speedDirection += horizontalSpeed * InputManager.instance.GetLeftStickLeftValue();
+            speedDirection += horizontalSpeed * InputManager.instance.GetLeftStickHorizontalSqrValue();
         }
         if (InputManager.instance.GetLeftStickRight())
         {
-            speedDirection += horizontalSpeed * InputManager.instance.GetLeftStickRightValue();
+            speedDirection += horizontalSpeed * InputManager.instance.GetLeftStickHorizontalSqrValue();
         }
         
         if (speedDirection.magnitude > 0.2f)
