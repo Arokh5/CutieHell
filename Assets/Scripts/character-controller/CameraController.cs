@@ -19,6 +19,8 @@ public class CameraController : MonoBehaviour {
     private Player.CameraState lastState;
     [HideInInspector]
     public float timeSinceLastAction = 0.0f;
+    [HideInInspector]
+    public bool bigAction;
 
     private int collisionLayers;
     private float x;
@@ -43,7 +45,7 @@ public class CameraController : MonoBehaviour {
     {
         x = 0f;
         y = 0f;
-
+        bigAction = false;
         player = GameObject.Find("Player").transform;
         playerScript = player.GetComponent<Player>();
         playerCapsuleCollider = player.GetComponent<CapsuleCollider>();
@@ -67,9 +69,6 @@ public class CameraController : MonoBehaviour {
         t_distance = -2.2f;
         t_cameraY = 0.6f;
         t_fov = 40f;
-
-
-
     }
 
     private void Start()
@@ -131,16 +130,23 @@ public class CameraController : MonoBehaviour {
                             Vector3 position = rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position;
                             this.transform.position = position;
                         }
-                        // if time since last action < 2
                         if (timeSinceLastAction < 0.5f)
                         {
                             timeSinceLastAction += Time.deltaTime;
-                            SetPlayerDirection(rotation.eulerAngles.y, playerScript.rb.velocity.magnitude / 10.0f);
+                            if (!bigAction)
+                            {
+                                SetPlayerDirection(rotation.eulerAngles.y, playerScript.rb.velocity.magnitude / 10.0f);
+                            }
+                            else
+                            {
+                                SetPlayerDirection(rotation.eulerAngles.y, 0.8f);
+                            }
                         }
-
+                        else
+                        {
+                            bigAction = false;
+                        }
                         this.transform.LookAt(player.transform.position + rotation * Vector3.up * focusY + rotation * Vector3.right * focusX + rotation * Vector3.forward * focusDistance);
-
-
                     }
 
                     break;
@@ -263,6 +269,11 @@ public class CameraController : MonoBehaviour {
             }
         }
         return true;
+    }
+
+    public void SetCameraLerp()
+    {
+
     }
 
 }

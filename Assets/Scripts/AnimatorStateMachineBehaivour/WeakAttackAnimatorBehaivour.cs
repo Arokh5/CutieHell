@@ -15,6 +15,8 @@ public class WeakAttackAnimatorBehaivour : StateMachineBehaviour {
         CheckPlayer(animator);
         player.animatingAttack = true;
         shotDone = false;
+        player.mainCameraController.timeSinceLastAction = 0.0f;
+        player.mainCameraController.bigAction = true;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
