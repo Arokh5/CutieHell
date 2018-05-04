@@ -8,14 +8,14 @@
 
 public enum AttackType
 {
+    NONE,
     ENEMY,
     WEAK,
     STRONG,
     WOLF,
     FOG,
     TRAP_BASIC,
-    TRAP_AREA,
-    SEDUCTIVE_PROJECTION
+    TRAP_AREA
 }
 
 

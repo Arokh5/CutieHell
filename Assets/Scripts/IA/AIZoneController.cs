@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class AIZoneController : MonoBehaviour
 {
-
     #region Fields
-    private int zoneID;
+    [HideInInspector]
+    public int zoneID;
     public bool isFinalZone = false;
     public Monument monument;
+    public Trap[] traps;
+    [HideInInspector]
+    public bool monumentTaken = false;
 
     [SerializeField]
-    ScenarioController scenario;
+    private ScenarioController scenarioController;
+    [SerializeField]
+    private PathsController pathsController;
     [SerializeField]
     [ShowOnly]
     private Building currentZoneTarget;
@@ -34,10 +39,10 @@ public class AIZoneController : MonoBehaviour
     #region MonoBehaviour Methods
     private void Awake()
     {
-        if (!scenario)
+        if (!scenarioController)
         {
-            scenario = GetComponentInParent<ScenarioController>();
-            UnityEngine.Assertions.Assert.IsNotNull(scenario, "ERROR: Scenario not set for AIZoneController in gameObject '" + gameObject.name + "'");
+            scenarioController = GetComponentInParent<ScenarioController>();
+            UnityEngine.Assertions.Assert.IsNotNull(scenarioController, "ERROR: Scenario not set for AIZoneController in gameObject '" + gameObject.name + "'");
         }
 
         UnityEngine.Assertions.Assert.IsNotNull(monument, "ERROR: monument not set for AIZoneController in gameObject '" + gameObject.name + "'");
@@ -113,15 +118,28 @@ public class AIZoneController : MonoBehaviour
     // Called by Monument when it gets repaired
     public void OnMonumentRecovered()
     {
-        Debug.LogError("NOT IMPLEMENTED: AIZoneController::OnMonumentRepaired");
-        scenario.OnZoneRecovered();
+        monumentTaken = false;
+        currentZoneTarget = monument;
+        OnTargetBuildingChanged();
     }
 
     // Called by Monument when it gets conquered. The method is meant to open the door
     public void OnMonumentTaken()
     {
-        Debug.LogWarning("NOT FULLY IMPLEMENTED: AIZoneController::OnMonumentTaken");
-        scenario.OnZoneConquered();
+        monumentTaken = true;
+
+        foreach (Trap trap in traps)
+        {
+            trap.TakeDamage(trap.GetMaxHealth(), AttackType.NONE);
+        }
+
+        if (isFinalZone)
+            scenarioController.OnFinalZoneConquered();
+        else
+        {
+            currentZoneTarget = scenarioController.GetAlternateTarget(this);
+            OnTargetBuildingChanged();
+        }
     }
 
     // Called by Trap when it gets activated by Player
@@ -153,6 +171,12 @@ public class AIZoneController : MonoBehaviour
         }
     }
 
+    public List<PathNode> GetPath(Vector3 startingPos)
+    {
+        return pathsController.GetPath(startingPos);
+    }
+
+
     // Called by AIEnemy during its configuration to add it to the aiEnemies list
     public void AddEnemy(AIEnemy aiEnemy)
     {
@@ -162,7 +186,7 @@ public class AIZoneController : MonoBehaviour
             /* If we just added a first enemy*/
             if (aiEnemies.Count == 1)
             {
-                scenario.OnZoneNotEmpty();
+                scenarioController.OnZoneNotEmpty();
             }
         }
     }
@@ -174,7 +198,7 @@ public class AIZoneController : MonoBehaviour
         removed = aiEnemies.Remove(aiEnemy);
         if (aiEnemies.Count == 0)
         {
-            scenario.OnZoneEmpty();
+            scenarioController.OnZoneEmpty();
         }
         return removed;
     }

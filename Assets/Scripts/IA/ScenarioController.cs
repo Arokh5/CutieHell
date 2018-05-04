@@ -31,14 +31,31 @@ public class ScenarioController : MonoBehaviour
         }
         UnityEngine.Assertions.Assert.IsTrue(zoneControllers.Count > 0, "ERROR: No AIZoneControllers found by the ScenarioController in gameObject '" + gameObject.name + "'");
     }
+
+    private void Start()
+    {
+        for (int i = 0; i < zoneControllers.Count; ++i)
+        {
+            AIZoneController zoneController = zoneControllers[i];
+            zoneController.zoneID = i;
+        }
+    }
     #endregion
 
     #region Public Methods
 
     // Called by a ZoneController when its Monument has been conquered and an AIEnemy request for a Target
-    public AIZoneController GetAlternateZone(AIZoneController currentZone)
+    public Monument GetAlternateTarget(AIZoneController currentZone)
     {
-        Debug.LogError("NOT IMPLEMENTED: ScenarioController::GetAlternateZone");
+        for (int i = currentZone.zoneID - 1; i >= 0; --i)
+        {
+            AIZoneController alternatezonecontroller = zoneControllers[i];
+            if (!alternatezonecontroller.monumentTaken)
+            {
+                return alternatezonecontroller.monument;
+            }
+        }
+        UnityEngine.Assertions.Assert.IsTrue(false, "ERROR: A line in ScenarioController::GetAlternateTarget that shouldn't be reached has been reached!");
         return null;
     }
 
@@ -69,19 +86,10 @@ public class ScenarioController : MonoBehaviour
         lastSpawnIsOver = true;
     }
 
-    public void OnZoneConquered()
+    public void OnFinalZoneConquered()
     {
-        ++zonesConqueredCount;
-        if (zonesConqueredCount == zoneControllers.Count)
-        {
-            spawnController.StopWave();
-            GameManager.instance.OnGameLost();
-        }
-    }
-
-    public void OnZoneRecovered()
-    {
-        --zonesConqueredCount;
+        spawnController.StopWave();
+        GameManager.instance.OnGameLost();
     }
 
     public void OnZoneEmpty()

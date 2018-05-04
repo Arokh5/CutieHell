@@ -9,7 +9,6 @@ public class AIEnemy : MonoBehaviour, IDamageable
     [HideInInspector]
     public AISpawnController spawnController;
     private AIZoneController zoneController;
-    private PathsController pathsController;
     private SubZoneType currentSubZone;
 
     private Building currentTarget;
@@ -167,13 +166,6 @@ public class AIEnemy : MonoBehaviour, IDamageable
         }
         newZoneController.AddEnemy(this);
         zoneController = newZoneController;
-    }
-
-    // Called by AISpawner when instantiating an AIEnemy.
-    public void SetPathsController(PathsController newPathsController)
-    {
-        pathsController = newPathsController;
-
         UpdateNodePath();
     }
 
@@ -312,7 +304,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private void UpdateNodePath()
     {
         /* Update path and nextNode */
-        currentPath = pathsController.GetPath(transform.position);
+        currentPath = zoneController.GetPath(transform.position);
         if (currentPath != null && currentPath.Count > 0)
         {
             currentNodeIndex = 0;

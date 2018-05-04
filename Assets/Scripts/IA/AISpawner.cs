@@ -8,8 +8,6 @@ public class AISpawner : MonoBehaviour {
     [SerializeField]
     private AIZoneController zoneController;
     [SerializeField]
-    private PathsController pathsController;
-    [SerializeField]
     private AISpawnController spawnController;
     [SerializeField]
     private Vector3 spawnerArea;
@@ -24,7 +22,6 @@ public class AISpawner : MonoBehaviour {
     private void Awake()
     {
         UnityEngine.Assertions.Assert.IsNotNull(zoneController, "ERROR: ZoneController not set for AISpawner in gameObject '" + gameObject.name + "'");
-        UnityEngine.Assertions.Assert.IsNotNull(pathsController, "ERROR: PathsController not set for AISpawner in gameObject '" + gameObject.name + "'");
         UnityEngine.Assertions.Assert.IsNotNull(spawnController, "ERROR: SpawnController not set for AISpawner in gameObject '" + gameObject.name + "'");
     }
 
@@ -96,7 +93,6 @@ public class AISpawner : MonoBehaviour {
         instantiatedEnemy.transform.position = randomPosition;
         instantiatedEnemy.transform.rotation = Quaternion.LookRotation(transform.forward, transform.up);
         instantiatedEnemy.SetZoneController(zoneController);
-        instantiatedEnemy.SetPathsController(pathsController);
 
         instantiatedEnemy.Restart();
 
