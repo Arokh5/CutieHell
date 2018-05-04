@@ -139,7 +139,7 @@ public class CameraController : MonoBehaviour {
                             }
                             else
                             {
-                                SetPlayerDirection(rotation.eulerAngles.y, 0.8f);
+                                SetPlayerDirection(rotation.eulerAngles.y, 0.2f);
                             }
                         }
                         else
