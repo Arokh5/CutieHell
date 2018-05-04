@@ -15,7 +15,7 @@ public class RepairBuildings : StateAction
         if (player.nearbyTrap && !player.nearbyTrap.HasFullHealth())
         {
             showLockedMessage = true;
-            if (player.nearbyTrap.GetRepairCost() <= player.evilLevel)
+            if (player.nearbyTrap.CanRepair() && player.nearbyTrap.GetRepairCost() <= player.evilLevel)
             {
                 showMessage = true;
 

@@ -110,6 +110,7 @@ public class BuildingEffects : MonoBehaviour
         alternateBuildingRenderer.transform.localScale = Vector3.zero;
         alternateBuildingRenderer.gameObject.SetActive(false);
         buildingRenderer.transform.localScale = Vector3.one;
+        AdjustMaterials(0);
 
         Reset();
         conquered = false;

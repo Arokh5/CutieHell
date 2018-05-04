@@ -85,9 +85,10 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
 
         if (currentHealth == 0)
         {
-            Conquer();
             if (buildingEffects)
                 buildingEffects.StartConquerEffect();
+            else
+                Conquer();
         }
     }
 
@@ -97,26 +98,22 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
         Debug.LogWarning("REMINDER: To prevent: Repairing a building while it's losing health due to a conqueror " +
             "will cause the conqueror to finish its attack without fully conquering the trap!");
 
-        if (currentHealth == 0 && attachedConqueror)
-        {
-            zoneController.RemoveEnemy(attachedConqueror);
-            Destroy(attachedConqueror.gameObject);
-            attachedConqueror = null;
-        }
-
         if (currentHealth == 0)
         {
             if (buildingEffects)
                 buildingEffects.StartUnconquerEffect();
             else
                 Unconquer();
+
+            if (attachedConqueror)
+            {
+                zoneController.RemoveEnemy(attachedConqueror);
+                attachedConqueror.DieAfterMatch();
+                attachedConqueror = null;
+            }
         }
 
         currentHealth = baseHealth;
-
-        if (buildingEffects)
-            buildingEffects.AdjustMaterials(0);
-
     }
 
     // IRepairable
@@ -147,6 +144,12 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
             return fullRepairCost;
         }
         
+    }
+
+    // IRepairable
+    public virtual bool CanRepair()
+    {
+        return true;
     }
 
     /* Called by the BuildingEffects script if available */

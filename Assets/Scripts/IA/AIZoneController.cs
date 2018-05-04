@@ -7,6 +7,7 @@ public class AIZoneController : MonoBehaviour
 
     #region Fields
     private int zoneID;
+    public bool isFinalZone = false;
     public Monument monument;
 
     [SerializeField]
@@ -110,7 +111,7 @@ public class AIZoneController : MonoBehaviour
     }
 
     // Called by Monument when it gets repaired
-    public void OnMonumentRetaken()
+    public void OnMonumentRecovered()
     {
         Debug.LogError("NOT IMPLEMENTED: AIZoneController::OnMonumentRepaired");
         scenario.OnZoneRecovered();

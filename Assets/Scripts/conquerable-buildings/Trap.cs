@@ -49,6 +49,12 @@ public class Trap : Building, IUsable
     #endregion
 
     #region Public Methods
+    // IRepairable
+    public override bool CanRepair()
+    {
+        return !zoneController.monumentTaken && !HasFullHealth();
+    }
+
     // IUsable
     // Called by Player
     public bool CanUse()

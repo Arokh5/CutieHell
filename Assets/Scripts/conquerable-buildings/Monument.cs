@@ -23,10 +23,8 @@ public class Monument : Building
     // If this method is called, it should inform the ZoneController and UIManager
     public override void FullRepair()
     {
-        if (currentHealth != 0)
+        if (!zoneController.isFinalZone || currentHealth != 0)
             base.FullRepair();
-        //else
-        //    zoneController.OnMonumentRetaken();
     }
 
     public override void TakeDamage(float damage, AttackType attacktype)
@@ -61,7 +59,7 @@ public class Monument : Building
 
     protected override void BuildingRecovered()
     {
-        zoneController.OnMonumentRetaken();
+        zoneController.OnMonumentRecovered();
     }
     #endregion
 }

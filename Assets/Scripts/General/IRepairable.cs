@@ -6,4 +6,6 @@
     void FullRepair();
     // Called by Player
     int GetRepairCost();
+    // Called by Player
+    bool CanRepair();
 }
