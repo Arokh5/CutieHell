@@ -5,11 +5,14 @@ using UnityEngine.UI;
 
 public class DebugManager : MonoBehaviour {
 
+    [Header("Debug Panel")]
+    [SerializeField]
+    private GameObject panel;
+
+    [Space]
     [Header("Debug stats")]
     [SerializeField]
     private StatsDebug statsDebug;
-    [SerializeField]
-    private GameObject memoryUsage;
 
     [Space]
     [Header("Debug camera")]
@@ -38,12 +41,18 @@ public class DebugManager : MonoBehaviour {
     private Camera worldCameraComponent;
     private AISpawnController spawnController;
 
-    private bool showStats = false;
-    private bool showCameraDebug = false;
-    private bool showWorldCamera = false;
+    [SerializeField]
+    private Toggle fpsInfo;
+    [SerializeField]
+    private Toggle cameraDebug;
+    [SerializeField]
+    private Toggle wavesDebug;
+    [SerializeField]
+    private Toggle worldCameraDebug;
+
     private bool showGrid = false;
     private bool followPlayer = true;
-    private bool showWavesDebug = false;
+    private bool showDebugWindow = false;
 
     private GameObject player;
 
@@ -77,50 +86,39 @@ public class DebugManager : MonoBehaviour {
     private void ShowOneWindow(ref bool handler)
     {
         bool previousState = handler;
-        showCameraDebug = false;
-        showWorldCamera = false;
-        showWavesDebug = false;
+        showDebugWindow = false;
         handler = !previousState;
     }
 
     private void ProcessInput() 
     {
-        if (Input.GetKeyDown(KeyCode.I)) 
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            ShowOneWindow(ref showWorldCamera);
-        }
-        if (Input.GetKeyDown(KeyCode.O)) 
-        {
-            showStats = !showStats;
-        }
-        if (Input.GetKeyDown(KeyCode.P)) 
-        {
-            ShowOneWindow(ref showCameraDebug);
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            ShowOneWindow(ref showWavesDebug);
+            ShowOneWindow(ref showDebugWindow);
         }
     }
 
     private void ActivateDebug() 
     {
-        if(showStats) {
+        if (showDebugWindow)
+        {
+            panel.SetActive(true);
             statsDebug.Show_Stats = true;
-            memoryUsage.SetActive(true);
-        } else {
+        }
+        else
+        {
+            panel.SetActive(false);
             statsDebug.Show_Stats = false;
-            memoryUsage.SetActive(false);
         }
 
-        if (showCameraDebug) {
+        if (cameraDebug.isOn) {
             debugCameraCanvas.SetActive(true);
             DebugCamera();
         } else {
             debugCameraCanvas.SetActive(false);
         }
 
-        if (showWorldCamera) {
+        if (worldCameraDebug.isOn) {
             worldCamera.SetActive(true);
             instructionsWorldCamera.SetActive(true);
             WorldCameraDebug();
@@ -129,7 +127,7 @@ public class DebugManager : MonoBehaviour {
             instructionsWorldCamera.SetActive(false);
         }
 
-        if (showWavesDebug)
+        if (wavesDebug.isOn)
         {
             wavesDebugInfo.SetActive(true);
             WavesDebug();
