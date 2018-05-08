@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Player State Machine/Actions/PlayerMove")]
 public class PlayerMove : StateAction
 {
-    public float maxSpeed = 5;
 
     public override void Act(Player player)
     {

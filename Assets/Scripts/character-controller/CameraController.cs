@@ -264,7 +264,6 @@ public class CameraController : MonoBehaviour {
 
     private bool ReverseViewingPosCheck(Vector3 checkPos, float deltaPlayerHeight, float offset) {
         RaycastHit hit;
-        Debug.DrawRay(player.position + (Vector3.up * deltaPlayerHeight), checkPos - player.position, Color.green);
         if (Physics.Raycast(player.position + (Vector3.up * deltaPlayerHeight), checkPos - player.position, out hit, offset)) 
         {   
             if (hit.transform.gameObject.layer == 9) 
