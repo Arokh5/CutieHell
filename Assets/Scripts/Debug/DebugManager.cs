@@ -102,7 +102,7 @@ public class DebugManager : MonoBehaviour {
 
         if (infiniteEvil)
         {
-            playerScript.SetEvilLevel(playerScript.GetMaxEvilLevel());
+            playerScript.AddEvilPoints(playerScript.GetMaxEvilLevel());
         }
         if (immortalStructures)
         {
@@ -187,12 +187,12 @@ public class DebugManager : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            playerScript.SetEvilLevel(playerScript.GetMaxEvilLevel());
+            playerScript.AddEvilPoints(playerScript.GetMaxEvilLevel());
         }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            playerScript.SetEvilLevel(-playerScript.GetEvilLevel());
+            playerScript.AddEvilPoints(-playerScript.GetEvilLevel());
         }
 
         if (Input.GetKeyDown(KeyCode.I))

@@ -278,7 +278,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         Player player = GameManager.instance.GetPlayer1();
         if (player != null)
         {
-            player.SetEvilLevel(evilKillReward);
+            player.AddEvilPoints(evilKillReward);
         }
 
         if(deathVFX != null)

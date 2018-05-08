@@ -172,7 +172,7 @@ public class Player : MonoBehaviour {
         return evilLevel;
     }
 
-    public void SetEvilLevel(int value)
+    public void AddEvilPoints(int value)
     {
         evilLevel += value;
 
@@ -213,7 +213,7 @@ public class Player : MonoBehaviour {
 
     public void InstantiateStrongAttack(int evilCost)
     {
-        SetEvilLevel(evilCost);
+        AddEvilPoints(evilCost);
         ParticleSystem strongAttackReference = ParticlesManager.instance.LaunchParticleSystem(strongAttackExplosion, transform.position, transform.rotation);
         Transform particlesParent = strongAttackReference.transform.parent;
         strongAttackReference.transform.SetParent(this.transform);
