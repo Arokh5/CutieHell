@@ -47,7 +47,11 @@ public class EnemyCanvasController : MonoBehaviour
     public void EnableHealthBar(bool takeDamage)
     {
         healthBarCanvas.SetActive(true);
-        time = takeDamage ? damageActiveTime : targetActiveTime;
+
+        if (takeDamage || (!takeDamage && time <= targetActiveTime))
+        {
+            time = takeDamage ? damageActiveTime : targetActiveTime;
+        }
     }
 
     #endregion
