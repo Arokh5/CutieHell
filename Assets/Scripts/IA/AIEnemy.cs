@@ -134,6 +134,12 @@ public class AIEnemy : MonoBehaviour, IDamageable
     #endregion
 
     #region Public Methods
+
+    public float GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+
     public void Restart()
     {
         UnityEngine.Assertions.Assert.IsNotNull(zoneController, "Error: zoneController is null for AIEnemy in GameObject '" + gameObject.name + "'!");
@@ -208,6 +214,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
         {
             animator.SetBool("GetHit", true);
         }
+
+        GetComponent<EnemyCanvasController>().SetHealthBar();
         AdjustMaterials();
     }
 
