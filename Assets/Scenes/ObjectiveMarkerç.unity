@@ -1951,7 +1951,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a10309aced0aa243bb48b832f58139c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offsetPercentage: 0.15
+  horizontalOffsetPercentage: 0.05
+  bottomOffset: 0.1
+  topOffset: 0.7
   target: {fileID: 1675402227}
   mainCamera: {fileID: 230846840}
 --- !u!1 &192792939
@@ -4669,7 +4671,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &460162198
 Transform:
   m_ObjectHideFlags: 0
@@ -17508,7 +17510,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1675402227}
   m_Layer: 0
-  m_Name: Monument
+  m_Name: MonumentTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
