@@ -158,7 +158,7 @@ public class CameraController : MonoBehaviour {
                     break;
                 case Player.CameraState.FOG:
                     break;
-                case Player.CameraState.TURRET:
+                case Player.CameraState.BATTURRET:
                     {
                         Quaternion rotation = Quaternion.Euler(y, x, 0);
                         playerScript.currentTrap.rotatingHead.rotation = rotation;
@@ -176,6 +176,15 @@ public class CameraController : MonoBehaviour {
                         }
                         this.transform.localRotation = Quaternion.identity;
                         SetPlayerDirection(rotation.eulerAngles.y);
+                        break;
+                    }
+                case Player.CameraState.CANONTURRET:
+                    {
+                        if (playerScript.currentTrap.canonTargetDecal.gameObject.activeSelf)
+                        {
+                            playerScript.currentTrap.rotatingHead.LookAt(playerScript.currentTrap.canonTargetDecal);
+                            playerScript.currentTrap.canonTargetDecal.rotation = Quaternion.Euler(0, playerScript.currentTrap.rotatingHead.rotation.eulerAngles.y, 0);
+                        }     
                         break;
                     }
                 case Player.CameraState.ZOOMOUT:

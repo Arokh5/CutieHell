@@ -88,7 +88,7 @@ public class Player : MonoBehaviour {
     public AudioClip footstepsClip;
     #endregion
 
-    public enum CameraState { STILL, MOVE, WOLF, FOG, TURRET, TRANSITION, ZOOMOUT, ZOOMIN}
+    public enum CameraState { STILL, MOVE, WOLF, FOG, BATTURRET, CANONTURRET, TRANSITION, ZOOMOUT, ZOOMIN}
     public enum TeleportStates { OUT, TRAVEL, IN}
     
 

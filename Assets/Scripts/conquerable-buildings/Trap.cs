@@ -16,7 +16,10 @@ public class Trap : Building, IUsable
     [Header("Trap testing")]
     public bool activate = false;
     public bool deactivate = false;
-    
+
+    [Header("Canon")]
+    public Transform canonTargetDecal;
+
     [ShowOnly]
     public bool isActive = false;
     #endregion
