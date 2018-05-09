@@ -231,6 +231,11 @@ public class AIZoneController : MonoBehaviour
         }
         return enemiesInRange;
     }
+
+    public List<AIEnemy> GetZoneEnemies()
+    {
+        return aiEnemies;
+    }
     
     #endregion
 

@@ -58,6 +58,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private bool isTarget = false;
 
     public EnemyType enemyType;
+    private Collider enemyCollider;
+    private AttackType killingHit = AttackType.NONE;
 
     #endregion
 
@@ -72,11 +74,13 @@ public class AIEnemy : MonoBehaviour, IDamageable
         UnityEngine.Assertions.Assert.IsNotNull(mRenderer, "Error: No MeshRenderer found for children of AIEnemy in GameObject '" + gameObject.name + "'!");
         animator = this.GetComponent<Animator>();
         UnityEngine.Assertions.Assert.IsNotNull(animator, "Error: No Animator found in GameObject '" + gameObject.name + "'!");
+        enemyCollider = GetComponent<Collider>();
         originalStoppingDistance = agent.stoppingDistance;
     }
 
     private void Start()
     {
+        heightOffset = enemyCollider.bounds.size.y / 2.0f;
         Restart();
     }
 
@@ -134,6 +138,12 @@ public class AIEnemy : MonoBehaviour, IDamageable
     #endregion
 
     #region Public Methods
+    public void HitByZoneTrap()
+    {
+        agent.enabled = false;
+        enemyCollider.enabled = false;
+    }
+
     public void Restart()
     {
         UnityEngine.Assertions.Assert.IsNotNull(zoneController, "Error: zoneController is null for AIEnemy in GameObject '" + gameObject.name + "'!");
@@ -141,7 +151,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         currentHealth = baseHealth;
         mRenderer.material = basicMat;
         mRenderer.material.color = initialColor;
-        heightOffset = this.GetComponent<Collider>().bounds.size.y / 2.0f;
+        enemyCollider.enabled = true;
         agent.enabled = true;
         isTargetable = true;
         isTarget = false;
@@ -201,6 +211,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
             currentHealth = 0;
             agent.enabled = false;
             SetIsTargetable(false);
+            killingHit = attacktype;
             animator.SetBool("DieStandard", true);
             //Die();
         }
@@ -276,10 +287,11 @@ public class AIEnemy : MonoBehaviour, IDamageable
         StatsManager.instance.RegisterKill(enemyType);
         zoneController.RemoveEnemy(this);
         Player player = GameManager.instance.GetPlayer1();
-        if (player != null)
+        if (player != null && killingHit == AttackType.WEAK || killingHit == AttackType.STRONG || killingHit == AttackType.TRAP_BASIC)
         {
             player.AddEvilPoints(evilKillReward);
         }
+        killingHit = AttackType.NONE;
 
         if(deathVFX != null)
             ParticlesManager.instance.LaunchParticleSystem(deathVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation);

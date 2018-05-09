@@ -53,6 +53,8 @@ public class Player : MonoBehaviour {
     [HideInInspector]
     public bool shouldExitTrap = false;
 
+    public ZoneTrap zoneTrap = null;
+
     [Header("Player States")]
     [SerializeField]
     private State currentState;
