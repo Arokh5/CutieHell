@@ -7,8 +7,13 @@ public class EnemyCanvasController : MonoBehaviour
 
     [SerializeField]
     private GameObject healthBarCanvas;
+    [SerializeField]
+    private float damageActiveTime;
+    [SerializeField]
+    private float targetActiveTime;
     private Image healthImage;
     private float baseHealth;
+    private float time;
 
 	#endregion
 	
@@ -23,6 +28,11 @@ public class EnemyCanvasController : MonoBehaviour
     private void Update()
     {
         transform.LookAt(GameManager.instance.GetPlayer1().transform);
+
+        if (healthBarCanvas.activeSelf)
+        {
+            DisableHealthBar();
+        }
     }
 
 	#endregion
@@ -34,5 +44,25 @@ public class EnemyCanvasController : MonoBehaviour
         healthImage.fillAmount = GetComponent<AIEnemy>().GetCurrentHealth() / baseHealth;
     }
 
-	#endregion
+    public void EnableHealthBar(bool takeDamage)
+    {
+        healthBarCanvas.SetActive(true);
+        time = takeDamage ? damageActiveTime : targetActiveTime;
+    }
+
+    #endregion
+
+    #region Private Methods
+
+    private void DisableHealthBar()
+    {
+        time -= Time.deltaTime;
+
+        if (time <= 0f)
+        {
+            healthBarCanvas.SetActive(false);
+        }
+    }
+
+    #endregion
 }

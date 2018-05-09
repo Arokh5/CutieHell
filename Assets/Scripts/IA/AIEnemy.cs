@@ -198,6 +198,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         if (IsDead() || !isTargetable)
             return;
 
+        GetComponent<EnemyCanvasController>().EnableHealthBar(true);
         currentHealth -= damage;
         if (getHitVFX != null)
             ParticlesManager.instance.LaunchParticleSystem(getHitVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation);
@@ -232,6 +233,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
             this.isTarget = isTarget;
             mRenderer.material = isTarget ? outlinedMat : basicMat;
             AdjustMaterials();
+            GetComponent<EnemyCanvasController>().EnableHealthBar(false);
             return true;
         }
 
