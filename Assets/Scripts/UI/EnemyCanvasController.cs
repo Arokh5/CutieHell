@@ -19,7 +19,7 @@ public class EnemyCanvasController : MonoBehaviour
 	
 	#region MonoBehaviour Methods
 
-    private void Start()
+    private void Awake()
     {
         healthImage = healthBarCanvas.transform.GetChild(0).GetComponent<Image>();
         baseHealth = GetComponent<AIEnemy>().baseHealth;
@@ -27,7 +27,7 @@ public class EnemyCanvasController : MonoBehaviour
 
     private void Update()
     {
-        transform.LookAt(GameManager.instance.GetPlayer1().transform);
+        healthBarCanvas.GetComponent<RectTransform>().LookAt(GameManager.instance.GetPlayer1().transform);
 
         if (healthBarCanvas.activeSelf)
         {

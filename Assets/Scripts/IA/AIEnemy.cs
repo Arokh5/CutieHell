@@ -156,6 +156,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         agent.enabled = true;
         isTargetable = true;
         isTarget = false;
+        GetComponent<EnemyCanvasController>().SetHealthBar();
     }
 
     public AIZoneController GetZoneController()
