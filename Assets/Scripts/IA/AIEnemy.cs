@@ -233,7 +233,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
             this.isTarget = isTarget;
             mRenderer.material = isTarget ? outlinedMat : basicMat;
             AdjustMaterials();
-            GetComponent<EnemyCanvasController>().EnableHealthBar(false);
+            if (isTarget) GetComponent<EnemyCanvasController>().EnableHealthBar(false);
             return true;
         }
 
