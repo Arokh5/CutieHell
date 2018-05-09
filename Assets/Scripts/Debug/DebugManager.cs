@@ -314,7 +314,7 @@ public class DebugManager : MonoBehaviour {
                     cameraController.focusDistance + "\nFocusX : " + cameraController.focusX + "\nFocusY : " + cameraController.focusY
                     + "\nFOV : " + cameraController.fov;
                 break;
-            case Player.CameraState.TURRET:
+            case Player.CameraState.BATTURRET:
                 if (Input.GetKeyDown(KeyCode.Z)) {
                     showGrid = !showGrid;
                 }

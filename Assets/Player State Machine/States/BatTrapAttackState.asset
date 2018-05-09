@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Name: BatTrapAttackState
   m_EditorClassIdentifier: 
   onEnterActions:
-  - {fileID: 11400000, guid: 3c46f5289815fc248b70954556c8a89d, type: 2}
+  - {fileID: 11400000, guid: b4ee1475ec368214aa232d251d9c482b, type: 2}
   - {fileID: 11400000, guid: 16322c002eafbc545adf6dbd9156d0a4, type: 2}
+  - {fileID: 11400000, guid: 6e528bb149a771441b1ff62859f56896, type: 2}
   onExitActions:
   - {fileID: 11400000, guid: 78508cb3eb7f094408bea7b1eb8bde7e, type: 2}
   - {fileID: 11400000, guid: e0e642a1fc98ce54cacab513f133b2d7, type: 2}
@@ -22,3 +23,5 @@ MonoBehaviour:
   transitions:
   - decision: {fileID: 11400000, guid: 8457d5c85e935ae4a9be6e3c21df4a0a, type: 2}
     targetState: {fileID: 11400000, guid: 7876ea8555f7f6c4cb97c6dd742b336b, type: 2}
+  - decision: {fileID: 11400000, guid: 2c3ac20ad51e1f04da6774977aca9aa6, type: 2}
+    targetState: {fileID: 11400000, guid: 145efb37e296df54a91a4228182470d8, type: 2}
