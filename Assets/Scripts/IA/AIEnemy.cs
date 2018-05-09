@@ -130,6 +130,11 @@ public class AIEnemy : MonoBehaviour, IDamageable
             hit = false;
             TakeDamage(healthToReduce, AttackType.ENEMY);
         }
+
+        if (isTarget)
+        {
+            GetComponent<EnemyCanvasController>().EnableHealthBar(false);
+        }
     }
     #endregion
 
@@ -233,7 +238,6 @@ public class AIEnemy : MonoBehaviour, IDamageable
             this.isTarget = isTarget;
             mRenderer.material = isTarget ? outlinedMat : basicMat;
             AdjustMaterials();
-            if (isTarget) GetComponent<EnemyCanvasController>().EnableHealthBar(false);
             return true;
         }
 
