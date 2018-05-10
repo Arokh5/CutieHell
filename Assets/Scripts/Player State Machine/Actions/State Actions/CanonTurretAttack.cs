@@ -24,34 +24,37 @@ public class CanonTurretAttack : StateAction
     ParticleSystem canonBallLandingVFX;
     private Transform canonTargetDecalGOTransform = null;
 
+    private Player playerRef;
+
     public override void Act(Player player)
     {
-        canonTargetDecalGOTransform = player.currentTrap.canonTargetDecal; // change this line of code to assign it just once
+        canonTargetDecalGOTransform = player.currentTrap.canonTargetDecal; // change this two lines of code to assign it just once
+        playerRef = player;
         if (InputManager.instance.GetR2ButtonDown())
         {
             if(player.currentTrap.canonBallsList.Count == 0 )
             {
-                canonBallStartPoint = player.currentTrap.canonBallStartPoint;
-                ShootCanonBall(player);
-                UnityEngine.Assertions.Assert.IsTrue(canonBallExplosionRange > player.currentTrap.attractionRadius, "ERROR: CanonBall explosion range can't be greater than its owner trap attraction radius");
+                canonBallStartPoint = playerRef.currentTrap.canonBallStartPoint;
+                ShootCanonBall();
+                UnityEngine.Assertions.Assert.IsFalse(canonBallExplosionRange > playerRef.currentTrap.attractionRadius, "ERROR: CanonBall explosion range can't be greater than its owner trap attraction radius");
             }
         }
 
-        if(player.currentTrap.canonBallsList.Count > 0) 
+        if(playerRef.currentTrap.canonBallsList.Count > 0) 
         {
-            UpdateCanonBallsMotion(player);
+            UpdateCanonBallsMotion();
         }
 
-        MoveShootDecal(player);
+        MoveShootDecal();
     }
 
     #region Private Methods
-    private void MoveShootDecal(Player player)
+    private void MoveShootDecal()
     {
         if (InputManager.instance.GetLeftStickUp())
         {
             canonTargetDecalGOTransform.localPosition += canonTargetDecalGOTransform.forward * Time.deltaTime * decalMovementSpeed;
-            if (Vector3.Distance(canonTargetDecalGOTransform.position, player.currentTrap.transform.position) > limitedShootDistance)
+            if (Vector3.Distance(canonTargetDecalGOTransform.position, playerRef.currentTrap.transform.position) > limitedShootDistance)
             {
                 canonTargetDecalGOTransform.localPosition -= canonTargetDecalGOTransform.forward * Time.deltaTime * decalMovementSpeed;
             }
@@ -59,7 +62,7 @@ public class CanonTurretAttack : StateAction
         if (InputManager.instance.GetLeftStickDown())
         {
             canonTargetDecalGOTransform.localPosition += -canonTargetDecalGOTransform.forward * Time.deltaTime * decalMovementSpeed;
-            if (Vector3.Distance(canonTargetDecalGOTransform.position, player.currentTrap.transform.position) > limitedShootDistance)
+            if (Vector3.Distance(canonTargetDecalGOTransform.position, playerRef.currentTrap.transform.position) > limitedShootDistance)
             {
                 canonTargetDecalGOTransform.localPosition += canonTargetDecalGOTransform.forward * Time.deltaTime * decalMovementSpeed;
             }
@@ -67,7 +70,7 @@ public class CanonTurretAttack : StateAction
         if (InputManager.instance.GetLeftStickLeft())
         {
             canonTargetDecalGOTransform.localPosition += -canonTargetDecalGOTransform.right * Time.deltaTime * decalMovementSpeed;
-            if (Vector3.Distance(canonTargetDecalGOTransform.position, player.currentTrap.transform.position) > limitedShootDistance)
+            if (Vector3.Distance(canonTargetDecalGOTransform.position, playerRef.currentTrap.transform.position) > limitedShootDistance)
             {
                 canonTargetDecalGOTransform.localPosition += canonTargetDecalGOTransform.right * Time.deltaTime * decalMovementSpeed;
             }
@@ -75,14 +78,14 @@ public class CanonTurretAttack : StateAction
         if (InputManager.instance.GetLeftStickRight())
         {
             canonTargetDecalGOTransform.localPosition += canonTargetDecalGOTransform.right * Time.deltaTime * decalMovementSpeed;
-            if (Vector3.Distance(canonTargetDecalGOTransform.position, player.currentTrap.transform.position) > limitedShootDistance)
+            if (Vector3.Distance(canonTargetDecalGOTransform.position, playerRef.currentTrap.transform.position) > limitedShootDistance)
             {
                 canonTargetDecalGOTransform.localPosition += -canonTargetDecalGOTransform.right * Time.deltaTime * decalMovementSpeed;
             }
         }
     }
 
-    private void ShootCanonBall(Player player)
+    private void ShootCanonBall()
     {
         Vector3 shootDistance = canonBallStartPoint.position - canonTargetDecalGOTransform.position;
         float shootingDuration = shootDistance.magnitude/canonBallshootingSpeed;
@@ -95,19 +98,19 @@ public class CanonTurretAttack : StateAction
         canonBallMotion.canonBallShootingDuration = shootingDuration;
         canonBallMotion.canonBallShotingDistance = shootDistance;
 
-        player.currentTrap.canonBallsList.Add(canonBallMotion);
+        playerRef.currentTrap.canonBallsList.Add(canonBallMotion);
 
     }
 
-    private void UpdateCanonBallsMotion(Player player)
+    private void UpdateCanonBallsMotion()
     {
         float motionProgress = 0;
         CanonBallMotion evaluatedCanonBall;
         Vector3 nextPosition;
 
-        for(int i = 0; i < player.currentTrap.canonBallsList.Count; i++)
+        for(int i = 0; i < playerRef.currentTrap.canonBallsList.Count; i++)
         {
-            evaluatedCanonBall = player.currentTrap.canonBallsList[i];
+            evaluatedCanonBall = playerRef.currentTrap.canonBallsList[i];
             evaluatedCanonBall.canonBallElapsedTime += Time.deltaTime;
             motionProgress = evaluatedCanonBall.canonBallElapsedTime / evaluatedCanonBall.canonBallShootingDuration;
 
@@ -131,13 +134,25 @@ public class CanonTurretAttack : StateAction
 
             if (motionProgress >= 1)
             {
-                player.currentTrap.canonBallsList.Remove(evaluatedCanonBall);
+                playerRef.currentTrap.canonBallsList.Remove(evaluatedCanonBall);
+                DamageEnemiesAffectedByCanonBallExplosion(evaluatedCanonBall.transform);
                 Destroy(evaluatedCanonBall.canonBall.gameObject);
             }
             //Add anticipated explosion in case there's a collision with an enemy before landing
         }
+       
+    }
 
-        
+    private void DamageEnemiesAffectedByCanonBallExplosion(Transform enemyProjectionTransform)
+    {
+        //Worth to do it only on enemies attracted by current trap?
+        List<AIEnemy> affectedEnemies = playerRef.currentTrap.ObtainEnemiesAffectedByTrapRangedDamage(enemyProjectionTransform, canonBallExplosionRange);
+      
+        for( int i = 0; i < affectedEnemies.Count; i++)
+        {
+            affectedEnemies[i].TakeDamage(canonBallExplosionDamage, AttackType.TRAP_AREA);
+        }
+
     }
     #endregion
 

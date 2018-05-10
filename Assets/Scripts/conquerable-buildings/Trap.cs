@@ -74,6 +74,13 @@ public class Trap : Building, IUsable
         return usageCost;
     }
 
+    public List<AIEnemy> ObtainEnemiesAffectedByTrapRangedDamage(Transform emissionTransform, float aoeRange)
+    {
+        List<AIEnemy> affectedEnemies = zoneController.GetEnemiesWithinRange(emissionTransform, aoeRange);
+
+        return affectedEnemies;
+    }
+
     // Called by Player. A call to this method should inform the ZoneController
     public bool Activate(Player player)
     {
