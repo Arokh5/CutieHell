@@ -9,6 +9,7 @@ public class TrapEnterAction : StateAction
     {
         player.currentTrap = player.nearbyTrap;
         player.currentTrap.Activate(player);
+        player.currentTrap.GetCurrentTrapIndicator().gameObject.SetActive(true);
         player.SetRenderersVisibility(false);
     }
 }

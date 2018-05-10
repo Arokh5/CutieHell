@@ -30,6 +30,7 @@ public class CanonTurretAttack : StateAction
     {
         canonTargetDecalGOTransform = player.currentTrap.canonTargetDecal; // change this two lines of code to assign it just once
         playerRef = player;
+
         if (InputManager.instance.GetR2ButtonDown())
         {
             if(player.currentTrap.canonBallsList.Count == 0 )
@@ -92,6 +93,7 @@ public class CanonTurretAttack : StateAction
 
         GameObject canonBall = Instantiate(canonBallPrefab, canonBallStartPoint);
         CanonBallMotion canonBallMotion = canonBall.GetComponent<CanonBallMotion>();
+
         canonBall.SetActive(false);
         canonBallMotion.canonBall = canonBall;
         canonBallMotion.canonBallElapsedTime = 0;

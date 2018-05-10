@@ -12,6 +12,8 @@ public class Trap : Building, IUsable
     public int usageCost;
     private Player player;
     public Transform rotatingHead;
+    [SerializeField]
+    private CurrentTrapIndicator trapIndicator;
 
     [Header("Trap testing")]
     public bool activate = false;
@@ -52,6 +54,8 @@ public class Trap : Building, IUsable
         Gizmos.color = new Color(1, 0, 0 ,0.5f);
         Gizmos.DrawWireSphere(transform.position, attractionRadius);
     }
+
+   
     #endregion
 
     #region Public Methods
@@ -59,6 +63,18 @@ public class Trap : Building, IUsable
     public override bool CanRepair()
     {
         return !zoneController.monumentTaken && !HasFullHealth();
+    }
+
+    public override void TakeDamage(float damage, AttackType attacktype)
+    {
+        base.TakeDamage(damage, attacktype);
+        trapIndicator.SetFill((baseHealth - currentHealth) / baseHealth);
+    }
+
+    public override void FullRepair()
+    {
+            base.FullRepair();
+            trapIndicator.SetFill(0);
     }
 
     // IUsable
@@ -72,6 +88,12 @@ public class Trap : Building, IUsable
     public int GetUsageCost()
     {
         return usageCost;
+    }
+
+    // Called by TrapEnterAction
+    public CurrentTrapIndicator GetCurrentTrapIndicator()
+    {
+        return trapIndicator;
     }
 
     public List<AIEnemy> ObtainEnemiesAffectedByTrapRangedDamage(Transform emissionTransform, float aoeRange)
