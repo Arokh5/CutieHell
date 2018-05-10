@@ -19,6 +19,9 @@ public class Trap : Building, IUsable
 
     [Header("Canon")]
     public Transform canonTargetDecal;
+    public Transform canonBallStartPoint;
+    public List<CanonBallMotion> canonBallsList = new List<CanonBallMotion>();
+
 
     [ShowOnly]
     public bool isActive = false;
