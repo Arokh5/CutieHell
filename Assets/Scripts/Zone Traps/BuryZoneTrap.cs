@@ -1,17 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class BuryZoneTrap : ZoneTrap
 {
+    #region Fields
     private List<AIEnemy> aiEnemies = null;
     [SerializeField]
     private float buryDepth = 2.0f;
+    #endregion
 
     #region Protected Methods
     protected override void StartTrapEffect()
     {
-        aiEnemies = zoneController.GetZoneEnemies();
+        aiEnemies = new List<AIEnemy>(zoneController.GetZoneEnemies());
         foreach (AIEnemy aiEnemy in aiEnemies)
         {
             aiEnemy.HitByZoneTrap();

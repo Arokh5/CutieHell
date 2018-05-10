@@ -7,7 +7,7 @@ public class UseZoneTrap : StateAction
 {
     public override void Act(Player player)
     {
-        if (player.zoneTrap && Input.GetKeyDown(KeyCode.A))//InputManager.instance.GetOButtonDown())
+        if (player.zoneTrap && InputManager.instance.GetOButtonDown())
         {
             if (player.zoneTrap.CanUse() && player.GetEvilLevel() >= player.zoneTrap.GetUsageCost())
             {
