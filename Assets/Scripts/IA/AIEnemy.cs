@@ -134,10 +134,21 @@ public class AIEnemy : MonoBehaviour, IDamageable
             hit = false;
             TakeDamage(healthToReduce, AttackType.ENEMY);
         }
+
+        if (isTarget)
+        {
+            GetComponent<EnemyCanvasController>().EnableHealthBar(false);
+        }
     }
     #endregion
 
     #region Public Methods
+
+    public float GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+
     public void HitByZoneTrap()
     {
         agent.enabled = false;
@@ -155,6 +166,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         agent.enabled = true;
         isTargetable = true;
         isTarget = false;
+        GetComponent<EnemyCanvasController>().SetHealthBar();
     }
 
     public AIZoneController GetZoneController()
@@ -219,6 +231,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
         {
             animator.SetBool("GetHit", true);
         }
+        GetComponent<EnemyCanvasController>().EnableHealthBar(true);
+        GetComponent<EnemyCanvasController>().SetHealthBar();
         AdjustMaterials();
     }
 
