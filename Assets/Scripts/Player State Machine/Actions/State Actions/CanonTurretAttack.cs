@@ -2,6 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public struct CanonBallInfo
+{
+    public float canonBallSpeed;
+    public int canonBallExplosionDamage;
+    public float canonBallExplosionRange;
+    public float canonBallParabolaHeight;
+}
+
+
 [CreateAssetMenu(menuName = "Player State Machine/Actions/CanonTurretAttack")]
 public class CanonTurretAttack : StateAction
 {
@@ -22,28 +32,37 @@ public class CanonTurretAttack : StateAction
     public float decalMovementSpeed;
     [SerializeField]
     ParticleSystem canonBallLandingVFX;
-    private Transform canonTargetDecalGOTransform = null;
+    private static Transform canonTargetDecalGOTransform = null;
 
-    private Player playerRef;
+    private Player playerRef = null;
 
     public override void Act(Player player)
     {
-        canonTargetDecalGOTransform = player.currentTrap.canonTargetDecal; // change this two lines of code to assign it just once
-        playerRef = player;
+        if (playerRef == null)
+        {
+            playerRef = player;
+            canonBallStartPoint = playerRef.currentTrap.canonBallStartPoint;
+            canonTargetDecalGOTransform = player.currentTrap.canonTargetDecal;
+
+            UnityEngine.Assertions.Assert.IsFalse(canonBallExplosionRange > playerRef.currentTrap.attractionRadius, "ERROR: CanonBall explosion range can't be greater than its owner trap attraction radius");
+
+            CanonBallInfo canonBallInfo;
+            canonBallInfo.canonBallExplosionDamage = canonBallExplosionDamage;
+            canonBallInfo.canonBallExplosionRange = canonBallExplosionRange;
+            canonBallInfo.canonBallParabolaHeight = maxParabolaHeight;
+            canonBallInfo.canonBallSpeed = canonBallshootingSpeed;
+
+            playerRef.currentTrap.SetCanonBallInfo(canonBallInfo);
+
+
+        }
 
         if (InputManager.instance.GetR2ButtonDown())
         {
             if(player.currentTrap.canonBallsList.Count == 0 )
             {
-                canonBallStartPoint = playerRef.currentTrap.canonBallStartPoint;
                 ShootCanonBall();
-                UnityEngine.Assertions.Assert.IsFalse(canonBallExplosionRange > playerRef.currentTrap.attractionRadius, "ERROR: CanonBall explosion range can't be greater than its owner trap attraction radius");
             }
-        }
-
-        if(playerRef.currentTrap.canonBallsList.Count > 0) 
-        {
-            UpdateCanonBallsMotion();
         }
 
         MoveShootDecal();
@@ -104,46 +123,7 @@ public class CanonTurretAttack : StateAction
 
     }
 
-    private void UpdateCanonBallsMotion()
-    {
-        float motionProgress = 0;
-        CanonBallMotion evaluatedCanonBall;
-        Vector3 nextPosition;
-
-        for(int i = 0; i < playerRef.currentTrap.canonBallsList.Count; i++)
-        {
-            evaluatedCanonBall = playerRef.currentTrap.canonBallsList[i];
-            evaluatedCanonBall.canonBallElapsedTime += Time.deltaTime;
-            motionProgress = evaluatedCanonBall.canonBallElapsedTime / evaluatedCanonBall.canonBallShootingDuration;
-
-            if( !evaluatedCanonBall.canonBall.gameObject.activeSelf && motionProgress >= 0.15 )
-            {
-                evaluatedCanonBall.canonBall.gameObject.SetActive(true);
-            }
-
-            nextPosition = canonBallStartPoint.position - evaluatedCanonBall.canonBallShotingDistance * motionProgress;
-
-            if (motionProgress <= 0.5f) //Ascendent Halfway
-            { 
-                nextPosition.y += evaluatedCanonBall.canonBallShotingDistance.magnitude * ( motionProgress * maxParabolaHeight);
-            }
-            else // Descendent Halfway
-            {
-                nextPosition.y += evaluatedCanonBall.canonBallShotingDistance.magnitude * (( 1 - motionProgress) * maxParabolaHeight);
-            }
-
-            evaluatedCanonBall.transform.position = nextPosition;
-
-            if (motionProgress >= 1)
-            {
-                playerRef.currentTrap.canonBallsList.Remove(evaluatedCanonBall);
-                DamageEnemiesAffectedByCanonBallExplosion(evaluatedCanonBall.transform);
-                Destroy(evaluatedCanonBall.canonBall.gameObject);
-            }
-            //Add anticipated explosion in case there's a collision with an enemy before landing
-        }
-       
-    }
+   
 
     private void DamageEnemiesAffectedByCanonBallExplosion(Transform enemyProjectionTransform)
     {

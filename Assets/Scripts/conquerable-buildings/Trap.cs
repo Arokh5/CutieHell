@@ -23,6 +23,7 @@ public class Trap : Building, IUsable
     public Transform canonTargetDecal;
     public Transform canonBallStartPoint;
     public List<CanonBallMotion> canonBallsList = new List<CanonBallMotion>();
+    private CanonBallInfo canonBallInfo;
 
 
     [ShowOnly]
@@ -47,6 +48,11 @@ public class Trap : Building, IUsable
             Deactivate();
         }
         base.Update();
+
+        if(canonBallsList.Count > 0)
+        {          
+            UpdateCanonBallsMotion();
+        }
     }
 
     private void OnDrawGizmosSelected()
@@ -103,6 +109,11 @@ public class Trap : Building, IUsable
         return affectedEnemies;
     }
 
+    public void SetCanonBallInfo(CanonBallInfo canonBallNewInfo)
+    {
+        canonBallInfo = canonBallNewInfo;
+    }
+
     // Called by Player. A call to this method should inform the ZoneController
     public bool Activate(Player player)
     {
@@ -155,5 +166,52 @@ public class Trap : Building, IUsable
     }
     #endregion
 
+    #region Private Methods
+    private void UpdateCanonBallsMotion()
+    {
+        float motionProgress = 0;
+        CanonBallMotion evaluatedCanonBall;
+        Vector3 nextPosition;
 
+        for (int i = 0; i < canonBallsList.Count; i++)
+        {
+            evaluatedCanonBall = canonBallsList[i];
+            evaluatedCanonBall.canonBallElapsedTime += Time.deltaTime;
+            motionProgress = evaluatedCanonBall.canonBallElapsedTime / evaluatedCanonBall.canonBallShootingDuration;
+
+            if (!evaluatedCanonBall.canonBall.gameObject.activeSelf && motionProgress >= 0.15)
+            {
+                evaluatedCanonBall.canonBall.gameObject.SetActive(true);
+            }
+
+            nextPosition = canonBallStartPoint.position - evaluatedCanonBall.canonBallShotingDistance * motionProgress;
+
+            if (motionProgress <= 0.5f) //Ascendent Halfway
+            {
+                nextPosition.y += evaluatedCanonBall.canonBallShotingDistance.magnitude * (motionProgress * canonBallInfo.canonBallParabolaHeight);
+            }
+            else // Descendent Halfway
+            {
+                nextPosition.y += evaluatedCanonBall.canonBallShotingDistance.magnitude * ((1 - motionProgress) * canonBallInfo.canonBallParabolaHeight);
+            }
+
+            evaluatedCanonBall.transform.position = nextPosition;
+
+            if (motionProgress >= 1)
+            {
+                List<AIEnemy> affectedEnemies = ObtainEnemiesAffectedByTrapRangedDamage(evaluatedCanonBall.transform, canonBallInfo.canonBallExplosionRange);
+
+                for (int j = 0; j < affectedEnemies.Count; j++)
+                {
+                    affectedEnemies[j].TakeDamage(canonBallInfo.canonBallExplosionRange, AttackType.TRAP_AREA);
+                }
+
+                canonBallsList.Remove(evaluatedCanonBall);
+                Destroy(evaluatedCanonBall.canonBall.gameObject);
+            }
+            //Add anticipated explosion in case there's a collision with an enemy before landing
+        }
+
+    }
+    #endregion
 }
