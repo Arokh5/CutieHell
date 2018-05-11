@@ -58,6 +58,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private bool isTarget = false;
 
     public EnemyType enemyType;
+    private Collider enemyCollider;
+    private AttackType killingHit = AttackType.NONE;
 
     #endregion
 
@@ -72,11 +74,13 @@ public class AIEnemy : MonoBehaviour, IDamageable
         UnityEngine.Assertions.Assert.IsNotNull(mRenderer, "Error: No MeshRenderer found for children of AIEnemy in GameObject '" + gameObject.name + "'!");
         animator = this.GetComponent<Animator>();
         UnityEngine.Assertions.Assert.IsNotNull(animator, "Error: No Animator found in GameObject '" + gameObject.name + "'!");
+        enemyCollider = GetComponent<Collider>();
         originalStoppingDistance = agent.stoppingDistance;
     }
 
     private void Start()
     {
+        heightOffset = enemyCollider.bounds.size.y / 2.0f;
         Restart();
     }
 
@@ -130,19 +134,14 @@ public class AIEnemy : MonoBehaviour, IDamageable
             hit = false;
             TakeDamage(healthToReduce, AttackType.ENEMY);
         }
-
-        if (isTarget)
-        {
-            GetComponent<EnemyCanvasController>().EnableHealthBar(false);
-        }
     }
     #endregion
 
     #region Public Methods
-
-    public float GetCurrentHealth()
+    public void HitByZoneTrap()
     {
-        return currentHealth;
+        agent.enabled = false;
+        enemyCollider.enabled = false;
     }
 
     public void Restart()
@@ -152,11 +151,10 @@ public class AIEnemy : MonoBehaviour, IDamageable
         currentHealth = baseHealth;
         mRenderer.material = basicMat;
         mRenderer.material.color = initialColor;
-        heightOffset = this.GetComponent<Collider>().bounds.size.y / 2.0f;
+        enemyCollider.enabled = true;
         agent.enabled = true;
         isTargetable = true;
         isTarget = false;
-        GetComponent<EnemyCanvasController>().SetHealthBar();
     }
 
     public AIZoneController GetZoneController()
@@ -204,7 +202,6 @@ public class AIEnemy : MonoBehaviour, IDamageable
         if (IsDead() || !isTargetable)
             return;
 
-        GetComponent<EnemyCanvasController>().EnableHealthBar(true);
         currentHealth -= damage;
         if (getHitVFX != null)
             ParticlesManager.instance.LaunchParticleSystem(getHitVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation);
@@ -214,6 +211,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
             currentHealth = 0;
             agent.enabled = false;
             SetIsTargetable(false);
+            killingHit = attacktype;
             animator.SetBool("DieStandard", true);
             //Die();
         }
@@ -221,8 +219,6 @@ public class AIEnemy : MonoBehaviour, IDamageable
         {
             animator.SetBool("GetHit", true);
         }
-
-        GetComponent<EnemyCanvasController>().SetHealthBar();
         AdjustMaterials();
     }
 
@@ -291,10 +287,11 @@ public class AIEnemy : MonoBehaviour, IDamageable
         StatsManager.instance.RegisterKill(enemyType);
         zoneController.RemoveEnemy(this);
         Player player = GameManager.instance.GetPlayer1();
-        if (player != null)
+        if (player != null && killingHit == AttackType.WEAK || killingHit == AttackType.STRONG || killingHit == AttackType.TRAP_BASIC)
         {
             player.AddEvilPoints(evilKillReward);
         }
+        killingHit = AttackType.NONE;
 
         if(deathVFX != null)
             ParticlesManager.instance.LaunchParticleSystem(deathVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation);
