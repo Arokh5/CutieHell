@@ -19,7 +19,9 @@ public class UIManager : MonoBehaviour
     private Text waveNumberText;
 
     [SerializeField]
-    private WaveTimer waveRadialProgressBar;
+    private WaveProgressFiller waveProgressFiller;
+    //[SerializeField]
+    //private WaveTimer waveRadialProgressBar;
 
     [SerializeField]
     private Text strongCombo;
@@ -153,7 +155,8 @@ public class UIManager : MonoBehaviour
             currentWaveNumber = waveNumber;
             waveNumberText.text = currentWaveNumber.ToString();
         }
-        waveRadialProgressBar.SetNormalizedAmount(normalizedProgress);
+        //waveRadialProgressBar.SetNormalizedAmount(normalizedProgress);
+        waveProgressFiller.SetNormalizedAmount(normalizedProgress);
     }
 
     public void ShowRepairText()
