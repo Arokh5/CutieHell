@@ -18,6 +18,7 @@ public class EnemyCanvasController : MonoBehaviour
     private float baseHealth;
     private float time;
     private bool fadeOut;
+    private Color transparent;
 
 	#endregion
 	
@@ -29,6 +30,7 @@ public class EnemyCanvasController : MonoBehaviour
         fadeOutTime = fadeOutBaseTime;
         healthImage = healthBarCanvas.transform.GetChild(0).GetComponent<Image>();
         baseHealth = GetComponent<AIEnemy>().baseHealth;
+        transparent = new Color(1, 1, 1, 0);
     }
 
     private void Update()
@@ -58,8 +60,8 @@ public class EnemyCanvasController : MonoBehaviour
     public void EnableHealthBar(bool takeDamage)
     {
         healthBarCanvas.SetActive(true);
-        healthBarCanvas.transform.GetChild(0).GetComponent<Image>().color = new Color32(255, 255, 255, 255);
-        healthBarCanvas.transform.GetChild(1).GetComponent<Image>().color = new Color32(255, 255, 255, 255);
+        healthBarCanvas.transform.GetChild(0).GetComponent<Image>().color = Color.white;
+        healthBarCanvas.transform.GetChild(1).GetComponent<Image>().color = Color.white;
 
         if (takeDamage || (!takeDamage && time <= targetActiveTime))
         {
@@ -84,8 +86,8 @@ public class EnemyCanvasController : MonoBehaviour
     private void HealthBarFadeOut()
     {
         fadeOutTime -= Time.deltaTime;
-        healthBarCanvas.transform.GetChild(0).GetComponent<Image>().color = Color.Lerp(new Color32(255, 255, 255, 255), new Color32(255, 255, 255, 0), 1 - (fadeOutTime / fadeOutBaseTime));
-        healthBarCanvas.transform.GetChild(1).GetComponent<Image>().color = Color.Lerp(new Color32(255, 255, 255, 255), new Color32(255, 255, 255, 0), 1 - (fadeOutTime / fadeOutBaseTime));
+        healthBarCanvas.transform.GetChild(0).GetComponent<Image>().color = Color.Lerp(Color.white, transparent, 1 - (fadeOutTime / fadeOutBaseTime));
+        healthBarCanvas.transform.GetChild(1).GetComponent<Image>().color = Color.Lerp(Color.white, transparent, 1 - (fadeOutTime / fadeOutBaseTime));
 
         if (fadeOutTime <= 0)
         {
