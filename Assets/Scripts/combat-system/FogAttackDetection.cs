@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class StrongAttackDetection : MonoBehaviour
+public class FogAttackDetection : MonoBehaviour
 {
     #region Fields
     public LayerMask layerMask;
@@ -14,10 +13,7 @@ public class StrongAttackDetection : MonoBehaviour
         {
             AIEnemy aIEnemy = other.GetComponent<AIEnemy>();
             if (aIEnemy)
-            {
-                aIEnemy.MarkAsTarget(true);
-                GameManager.instance.GetPlayer1().currentStrongAttackTargets.Add(aIEnemy);
-            }
+                GameManager.instance.GetPlayer1().currentFogAttackTargets.Add(aIEnemy);
         }
     }
 
@@ -27,11 +23,8 @@ public class StrongAttackDetection : MonoBehaviour
         {
             AIEnemy aIEnemy = other.GetComponent<AIEnemy>();
             if (aIEnemy)
-            {
-                aIEnemy.MarkAsTarget(false);
-                GameManager.instance.GetPlayer1().currentStrongAttackTargets.Remove(aIEnemy);
-            }
+                GameManager.instance.GetPlayer1().currentFogAttackTargets.Remove(aIEnemy);
         }
     }
-	#endregion
+    #endregion
 }

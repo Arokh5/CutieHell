@@ -85,9 +85,23 @@ public class Player : MonoBehaviour {
     [HideInInspector]
     public List<AIEnemy> currentStrongAttackTargets = new List<AIEnemy>();
 
+    [Header("Fog Attack")]
+    public SphereCollider fogCollider;
+    public ParticleSystem fogVFX;
+    public float fogStateCooldown;
+    [HideInInspector]
+    public float fogStateLastTime;
+    [HideInInspector]
+    public float accumulatedFogEvilCost = 0;
+    [HideInInspector]
+    public float timeSinceLastFogHit = 0;
+    [HideInInspector]
+    public List<AIEnemy> currentFogAttackTargets = new List<AIEnemy>();
+
+    [Header("Footsteps")]
+    public AudioClip footstepsClip;
     [HideInInspector]
     public AudioSource footstepsSource;
-    public AudioClip footstepsClip;
     #endregion
 
     public enum CameraState { STILL, MOVE, WOLF, FOG, TURRET, TRANSITION, ZOOMOUT, ZOOMIN}
@@ -120,7 +134,9 @@ public class Player : MonoBehaviour {
         footstepsSource = GetComponent<AudioSource>();
         footstepsSource.clip = footstepsClip;
         footstepsSource.loop = true;
-    }
+
+        fogStateLastTime = float.MinValue;
+}
 
     private void Start () 
     {
