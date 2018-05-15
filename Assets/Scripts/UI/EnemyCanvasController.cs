@@ -6,7 +6,7 @@ public class EnemyCanvasController : MonoBehaviour
     #region Fields
 
     [SerializeField]
-    private GameObject healthBarCanvas;
+    private RectTransform healthBarCanvas;
     [SerializeField]
     private float damageActiveTime;
     [SerializeField]
@@ -14,11 +14,15 @@ public class EnemyCanvasController : MonoBehaviour
     [SerializeField]
     private float fadeOutBaseTime;
     private float fadeOutTime;
+    [SerializeField]
     private Image healthImage;
+    [SerializeField]
+    private Image healthContainer;
     private float baseHealth;
     private float time;
     private bool fadeOut;
     private Color transparent;
+    private AIEnemy enemyScript;
 
 	#endregion
 	
@@ -28,16 +32,16 @@ public class EnemyCanvasController : MonoBehaviour
     {
         fadeOut = false;
         fadeOutTime = fadeOutBaseTime;
-        healthImage = healthBarCanvas.transform.GetChild(0).GetComponent<Image>();
-        baseHealth = GetComponent<AIEnemy>().baseHealth;
+        enemyScript = GetComponent<AIEnemy>();
+        baseHealth = enemyScript.baseHealth;
         transparent = new Color(1, 1, 1, 0);
     }
 
     private void Update()
     {
-        healthBarCanvas.GetComponent<RectTransform>().LookAt(GameManager.instance.GetPlayer1().transform);
+        healthBarCanvas.LookAt(Camera.main.transform);
 
-        if (healthBarCanvas.activeSelf && !fadeOut)
+        if (healthBarCanvas.gameObject.activeSelf && !fadeOut)
         {
             DisableHealthBar();
         }
@@ -54,14 +58,14 @@ public class EnemyCanvasController : MonoBehaviour
 	
     public void SetHealthBar()
     {
-        healthImage.fillAmount = GetComponent<AIEnemy>().GetCurrentHealth() / baseHealth;
+        healthImage.fillAmount = enemyScript.GetCurrentHealth() / baseHealth;
     }
 
     public void EnableHealthBar(bool takeDamage)
     {
-        healthBarCanvas.SetActive(true);
-        healthBarCanvas.transform.GetChild(0).GetComponent<Image>().color = Color.white;
-        healthBarCanvas.transform.GetChild(1).GetComponent<Image>().color = Color.white;
+        healthBarCanvas.gameObject.SetActive(true);
+        healthImage.color = Color.white;
+        healthContainer.color = Color.white;
 
         if (takeDamage || (!takeDamage && time <= targetActiveTime))
         {
@@ -86,14 +90,14 @@ public class EnemyCanvasController : MonoBehaviour
     private void HealthBarFadeOut()
     {
         fadeOutTime -= Time.deltaTime;
-        healthBarCanvas.transform.GetChild(0).GetComponent<Image>().color = Color.Lerp(Color.white, transparent, 1 - (fadeOutTime / fadeOutBaseTime));
-        healthBarCanvas.transform.GetChild(1).GetComponent<Image>().color = Color.Lerp(Color.white, transparent, 1 - (fadeOutTime / fadeOutBaseTime));
+        healthImage.color = Color.Lerp(Color.white, transparent, 1 - (fadeOutTime / fadeOutBaseTime));
+        healthContainer.color = Color.Lerp(Color.white, transparent, 1 - (fadeOutTime / fadeOutBaseTime));
 
         if (fadeOutTime <= 0)
         {
             fadeOut = false;
             fadeOutTime = fadeOutBaseTime;
-            healthBarCanvas.SetActive(false);
+            healthBarCanvas.gameObject.SetActive(false);
         }
     }
 
