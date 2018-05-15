@@ -5,7 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Player State Machine/Actions/PlayerMove")]
 public class PlayerMove : StateAction
 {
-
+    public float maxSpeed;
+    public float acceleration;
     public override void Act(Player player)
     {
         Vector3 speedDirection = Vector3.zero;
@@ -49,15 +50,15 @@ public class PlayerMove : StateAction
             player.footstepsSource.Stop();
         }
 
-        player.rb.AddRelativeForce(speedDirection * player.acceleration, ForceMode.Acceleration);
+        player.rb.AddRelativeForce(speedDirection * acceleration, ForceMode.Acceleration);
 
         //if (player.rb.velocity.magnitude > player.maxSpeed)
         //{
         //    player.rb.velocity = player.rb.velocity.normalized * player.maxSpeed;
         //}
-        if (player.rb.velocity.magnitude > player.maxSpeed * speedDirection.magnitude / 2.0f)
+        if (player.rb.velocity.magnitude > maxSpeed * speedDirection.magnitude / 2.0f)
         {
-            player.rb.velocity = player.rb.velocity.normalized * player.maxSpeed * speedDirection.magnitude / 2.0f;
+            player.rb.velocity = player.rb.velocity.normalized * maxSpeed * speedDirection.magnitude / 2.0f;
         }
     }
 }

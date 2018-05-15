@@ -7,8 +7,6 @@ public class Player : MonoBehaviour {
 
     #region Fields
     [Header("Movement Variabes")]
-    public float maxSpeed = 10;
-    public float acceleration = 50;
     public Transform centerTeleportPoint;
     public Transform statueTeleportPoint;
     public GameObject footSteps;
@@ -136,7 +134,7 @@ public class Player : MonoBehaviour {
         footstepsSource.loop = true;
 
         fogStateLastTime = float.MinValue;
-}
+    }
 
     private void Start () 
     {
@@ -216,7 +214,8 @@ public class Player : MonoBehaviour {
         {
             colliders[i].enabled = visible;
         }
-        rb.isKinematic = !visible;
+        rb.useGravity = visible;
+        //rb.isKinematic = !visible;
     }
 
     public void InstantiateAttack(ParticleSystem attackPrefab, Transform enemy, Vector3 hitPoint)
@@ -241,5 +240,3 @@ public class Player : MonoBehaviour {
     }
     #endregion
 }
-
-    
