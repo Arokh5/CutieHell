@@ -8,7 +8,7 @@ public class AIZoneController : MonoBehaviour
     [HideInInspector]
     public int zoneID;
     public bool isFinalZone = false;
-    public Monument monument;
+    public Monument monument = null;
     public Trap[] traps;
     [HideInInspector]
     public bool monumentTaken = false;
@@ -45,11 +45,19 @@ public class AIZoneController : MonoBehaviour
             UnityEngine.Assertions.Assert.IsNotNull(scenarioController, "ERROR: Scenario not set for AIZoneController in gameObject '" + gameObject.name + "'");
         }
 
-        UnityEngine.Assertions.Assert.IsNotNull(monument, "ERROR: monument not set for AIZoneController in gameObject '" + gameObject.name + "'");
         UnityEngine.Assertions.Assert.IsTrue(buildingEffects.Count < maxBuildings, "ERROR: The amount of buildings is larger than the maximum amount of building accepted by the TextureChanger shader. The behaviour of the shader will be undefined!");
-        currentZoneTarget = monument;
         aiPositions = new Vector4[maxElements];
         buildingsBlendStartRadius = new float[maxBuildings];
+    }
+
+    private void Start()
+    {
+        if (!monument)
+        {
+            monumentTaken = true;
+            monument = scenarioController.GetAlternateTarget(this);
+        }
+        currentZoneTarget = monument;
     }
 
     private void Update()

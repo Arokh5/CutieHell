@@ -189,6 +189,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         newZoneController.AddEnemy(this);
         zoneController = newZoneController;
         UpdateNodePath();
+        UpdateTarget();
     }
 
     // Called by the ZoneController in case the Monument gets repaired (this will cause all AIEnemy to return to the ZoneController's area)
