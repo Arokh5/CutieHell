@@ -29,9 +29,14 @@ public class CanonTurretAttack : StateAction
 
     [Header("Canon Decal Fields")]
     public float limitedShootDistance;
+    public float minimumShootDistance;
     public float decalMovementSpeed;
     [SerializeField]
     ParticleSystem canonBallLandingVFX;
+
+    [Header("Canon Fields")]
+    public float canonWayOutPoint;
+
     private static Transform canonTargetDecalGOTransform = null;
 
     private Player playerRef = null;
@@ -40,21 +45,7 @@ public class CanonTurretAttack : StateAction
     {
         if (playerRef == null)
         {
-            playerRef = player;
-            canonBallStartPoint = playerRef.currentTrap.canonBallStartPoint;
-            canonTargetDecalGOTransform = player.currentTrap.canonTargetDecal;
-
-            UnityEngine.Assertions.Assert.IsFalse(canonBallExplosionRange > playerRef.currentTrap.attractionRadius, "ERROR: CanonBall explosion range can't be greater than its owner trap attraction radius");
-
-            CanonBallInfo canonBallInfo;
-            canonBallInfo.canonBallExplosionDamage = canonBallExplosionDamage;
-            canonBallInfo.canonBallExplosionRange = canonBallExplosionRange;
-            canonBallInfo.canonBallParabolaHeight = maxParabolaHeight;
-            canonBallInfo.canonBallSpeed = canonBallshootingSpeed;
-
-            playerRef.currentTrap.SetCanonBallInfo(canonBallInfo);
-
-
+            CanonAttackFirstUsePreparations(player);
         }
 
         if (InputManager.instance.GetR2ButtonDown())
@@ -69,39 +60,61 @@ public class CanonTurretAttack : StateAction
     }
 
     #region Private Methods
+    private void CanonAttackFirstUsePreparations(Player player)
+    {
+        playerRef = player;
+        canonBallStartPoint = playerRef.currentTrap.canonBallStartPoint;
+        canonTargetDecalGOTransform = player.currentTrap.canonTargetDecal;
+
+        UnityEngine.Assertions.Assert.IsFalse(canonBallExplosionRange > playerRef.currentTrap.attractionRadius, "ERROR: CanonBall explosion range can't be greater than its owner trap attraction radius");
+
+        CanonBallInfo canonBallInfo;
+        canonBallInfo.canonBallExplosionDamage = canonBallExplosionDamage;
+        canonBallInfo.canonBallExplosionRange = canonBallExplosionRange;
+        canonBallInfo.canonBallParabolaHeight = maxParabolaHeight;
+        canonBallInfo.canonBallSpeed = canonBallshootingSpeed;
+
+        playerRef.currentTrap.SetCanonBallInfo(canonBallInfo);
+    }
+
+    private void checkMoveBackShootDecal(float decalNewDistance, Vector3 movementMagnitude)
+    {
+        if(decalNewDistance > limitedShootDistance || (decalNewDistance < minimumShootDistance))
+        { 
+      
+            canonTargetDecalGOTransform.localPosition = canonTargetDecalGOTransform.localPosition - movementMagnitude * Time.deltaTime * decalMovementSpeed;
+        }
+    }
+
     private void MoveShootDecal()
     {
-        if (InputManager.instance.GetLeftStickUp())
+        if (InputManager.instance.GetRightStickUp())
         {
             canonTargetDecalGOTransform.localPosition += canonTargetDecalGOTransform.forward * Time.deltaTime * decalMovementSpeed;
-            if (Vector3.Distance(canonTargetDecalGOTransform.position, playerRef.currentTrap.transform.position) > limitedShootDistance)
-            {
-                canonTargetDecalGOTransform.localPosition -= canonTargetDecalGOTransform.forward * Time.deltaTime * decalMovementSpeed;
-            }
+
+            float distanceAfterMovement = Vector3.Distance(canonTargetDecalGOTransform.position, playerRef.currentTrap.transform.position);
+            checkMoveBackShootDecal(distanceAfterMovement, canonTargetDecalGOTransform.forward);           
         }
-        if (InputManager.instance.GetLeftStickDown())
+        if (InputManager.instance.GetRightStickDown())
         {
             canonTargetDecalGOTransform.localPosition += -canonTargetDecalGOTransform.forward * Time.deltaTime * decalMovementSpeed;
-            if (Vector3.Distance(canonTargetDecalGOTransform.position, playerRef.currentTrap.transform.position) > limitedShootDistance)
-            {
-                canonTargetDecalGOTransform.localPosition += canonTargetDecalGOTransform.forward * Time.deltaTime * decalMovementSpeed;
-            }
+
+            float distanceAfterMovement = Vector3.Distance(canonTargetDecalGOTransform.position, playerRef.currentTrap.transform.position);
+            checkMoveBackShootDecal(distanceAfterMovement, -canonTargetDecalGOTransform.forward);
         }
-        if (InputManager.instance.GetLeftStickLeft())
-        {
-            canonTargetDecalGOTransform.localPosition += -canonTargetDecalGOTransform.right * Time.deltaTime * decalMovementSpeed;
-            if (Vector3.Distance(canonTargetDecalGOTransform.position, playerRef.currentTrap.transform.position) > limitedShootDistance)
-            {
-                canonTargetDecalGOTransform.localPosition += canonTargetDecalGOTransform.right * Time.deltaTime * decalMovementSpeed;
-            }
-        }
-        if (InputManager.instance.GetLeftStickRight())
+        if (InputManager.instance.GetRightStickRight())
         {
             canonTargetDecalGOTransform.localPosition += canonTargetDecalGOTransform.right * Time.deltaTime * decalMovementSpeed;
-            if (Vector3.Distance(canonTargetDecalGOTransform.position, playerRef.currentTrap.transform.position) > limitedShootDistance)
-            {
-                canonTargetDecalGOTransform.localPosition += -canonTargetDecalGOTransform.right * Time.deltaTime * decalMovementSpeed;
-            }
+
+            float distanceAfterMovement = Vector3.Distance(canonTargetDecalGOTransform.position, playerRef.currentTrap.transform.position);
+            checkMoveBackShootDecal(distanceAfterMovement, canonTargetDecalGOTransform.right);
+        }
+        if (InputManager.instance.GetRightStickLeft())
+        {
+            canonTargetDecalGOTransform.localPosition += -canonTargetDecalGOTransform.right * Time.deltaTime * decalMovementSpeed;
+
+            float distanceAfterMovement = Vector3.Distance(canonTargetDecalGOTransform.position, playerRef.currentTrap.transform.position);
+            checkMoveBackShootDecal(distanceAfterMovement, -canonTargetDecalGOTransform.right);
         }
     }
 
@@ -112,18 +125,18 @@ public class CanonTurretAttack : StateAction
 
         GameObject canonBall = Instantiate(canonBallPrefab, canonBallStartPoint);
         CanonBallMotion canonBallMotion = canonBall.GetComponent<CanonBallMotion>();
+        canonBall.AddComponent<Rigidbody>();
 
         canonBall.SetActive(false);
         canonBallMotion.canonBall = canonBall;
         canonBallMotion.canonBallElapsedTime = 0;
         canonBallMotion.canonBallShootingDuration = shootingDuration;
         canonBallMotion.canonBallShotingDistance = shootDistance;
+        canonBallMotion.canonBallVisibleFromProgression = canonWayOutPoint;
 
         playerRef.currentTrap.canonBallsList.Add(canonBallMotion);
 
     }
-
-   
 
     private void DamageEnemiesAffectedByCanonBallExplosion(Transform enemyProjectionTransform)
     {

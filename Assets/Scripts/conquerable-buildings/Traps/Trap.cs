@@ -179,7 +179,7 @@ public class Trap : Building, IUsable
             evaluatedCanonBall.canonBallElapsedTime += Time.deltaTime;
             motionProgress = evaluatedCanonBall.canonBallElapsedTime / evaluatedCanonBall.canonBallShootingDuration;
 
-            if (!evaluatedCanonBall.canonBall.gameObject.activeSelf && motionProgress >= 0.15)
+            if (!evaluatedCanonBall.canonBall.gameObject.activeSelf && motionProgress >= evaluatedCanonBall.canonBallVisibleFromProgression)
             {
                 evaluatedCanonBall.canonBall.gameObject.SetActive(true);
             }
@@ -197,7 +197,7 @@ public class Trap : Building, IUsable
 
             evaluatedCanonBall.transform.position = nextPosition;
 
-            if (motionProgress >= 1)
+            if (motionProgress >= 1 || evaluatedCanonBall.GetHasToExplode())
             {
                 List<AIEnemy> affectedEnemies = ObtainEnemiesAffectedByTrapRangedDamage(evaluatedCanonBall.transform, canonBallInfo.canonBallExplosionRange);
 
@@ -208,10 +208,8 @@ public class Trap : Building, IUsable
 
                 canonBallsList.Remove(evaluatedCanonBall);
                 Destroy(evaluatedCanonBall.canonBall.gameObject);
-            }
-            //Add anticipated explosion in case there's a collision with an enemy before landing
+            }            
         }
-
     }
     #endregion
 }

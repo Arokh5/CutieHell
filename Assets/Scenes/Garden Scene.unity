@@ -1704,7 +1704,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &173603543
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1732,7 +1732,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 173603542}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08c1333ba5f1b9a479d518e2d1d85fd4, type: 3}
+  m_Script: {fileID: 11500000, guid: 268fc9bafeb19244d88697b07c7ee236, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fillImage: {fileID: 494767676}
@@ -7919,34 +7919,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 770944655}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &796033791
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 796033792}
-  m_Layer: 0
-  m_Name: Canon_Ball_StartPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &796033792
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 796033791}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 711558576}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &804468629
 GameObject:
   m_ObjectHideFlags: 0
@@ -12157,77 +12129,25 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1322869400541654, guid: eb4c50dffc1813641a89258147c00a72, type: 2}
+      propertyPath: m_Name
+      value: Trap_Basic_2
+      objectReference: {fileID: 0}
     - target: {fileID: 114318477810960220, guid: eb4c50dffc1813641a89258147c00a72,
         type: 2}
       propertyPath: zoneController
       value: 
       objectReference: {fileID: 1955635918}
-    - target: {fileID: 1322869400541654, guid: eb4c50dffc1813641a89258147c00a72, type: 2}
-      propertyPath: m_Name
-      value: Trap_Basic_2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4956818023188282, guid: eb4c50dffc1813641a89258147c00a72, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4956818023188282, guid: eb4c50dffc1813641a89258147c00a72, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4956818023188282, guid: eb4c50dffc1813641a89258147c00a72, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0.31559953
-      objectReference: {fileID: 0}
-    - target: {fileID: 4956818023188282, guid: eb4c50dffc1813641a89258147c00a72, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4956818023188282, guid: eb4c50dffc1813641a89258147c00a72, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 0.9488925
-      objectReference: {fileID: 0}
-    - target: {fileID: 4956818023188282, guid: eb4c50dffc1813641a89258147c00a72, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0.25304303
-      objectReference: {fileID: 0}
-    - target: {fileID: 4956818023188282, guid: eb4c50dffc1813641a89258147c00a72, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 1.2377572
-      objectReference: {fileID: 0}
-    - target: {fileID: 4956818023188282, guid: eb4c50dffc1813641a89258147c00a72, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0.005027801
-      objectReference: {fileID: 0}
-    - target: {fileID: 4956818023188282, guid: eb4c50dffc1813641a89258147c00a72, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 36.794003
-      objectReference: {fileID: 0}
+    - target: {fileID: 114318477810960220, guid: eb4c50dffc1813641a89258147c00a72,
+        type: 2}
+      propertyPath: trapIndicator
+      value: 
+      objectReference: {fileID: 173603544}
     - target: {fileID: 114318477810960220, guid: eb4c50dffc1813641a89258147c00a72,
         type: 2}
       propertyPath: canonTargetDecal
       value: 
       objectReference: {fileID: 1256620326}
-    - target: {fileID: 4223228502778120, guid: eb4c50dffc1813641a89258147c00a72, type: 2}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4013890346768260, guid: eb4c50dffc1813641a89258147c00a72, type: 2}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4772001068405164, guid: eb4c50dffc1813641a89258147c00a72, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4620484662855564, guid: eb4c50dffc1813641a89258147c00a72, type: 2}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114318477810960220, guid: eb4c50dffc1813641a89258147c00a72,
-        type: 2}
-      propertyPath: canonBallStartPoint
-      value: 
-      objectReference: {fileID: 796033792}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eb4c50dffc1813641a89258147c00a72, type: 2}
   m_IsPrefabParent: 0
