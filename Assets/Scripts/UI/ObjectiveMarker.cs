@@ -14,24 +14,13 @@ public class ObjectiveMarker : MonoBehaviour
     private Camera mainCamera;
 
     private float horizontalOffset;
-    private float verticalOffset;
-    private bool front;
-    private float heightLimit;
-    private float upwardsDistance;
-    private float startingDepth;
-    private float previousRotation;
-
-
-    float hAngle;
+    private float hAngle;
 
     void Start()
     {
         horizontalOffset = mainCamera.pixelWidth * horizontalOffsetPercentage;
-        verticalOffset = mainCamera.pixelHeight * bottomOffset;
-        startingDepth = 0f;
-        /* Get arrow to point up */
-        previousRotation = 0f;
 
+        /* Get arrow to point up */
         float radVFov = mainCamera.fieldOfView * Mathf.Deg2Rad;
         float radHFov = 2 * Mathf.Atan(Mathf.Tan(radVFov / 2) * mainCamera.aspect);
         hAngle = Mathf.Rad2Deg * Mathf.Atan((Mathf.Tan(0.5f * radHFov) * (1 - horizontalOffsetPercentage)));
@@ -41,14 +30,6 @@ public class ObjectiveMarker : MonoBehaviour
     {
         arrow.gameObject.SetActive(true);
 
-        Vector3 screenPos = mainCamera.WorldToScreenPoint(target.position);
-        float distance = Vector3.Distance(mainCamera.transform.position, target.transform.position);
-
-
-
-        bool outOfBounds = false;
-
-
         Vector2 screenPosition;
         Vector3 iconPosition = Vector3.zero;
         Vector3 targetPos = target.transform.position;
@@ -57,7 +38,6 @@ public class ObjectiveMarker : MonoBehaviour
         Vector3 cameraToTarget = targetPos - mainCamera.transform.position;
         cameraToTarget.y = 0;
         float tAngle = Vector3.SignedAngle(cameraForward, cameraToTarget, Vector3.up);
-        Debug.Log("tAngle: " + tAngle);
 
         bool behind = tAngle < -90 || tAngle > 90;
         bool front = tAngle > -hAngle && tAngle < hAngle;
@@ -81,13 +61,25 @@ public class ObjectiveMarker : MonoBehaviour
 
             if (front)
             {
+                if (screenPosition.y < topOffset && screenPosition.y > bottomOffset)
+                    arrow.gameObject.SetActive(false);
+
                 iconPosition.y = mainCamera.pixelHeight * Mathf.Clamp(screenPosition.y, bottomOffset, topOffset);
                 iconPosition.x = mainCamera.pixelWidth * Mathf.Clamp(screenPosition.x, horizontalOffsetPercentage, 1 - horizontalOffsetPercentage);
             }
-            else if (left)
+            else 
             {
-                iconPosition.x = horizontalOffset;
-                float upwardsFactor = (90 - -tAngle) / (90 - hAngle);
+                float upwardsFactor;
+                if (left)
+                {
+                    iconPosition.x = horizontalOffset;
+                    upwardsFactor = (90 - -tAngle) / (90 - hAngle);
+                }
+                else
+                {
+                    iconPosition.x = mainCamera.pixelWidth - horizontalOffset;
+                    upwardsFactor = (90 - tAngle) / (90 - hAngle);
+                }
 
                 float screenUpwardsFactor;
 
@@ -114,15 +106,9 @@ public class ObjectiveMarker : MonoBehaviour
         }
 
         RectTransform iconTransform = gameObject.GetComponent<Image>().rectTransform;
+        RectTransform arrowTransform = arrow.rectTransform;
 
         iconTransform.position = iconPosition;
-
-        return;
-
-        RectTransform iconAnchor = gameObject.GetComponent<Image>().rectTransform;
-        RectTransform arrowAnchor = arrow.rectTransform;
-
-        iconAnchor.position = screenPos;
 
         /* Get angle between straight up vector (initial arrow position) and current center of screen */
         Vector3 centerOfScreen = mainCamera.ViewportToScreenPoint(new Vector3(0.5f, 0.5f, 0f));
@@ -130,14 +116,8 @@ public class ObjectiveMarker : MonoBehaviour
         centerOfIcon.z = 0f;
 
         float angle = Vector3.SignedAngle(new Vector3(0f, 1f, 0f), centerOfScreen - centerOfIcon, new Vector3(0f, 0f, 1f));
-        Vector3 arrowRotation = arrowAnchor.parent.localRotation.eulerAngles;
+        Vector3 arrowRotation = arrowTransform.parent.localRotation.eulerAngles;
         arrowRotation.z = angle;
-        arrowAnchor.parent.localRotation = Quaternion.Euler(arrowRotation);
-        //if (Mathf.Abs(previousRotation - angle) > float.Epsilon)
-        //{
-        //    arrow.transform.parent.Rotate(new Vector3(0f, 0f, -previousRotation));
-        //    arrow.transform.parent.Rotate(new Vector3(0f, 0f, angle));
-        //    previousRotation = angle;
-        //}
+        arrowTransform.parent.localRotation = Quaternion.Euler(arrowRotation);
     }
 }
