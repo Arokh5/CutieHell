@@ -42,6 +42,8 @@ public class DebugManager : MonoBehaviour {
     private GameObject playerDebugInfo;
     [SerializeField]
     private GameObject greenCircle;
+    [SerializeField]
+    private PlayerMove playerDefaultMoveAction;
 
 
     private CameraController cameraController;
@@ -85,11 +87,16 @@ public class DebugManager : MonoBehaviour {
         KeyCode.Alpha9
     };
 
-	void Start () {
+    void OnDestroy()
+    {
+        playerDefaultMoveAction.maxSpeed = playerInitialSpeed;
+    }
+
+    void Start () {
         cameraController = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         player = GameObject.FindGameObjectWithTag("Player");
-        playerInitialSpeed = playerScript.maxSpeed;
+        playerInitialSpeed = playerDefaultMoveAction.maxSpeed;
         worldCameraComponent = worldCamera.GetComponent<Camera>();
         spawnController = FindObjectOfType<AISpawnController>();
         monument = GameObject.FindGameObjectWithTag("Monument").GetComponent<Monument>();
@@ -202,20 +209,20 @@ public class DebugManager : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.S))
         {
-            playerScript.maxSpeed += 2.5f;
+            playerDefaultMoveAction.maxSpeed += 2.5f;
         }
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-            playerScript.maxSpeed -= 2.5f;
-            if (playerScript.maxSpeed <= 0.0f)
-                playerScript.maxSpeed = 0.0f;
+            playerDefaultMoveAction.maxSpeed -= 2.5f;
+            if (playerDefaultMoveAction.maxSpeed <= 0.0f)
+                playerDefaultMoveAction.maxSpeed = 0.0f;
         }
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
             infiniteEvil = false;
-            playerScript.maxSpeed = playerInitialSpeed;
+            playerDefaultMoveAction.maxSpeed = playerInitialSpeed;
         }
 
         if (Input.GetKeyDown(KeyCode.Z))

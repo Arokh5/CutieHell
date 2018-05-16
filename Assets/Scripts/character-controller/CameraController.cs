@@ -41,6 +41,11 @@ public class CameraController : MonoBehaviour {
     public float t_cameraY;
     public float t_fov;
 
+    [Header("Fog setup")]
+    public float fogDistance;
+    public float yFogMin;
+    public float yFogMax;
+
     private void Awake()
     {
         x = 0f;
@@ -93,7 +98,6 @@ public class CameraController : MonoBehaviour {
             if (InputManager.instance.GetRightStickUp() || InputManager.instance.GetRightStickDown())
                 y += ySpeed * InputManager.instance.GetRightStickVerticalSqrValue();
 
-            y = ClampAngle(y, yMinLimit, yMaxLimit);
             if (playerScript.cameraState != lastState)
             {
                 timeOnTransition = 0.0f;
@@ -105,6 +109,7 @@ public class CameraController : MonoBehaviour {
                 case Player.CameraState.MOVE:
                     {
                         if (this.transform.parent != null) this.transform.parent = null;
+                        y = ClampAngle(y, yMinLimit, yMaxLimit);
                         Quaternion rotation = Quaternion.Euler(y, x, 0);
                         float noCollisionDistance = distance;
 
@@ -157,9 +162,61 @@ public class CameraController : MonoBehaviour {
                 case Player.CameraState.WOLF:
                     break;
                 case Player.CameraState.FOG:
+                    {
+                        y = ClampAngle(y, yFogMin, yFogMax);
+
+                        Quaternion rotation = Quaternion.Euler(y, x, 0);
+                        float noCollisionDistance = distance;
+
+                        for (float zOffset = fogDistance; zOffset >= 0.5f; zOffset -= 0.025f)
+                        {
+                            noCollisionDistance = zOffset;
+                            Vector3 tempPos = rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position;
+
+                            if (DoubleViewingPosCheck(tempPos, zOffset))
+                            {
+                                break;
+                            }
+                        }
+
+                        if (timeOnTransition < transitionTime)
+                        {
+                            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, fov, 0.1f);
+                            timeOnTransition += Time.deltaTime;
+                            this.transform.position = Vector3.Lerp(this.transform.position, rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position, timeOnTransition / 2f);
+                        }
+                        else
+                        {
+                            Camera.main.fieldOfView = fov;
+                            this.transform.position = rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position;
+                        }
+
+                        if (timeSinceLastAction < 0.5f)
+                        {
+                            timeSinceLastAction += Time.deltaTime;
+                            if (fastAction)
+                            {
+                                SetPlayerDirection(rotation.eulerAngles.y, 0.7f);
+                            }
+                            else if (slowAction)
+                            {
+                                SetPlayerDirection(rotation.eulerAngles.y, 0.2f);
+                            }
+                            else
+                            {
+                                SetPlayerDirection(rotation.eulerAngles.y, playerScript.rb.velocity.magnitude / 10.0f);
+                            }
+                        }
+                        else
+                        {
+                            fastAction = slowAction = false;
+                        }
+                        this.transform.LookAt(player.transform.position + rotation * Vector3.up * focusY + rotation * Vector3.right * focusX + rotation * Vector3.forward * focusDistance);
+                    }
                     break;
                 case Player.CameraState.TURRET:
                     {
+                        y = ClampAngle(y, yMinLimit, yMaxLimit);
                         Quaternion rotation = Quaternion.Euler(y, x, 0);
                         playerScript.currentTrap.rotatingHead.rotation = rotation;
                         this.transform.SetParent(playerScript.currentTrap.rotatingHead);

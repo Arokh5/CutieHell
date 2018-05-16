@@ -7,8 +7,6 @@ public class Player : MonoBehaviour {
 
     #region Fields
     [Header("Movement Variabes")]
-    public float maxSpeed = 10;
-    public float acceleration = 50;
     public Transform centerTeleportPoint;
     public Transform statueTeleportPoint;
     public GameObject footSteps;
@@ -85,9 +83,23 @@ public class Player : MonoBehaviour {
     [HideInInspector]
     public List<AIEnemy> currentStrongAttackTargets = new List<AIEnemy>();
 
+    [Header("Fog Attack")]
+    public SphereCollider fogCollider;
+    public ParticleSystem fogVFX;
+    public float fogStateCooldown;
+    [HideInInspector]
+    public float fogStateLastTime;
+    [HideInInspector]
+    public float accumulatedFogEvilCost = 0;
+    [HideInInspector]
+    public float timeSinceLastFogHit = 0;
+    [HideInInspector]
+    public List<AIEnemy> currentFogAttackTargets = new List<AIEnemy>();
+
+    [Header("Footsteps")]
+    public AudioClip footstepsClip;
     [HideInInspector]
     public AudioSource footstepsSource;
-    public AudioClip footstepsClip;
     #endregion
 
     public enum CameraState { STILL, MOVE, WOLF, FOG, TURRET, TRANSITION, ZOOMOUT, ZOOMIN}
@@ -120,6 +132,8 @@ public class Player : MonoBehaviour {
         footstepsSource = GetComponent<AudioSource>();
         footstepsSource.clip = footstepsClip;
         footstepsSource.loop = true;
+
+        fogStateLastTime = float.MinValue;
     }
 
     private void Start () 
@@ -200,7 +214,8 @@ public class Player : MonoBehaviour {
         {
             colliders[i].enabled = visible;
         }
-        rb.isKinematic = !visible;
+        rb.useGravity = visible;
+        //rb.isKinematic = !visible;
     }
 
     public void InstantiateAttack(ParticleSystem attackPrefab, Transform enemy, Vector3 hitPoint)
@@ -225,5 +240,3 @@ public class Player : MonoBehaviour {
     }
     #endregion
 }
-
-    
