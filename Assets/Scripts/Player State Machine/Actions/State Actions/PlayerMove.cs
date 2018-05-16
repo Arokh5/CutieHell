@@ -7,6 +7,9 @@ public class PlayerMove : StateAction
 {
     public float maxSpeed;
     public float acceleration;
+    public bool useAnimation;
+    public bool useFootsteps;
+
     public override void Act(Player player)
     {
         Vector3 speedDirection = Vector3.zero;
@@ -33,29 +36,31 @@ public class PlayerMove : StateAction
         if (speedDirection.magnitude > 0.2f)
         {
             player.rb.drag = 0.5f;
-            player.footSteps.SetActive(true);
-            player.animator.SetBool("Move", true);
-            if (!player.footstepsSource.isPlaying)
-            {
-                player.footstepsSource.Play();
-            }
+            if (useAnimation)
+                player.animator.SetBool("Move", true);
 
+            if (useFootsteps)
+            {
+                player.footSteps.SetActive(true);
+                if (!player.footstepsSource.isPlaying)
+                    player.footstepsSource.Play();
+            }
         }
         else
         {
             player.rb.drag = 10f;
             player.rb.angularDrag = 10f;
-            player.footSteps.SetActive(false);
-            player.animator.SetBool("Move", false);
-            player.footstepsSource.Stop();
+            if (useAnimation)
+                player.animator.SetBool("Move", false);
+
+            if (useFootsteps)
+            {
+                player.footSteps.SetActive(false);
+                player.footstepsSource.Stop();
+            }
         }
 
         player.rb.AddRelativeForce(speedDirection * acceleration, ForceMode.Acceleration);
-
-        //if (player.rb.velocity.magnitude > player.maxSpeed)
-        //{
-        //    player.rb.velocity = player.rb.velocity.normalized * player.maxSpeed;
-        //}
         if (player.rb.velocity.magnitude > maxSpeed * speedDirection.magnitude / 2.0f)
         {
             player.rb.velocity = player.rb.velocity.normalized * maxSpeed * speedDirection.magnitude / 2.0f;
