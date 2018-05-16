@@ -21,6 +21,9 @@ public class ObjectiveMarker : MonoBehaviour
     private float startingDepth;
     private float previousRotation;
 
+
+    float hAngle;
+
     void Start()
     {
         horizontalOffset = mainCamera.pixelWidth * horizontalOffsetPercentage;
@@ -28,6 +31,10 @@ public class ObjectiveMarker : MonoBehaviour
         startingDepth = 0f;
         /* Get arrow to point up */
         previousRotation = 0f;
+
+        float radVFov = mainCamera.fieldOfView * Mathf.Deg2Rad;
+        float radHFov = 2 * Mathf.Atan(Mathf.Tan(radVFov / 2) * mainCamera.aspect);
+        hAngle = Mathf.Rad2Deg * Mathf.Atan((Mathf.Tan(0.5f * radHFov) * (1 - horizontalOffsetPercentage)));
     }
 
     void Update()
@@ -37,82 +44,80 @@ public class ObjectiveMarker : MonoBehaviour
         Vector3 screenPos = mainCamera.WorldToScreenPoint(target.position);
         float distance = Vector3.Distance(mainCamera.transform.position, target.transform.position);
 
-        front = screenPos.z >= 0f;
 
-        if (front)
+
+        bool outOfBounds = false;
+
+
+        Vector2 screenPosition;
+        Vector3 iconPosition = Vector3.zero;
+        Vector3 targetPos = target.transform.position;
+        Vector3 cameraForward = mainCamera.transform.forward;
+        cameraForward.y = 0;
+        Vector3 cameraToTarget = targetPos - mainCamera.transform.position;
+        cameraToTarget.y = 0;
+        float tAngle = Vector3.SignedAngle(cameraForward, cameraToTarget, Vector3.up);
+        Debug.Log("tAngle: " + tAngle);
+
+        bool behind = tAngle < -90 || tAngle > 90;
+        bool front = tAngle > -hAngle && tAngle < hAngle;
+        bool left = tAngle >= -90 && tAngle <= -hAngle;
+        bool right = tAngle >= hAngle && tAngle <= 90;
+
+        if (behind)
         {
-            /* Check if objective marker is out of bounds */
-            bool outOfBounds = false;
-            if (screenPos.x < horizontalOffset)
-            {
-                screenPos.x = horizontalOffset;
-                if (startingDepth == 0f)
-                    startingDepth = screenPos.z;
-                outOfBounds = true;
-            }
-            if (screenPos.x > mainCamera.pixelWidth - horizontalOffset)
-            {
-                screenPos.x = mainCamera.pixelWidth - horizontalOffset;
-                if (startingDepth == 0f)
-                    startingDepth = screenPos.z;
-                outOfBounds = true;
-            }
-
-            /* If not out of bounds just limit vertical offset */
-            if (!outOfBounds)
-            {
-                if (screenPos.y > mainCamera.pixelHeight * topOffset)
-                {
-                    screenPos.y = mainCamera.pixelHeight * topOffset;
-                    outOfBounds = true;
-                }
-
-                if (screenPos.y < verticalOffset)
-                {
-                    screenPos.y = verticalOffset;
-                    outOfBounds = true;
-                }
-
-                startingDepth = 0f;
-
-                if (!outOfBounds)
-                    arrow.gameObject.SetActive(false);
-            }
+            iconPosition.y = bottomOffset * mainCamera.pixelHeight;
+            float halfRange = 0.5f * (mainCamera.pixelWidth - 2 * horizontalOffset);
+            if (tAngle < -90)
+                iconPosition.x = horizontalOffset + (tAngle - -90) / -90 * halfRange;
             else
-            /* Else, adjust the vertical coordinate of the marker */
-            {
-                heightLimit = screenPos.y;
-
-                if (heightLimit > mainCamera.pixelHeight * topOffset)
-                    heightLimit = mainCamera.pixelHeight * topOffset;
-
-                if (heightLimit < verticalOffset)
-                    heightLimit = verticalOffset;
-
-                upwardsDistance = (heightLimit - verticalOffset);
-
-                /* Magical number */
-                screenPos.y = verticalOffset + (upwardsDistance * (screenPos.z / (distance * 0.75f)));
-
-            }
+                iconPosition.x = horizontalOffset + halfRange + (180 - tAngle) / 90 * halfRange;
         }
         else
         {
-            /* If not on front switch horizontal coordinate */
-            screenPos.x = mainCamera.pixelWidth - screenPos.x;
+            screenPosition = mainCamera.projectionMatrix.MultiplyPoint(mainCamera.worldToCameraMatrix.MultiplyPoint(targetPos));
+            screenPosition.x = screenPosition.x * 0.5f + 0.5f;
+            screenPosition.y = screenPosition.y * 0.5f + 0.5f;
 
-            if (screenPos.x < horizontalOffset)
+            if (front)
             {
-                screenPos.x = horizontalOffset;
+                iconPosition.y = mainCamera.pixelHeight * Mathf.Clamp(screenPosition.y, bottomOffset, topOffset);
+                iconPosition.x = mainCamera.pixelWidth * Mathf.Clamp(screenPosition.x, horizontalOffsetPercentage, 1 - horizontalOffsetPercentage);
             }
-            else if (screenPos.x > mainCamera.pixelWidth - horizontalOffset)
+            else if (left)
             {
-                screenPos.x = mainCamera.pixelWidth - horizontalOffset;
+                iconPosition.x = horizontalOffset;
+                float upwardsFactor = (90 - -tAngle) / (90 - hAngle);
+
+                float screenUpwardsFactor;
+
+                if (screenPosition.y < topOffset)
+                {
+                    if (screenPosition.y > bottomOffset)
+                    {
+                        screenUpwardsFactor = bottomOffset + upwardsFactor * (screenPosition.y - bottomOffset);
+                    }
+                    else
+                    {
+                        screenUpwardsFactor = bottomOffset;
+                    }
+                }
+                else
+                {
+                    screenUpwardsFactor = bottomOffset + upwardsFactor * (topOffset - bottomOffset);
+                }
+
+                iconPosition.y = mainCamera.pixelHeight * screenUpwardsFactor;
+
             }
 
-            /* Stick vertical coordinate to bottom of screen */
-            screenPos.y = verticalOffset;
         }
+
+        RectTransform iconTransform = gameObject.GetComponent<Image>().rectTransform;
+
+        iconTransform.position = iconPosition;
+
+        return;
 
         RectTransform iconAnchor = gameObject.GetComponent<Image>().rectTransform;
         RectTransform arrowAnchor = arrow.rectTransform;
