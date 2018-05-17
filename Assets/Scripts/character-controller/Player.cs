@@ -39,6 +39,11 @@ public class Player : MonoBehaviour {
     [SerializeField]
     public Transform bulletSpawnPoint;
 
+    private float timeSinceLastMonumentChecking = 0f;
+    private float checkingMonumentRepetitionTime = 1f;
+
+    private Monument[] allMonuments;
+    [HideInInspector]
     public Monument monument;
 
     [Header("Actual Trap")]
@@ -126,8 +131,14 @@ public class Player : MonoBehaviour {
             allTraps[i] = allTrapsGameObjects[i].GetComponent<Trap>();
         }
 
-        if (!monument)
-            monument = GameObject.FindGameObjectWithTag("Monument").GetComponent<Monument>();
+        GameObject[] allMonumentsGameObjects = GameObject.FindGameObjectsWithTag("Monument");
+        allMonuments = new Monument[allMonumentsGameObjects.Length];
+        for (int i = 0; i < allTrapsGameObjects.Length; ++i)
+        {
+            allMonuments[i] = allMonumentsGameObjects[i].GetComponent<Monument>();
+        }
+
+        UpdateNearestMonument();
 
         footstepsSource = GetComponent<AudioSource>();
         footstepsSource.clip = footstepsClip;
@@ -148,8 +159,9 @@ public class Player : MonoBehaviour {
         teleported = false;
 
         currentState.EnterState(this);
+
     }
-   
+
     private void Update()
     {
         if (GameManager.instance.gameIsPaused)
@@ -158,10 +170,18 @@ public class Player : MonoBehaviour {
             return;
         }
 
+        if ( timeSinceLastMonumentChecking >= checkingMonumentRepetitionTime)
+        {
+            UpdateNearestMonument();
+            timeSinceLastMonumentChecking -= checkingMonumentRepetitionTime;
+        }
+
         timeSinceLastTrapUse += Time.deltaTime;
         timeSinceLastAttack += Time.deltaTime;
         timeSinceLastStrongAttack += Time.deltaTime;
+        timeSinceLastMonumentChecking += Time.deltaTime;
         currentState.UpdateState(this);
+        
     }
     #endregion
 
@@ -237,6 +257,24 @@ public class Player : MonoBehaviour {
         strongAttackReference.transform.localPosition = new Vector3(0.0f, 1.5f, 0.0f);
         strongAttackReference.transform.localRotation = Quaternion.Euler(new Vector3(-90, 180, 0));
         strongAttackReference.transform.SetParent(particlesParent);
+    }
+    #endregion
+
+    #region Private Methods
+    private void UpdateNearestMonument()
+    {
+        float nearestMonumentDistance = float.MaxValue;
+        float evaluatedMonumentDistance = 0;
+        
+        for(int i = 0; i < allMonuments.Length; i++)
+        {
+            evaluatedMonumentDistance = Vector3.Distance(this.transform.position, allMonuments[i].transform.position);
+            if (evaluatedMonumentDistance < nearestMonumentDistance)
+            {
+                nearestMonumentDistance = evaluatedMonumentDistance;
+                monument = allMonuments[i];
+            }
+        }
     }
     #endregion
 }
