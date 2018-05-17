@@ -69,7 +69,7 @@ public class Player : MonoBehaviour {
     [HideInInspector]
     public bool animatingAttack = false;
     [HideInInspector]
-    public Vector3 weakAttackTargetHitPoint;
+    public Vector3 weakAttackTargetHitOffset;
     [HideInInspector]
     public Transform weakAttackTargetTransform;
 
@@ -218,14 +218,14 @@ public class Player : MonoBehaviour {
         //rb.isKinematic = !visible;
     }
 
-    public void InstantiateAttack(ParticleSystem attackPrefab, Transform enemy, Vector3 hitPoint)
+    public void InstantiateAttack(ParticleSystem attackPrefab, Transform enemy, Vector3 hitOffset)
     {
         Vector3 spawningPos = bulletSpawnPoint.position;
 
         ParticleSystem attack = ParticlesManager.instance.LaunchParticleSystem(attackPrefab, spawningPos, transform.rotation);
         FollowTarget attackClone = attack.GetComponent<FollowTarget>();
         attackClone.SetEnemy(enemy);
-        attackClone.SetHitPoint(hitPoint);
+        attackClone.SetHitOffset(hitOffset);
     }
 
     public void InstantiateStrongAttack(int evilCost)

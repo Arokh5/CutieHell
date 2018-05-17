@@ -18,7 +18,7 @@ public class AttackBearAnimatorController : StateMachineBehaviour {
         if(stateInfo.normalizedTime >= 0.40f && !flag)
         {
             flag = true;
-            animator.gameObject.GetComponent<AIAttackCooldown>().makeAttack = true;
+            animator.gameObject.GetComponent<AIAttackCooldown>().LaunchAttack();
         }
     }
 

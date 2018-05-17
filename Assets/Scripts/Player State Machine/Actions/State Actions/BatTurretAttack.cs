@@ -60,7 +60,7 @@ public class BatTurretAttack : StateAction
         {
             if (hitSuccess && HitInEnemyLayer(hitInfo))
             {
-                player.InstantiateAttack(attackPrefab, hitInfo.transform, hitInfo.point);
+                player.InstantiateAttack(attackPrefab, hitInfo.transform, hitInfo.point - hitInfo.transform.position);
             }
             else
             {

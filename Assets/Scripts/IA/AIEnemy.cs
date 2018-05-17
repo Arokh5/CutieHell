@@ -90,10 +90,16 @@ public class AIEnemy : MonoBehaviour, IDamageable
         if (currentTarget && agent.enabled)
         {
             agent.stoppingDistance = 0.0f;
+            /* First case is when going for the Monument, second case is when going for a Trap */
             if (currentNode == null || currentTarget.GetType() != typeof(Monument))
             {
                 agent.stoppingDistance = originalStoppingDistance;
                 agent.SetDestination(currentTarget.transform.position);
+                attackLogic.AttemptAttack(currentTarget);
+                if (enemyType == EnemyType.RANGE && attackLogic.IsInAttackRange(currentTarget))
+                {
+                    animator.SetBool("Move", false);
+                }
             }
             else
             {
@@ -113,18 +119,9 @@ public class AIEnemy : MonoBehaviour, IDamageable
                 }
             }
 
-            attackLogic.AttemptAttack(currentTarget);
-
-            if (enemyType == EnemyType.RANGE)
+            if (enemyType == EnemyType.RANGE && !attackLogic.IsInAttackRange(currentTarget))
             {
-                if (attackLogic.IsInAttackRange(currentTarget))
-                {
-                    animator.SetBool("Move", false);
-                }
-                else
-                {
-                    animator.SetBool("Move", true);
-                }
+                animator.SetBool("Move", true);
             }
         }
 
@@ -189,6 +186,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         newZoneController.AddEnemy(this);
         zoneController = newZoneController;
         UpdateNodePath();
+        UpdateTarget();
     }
 
     // Called by the ZoneController in case the Monument gets repaired (this will cause all AIEnemy to return to the ZoneController's area)

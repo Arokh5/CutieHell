@@ -28,10 +28,7 @@ public class ScenarioController : MonoBehaviour
             zoneControllers = new List<AIZoneController>(GetComponentsInChildren<AIZoneController>());
         }
         UnityEngine.Assertions.Assert.IsTrue(zoneControllers.Count > 0, "ERROR: No AIZoneControllers found by the ScenarioController in gameObject '" + gameObject.name + "'");
-    }
 
-    private void Start()
-    {
         for (int i = 0; i < zoneControllers.Count; ++i)
         {
             AIZoneController zoneController = zoneControllers[i];
