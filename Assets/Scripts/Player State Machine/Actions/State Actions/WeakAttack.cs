@@ -64,12 +64,12 @@ public class WeakAttack : StateAction
 
             if (hitSuccess && HitInEnemyLayer(hitInfo))
             {
-                player.weakAttackTargetHitPoint = hitInfo.point;
+                player.weakAttackTargetHitOffset = hitInfo.point - hitInfo.transform.position;
                 player.weakAttackTargetTransform = hitInfo.transform;
             }
             else
             {
-                player.weakAttackTargetHitPoint = Vector3.zero;
+                player.weakAttackTargetHitOffset = Vector3.zero;
                 player.weakAttackTargetTransform = null;
             }
             player.animator.SetTrigger("Attack");

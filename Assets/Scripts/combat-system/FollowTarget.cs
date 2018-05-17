@@ -17,7 +17,7 @@ public class FollowTarget : PooledParticleSystem
     private Vector3 camForwardDir;
     private bool directionSet = false;
     private Transform enemy = null;
-    private Vector3 hitPoint;
+    private Vector3 hitOffset;
     private float time = 0;
 
     #endregion
@@ -68,9 +68,9 @@ public class FollowTarget : PooledParticleSystem
         this.enemy = enemy;
     }
 
-    public void SetHitPoint(Vector3 hitPoint)
+    public void SetHitOffset(Vector3 hitOffset)
     {
-        this.hitPoint = hitPoint;
+        this.hitOffset = hitOffset;
     }
 
     #endregion
@@ -81,9 +81,7 @@ public class FollowTarget : PooledParticleSystem
     {
         if (enemy != null)
         {
-            float yOffset = Mathf.Abs(enemy.position.y - hitPoint.y);
-            Vector3 hitPos = new Vector3(enemy.position.x, enemy.position.y + yOffset, enemy.position.z);
-
+            Vector3 hitPos = new Vector3(enemy.position.x, enemy.position.y + hitOffset.y, enemy.position.z);
             transform.position = Vector3.MoveTowards(transform.position, hitPos, attackSpeed * Time.deltaTime);
         }
         else

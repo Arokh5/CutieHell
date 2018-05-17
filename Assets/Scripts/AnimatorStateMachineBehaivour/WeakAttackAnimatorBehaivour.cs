@@ -26,9 +26,9 @@ public class WeakAttackAnimatorBehaivour : StateMachineBehaviour {
         if (stateInfo.normalizedTime >= shotTriggerNormalizedTime && !shotDone)
         {
             shotDone = true;
-            player.InstantiateAttack(prefab, player.weakAttackTargetTransform, player.weakAttackTargetHitPoint);
+            player.InstantiateAttack(prefab, player.weakAttackTargetTransform, player.weakAttackTargetHitOffset);
             player.weakAttackTargetTransform = null;
-            player.weakAttackTargetHitPoint = Vector3.zero;
+            player.weakAttackTargetHitOffset = Vector3.zero;
         }
     }
 
