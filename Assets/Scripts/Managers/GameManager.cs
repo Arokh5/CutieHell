@@ -204,7 +204,7 @@ public class GameManager : MonoBehaviour
     {
         gameIsPaused = false;
         gameState = GameStates.InGame;
-        SceneManager.LoadScene("Garden Scene", LoadSceneMode.Single);
+        SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }
 
     public void SetCrosshairActivate(bool activate)
