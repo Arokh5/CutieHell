@@ -48,15 +48,18 @@ public class AIZoneController : MonoBehaviour
         UnityEngine.Assertions.Assert.IsTrue(buildingEffects.Count < maxBuildings, "ERROR: The amount of buildings is larger than the maximum amount of building accepted by the TextureChanger shader. The behaviour of the shader will be undefined!");
         aiPositions = new Vector4[maxElements];
         buildingsBlendStartRadius = new float[maxBuildings];
+
+        if (!monument)
+        {
+            monumentTaken = true;
+        }
     }
 
     private void Start()
     {
-        if (!monument)
-        {
-            monumentTaken = true;
+        if (monumentTaken)
             monument = scenarioController.GetAlternateTarget(this);
-        }
+
         currentZoneTarget = monument;
     }
 
@@ -89,7 +92,7 @@ public class AIZoneController : MonoBehaviour
                 aiPositions[i].z = buildingEffects[i].transform.position.z;
                 /* The w component is used to pass the effectOnMapRadius of the building */
                 aiPositions[i].w = buildingEffects[i].effectOnMapRadius;
-                
+
                 buildingsBlendStartRadius[i] = buildingEffects[i].GetBlendRadius();
             }
             else
@@ -244,7 +247,7 @@ public class AIZoneController : MonoBehaviour
     {
         return aiEnemies;
     }
-    
+
     #endregion
 
     #region Private Methods
