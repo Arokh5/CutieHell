@@ -22,6 +22,8 @@ public class CanonTrapEnterAction : StateAction
         canonTargetDecalGOTransform.position += player.currentTrap.rotatingHead.transform.forward * startingCanonDecalDistance;
         canonTargetDecalGOTransform.position = new Vector3(canonTargetDecalGOTransform.position.x, 3.20f, canonTargetDecalGOTransform.position.z);
         canonShootDecalVFX.Play();
-        
+
+        player.currentTrap.GetCanonAmmoIndicator().gameObject.SetActive(true);
+
     }
 }

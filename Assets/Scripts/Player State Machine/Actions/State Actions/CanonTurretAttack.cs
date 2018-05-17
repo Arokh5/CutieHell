@@ -9,6 +9,7 @@ public struct CanonBallInfo
     public int canonBallExplosionDamage;
     public float canonBallExplosionRange;
     public float canonBallParabolaHeight;
+    public GameObject canonBallExplosionVFX;
 }
 
 
@@ -24,15 +25,17 @@ public class CanonTurretAttack : StateAction
     public float maxParabolaHeight;
     public GameObject canonBallPrefab;
     [SerializeField]
-    ParticleSystem shootingVFX;
+    GameObject canonBallLandingVFX;
     private Transform canonBallStartPoint;
+
+    private GameObject currentCanonBall = null;
+    private CanonBallMotion currentCanonBallMotion = null;
 
     [Header("Canon Decal Fields")]
     public float limitedShootDistance;
     public float minimumShootDistance;
     public float decalMovementSpeed;
-    [SerializeField]
-    ParticleSystem canonBallLandingVFX;
+    
 
     [Header("Canon Fields")]
     public float canonWayOutPoint;
@@ -48,14 +51,16 @@ public class CanonTurretAttack : StateAction
             CanonAttackFirstUsePreparations(player);
         }
 
-        if (InputManager.instance.GetR2ButtonDown())
+        
+        if(player.currentTrap.canonBallsList.Count == 0 
+            || (currentCanonBallMotion != null && currentCanonBallMotion.canonBallElapsedTime >= canonBallCooldownTime))            
         {
-            if(player.currentTrap.canonBallsList.Count == 0 )
-            {
-                ShootCanonBall();
-            }
+            playerRef.currentTrap.GetCanonAmmoIndicator().gameObject.SetActive(true);
+            if (InputManager.instance.GetR2ButtonDown())
+                {
+                    ShootCanonBall();
+                }      
         }
-
         MoveShootDecal();
     }
 
@@ -73,6 +78,7 @@ public class CanonTurretAttack : StateAction
         canonBallInfo.canonBallExplosionRange = canonBallExplosionRange;
         canonBallInfo.canonBallParabolaHeight = maxParabolaHeight;
         canonBallInfo.canonBallSpeed = canonBallshootingSpeed;
+        canonBallInfo.canonBallExplosionVFX = canonBallLandingVFX;
 
         playerRef.currentTrap.SetCanonBallInfo(canonBallInfo);
     }
@@ -121,25 +127,27 @@ public class CanonTurretAttack : StateAction
     private void ShootCanonBall()
     {
         Vector3 shootDistance = canonBallStartPoint.position - canonTargetDecalGOTransform.position;
-        float shootingDuration = shootDistance.magnitude/canonBallshootingSpeed;
+        float shootingDuration = shootDistance.magnitude / canonBallshootingSpeed;
 
-        GameObject canonBall = Instantiate(canonBallPrefab, canonBallStartPoint);
-        CanonBallMotion canonBallMotion = canonBall.GetComponent<CanonBallMotion>();
-        canonBall.AddComponent<Rigidbody>();
+        currentCanonBall = Instantiate(canonBallPrefab, canonBallStartPoint);
+        currentCanonBallMotion = currentCanonBall.GetComponent<CanonBallMotion>();
+        currentCanonBall.AddComponent<Rigidbody>();
 
-        canonBall.SetActive(false);
-        canonBallMotion.canonBall = canonBall;
-        canonBallMotion.canonBallElapsedTime = 0;
-        canonBallMotion.canonBallShootingDuration = shootingDuration;
-        canonBallMotion.canonBallShotingDistance = shootDistance;
-        canonBallMotion.canonBallVisibleFromProgression = canonWayOutPoint;
+        currentCanonBall.SetActive(false);
+        currentCanonBallMotion.canonBall = currentCanonBall;
+        currentCanonBallMotion.canonBallElapsedTime = 0;
+        currentCanonBallMotion.canonBallShootingDuration = shootingDuration;
+        currentCanonBallMotion.canonBallShotingDistance = shootDistance;
+        currentCanonBallMotion.canonBallVisibleFromProgression = canonWayOutPoint;
 
-        playerRef.currentTrap.canonBallsList.Add(canonBallMotion);
+        playerRef.currentTrap.canonBallsList.Add(currentCanonBallMotion);
 
+        playerRef.currentTrap.GetCanonAmmoIndicator().gameObject.SetActive(false);
     }
 
     private void DamageEnemiesAffectedByCanonBallExplosion(Transform enemyProjectionTransform)
     {
+
         //Worth to do it only on enemies attracted by current trap?
         List<AIEnemy> affectedEnemies = playerRef.currentTrap.ObtainEnemiesAffectedByTrapRangedDamage(enemyProjectionTransform, canonBallExplosionRange);
       

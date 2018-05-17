@@ -22,8 +22,11 @@ public class Trap : Building, IUsable
     [Header("Canon")]
     public Transform canonTargetDecal;
     public Transform canonBallStartPoint;
+    public ParticleSystem canonShootingSmokeVFX;
     public List<CanonBallMotion> canonBallsList = new List<CanonBallMotion>();
     private CanonBallInfo canonBallInfo;
+    [SerializeField]
+    private CurrentTrapIndicator canonAmmoIndicator;
 
 
     [ShowOnly]
@@ -100,6 +103,12 @@ public class Trap : Building, IUsable
     public CurrentTrapIndicator GetCurrentTrapIndicator()
     {
         return trapIndicator;
+    }
+
+    //Called by CanonTrapEnterAction
+    public CurrentTrapIndicator GetCanonAmmoIndicator()
+    {
+        return canonAmmoIndicator;
     }
 
     public List<AIEnemy> ObtainEnemiesAffectedByTrapRangedDamage(Transform emissionTransform, float aoeRange)
@@ -182,6 +191,14 @@ public class Trap : Building, IUsable
             if (!evaluatedCanonBall.canonBall.gameObject.activeSelf && motionProgress >= evaluatedCanonBall.canonBallVisibleFromProgression)
             {
                 evaluatedCanonBall.canonBall.gameObject.SetActive(true);
+                if (!canonShootingSmokeVFX.gameObject.activeSelf)
+                {
+                    canonShootingSmokeVFX.gameObject.SetActive(true);
+                }
+                else
+                {
+                    canonShootingSmokeVFX.Play();
+                }
             }
 
             nextPosition = canonBallStartPoint.position - evaluatedCanonBall.canonBallShotingDistance * motionProgress;
@@ -206,6 +223,7 @@ public class Trap : Building, IUsable
                     affectedEnemies[j].TakeDamage(canonBallInfo.canonBallExplosionRange, AttackType.TRAP_AREA);
                 }
 
+                if (canonBallInfo.canonBallExplosionVFX != null) Destroy(Instantiate(canonBallInfo.canonBallExplosionVFX, evaluatedCanonBall.transform.position, this.transform.rotation),3f);
                 canonBallsList.Remove(evaluatedCanonBall);
                 Destroy(evaluatedCanonBall.canonBall.gameObject);
             }            

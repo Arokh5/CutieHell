@@ -11,6 +11,9 @@ public class CanonTrapExitAction : StateAction
         GameManager.instance.SetCrosshairActivate(true);
         player.currentTrap.canonTargetDecal.transform.position = new Vector3(player.currentTrap.transform.position.x, 3.20f, player.currentTrap.transform.position.z);
         Destroy(GameObject.FindWithTag("CanonBallLaunchDecal"));
-        player.currentTrap.canonTargetDecal.gameObject.SetActive(false);        
+        player.currentTrap.canonTargetDecal.gameObject.SetActive(false);
+
+        player.currentTrap.GetCanonAmmoIndicator().gameObject.SetActive(false);
+
     }
 }
