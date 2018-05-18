@@ -216,18 +216,27 @@ public class Trap : Building, IUsable
 
             if (motionProgress >= 1 || evaluatedCanonBall.GetHasToExplode())
             {
-                List<AIEnemy> affectedEnemies = ObtainEnemiesAffectedByTrapRangedDamage(evaluatedCanonBall.transform, canonBallInfo.canonBallExplosionRange);
+                if (canonBallInfo.canonBallExplosionVFX != null) Destroy(Instantiate(canonBallInfo.canonBallExplosionVFX, evaluatedCanonBall.transform.position, this.transform.rotation), 3f);
 
-                for (int j = 0; j < affectedEnemies.Count; j++)
-                {
-                    affectedEnemies[j].TakeDamage(canonBallInfo.canonBallExplosionRange, AttackType.TRAP_AREA);
-                }
-
-                if (canonBallInfo.canonBallExplosionVFX != null) Destroy(Instantiate(canonBallInfo.canonBallExplosionVFX, evaluatedCanonBall.transform.position, this.transform.rotation),3f);
-                canonBallsList.Remove(evaluatedCanonBall);
-                Destroy(evaluatedCanonBall.canonBall.gameObject);
+                StartCoroutine(CanonRangedDamageCoroutine(evaluatedCanonBall, canonBallInfo.canonBallExplosionRange));           
             }            
         }
+    }
+
+    IEnumerator CanonRangedDamageCoroutine(CanonBallMotion canonBall, float explosionRange)
+    {
+        canonBall.gameObject.SetActive(false);
+        canonBallsList.Remove(canonBall);
+
+        yield return new WaitForSeconds(0.5f);
+
+        List<AIEnemy> affectedEnemies = ObtainEnemiesAffectedByTrapRangedDamage(canonBall.transform, explosionRange);
+        for (int j = 0; j < affectedEnemies.Count; j++)
+        {
+            affectedEnemies[j].TakeDamage(canonBallInfo.canonBallExplosionRange, AttackType.TRAP_AREA);
+        }
+
+        Destroy(canonBall.canonBall.gameObject);
     }
     #endregion
 }

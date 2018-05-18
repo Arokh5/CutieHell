@@ -144,19 +144,6 @@ public class CanonTurretAttack : StateAction
 
         playerRef.currentTrap.GetCanonAmmoIndicator().gameObject.SetActive(false);
     }
-
-    private void DamageEnemiesAffectedByCanonBallExplosion(Transform enemyProjectionTransform)
-    {
-
-        //Worth to do it only on enemies attracted by current trap?
-        List<AIEnemy> affectedEnemies = playerRef.currentTrap.ObtainEnemiesAffectedByTrapRangedDamage(enemyProjectionTransform, canonBallExplosionRange);
-      
-        for( int i = 0; i < affectedEnemies.Count; i++)
-        {
-            affectedEnemies[i].TakeDamage(canonBallExplosionDamage, AttackType.TRAP_AREA);
-        }
-
-    }
     #endregion
 
 }
