@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     private WaveProgressFiller waveProgressFiller;
+    public IndicatorsController indicatorsController;
     //[SerializeField]
     //private WaveTimer waveRadialProgressBar;
 
@@ -83,10 +84,6 @@ public class UIManager : MonoBehaviour
     private float conquerorEnemiesPrevTimeCount;
     private float conquerorEnemiesTimeCount;
     private int conquerorEnemiesCounter;
-
-    #endregion
-
-    #region Properties
 
     #endregion
 
