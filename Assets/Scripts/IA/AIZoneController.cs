@@ -12,6 +12,8 @@ public class AIZoneController : MonoBehaviour
     public Trap[] traps;
     [HideInInspector]
     public bool monumentTaken = false;
+    [HideInInspector]
+    public bool hasMonument;
 
     private ScenarioController scenarioController;
     private TextureChangerSource textureChangerSource;
@@ -42,15 +44,12 @@ public class AIZoneController : MonoBehaviour
             UnityEngine.Assertions.Assert.IsNotNull(textureChangerSource, "ERROR: AIZoneController could not find a TextureChangerSource in its parent hierarchy in gameObject '" + gameObject.name + "'");
         }
 
-        if (!monument)
-        {
-            monumentTaken = true;
-        }
+        hasMonument = monument != null;
     }
 
     private void Start()
     {
-        if (monumentTaken)
+        if (!hasMonument)
             monument = scenarioController.GetAlternateTarget(this);
 
         currentZoneTarget = monument;

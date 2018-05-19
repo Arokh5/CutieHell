@@ -45,7 +45,7 @@ public class ScenarioController : MonoBehaviour
         for (int i = currentZone.zoneID - 1; i >= 0; --i)
         {
             AIZoneController alternatezonecontroller = zoneControllers[i];
-            if (!alternatezonecontroller.monumentTaken)
+            if (alternatezonecontroller.hasMonument && !alternatezonecontroller.monumentTaken)
             {
                 return alternatezonecontroller.monument;
             }
