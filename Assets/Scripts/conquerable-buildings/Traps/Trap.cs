@@ -149,11 +149,7 @@ public class Trap : Building, IUsable
             zoneController.OnTrapDeactivated();
         }
     }
-
-    #endregion
-
-    #region Protected Methods
-    protected override void BuildingKilled()
+    public override void BuildingKilled()
     {
         if (isActive)
         {
@@ -169,7 +165,12 @@ public class Trap : Building, IUsable
         }
     }
 
-    protected override void BuildingRecovered()
+    public override void BuildingConverted()
+    {
+        /* Nothing needs to be done here */
+    }
+
+    public override void BuildingRecovered()
     {
         /* Nothing needs to be done here */
     }

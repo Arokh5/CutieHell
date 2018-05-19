@@ -82,7 +82,7 @@ public class BuildingEffects : MonoBehaviour
             {
                 conquering = false;
                 conquered = true;
-                attachedBuilding.Conquer();
+                attachedBuilding.BuildingConverted();
             }
         }
     }
@@ -114,7 +114,7 @@ public class BuildingEffects : MonoBehaviour
 
         Reset();
         conquered = false;
-        attachedBuilding.Unconquer();
+        attachedBuilding.BuildingRecovered();
     }
 
     public float GetBlendRadius()
@@ -156,6 +156,7 @@ public class BuildingEffects : MonoBehaviour
     #region Private Methods
     private void ConquerEffect()
     {
+        
         float progress = conquerEffectElapsedTime / conquerEffectDuration;
         effectOnMapRadius = maxEffectRadius + progress * (maxBlendedRadius - maxEffectRadius);
 

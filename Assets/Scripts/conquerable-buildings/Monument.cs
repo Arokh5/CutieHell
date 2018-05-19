@@ -33,7 +33,23 @@ public class Monument : Building
         monumentIndicator.SetFill((baseHealth - currentHealth) / baseHealth);
     }
 
+    public override void BuildingConverted()
+    {
+        zoneController.OnMonumentTaken();
+    }
 
+    public override void BuildingRecovered()
+    {
+        zoneController.OnMonumentRecovered();
+    }
+
+    public override void BuildingKilled()
+    {
+        //nothing needs to be done here
+    }
+    #endregion
+
+    #region Private Methods
     private void OnGUI()
     {
         if (currentHealth <= (baseHealth * lowHealthScreen) && currentHealth > 0)
@@ -51,15 +67,4 @@ public class Monument : Building
     }
     #endregion
 
-    #region Protected Methods
-    protected override void BuildingKilled()
-    {
-        zoneController.OnMonumentTaken();
-    }
-
-    protected override void BuildingRecovered()
-    {
-        zoneController.OnMonumentRecovered();
-    }
-    #endregion
 }
