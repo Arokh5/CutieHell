@@ -33,7 +33,7 @@ MonoBehaviour:
     m_Settings:
       method: 0
       fxaaSettings:
-        preset: 1
+        preset: 2
       taaSettings:
         jitterSpread: 0.75
         sharpen: 0.3
@@ -42,9 +42,9 @@ MonoBehaviour:
   ambientOcclusion:
     m_Enabled: 1
     m_Settings:
-      intensity: 0.5
-      radius: 0.14
-      sampleCount: 6
+      intensity: 2
+      radius: 0.18
+      sampleCount: 10
       downsampling: 1
       forceForwardCompatibility: 0
       ambientOnly: 0
@@ -71,9 +71,9 @@ MonoBehaviour:
   depthOfField:
     m_Enabled: 1
     m_Settings:
-      focusDistance: 4
-      aperture: 10
-      focalLength: 49
+      focusDistance: 10
+      aperture: 25
+      focalLength: 120
       useCameraFov: 0
       kernelSize: 1
   motionBlur:
@@ -85,25 +85,25 @@ MonoBehaviour:
   eyeAdaptation:
     m_Enabled: 1
     m_Settings:
-      lowPercent: 20.09866
-      highPercent: 59.753597
-      minLuminance: -1.41
-      maxLuminance: -5.55
+      lowPercent: 59.29866
+      highPercent: 98.95361
+      minLuminance: -1
+      maxLuminance: -5
       keyValue: 0.25
       dynamicKeyValue: 1
       adaptationType: 0
       speedUp: 2
       speedDown: 1
-      logMin: -5
-      logMax: 3
+      logMin: -7
+      logMax: 4
   bloom:
     m_Enabled: 1
     m_Settings:
       bloom:
-        intensity: 0.16
+        intensity: 0.2
         threshold: 0.65
-        softKnee: 0.857
-        radius: 3.58
+        softKnee: 0.8
+        radius: 3.5
         antiFlicker: 0
       lensDirt:
         texture: {fileID: 2800000, guid: 3884f7a2d04ffe8409ad9200b275896f, type: 3}
@@ -121,11 +121,11 @@ MonoBehaviour:
         neutralWhiteClip: 10
       basic:
         postExposure: 0
-        temperature: 0
+        temperature: 11
         tint: 0
         hueShift: 0
         saturation: 1
-        contrast: 1.16
+        contrast: 1.15
       channelMixer:
         red: {x: 1, y: 0, z: 0}
         green: {x: 0, y: 1, z: 0}
@@ -296,10 +296,10 @@ MonoBehaviour:
     m_Enabled: 1
     m_Settings:
       mode: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
+      color: {r: 0, g: 0.078431375, b: 0.427451, a: 1}
       center: {x: 0.5, y: 0.5}
-      intensity: 0.327
-      smoothness: 0.517
+      intensity: 0.35
+      smoothness: 1
       roundness: 1
       mask: {fileID: 0}
       opacity: 1
