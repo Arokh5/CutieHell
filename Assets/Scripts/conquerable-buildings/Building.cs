@@ -24,6 +24,8 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     public AIEnemy attachedConqueror;
 
     private BuildingEffects buildingEffects;
+    [HideInInspector]
+    public bool animating = false;
    
     [Header("Damage testing")]
     public bool takeDamage = false; // TEST
@@ -149,7 +151,7 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     // IRepairable
     public virtual bool CanRepair()
     {
-        return true;
+        return !animating;
     }
 
     /* Called by the BuildingEffects script if available */
