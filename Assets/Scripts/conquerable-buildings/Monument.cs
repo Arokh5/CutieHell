@@ -34,22 +34,10 @@ public class Monument : Building
         base.TakeDamage(damage, attacktype);
         monumentIndicator.SetFill((baseHealth - currentHealth) / baseHealth);
     }
-
-
-    private void OnGUI()
+    
+    public MonumentIndicator GetMonumentIndicator()
     {
-        if (currentHealth <= (baseHealth * lowHealthScreen) && currentHealth > 0)
-        {
-            if (showAlmostConqueredScreenTintTexture > 1)
-            {
-                GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), almostConqueredScreenTintTexture);
-            }
-            if (showAlmostConqueredScreenTintTexture > 2)
-            {
-                showAlmostConqueredScreenTintTexture = 0;
-            }
-            showAlmostConqueredScreenTintTexture += Time.deltaTime;
-        }
+        return monumentIndicator;
     }
     #endregion
 
@@ -66,6 +54,24 @@ public class Monument : Building
         zoneController.OnMonumentRecovered();
         if (protectedMonument)
             protectedMonument.monumentIndicator.RequestClose();
+    }
+    #endregion
+
+    #region Private Methods
+    private void OnGUI()
+    {
+        if (currentHealth <= (baseHealth * lowHealthScreen) && currentHealth > 0)
+        {
+            if (showAlmostConqueredScreenTintTexture > 1)
+            {
+                GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), almostConqueredScreenTintTexture);
+            }
+            if (showAlmostConqueredScreenTintTexture > 2)
+            {
+                showAlmostConqueredScreenTintTexture = 0;
+            }
+            showAlmostConqueredScreenTintTexture += Time.deltaTime;
+        }
     }
     #endregion
 }

@@ -12,6 +12,8 @@ public class MonumentIndicator : MonoBehaviour {
     private Sprite openedSprite;
     [SerializeField]
     private Sprite closedSprite;
+    [SerializeField]
+    private ObjectiveMarker marker;
     public bool startClosed;
     private bool shouldClose;
     #endregion
@@ -60,11 +62,15 @@ public class MonumentIndicator : MonoBehaviour {
     private void Open()
     {
         bannerImage.sprite = openedSprite;
+        fillImage.enabled = true;
+        marker.gameObject.SetActive(true);
     }
 
     private void Close()
     {
         bannerImage.sprite = closedSprite;
+        fillImage.enabled = false;
+        marker.gameObject.SetActive(false);
     }
     #endregion
 }
