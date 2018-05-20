@@ -15,6 +15,8 @@ public class Player : MonoBehaviour {
     public float floorClearance;
     [HideInInspector]
     public Vector3 currentSpeed;
+    //[HideInInspector]
+    public Vector3 lastValidPosition;
 
     [Header("Evilness")]
     [SerializeField]

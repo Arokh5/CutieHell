@@ -72,11 +72,18 @@ public class PlayerMove : StateAction
 
         /* Adjust ground height */
         RaycastHit hit;
-        int testOffset = 5;
-        if (Physics.Raycast(player.transform.position + testOffset * Vector3.up, -Vector3.up, out hit, 50, (1 << 9)))
+        float upOffset = 5.0f;
+        Vector3 forwardOffsetVector = (accelerationMagnitude > 0 ? (0.25f * accelerationVector / accelerationMagnitude) : Vector3.zero);
+        if (Physics.Raycast(player.transform.position + upOffset * Vector3.up + forwardOffsetVector, -Vector3.up, out hit, 50, (1 << 9)))
         {
-            if (Mathf.Abs(hit.distance - testOffset - player.floorClearance) > 0.001f)
-                playerPos.y -= (hit.distance - testOffset - player.floorClearance);
+            if (Mathf.Abs(hit.distance - upOffset - player.floorClearance) > 0.005f)
+                playerPos.y -= (hit.distance - upOffset - player.floorClearance);
+
+            player.lastValidPosition = playerPos;
+        }
+        else
+        {
+            playerPos = player.lastValidPosition;
         }
 
         /* Set newly calculated position to rigidbody */
