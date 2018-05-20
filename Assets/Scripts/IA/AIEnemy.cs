@@ -58,6 +58,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private bool isTarget = false;
 
     public EnemyType enemyType;
+    private Collider enemyCollider;
+    private AttackType killingHit = AttackType.NONE;
 
     #endregion
 
@@ -72,11 +74,13 @@ public class AIEnemy : MonoBehaviour, IDamageable
         UnityEngine.Assertions.Assert.IsNotNull(mRenderer, "Error: No MeshRenderer found for children of AIEnemy in GameObject '" + gameObject.name + "'!");
         animator = this.GetComponent<Animator>();
         UnityEngine.Assertions.Assert.IsNotNull(animator, "Error: No Animator found in GameObject '" + gameObject.name + "'!");
+        enemyCollider = GetComponent<Collider>();
         originalStoppingDistance = agent.stoppingDistance;
     }
 
     private void Start()
     {
+        heightOffset = enemyCollider.bounds.size.y / 2.0f;
         Restart();
     }
 
@@ -86,10 +90,16 @@ public class AIEnemy : MonoBehaviour, IDamageable
         if (currentTarget && agent.enabled)
         {
             agent.stoppingDistance = 0.0f;
+            /* First case is when going for the Monument, second case is when going for a Trap */
             if (currentNode == null || currentTarget.GetType() != typeof(Monument))
             {
                 agent.stoppingDistance = originalStoppingDistance;
                 agent.SetDestination(currentTarget.transform.position);
+                attackLogic.AttemptAttack(currentTarget);
+                if (enemyType == EnemyType.RANGE && attackLogic.IsInAttackRange(currentTarget))
+                {
+                    animator.SetBool("Move", false);
+                }
             }
             else
             {
@@ -109,18 +119,9 @@ public class AIEnemy : MonoBehaviour, IDamageable
                 }
             }
 
-            attackLogic.AttemptAttack(currentTarget);
-
-            if (enemyType == EnemyType.RANGE)
+            if (enemyType == EnemyType.RANGE && !attackLogic.IsInAttackRange(currentTarget))
             {
-                if (attackLogic.IsInAttackRange(currentTarget))
-                {
-                    animator.SetBool("Move", false);
-                }
-                else
-                {
-                    animator.SetBool("Move", true);
-                }
+                animator.SetBool("Move", true);
             }
         }
 
@@ -130,10 +131,27 @@ public class AIEnemy : MonoBehaviour, IDamageable
             hit = false;
             TakeDamage(healthToReduce, AttackType.ENEMY);
         }
+
+        if (isTarget)
+        {
+            GetComponent<EnemyCanvasController>().EnableHealthBar(false);
+        }
     }
     #endregion
 
     #region Public Methods
+
+    public float GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+
+    public void HitByZoneTrap()
+    {
+        agent.enabled = false;
+        enemyCollider.enabled = false;
+    }
+
     public void Restart()
     {
         UnityEngine.Assertions.Assert.IsNotNull(zoneController, "Error: zoneController is null for AIEnemy in GameObject '" + gameObject.name + "'!");
@@ -141,10 +159,11 @@ public class AIEnemy : MonoBehaviour, IDamageable
         currentHealth = baseHealth;
         mRenderer.material = basicMat;
         mRenderer.material.color = initialColor;
-        heightOffset = this.GetComponent<Collider>().bounds.size.y / 2.0f;
+        enemyCollider.enabled = true;
         agent.enabled = true;
         isTargetable = true;
         isTarget = false;
+        GetComponent<EnemyCanvasController>().SetHealthBar();
     }
 
     public AIZoneController GetZoneController()
@@ -167,6 +186,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         newZoneController.AddEnemy(this);
         zoneController = newZoneController;
         UpdateNodePath();
+        UpdateTarget();
     }
 
     // Called by the ZoneController in case the Monument gets repaired (this will cause all AIEnemy to return to the ZoneController's area)
@@ -201,6 +221,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
             currentHealth = 0;
             agent.enabled = false;
             SetIsTargetable(false);
+            killingHit = attacktype;
             animator.SetBool("DieStandard", true);
             //Die();
         }
@@ -208,6 +229,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
         {
             animator.SetBool("GetHit", true);
         }
+        GetComponent<EnemyCanvasController>().EnableHealthBar(true);
+        GetComponent<EnemyCanvasController>().SetHealthBar();
         AdjustMaterials();
     }
 
@@ -276,10 +299,11 @@ public class AIEnemy : MonoBehaviour, IDamageable
         StatsManager.instance.RegisterKill(enemyType);
         zoneController.RemoveEnemy(this);
         Player player = GameManager.instance.GetPlayer1();
-        if (player != null)
+        if (player != null && killingHit == AttackType.WEAK || killingHit == AttackType.STRONG || killingHit == AttackType.TRAP_BASIC)
         {
-            player.SetEvilLevel(evilKillReward);
+            player.AddEvilPoints(evilKillReward);
         }
+        killingHit = AttackType.NONE;
 
         if(deathVFX != null)
             ParticlesManager.instance.LaunchParticleSystem(deathVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation);
@@ -297,6 +321,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
     public void DestroySelf()
     {
+        zoneController = null;
         animator.Rebind();
         spawnController.ReturnEnemy(this);
     }

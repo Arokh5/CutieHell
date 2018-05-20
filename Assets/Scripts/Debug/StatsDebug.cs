@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StatsDebug : MonoBehaviour {
 
@@ -13,6 +14,12 @@ public class StatsDebug : MonoBehaviour {
 
     public float updateInterval = 0.5F;
 
+    [SerializeField]
+    private Text fpsText;
+    [SerializeField]
+    private Text trisText;
+    [SerializeField]
+    private Text vertsText;
     private float accum = 0;
     private int frames = 0;
     private float timeleft;
@@ -46,31 +53,13 @@ public class StatsDebug : MonoBehaviour {
     void ShowStatistics() {
         GUILayout.BeginArea(new Rect(Screen.width - 200, Screen.height - 300, 300, 300));
         if (Show_FPS) {
-            string fpsdisplay = fps.ToString("0.00 fps");
-            GUIStyle style = new GUIStyle(GUI.skin.label);
-            style.fontSize = 30;
-            if (fps < 50f) {
-                style.normal.textColor = Color.red;
-
-                GUILayout.Label(fpsdisplay, style);
-            } else {
-                style.normal.textColor = Color.green;
-                GUILayout.Label(fpsdisplay, style);
-            }
+            fpsText.text = "Fps : " + fps.ToString("00.00");
         }
         if (Show_Tris) {
-            string trisdisplay = tris.ToString("###,###,### tris");
-            GUIStyle style = new GUIStyle(GUI.skin.label);
-            style.fontSize = 30;
-            style.normal.textColor = Color.white;
-            GUILayout.Label(trisdisplay, style);
+            trisText.text = "Tris : " + tris.ToString("###,###,###");
         }
         if (Show_Verts) {
-            string vertsdisplay = verts.ToString("###,###,### verts");
-            GUIStyle style = new GUIStyle(GUI.skin.label);
-            style.fontSize = 30;
-            style.normal.textColor = Color.white;
-            GUILayout.Label(vertsdisplay, style);
+            vertsText.text = "Verts : " + verts.ToString("###,###,###");
         }
         GUILayout.EndArea();
     }
@@ -80,9 +69,21 @@ public class StatsDebug : MonoBehaviour {
         tris = 0;
         GameObject[] ob = FindObjectsOfType(typeof(GameObject)) as GameObject[];
         foreach (GameObject obj in ob) {
-            Renderer rend = obj.GetComponent<Renderer>();
-            if (rend != null) {
-                if (rend.isVisible) {
+            Renderer render = obj.GetComponent<Renderer>();
+
+            if (render != null)
+            {
+                if (render.isVisible)
+                {
+                    GetObjectStats(obj);
+                }
+            }
+            SkinnedMeshRenderer rend = obj.GetComponent<SkinnedMeshRenderer>();
+
+            if (rend != null)
+            {
+                if (rend.isVisible)
+                {
                     GetObjectStats(obj);
                 }
             }
@@ -93,6 +94,16 @@ public class StatsDebug : MonoBehaviour {
         Component[] filters;
         filters = obj.GetComponentsInChildren<MeshFilter>();
         foreach (MeshFilter f in filters) {
+            if (f.sharedMesh)
+            {
+                tris += f.sharedMesh.triangles.Length / 3;
+                verts += f.sharedMesh.vertexCount;
+            }
+        }
+        Component[] newfilters = obj.GetComponentsInChildren<SkinnedMeshRenderer>();
+        foreach (SkinnedMeshRenderer f in newfilters)
+        {
+
             if (f.sharedMesh)
             {
                 tris += f.sharedMesh.triangles.Length / 3;

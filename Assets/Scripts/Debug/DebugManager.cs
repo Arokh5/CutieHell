@@ -5,11 +5,14 @@ using UnityEngine.UI;
 
 public class DebugManager : MonoBehaviour {
 
+    [Header("Debug Panel")]
+    [SerializeField]
+    private GameObject panel;
+
+    [Space]
     [Header("Debug stats")]
     [SerializeField]
     private StatsDebug statsDebug;
-    [SerializeField]
-    private GameObject memoryUsage;
 
     [Space]
     [Header("Debug camera")]
@@ -33,19 +36,42 @@ public class DebugManager : MonoBehaviour {
     [SerializeField]
     private GameObject wavesDebugInfo;
 
+    [Space]
+    [Header("Player Debug")]
+    [SerializeField]
+    private GameObject playerDebugInfo;
+    [SerializeField]
+    private GameObject greenCircle;
+    [SerializeField]
+    private PlayerMove playerDefaultMoveAction;
+
+
     private CameraController cameraController;
     private Player playerScript;
     private Camera worldCameraComponent;
     private AISpawnController spawnController;
 
-    private bool showStats = false;
-    private bool showCameraDebug = false;
-    private bool showWorldCamera = false;
+    [Space]
+    [Header("Toggles")]
+    [SerializeField]
+    private Toggle cameraDebug;
+    [SerializeField]
+    private Toggle wavesDebug;
+    [SerializeField]
+    private Toggle worldCameraDebug;
+    [SerializeField]
+    private Toggle playerDebug;
+
     private bool showGrid = false;
     private bool followPlayer = true;
-    private bool showWavesDebug = false;
+    private bool showDebugWindow = false;
+    private bool infiniteEvil = false;
+    private bool immortalStructures;
+    private float playerInitialSpeed;
 
     private GameObject player;
+    private Building monument;
+    private GameObject[] traps;
 
     private KeyCode[] numberKeyCodes =
     {
@@ -61,66 +87,81 @@ public class DebugManager : MonoBehaviour {
         KeyCode.Alpha9
     };
 
-	void Start () {
+    void OnDestroy()
+    {
+        playerDefaultMoveAction.maxSpeed = playerInitialSpeed;
+    }
+
+    void Start () {
         cameraController = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>();
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         player = GameObject.FindGameObjectWithTag("Player");
+        playerInitialSpeed = playerDefaultMoveAction.maxSpeed;
         worldCameraComponent = worldCamera.GetComponent<Camera>();
         spawnController = FindObjectOfType<AISpawnController>();
+        monument = GameObject.FindGameObjectWithTag("Monument").GetComponent<Monument>();
+        traps = GameObject.FindGameObjectsWithTag("Traps");
     }
 
 	void Update () {
         ProcessInput();
         ActivateDebug();
-	}
+
+        if (infiniteEvil)
+        {
+            playerScript.AddEvilPoints(playerScript.GetMaxEvilLevel());
+        }
+        if (immortalStructures)
+        {
+            greenCircle.SetActive(true);
+            monument.FullRepair();
+            foreach(GameObject build in traps)
+            {
+                build.GetComponent<Building>().FullRepair();
+            }
+        }
+        else
+        {
+            greenCircle.SetActive(false);
+        }
+    }
 
     private void ShowOneWindow(ref bool handler)
     {
         bool previousState = handler;
-        showCameraDebug = false;
-        showWorldCamera = false;
-        showWavesDebug = false;
+        showDebugWindow = false;
         handler = !previousState;
     }
 
     private void ProcessInput() 
     {
-        if (Input.GetKeyDown(KeyCode.I)) 
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            ShowOneWindow(ref showWorldCamera);
-        }
-        if (Input.GetKeyDown(KeyCode.O)) 
-        {
-            showStats = !showStats;
-        }
-        if (Input.GetKeyDown(KeyCode.P)) 
-        {
-            ShowOneWindow(ref showCameraDebug);
-        }
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            ShowOneWindow(ref showWavesDebug);
+            ShowOneWindow(ref showDebugWindow);
         }
     }
 
     private void ActivateDebug() 
     {
-        if(showStats) {
+        if (showDebugWindow)
+        {
+            panel.SetActive(true);
             statsDebug.Show_Stats = true;
-            memoryUsage.SetActive(true);
-        } else {
+        }
+        else
+        {
+            panel.SetActive(false);
             statsDebug.Show_Stats = false;
-            memoryUsage.SetActive(false);
         }
 
-        if (showCameraDebug) {
+        if (cameraDebug.isOn) {
             debugCameraCanvas.SetActive(true);
             DebugCamera();
         } else {
             debugCameraCanvas.SetActive(false);
         }
 
-        if (showWorldCamera) {
+        if (worldCameraDebug.isOn) {
             worldCamera.SetActive(true);
             instructionsWorldCamera.SetActive(true);
             WorldCameraDebug();
@@ -129,7 +170,7 @@ public class DebugManager : MonoBehaviour {
             instructionsWorldCamera.SetActive(false);
         }
 
-        if (showWavesDebug)
+        if (wavesDebug.isOn)
         {
             wavesDebugInfo.SetActive(true);
             WavesDebug();
@@ -137,6 +178,82 @@ public class DebugManager : MonoBehaviour {
         else
         {
             wavesDebugInfo.SetActive(false);
+        }
+        if (playerDebug.isOn)
+        {
+            playerDebugInfo.SetActive(true);
+            PlayerDebug();
+        }
+        else
+        {
+            playerDebugInfo.SetActive(false);
+        }
+    }
+
+    private void PlayerDebug()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            playerScript.AddEvilPoints(playerScript.GetMaxEvilLevel());
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            playerScript.AddEvilPoints(-playerScript.GetEvilLevel());
+        }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            infiniteEvil = !infiniteEvil;
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            playerDefaultMoveAction.maxSpeed += 2.5f;
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            playerDefaultMoveAction.maxSpeed -= 2.5f;
+            if (playerDefaultMoveAction.maxSpeed <= 0.0f)
+                playerDefaultMoveAction.maxSpeed = 0.0f;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            infiniteEvil = false;
+            playerDefaultMoveAction.maxSpeed = playerInitialSpeed;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            immortalStructures = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            immortalStructures = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            float closerDistance = 99999999999.9f;
+            Trap closerBuilding = null;
+            foreach(GameObject o in traps)
+            {
+                if (Vector3.SqrMagnitude(player.transform.position - o.transform.position) <= closerDistance)
+                {
+                    if (!o.GetComponent<Trap>().IsDead())
+                    {
+                        closerDistance = Vector3.SqrMagnitude(player.transform.position - o.transform.position);
+                        closerBuilding = o.GetComponent<Trap>();
+                    }
+                }
+            }
+            if (closerBuilding != null)
+            {
+                closerBuilding.TakeDamage(9999999999.9f, AttackType.ENEMY);
+            }
         }
     }
 
@@ -282,16 +399,6 @@ public class DebugManager : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.X))
         {
             spawnController.RestartCurrentWave();
-        }
-
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            playerScript.SetEvilLevel(playerScript.GetMaxEvilLevel());
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            playerScript.SetEvilLevel(-playerScript.GetEvilLevel());
         }
 
         for (int i = 0; i < numberKeyCodes.Length; ++i)

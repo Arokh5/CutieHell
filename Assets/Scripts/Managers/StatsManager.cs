@@ -111,7 +111,7 @@ public class StatsManager : MonoBehaviour {
         if (currentShotMissed == enemiesToBadCombo)
         {
             currentShotMissed = 0;
-            GameManager.instance.GetPlayer1().SetEvilLevel(-badComboPenalty);
+            GameManager.instance.GetPlayer1().AddEvilPoints(-badComboPenalty);
             UIManager.instance.ShowComboText(UIManager.ComboTypes.BadCombo);
         }
     }

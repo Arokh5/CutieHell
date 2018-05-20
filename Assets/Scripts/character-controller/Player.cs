@@ -7,11 +7,16 @@ public class Player : MonoBehaviour {
 
     #region Fields
     [Header("Movement Variabes")]
-    public float maxSpeed = 10;
-    public float acceleration = 50;
     public Transform centerTeleportPoint;
     public Transform statueTeleportPoint;
     public GameObject footSteps;
+
+    [Header("Movement")]
+    public float floorClearance;
+    [HideInInspector]
+    public Vector3 currentSpeed;
+    //[HideInInspector]
+    public Vector3 lastValidPosition;
 
     [Header("Evilness")]
     [SerializeField]
@@ -41,6 +46,11 @@ public class Player : MonoBehaviour {
     [SerializeField]
     public Transform bulletSpawnPoint;
 
+    private float timeSinceLastMonumentChecking = 0f;
+    private float checkingMonumentRepetitionTime = 1f;
+
+    private Monument[] allMonuments;
+    [HideInInspector]
     public Monument monument;
 
     [Header("Actual Trap")]
@@ -52,6 +62,8 @@ public class Player : MonoBehaviour {
     public float trapMaxUseDistance;
     [HideInInspector]
     public bool shouldExitTrap = false;
+
+    public ZoneTrap zoneTrap = null;
 
     [Header("Player States")]
     [SerializeField]
@@ -69,7 +81,7 @@ public class Player : MonoBehaviour {
     [HideInInspector]
     public bool animatingAttack = false;
     [HideInInspector]
-    public Vector3 weakAttackTargetHitPoint;
+    public Vector3 weakAttackTargetHitOffset;
     [HideInInspector]
     public Transform weakAttackTargetTransform;
 
@@ -83,9 +95,23 @@ public class Player : MonoBehaviour {
     [HideInInspector]
     public List<AIEnemy> currentStrongAttackTargets = new List<AIEnemy>();
 
+    [Header("Fog Attack")]
+    public SphereCollider fogCollider;
+    public ParticleSystem fogVFX;
+    public float fogStateCooldown;
+    [HideInInspector]
+    public float fogStateLastTime;
+    [HideInInspector]
+    public float accumulatedFogEvilCost = 0;
+    [HideInInspector]
+    public float timeSinceLastFogHit = 0;
+    [HideInInspector]
+    public List<AIEnemy> currentFogAttackTargets = new List<AIEnemy>();
+
+    [Header("Footsteps")]
+    public AudioClip footstepsClip;
     [HideInInspector]
     public AudioSource footstepsSource;
-    public AudioClip footstepsClip;
     #endregion
 
     public enum CameraState { STILL, MOVE, WOLF, FOG, TURRET, TRANSITION, ZOOMOUT, ZOOMIN}
@@ -112,12 +138,20 @@ public class Player : MonoBehaviour {
             allTraps[i] = allTrapsGameObjects[i].GetComponent<Trap>();
         }
 
-        if (!monument)
-            monument = GameObject.FindGameObjectWithTag("Monument").GetComponent<Monument>();
+        GameObject[] allMonumentsGameObjects = GameObject.FindGameObjectsWithTag("Monument");
+        allMonuments = new Monument[allMonumentsGameObjects.Length];
+        for (int i = 0; i < allTrapsGameObjects.Length; ++i)
+        {
+            allMonuments[i] = allMonumentsGameObjects[i].GetComponent<Monument>();
+        }
+
+        UpdateNearestMonument();
 
         footstepsSource = GetComponent<AudioSource>();
         footstepsSource.clip = footstepsClip;
         footstepsSource.loop = true;
+
+        fogStateLastTime = float.MinValue;
     }
 
     private void Start () 
@@ -132,8 +166,9 @@ public class Player : MonoBehaviour {
         teleported = false;
 
         currentState.EnterState(this);
+
     }
-   
+
     private void Update()
     {
         if (GameManager.instance.gameIsPaused)
@@ -142,10 +177,18 @@ public class Player : MonoBehaviour {
             return;
         }
 
+        if ( timeSinceLastMonumentChecking >= checkingMonumentRepetitionTime)
+        {
+            UpdateNearestMonument();
+            timeSinceLastMonumentChecking -= checkingMonumentRepetitionTime;
+        }
+
         timeSinceLastTrapUse += Time.deltaTime;
         timeSinceLastAttack += Time.deltaTime;
         timeSinceLastStrongAttack += Time.deltaTime;
+        timeSinceLastMonumentChecking += Time.deltaTime;
         currentState.UpdateState(this);
+        
     }
     #endregion
 
@@ -172,7 +215,7 @@ public class Player : MonoBehaviour {
         return evilLevel;
     }
 
-    public void SetEvilLevel(int value)
+    public void AddEvilPoints(int value)
     {
         evilLevel += value;
 
@@ -198,22 +241,21 @@ public class Player : MonoBehaviour {
         {
             colliders[i].enabled = visible;
         }
-        rb.isKinematic = !visible;
     }
 
-    public void InstantiateAttack(ParticleSystem attackPrefab, Transform enemy, Vector3 hitPoint)
+    public void InstantiateAttack(ParticleSystem attackPrefab, Transform enemy, Vector3 hitOffset)
     {
         Vector3 spawningPos = bulletSpawnPoint.position;
 
         ParticleSystem attack = ParticlesManager.instance.LaunchParticleSystem(attackPrefab, spawningPos, transform.rotation);
         FollowTarget attackClone = attack.GetComponent<FollowTarget>();
         attackClone.SetEnemy(enemy);
-        attackClone.SetHitPoint(hitPoint);
+        attackClone.SetHitOffset(hitOffset);
     }
 
     public void InstantiateStrongAttack(int evilCost)
     {
-        SetEvilLevel(evilCost);
+        AddEvilPoints(evilCost);
         ParticleSystem strongAttackReference = ParticlesManager.instance.LaunchParticleSystem(strongAttackExplosion, transform.position, transform.rotation);
         Transform particlesParent = strongAttackReference.transform.parent;
         strongAttackReference.transform.SetParent(this.transform);
@@ -222,6 +264,22 @@ public class Player : MonoBehaviour {
         strongAttackReference.transform.SetParent(particlesParent);
     }
     #endregion
-}
 
-    
+    #region Private Methods
+    private void UpdateNearestMonument()
+    {
+        float nearestMonumentDistance = float.MaxValue;
+        float evaluatedMonumentDistance = 0;
+        
+        for(int i = 0; i < allMonuments.Length; i++)
+        {
+            evaluatedMonumentDistance = Vector3.Distance(this.transform.position, allMonuments[i].transform.position);
+            if (evaluatedMonumentDistance < nearestMonumentDistance)
+            {
+                nearestMonumentDistance = evaluatedMonumentDistance;
+                monument = allMonuments[i];
+            }
+        }
+    }
+    #endregion
+}

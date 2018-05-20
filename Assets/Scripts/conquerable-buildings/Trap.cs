@@ -52,7 +52,7 @@ public class Trap : Building, IUsable
     // IRepairable
     public override bool CanRepair()
     {
-        return !zoneController.monumentTaken && !HasFullHealth();
+        return !animating && !zoneController.monumentTaken && !HasFullHealth();
     }
 
     // IUsable
