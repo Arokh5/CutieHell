@@ -9,6 +9,8 @@ public class PlayerMove : StateAction
     public float acceleration;
     public bool useAnimation;
     public bool useFootsteps;
+    public LayerMask walkableLayer;
+    public bool canExitWalkableLayer;
 
     public override void Act(Player player)
     {
@@ -72,16 +74,16 @@ public class PlayerMove : StateAction
 
         /* Adjust ground height */
         RaycastHit hit;
-        float upOffset = 5.0f;
+        float upOffset = 10.0f;
         Vector3 forwardOffsetVector = (accelerationMagnitude > 0 ? (0.25f * accelerationVector / accelerationMagnitude) : Vector3.zero);
-        if (Physics.Raycast(player.transform.position + upOffset * Vector3.up + forwardOffsetVector, -Vector3.up, out hit, 50, (1 << 9)))
+        if (Physics.Raycast(player.transform.position + upOffset * Vector3.up + forwardOffsetVector, -Vector3.up, out hit, 50, walkableLayer))
         {
             if (Mathf.Abs(hit.distance - upOffset - player.floorClearance) > 0.005f)
                 playerPos.y -= (hit.distance - upOffset - player.floorClearance);
 
             player.lastValidPosition = playerPos;
         }
-        else
+        else if (!canExitWalkableLayer)
         {
             playerPos = player.lastValidPosition;
         }
