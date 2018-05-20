@@ -148,7 +148,7 @@ public class CameraController : MonoBehaviour {
                             }
                             else
                             {
-                                SetPlayerDirection(rotation.eulerAngles.y, playerScript.rb.velocity.magnitude / 10.0f);
+                                SetPlayerDirection(rotation.eulerAngles.y);//, playerScript.rb.velocity.magnitude / 10.0f);
                             }
                         }
                         else
@@ -204,7 +204,7 @@ public class CameraController : MonoBehaviour {
                             }
                             else
                             {
-                                SetPlayerDirection(rotation.eulerAngles.y, playerScript.rb.velocity.magnitude / 10.0f);
+                                SetPlayerDirection(rotation.eulerAngles.y);//, playerScript.rb.velocity.magnitude / 10.0f);
                             }
                         }
                         else

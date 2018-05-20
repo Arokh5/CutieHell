@@ -12,32 +12,26 @@ public class PlayerMove : StateAction
 
     public override void Act(Player player)
     {
-        Vector3 speedDirection = Vector3.zero;
-        Vector3 verticalAcceleration = new Vector3(0f, 0f, 1.5f);
-        Vector3 horizontalAcceleration = new Vector3(1.5f, 0f, 0f);
+        Vector3 accelerationVector = Vector3.zero;
+        Vector3 verticalAcceleration = player.transform.forward;
+        Vector3 horizontalAcceleration = player.transform.right;
 
-        if (InputManager.instance.GetLeftStickUp())
+        accelerationVector += verticalAcceleration * -InputManager.instance.GetLeftStickVerticalValue();
+        accelerationVector += horizontalAcceleration * InputManager.instance.GetLeftStickHorizontalValue();
+
+        float accelerationMagnitude = accelerationVector.magnitude;
+        if (accelerationMagnitude > 1.0f)
         {
-            speedDirection += verticalAcceleration * -InputManager.instance.GetLeftStickVerticalValue();
+            accelerationVector.Normalize();
+            accelerationMagnitude = 1.0f;
         }
-        if (InputManager.instance.GetLeftStickDown())
+
+        if (accelerationMagnitude > 0.1f)
         {
-            speedDirection += verticalAcceleration * -InputManager.instance.GetLeftStickVerticalValue();
-        }
-        if (InputManager.instance.GetLeftStickLeft())
-        {
-            speedDirection += horizontalAcceleration * InputManager.instance.GetLeftStickHorizontalValue();
-        }
-        if (InputManager.instance.GetLeftStickRight())
-        {
-            speedDirection += horizontalAcceleration * InputManager.instance.GetLeftStickHorizontalValue();
-        }
-        
-        if (speedDirection.magnitude > 0.2f)
-        {
-            player.rb.drag = 0.5f;
             if (useAnimation)
                 player.animator.SetBool("Move", true);
+            else
+                player.mainCameraController.timeSinceLastAction = 0.0f;
 
             if (useFootsteps)
             {
@@ -48,8 +42,8 @@ public class PlayerMove : StateAction
         }
         else
         {
-            player.rb.drag = 10f;
-            player.rb.angularDrag = 10f;
+            accelerationVector = Vector3.zero;
+            accelerationMagnitude = 0.0f;
             if (useAnimation)
                 player.animator.SetBool("Move", false);
 
@@ -60,10 +54,32 @@ public class PlayerMove : StateAction
             }
         }
 
-        player.rb.AddRelativeForce(speedDirection * acceleration, ForceMode.Acceleration);
-        if (player.rb.velocity.magnitude > maxSpeed * speedDirection.magnitude / 2.0f)
+        Vector3 playerPos = player.rb.position;
+
+        /* Remove currentSpeed components that are not aligned with acceleration */
+        if (accelerationMagnitude != 0.0f)
+            player.currentSpeed = (accelerationVector / accelerationMagnitude) * Vector3.Dot(accelerationVector / accelerationMagnitude, player.currentSpeed);
+        else
+            player.currentSpeed = Vector3.zero;
+
+        /* Calculate currentSpeed */
+        player.currentSpeed += acceleration * accelerationVector * Time.deltaTime;
+        if (player.currentSpeed.sqrMagnitude > maxSpeed * maxSpeed)
+            player.currentSpeed = player.currentSpeed.normalized * maxSpeed;
+
+        /* Calculate new position */
+        playerPos += player.currentSpeed * Time.deltaTime;
+
+        /* Adjust ground height */
+        RaycastHit hit;
+        int testOffset = 5;
+        if (Physics.Raycast(player.transform.position + testOffset * Vector3.up, -Vector3.up, out hit, 50, (1 << 9)))
         {
-            player.rb.velocity = player.rb.velocity.normalized * maxSpeed * speedDirection.magnitude / 2.0f;
+            if (Mathf.Abs(hit.distance - testOffset - player.floorClearance) > 0.001f)
+                playerPos.y -= (hit.distance - testOffset - player.floorClearance);
         }
+
+        /* Set newly calculated position to rigidbody */
+        player.rb.position = playerPos;
     }
 }
