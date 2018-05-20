@@ -11,6 +11,13 @@ public class Player : MonoBehaviour {
     public Transform statueTeleportPoint;
     public GameObject footSteps;
 
+    [Header("Movement")]
+    public float floorClearance;
+    [HideInInspector]
+    public Vector3 currentSpeed;
+    //[HideInInspector]
+    public Vector3 lastValidPosition;
+
     [Header("Evilness")]
     [SerializeField]
     private int maxEvilLevel = 50;
@@ -234,8 +241,6 @@ public class Player : MonoBehaviour {
         {
             colliders[i].enabled = visible;
         }
-        rb.useGravity = visible;
-        //rb.isKinematic = !visible;
     }
 
     public void InstantiateAttack(ParticleSystem attackPrefab, Transform enemy, Vector3 hitOffset)

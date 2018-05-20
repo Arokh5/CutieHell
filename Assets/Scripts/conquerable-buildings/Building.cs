@@ -116,6 +116,7 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
         }
 
         currentHealth = baseHealth;
+        buildingEffects.AdjustMaterials(0);
     }
 
     // IRepairable

@@ -321,6 +321,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
     public void DestroySelf()
     {
+        zoneController = null;
         animator.Rebind();
         spawnController.ReturnEnemy(this);
     }
