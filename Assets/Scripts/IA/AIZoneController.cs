@@ -165,15 +165,15 @@ public class AIZoneController : MonoBehaviour
     // Called by AIEnemy when dying or changing zoneController
     public bool RemoveEnemy(AIEnemy aiEnemy)
     {
-        bool removed;
-        removed = aiEnemies.Remove(aiEnemy);
-
+        bool removed = aiEnemies.Remove(aiEnemy);
         if (removed)
+        {
             textureChangerSource.RemoveEnemy(aiEnemy);
 
-        if (aiEnemies.Count == 0)
-        {
-            scenarioController.OnZoneEmpty();
+            if (aiEnemies.Count == 0)
+            {
+                scenarioController.OnZoneEmpty();
+            }
         }
         return removed;
     }
