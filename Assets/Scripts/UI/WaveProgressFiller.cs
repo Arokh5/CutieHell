@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WaveTimer : MonoBehaviour
+public class WaveProgressFiller : MonoBehaviour
 {
-    public Image loadingBar;
-    public Transform clockHandRotation;
+
+    public Image progressFiller;
     [SerializeField]
     private float currentNormalizedAmount;
 
@@ -14,8 +14,7 @@ public class WaveTimer : MonoBehaviour
     void Start()
     {
         currentNormalizedAmount = 0.0f;
-
-        loadingBar.fillAmount = 1f - currentNormalizedAmount;
+        progressFiller.fillAmount = currentNormalizedAmount;
     }
 
     public void SetNormalizedAmount(float normalizedAmount)
@@ -28,11 +27,6 @@ public class WaveTimer : MonoBehaviour
         if (currentNormalizedAmount > 1.0f)
             currentNormalizedAmount = 1.0f;
 
-        float degreesRotated = 360f * currentNormalizedAmount;
-
-        Vector3 currentRotation = clockHandRotation.localEulerAngles;
-        currentRotation.z = -degreesRotated;
-        clockHandRotation.localEulerAngles = currentRotation;
-        loadingBar.fillAmount = 1f - currentNormalizedAmount;
+        progressFiller.fillAmount = currentNormalizedAmount;
     }
 }
