@@ -16,7 +16,8 @@ public class WeakAttack : StateAction
     public override void Act(Player player)
     {
         RaycastHit hit;
-        bool raycastHit = Physics.SphereCast(Camera.main.transform.position, sphereCastRadius, Camera.main.transform.forward, out hit, 100, layerMask.value);
+        Vector3 rayStart = player.mainCameraController.transform.position + player.mainCameraController.transform.forward * player.mainCameraController.distance;
+        bool raycastHit = Physics.SphereCast(rayStart, sphereCastRadius, Camera.main.transform.forward, out hit, 100, layerMask.value);
 
         UpdatePlayerTarget(player, ref raycastHit, hit);
         Shoot(player, raycastHit, hit);
