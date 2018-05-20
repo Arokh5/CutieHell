@@ -110,8 +110,9 @@ public class Player : MonoBehaviour {
 
     [Header("Footsteps")]
     public AudioClip footstepsClip;
-    [HideInInspector]
     public AudioSource footstepsSource;
+    public AudioSource audioSource;
+
     #endregion
 
     public enum CameraState { STILL, MOVE, WOLF, FOG, TURRET, TRANSITION, ZOOMOUT, ZOOMIN}
