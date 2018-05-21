@@ -83,6 +83,7 @@ public class BuildingEffects : MonoBehaviour
                 conquering = false;
                 conquered = true;
                 attachedBuilding.BuildingConverted();
+                attachedBuilding.animating = false;
             }
         }
     }
@@ -93,6 +94,7 @@ public class BuildingEffects : MonoBehaviour
     {
         if (!conquering)
         {
+            attachedBuilding.animating = true;
             conquering = true;
             conquerEffectElapsedTime = 0;
             alternateBuildingRenderer.transform.localScale = Vector3.zero;

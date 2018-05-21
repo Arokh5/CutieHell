@@ -8,13 +8,15 @@ public class AIZoneController : MonoBehaviour
     [HideInInspector]
     public int zoneID;
     public bool isFinalZone = false;
-    public Monument monument;
+    public Monument monument = null;
     public Trap[] traps;
     [HideInInspector]
     public bool monumentTaken = false;
+    [HideInInspector]
+    public bool hasMonument;
 
-    [SerializeField]
     private ScenarioController scenarioController;
+    private TextureChangerSource textureChangerSource;
     [SerializeField]
     private PathsController pathsController;
     [SerializeField]
@@ -26,14 +28,6 @@ public class AIZoneController : MonoBehaviour
     private List<AIEnemy> aiEnemies;
     public List<BuildingEffects> buildingEffects;
 
-    // Properties used to draw an alternate texture in the proximity of enemies
-    private int maxElements = 128; // IMPORTANT: This number must be reflected in the TextureChanger.shader file
-    private int maxBuildings = 8; // IMPORTANT: This number must be reflected in the TextureChanger.shader file
-    private Vector4[] aiPositions;
-    private float[] buildingsBlendStartRadius;
-    private int activeEnemies = 0;
-
-
     #endregion
 
     #region MonoBehaviour Methods
@@ -42,14 +36,26 @@ public class AIZoneController : MonoBehaviour
         if (!scenarioController)
         {
             scenarioController = GetComponentInParent<ScenarioController>();
-            UnityEngine.Assertions.Assert.IsNotNull(scenarioController, "ERROR: Scenario not set for AIZoneController in gameObject '" + gameObject.name + "'");
+            UnityEngine.Assertions.Assert.IsNotNull(scenarioController, "ERROR: AIZoneController could not find a ScenarioController in its parent hierarchy in gameObject '" + gameObject.name + "'");
+        }
+        if (!textureChangerSource)
+        {
+            textureChangerSource = GetComponentInParent<TextureChangerSource>();
+            UnityEngine.Assertions.Assert.IsNotNull(textureChangerSource, "ERROR: AIZoneController could not find a TextureChangerSource in its parent hierarchy in gameObject '" + gameObject.name + "'");
         }
 
-        UnityEngine.Assertions.Assert.IsNotNull(monument, "ERROR: monument not set for AIZoneController in gameObject '" + gameObject.name + "'");
-        UnityEngine.Assertions.Assert.IsTrue(buildingEffects.Count < maxBuildings, "ERROR: The amount of buildings is larger than the maximum amount of building accepted by the TextureChanger shader. The behaviour of the shader will be undefined!");
+        hasMonument = monument != null;
+    }
+
+    private void Start()
+    {
+        if (!hasMonument)
+            monument = scenarioController.GetAlternateTarget(this);
+
         currentZoneTarget = monument;
-        aiPositions = new Vector4[maxElements];
-        buildingsBlendStartRadius = new float[maxBuildings];
+
+        foreach (BuildingEffects effect in buildingEffects)
+            textureChangerSource.AddBuildingEffect(effect);
     }
 
     private void Update()
@@ -68,47 +74,10 @@ public class AIZoneController : MonoBehaviour
                 }
             }
         }
-        int skippedEnemies = 0;
-        activeEnemies = 0;
-
-        /* Shader data update */
-        for (int i = 0; i < buildingEffects.Count + aiEnemies.Count && i < maxElements; ++i)
-        {
-            if (i < buildingEffects.Count)
-            {
-                aiPositions[i].x = buildingEffects[i].transform.position.x;
-                aiPositions[i].y = buildingEffects[i].transform.position.y;
-                aiPositions[i].z = buildingEffects[i].transform.position.z;
-                /* The w component is used to pass the effectOnMapRadius of the building */
-                aiPositions[i].w = buildingEffects[i].effectOnMapRadius;
-                
-                buildingsBlendStartRadius[i] = buildingEffects[i].GetBlendRadius();
-            }
-            else
-            {
-                if (aiEnemies[i - buildingEffects.Count].gameObject.activeSelf)
-                {
-                    aiPositions[i - skippedEnemies].x = aiEnemies[i - buildingEffects.Count].transform.position.x;
-                    aiPositions[i - skippedEnemies].y = aiEnemies[i - buildingEffects.Count].transform.position.y;
-                    aiPositions[i - skippedEnemies].z = aiEnemies[i - buildingEffects.Count].transform.position.z;
-                    aiPositions[i - skippedEnemies].w = aiEnemies[i - buildingEffects.Count].effectOnMapRadius;
-                    ++activeEnemies;
-                }
-                else ++skippedEnemies;
-            }
-        }
     }
     #endregion
 
     #region Public Methods
-    public void UpdateMaterialWithEnemyPositions(Material material)
-    {
-        material.SetInt("_ActiveEnemies", activeEnemies);
-        material.SetInt("_BuildingsCount", buildingEffects.Count);
-        material.SetVectorArray("_AiPositions", aiPositions);
-        material.SetFloatArray("_BuildingsBlendStartRadius", buildingsBlendStartRadius);
-    }
-
     // Called by Buildings to obtain zoneId
     public int GetZoneId()
     {
@@ -183,6 +152,8 @@ public class AIZoneController : MonoBehaviour
         if (!aiEnemies.Contains(aiEnemy))
         {
             aiEnemies.Add(aiEnemy);
+            textureChangerSource.AddEnemy(aiEnemy);
+
             /* If we just added a first enemy*/
             if (aiEnemies.Count == 1)
             {
@@ -194,11 +165,15 @@ public class AIZoneController : MonoBehaviour
     // Called by AIEnemy when dying or changing zoneController
     public bool RemoveEnemy(AIEnemy aiEnemy)
     {
-        bool removed;
-        removed = aiEnemies.Remove(aiEnemy);
-        if (aiEnemies.Count == 0)
+        bool removed = aiEnemies.Remove(aiEnemy);
+        if (removed)
         {
-            scenarioController.OnZoneEmpty();
+            textureChangerSource.RemoveEnemy(aiEnemy);
+
+            if (aiEnemies.Count == 0)
+            {
+                scenarioController.OnZoneEmpty();
+            }
         }
         return removed;
     }
@@ -213,7 +188,7 @@ public class AIZoneController : MonoBehaviour
         foreach (AIEnemy aiEnemy in aiEnemies)
         {
             aiEnemy.DieAfterMatch();
-            //Destroy(aiEnemy.gameObject);
+            textureChangerSource.RemoveEnemy(aiEnemy);
         }
         aiEnemies.Clear();
     }
@@ -231,7 +206,12 @@ public class AIZoneController : MonoBehaviour
         }
         return enemiesInRange;
     }
-    
+
+    public List<AIEnemy> GetZoneEnemies()
+    {
+        return aiEnemies;
+    }
+
     #endregion
 
     #region Private Methods

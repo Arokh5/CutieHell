@@ -5,7 +5,7 @@ using UnityEngine;
 public class Monument : Building
 {
 
-    #region Attributes
+    #region Fields
     [Header("Monument attributes")]
     [SerializeField]
     private Texture almostConqueredScreenTintTexture;
@@ -16,6 +16,8 @@ public class Monument : Building
     [Space]
     [SerializeField]
     private MonumentIndicator monumentIndicator;
+    [SerializeField]
+    private Monument protectedMonument;
     #endregion
 
     #region Public Methods
@@ -32,20 +34,29 @@ public class Monument : Building
         base.TakeDamage(damage, attacktype);
         monumentIndicator.SetFill((baseHealth - currentHealth) / baseHealth);
     }
+    
+    public MonumentIndicator GetMonumentIndicator()
+    {
+        return monumentIndicator;
+    }
 
     public override void BuildingConverted()
     {
         zoneController.OnMonumentTaken();
     }
 
+    public override void BuildingKilled()
+    {
+        zoneController.OnMonumentTaken();
+        if (protectedMonument)
+            protectedMonument.monumentIndicator.RequestOpen();
+    }
+
     public override void BuildingRecovered()
     {
         zoneController.OnMonumentRecovered();
-    }
-
-    public override void BuildingKilled()
-    {
-        //nothing needs to be done here
+        if (protectedMonument)
+            protectedMonument.monumentIndicator.RequestClose();
     }
     #endregion
 
@@ -66,5 +77,4 @@ public class Monument : Building
         }
     }
     #endregion
-
 }

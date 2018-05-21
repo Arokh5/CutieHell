@@ -19,7 +19,10 @@ public class UIManager : MonoBehaviour
     private Text waveNumberText;
 
     [SerializeField]
-    private WaveTimer waveRadialProgressBar;
+    private WaveProgressFiller waveProgressFiller;
+    public IndicatorsController indicatorsController;
+    //[SerializeField]
+    //private WaveTimer waveRadialProgressBar;
 
     [SerializeField]
     private Text strongCombo;
@@ -81,10 +84,6 @@ public class UIManager : MonoBehaviour
     private float conquerorEnemiesPrevTimeCount;
     private float conquerorEnemiesTimeCount;
     private int conquerorEnemiesCounter;
-
-    #endregion
-
-    #region Properties
 
     #endregion
 
@@ -153,7 +152,8 @@ public class UIManager : MonoBehaviour
             currentWaveNumber = waveNumber;
             waveNumberText.text = currentWaveNumber.ToString();
         }
-        waveRadialProgressBar.SetNormalizedAmount(normalizedProgress);
+        //waveRadialProgressBar.SetNormalizedAmount(normalizedProgress);
+        waveProgressFiller.SetNormalizedAmount(normalizedProgress);
     }
 
     public void ShowRepairText()

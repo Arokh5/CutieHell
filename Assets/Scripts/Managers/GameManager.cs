@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour
     {
         aiSpawnController.StartNextWave();
         scenarioController.OnNewWaveStarted();
+        UIManager.instance.indicatorsController.OnNewWaveStarted();
         Debug.Log("Starting wave (index) " + aiSpawnController.GetCurrentWaveIndex() + "!");
     }
 
@@ -185,6 +186,7 @@ public class GameManager : MonoBehaviour
             StatsManager.instance.ResetBadComboCount();
             aiSpawnController.StartNextWave();
             scenarioController.OnNewWaveStarted();
+            UIManager.instance.indicatorsController.OnNewWaveStarted();
             gameState = GameStates.InGame;
             Debug.Log("Starting wave (index) " + aiSpawnController.GetCurrentWaveIndex() + "!");
         }
@@ -204,7 +206,7 @@ public class GameManager : MonoBehaviour
     {
         gameIsPaused = false;
         gameState = GameStates.InGame;
-        SceneManager.LoadScene("Garden Scene", LoadSceneMode.Single);
+        SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }
 
     public void SetCrosshairActivate(bool activate)

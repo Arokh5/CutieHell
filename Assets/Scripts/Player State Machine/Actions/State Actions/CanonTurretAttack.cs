@@ -69,7 +69,7 @@ public class CanonTurretAttack : StateAction
     {
         playerRef = player;
         canonBallStartPoint = playerRef.currentTrap.canonBallStartPoint;
-        canonTargetDecalGOTransform = player.currentTrap.canonTargetDecal;
+        canonTargetDecalGOTransform = player.currentTrap.canonTargetDecal.transform;
 
         UnityEngine.Assertions.Assert.IsFalse(canonBallExplosionRange > playerRef.currentTrap.attractionRadius, "ERROR: CanonBall explosion range can't be greater than its owner trap attraction radius");
 

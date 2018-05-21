@@ -5,59 +5,90 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Player State Machine/Actions/PlayerMove")]
 public class PlayerMove : StateAction
 {
+    public float maxSpeed;
+    public float acceleration;
+    public bool useAnimation;
+    public bool useFootsteps;
+    public LayerMask walkableLayer;
+    public bool canExitWalkableLayer;
 
     public override void Act(Player player)
     {
-        Vector3 speedDirection = Vector3.zero;
-        Vector3 verticalAcceleration = new Vector3(0f, 0f, 1.5f);
-        Vector3 horizontalAcceleration = new Vector3(1.5f, 0f, 0f);
+        Vector3 accelerationVector = Vector3.zero;
+        Vector3 verticalAcceleration = player.transform.forward;
+        Vector3 horizontalAcceleration = player.transform.right;
 
-        if (InputManager.instance.GetLeftStickUp())
+        accelerationVector += verticalAcceleration * -InputManager.instance.GetLeftStickVerticalValue();
+        accelerationVector += horizontalAcceleration * InputManager.instance.GetLeftStickHorizontalValue();
+
+        float accelerationMagnitude = accelerationVector.magnitude;
+        if (accelerationMagnitude > 1.0f)
         {
-            speedDirection += verticalAcceleration * -InputManager.instance.GetLeftStickVerticalValue();
+            accelerationVector.Normalize();
+            accelerationMagnitude = 1.0f;
         }
-        if (InputManager.instance.GetLeftStickDown())
+
+        if (accelerationMagnitude > 0.1f)
         {
-            speedDirection += verticalAcceleration * -InputManager.instance.GetLeftStickVerticalValue();
-        }
-        if (InputManager.instance.GetLeftStickLeft())
-        {
-            speedDirection += horizontalAcceleration * InputManager.instance.GetLeftStickHorizontalValue();
-        }
-        if (InputManager.instance.GetLeftStickRight())
-        {
-            speedDirection += horizontalAcceleration * InputManager.instance.GetLeftStickHorizontalValue();
-        }
-        
-        if (speedDirection.magnitude > 0.2f)
-        {
-            player.rb.drag = 0.5f;
-            player.footSteps.SetActive(true);
-            player.animator.SetBool("Move", true);
-            if (!player.footstepsSource.isPlaying)
+            if (useAnimation)
+                player.animator.SetBool("Move", true);
+            else
+                player.mainCameraController.timeSinceLastAction = 0.0f;
+
+            if (useFootsteps)
             {
-                player.footstepsSource.Play();
+                player.footSteps.SetActive(true);
+                if (!player.footstepsSource.isPlaying)
+                    player.footstepsSource.Play();
             }
-
         }
         else
         {
-            player.rb.drag = 10f;
-            player.rb.angularDrag = 10f;
-            player.footSteps.SetActive(false);
-            player.animator.SetBool("Move", false);
-            player.footstepsSource.Stop();
+            accelerationVector = Vector3.zero;
+            accelerationMagnitude = 0.0f;
+            if (useAnimation)
+                player.animator.SetBool("Move", false);
+
+            if (useFootsteps)
+            {
+                player.footSteps.SetActive(false);
+                player.footstepsSource.Stop();
+            }
         }
 
-        player.rb.AddRelativeForce(speedDirection * player.acceleration, ForceMode.Acceleration);
+        Vector3 playerPos = player.rb.position;
 
-        //if (player.rb.velocity.magnitude > player.maxSpeed)
-        //{
-        //    player.rb.velocity = player.rb.velocity.normalized * player.maxSpeed;
-        //}
-        if (player.rb.velocity.magnitude > player.maxSpeed * speedDirection.magnitude / 2.0f)
+        /* Remove currentSpeed components that are not aligned with acceleration */
+        if (accelerationMagnitude != 0.0f)
+            player.currentSpeed = (accelerationVector / accelerationMagnitude) * Vector3.Dot(accelerationVector / accelerationMagnitude, player.currentSpeed);
+        else
+            player.currentSpeed = Vector3.zero;
+
+        /* Calculate currentSpeed */
+        player.currentSpeed += acceleration * accelerationVector * Time.deltaTime;
+        if (player.currentSpeed.sqrMagnitude > maxSpeed * maxSpeed)
+            player.currentSpeed = player.currentSpeed.normalized * maxSpeed;
+
+        /* Calculate new position */
+        playerPos += player.currentSpeed * Time.deltaTime;
+
+        /* Adjust ground height */
+        RaycastHit hit;
+        float upOffset = 10.0f;
+        Vector3 forwardOffsetVector = (accelerationMagnitude > 0 ? (0.25f * accelerationVector / accelerationMagnitude) : Vector3.zero);
+        if (Physics.Raycast(player.transform.position + upOffset * Vector3.up + forwardOffsetVector, -Vector3.up, out hit, 50, walkableLayer))
         {
-            player.rb.velocity = player.rb.velocity.normalized * player.maxSpeed * speedDirection.magnitude / 2.0f;
+            if (Mathf.Abs(hit.distance - upOffset - player.floorClearance) > 0.005f)
+                playerPos.y -= (hit.distance - upOffset - player.floorClearance);
+
+            player.lastValidPosition = playerPos;
         }
+        else if (!canExitWalkableLayer)
+        {
+            playerPos = player.lastValidPosition;
+        }
+
+        /* Set newly calculated position to rigidbody */
+        player.rb.position = playerPos;
     }
 }

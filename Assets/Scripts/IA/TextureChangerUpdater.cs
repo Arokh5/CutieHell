@@ -5,7 +5,7 @@ using UnityEngine;
 public class TextureChangerUpdater : MonoBehaviour {
 
     #region Fields
-    public AIZoneController zoneController;
+    public TextureChangerSource textureChangerSource;
     private Renderer mRenderer;
     private Material material;
     #endregion
@@ -13,9 +13,9 @@ public class TextureChangerUpdater : MonoBehaviour {
     #region MonoBehaviour Methods
     private void Awake()
     {
-        if (zoneController == null)
-            zoneController = GetComponentInParent<AIZoneController>();
-        UnityEngine.Assertions.Assert.IsNotNull(zoneController, "ERROR: TextureChangerUpdater in gameObject '" + gameObject.name + "' doesn't have an AIZoneController assigned!");
+        if (textureChangerSource == null)
+            textureChangerSource = GetComponentInParent<TextureChangerSource>();
+        UnityEngine.Assertions.Assert.IsNotNull(textureChangerSource, "ERROR: TextureChangerUpdater in gameObject '" + gameObject.name + "' doesn't have a TextureChangerSource assigned!");
         mRenderer = GetComponent<Renderer>();
         UnityEngine.Assertions.Assert.IsNotNull(mRenderer, "ERROR: TextureChangerUpdater in gameObject '" + gameObject.name + "' couldn't find a Renderer in its GameObject!");
         material = mRenderer.material;
@@ -23,7 +23,7 @@ public class TextureChangerUpdater : MonoBehaviour {
 
     private void Update()
     {
-        zoneController.UpdateMaterialWithEnemyPositions(material);
+        textureChangerSource.UpdateMaterial(material);
     }
     #endregion
 }

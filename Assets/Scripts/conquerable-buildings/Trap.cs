@@ -20,7 +20,7 @@ public class Trap : Building, IUsable
     public bool deactivate = false;
 
     [Header("Canon")]
-    public Transform canonTargetDecal;
+    public ParticleSystem canonTargetDecal;
     public Transform canonBallStartPoint;
     public ParticleSystem canonShootingSmokeVFX;
     public List<CanonBallMotion> canonBallsList = new List<CanonBallMotion>();
@@ -71,7 +71,7 @@ public class Trap : Building, IUsable
     // IRepairable
     public override bool CanRepair()
     {
-        return !zoneController.monumentTaken && !HasFullHealth();
+        return !animating && !zoneController.monumentTaken && !HasFullHealth();
     }
 
     public override void TakeDamage(float damage, AttackType attacktype)

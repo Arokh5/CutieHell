@@ -7,20 +7,23 @@ public class CanonTrapEnterAction : StateAction
 {
     public float startingCanonDecalDistance;
     [SerializeField]
-    public ParticleSystem canonShootDecalPrefabVFX;
-    private ParticleSystem canonShootDecalVFX = null;
-    private Transform canonTargetDecalGOTransform = null;
+    private ParticleSystem canonShootDecalPrefabVFX;
 
     public override void Act(Player player)
     {
+        ParticleSystem canonShootDecalVFX = null;
+
         GameManager.instance.SetCrosshairActivate(false);
         player.bulletSpawnPoint.SetParent(player.currentTrap.transform);
 
-        canonTargetDecalGOTransform = player.currentTrap.canonTargetDecal.transform;
-        canonTargetDecalGOTransform.gameObject.SetActive(true);
-        canonShootDecalVFX = Object.Instantiate(canonShootDecalPrefabVFX, canonTargetDecalGOTransform);
-        canonTargetDecalGOTransform.position += player.currentTrap.rotatingHead.transform.forward * startingCanonDecalDistance;
-        canonTargetDecalGOTransform.position = new Vector3(canonTargetDecalGOTransform.position.x, 3.20f, canonTargetDecalGOTransform.position.z);
+        canonShootDecalVFX = player.currentTrap.canonTargetDecal;
+        canonShootDecalVFX.transform.position = player.currentTrap.transform.position;
+        canonShootDecalVFX.transform.localEulerAngles = player.currentTrap.rotatingHead.transform.localEulerAngles;
+        canonShootDecalVFX.transform.Translate(Vector3.forward * startingCanonDecalDistance);
+        canonShootDecalVFX.transform.Translate(Vector3.down * startingCanonDecalDistance);
+        canonShootDecalVFX.transform.localPosition = new Vector3(canonShootDecalVFX.transform.localPosition.x, canonShootDecalPrefabVFX.transform.localPosition.y, canonShootDecalVFX.transform.localPosition.z);
+
+        canonShootDecalVFX.gameObject.SetActive(true);
         canonShootDecalVFX.Play();
 
         player.currentTrap.GetCanonAmmoIndicator().gameObject.SetActive(true);

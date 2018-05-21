@@ -62,6 +62,7 @@ public class AISpawner : MonoBehaviour {
     {
         if (!activeSpawnInfos.Contains(spawnInfo))
         {
+            zoneController.monument.GetMonumentIndicator().RequestOpen();
             activeSpawnInfos.Add(spawnInfo);
             spawnInfo.elapsedTime = 0;
             spawnInfo.nextSpawnIndex = 0;

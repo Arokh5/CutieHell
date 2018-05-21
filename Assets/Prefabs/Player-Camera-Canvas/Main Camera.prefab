@@ -110,6 +110,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c015a187724cb2b4186a6c255309225f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeSinceLastAction: 0
+  slowAction: 0
+  fastAction: 0
   distance: 0
   cameraX: 0
   cameraY: 0
@@ -120,6 +123,9 @@ MonoBehaviour:
   t_distance: 0
   t_cameraY: 0
   t_fov: 0
+  fogDistance: 15
+  yFogMin: 50
+  yFogMax: 85
 --- !u!124 &124509821206504046
 Behaviour:
   m_ObjectHideFlags: 1

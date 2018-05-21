@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Player State Machine/Actions/PlayerTeleport")]
 public class PlayerTeleport : StateAction
 {
-    public Transform destination;
+    public int teleportTargetIndex;
     public float timeToGoOut, timeToTravel, timeToGoIn;
     public ParticleSystem teleportVFX;
 
@@ -21,7 +21,8 @@ public class PlayerTeleport : StateAction
                     player.timeSinceLastTeleport = 0.0f;
                     player.cameraState = Player.CameraState.TRANSITION;
                     player.teleportState = Player.TeleportStates.TRAVEL;
-                    player.transform.position = destination.position;
+                    if (teleportTargetIndex >= 0 && teleportTargetIndex < player.teleportTargets.Length)
+                        player.transform.position = player.teleportTargets[teleportTargetIndex].position;
 
                 }
                 break;

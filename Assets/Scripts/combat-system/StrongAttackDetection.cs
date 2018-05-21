@@ -13,8 +13,11 @@ public class StrongAttackDetection : MonoBehaviour
         if (((1 << other.gameObject.layer) & layerMask) != 0)
         {
             AIEnemy aIEnemy = other.GetComponent<AIEnemy>();
-            aIEnemy.MarkAsTarget(true);
-            GameManager.instance.GetPlayer1().currentStrongAttackTargets.Add(aIEnemy);
+            if (aIEnemy)
+            {
+                aIEnemy.MarkAsTarget(true);
+                GameManager.instance.GetPlayer1().currentStrongAttackTargets.Add(aIEnemy);
+            }
         }
     }
 
@@ -23,8 +26,11 @@ public class StrongAttackDetection : MonoBehaviour
         if (((1 << other.gameObject.layer) & layerMask) != 0)
         {
             AIEnemy aIEnemy = other.GetComponent<AIEnemy>();
-            aIEnemy.MarkAsTarget(false);
-            GameManager.instance.GetPlayer1().currentStrongAttackTargets.Remove(aIEnemy);
+            if (aIEnemy)
+            {
+                aIEnemy.MarkAsTarget(false);
+                GameManager.instance.GetPlayer1().currentStrongAttackTargets.Remove(aIEnemy);
+            }
         }
     }
 	#endregion

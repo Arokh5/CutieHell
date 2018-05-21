@@ -7,7 +7,8 @@ public class WaveTimer : MonoBehaviour
 {
     public Image loadingBar;
     public Transform clockHandRotation;
-    [SerializeField] private float currentNormalizedAmount;
+    [SerializeField]
+    private float currentNormalizedAmount;
 
     // Use this for initialization
     void Start()
