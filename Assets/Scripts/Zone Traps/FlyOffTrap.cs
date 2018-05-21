@@ -4,44 +4,68 @@ using UnityEngine;
 
 public class FlyOffTrap : ZoneTrap
 {
+    private class FlyOffInfo
+    {
+        public AIEnemy enemy;
+        public Vector3 motionVector;
+        public float startDelay;
+        public bool dead;
+    }
     #region Fields
-    private List<AIEnemy> aiEnemies = null;
-    private List<Vector3> directions = null;
+    private List<FlyOffInfo> flyOffInfos = new List<FlyOffInfo>();
     [SerializeField]
-    private float flyDistance = 20.0f;
+    private float flyStartDelayMax = 0.5f;
+    [SerializeField]
+    private float flyHeightMin = 15.0f;
+    [SerializeField]
+    private float flyHeightMax = 25.0f;
     [SerializeField]
     private float planeOffset = 5.0f;
+
+    private float elapsedTime;
     #endregion
 
     #region Protected Methods
     protected override void StartTrapEffect()
     {
-        aiEnemies =  new List<AIEnemy>(zoneController.GetZoneEnemies());
-        directions = new List<Vector3>();
+        elapsedTime = 0.0f;
+        List<AIEnemy> aiEnemies = zoneController.GetZoneEnemies();
         foreach (AIEnemy aiEnemy in aiEnemies)
         {
+            FlyOffInfo info = new FlyOffInfo();
+            info.enemy = aiEnemy;
+            info.motionVector = new Vector3(Random.Range(-planeOffset, planeOffset), Random.Range(flyHeightMin, flyHeightMax), Random.Range(-planeOffset, planeOffset));
+            info.startDelay = Random.Range(0.0f, flyStartDelayMax);
+            info.dead = false;
             aiEnemy.HitByZoneTrap();
-            Vector3 direction = new Vector3(Random.Range(-planeOffset, planeOffset), flyDistance, Random.Range(-planeOffset, planeOffset));
-            directions.Add(direction);
+            flyOffInfos.Add(info);
         }
     }
 
     protected override void UpdateTrapEffect()
     {
-        for (int i = 0; i < aiEnemies.Count; ++i)
+        elapsedTime += Time.deltaTime;
+        for (int i = 0; i < flyOffInfos.Count; ++i)
         {
-            AIEnemy aiEnemy = aiEnemies[i];
-            aiEnemy.transform.Translate(directions[i] * Time.deltaTime / animationCooldownTime, Space.World);
+            FlyOffInfo info = flyOffInfos[i];
+            AIEnemy aiEnemy = info.enemy;
+            if (elapsedTime > info.startDelay)
+            {
+                if (elapsedTime - info.startDelay < animationCooldownTime - flyStartDelayMax)
+                    aiEnemy.transform.Translate(info.motionVector * Time.deltaTime / (animationCooldownTime - flyStartDelayMax), Space.World);
+                else if (!info.dead)
+                {
+                    info.dead = true;
+                    info.enemy.TakeDamage(info.enemy.baseHealth, AttackType.ZONE_TRAP);
+                }
+
+            }
         }
     }
 
     protected override void EndTrapEffect()
     {
-        foreach (AIEnemy aiEnemy in aiEnemies)
-        {
-            aiEnemy.TakeDamage(aiEnemy.baseHealth, AttackType.ZONE_TRAP);
-        }
-        aiEnemies = null;
+        flyOffInfos.Clear();
     }
     #endregion
 }
