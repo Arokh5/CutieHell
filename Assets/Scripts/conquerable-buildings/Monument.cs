@@ -39,17 +39,20 @@ public class Monument : Building
     {
         return monumentIndicator;
     }
-    #endregion
 
-    #region Protected Methods
-    protected override void BuildingKilled()
+    public override void BuildingConverted()
+    {
+        zoneController.OnMonumentTaken();
+    }
+
+    public override void BuildingKilled()
     {
         zoneController.OnMonumentTaken();
         if (protectedMonument)
             protectedMonument.monumentIndicator.RequestOpen();
     }
 
-    protected override void BuildingRecovered()
+    public override void BuildingRecovered()
     {
         zoneController.OnMonumentRecovered();
         if (protectedMonument)

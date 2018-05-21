@@ -12,11 +12,23 @@ public class Trap : Building, IUsable
     public int usageCost;
     private Player player;
     public Transform rotatingHead;
+    [SerializeField]
+    private CurrentTrapIndicator trapIndicator;
 
     [Header("Trap testing")]
     public bool activate = false;
     public bool deactivate = false;
-    
+
+    [Header("Canon")]
+    public ParticleSystem canonTargetDecal;
+    public Transform canonBallStartPoint;
+    public ParticleSystem canonShootingSmokeVFX;
+    public List<CanonBallMotion> canonBallsList = new List<CanonBallMotion>();
+    private CanonBallInfo canonBallInfo;
+    [SerializeField]
+    private CurrentTrapIndicator canonAmmoIndicator;
+
+
     [ShowOnly]
     public bool isActive = false;
     #endregion
@@ -39,6 +51,11 @@ public class Trap : Building, IUsable
             Deactivate();
         }
         base.Update();
+
+        if(canonBallsList.Count > 0)
+        {          
+            UpdateCanonBallsMotion();
+        }
     }
 
     private void OnDrawGizmosSelected()
@@ -46,6 +63,8 @@ public class Trap : Building, IUsable
         Gizmos.color = new Color(1, 0, 0 ,0.5f);
         Gizmos.DrawWireSphere(transform.position, attractionRadius);
     }
+
+   
     #endregion
 
     #region Public Methods
@@ -53,6 +72,18 @@ public class Trap : Building, IUsable
     public override bool CanRepair()
     {
         return !animating && !zoneController.monumentTaken && !HasFullHealth();
+    }
+
+    public override void TakeDamage(float damage, AttackType attacktype)
+    {
+        base.TakeDamage(damage, attacktype);
+        trapIndicator.SetFill((baseHealth - currentHealth) / baseHealth);
+    }
+
+    public override void FullRepair()
+    {
+            base.FullRepair();
+            trapIndicator.SetFill(0);
     }
 
     // IUsable
@@ -66,6 +97,30 @@ public class Trap : Building, IUsable
     public int GetUsageCost()
     {
         return usageCost;
+    }
+
+    // Called by TrapEnterAction
+    public CurrentTrapIndicator GetCurrentTrapIndicator()
+    {
+        return trapIndicator;
+    }
+
+    //Called by CanonTrapEnterAction
+    public CurrentTrapIndicator GetCanonAmmoIndicator()
+    {
+        return canonAmmoIndicator;
+    }
+
+    public List<AIEnemy> ObtainEnemiesAffectedByTrapRangedDamage(Transform emissionTransform, float aoeRange)
+    {
+        List<AIEnemy> affectedEnemies = zoneController.GetEnemiesWithinRange(emissionTransform, aoeRange);
+
+        return affectedEnemies;
+    }
+
+    public void SetCanonBallInfo(CanonBallInfo canonBallNewInfo)
+    {
+        canonBallInfo = canonBallNewInfo;
     }
 
     // Called by Player. A call to this method should inform the ZoneController
@@ -94,11 +149,7 @@ public class Trap : Building, IUsable
             zoneController.OnTrapDeactivated();
         }
     }
-
-    #endregion
-
-    #region Protected Methods
-    protected override void BuildingKilled()
+    public override void BuildingKilled()
     {
         if (isActive)
         {
@@ -114,11 +165,79 @@ public class Trap : Building, IUsable
         }
     }
 
-    protected override void BuildingRecovered()
+    public override void BuildingConverted()
+    {
+        /* Nothing needs to be done here */
+    }
+
+    public override void BuildingRecovered()
     {
         /* Nothing needs to be done here */
     }
     #endregion
 
+    #region Private Methods
+    private void UpdateCanonBallsMotion()
+    {
+        float motionProgress = 0;
+        CanonBallMotion evaluatedCanonBall;
+        Vector3 nextPosition;
 
+        for (int i = 0; i < canonBallsList.Count; i++)
+        {
+            evaluatedCanonBall = canonBallsList[i];
+            evaluatedCanonBall.canonBallElapsedTime += Time.deltaTime;
+            motionProgress = evaluatedCanonBall.canonBallElapsedTime / evaluatedCanonBall.canonBallShootingDuration;
+
+            if (!evaluatedCanonBall.canonBall.gameObject.activeSelf && motionProgress >= evaluatedCanonBall.canonBallVisibleFromProgression)
+            {
+                evaluatedCanonBall.canonBall.gameObject.SetActive(true);
+                if (!canonShootingSmokeVFX.gameObject.activeSelf)
+                {
+                    canonShootingSmokeVFX.gameObject.SetActive(true);
+                }
+                else
+                {
+                    canonShootingSmokeVFX.Play();
+                }
+            }
+
+            nextPosition = canonBallStartPoint.position - evaluatedCanonBall.canonBallShotingDistance * motionProgress;
+
+            if (motionProgress <= 0.5f) //Ascendent Halfway
+            {
+                nextPosition.y += evaluatedCanonBall.canonBallShotingDistance.magnitude * (motionProgress * canonBallInfo.canonBallParabolaHeight);
+            }
+            else // Descendent Halfway
+            {
+                nextPosition.y += evaluatedCanonBall.canonBallShotingDistance.magnitude * ((1 - motionProgress) * canonBallInfo.canonBallParabolaHeight);
+            }
+
+            evaluatedCanonBall.transform.position = nextPosition;
+
+            if (motionProgress >= 1 || evaluatedCanonBall.GetHasToExplode())
+            {
+                if (canonBallInfo.canonBallExplosionVFX != null) Destroy(Instantiate(canonBallInfo.canonBallExplosionVFX, evaluatedCanonBall.transform.position, this.transform.rotation), 3f);
+
+                StartCoroutine(CanonRangedDamageCoroutine(evaluatedCanonBall, canonBallInfo.canonBallExplosionRange));           
+            }            
+        }
+    }
+
+    IEnumerator CanonRangedDamageCoroutine(CanonBallMotion canonBall, float explosionRange)
+    {
+        canonBall.gameObject.SetActive(false);
+        canonBallsList.Remove(canonBall);
+
+        yield return new WaitForSeconds(0.5f);
+
+        List<AIEnemy> affectedEnemies = ObtainEnemiesAffectedByTrapRangedDamage(canonBall.transform, explosionRange);
+        for (int j = 0; j < affectedEnemies.Count; j++)
+        {
+            affectedEnemies[j].TakeDamage(canonBallInfo.canonBallExplosionRange, AttackType.TRAP_AREA);
+        }
+
+        Destroy(canonBall.canonBall.gameObject);
+    }
+    #endregion
 }

@@ -56,6 +56,10 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     #endregion
 
     #region Public Methods
+    public abstract void BuildingConverted();
+    public abstract void BuildingKilled();
+    public abstract void BuildingRecovered();
+
     public float GetMaxHealth()
     {
         return baseHealth;
@@ -87,10 +91,11 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
 
         if (currentHealth == 0)
         {
+            BuildingKilled();
             if (buildingEffects)
                 buildingEffects.StartConquerEffect();
             else
-                Conquer();
+                BuildingConverted();
         }
     }
 
@@ -105,7 +110,7 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
             if (buildingEffects)
                 buildingEffects.StartUnconquerEffect();
             else
-                Unconquer();
+                BuildingRecovered();
 
             if (attachedConqueror)
             {
@@ -154,23 +159,6 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     {
         return !animating;
     }
-
-    /* Called by the BuildingEffects script if available */
-    public void Conquer()
-    {
-        BuildingKilled();
-    }
-
-    /* Called by the BuildingEffects script if available */
-    public void Unconquer()
-    {
-        BuildingRecovered();
-    }
-    #endregion
-
-    #region Protected Methods
-    protected abstract void BuildingKilled();
-    protected abstract void BuildingRecovered();
     #endregion
 
     #region Private Methods
