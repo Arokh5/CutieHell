@@ -7,8 +7,7 @@ public class Player : MonoBehaviour {
 
     #region Fields
     [Header("Movement Variabes")]
-    public Transform centerTeleportPoint;
-    public Transform statueTeleportPoint;
+    public Transform[] teleportTargets;
     public GameObject footSteps;
 
     [Header("Movement")]
