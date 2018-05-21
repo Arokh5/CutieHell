@@ -23,7 +23,7 @@ public abstract class ZoneTrap : MonoBehaviour
 
     void Update ()
     {
-		if (cooldownTimeleft > 0)
+		if (!GameManager.instance.gameIsPaused && cooldownTimeleft > 0)
         {
             UpdateTrapEffect();
             cooldownTimeleft -= Time.deltaTime;
