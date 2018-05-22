@@ -21,6 +21,8 @@ public class FlyOffTrap : ZoneTrap
     private float flyHeightMax = 25.0f;
     [SerializeField]
     private float planeOffset = 5.0f;
+    [SerializeField]
+    private ParticleSystem particleSystemPrefab;
 
     private float elapsedTime;
     #endregion
@@ -37,8 +39,9 @@ public class FlyOffTrap : ZoneTrap
             info.motionVector = new Vector3(Random.Range(-planeOffset, planeOffset), Random.Range(flyHeightMin, flyHeightMax), Random.Range(-planeOffset, planeOffset));
             info.startDelay = Random.Range(0.0f, flyStartDelayMax);
             info.dead = false;
-            aiEnemy.HitByZoneTrap();
             flyOffInfos.Add(info);
+            aiEnemy.HitByZoneTrap();
+            ParticlesManager.instance.LaunchParticleSystem(particleSystemPrefab, aiEnemy.transform.position, aiEnemy.transform.rotation);
         }
     }
 
