@@ -311,6 +311,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
             evilSphere.player = player;
             evilSphere.evilReward = evilKillReward;
             evilSphere.particlesToSpawn = evilSpheresToSpawn;
+            evilSphere.Emit();
         }
         killingHit = AttackType.NONE;
 

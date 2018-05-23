@@ -17,19 +17,21 @@ public class EvilSpheres : PooledParticleSystem
     #endregion
 
     #region MonoBehaviour Methods
-    private void Start ()
+    private void Awake ()
     {
         ps = this.GetComponent<ParticleSystem>();
-
-        var em = ps.emission;
-        em.burstCount = 1;
-        em.SetBurst(0,new ParticleSystem.Burst(0.1f, particlesToSpawn));
-
         timeToFollow = 1.2f;
         deathDelay = 0.5f;
 	}
-	
-	private void Update ()
+
+    public void Emit()
+    {
+        var em = ps.emission;
+        em.burstCount = 1;
+        em.SetBurst(0, new ParticleSystem.Burst(0.1f, particlesToSpawn));
+    }
+
+    private void Update ()
     {
         if (timer >= timeToFollow)
         {
