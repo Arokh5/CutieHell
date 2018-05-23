@@ -72,7 +72,8 @@ public class FollowTarget : PooledParticleSystem
     public void SetEnemyTransform(Transform enemyTransform)
     {
         this.enemyTransform = enemyTransform;
-        this.enemy = enemyTransform.GetComponent<AIEnemy>();
+        if (enemyTransform)
+            this.enemy = enemyTransform.GetComponent<AIEnemy>();
     }
 
     public void SetHitOffset(Vector3 hitOffset)
