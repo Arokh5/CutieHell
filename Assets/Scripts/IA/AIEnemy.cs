@@ -168,6 +168,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         isTargetable = true;
         isTarget = false;
         GetComponent<EnemyCanvasController>().SetHealthBar();
+        GetComponent<AudioSource>().Play();
     }
 
     public AIZoneController GetZoneController()
