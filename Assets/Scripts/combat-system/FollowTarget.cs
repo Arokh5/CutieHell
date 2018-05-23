@@ -16,7 +16,8 @@ public class FollowTarget : PooledParticleSystem
     private Transform mainCamera;
     private Vector3 camForwardDir;
     private bool directionSet = false;
-    private Transform enemy = null;
+    private AIEnemy enemy;
+    private Transform enemyTransform;
     private Vector3 hitOffset;
     private float time = 0;
 
@@ -31,6 +32,8 @@ public class FollowTarget : PooledParticleSystem
 
     private void Update()
     {
+        if (enemy)
+            CheckForEnemyDeath();
         SetOrbDirection();
         DestroyOrb();
     }
@@ -61,11 +64,15 @@ public class FollowTarget : PooledParticleSystem
     {
         time = 0;
         directionSet = false;
+        enemyTransform = null;
+        enemy = null;
+        hitOffset = Vector3.zero;
     }
 
-    public void SetEnemy(Transform enemy)
+    public void SetEnemyTransform(Transform enemyTransform)
     {
-        this.enemy = enemy;
+        this.enemyTransform = enemyTransform;
+        this.enemy = enemyTransform.GetComponent<AIEnemy>();
     }
 
     public void SetHitOffset(Vector3 hitOffset)
@@ -76,12 +83,24 @@ public class FollowTarget : PooledParticleSystem
     #endregion
 
     #region Private Methods
+    
+    private void CheckForEnemyDeath()
+    {
+        if (enemy.IsDead())
+        {
+            Vector3 hitPos = new Vector3(enemyTransform.position.x, enemyTransform.position.y + hitOffset.y, enemyTransform.position.z);
+            camForwardDir = transform.InverseTransformDirection((hitPos - transform.position).normalized);
+            directionSet = true;
+            enemyTransform = null;
+            enemy = null;
+        }
+    }
 
     private void SetOrbDirection()
     {
-        if (enemy != null)
+        if (enemyTransform != null)
         {
-            Vector3 hitPos = new Vector3(enemy.position.x, enemy.position.y + hitOffset.y, enemy.position.z);
+            Vector3 hitPos = new Vector3(enemyTransform.position.x, enemyTransform.position.y + hitOffset.y, enemyTransform.position.z);
             transform.position = Vector3.MoveTowards(transform.position, hitPos, attackSpeed * Time.deltaTime);
         }
         else

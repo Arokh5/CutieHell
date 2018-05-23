@@ -249,7 +249,7 @@ public class Player : MonoBehaviour {
 
         ParticleSystem attack = ParticlesManager.instance.LaunchParticleSystem(attackPrefab, spawningPos, transform.rotation);
         FollowTarget attackClone = attack.GetComponent<FollowTarget>();
-        attackClone.SetEnemy(enemy);
+        attackClone.SetEnemyTransform(enemy);
         attackClone.SetHitOffset(hitOffset);
     }
 
