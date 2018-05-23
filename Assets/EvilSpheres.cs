@@ -2,19 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EvilSpheres : MonoBehaviour {
-
-    //public Transform playerPos;
+public class EvilSpheres : PooledParticleSystem
+{
+    #region Fields
     public int particlesToSpawn;
     public int evilReward;
     public Player player;
 
     private ParticleSystem ps;
     private float timeToFollow;
+    private float deathDelay;
     private float timer;
-    private float currentSpeed;
+    private int evilDelivered;
+    #endregion
 
-	void Start ()
+    #region MonoBehaviour Methods
+    private void Start ()
     {
         ps = this.GetComponent<ParticleSystem>();
 
@@ -23,10 +26,10 @@ public class EvilSpheres : MonoBehaviour {
         em.SetBurst(0,new ParticleSystem.Burst(0.1f, particlesToSpawn));
 
         timeToFollow = 1.2f;
-        timer = 0;
+        deathDelay = 0.5f;
 	}
 	
-	void Update ()
+	private void Update ()
     {
         if (timer >= timeToFollow)
         {
@@ -34,12 +37,12 @@ public class EvilSpheres : MonoBehaviour {
                 new ParticleSystem.Particle[ps.particleCount];
 
             ps.GetParticles(particles);
-
+            
             for (int i = 0; i < particles.Length; i++)
             {
                 if (Vector3.SqrMagnitude(player.transform.position + Vector3.up - particles[i].position) < 1.0f)
                 {
-                    SetEvil();
+                    SetEvil(particles.Length);
                     particles[i].remainingLifetime = 0;
                 }
                 else
@@ -49,15 +52,42 @@ public class EvilSpheres : MonoBehaviour {
             }
 
             ps.SetParticles(particles, particles.Length);
+
+            if (particles.Length == 0)
+            {
+                timer += Time.deltaTime;
+                if (timer > timeToFollow + deathDelay)
+                    ReturnToPool();
+            }
         }
         else
         {
             timer += Time.deltaTime;
         }
 	}
+    #endregion
 
-    private void SetEvil()
+    #region Public Methods
+    public override void Restart()
     {
-        player.AddEvilPoints(evilReward / particlesToSpawn);
+        timer = 0;
+        evilDelivered = 0;
     }
+    #endregion
+
+    #region Private Methods
+    private void SetEvil(int particlesLeft)
+    {
+        if (particlesLeft > 1)
+        {
+            int evilToDeliver = evilReward / particlesToSpawn;
+            player.AddEvilPoints(evilToDeliver);
+            evilDelivered += evilToDeliver;
+        }
+        else
+        {
+            player.AddEvilPoints(evilReward - evilDelivered);
+        }
+    }
+    #endregion
 }

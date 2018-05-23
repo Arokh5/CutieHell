@@ -42,7 +42,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     [Tooltip("The initial amount of hit points for the conquerable building.")]
     public float baseHealth;
     public int evilKillReward;
-    public EvilSpheres evilSpheres;
+    public ParticleSystem evilSpheresPrefab;
     public int evilSpheresToSpawn;
     [SerializeField]
     private ParticleSystem getHitVFX;
@@ -306,7 +306,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
         Player player = GameManager.instance.GetPlayer1();
         if (player != null && killingHit == AttackType.WEAK || killingHit == AttackType.STRONG)
         {
-            EvilSpheres evilSphere = Instantiate(evilSpheres, this.transform.position, evilSpheres.transform.rotation);
+            ParticleSystem evilSphereParticles = ParticlesManager.instance.LaunchParticleSystem(evilSpheresPrefab, this.transform.position, evilSpheresPrefab.transform.rotation);
+            EvilSpheres evilSphere = evilSphereParticles.GetComponent<EvilSpheres>();
             evilSphere.player = player;
             evilSphere.evilReward = evilKillReward;
             evilSphere.particlesToSpawn = evilSpheresToSpawn;
