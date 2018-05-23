@@ -301,7 +301,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         StatsManager.instance.RegisterKill(enemyType);
         zoneController.RemoveEnemy(this);
         Player player = GameManager.instance.GetPlayer1();
-        if (player != null && killingHit == AttackType.WEAK || killingHit == AttackType.STRONG || killingHit == AttackType.TRAP_BASIC)
+        if (player != null && killingHit == AttackType.WEAK || killingHit == AttackType.STRONG)
         {
             EvilSpheres evilSphere = Instantiate(evilSpheres, this.transform.position, evilSpheres.transform.rotation);
             evilSphere.player = player;
