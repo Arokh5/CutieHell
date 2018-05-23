@@ -11,6 +11,5 @@ public class CanonTrapExitAction : StateAction
         GameManager.instance.SetCrosshairActivate(true);
         player.currentTrap.canonTargetDecal.gameObject.SetActive(false);
         player.currentTrap.GetCanonAmmoIndicator().gameObject.SetActive(false);
-
     }
 }

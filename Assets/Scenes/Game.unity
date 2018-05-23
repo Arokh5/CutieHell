@@ -3992,7 +3992,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef2ecf21d90d23b4e88fe0ba9cfcd1f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usageCost: 25
+  usageCost: 35
   animationCooldownTime: 1
   flyStartDelayMax: 0.5
   flyHeightMin: 15
@@ -4641,7 +4641,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d24e91f2337b4464db8650ab9f992018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usageCost: 25
+  usageCost: 35
   animationCooldownTime: 2
   buryDepth: 3
   particleSystems:
@@ -5149,235 +5149,82 @@ MonoBehaviour:
   currentWaveIndex: -1
   nextSpawnIndex: 0
   wavesInfo:
-  - waveDuration: 180
+  - waveDuration: 200
     spawnInfos:
     - spawnTime: 0
-      spawnerIndex: 1
-      spawnDuration: 35
-      enemiesToSpawn: 00000000000000000000000000000000000000000100000000000000000000000000000000000000010000000000000000000000000000000100000001000000
+      spawnerIndex: 0
+      spawnDuration: 10
+      enemiesToSpawn: 00000000000000000000000000000000000000000100000000000000000000000000000000000000
+      elapsedTime: 0
+      nextSpawnTime: 0
+      nextSpawnIndex: 0
+    - spawnTime: 15
+      spawnerIndex: 0
+      spawnDuration: 1
+      enemiesToSpawn: 0000000000000000010000000000000000000000
+      elapsedTime: 0
+      nextSpawnTime: 0
+      nextSpawnIndex: 0
+    - spawnTime: 25
+      spawnerIndex: 0
+      spawnDuration: 15
+      enemiesToSpawn: 000000000000000001000000000000000000000001000000000000000000000000000000010000000000000000000000010000000000000000000000
       elapsedTime: 0
       nextSpawnTime: 0
       nextSpawnIndex: 0
     - spawnTime: 45
-      spawnerIndex: 0
-      spawnDuration: 30
-      enemiesToSpawn: 00000000000000000000000000000000000000000000000000000000010000000100000002000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 45
-      spawnerIndex: 2
-      spawnDuration: 30
-      enemiesToSpawn: 00000000000000000000000000000000000000000000000000000000010000000100000002000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 60
       spawnerIndex: 1
-      spawnDuration: 3
-      enemiesToSpawn: 010000000200000001000000
+      spawnDuration: 5
+      enemiesToSpawn: 0000000001000000000000000100000000000000
       elapsedTime: 0
       nextSpawnTime: 0
       nextSpawnIndex: 0
-    - spawnTime: 100
-      spawnerIndex: 0
-      spawnDuration: 20
-      enemiesToSpawn: 02000000000000000000000000000000010000000100000001000000000000000000000000000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 100
-      spawnerIndex: 1
-      spawnDuration: 20
-      enemiesToSpawn: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 100
-      spawnerIndex: 2
-      spawnDuration: 20
-      enemiesToSpawn: 02000000000000000000000000000000010000000100000001000000000000000000000000000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    lastEnemySpawnTime: 0
-  - waveDuration: 250
-    spawnInfos:
-    - spawnTime: 0
+    - spawnTime: 55
       spawnerIndex: 1
       spawnDuration: 10
-      enemiesToSpawn: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+      enemiesToSpawn: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
       elapsedTime: 0
       nextSpawnTime: 0
       nextSpawnIndex: 0
-    - spawnTime: 30
-      spawnerIndex: 0
-      spawnDuration: 1
-      enemiesToSpawn: 010000000200000001000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 30
-      spawnerIndex: 2
-      spawnDuration: 1
-      enemiesToSpawn: 010000000200000001000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 65
+    - spawnTime: 74
       spawnerIndex: 1
-      spawnDuration: 15
-      enemiesToSpawn: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 75
-      spawnerIndex: 0
-      spawnDuration: 5
-      enemiesToSpawn: 02000000010000000100000001000000010000000100000002000000
+      spawnDuration: 1
+      enemiesToSpawn: 0100000001000000010000000100000001000000
       elapsedTime: 0
       nextSpawnTime: 0
       nextSpawnIndex: 0
     - spawnTime: 85
       spawnerIndex: 2
-      spawnDuration: 5
-      enemiesToSpawn: 02000000010000000100000001000000010000000100000002000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 135
-      spawnerIndex: 1
-      spawnDuration: 3
-      enemiesToSpawn: 020000000100000002000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 145
-      spawnerIndex: 0
-      spawnDuration: 20
-      enemiesToSpawn: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 145
-      spawnerIndex: 2
-      spawnDuration: 20
-      enemiesToSpawn: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 175
-      spawnerIndex: 1
-      spawnDuration: 20
-      enemiesToSpawn: 020000000100000001000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000010000000100000002000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    lastEnemySpawnTime: 0
-  - waveDuration: 340
-    spawnInfos:
-    - spawnTime: 0
-      spawnerIndex: 1
-      spawnDuration: 20
-      enemiesToSpawn: 000000000000000000000000000000000000000001000000000000000000000000000000010000000000000000000000000000000100000001000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 20
-      spawnerIndex: 1
-      spawnDuration: 3
-      enemiesToSpawn: 0000000001000000020000000100000000000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 45
-      spawnerIndex: 0
-      spawnDuration: 15
-      enemiesToSpawn: 01000000000000000000000000000000000000000200000000000000000000000100000001000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 60
-      spawnerIndex: 2
-      spawnDuration: 15
-      enemiesToSpawn: 00000000000000000000000001000000020000000200000001000000000000000000000000000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 80
-      spawnerIndex: 0
-      spawnDuration: 3
-      enemiesToSpawn: 0000000000000000000000000000000002000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 80
-      spawnerIndex: 2
-      spawnDuration: 3
-      enemiesToSpawn: 0000000000000000000000000000000002000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 110
-      spawnerIndex: 1
-      spawnDuration: 60
-      enemiesToSpawn: 000000000000000000000000000000000100000000000000000000000000000001000000020000000000000000000000000000000000000000000000000000000000000001000000010000000200000000000000000000000000000000000000000000000000000001000000010000000100000002000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 155
-      spawnerIndex: 0
-      spawnDuration: 60
-      enemiesToSpawn: 000000000000000000000000000000000100000000000000000000000000000001000000020000000000000000000000000000000000000000000000000000000000000001000000010000000200000000000000000000000000000000000000000000000000000001000000010000000100000002000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 200
-      spawnerIndex: 2
       spawnDuration: 10
-      enemiesToSpawn: 00000000000000000000000000000000000000000000000000000000010000000100000002000000
+      enemiesToSpawn: 000000000000000000000000010000000000000000000000000000000100000001000000000000000000000001000000
       elapsedTime: 0
       nextSpawnTime: 0
       nextSpawnIndex: 0
-    - spawnTime: 245
+    - spawnTime: 99
       spawnerIndex: 0
-      spawnDuration: 30
-      enemiesToSpawn: 000000000000000000000000000000000000000000000000000000000000000000000000000000000100000001000000010000000100000001000000
+      spawnDuration: 10
+      enemiesToSpawn: 000000000000000000000000010000000000000000000000000000000100000001000000000000000000000001000000
       elapsedTime: 0
       nextSpawnTime: 0
       nextSpawnIndex: 0
-    - spawnTime: 245
+    - spawnTime: 117
       spawnerIndex: 1
-      spawnDuration: 30
-      enemiesToSpawn: 020000000200000002000000
+      spawnDuration: 15
+      enemiesToSpawn: 010000000000000000000000000000000000000000000000000000000200000001000000000000000000000000000000000000000000000002000000
       elapsedTime: 0
       nextSpawnTime: 0
       nextSpawnIndex: 0
-    - spawnTime: 245
+    - spawnTime: 142
       spawnerIndex: 2
-      spawnDuration: 30
-      enemiesToSpawn: 000000000000000000000000000000000000000000000000000000000000000000000000000000000100000001000000010000000100000001000000
+      spawnDuration: 15
+      enemiesToSpawn: 000000000100000000000000010000000000000000000000020000000000000000000000000000000200000000000000000000000100000002000000
       elapsedTime: 0
       nextSpawnTime: 0
       nextSpawnIndex: 0
-    - spawnTime: 300
+    - spawnTime: 170
       spawnerIndex: 0
-      spawnDuration: 5
-      enemiesToSpawn: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 300
-      spawnerIndex: 1
-      spawnDuration: 5
-      enemiesToSpawn: 000000000000000000000000010000000200000001000000000000000000000000000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 300
-      spawnerIndex: 2
-      spawnDuration: 5
-      enemiesToSpawn: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
+      spawnDuration: 10
+      enemiesToSpawn: 00000000000000000000000001000000000000000000000000000000010000000100000002000000
       elapsedTime: 0
       nextSpawnTime: 0
       nextSpawnIndex: 0
@@ -6965,24 +6812,6 @@ MonoBehaviour:
   outlets:
   - {fileID: 1038422163}
   - {fileID: 1208553061}
---- !u!1 &656182300 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 100000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
-  m_PrefabInternal: {fileID: 2096917866}
---- !u!64 &656182301
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 656182300}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
 --- !u!1 &662286858
 GameObject:
   m_ObjectHideFlags: 0
@@ -8490,6 +8319,96 @@ Transform:
   m_PrefabParentObject: {fileID: 4553282408530516, guid: 16db27611b219974b9e1e4bd30f1072e,
     type: 2}
   m_PrefabInternal: {fileID: 814938626}
+--- !u!1001 &815263377
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1655144164}
+    m_Modifications:
+    - target: {fileID: 400000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dddf05af862efde4386c6d3da3f64d03, type: 2}
+    - target: {fileID: 100000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.0000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.0000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
+      propertyPath: m_Name
+      value: CH_Terrain_Bridges_COLLIDER
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 2300000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
+    - {fileID: 3300000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
+  m_ParentPrefab: {fileID: 100100000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
+  m_IsPrefabParent: 0
+--- !u!4 &815263378 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
+  m_PrefabInternal: {fileID: 815263377}
+--- !u!1 &815263379 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
+  m_PrefabInternal: {fileID: 815263377}
+--- !u!64 &815263380
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 815263379}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
 --- !u!1001 &821031773
 Prefab:
   m_ObjectHideFlags: 0
@@ -8981,7 +8900,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: bf5558006d86881438251be20a91b8c1, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: bf5558006d86881438251be20a91b8c1, type: 3}
       propertyPath: m_IsActive
@@ -13661,7 +13580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d24e91f2337b4464db8650ab9f992018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usageCost: 25
+  usageCost: 35
   animationCooldownTime: 2
   buryDepth: 3
   particleSystems:
@@ -13955,7 +13874,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 871093438d33bc6449e064c1d00c762e, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 871093438d33bc6449e064c1d00c762e, type: 3}
       propertyPath: m_Enabled
@@ -16036,6 +15955,7 @@ Transform:
   - {fileID: 602937445}
   - {fileID: 50261081}
   - {fileID: 1680647792}
+  - {fileID: 815263378}
   - {fileID: 378145154}
   m_Father: {fileID: 804468630}
   m_RootOrder: 1
@@ -16798,7 +16718,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1744420406}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.79, y: 0, z: 14.94}
+  m_LocalPosition: {x: -1.61, y: 0, z: 10.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1332926455}
@@ -20844,7 +20764,7 @@ Prefab:
       objectReference: {fileID: 2100000, guid: dddf05af862efde4386c6d3da3f64d03, type: 2}
     - target: {fileID: 100000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
       propertyPath: m_Enabled
