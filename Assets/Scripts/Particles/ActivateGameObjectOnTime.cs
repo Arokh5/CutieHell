@@ -10,7 +10,7 @@ public class ActivateGameObjectOnTime : MonoBehaviour {
     public float timeToActivate;
     private float timeElapsed;
 
-	void Start () {
+	void OnEnable () {
         timeElapsed = 0.0f;
 	}
 	
