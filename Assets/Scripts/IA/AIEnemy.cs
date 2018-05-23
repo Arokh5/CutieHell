@@ -6,12 +6,15 @@ using UnityEngine.AI;
 public class AIEnemy : MonoBehaviour, IDamageable
 {
     #region Fields
+    public EnemyType enemyType;
+
     [HideInInspector]
     public AISpawnController spawnController;
     private AIZoneController zoneController;
     private SubZoneType currentSubZone;
 
     private Building currentTarget;
+    public bool ignorePath = false;
     [SerializeField]
     private List<PathNode> currentPath;
     [SerializeField]
@@ -59,7 +62,6 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private bool isTargetable = true;
     private bool isTarget = false;
 
-    public EnemyType enemyType;
     private Collider enemyCollider;
     private AttackType killingHit = AttackType.NONE;
 
@@ -187,7 +189,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
         }
         newZoneController.AddEnemy(this);
         zoneController = newZoneController;
-        UpdateNodePath();
+        if (!ignorePath)
+            UpdateNodePath();
         UpdateTarget();
     }
 

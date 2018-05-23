@@ -444,7 +444,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18970bbfeee44414baae612fecd5dde6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 0
   spawnController: {fileID: 0}
+  ignorePath: 0
   currentPath: []
   currentNode: {fileID: 0}
   basicMat: {fileID: 2100000, guid: 090bfa3124d6fc846b50214fe2fec6c3, type: 2}
@@ -453,6 +455,9 @@ MonoBehaviour:
   attackLogic: {fileID: 114178141976866938}
   baseHealth: 7
   evilKillReward: 2
+  evilSpheres: {fileID: 114719159883365770, guid: 72b16e7e61c0eb545ab1a934c4be174e,
+    type: 2}
+  evilSpheresToSpawn: 0
   getHitVFX: {fileID: 198944252932203134, guid: 2b5dad98c6fb37d4fb643b69e96bac3e,
     type: 2}
   deathVFX: {fileID: 198975771329515660, guid: ab7d3ffbb16031741a985c5bd17a7a2b, type: 2}
@@ -462,7 +467,6 @@ MonoBehaviour:
   deadColor: {r: 0, g: 0, b: 0, a: 1}
   healthToReduce: 100
   hit: 0
-  enemyType: 0
 --- !u!114 &114717388091579204
 MonoBehaviour:
   m_ObjectHideFlags: 1
