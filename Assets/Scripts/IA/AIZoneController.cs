@@ -142,7 +142,9 @@ public class AIZoneController : MonoBehaviour
 
     public List<PathNode> GetPath(Vector3 startingPos)
     {
-        return pathsController.GetPath(startingPos);
+        if (pathsController)
+            return pathsController.GetPath(startingPos);
+        return null;
     }
 
 

@@ -846,7 +846,7 @@ Transform:
   - {fileID: 1809005506}
   - {fileID: 1453021790}
   m_Father: {fileID: 804468630}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &75960127
 MonoBehaviour:
@@ -1075,7 +1075,7 @@ Prefab:
       objectReference: {fileID: 1083314264}
     - target: {fileID: 1552052847761358, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_Name
-      value: Zone2-Zone4
+      value: ZoneB-ZoneLeft
       objectReference: {fileID: 0}
     - target: {fileID: 65901915519162974, guid: 8da33558e6f876e44909fdbd59e87bc4,
         type: 2}
@@ -1115,11 +1115,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1569757242514638, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_Name
-      value: Zone2 outlet
+      value: ZoneB outlet
       objectReference: {fileID: 0}
     - target: {fileID: 1169176646731004, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_Name
-      value: Zone4 outlet
+      value: ZoneLeft outlet
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
@@ -3004,7 +3004,7 @@ Transform:
   - {fileID: 560434947}
   - {fileID: 1312691487}
   m_Father: {fileID: 804468630}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &240280534
 MonoBehaviour:
@@ -4988,7 +4988,7 @@ Prefab:
       objectReference: {fileID: 1955635918}
     - target: {fileID: 1552052847761358, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_Name
-      value: Zone1-Zone2 (1)
+      value: ZoneA-ZoneB (1)
       objectReference: {fileID: 0}
     - target: {fileID: 65901915519162974, guid: 8da33558e6f876e44909fdbd59e87bc4,
         type: 2}
@@ -5017,6 +5017,14 @@ Prefab:
         type: 2}
       propertyPath: m_Size.x
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1569757242514638, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+      propertyPath: m_Name
+      value: ZoneA outlet
+      objectReference: {fileID: 0}
+    - target: {fileID: 1169176646731004, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+      propertyPath: m_Name
+      value: ZoneB outlet
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
@@ -7976,6 +7984,7 @@ Transform:
   - {fileID: 1955635917}
   - {fileID: 1083314263}
   - {fileID: 492266145}
+  - {fileID: 1488729348}
   - {fileID: 240280533}
   - {fileID: 75960126}
   - {fileID: 1410166900}
@@ -8000,6 +8009,7 @@ MonoBehaviour:
   - {fileID: 240280534}
   - {fileID: 75960127}
   - {fileID: 492266146}
+  - {fileID: 1488729347}
 --- !u!114 &804468632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10909,7 +10919,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35ee3c6c0cc97134d9f20eb6fbebbba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoneController: {fileID: 492266146}
+  zoneController: {fileID: 1488729347}
   spawnController: {fileID: 460162199}
   spawnerArea: {x: 8, y: 0, z: 2}
   spawnVFX: {fileID: 198235066216384972, guid: 72a50551b77ab554192883532e62dac9, type: 2}
@@ -13017,6 +13027,118 @@ Transform:
   m_PrefabParentObject: {fileID: 4977153795434354, guid: 560f482d560bd124290b508252cc3c17,
     type: 2}
   m_PrefabInternal: {fileID: 1324942824}
+--- !u!1001 &1330126732
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1410166900}
+    m_Modifications:
+    - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -21
+      objectReference: {fileID: 0}
+    - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 49
+      objectReference: {fileID: 0}
+    - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0.13002956
+      objectReference: {fileID: 0}
+    - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0.08641016
+      objectReference: {fileID: 0}
+    - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0.011376116
+      objectReference: {fileID: 0}
+    - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.9876721
+      objectReference: {fileID: 0}
+    - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114731375607432020, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: outletZoneController
+      value: 
+      objectReference: {fileID: 1488729347}
+    - target: {fileID: 114187949389061736, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: outletZoneController
+      value: 
+      objectReference: {fileID: 492266146}
+    - target: {fileID: 1552052847761358, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+      propertyPath: m_Name
+      value: ZoneC-ZoneD
+      objectReference: {fileID: 0}
+    - target: {fileID: 65901915519162974, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: m_Size.z
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1169176646731004, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1569757242514638, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 65901915519162974, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4301263296391906, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4658254128998564, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 65419264755415266, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 65516467303432140, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1569757242514638, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+      propertyPath: m_Name
+      value: ZoneC outlet
+      objectReference: {fileID: 0}
+    - target: {fileID: 1169176646731004, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+      propertyPath: m_Name
+      value: ZoneD outlet
+      objectReference: {fileID: 0}
+    - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &1331069851
 Prefab:
   m_ObjectHideFlags: 0
@@ -13834,8 +13956,9 @@ Transform:
   - {fileID: 2088434111}
   - {fileID: 1383965350}
   - {fileID: 994602922}
+  - {fileID: 1685213685}
   m_Father: {fileID: 804468630}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1414945695
 Prefab:
@@ -14013,7 +14136,7 @@ Prefab:
       objectReference: {fileID: 1083314264}
     - target: {fileID: 1552052847761358, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_Name
-      value: Zone2-Zone3
+      value: ZoneB-ZoneC
       objectReference: {fileID: 0}
     - target: {fileID: 65901915519162974, guid: 8da33558e6f876e44909fdbd59e87bc4,
         type: 2}
@@ -14053,11 +14176,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1569757242514638, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_Name
-      value: Zone2 outlet
+      value: ZoneB outlet
       objectReference: {fileID: 0}
     - target: {fileID: 1169176646731004, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_Name
-      value: Zone3 outlet
+      value: ZoneC outlet
       objectReference: {fileID: 0}
     - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -14582,6 +14705,56 @@ Transform:
   m_PrefabParentObject: {fileID: 4977153795434354, guid: 560f482d560bd124290b508252cc3c17,
     type: 2}
   m_PrefabInternal: {fileID: 1465450171}
+--- !u!1 &1488729346
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1488729348}
+  - component: {fileID: 1488729347}
+  m_Layer: 0
+  m_Name: ZoneD
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1488729347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1488729346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 231e980f01b25284cbd01c07a6d7070f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoneID: 0
+  isFinalZone: 0
+  monument: {fileID: 0}
+  traps: []
+  monumentTaken: 0
+  hasMonument: 0
+  pathsController: {fileID: 0}
+  currentZoneTarget: {fileID: 0}
+  aiEnemies: []
+  buildingEffects: []
+--- !u!4 &1488729348
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1488729346}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -19.1, y: 35.22, z: 28.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 804468630}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1493860725
 GameObject:
   m_ObjectHideFlags: 0
@@ -15104,7 +15277,7 @@ Prefab:
       objectReference: {fileID: 1083314264}
     - target: {fileID: 1552052847761358, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_Name
-      value: Zone2-Zone5
+      value: ZoneB-ZoneRight
       objectReference: {fileID: 0}
     - target: {fileID: 65901915519162974, guid: 8da33558e6f876e44909fdbd59e87bc4,
         type: 2}
@@ -15144,11 +15317,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1569757242514638, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_Name
-      value: Zone2 outlet
+      value: ZoneB outlet
       objectReference: {fileID: 0}
     - target: {fileID: 1169176646731004, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_Name
-      value: Zone5 outlet
+      value: ZoneRight outlet
       objectReference: {fileID: 0}
     - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_LocalScale.x
@@ -16147,6 +16320,11 @@ Transform:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
   m_PrefabInternal: {fileID: 2096917866}
+--- !u!4 &1685213685 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4,
+    type: 2}
+  m_PrefabInternal: {fileID: 1330126732}
 --- !u!1001 &1695819058
 Prefab:
   m_ObjectHideFlags: 0
@@ -17011,7 +17189,7 @@ Prefab:
       objectReference: {fileID: 1955635918}
     - target: {fileID: 1552052847761358, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_Name
-      value: Zone1-Zone2 (2)
+      value: ZoneA-ZoneB (2)
       objectReference: {fileID: 0}
     - target: {fileID: 65901915519162974, guid: 8da33558e6f876e44909fdbd59e87bc4,
         type: 2}
@@ -17048,6 +17226,14 @@ Prefab:
         type: 2}
       propertyPath: m_Size.x
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1569757242514638, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+      propertyPath: m_Name
+      value: ZoneA outlet
+      objectReference: {fileID: 0}
+    - target: {fileID: 1169176646731004, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+      propertyPath: m_Name
+      value: ZoneB outlet
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
