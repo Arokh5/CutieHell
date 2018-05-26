@@ -140,7 +140,7 @@ public class Player : MonoBehaviour {
 
         GameObject[] allMonumentsGameObjects = GameObject.FindGameObjectsWithTag("Monument");
         allMonuments = new Monument[allMonumentsGameObjects.Length];
-        for (int i = 0; i < allTrapsGameObjects.Length; ++i)
+        for (int i = 0; i < allMonuments.Length; ++i)
         {
             allMonuments[i] = allMonumentsGameObjects[i].GetComponent<Monument>();
         }
