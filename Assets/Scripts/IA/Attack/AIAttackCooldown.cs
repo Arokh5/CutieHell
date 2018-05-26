@@ -33,25 +33,32 @@ public class AIAttackCooldown : AIAttackLogic
     #endregion
 
     #region Public Methods
-    public override void AttemptAttack(Building target)
+    public override void AttemptAttack(Building attackTarget, Vector3 navigationTarget)
     {
-        if (Time.time - lastAttackTime > cooldownDuration && Vector3.Distance(transform.position, target.transform.position) < attackRange)
+        if (IsInAttackRange(navigationTarget))
         {
-            animator.SetTrigger("Attack");
-            /* Actual attack will be launched by the Animation */
-            attackTarget = target;
-            lastAttackTime = Time.time;
+            if (Time.time - lastAttackTime > cooldownDuration)
+            {
+                animator.SetTrigger("Attack");
+                /* Actual attack will be launched by the Animation */
+                this.attackTarget = attackTarget;
+                lastAttackTime = Time.time;
+            }
+        }
+        else
+        {
+            this.attackTarget = null;
         }
     }
 
-    public override bool IsInAttackRange(Building target)
+    public override bool IsInAttackRange(Vector3 navigationTarget)
     {
-        return Vector3.Distance(transform.position, target.transform.position) < attackRange;
+        return Vector3.Distance(transform.position, navigationTarget) < attackRange;
     }
 
     public void LaunchAttack()
     {
-        if (attackTarget && IsInAttackRange(attackTarget))
+        if (attackTarget)
         {
             Attack(attackTarget);
         }

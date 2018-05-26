@@ -10,17 +10,17 @@ public class AIAttackDPS : AIAttackLogic {
     #endregion
 
     #region Public Methods
-    public override void AttemptAttack(Building target)
+    public override void AttemptAttack(Building target, Vector3 navigationTarget)
     {
-        if (Vector3.Distance(transform.position, target.transform.position) < attackRange)
+        if (IsInAttackRange(navigationTarget))
         {
             Attack(target);
         }
     }
 
-    public override bool IsInAttackRange(Building target)
+    public override bool IsInAttackRange(Vector3 navigationTarget)
     {
-        return Vector3.Distance(transform.position, target.transform.position) < attackRange;
+        return Vector3.Distance(transform.position, navigationTarget) < attackRange;
     }
     #endregion
 

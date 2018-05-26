@@ -70,13 +70,13 @@ public class AIAttackConquer : AIAttackLogic {
     #endregion
 
     #region Public Methods
-    public override void AttemptAttack(Building target)
+    public override void AttemptAttack(Building attackTarget, Vector3 navigationTarget)
     {
         if (!targetInConquest)
         {
-            if (target.attachedConqueror == null && Vector3.Distance(transform.position, target.transform.position) < attackRange)
+            if (attackTarget.attachedConqueror == null && IsInAttackRange(navigationTarget))
             {
-                targetInConquest = target;
+                targetInConquest = attackTarget;
                 targetInConquest.attachedConqueror = aiEnemy;
                 //inTransformationAnimation = true;
                 animator.SetTrigger("Attack");
@@ -85,14 +85,14 @@ public class AIAttackConquer : AIAttackLogic {
                 aiEnemy.SetIsTargetable(false);
                 //mainModelRenderer.material.color = Color.cyan;
                 /* Now we calculate the actual dps */
-                dps = conquestDuration == 0 ? -1 : target.GetMaxHealth() / conquestDuration;
+                dps = conquestDuration == 0 ? -1 : attackTarget.GetMaxHealth() / conquestDuration;
             }
         }
     }
 
-    public override bool IsInAttackRange(Building target)
+    public override bool IsInAttackRange(Vector3 navigationTarget)
     {
-        return Vector3.Distance(transform.position, target.transform.position) < attackRange;
+        return Vector3.Distance(transform.position, navigationTarget) < attackRange;
     }
 
     public void EndTransformation()

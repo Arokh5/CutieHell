@@ -99,8 +99,9 @@ public class AIEnemy : MonoBehaviour, IDamageable
             {
                 agent.stoppingDistance = originalStoppingDistance;
                 agent.SetDestination(currentTarget.transform.position);
-                attackLogic.AttemptAttack(currentTarget);
-                if (enemyType == EnemyType.RANGE && attackLogic.IsInAttackRange(currentTarget))
+                attackLogic.AttemptAttack(currentTarget, agent.destination);
+                
+                if (enemyType == EnemyType.RANGE && attackLogic.IsInAttackRange(agent.destination))
                 {
                     animator.SetBool("Move", false);
                 }
@@ -123,7 +124,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
                 }
             }
 
-            if (enemyType == EnemyType.RANGE && !attackLogic.IsInAttackRange(currentTarget))
+            if (enemyType == EnemyType.RANGE && !attackLogic.IsInAttackRange(agent.destination))
             {
                 animator.SetBool("Move", true);
             }
