@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 4639934259483966}
   - component: {fileID: 198128217843348246}
   - component: {fileID: 199174924290789424}
+  - component: {fileID: 114996056361692334}
   m_Layer: 0
   m_Name: Lightning
   m_TagString: Untagged
@@ -320,6 +321,18 @@ Transform:
   m_Father: {fileID: 4639934259483966}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114996056361692334
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1551000923416472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb21fc7b641e3544fae69356650e080d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToReturnToPool: 1.5
 --- !u!198 &198128217843348246
 ParticleSystem:
   m_ObjectHideFlags: 1

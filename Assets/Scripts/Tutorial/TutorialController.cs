@@ -5,13 +5,18 @@ using Cinemachine;
 public class TutorialController : MonoBehaviour
 {
     #region Fields
-    private bool running;
-
+    [SerializeField]
+    private GameObject tutObjectiveMarker;
+    [SerializeField]
+    private GameObject tutObjectiveIcon;
+    [SerializeField]
+    private GameObject[] bannersAndMarkers;
     [SerializeField]
     private CinemachineBrain cinemachineBrain;
     [SerializeField]
     private ScreenFadeController screenFadeController;
 
+    private bool running;
     private PlayableDirector director;
     private TutorialEvents tutorialEvents;
     #endregion
@@ -23,8 +28,8 @@ public class TutorialController : MonoBehaviour
         UnityEngine.Assertions.Assert.IsNotNull(screenFadeController, "ERROR: The TutorialController in gameObject '" + gameObject.name + "' doesn't have a ScreenFadeController assigned!");
         director = GetComponent<PlayableDirector>();
         UnityEngine.Assertions.Assert.IsNotNull(director, "ERROR: A PlayableDirector Component could not be found by TutorialController in GameObject " + gameObject.name);
-
-        tutorialEvents = new TutorialEvents();
+        tutorialEvents = GetComponent<TutorialEvents>();
+        UnityEngine.Assertions.Assert.IsNotNull(tutorialEvents, "ERROR: A TutorialEvents Component could not be found by TutorialController in GameObject " + gameObject.name);
     }
 
     private void Update()
@@ -39,7 +44,12 @@ public class TutorialController : MonoBehaviour
     {
         if (!running)
         {
-            StartTutorial();
+            foreach (GameObject go in bannersAndMarkers)
+                go.SetActive(false);
+
+            tutObjectiveIcon.SetActive(true);
+
+            screenFadeController.FadeToTransparent(StartTutorial);
         }
     }
 
@@ -53,8 +63,10 @@ public class TutorialController : MonoBehaviour
     private void OnTutorialEnded()
     {
         running = false;
+        director.Stop();
         cinemachineBrain.enabled = false;
         gameObject.SetActive(false);
+
         GameManager.instance.OnTutorialFinished();
     }
 

@@ -1,20 +1,26 @@
 ﻿using UnityEngine;
 
-public class TutorialEvents
+public class TutorialEvents: MonoBehaviour
 {
     private delegate void TutorialEvent();
 
     #region Fields
+    [Header("DropLighting")]
+    public ParticleSystem lightingPrefab;
+    public Transform lightingPosition;
+
     private TutorialEvent[] events;
     #endregion
 
-    #region Public Methods
-    public TutorialEvents()
+    #region MonoBehaviour Methods
+    private void Awake()
     {
         events = new TutorialEvent[1];
-        events[0] = TestEvent;
+        events[0] = DropLighting;
     }
+    #endregion
 
+    #region Public Methods
     public void LaunchEvent(int eventIndex)
     {
         if (eventIndex >= 0 && eventIndex < events.Length)
@@ -23,9 +29,9 @@ public class TutorialEvents
     #endregion
 
     #region Private Methods
-    private void TestEvent()
+    private void DropLighting()
     {
-        Debug.Log("Event triggered successfully!");
+        ParticlesManager.instance.LaunchParticleSystem(lightingPrefab, lightingPosition.position, lightingPrefab.transform.rotation);
     }
     #endregion
 }

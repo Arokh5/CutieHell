@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        screenFadeController.FadeToTransparent(tutorialController.RequestStartTutorial);
+        tutorialController.RequestStartTutorial();
     }
 
     private void Update()
