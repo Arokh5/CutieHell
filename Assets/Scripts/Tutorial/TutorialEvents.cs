@@ -8,6 +8,7 @@ public class TutorialEvents: MonoBehaviour
     [Header("DropLighting")]
     public ParticleSystem lightingPrefab;
     public Transform lightingPosition;
+    public MonumentIndicator monumentIndicator;
 
     private TutorialEvent[] events;
     #endregion
@@ -32,6 +33,7 @@ public class TutorialEvents: MonoBehaviour
     private void DropLighting()
     {
         ParticlesManager.instance.LaunchParticleSystem(lightingPrefab, lightingPosition.position, lightingPrefab.transform.rotation);
+        monumentIndicator.RequestOpen();
     }
     #endregion
 }
