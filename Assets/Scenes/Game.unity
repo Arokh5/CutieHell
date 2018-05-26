@@ -4520,6 +4520,11 @@ Transform:
   m_PrefabParentObject: {fileID: 4247035702262800, guid: ad5f58233af240e448711d1f4f95f1f5,
     type: 2}
   m_PrefabInternal: {fileID: 308370714}
+--- !u!23 &326711697 stripped
+MeshRenderer:
+  m_PrefabParentObject: {fileID: 23842737064479438, guid: 3830a711d379d3b4b8516723788a3842,
+    type: 2}
+  m_PrefabInternal: {fileID: 1603528171}
 --- !u!1001 &327497486
 Prefab:
   m_ObjectHideFlags: 0
@@ -6325,7 +6330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11bf2a41df6af424fa2abb14fcc0e192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingRenderer: {fileID: 1840425484}
+  buildingRenderer: {fileID: 326711697}
   alternateBuildingRenderer: {fileID: 1340365374}
   effectOnMapRadius: 0
   maxEffectRadius: 5
@@ -15380,6 +15385,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4220184436000442, guid: a10d882a5f13c83439764270668b43ac, type: 2}
       propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1934132388359858, guid: a10d882a5f13c83439764270668b43ac, type: 2}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -24668,11 +24677,6 @@ Transform:
 --- !u!4 &1840425482 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4220184436000442, guid: a10d882a5f13c83439764270668b43ac,
-    type: 2}
-  m_PrefabInternal: {fileID: 1132723939}
---- !u!23 &1840425484 stripped
-MeshRenderer:
-  m_PrefabParentObject: {fileID: 23810144059048036, guid: a10d882a5f13c83439764270668b43ac,
     type: 2}
   m_PrefabInternal: {fileID: 1132723939}
 --- !u!1001 &1842790138
