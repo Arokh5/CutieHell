@@ -10,6 +10,11 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     [SerializeField]
+    private TutorialController tutorialController;
+    [SerializeField]
+    private ScreenFadeController screenFadeController;
+
+    [SerializeField]
     private AISpawnController aiSpawnController;
     [SerializeField]
     private ScenarioController scenarioController;
@@ -40,6 +45,8 @@ public class GameManager : MonoBehaviour
     {
         UnityEngine.Assertions.Assert.IsNotNull(aiSpawnController, "ERROR: The GameManager in gameObject '" + gameObject.name + "' doesn't have an AISpawnController assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(scenarioController, "ERROR: The GameManager in gameObject '" + gameObject.name + "' doesn't have a ScenarioController assigned!");
+        UnityEngine.Assertions.Assert.IsNotNull(tutorialController, "ERROR: The GameManager in gameObject '" + gameObject.name + "' doesn't have a TutorialController assigned!");
+        UnityEngine.Assertions.Assert.IsNotNull(screenFadeController, "ERROR: The GameManager in gameObject '" + gameObject.name + "' doesn't have a ScreenFadeController assigned!");
 
         crosshair = GameObject.Find("Crosshair");
         gameIsPaused = false;
@@ -48,10 +55,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        aiSpawnController.StartNextWave();
-        scenarioController.OnNewWaveStarted();
-        UIManager.instance.indicatorsController.OnNewWaveStarted();
-        Debug.Log("Starting wave (index) " + aiSpawnController.GetCurrentWaveIndex() + "!");
+        tutorialController.StartTurotial();
     }
 
     private void Update()
@@ -90,6 +94,11 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Public Methods
+
+    public void OnTutorialFinished()
+    {
+        screenFadeController.FadeToTransparent(StartNextWave);
+    }
 
     public void OnWaveWon()
     {
@@ -184,11 +193,9 @@ public class GameManager : MonoBehaviour
             StatsManager.instance.ResetKillCounts();
             UIManager.instance.ResetEnemiesCounters();
             StatsManager.instance.ResetBadComboCount();
-            aiSpawnController.StartNextWave();
-            scenarioController.OnNewWaveStarted();
-            UIManager.instance.indicatorsController.OnNewWaveStarted();
             gameState = GameStates.InGame;
-            Debug.Log("Starting wave (index) " + aiSpawnController.GetCurrentWaveIndex() + "!");
+
+            StartNextWave();
         }
     }
 
@@ -216,4 +223,13 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    #region Private Methods
+    private void StartNextWave()
+    {
+        aiSpawnController.StartNextWave();
+        scenarioController.OnNewWaveStarted();
+        UIManager.instance.indicatorsController.OnNewWaveStarted();
+        Debug.Log("Starting wave (index) " + aiSpawnController.GetCurrentWaveIndex() + "!");
+    }
+    #endregion
 }
