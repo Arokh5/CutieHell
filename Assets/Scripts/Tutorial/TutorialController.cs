@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Playables;
 using Cinemachine;
 
 public class TutorialController : MonoBehaviour
@@ -12,6 +11,9 @@ public class TutorialController : MonoBehaviour
     private CinemachineBrain cinemachineBrain;
     [SerializeField]
     private ScreenFadeController screenFadeController;
+
+    private PlayableDirector director;
+    private TutorialEvents tutorialEvents;
     #endregion
 
     #region MonoBehaviour Methods
@@ -19,6 +21,10 @@ public class TutorialController : MonoBehaviour
     {
         UnityEngine.Assertions.Assert.IsNotNull(cinemachineBrain, "ERROR: The TutorialController in gameObject '" + gameObject.name + "' doesn't have a CinemachineBrain assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(screenFadeController, "ERROR: The TutorialController in gameObject '" + gameObject.name + "' doesn't have a ScreenFadeController assigned!");
+        director = GetComponent<PlayableDirector>();
+        UnityEngine.Assertions.Assert.IsNotNull(director, "ERROR: A PlayableDirector Component could not be found by TutorialController in GameObject " + gameObject.name);
+
+        tutorialEvents = new TutorialEvents();
     }
 
     private void Update()
@@ -29,14 +35,17 @@ public class TutorialController : MonoBehaviour
     #endregion
 
     #region Public Methods
-    public void StartTurotial()
+    public void RequestStartTutorial()
     {
-        running = true;
+        if (!running)
+        {
+            StartTutorial();
+        }
     }
 
-    public void EndTutorial()
+    public void LaunchEvent(int eventIndex)
     {
-        screenFadeController.FadeToOpaque(OnTutorialEnded);
+        tutorialEvents.LaunchEvent(eventIndex);
     }
     #endregion
 
@@ -47,6 +56,17 @@ public class TutorialController : MonoBehaviour
         cinemachineBrain.enabled = false;
         gameObject.SetActive(false);
         GameManager.instance.OnTutorialFinished();
+    }
+
+    private void StartTutorial()
+    {
+        running = true;
+        director.Play();
+    }
+
+    private void EndTutorial()
+    {
+        screenFadeController.FadeToOpaque(OnTutorialEnded);
     }
     #endregion
 }
