@@ -26,7 +26,5 @@ public class CanonTrapEnterAction : StateAction
         canonShootDecalVFX.gameObject.SetActive(true);
         canonShootDecalVFX.Play();
 
-        player.currentTrap.GetCanonAmmoIndicator().gameObject.SetActive(true);
-
     }
 }

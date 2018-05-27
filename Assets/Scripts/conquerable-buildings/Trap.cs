@@ -186,12 +186,12 @@ public class Trap : Building, IUsable
         for (int i = 0; i < canonBallsList.Count; i++)
         {
             evaluatedCanonBall = canonBallsList[i];
-            evaluatedCanonBall.canonBallElapsedTime += Time.deltaTime;
-            motionProgress = evaluatedCanonBall.canonBallElapsedTime / evaluatedCanonBall.canonBallShootingDuration;
+            evaluatedCanonBall.canonBallFiringTime += Time.deltaTime;
+            motionProgress = evaluatedCanonBall.canonBallFiringTime / evaluatedCanonBall.canonBallShootingDuration;
 
-            if (!evaluatedCanonBall.canonBall.gameObject.activeSelf && motionProgress >= evaluatedCanonBall.canonBallVisibleFromProgression)
+            if (!evaluatedCanonBall.canonBallRenderer.enabled && motionProgress >= evaluatedCanonBall.canonBallVisibleFromProgression)
             {
-                evaluatedCanonBall.canonBall.gameObject.SetActive(true);
+                evaluatedCanonBall.canonBallRenderer.enabled = true;
                 if (!canonShootingSmokeVFX.gameObject.activeSelf)
                 {
                     canonShootingSmokeVFX.gameObject.SetActive(true);
@@ -237,7 +237,7 @@ public class Trap : Building, IUsable
             affectedEnemies[j].TakeDamage(canonBallInfo.canonBallExplosionRange, AttackType.TRAP_AREA);
         }
 
-        Destroy(canonBall.canonBall.gameObject);
+        Destroy(canonBall.gameObject);
     }
     #endregion
 }

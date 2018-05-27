@@ -47,13 +47,12 @@ public class CanonTurretAttack : StateAction
     public override void Act(Player player)
     {
         if (playerRef == null)
-        {
-            CanonAttackFirstUsePreparations(player);
-        }
+            playerRef = player;
 
-        
-        if(player.currentTrap.canonBallsList.Count == 0 
-            || (currentCanonBallMotion != null && currentCanonBallMotion.canonBallElapsedTime >= canonBallCooldownTime))            
+        if (currentCanonBall == null)
+            CanonAttackFirstUsePreparations(player);
+
+        if (currentCanonBallMotion.canonBallElapsedTime >= canonBallCooldownTime)            
         {
             playerRef.currentTrap.GetCanonAmmoIndicator().gameObject.SetActive(true);
             if (InputManager.instance.GetR2ButtonDown())
@@ -61,19 +60,25 @@ public class CanonTurretAttack : StateAction
                     ShootCanonBall();
                 }      
         }
+        currentCanonBallMotion.canonBallElapsedTime += Time.deltaTime;
         MoveShootDecal();
     }
 
     #region Private Methods
     private void CanonAttackFirstUsePreparations(Player player)
     {
-        playerRef = player;
         canonBallStartPoint = playerRef.currentTrap.canonBallStartPoint;
         canonTargetDecalGOTransform = player.currentTrap.canonTargetDecal.transform;
 
         UnityEngine.Assertions.Assert.IsFalse(canonBallExplosionRange > playerRef.currentTrap.attractionRadius, "ERROR: CanonBall explosion range can't be greater than its owner trap attraction radius");
 
+        PrepareCanonBall();
+    }
+
+    private void PrepareCanonBall()
+    {
         CanonBallInfo canonBallInfo;
+
         canonBallInfo.canonBallExplosionDamage = canonBallExplosionDamage;
         canonBallInfo.canonBallExplosionRange = canonBallExplosionRange;
         canonBallInfo.canonBallParabolaHeight = maxParabolaHeight;
@@ -81,6 +86,9 @@ public class CanonTurretAttack : StateAction
         canonBallInfo.canonBallExplosionVFX = canonBallLandingVFX;
 
         playerRef.currentTrap.SetCanonBallInfo(canonBallInfo);
+
+        currentCanonBall = Instantiate(canonBallPrefab, canonBallStartPoint);
+        currentCanonBallMotion = currentCanonBall.GetComponent<CanonBallMotion>();
     }
 
     private void checkMoveBackShootDecal(float decalNewDistance, Vector3 movementMagnitude)
@@ -129,20 +137,17 @@ public class CanonTurretAttack : StateAction
         Vector3 shootDistance = canonBallStartPoint.position - canonTargetDecalGOTransform.position;
         float shootingDuration = shootDistance.magnitude / canonBallshootingSpeed;
 
-        currentCanonBall = Instantiate(canonBallPrefab, canonBallStartPoint);
-        currentCanonBallMotion = currentCanonBall.GetComponent<CanonBallMotion>();
-        currentCanonBall.AddComponent<Rigidbody>();
-
-        currentCanonBall.SetActive(false);
-        currentCanonBallMotion.canonBall = currentCanonBall;
-        currentCanonBallMotion.canonBallElapsedTime = 0;
         currentCanonBallMotion.canonBallShootingDuration = shootingDuration;
         currentCanonBallMotion.canonBallShotingDistance = shootDistance;
         currentCanonBallMotion.canonBallVisibleFromProgression = canonWayOutPoint;
 
-        playerRef.currentTrap.canonBallsList.Add(currentCanonBallMotion);
+        currentCanonBallMotion.SetAlreadyFired(true);
 
+        playerRef.currentTrap.canonBallsList.Add(currentCanonBallMotion);
         playerRef.currentTrap.GetCanonAmmoIndicator().gameObject.SetActive(false);
+
+        //We prepare the following canonBall now the previous has already been fired
+        PrepareCanonBall();
     }
     #endregion
 
