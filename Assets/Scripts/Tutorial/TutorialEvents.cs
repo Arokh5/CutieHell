@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.AI;
 
 public class TutorialEvents: MonoBehaviour
@@ -24,6 +25,7 @@ public class TutorialEvents: MonoBehaviour
     [Header("General")]
     public AISpawner tutorialSpawner;
     public AISpawner tutorialSpawner2;
+    public AISpawner zoneDSpawner;
     [SerializeField]
     private DamageLimiter damageLimiterTutZone;
     public EnemyDescriptionController enemyDescriptionController;
@@ -50,7 +52,9 @@ public class TutorialEvents: MonoBehaviour
             SpawnBear,
             BearAttack,
             SpawnConqueror,
-            ConquerorAttack
+            ConquerorAttack,
+            Spawn3Slimes,
+            HaltEnemies
         };
     }
     #endregion
@@ -147,6 +151,20 @@ public class TutorialEvents: MonoBehaviour
     private void ConquerorAttack()
     {
         firstConqueror.agent.enabled = true;
+    }
+
+    // 07
+    private void Spawn3Slimes()
+    {
+        tutorialEnemiesManager.AddEnemy(zoneDSpawner.SpawnOne(EnemyType.BASIC));
+        tutorialEnemiesManager.AddEnemy(zoneDSpawner.SpawnOne(EnemyType.BASIC));
+        tutorialEnemiesManager.AddEnemy(zoneDSpawner.SpawnOne(EnemyType.BASIC));
+    }
+
+    // 08
+    private void HaltEnemies()
+    {
+        tutorialEnemiesManager.HaltEnemies();
     }
 
     private AIEnemy SpawnEnemy(AISpawner spawner, EnemyType enemyType)

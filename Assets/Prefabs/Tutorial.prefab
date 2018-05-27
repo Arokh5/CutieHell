@@ -223,6 +223,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1393042420498160
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4899773849554506}
+  - component: {fileID: 114699223849426232}
+  m_Layer: 0
+  m_Name: 08-HaltEnemies
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1431136691509124
 GameObject:
   m_ObjectHideFlags: 1
@@ -301,6 +317,22 @@ GameObject:
   - component: {fileID: 4373475332704866}
   m_Layer: 0
   m_Name: SpawningPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1653412523047668
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4816647237308928}
+  - component: {fileID: 114084523313678330}
+  m_Layer: 0
+  m_Name: 07-Spawn3Slimes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -529,6 +561,8 @@ Transform:
   - {fileID: 4913710800305944}
   - {fileID: 4998560962346226}
   - {fileID: 4468083831334534}
+  - {fileID: 4816647237308928}
+  - {fileID: 4899773849554506}
   m_Father: {fileID: 4124070079434272}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -725,6 +759,19 @@ Transform:
   m_Father: {fileID: 4223677347716340}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4816647237308928
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1653412523047668}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4191440315577882}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4848556767937056
 Transform:
   m_ObjectHideFlags: 1
@@ -752,6 +799,19 @@ Transform:
   - {fileID: 4581346201046182}
   m_Father: {fileID: 4223677347716340}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4899773849554506
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1393042420498160}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4191440315577882}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4905490150227636
 Transform:
@@ -910,6 +970,18 @@ MonoBehaviour:
     FarClipPlane: 5000
     Dutch: 0
   m_ComponentOwner: {fileID: 4581346201046182}
+--- !u!114 &114084523313678330
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1653412523047668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24fa1ee0435449048b72f70ad6337ae6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventIndex: 7
 --- !u!114 &114108818091774074
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1103,6 +1175,7 @@ MonoBehaviour:
   - {fileID: 0}
   tutorialSpawner: {fileID: 0}
   tutorialSpawner2: {fileID: 0}
+  zoneDSpawner: {fileID: 0}
   damageLimiterTutZone: {fileID: 114740602830611852}
   enemyDescriptionController: {fileID: 0}
   enemyLabelInfos:
@@ -1379,6 +1452,18 @@ MonoBehaviour:
   m_SoftZoneHeight: 0.8
   m_BiasX: 0
   m_BiasY: 0
+--- !u!114 &114699223849426232
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1393042420498160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24fa1ee0435449048b72f70ad6337ae6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventIndex: 8
 --- !u!114 &114740602830611852
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1574,6 +1659,10 @@ PlayableDirector:
     value: {fileID: 1854007989559712}
   - key: {fileID: 114659641315187522, guid: 6b211c1882ca79e49a59135ca1c9230b, type: 2}
     value: {fileID: 1476208616505340}
+  - key: {fileID: 114679182762596280, guid: 6b211c1882ca79e49a59135ca1c9230b, type: 2}
+    value: {fileID: 1653412523047668}
+  - key: {fileID: 114756483010972222, guid: 6b211c1882ca79e49a59135ca1c9230b, type: 2}
+    value: {fileID: 1393042420498160}
   m_ExposedReferences:
     m_References:
     - 18e26eb0844867a4f992ba1a6f99b9ab: {fileID: 114266508093502264}
