@@ -37,6 +37,7 @@ public class TutorialEvents: MonoBehaviour
 
     private TutorialEvent[] events;
     private TutorialEnemiesManager tutorialEnemiesManager;
+    private AIEnemy firstConqueror;
     #endregion
 
     #region MonoBehaviour Methods
@@ -47,7 +48,9 @@ public class TutorialEvents: MonoBehaviour
             SpawnSlime,
             SlimeAttack,
             SpawnBear,
-            BearAttack
+            BearAttack,
+            SpawnConqueror,
+            ConquerorAttack
         };
     }
     #endregion
@@ -101,8 +104,9 @@ public class TutorialEvents: MonoBehaviour
     // 01
     private void SpawnSlime()
     {
-        SpawnEnemy(tutorialSpawner, EnemyType.BASIC);
-        tutorialEnemiesManager.HaltEnemies();
+        AIEnemy slime = SpawnEnemy(tutorialSpawner, EnemyType.BASIC);
+        tutorialEnemiesManager.AddEnemy(slime);
+        slime.agent.enabled = false;
         SetEnemyLabelInfo(0);
         damageLimiterTutZone.normalizedMaxDamage = 0.2f;
     }
@@ -111,14 +115,14 @@ public class TutorialEvents: MonoBehaviour
     private void SlimeAttack()
     {
         tutorialEnemiesManager.ResumeEnemies();
-        tutorialEnemiesManager.ClearEnemies();
     }
 
     // 03
     private void SpawnBear()
     {
-        SpawnEnemy(tutorialSpawner2, EnemyType.RANGE);
-        tutorialEnemiesManager.HaltEnemies();
+        AIEnemy bear = SpawnEnemy(tutorialSpawner2, EnemyType.RANGE);
+        tutorialEnemiesManager.AddEnemy(bear);
+        bear.agent.enabled = false;
         SetEnemyLabelInfo(1);
         damageLimiterTutZone.normalizedMaxDamage = 0.5f;
     }
@@ -127,13 +131,28 @@ public class TutorialEvents: MonoBehaviour
     private void BearAttack()
     {
         tutorialEnemiesManager.ResumeEnemies();
-        tutorialEnemiesManager.ClearEnemies();
     }
 
-    private void SpawnEnemy(AISpawner spawner, EnemyType enemyType)
+    // 05
+    private void SpawnConqueror()
+    {
+        firstConqueror = SpawnEnemy(tutorialSpawner, EnemyType.CONQUEROR);
+        // Not added to the tutorialenemiesManager because the conqueror will conquer and remain in ZoneD
+        firstConqueror.agent.enabled = false;
+        SetEnemyLabelInfo(2);
+        damageLimiterTutZone.normalizedMaxDamage = 1.1f;
+    }
+
+    // 06
+    private void ConquerorAttack()
+    {
+        firstConqueror.agent.enabled = true;
+    }
+
+    private AIEnemy SpawnEnemy(AISpawner spawner, EnemyType enemyType)
     {
         AIEnemy enemy = spawner.SpawnOne(enemyType);
-        tutorialEnemiesManager.AddEnemy(enemy);
+        return enemy;
     }
 
     private void SetEnemyLabelInfo(int infoIndex)

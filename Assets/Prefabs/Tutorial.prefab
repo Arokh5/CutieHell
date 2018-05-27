@@ -239,6 +239,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1476208616505340
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4468083831334534}
+  - component: {fileID: 114462764477596642}
+  m_Layer: 0
+  m_Name: 06-ConquerorAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1484778139700244
 GameObject:
   m_ObjectHideFlags: 1
@@ -336,6 +352,22 @@ GameObject:
   - component: {fileID: 95266459371401050}
   m_Layer: 0
   m_Name: TimeWarper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1854007989559712
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4998560962346226}
+  - component: {fileID: 114308524163501188}
+  m_Layer: 0
+  m_Name: 05-SpawnConqueror
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -495,6 +527,8 @@ Transform:
   - {fileID: 4117788656213656}
   - {fileID: 4276852195980906}
   - {fileID: 4913710800305944}
+  - {fileID: 4998560962346226}
+  - {fileID: 4468083831334534}
   m_Father: {fileID: 4124070079434272}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -583,6 +617,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4124070079434272}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4468083831334534
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1476208616505340}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4191440315577882}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4475975135551162
 Transform:
@@ -772,6 +819,19 @@ Transform:
   m_Father: {fileID: 4223677347716340}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 19.35, y: -82.5, z: 0}
+--- !u!4 &4998560962346226
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1854007989559712}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4191440315577882}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &95132252540178980
 Animator:
   serializedVersion: 3
@@ -1013,6 +1073,18 @@ MonoBehaviour:
     FarClipPlane: 5000
     Dutch: 0
   m_ComponentOwner: {fileID: 4929128583711102}
+--- !u!114 &114308524163501188
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1854007989559712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24fa1ee0435449048b72f70ad6337ae6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventIndex: 5
 --- !u!114 &114325232345552390
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1125,6 +1197,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114462764477596642
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1476208616505340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24fa1ee0435449048b72f70ad6337ae6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventIndex: 6
 --- !u!114 &114467046025639484
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1486,6 +1570,10 @@ PlayableDirector:
     value: {fileID: 1131822083295966}
   - key: {fileID: 114651154399526524, guid: 6b211c1882ca79e49a59135ca1c9230b, type: 2}
     value: {fileID: 1226003857162124}
+  - key: {fileID: 114978871274389112, guid: 6b211c1882ca79e49a59135ca1c9230b, type: 2}
+    value: {fileID: 1854007989559712}
+  - key: {fileID: 114659641315187522, guid: 6b211c1882ca79e49a59135ca1c9230b, type: 2}
+    value: {fileID: 1476208616505340}
   m_ExposedReferences:
     m_References:
     - 18e26eb0844867a4f992ba1a6f99b9ab: {fileID: 114266508093502264}
@@ -1494,7 +1582,9 @@ PlayableDirector:
     - 7eeb29f8ccde878468af9e9aef9e8214: {fileID: 114266508093502264}
     - 78469c8828819604abc61001620f8348: {fileID: 114607934384458546}
     - 79fa7d5443332ab48aed12cad37c6ff8: {fileID: 114904565880672806}
+    - ea921fcf89d2ca54eb1a09013900270e: {fileID: 114607934384458546}
     - ffe9e4b8a4e003344b83cbc7d0779e79: {fileID: 114607934384458546}
     - 38a1a11d8c6648f409255fd476d8f316: {fileID: 114607934384458546}
     - 964128ba75da8b14787f84c1b0bafc4b: {fileID: 114293552673755698}
+    - e03047512facaba488ab6660a2f0738e: {fileID: 114542869478844314}
     - bf24eae8d89dc2e4a87666a2e7195f50: {fileID: 114542869478844314}
