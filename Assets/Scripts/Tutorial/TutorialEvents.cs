@@ -5,14 +5,26 @@ public class TutorialEvents: MonoBehaviour
 {
     private delegate void TutorialEvent();
 
+    [System.Serializable]
+    private class EnemyLabelInfo
+    {
+        public string name;
+        public string description;
+    }
+
     #region Fields
+    [Header("General")]
+    public AISpawner tutorialSpawner;
+    public EnemyDescriptionController enemyDescriptionController;
+    [SerializeField]
+    private EnemyLabelInfo[] enemyLabelInfos;
+
     [Header("0-DropLighting")]
     public ParticleSystem lightingPrefab;
     public Transform lightingPosition;
     public MonumentIndicator monumentIndicator;
 
     [Header("1-SpawnSlime")]
-    public AISpawner spawnerD;
     public EnemyType slimeEnemyType;
 
     private TutorialEvent[] events;
@@ -47,13 +59,27 @@ public class TutorialEvents: MonoBehaviour
     //1
     private void SpawnSlime()
     {
-        SpawnEnemy(spawnerD, EnemyType.BASIC);
+        SpawnEnemy(tutorialSpawner, EnemyType.BASIC);
+        SetEnemyLabelInfo(0);
     }
 
     private void SpawnEnemy(AISpawner spawner, EnemyType enemyType)
     {
         AIEnemy slime = spawner.SpawnOne(enemyType);
         slime.GetComponent<NavMeshAgent>().enabled = false;
+    }
+
+    private void SetEnemyLabelInfo(int infoIndex)
+    {
+        if (infoIndex >= 0 && infoIndex < enemyLabelInfos.Length)
+        {
+            enemyDescriptionController.SetName(enemyLabelInfos[infoIndex].name);
+            enemyDescriptionController.SetDescription(enemyLabelInfos[infoIndex].description);
+        }
+        else
+        {
+            Debug.LogError("ERROR: infoIndex paremeter out of range in TutorialEvents::SetEnemyLabelInfo in gameObject '" + gameObject.name + "'!");
+        }
     }
     #endregion
 }

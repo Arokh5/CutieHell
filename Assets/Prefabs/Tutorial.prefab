@@ -244,6 +244,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1844929664767882
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4376989025409102}
+  - component: {fileID: 114469239106263238}
+  - component: {fileID: 95266459371401050}
+  m_Layer: 0
+  m_Name: TimeWarper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1942887631393410
 GameObject:
   m_ObjectHideFlags: 1
@@ -318,12 +335,13 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4191440315577882}
+  - {fileID: 4376989025409102}
   - {fileID: 4848556767937056}
-  - {fileID: 4273891166458932}
   - {fileID: 4528848363897196}
+  - {fileID: 4273891166458932}
   - {fileID: 4865193712669222}
-  - {fileID: 4728257894582442}
   - {fileID: 4510705582784594}
+  - {fileID: 4728257894582442}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -380,7 +398,7 @@ Transform:
   m_Children:
   - {fileID: 4669256135874962}
   m_Father: {fileID: 4124070079434272}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 36.13, y: -27.69, z: 0}
 --- !u!4 &4373475332704866
 Transform:
@@ -394,6 +412,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4040594185465306}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4376989025409102
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1844929664767882}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4124070079434272}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4510705582784594
 Transform:
@@ -474,7 +505,7 @@ Transform:
   m_Children:
   - {fileID: 4205023958151748}
   m_Father: {fileID: 4124070079434272}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4848556767937056
 Transform:
@@ -488,7 +519,7 @@ Transform:
   m_Children:
   - {fileID: 4174746320312080}
   m_Father: {fileID: 4124070079434272}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4865193712669222
 Transform:
@@ -502,7 +533,7 @@ Transform:
   m_Children:
   - {fileID: 4581346201046182}
   m_Father: {fileID: 4124070079434272}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4905490150227636
 Transform:
@@ -543,6 +574,23 @@ Animator:
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &95266459371401050
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1844929664767882}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -734,11 +782,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3c70508fe71b1742bd1a022524dd732, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tutorialSpawner: {fileID: 0}
+  enemyDescriptionController: {fileID: 0}
+  enemyLabelInfos:
+  - name: THE SLIME
+    description: (Low damage, annoying in numbers)
+  - name: THE BEAR
+    description: (Mid damage, ranged attack)
+  - name: THE CONQUEROR
+    description: (BEWARE! Cutifies upon arrival)
   lightingPrefab: {fileID: 198128217843348246, guid: e0ad8c49f2eb5a4478dd110d17ec7883,
     type: 2}
   lightingPosition: {fileID: 4905490150227636}
   monumentIndicator: {fileID: 0}
-  spawnerD: {fileID: 0}
   slimeEnemyType: 0
 --- !u!114 &114342080559585294
 MonoBehaviour:
@@ -821,6 +877,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114469239106263238
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1844929664767882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02e7c775e1f50da48b315f6dba20b6f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeScale: 1
 --- !u!114 &114510619637958208
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1062,6 +1130,10 @@ PlayableDirector:
   - key: {fileID: 114282978090782504, guid: 6b211c1882ca79e49a59135ca1c9230b, type: 2}
     value: {fileID: 1968322762080100}
   - key: {fileID: 0}
+    value: {fileID: 0}
+  - key: {fileID: 114434207676277664, guid: 6b211c1882ca79e49a59135ca1c9230b, type: 2}
+    value: {fileID: 1844929664767882}
+  - key: {fileID: 114810897040085238, guid: 6b211c1882ca79e49a59135ca1c9230b, type: 2}
     value: {fileID: 0}
   m_ExposedReferences:
     m_References:
