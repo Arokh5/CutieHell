@@ -42,18 +42,23 @@ public class TutorialController : MonoBehaviour
 
     private void Update()
     {
+        if (!paused && GameManager.instance.gameIsPaused)
+        {
+            paused = true;
+            if (running)
+                director.playableGraph.GetRootPlayable(0).SetSpeed(0);
+                // Using director.Pause() allows the cameras to snap back to the default priority settings.
+        }
+        else if (paused && !GameManager.instance.gameIsPaused)
+        {
+            paused = false;
+            if (running)
+                director.playableGraph.GetRootPlayable(0).SetSpeed(1);
+            crosshair.SetActive(false);
+        }
+
         if (running)
         {
-            if (!paused && GameManager.instance.gameIsPaused)
-            {
-                paused = true;
-                director.Pause();
-            }
-            else if (paused && !GameManager.instance.gameIsPaused)
-            {
-                paused = false;
-                director.Resume();
-            }
             if (InputManager.instance.GetPS4OptionsDown())
                 EndTutorial();
         }
