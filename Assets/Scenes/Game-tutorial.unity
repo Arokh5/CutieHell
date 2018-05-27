@@ -12629,6 +12629,108 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 034bd819a0839fa4689788d07720e554, type: 3}
   m_PrefabInternal: {fileID: 842917413}
+--- !u!1001 &847453133
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4124070079434272, guid: 700b87466641795459dafd993279bac5, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124070079434272, guid: 700b87466641795459dafd993279bac5, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124070079434272, guid: 700b87466641795459dafd993279bac5, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124070079434272, guid: 700b87466641795459dafd993279bac5, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124070079434272, guid: 700b87466641795459dafd993279bac5, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124070079434272, guid: 700b87466641795459dafd993279bac5, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124070079434272, guid: 700b87466641795459dafd993279bac5, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4124070079434272, guid: 700b87466641795459dafd993279bac5, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114325232345552390, guid: 700b87466641795459dafd993279bac5,
+        type: 2}
+      propertyPath: tutorialSpawner
+      value: 
+      objectReference: {fileID: 1699684288}
+    - target: {fileID: 114325232345552390, guid: 700b87466641795459dafd993279bac5,
+        type: 2}
+      propertyPath: enemyDescriptionController
+      value: 
+      objectReference: {fileID: 1527013670}
+    - target: {fileID: 114325232345552390, guid: 700b87466641795459dafd993279bac5,
+        type: 2}
+      propertyPath: monumentIndicator
+      value: 
+      objectReference: {fileID: 848834310}
+    - target: {fileID: 320400532580166328, guid: 700b87466641795459dafd993279bac5,
+        type: 2}
+      propertyPath: m_SceneBindings.Array.data[3].value
+      value: 
+      objectReference: {fileID: 1789317508}
+    - target: {fileID: 320400532580166328, guid: 700b87466641795459dafd993279bac5,
+        type: 2}
+      propertyPath: m_SceneBindings.Array.data[9].value
+      value: 
+      objectReference: {fileID: 1527013668}
+    - target: {fileID: 114510619637958208, guid: 700b87466641795459dafd993279bac5,
+        type: 2}
+      propertyPath: tutObjectiveMarker
+      value: 
+      objectReference: {fileID: 848834317}
+    - target: {fileID: 114510619637958208, guid: 700b87466641795459dafd993279bac5,
+        type: 2}
+      propertyPath: tutObjectiveIcon
+      value: 
+      objectReference: {fileID: 848834318}
+    - target: {fileID: 114510619637958208, guid: 700b87466641795459dafd993279bac5,
+        type: 2}
+      propertyPath: bannersAndMarkers.Array.data[0]
+      value: 
+      objectReference: {fileID: 848834315}
+    - target: {fileID: 114510619637958208, guid: 700b87466641795459dafd993279bac5,
+        type: 2}
+      propertyPath: bannersAndMarkers.Array.data[1]
+      value: 
+      objectReference: {fileID: 848834316}
+    - target: {fileID: 114510619637958208, guid: 700b87466641795459dafd993279bac5,
+        type: 2}
+      propertyPath: crosshair
+      value: 
+      objectReference: {fileID: 344246959}
+    - target: {fileID: 114510619637958208, guid: 700b87466641795459dafd993279bac5,
+        type: 2}
+      propertyPath: cinemachineBrain
+      value: 
+      objectReference: {fileID: 1789317508}
+    - target: {fileID: 114510619637958208, guid: 700b87466641795459dafd993279bac5,
+        type: 2}
+      propertyPath: screenFadeController
+      value: 
+      objectReference: {fileID: 848834314}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 700b87466641795459dafd993279bac5, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &847728918
 Prefab:
   m_ObjectHideFlags: 0
@@ -14023,7 +14125,7 @@ Transform:
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114510619637958208, guid: 700b87466641795459dafd993279bac5,
     type: 2}
-  m_PrefabInternal: {fileID: 1153424024}
+  m_PrefabInternal: {fileID: 847453133}
   m_Script: {fileID: 11500000, guid: b5121af91e8df424eaa1e57975c2c213, type: 3}
 --- !u!1001 &967478126
 Prefab:
@@ -16960,108 +17062,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1859059340}
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
---- !u!1001 &1153424024
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4124070079434272, guid: 700b87466641795459dafd993279bac5, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4124070079434272, guid: 700b87466641795459dafd993279bac5, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4124070079434272, guid: 700b87466641795459dafd993279bac5, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4124070079434272, guid: 700b87466641795459dafd993279bac5, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4124070079434272, guid: 700b87466641795459dafd993279bac5, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4124070079434272, guid: 700b87466641795459dafd993279bac5, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4124070079434272, guid: 700b87466641795459dafd993279bac5, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4124070079434272, guid: 700b87466641795459dafd993279bac5, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114325232345552390, guid: 700b87466641795459dafd993279bac5,
-        type: 2}
-      propertyPath: tutorialSpawner
-      value: 
-      objectReference: {fileID: 1699684288}
-    - target: {fileID: 114325232345552390, guid: 700b87466641795459dafd993279bac5,
-        type: 2}
-      propertyPath: enemyDescriptionController
-      value: 
-      objectReference: {fileID: 1527013670}
-    - target: {fileID: 114325232345552390, guid: 700b87466641795459dafd993279bac5,
-        type: 2}
-      propertyPath: monumentIndicator
-      value: 
-      objectReference: {fileID: 848834310}
-    - target: {fileID: 320400532580166328, guid: 700b87466641795459dafd993279bac5,
-        type: 2}
-      propertyPath: m_SceneBindings.Array.data[3].value
-      value: 
-      objectReference: {fileID: 1789317508}
-    - target: {fileID: 320400532580166328, guid: 700b87466641795459dafd993279bac5,
-        type: 2}
-      propertyPath: m_SceneBindings.Array.data[9].value
-      value: 
-      objectReference: {fileID: 1527013668}
-    - target: {fileID: 114510619637958208, guid: 700b87466641795459dafd993279bac5,
-        type: 2}
-      propertyPath: tutObjectiveMarker
-      value: 
-      objectReference: {fileID: 848834317}
-    - target: {fileID: 114510619637958208, guid: 700b87466641795459dafd993279bac5,
-        type: 2}
-      propertyPath: tutObjectiveIcon
-      value: 
-      objectReference: {fileID: 848834318}
-    - target: {fileID: 114510619637958208, guid: 700b87466641795459dafd993279bac5,
-        type: 2}
-      propertyPath: bannersAndMarkers.Array.data[0]
-      value: 
-      objectReference: {fileID: 848834315}
-    - target: {fileID: 114510619637958208, guid: 700b87466641795459dafd993279bac5,
-        type: 2}
-      propertyPath: bannersAndMarkers.Array.data[1]
-      value: 
-      objectReference: {fileID: 848834316}
-    - target: {fileID: 114510619637958208, guid: 700b87466641795459dafd993279bac5,
-        type: 2}
-      propertyPath: crosshair
-      value: 
-      objectReference: {fileID: 344246959}
-    - target: {fileID: 114510619637958208, guid: 700b87466641795459dafd993279bac5,
-        type: 2}
-      propertyPath: cinemachineBrain
-      value: 
-      objectReference: {fileID: 1789317508}
-    - target: {fileID: 114510619637958208, guid: 700b87466641795459dafd993279bac5,
-        type: 2}
-      propertyPath: screenFadeController
-      value: 
-      objectReference: {fileID: 848834314}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 700b87466641795459dafd993279bac5, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1001 &1155222195
 Prefab:
   m_ObjectHideFlags: 0

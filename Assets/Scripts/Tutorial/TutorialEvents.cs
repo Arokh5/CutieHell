@@ -28,6 +28,7 @@ public class TutorialEvents: MonoBehaviour
     public EnemyType slimeEnemyType;
 
     private TutorialEvent[] events;
+    private TutorialEnemiesManager tutorialEnemiesManager;
     #endregion
 
     #region MonoBehaviour Methods
@@ -41,6 +42,11 @@ public class TutorialEvents: MonoBehaviour
     #endregion
 
     #region Public Methods
+    public void SetTutorialEnemiesManager(TutorialEnemiesManager tutorialEnemiesManager)
+    {
+        this.tutorialEnemiesManager = tutorialEnemiesManager;
+    }
+
     public void LaunchEvent(int eventIndex)
     {
         if (eventIndex >= 0 && eventIndex < events.Length)
@@ -65,8 +71,9 @@ public class TutorialEvents: MonoBehaviour
 
     private void SpawnEnemy(AISpawner spawner, EnemyType enemyType)
     {
-        AIEnemy slime = spawner.SpawnOne(enemyType);
-        slime.GetComponent<NavMeshAgent>().enabled = false;
+        AIEnemy enemy = spawner.SpawnOne(enemyType);
+        enemy.agent.enabled = false;
+        tutorialEnemiesManager.AddEnemy(enemy);
     }
 
     private void SetEnemyLabelInfo(int infoIndex)

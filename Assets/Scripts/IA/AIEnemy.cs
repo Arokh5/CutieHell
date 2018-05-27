@@ -21,7 +21,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private PathNode currentNode;
     private int currentNodeIndex = -1;
 
-    private NavMeshAgent agent;
+    [HideInInspector]
+    public NavMeshAgent agent;
     private float originalStoppingDistance;
 
     private Renderer mRenderer;

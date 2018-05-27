@@ -25,6 +25,7 @@ public class TutorialController : MonoBehaviour
     private bool paused;
     private PlayableDirector director;
     private TutorialEvents tutorialEvents;
+    private TutorialEnemiesManager tutorialEnemiesManager;
     private AIZoneController[] zoneControllers;
     #endregion
 
@@ -37,7 +38,9 @@ public class TutorialController : MonoBehaviour
         UnityEngine.Assertions.Assert.IsNotNull(director, "ERROR: A PlayableDirector Component could not be found by TutorialController in GameObject " + gameObject.name);
         tutorialEvents = GetComponent<TutorialEvents>();
         UnityEngine.Assertions.Assert.IsNotNull(tutorialEvents, "ERROR: A TutorialEvents Component could not be found by TutorialController in GameObject " + gameObject.name);
-        zoneControllers = Object.FindObjectsOfType<AIZoneController>();
+        zoneControllers = FindObjectsOfType<AIZoneController>();
+        tutorialEnemiesManager = new TutorialEnemiesManager();
+        tutorialEvents.SetTutorialEnemiesManager(tutorialEnemiesManager);
     }
 
     private void Update()
@@ -106,6 +109,8 @@ public class TutorialController : MonoBehaviour
         {
             zoneController.DestroyAllEnemies();
         }
+
+        tutorialEnemiesManager.ClearEnemies();
 
         GameManager.instance.OnTutorialFinished();
     }
