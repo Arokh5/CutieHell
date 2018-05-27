@@ -7,8 +7,9 @@ public class BatTrapEnterAction : StateAction
 {
     public override void Act(Player player)
     {
-        player.AddEvilPoints(-player.currentTrap.usageCost);
-
+        if (!player.currentlyUsingTrap)
+            player.AddEvilPoints(-player.currentTrap.usageCost);
+        player.currentlyUsingTrap = true;
         player.bulletSpawnPoint.SetParent(player.currentTrap.rotatingHead);
         player.bulletSpawnPoint.localPosition = new Vector3(0f, 0.3f, 0.7f);
     }
