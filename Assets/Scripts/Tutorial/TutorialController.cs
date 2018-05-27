@@ -5,12 +5,17 @@ using Cinemachine;
 public class TutorialController : MonoBehaviour
 {
     #region Fields
+    [Header("UI objects")]
     [SerializeField]
     private GameObject tutObjectiveMarker;
     [SerializeField]
     private GameObject tutObjectiveIcon;
     [SerializeField]
     private GameObject[] bannersAndMarkers;
+    [SerializeField]
+    private GameObject crosshair;
+
+    [Header("Tutorial config")]
     [SerializeField]
     private CinemachineBrain cinemachineBrain;
     [SerializeField]
@@ -48,6 +53,8 @@ public class TutorialController : MonoBehaviour
                 go.SetActive(false);
 
             tutObjectiveIcon.SetActive(true);
+            tutObjectiveMarker.SetActive(false);
+            crosshair.SetActive(false);
 
             screenFadeController.FadeToTransparent(StartTutorial);
         }
@@ -72,6 +79,7 @@ public class TutorialController : MonoBehaviour
 
         tutObjectiveIcon.SetActive(false);
         tutObjectiveMarker.SetActive(false);
+        crosshair.SetActive(true);
 
         GameManager.instance.OnTutorialFinished();
     }
