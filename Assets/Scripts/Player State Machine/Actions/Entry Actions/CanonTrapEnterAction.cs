@@ -7,11 +7,11 @@ public class CanonTrapEnterAction : StateAction
 {
     public float startingCanonDecalDistance;
     [SerializeField]
-    private ParticleSystem canonShootDecalPrefabVFX;
+    private GameObject canonShootDecalPrefabVFX;
 
     public override void Act(Player player)
     {
-        ParticleSystem canonShootDecalVFX = null;
+        GameObject canonShootDecalVFX = null;
 
         GameManager.instance.SetCrosshairActivate(false);
         player.bulletSpawnPoint.SetParent(player.currentTrap.transform);
@@ -24,7 +24,5 @@ public class CanonTrapEnterAction : StateAction
         canonShootDecalVFX.transform.localPosition = new Vector3(canonShootDecalVFX.transform.localPosition.x, canonShootDecalPrefabVFX.transform.localPosition.y, canonShootDecalVFX.transform.localPosition.z);
 
         canonShootDecalVFX.gameObject.SetActive(true);
-        canonShootDecalVFX.Play();
-
     }
 }

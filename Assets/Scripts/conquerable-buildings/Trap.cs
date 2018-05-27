@@ -20,7 +20,7 @@ public class Trap : Building, IUsable
     public bool deactivate = false;
 
     [Header("Canon")]
-    public ParticleSystem canonTargetDecal;
+    public GameObject canonTargetDecal;
     public Transform canonBallStartPoint;
     public ParticleSystem canonShootingSmokeVFX;
     public List<CanonBallMotion> canonBallsList = new List<CanonBallMotion>();
