@@ -15,6 +15,14 @@ public class TutorialController : MonoBehaviour
     [SerializeField]
     private ScreenFadeController screenFadeController;
 
+    [Header("Player")]
+    [SerializeField]
+    private Player player;
+    [SerializeField]
+    private State playerDefaultState;
+    [SerializeField]
+    private State initialTutorialState;
+
     private bool running;
     private bool paused;
     private PlayableDirector director;
@@ -67,7 +75,7 @@ public class TutorialController : MonoBehaviour
     {
         if (!running)
         {
-            crosshair.SetActive(false);
+            player.TransitionToState(initialTutorialState);
             tutorialEvents.OnTutorialStarted();
             screenFadeController.FadeToTransparent(StartTutorial);
         }
@@ -86,7 +94,8 @@ public class TutorialController : MonoBehaviour
         director.Stop();
         cinemachineBrain.enabled = false;
         gameObject.SetActive(false);
-        crosshair.SetActive(true);
+        
+        player.TransitionToState(playerDefaultState);
 
         foreach (AIZoneController zoneController in zoneControllers)
         {

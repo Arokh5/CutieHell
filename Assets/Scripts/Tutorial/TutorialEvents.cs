@@ -21,8 +21,12 @@ public class TutorialEvents: MonoBehaviour
     private GameObject tutObjectiveIcon;
     [SerializeField]
     private GameObject[] bannersAndMarkers;
+    [SerializeField]
+    private GameObject crosshair;
 
     [Header("General")]
+    [SerializeField]
+    private Cinemachine.CinemachineBrain cmBrain;
     public AISpawner tutorialSpawner;
     public AISpawner tutorialSpawner2;
     public AISpawner zoneDSpawner;
@@ -54,7 +58,9 @@ public class TutorialEvents: MonoBehaviour
             SpawnConqueror,
             ConquerorAttack,
             Spawn3Slimes,
-            HaltEnemies
+            HaltEnemies,
+            RestoreUI,
+            DisableCMBrain
         };
     }
     #endregion
@@ -74,17 +80,14 @@ public class TutorialEvents: MonoBehaviour
 
         tutObjectiveIcon.SetActive(true);
         tutObjectiveMarker.SetActive(false);
+        crosshair.SetActive(false);
     }
 
     public void OnTutorialEnded()
     {
         damageLimiterTutZone.gameObject.SetActive(false);
 
-        foreach (GameObject go in bannersAndMarkers)
-            go.SetActive(true);
-
-        tutObjectiveIcon.SetActive(false);
-        tutObjectiveMarker.SetActive(false);
+        RestoreUI();
     }
 
     public void LaunchEvent(int eventIndex)
@@ -92,7 +95,7 @@ public class TutorialEvents: MonoBehaviour
         if (eventIndex >= 0 && eventIndex < events.Length)
             events[eventIndex]();
         else
-            Debug.LogWarning("WARNING: eventIndex parameter out of range in TutorialEvents::LaunchEvent in gameObject '" + gameObject.name + "'!");
+            Debug.LogError("ERROR: eventIndex parameter out of range in TutorialEvents::LaunchEvent in gameObject '" + gameObject.name + "'!");
     }
     #endregion
 
@@ -165,6 +168,23 @@ public class TutorialEvents: MonoBehaviour
     private void HaltEnemies()
     {
         tutorialEnemiesManager.HaltEnemies();
+    }
+
+    // 09
+    private void RestoreUI()
+    {
+        foreach (GameObject go in bannersAndMarkers)
+            go.SetActive(true);
+
+        tutObjectiveIcon.SetActive(false);
+        tutObjectiveMarker.SetActive(false);
+        crosshair.SetActive(true);
+    }
+
+    // 10
+    private void DisableCMBrain()
+    {
+        cmBrain.enabled = false;
     }
 
     private AIEnemy SpawnEnemy(AISpawner spawner, EnemyType enemyType)
