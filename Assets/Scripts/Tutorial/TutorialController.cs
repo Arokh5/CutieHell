@@ -22,6 +22,7 @@ public class TutorialController : MonoBehaviour
     private ScreenFadeController screenFadeController;
 
     private bool running;
+    private bool paused;
     private PlayableDirector director;
     private TutorialEvents tutorialEvents;
     #endregion
@@ -39,8 +40,21 @@ public class TutorialController : MonoBehaviour
 
     private void Update()
     {
-        if (running && InputManager.instance.GetPS4OptionsDown())
-            EndTutorial();
+        if (running)
+        {
+            if (!paused && GameManager.instance.gameIsPaused)
+            {
+                paused = true;
+                director.Pause();
+            }
+            else if (paused && !GameManager.instance.gameIsPaused)
+            {
+                paused = false;
+                director.Resume();
+            }
+            if (InputManager.instance.GetPS4OptionsDown())
+                EndTutorial();
+        }
     }
     #endregion
 
