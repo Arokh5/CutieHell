@@ -50,6 +50,16 @@ public class TutorialEvents: MonoBehaviour
         this.tutorialEnemiesManager = tutorialEnemiesManager;
     }
 
+    public void OnTutorialStarted()
+    {
+        damageLimiterTutZone.gameObject.SetActive(true);
+    }
+
+    public void OnTutorialEnded()
+    {
+        damageLimiterTutZone.gameObject.SetActive(false);
+    }
+
     public void LaunchEvent(int eventIndex)
     {
         if (eventIndex >= 0 && eventIndex < events.Length)
@@ -72,7 +82,7 @@ public class TutorialEvents: MonoBehaviour
     {
         SpawnEnemy(tutorialSpawner, EnemyType.BASIC);
         SetEnemyLabelInfo(0);
-        damageLimiterTutZone.normalizedMaxDamage = 0.05f;
+        damageLimiterTutZone.normalizedMaxDamage = 0.2f;
     }
 
     // 02

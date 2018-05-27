@@ -8802,7 +8802,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoneType: 2
   zoneController: {fileID: 246851401}
-  baseHealth: 200
+  baseHealth: 100
   fullRepairCost: 50
   attractionRadius: 150
   currentHealth: 0
@@ -12636,6 +12636,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 320400532580166328, guid: 700b87466641795459dafd993279bac5,
+        type: 2}
+      propertyPath: m_SceneBindings.Array.size
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 4124070079434272, guid: 700b87466641795459dafd993279bac5, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -12733,6 +12738,17 @@ Prefab:
       propertyPath: screenFadeController
       value: 
       objectReference: {fileID: 848834314}
+    - target: {fileID: 320400532580166328, guid: 700b87466641795459dafd993279bac5,
+        type: 2}
+      propertyPath: m_SceneBindings.Array.data[12].key
+      value: 
+      objectReference: {fileID: 114012078622510562, guid: 6b211c1882ca79e49a59135ca1c9230b,
+        type: 2}
+    - target: {fileID: 320400532580166328, guid: 700b87466641795459dafd993279bac5,
+        type: 2}
+      propertyPath: m_SceneBindings.Array.data[12].value
+      value: 
+      objectReference: {fileID: 1502547814}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 700b87466641795459dafd993279bac5, type: 2}
   m_IsPrefabParent: 0
@@ -22448,6 +22464,11 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 23015890608914672, guid: bc4eb0fb9b2121c47aecf5cf12d975fc,
     type: 2}
   m_PrefabInternal: {fileID: 1502095868}
+--- !u!1 &1502547814 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1969640008387226, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+    type: 2}
+  m_PrefabInternal: {fileID: 1859059340}
 --- !u!1001 &1509566586
 Prefab:
   m_ObjectHideFlags: 0
@@ -27387,6 +27408,10 @@ Prefab:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 230846840}
+    - target: {fileID: 1969640008387226, guid: ea64b03fd47dae043a3d7cf8c919a7b7, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ea64b03fd47dae043a3d7cf8c919a7b7, type: 2}
   m_IsPrefabParent: 0

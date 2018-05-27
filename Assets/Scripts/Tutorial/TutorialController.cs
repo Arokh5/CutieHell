@@ -111,6 +111,7 @@ public class TutorialController : MonoBehaviour
         }
 
         tutorialEnemiesManager.ClearEnemies();
+        tutorialEvents.OnTutorialEnded();
 
         GameManager.instance.OnTutorialFinished();
     }
@@ -119,6 +120,7 @@ public class TutorialController : MonoBehaviour
     {
         running = true;
         director.Play();
+        tutorialEvents.OnTutorialStarted();
     }
 
     private void EndTutorial()
