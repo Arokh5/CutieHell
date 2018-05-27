@@ -159,6 +159,33 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     {
         return !animating;
     }
+
+    public float GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+
+    public void SetHealth(float healthValue)
+    {
+        healthValue = Mathf.Clamp(healthValue, 0, baseHealth);
+
+        currentHealth = healthValue;
+        
+        // Do not reset the underAttackElapsedTime timer
+        if (buildingEffects)
+        {
+            buildingEffects.AdjustMaterials((baseHealth - currentHealth) / (float)baseHealth);
+        }
+
+        if (currentHealth == 0)
+        {
+            BuildingKilled();
+            if (buildingEffects)
+                buildingEffects.StartConquerEffect();
+            else
+                BuildingConverted();
+        }
+    }
     #endregion
 
     #region Private Methods

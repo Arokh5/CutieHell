@@ -15,6 +15,8 @@ public class TutorialEvents: MonoBehaviour
     #region Fields
     [Header("General")]
     public AISpawner tutorialSpawner;
+    [SerializeField]
+    private DamageLimiter damageLimiterTutZone;
     public EnemyDescriptionController enemyDescriptionController;
     [SerializeField]
     private EnemyLabelInfo[] enemyLabelInfos;
@@ -36,7 +38,8 @@ public class TutorialEvents: MonoBehaviour
     {
         events = new TutorialEvent[]{
             DropLighting,
-            SpawnSlime
+            SpawnSlime,
+            SlimeAttack
         };
     }
     #endregion
@@ -51,29 +54,39 @@ public class TutorialEvents: MonoBehaviour
     {
         if (eventIndex >= 0 && eventIndex < events.Length)
             events[eventIndex]();
+        else
+            Debug.LogWarning("WARNING: eventIndex parameter out of range in TutorialEvents::LaunchEvent in gameObject '" + gameObject.name + "'!");
     }
     #endregion
 
     #region Private Methods
-    // 0
+    // 00
     private void DropLighting()
     {
         ParticlesManager.instance.LaunchParticleSystem(lightingPrefab, lightingPosition.position, lightingPrefab.transform.rotation);
         monumentIndicator.RequestOpen();
     }
 
-    //1
+    // 01
     private void SpawnSlime()
     {
         SpawnEnemy(tutorialSpawner, EnemyType.BASIC);
         SetEnemyLabelInfo(0);
+        damageLimiterTutZone.normalizedMaxDamage = 0.05f;
+    }
+
+    // 02
+    private void SlimeAttack()
+    {
+        tutorialEnemiesManager.ResumeEnemies();
+        tutorialEnemiesManager.ClearEnemies();
     }
 
     private void SpawnEnemy(AISpawner spawner, EnemyType enemyType)
     {
         AIEnemy enemy = spawner.SpawnOne(enemyType);
-        enemy.agent.enabled = false;
         tutorialEnemiesManager.AddEnemy(enemy);
+        tutorialEnemiesManager.HaltEnemies();
     }
 
     private void SetEnemyLabelInfo(int infoIndex)

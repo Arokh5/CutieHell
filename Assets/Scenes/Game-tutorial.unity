@@ -2541,7 +2541,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 154396163}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.11000061, y: 0, z: -0.069999695}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 1301116345}
@@ -6533,7 +6533,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 411138273}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.28, y: 0, z: 0.03}
+  m_LocalPosition: {x: -0.17, y: 0, z: -0.04}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 1076444849}
@@ -8750,7 +8750,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 570958331}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: -1.8999996, y: 3.199997, z: 36.55}
+  m_LocalPosition: {x: -1.8999996, y: 3.2, z: 36.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 411138274}
@@ -8802,7 +8802,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoneType: 2
   zoneController: {fileID: 246851401}
-  baseHealth: 500
+  baseHealth: 200
   fullRepairCost: 50
   attractionRadius: 150
   currentHealth: 0
@@ -12668,6 +12668,21 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114740602830611852, guid: 700b87466641795459dafd993279bac5,
+        type: 2}
+      propertyPath: building
+      value: 
+      objectReference: {fileID: 570958336}
+    - target: {fileID: 320400532580166328, guid: 700b87466641795459dafd993279bac5,
+        type: 2}
+      propertyPath: m_SceneBindings.Array.data[3].value
+      value: 
+      objectReference: {fileID: 1789317508}
+    - target: {fileID: 320400532580166328, guid: 700b87466641795459dafd993279bac5,
+        type: 2}
+      propertyPath: m_SceneBindings.Array.data[9].value
+      value: 
+      objectReference: {fileID: 1527013668}
     - target: {fileID: 114325232345552390, guid: 700b87466641795459dafd993279bac5,
         type: 2}
       propertyPath: tutorialSpawner
@@ -12683,16 +12698,6 @@ Prefab:
       propertyPath: monumentIndicator
       value: 
       objectReference: {fileID: 848834310}
-    - target: {fileID: 320400532580166328, guid: 700b87466641795459dafd993279bac5,
-        type: 2}
-      propertyPath: m_SceneBindings.Array.data[3].value
-      value: 
-      objectReference: {fileID: 1789317508}
-    - target: {fileID: 320400532580166328, guid: 700b87466641795459dafd993279bac5,
-        type: 2}
-      propertyPath: m_SceneBindings.Array.data[9].value
-      value: 
-      objectReference: {fileID: 1527013668}
     - target: {fileID: 114510619637958208, guid: 700b87466641795459dafd993279bac5,
         type: 2}
       propertyPath: tutObjectiveMarker
@@ -25375,7 +25380,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1736961770}
   m_LocalRotation: {x: -0, y: -0.15893357, z: -0, w: 0.9872893}
-  m_LocalPosition: {x: -1.6999989, y: 6.419998, z: 36.55}
+  m_LocalPosition: {x: -1.8099995, y: 6.419998, z: 36.62}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 246851402}
@@ -27342,12 +27347,22 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114035595282849316, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+    - target: {fileID: 114073722361617496, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: target
       value: 
       objectReference: {fileID: 739791453}
-    - target: {fileID: 114035595282849316, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+    - target: {fileID: 114073722361617496, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+        type: 2}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 230846840}
+    - target: {fileID: 114514683238999866, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+        type: 2}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1640700313}
+    - target: {fileID: 114514683238999866, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: mainCamera
       value: 
@@ -27362,12 +27377,12 @@ Prefab:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 230846840}
-    - target: {fileID: 114514683238999866, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+    - target: {fileID: 114035595282849316, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: target
       value: 
-      objectReference: {fileID: 1640700313}
-    - target: {fileID: 114514683238999866, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+      objectReference: {fileID: 739791453}
+    - target: {fileID: 114035595282849316, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: mainCamera
       value: 

@@ -74,6 +74,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1195984678897206
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4117788656213656}
+  - component: {fileID: 114467046025639484}
+  m_Layer: 0
+  m_Name: 02-SlimeAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1197321585685544
 GameObject:
   m_ObjectHideFlags: 1
@@ -143,6 +159,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1392355568026100
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4475975135551162}
+  - component: {fileID: 114740602830611852}
+  m_Layer: 0
+  m_Name: DamageLimiter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1431136691509124
 GameObject:
   m_ObjectHideFlags: 1
@@ -153,7 +185,7 @@ GameObject:
   - component: {fileID: 4580842779920522}
   - component: {fileID: 114590315551782844}
   m_Layer: 0
-  m_Name: 0-Lighting
+  m_Name: 00-Lighting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -301,7 +333,7 @@ GameObject:
   - component: {fileID: 4040594185465306}
   - component: {fileID: 114231282663083834}
   m_Layer: 0
-  m_Name: 1-SlimeSpawn
+  m_Name: 01-SlimeSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -339,6 +371,19 @@ Transform:
   m_Father: {fileID: 4191440315577882}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4117788656213656
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1195984678897206}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4191440315577882}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4124070079434272
 Transform:
   m_ObjectHideFlags: 1
@@ -351,6 +396,7 @@ Transform:
   m_Children:
   - {fileID: 4191440315577882}
   - {fileID: 4376989025409102}
+  - {fileID: 4475975135551162}
   - {fileID: 4223677347716340}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -380,6 +426,7 @@ Transform:
   m_Children:
   - {fileID: 4580842779920522}
   - {fileID: 4040594185465306}
+  - {fileID: 4117788656213656}
   m_Father: {fileID: 4124070079434272}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -413,7 +460,7 @@ Transform:
   - {fileID: 4510705582784594}
   - {fileID: 4728257894582442}
   m_Father: {fileID: 4124070079434272}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4273891166458932
 Transform:
@@ -454,6 +501,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4124070079434272}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4475975135551162
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1392355568026100}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4124070079434272}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4510705582784594
 Transform:
@@ -812,6 +872,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorialSpawner: {fileID: 0}
+  damageLimiterTutZone: {fileID: 114740602830611852}
   enemyDescriptionController: {fileID: 0}
   enemyLabelInfos:
   - name: THE SLIME
@@ -906,6 +967,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114467046025639484
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1195984678897206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24fa1ee0435449048b72f70ad6337ae6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventIndex: 2
 --- !u!114 &114469239106263238
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1009,6 +1082,19 @@ MonoBehaviour:
   m_SoftZoneHeight: 0.8
   m_BiasX: 0
   m_BiasY: 0
+--- !u!114 &114740602830611852
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1392355568026100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a88045680b4e9f4d9dbd61325a292f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  building: {fileID: 0}
+  normalizedMaxDamage: 1
 --- !u!114 &114802977476982350
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1165,6 +1251,10 @@ PlayableDirector:
     value: {fileID: 1844929664767882}
   - key: {fileID: 114810897040085238, guid: 6b211c1882ca79e49a59135ca1c9230b, type: 2}
     value: {fileID: 0}
+  - key: {fileID: 114204864228271988, guid: 6b211c1882ca79e49a59135ca1c9230b, type: 2}
+    value: {fileID: 1195984678897206}
+  - key: {fileID: 114588829419603030, guid: 6b211c1882ca79e49a59135ca1c9230b, type: 2}
+    value: {fileID: 1392355568026100}
   m_ExposedReferences:
     m_References:
     - 18e26eb0844867a4f992ba1a6f99b9ab: {fileID: 114266508093502264}
