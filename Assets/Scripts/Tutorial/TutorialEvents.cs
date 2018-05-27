@@ -1,14 +1,19 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 
 public class TutorialEvents: MonoBehaviour
 {
     private delegate void TutorialEvent();
 
     #region Fields
-    [Header("DropLighting")]
+    [Header("0-DropLighting")]
     public ParticleSystem lightingPrefab;
     public Transform lightingPosition;
     public MonumentIndicator monumentIndicator;
+
+    [Header("1-SpawnSlime")]
+    public AISpawner spawnerD;
+    public EnemyType slimeEnemyType;
 
     private TutorialEvent[] events;
     #endregion
@@ -16,8 +21,10 @@ public class TutorialEvents: MonoBehaviour
     #region MonoBehaviour Methods
     private void Awake()
     {
-        events = new TutorialEvent[1];
-        events[0] = DropLighting;
+        events = new TutorialEvent[]{
+            DropLighting,
+            SpawnSlime
+        };
     }
     #endregion
 
@@ -30,10 +37,23 @@ public class TutorialEvents: MonoBehaviour
     #endregion
 
     #region Private Methods
+    // 0
     private void DropLighting()
     {
         ParticlesManager.instance.LaunchParticleSystem(lightingPrefab, lightingPosition.position, lightingPrefab.transform.rotation);
         monumentIndicator.RequestOpen();
+    }
+
+    //1
+    private void SpawnSlime()
+    {
+        SpawnEnemy(spawnerD, EnemyType.BASIC);
+    }
+
+    private void SpawnEnemy(AISpawner spawner, EnemyType enemyType)
+    {
+        AIEnemy slime = spawner.SpawnOne(enemyType);
+        slime.GetComponent<NavMeshAgent>().enabled = false;
     }
     #endregion
 }

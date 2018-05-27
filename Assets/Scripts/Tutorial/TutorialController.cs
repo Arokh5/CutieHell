@@ -67,6 +67,12 @@ public class TutorialController : MonoBehaviour
         cinemachineBrain.enabled = false;
         gameObject.SetActive(false);
 
+        foreach (GameObject go in bannersAndMarkers)
+            go.SetActive(true);
+
+        tutObjectiveIcon.SetActive(false);
+        tutObjectiveMarker.SetActive(false);
+
         GameManager.instance.OnTutorialFinished();
     }
 

@@ -35,8 +35,7 @@ public class AISpawner : MonoBehaviour {
 
             if (spawnInfo.elapsedTime >= spawnInfo.nextSpawnTime)
             {
-                EnemyType enemyType = spawnInfo.enemiesToSpawn[spawnInfo.nextSpawnIndex];
-                SpawnEnemy(spawnInfo, enemyType);
+                SpawnNextEnemy(spawnInfo);
             }
 
             if (spawnInfo.nextSpawnIndex >= spawnInfo.enemiesToSpawn.Count)
@@ -70,18 +69,8 @@ public class AISpawner : MonoBehaviour {
         }
     }
 
-    public void ClearSpawnInfos()
+    public AIEnemy SpawnOne(EnemyType enemyType)
     {
-        activeSpawnInfos.Clear();
-    }
-    #endregion
-
-    #region Private methods
-    void SpawnEnemy (SpawnInfo spawnInfo, EnemyType enemyType)
-    {
-        ++spawnInfo.nextSpawnIndex;
-        spawnInfo.nextSpawnTime = spawnInfo.nextSpawnIndex * spawnInfo.spawnDuration / spawnInfo.enemiesToSpawn.Count;
-
         Vector3 randomPosition = new Vector3(
             Random.Range(0.5f * -spawnerArea.x, 0.5f * spawnerArea.x),
             Random.Range(0.5f * -spawnerArea.y, 0.5f * spawnerArea.y),
@@ -93,19 +82,37 @@ public class AISpawner : MonoBehaviour {
         instantiatedEnemy.transform.SetParent(spawnController.activeEnemies);
         instantiatedEnemy.transform.position = randomPosition;
         instantiatedEnemy.transform.rotation = Quaternion.LookRotation(transform.forward, transform.up);
-        instantiatedEnemy.SetZoneController(zoneController);
 
         instantiatedEnemy.Restart();
+        instantiatedEnemy.SetZoneController(zoneController);
 
         /* For particle effects */
         ParticleSystem spawnVfx = ParticlesManager.instance.LaunchParticleSystem(
             spawnVFX,
-            instantiatedEnemy.transform.position + instantiatedEnemy.GetComponent<Collider>().bounds.size.y * Vector3.up / 2.0f, 
+            instantiatedEnemy.transform.position + instantiatedEnemy.GetComponent<Collider>().bounds.size.y * Vector3.up / 2.0f,
             this.transform.rotation
         );
         ActivateGameObjectOnTime onTimeVFX = spawnVfx.GetComponent<ActivateGameObjectOnTime>();
         onTimeVFX.objectToActivate = instantiatedEnemy.gameObject;
         instantiatedEnemy.gameObject.SetActive(false);
+
+        return instantiatedEnemy;
+    }
+
+    public void ClearSpawnInfos()
+    {
+        activeSpawnInfos.Clear();
+    }
+    #endregion
+
+    #region Private methods
+    private void SpawnNextEnemy(SpawnInfo spawnInfo)
+    {
+        EnemyType enemyType = spawnInfo.enemiesToSpawn[spawnInfo.nextSpawnIndex];
+        ++spawnInfo.nextSpawnIndex;
+        spawnInfo.nextSpawnTime = spawnInfo.nextSpawnIndex * spawnInfo.spawnDuration / spawnInfo.enemiesToSpawn.Count;
+
+        SpawnOne(enemyType);
     }
     #endregion
 }

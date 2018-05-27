@@ -80,12 +80,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
         UnityEngine.Assertions.Assert.IsNotNull(animator, "Error: No Animator found in GameObject '" + gameObject.name + "'!");
         enemyCollider = GetComponent<Collider>();
         originalStoppingDistance = agent.stoppingDistance;
-    }
 
-    private void Start()
-    {
         heightOffset = enemyCollider.bounds.size.y / 2.0f;
-        Restart();
     }
 
     private void Update()
@@ -159,8 +155,6 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
     public void Restart()
     {
-        UnityEngine.Assertions.Assert.IsNotNull(zoneController, "Error: zoneController is null for AIEnemy in GameObject '" + gameObject.name + "'!");
-        UpdateTarget();
         currentHealth = baseHealth;
         mRenderer.material = basicMat;
         mRenderer.material.color = initialColor;
@@ -243,6 +237,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     // Called by the Area-type Trap to retarget the AIEnemy after exploding
     public void UpdateTarget()
     {
+        UnityEngine.Assertions.Assert.IsNotNull(zoneController, "Error: zoneController is null for AIEnemy in GameObject '" + gameObject.name + "'!");
         currentTarget = zoneController.GetTargetBuilding(transform);
     }
 
@@ -339,6 +334,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
     private void UpdateNodePath()
     {
+        UnityEngine.Assertions.Assert.IsNotNull(zoneController, "Error: zoneController is null for AIEnemy in GameObject '" + gameObject.name + "'!");
         /* Update path and nextNode */
         currentPath = zoneController.GetPath(transform.position);
         if (currentPath != null && currentPath.Count > 0)
