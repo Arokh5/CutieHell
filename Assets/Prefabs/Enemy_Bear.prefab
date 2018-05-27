@@ -813,7 +813,9 @@ GameObject:
   - component: {fileID: 195185363159092638}
   - component: {fileID: 136149160522779052}
   - component: {fileID: 82091526541744270}
+  - component: {fileID: 82813430409202384}
   - component: {fileID: 114991655444845708}
+  - component: {fileID: 114123264923208892}
   m_Layer: 8
   m_Name: Enemy_Bear
   m_TagString: Untagged
@@ -2111,6 +2113,86 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!82 &82813430409202384
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1786736313398318}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95635546357380784
 Animator:
   serializedVersion: 3
@@ -2149,6 +2231,19 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114123264923208892
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1786736313398318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1791809b98038aa469f1eb7f6eb09dcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSource: {fileID: 82813430409202384}
+  walkClip: {fileID: 8300000, guid: b99da9a57308d4ba1bee1cf1d9038376, type: 3}
 --- !u!114 &114384999247220170
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2237,7 +2332,8 @@ MonoBehaviour:
   attackSpawnPoint: {fileID: 4113246435530752}
   attackPrefab: {fileID: 114165600176227110, guid: 46ccdfb566002e64eb33999e5f82f669,
     type: 2}
-  bearClip: {fileID: 8300000, guid: 52320e590bf774734a288886eba557ba, type: 3}
+  bearAttackSource: {fileID: 82091526541744270}
+  bearAttackClip: {fileID: 8300000, guid: 52320e590bf774734a288886eba557ba, type: 3}
 --- !u!114 &114700444110497872
 MonoBehaviour:
   m_ObjectHideFlags: 1

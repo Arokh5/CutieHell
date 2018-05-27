@@ -65,6 +65,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private Collider enemyCollider;
     private AttackType killingHit = AttackType.NONE;
 
+    private bool active;
+
     #endregion
 
     #region MonoBehaviour Methods
@@ -80,6 +82,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         UnityEngine.Assertions.Assert.IsNotNull(animator, "Error: No Animator found in GameObject '" + gameObject.name + "'!");
         enemyCollider = GetComponent<Collider>();
         originalStoppingDistance = agent.stoppingDistance;
+        active = false;
     }
 
     private void Start()
@@ -90,6 +93,12 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
     private void Update()
     {
+        if (active)
+        {
+            GetComponent<EnemySFX>().GetWalkSource().Play();
+            active = false;
+        }
+
         // Motion through NavMeshAgent
         if (currentTarget && agent.enabled)
         {
@@ -104,6 +113,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
                 if (enemyType == EnemyType.RANGE && attackLogic.IsInAttackRange(agent.destination))
                 {
                     animator.SetBool("Move", false);
+                    GetComponent<EnemySFX>().GetWalkSource().Stop();
                 }
             }
             else
@@ -127,6 +137,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
             if (enemyType == EnemyType.RANGE && !attackLogic.IsInAttackRange(agent.destination))
             {
                 animator.SetBool("Move", true);
+                GetComponent<EnemySFX>().GetWalkSource().Play();
             }
         }
 
@@ -169,6 +180,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         isTargetable = true;
         isTarget = false;
         GetComponent<EnemyCanvasController>().SetHealthBar();
+        active = true;
     }
 
     public AIZoneController GetZoneController()
@@ -229,6 +241,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
             SetIsTargetable(false);
             killingHit = attacktype;
             animator.SetBool("DieStandard", true);
+            GetComponent<EnemySFX>().GetWalkSource().Stop();
             //Die();
         }
         else
