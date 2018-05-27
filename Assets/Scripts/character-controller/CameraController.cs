@@ -239,9 +239,10 @@ public class CameraController : MonoBehaviour {
                     {
                         if (playerScript.currentTrap.canonTargetDecal.gameObject.activeSelf)
                         {
-                            playerScript.currentTrap.rotatingHead.LookAt(playerScript.currentTrap.canonTargetDecal.transform);
+                            Vector3 canonTargetDecalDirection = playerScript.currentTrap.canonTargetDecal.transform.position - transform.position;
+                            playerScript.currentTrap.rotatingHead.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(canonTargetDecalDirection), Time.deltaTime * 40f);
                             playerScript.currentTrap.canonTargetDecal.transform.rotation = Quaternion.Euler(0, playerScript.currentTrap.rotatingHead.rotation.eulerAngles.y, 0);
-                        }     
+                        }
                         break;
                     }
                 case Player.CameraState.ZOOMOUT:
