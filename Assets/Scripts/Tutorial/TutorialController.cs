@@ -7,12 +7,6 @@ public class TutorialController : MonoBehaviour
     #region Fields
     [Header("UI objects")]
     [SerializeField]
-    private GameObject tutObjectiveMarker;
-    [SerializeField]
-    private GameObject tutObjectiveIcon;
-    [SerializeField]
-    private GameObject[] bannersAndMarkers;
-    [SerializeField]
     private GameObject crosshair;
 
     [Header("Tutorial config")]
@@ -73,13 +67,8 @@ public class TutorialController : MonoBehaviour
     {
         if (!running)
         {
-            foreach (GameObject go in bannersAndMarkers)
-                go.SetActive(false);
-
-            tutObjectiveIcon.SetActive(true);
-            tutObjectiveMarker.SetActive(false);
             crosshair.SetActive(false);
-
+            tutorialEvents.OnTutorialStarted();
             screenFadeController.FadeToTransparent(StartTutorial);
         }
     }
@@ -97,12 +86,6 @@ public class TutorialController : MonoBehaviour
         director.Stop();
         cinemachineBrain.enabled = false;
         gameObject.SetActive(false);
-
-        foreach (GameObject go in bannersAndMarkers)
-            go.SetActive(true);
-
-        tutObjectiveIcon.SetActive(false);
-        tutObjectiveMarker.SetActive(false);
         crosshair.SetActive(true);
 
         foreach (AIZoneController zoneController in zoneControllers)
@@ -120,7 +103,6 @@ public class TutorialController : MonoBehaviour
     {
         running = true;
         director.Play();
-        tutorialEvents.OnTutorialStarted();
     }
 
     private void EndTutorial()

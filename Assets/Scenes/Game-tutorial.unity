@@ -7274,6 +7274,7 @@ Transform:
   - {fileID: 1281987909}
   - {fileID: 1626541618}
   - {fileID: 1699684287}
+  - {fileID: 772898358}
   m_Father: {fileID: 804468630}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8768,11 +8769,11 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 0
-  m_Extents: {x: 0.6, y: 1.5, z: 0.6}
+  m_Extents: {x: 1.5, y: 1.5, z: 1.5}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: -0.3, y: 1.2, z: 0}
+  m_Center: {x: -0.2, y: 0.2, z: -1.1}
   m_TimeToStationary: 0.5
 --- !u!136 &570958335
 CapsuleCollider:
@@ -10740,6 +10741,51 @@ Transform:
   m_Father: {fileID: 84779438}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &772898357
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 772898358}
+  - component: {fileID: 772898359}
+  m_Layer: 0
+  m_Name: TutorialSpawner2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &772898358
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 772898357}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -17, y: 38.86, z: 59.5}
+  m_LocalScale: {x: 1.0000002, y: 1, z: 1.0000002}
+  m_Children: []
+  m_Father: {fileID: 460162198}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &772898359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 772898357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35ee3c6c0cc97134d9f20eb6fbebbba8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoneController: {fileID: 246851401}
+  spawnController: {fileID: 460162199}
+  spawnerArea: {x: 0, y: 0, z: 0}
+  spawnVFX: {fileID: 198235066216384972, guid: 72a50551b77ab554192883532e62dac9, type: 2}
+  activeSpawnInfos: []
 --- !u!1001 &777420701
 Prefab:
   m_ObjectHideFlags: 0
@@ -12636,11 +12682,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 320400532580166328, guid: 700b87466641795459dafd993279bac5,
-        type: 2}
-      propertyPath: m_SceneBindings.Array.size
-      value: 13
-      objectReference: {fileID: 0}
     - target: {fileID: 4124070079434272, guid: 700b87466641795459dafd993279bac5, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -12673,11 +12714,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114740602830611852, guid: 700b87466641795459dafd993279bac5,
-        type: 2}
-      propertyPath: building
-      value: 
-      objectReference: {fileID: 570958336}
     - target: {fileID: 320400532580166328, guid: 700b87466641795459dafd993279bac5,
         type: 2}
       propertyPath: m_SceneBindings.Array.data[3].value
@@ -12688,11 +12724,41 @@ Prefab:
       propertyPath: m_SceneBindings.Array.data[9].value
       value: 
       objectReference: {fileID: 1527013668}
+    - target: {fileID: 320400532580166328, guid: 700b87466641795459dafd993279bac5,
+        type: 2}
+      propertyPath: m_SceneBindings.Array.data[12].value
+      value: 
+      objectReference: {fileID: 1502547814}
+    - target: {fileID: 114325232345552390, guid: 700b87466641795459dafd993279bac5,
+        type: 2}
+      propertyPath: tutObjectiveMarker
+      value: 
+      objectReference: {fileID: 848834317}
+    - target: {fileID: 114325232345552390, guid: 700b87466641795459dafd993279bac5,
+        type: 2}
+      propertyPath: tutObjectiveIcon
+      value: 
+      objectReference: {fileID: 848834318}
+    - target: {fileID: 114325232345552390, guid: 700b87466641795459dafd993279bac5,
+        type: 2}
+      propertyPath: bannersAndMarkers.Array.data[0]
+      value: 
+      objectReference: {fileID: 848834315}
+    - target: {fileID: 114325232345552390, guid: 700b87466641795459dafd993279bac5,
+        type: 2}
+      propertyPath: bannersAndMarkers.Array.data[1]
+      value: 
+      objectReference: {fileID: 848834316}
     - target: {fileID: 114325232345552390, guid: 700b87466641795459dafd993279bac5,
         type: 2}
       propertyPath: tutorialSpawner
       value: 
       objectReference: {fileID: 1699684288}
+    - target: {fileID: 114325232345552390, guid: 700b87466641795459dafd993279bac5,
+        type: 2}
+      propertyPath: tutorialSpawner2
+      value: 
+      objectReference: {fileID: 772898359}
     - target: {fileID: 114325232345552390, guid: 700b87466641795459dafd993279bac5,
         type: 2}
       propertyPath: enemyDescriptionController
@@ -12703,26 +12769,11 @@ Prefab:
       propertyPath: monumentIndicator
       value: 
       objectReference: {fileID: 848834310}
-    - target: {fileID: 114510619637958208, guid: 700b87466641795459dafd993279bac5,
+    - target: {fileID: 114740602830611852, guid: 700b87466641795459dafd993279bac5,
         type: 2}
-      propertyPath: tutObjectiveMarker
+      propertyPath: building
       value: 
-      objectReference: {fileID: 848834317}
-    - target: {fileID: 114510619637958208, guid: 700b87466641795459dafd993279bac5,
-        type: 2}
-      propertyPath: tutObjectiveIcon
-      value: 
-      objectReference: {fileID: 848834318}
-    - target: {fileID: 114510619637958208, guid: 700b87466641795459dafd993279bac5,
-        type: 2}
-      propertyPath: bannersAndMarkers.Array.data[0]
-      value: 
-      objectReference: {fileID: 848834315}
-    - target: {fileID: 114510619637958208, guid: 700b87466641795459dafd993279bac5,
-        type: 2}
-      propertyPath: bannersAndMarkers.Array.data[1]
-      value: 
-      objectReference: {fileID: 848834316}
+      objectReference: {fileID: 570958336}
     - target: {fileID: 114510619637958208, guid: 700b87466641795459dafd993279bac5,
         type: 2}
       propertyPath: crosshair
@@ -12738,17 +12789,6 @@ Prefab:
       propertyPath: screenFadeController
       value: 
       objectReference: {fileID: 848834314}
-    - target: {fileID: 320400532580166328, guid: 700b87466641795459dafd993279bac5,
-        type: 2}
-      propertyPath: m_SceneBindings.Array.data[12].key
-      value: 
-      objectReference: {fileID: 114012078622510562, guid: 6b211c1882ca79e49a59135ca1c9230b,
-        type: 2}
-    - target: {fileID: 320400532580166328, guid: 700b87466641795459dafd993279bac5,
-        type: 2}
-      propertyPath: m_SceneBindings.Array.data[12].value
-      value: 
-      objectReference: {fileID: 1502547814}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 700b87466641795459dafd993279bac5, type: 2}
   m_IsPrefabParent: 0
@@ -27408,10 +27448,6 @@ Prefab:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 230846840}
-    - target: {fileID: 1969640008387226, guid: ea64b03fd47dae043a3d7cf8c919a7b7, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ea64b03fd47dae043a3d7cf8c919a7b7, type: 2}
   m_IsPrefabParent: 0

@@ -13,8 +13,17 @@ public class TutorialEvents: MonoBehaviour
     }
 
     #region Fields
+    [Header("UI")]
+    [SerializeField]
+    private GameObject tutObjectiveMarker;
+    [SerializeField]
+    private GameObject tutObjectiveIcon;
+    [SerializeField]
+    private GameObject[] bannersAndMarkers;
+
     [Header("General")]
     public AISpawner tutorialSpawner;
+    public AISpawner tutorialSpawner2;
     [SerializeField]
     private DamageLimiter damageLimiterTutZone;
     public EnemyDescriptionController enemyDescriptionController;
@@ -26,9 +35,6 @@ public class TutorialEvents: MonoBehaviour
     public Transform lightingPosition;
     public MonumentIndicator monumentIndicator;
 
-    [Header("1-SpawnSlime")]
-    public EnemyType slimeEnemyType;
-
     private TutorialEvent[] events;
     private TutorialEnemiesManager tutorialEnemiesManager;
     #endregion
@@ -39,7 +45,9 @@ public class TutorialEvents: MonoBehaviour
         events = new TutorialEvent[]{
             DropLighting,
             SpawnSlime,
-            SlimeAttack
+            SlimeAttack,
+            SpawnBear,
+            BearAttack
         };
     }
     #endregion
@@ -53,11 +61,23 @@ public class TutorialEvents: MonoBehaviour
     public void OnTutorialStarted()
     {
         damageLimiterTutZone.gameObject.SetActive(true);
+
+        foreach (GameObject go in bannersAndMarkers)
+            go.SetActive(false);
+
+        tutObjectiveIcon.SetActive(true);
+        tutObjectiveMarker.SetActive(false);
     }
 
     public void OnTutorialEnded()
     {
         damageLimiterTutZone.gameObject.SetActive(false);
+
+        foreach (GameObject go in bannersAndMarkers)
+            go.SetActive(true);
+
+        tutObjectiveIcon.SetActive(false);
+        tutObjectiveMarker.SetActive(false);
     }
 
     public void LaunchEvent(int eventIndex)
@@ -75,12 +95,14 @@ public class TutorialEvents: MonoBehaviour
     {
         ParticlesManager.instance.LaunchParticleSystem(lightingPrefab, lightingPosition.position, lightingPrefab.transform.rotation);
         monumentIndicator.RequestOpen();
+        tutObjectiveMarker.SetActive(false);
     }
 
     // 01
     private void SpawnSlime()
     {
         SpawnEnemy(tutorialSpawner, EnemyType.BASIC);
+        tutorialEnemiesManager.HaltEnemies();
         SetEnemyLabelInfo(0);
         damageLimiterTutZone.normalizedMaxDamage = 0.2f;
     }
@@ -92,11 +114,26 @@ public class TutorialEvents: MonoBehaviour
         tutorialEnemiesManager.ClearEnemies();
     }
 
+    // 03
+    private void SpawnBear()
+    {
+        SpawnEnemy(tutorialSpawner2, EnemyType.RANGE);
+        tutorialEnemiesManager.HaltEnemies();
+        SetEnemyLabelInfo(1);
+        damageLimiterTutZone.normalizedMaxDamage = 0.5f;
+    }
+
+    // 04
+    private void BearAttack()
+    {
+        tutorialEnemiesManager.ResumeEnemies();
+        tutorialEnemiesManager.ClearEnemies();
+    }
+
     private void SpawnEnemy(AISpawner spawner, EnemyType enemyType)
     {
         AIEnemy enemy = spawner.SpawnOne(enemyType);
         tutorialEnemiesManager.AddEnemy(enemy);
-        tutorialEnemiesManager.HaltEnemies();
     }
 
     private void SetEnemyLabelInfo(int infoIndex)
