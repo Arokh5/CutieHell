@@ -241,7 +241,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: CM vcam1
+    m_DisplayName: CM1 InitialCam
     m_Version: 1
   - m_Start: 1
     m_ClipIn: 0
@@ -256,19 +256,7 @@ MonoBehaviour:
     m_BlendOutDuration: 2
     m_MixInCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 2
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      - serializedVersion: 2
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -299,7 +287,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: CM vcam2
+    m_DisplayName: CM2 DollyCam
     m_Version: 1
   - m_Start: 7
     m_ClipIn: 0
@@ -345,18 +333,86 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: CM vcam3
+    m_DisplayName: CM3 ZoneDCam
     m_Version: 1
   - m_Start: 9.5
     m_ClipIn: 0
     m_Asset: {fileID: 114134339483402902}
     m_UnderlyingAsset: {fileID: 114134339483402902}
-    m_Duration: 5.633333333333333
+    m_Duration: 3
     m_TimeScale: 1
     m_ParentTrack: {fileID: 114095367648683106}
     m_EaseInDuration: 0
     m_EaseOutDuration: 0
     m_BlendInDuration: 0.25
+    m_BlendOutDuration: 0.5
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: CM4 ZoneDZoomCam
+    m_Version: 1
+  - m_Start: 12
+    m_ClipIn: 0
+    m_Asset: {fileID: 114843730090046166}
+    m_UnderlyingAsset: {fileID: 114843730090046166}
+    m_Duration: 2.5
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 114095367648683106}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0.5
+    m_BlendOutDuration: 0.5
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: CM5 EnemyZoomCam
+    m_Version: 1
+  - m_Start: 14
+    m_ClipIn: 0
+    m_Asset: {fileID: 114983716685969880}
+    m_UnderlyingAsset: {fileID: 114983716685969880}
+    m_Duration: 3
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 114095367648683106}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: 0.5
     m_BlendOutDuration: -1
     m_MixInCurve:
       serializedVersion: 2
@@ -391,7 +447,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: CM vcam4
+    m_DisplayName: CM4 ZoneDZoomCam
     m_Version: 1
 --- !u!114 &114134339483402902
 MonoBehaviour:
@@ -707,6 +763,20 @@ MonoBehaviour:
   VirtualCamera:
     exposedName: 997727848db9b794a83ba56b86862ad1
     defaultValue: {fileID: 0}
+--- !u!114 &114843730090046166
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90fb794a295e73545af71bcdb7375791, type: 3}
+  m_Name: CinemachineShot
+  m_EditorClassIdentifier: 
+  VirtualCamera:
+    exposedName: bf24eae8d89dc2e4a87666a2e7195f50
+    defaultValue: {fileID: 0}
 --- !u!114 &114945193101064062
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -720,4 +790,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VirtualCamera:
     exposedName: 18e26eb0844867a4f992ba1a6f99b9ab
+    defaultValue: {fileID: 0}
+--- !u!114 &114983716685969880
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90fb794a295e73545af71bcdb7375791, type: 3}
+  m_Name: CinemachineShot
+  m_EditorClassIdentifier: 
+  VirtualCamera:
+    exposedName: 38a1a11d8c6648f409255fd476d8f316
     defaultValue: {fileID: 0}
