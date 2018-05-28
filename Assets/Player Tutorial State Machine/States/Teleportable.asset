@@ -9,13 +9,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1418da0e4d857ce4fb2339e94e78f9a8, type: 3}
-  m_Name: MoveAndTeleport
+  m_Name: Teleportable
   m_EditorClassIdentifier: 
   onEnterActions:
   - {fileID: 11400000, guid: 0eed128db3a246842be6b329e9898312, type: 2}
-  onExitActions:
-  - {fileID: 11400000, guid: 2be716f4653ee8a47a6a6bce9d428d50, type: 2}
-  - {fileID: 11400000, guid: 2e54b370d3952a944a46d8c6c2922308, type: 2}
-  stateActions:
-  - {fileID: 11400000, guid: 0114d4abe69aa214eafa844b779ee729, type: 2}
-  transitions: []
+  onExitActions: []
+  stateActions: []
+  transitions:
+  - decision: {fileID: 11400000, guid: b518bdfd46cf5c94a8896058b13cf424, type: 2}
+    targetState: {fileID: 11400000, guid: 6f5708097be679d49a7a5cd96078518e, type: 2}

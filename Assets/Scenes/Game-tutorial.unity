@@ -1268,6 +1268,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114580650670945556, guid: 182da881c3eee6548aa68ab299d1e64c,
+        type: 2}
+      propertyPath: tutorialController
+      value: 
+      objectReference: {fileID: 964897327}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
   m_IsPrefabParent: 0
@@ -12720,21 +12725,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 320400532580166328, guid: 700b87466641795459dafd993279bac5,
+    - target: {fileID: 114740602830611852, guid: 700b87466641795459dafd993279bac5,
         type: 2}
-      propertyPath: m_SceneBindings.Array.data[3].value
+      propertyPath: building
       value: 
-      objectReference: {fileID: 1789317508}
-    - target: {fileID: 320400532580166328, guid: 700b87466641795459dafd993279bac5,
-        type: 2}
-      propertyPath: m_SceneBindings.Array.data[9].value
-      value: 
-      objectReference: {fileID: 1527013668}
-    - target: {fileID: 320400532580166328, guid: 700b87466641795459dafd993279bac5,
-        type: 2}
-      propertyPath: m_SceneBindings.Array.data[12].value
-      value: 
-      objectReference: {fileID: 1502547814}
+      objectReference: {fileID: 570958336}
     - target: {fileID: 114325232345552390, guid: 700b87466641795459dafd993279bac5,
         type: 2}
       propertyPath: tutObjectiveMarker
@@ -12795,11 +12790,21 @@ Prefab:
       propertyPath: monumentIndicator
       value: 
       objectReference: {fileID: 848834310}
-    - target: {fileID: 114740602830611852, guid: 700b87466641795459dafd993279bac5,
+    - target: {fileID: 320400532580166328, guid: 700b87466641795459dafd993279bac5,
         type: 2}
-      propertyPath: building
+      propertyPath: m_SceneBindings.Array.data[3].value
       value: 
-      objectReference: {fileID: 570958336}
+      objectReference: {fileID: 1789317508}
+    - target: {fileID: 320400532580166328, guid: 700b87466641795459dafd993279bac5,
+        type: 2}
+      propertyPath: m_SceneBindings.Array.data[9].value
+      value: 
+      objectReference: {fileID: 1527013668}
+    - target: {fileID: 320400532580166328, guid: 700b87466641795459dafd993279bac5,
+        type: 2}
+      propertyPath: m_SceneBindings.Array.data[12].value
+      value: 
+      objectReference: {fileID: 1502547814}
     - target: {fileID: 114510619637958208, guid: 700b87466641795459dafd993279bac5,
         type: 2}
       propertyPath: crosshair
@@ -27439,22 +27444,12 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114035595282849316, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+    - target: {fileID: 114073722361617496, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: target
       value: 
       objectReference: {fileID: 739791453}
-    - target: {fileID: 114035595282849316, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-        type: 2}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 230846840}
-    - target: {fileID: 114251216045031656, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-        type: 2}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 1664606504}
-    - target: {fileID: 114251216045031656, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+    - target: {fileID: 114073722361617496, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: mainCamera
       value: 
@@ -27469,12 +27464,22 @@ Prefab:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 230846840}
-    - target: {fileID: 114073722361617496, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+    - target: {fileID: 114251216045031656, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+        type: 2}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1664606504}
+    - target: {fileID: 114251216045031656, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+        type: 2}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 230846840}
+    - target: {fileID: 114035595282849316, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: target
       value: 
       objectReference: {fileID: 739791453}
-    - target: {fileID: 114073722361617496, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+    - target: {fileID: 114035595282849316, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: mainCamera
       value: 

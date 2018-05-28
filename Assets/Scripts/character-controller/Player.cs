@@ -6,6 +6,9 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
     #region Fields
+    [Header("Tutorial")]
+    public TutorialController tutorialController;
+
     [Header("Movement Variabes")]
     public Transform[] teleportTargets;
     public GameObject footSteps;

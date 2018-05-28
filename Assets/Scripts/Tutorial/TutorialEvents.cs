@@ -103,7 +103,7 @@ public class TutorialEvents: MonoBehaviour
         if (eventIndex >= 0 && eventIndex < events.Length)
             events[eventIndex]();
         else
-            Debug.LogError("ERROR: eventIndex parameter out of range in TutorialEvents::LaunchEvent in gameObject '" + gameObject.name + "'!");
+            Debug.LogError("ERROR: eventIndex parameter (" + eventIndex + ") out of range in TutorialEvents::LaunchEvent in gameObject '" + gameObject.name + "'!");
     }
     #endregion
 
@@ -201,6 +201,11 @@ public class TutorialEvents: MonoBehaviour
         infoPromptController.ShowPrompt(infoPrompts[1], 3);
     }
 
+    // 12
+    private void Teleported()
+    {
+        infoPromptController.ShowPrompt(infoPrompts[2], 3);
+    }
 
 
     // ####
