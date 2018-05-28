@@ -20,10 +20,12 @@ public class PropModelChanger : Convertible
 
     private void Awake()
     {
-        UnityEngine.Assertions.Assert.IsNotNull(originalProp, "original Prop Mesh Renderer has NOT been assigned in GameObject called " + gameObject.name);
-        UnityEngine.Assertions.Assert.IsNotNull(alternateProp, "alternate Prop Mesh Renderer has NOT been assigned in GameObject called " + gameObject.name);
-        originalProp.material.SetFloat("_Size", 1);
-        alternateProp.material.SetFloat("_Size", 0);
+        UnityEngine.Assertions.Assert.IsNotNull(originalProp, "ERROR: original Prop Mesh Renderer has NOT been assigned in PropModelChanger in GameObject called " + gameObject.name);
+        UnityEngine.Assertions.Assert.IsNotNull(alternateProp, "ERROR: alternate Prop Mesh Renderer has NOT been assigned in PropModelChanger in GameObject called " + gameObject.name);
+        originalProp.transform.localScale = Vector3.one;
+        originalProp.gameObject.SetActive(true);
+        alternateProp.transform.localScale = Vector3.zero;
+        alternateProp.gameObject.SetActive(true);
     }
 
     private void Update()
@@ -33,18 +35,18 @@ public class PropModelChanger : Convertible
             if (convertionElapsedTime < propCollapseDuration)
             {
                 float shrinkFactor = 1 - convertionElapsedTime / propCollapseDuration;
-                originalProp.material.SetFloat("_Size", shrinkFactor);
+                originalProp.transform.localScale = shrinkFactor * Vector3.one;
             }
             else if (convertionElapsedTime < propCollapseDuration + alternatePropGrowDuration)
             {
-                originalProp.material.SetFloat("_Size", 0);
+                originalProp.transform.localScale = Vector3.zero;
                 float growFactor = (convertionElapsedTime - propCollapseDuration) / alternatePropGrowDuration;
-                alternateProp.material.SetFloat("_Size", growFactor);
+                alternateProp.transform.localScale = growFactor * Vector3.one;
             }
             else
             {
                 // Convertion finished
-                alternateProp.material.SetFloat("_Size", 1);
+                alternateProp.transform.localScale = Vector3.one;
                 convertionElapsedTime = 0;
                 converting = false;
                 isConverted = true;
@@ -55,18 +57,18 @@ public class PropModelChanger : Convertible
             if (convertionElapsedTime < alternatePropGrowDuration)
             {
                 float shrinkFactor = 1 - convertionElapsedTime / alternatePropGrowDuration;
-                alternateProp.material.SetFloat("_Size", shrinkFactor);
+                alternateProp.transform.localScale = shrinkFactor * Vector3.one;
             }
             else if (convertionElapsedTime < alternatePropGrowDuration + propCollapseDuration)
             {
-                originalProp.material.SetFloat("_Size", 0);
+                alternateProp.transform.localScale = Vector3.zero;
                 float growFactor = (convertionElapsedTime - alternatePropGrowDuration) / propCollapseDuration;
-                originalProp.material.SetFloat("_Size", growFactor);
+                originalProp.transform.localScale = growFactor * Vector3.one;
             }
             else
             {
                 // Unconvertion finished
-                originalProp.material.SetFloat("_Size", 1);
+                originalProp.transform.localScale = Vector3.one;
                 convertionElapsedTime = 0;
                 unconverting = false;
                 isConverted = false;
