@@ -26,6 +26,7 @@ public class TutorialController : MonoBehaviour
 
     private bool running;
     private bool paused;
+    private Vector3 playerStartingPos;
     private PlayableDirector director;
     private TutorialEvents tutorialEvents;
     private TutorialEnemiesManager tutorialEnemiesManager;
@@ -37,6 +38,7 @@ public class TutorialController : MonoBehaviour
     {
         UnityEngine.Assertions.Assert.IsNotNull(cinemachineBrain, "ERROR: The TutorialController in gameObject '" + gameObject.name + "' doesn't have a CinemachineBrain assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(screenFadeController, "ERROR: The TutorialController in gameObject '" + gameObject.name + "' doesn't have a ScreenFadeController assigned!");
+        UnityEngine.Assertions.Assert.IsNotNull(player, "ERROR: The TutorialController in gameObject '" + gameObject.name + "' doesn't have a Player assigned!");
         director = GetComponent<PlayableDirector>();
         UnityEngine.Assertions.Assert.IsNotNull(director, "ERROR: A PlayableDirector Component could not be found by TutorialController in GameObject " + gameObject.name);
         tutorialEvents = GetComponent<TutorialEvents>();
@@ -44,6 +46,7 @@ public class TutorialController : MonoBehaviour
         zoneControllers = FindObjectsOfType<AIZoneController>();
         tutorialEnemiesManager = new TutorialEnemiesManager();
         tutorialEvents.SetTutorialEnemiesManager(tutorialEnemiesManager);
+        playerStartingPos = player.transform.position;
     }
 
     private void Update()
@@ -51,14 +54,14 @@ public class TutorialController : MonoBehaviour
         if (!paused && GameManager.instance.gameIsPaused)
         {
             paused = true;
-            if (running)
+            if (running && director.playableGraph.IsValid())
                 director.playableGraph.GetRootPlayable(0).SetSpeed(0);
                 // Using director.Pause() allows the cameras to snap back to the default priority settings.
         }
         else if (paused && !GameManager.instance.gameIsPaused)
         {
             paused = false;
-            if (running)
+            if (running && director.playableGraph.IsValid())
                 director.playableGraph.GetRootPlayable(0).SetSpeed(1);
             crosshair.SetActive(false);
         }
@@ -101,7 +104,8 @@ public class TutorialController : MonoBehaviour
         director.Stop();
         cinemachineBrain.enabled = false;
         gameObject.SetActive(false);
-        
+
+        player.transform.position = playerStartingPos;
         player.TransitionToState(playerDefaultState);
 
         foreach (AIZoneController zoneController in zoneControllers)
