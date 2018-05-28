@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.AI;
+﻿using UnityEngine;
 
 public class TutorialEvents: MonoBehaviour
 {
@@ -41,6 +39,7 @@ public class TutorialEvents: MonoBehaviour
     public Transform lightingPosition;
     public MonumentIndicator monumentIndicator;
 
+    private TutorialController tutorialController;
     private TutorialEvent[] events;
     private TutorialEnemiesManager tutorialEnemiesManager;
     private AIEnemy firstConqueror;
@@ -49,6 +48,9 @@ public class TutorialEvents: MonoBehaviour
     #region MonoBehaviour Methods
     private void Awake()
     {
+        tutorialController = GetComponent<TutorialController>();
+        UnityEngine.Assertions.Assert.IsNotNull(tutorialController, "ERROR: A TutorialController Component could not be found by TutorialEvents in GameObject " + gameObject.name);
+
         events = new TutorialEvent[]{
             DropLighting,
             SpawnSlime,
@@ -57,10 +59,10 @@ public class TutorialEvents: MonoBehaviour
             BearAttack,
             SpawnConqueror,
             ConquerorAttack,
-            Spawn3Slimes,
             HaltEnemies,
             RestoreUI,
-            DisableCMBrain
+            DisableCMBrain,
+            NextPlayerState
         };
     }
     #endregion
@@ -155,22 +157,14 @@ public class TutorialEvents: MonoBehaviour
     {
         firstConqueror.agent.enabled = true;
     }
-
+       
     // 07
-    private void Spawn3Slimes()
-    {
-        tutorialEnemiesManager.AddEnemy(zoneDSpawner.SpawnOne(EnemyType.BASIC));
-        tutorialEnemiesManager.AddEnemy(zoneDSpawner.SpawnOne(EnemyType.BASIC));
-        tutorialEnemiesManager.AddEnemy(zoneDSpawner.SpawnOne(EnemyType.BASIC));
-    }
-
-    // 08
     private void HaltEnemies()
     {
         tutorialEnemiesManager.HaltEnemies();
     }
 
-    // 09
+    // 08
     private void RestoreUI()
     {
         foreach (GameObject go in bannersAndMarkers)
@@ -181,10 +175,27 @@ public class TutorialEvents: MonoBehaviour
         crosshair.SetActive(true);
     }
 
-    // 10
+    // 09
     private void DisableCMBrain()
     {
         cmBrain.enabled = false;
+    }
+
+    // 10
+    private void NextPlayerState()
+    {
+        tutorialController.NextPlayerState();
+    }
+
+
+
+    // ####
+    private void Spawn4Slimes()
+    {
+        tutorialEnemiesManager.AddEnemy(zoneDSpawner.SpawnOne(EnemyType.BASIC));
+        tutorialEnemiesManager.AddEnemy(zoneDSpawner.SpawnOne(EnemyType.BASIC));
+        tutorialEnemiesManager.AddEnemy(zoneDSpawner.SpawnOne(EnemyType.BASIC));
+        tutorialEnemiesManager.AddEnemy(zoneDSpawner.SpawnOne(EnemyType.BASIC));
     }
 
     private AIEnemy SpawnEnemy(AISpawner spawner, EnemyType enemyType)

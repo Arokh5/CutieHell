@@ -21,7 +21,8 @@ public class TutorialController : MonoBehaviour
     [SerializeField]
     private State playerDefaultState;
     [SerializeField]
-    private State initialTutorialState;
+    private State[] tutorialStates;
+    private int playerStateIndex = -1;
 
     private bool running;
     private bool paused;
@@ -75,7 +76,8 @@ public class TutorialController : MonoBehaviour
     {
         if (!running)
         {
-            player.TransitionToState(initialTutorialState);
+            playerStateIndex = -1;
+            NextPlayerState();
             tutorialEvents.OnTutorialStarted();
             screenFadeController.FadeToTransparent(StartTutorial);
         }
@@ -84,6 +86,11 @@ public class TutorialController : MonoBehaviour
     public void LaunchEvent(int eventIndex)
     {
         tutorialEvents.LaunchEvent(eventIndex);
+    }
+
+    public void NextPlayerState()
+    {
+        player.TransitionToState(tutorialStates[++playerStateIndex]);
     }
     #endregion
 
