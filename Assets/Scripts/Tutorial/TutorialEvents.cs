@@ -34,6 +34,11 @@ public class TutorialEvents: MonoBehaviour
     [SerializeField]
     private EnemyLabelInfo[] enemyLabelInfos;
 
+    [Header("Info Prompts")]
+    public InformationPromptController infoPromptController;
+    [SerializeField]
+    private string[] infoPrompts;
+
     [Header("0-DropLighting")]
     public ParticleSystem lightingPrefab;
     public Transform lightingPosition;
@@ -52,17 +57,18 @@ public class TutorialEvents: MonoBehaviour
         UnityEngine.Assertions.Assert.IsNotNull(tutorialController, "ERROR: A TutorialController Component could not be found by TutorialEvents in GameObject " + gameObject.name);
 
         events = new TutorialEvent[]{
-            DropLighting,
-            SpawnSlime,
-            SlimeAttack,
-            SpawnBear,
-            BearAttack,
-            SpawnConqueror,
-            ConquerorAttack,
-            HaltEnemies,
-            RestoreUI,
-            DisableCMBrain,
-            NextPlayerState
+            DropLighting,           // 00
+            SpawnSlime,             // 01
+            SlimeAttack,            // 02
+            SpawnBear,              // 03
+            BearAttack,             // 04
+            SpawnConqueror,         // 05
+            ConquerorAttack,        // 06
+            HaltEnemies,            // 07
+            RestoreUI,              // 08
+            DisableCMBrain,         // 09
+            PlayerMoveLesson,       // 10
+            PlayerTeleportLesson    // 11
         };
     }
     #endregion
@@ -182,9 +188,17 @@ public class TutorialEvents: MonoBehaviour
     }
 
     // 10
-    private void NextPlayerState()
+    private void PlayerMoveLesson()
     {
         tutorialController.NextPlayerState();
+        infoPromptController.ShowPrompt(infoPrompts[0], 3);
+    }
+
+    // 11
+    private void PlayerTeleportLesson()
+    {
+        tutorialController.NextPlayerState();
+        infoPromptController.ShowPrompt(infoPrompts[1], 3);
     }
 
 
