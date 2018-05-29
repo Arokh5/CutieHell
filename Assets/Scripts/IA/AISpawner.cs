@@ -15,6 +15,9 @@ public class AISpawner : MonoBehaviour {
     private ParticleSystem spawnVFX;
 
     [SerializeField]
+    private GameObject lightningVFX;
+
+    [SerializeField]
     private List<SpawnInfo> activeSpawnInfos;
     #endregion
 
@@ -62,6 +65,7 @@ public class AISpawner : MonoBehaviour {
     {
         if (!activeSpawnInfos.Contains(spawnInfo))
         {
+            Destroy(Instantiate(lightningVFX, this.transform.position, lightningVFX.transform.rotation), 2.0f);
             zoneController.monument.GetMonumentIndicator().RequestOpen();
             activeSpawnInfos.Add(spawnInfo);
             spawnInfo.elapsedTime = 0;
