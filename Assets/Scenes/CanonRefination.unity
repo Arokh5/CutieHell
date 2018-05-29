@@ -11224,6 +11224,7 @@ GameObject:
   - component: {fileID: 501412057}
   - component: {fileID: 501412059}
   - component: {fileID: 501412058}
+  - component: {fileID: 501412060}
   m_Layer: 0
   m_Name: Trap_Top
   m_TagString: Untagged
@@ -11289,6 +11290,22 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 501412056}
   m_Mesh: {fileID: 4300002, guid: 4a3a647ff0a49c444a6a770af90576d1, type: 3}
+--- !u!114 &501412060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 501412056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67a63892661cc6646be4bfd3c0465407, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  limitedShootDistance: 12
+  minimumShootDistance: 4
+  decalMovementSpeed: 4
+  canonWayOutPoint: 0.15
+  canonTargetDecalGOTransform: {fileID: 0}
 --- !u!1 &501717535
 GameObject:
   m_ObjectHideFlags: 0
@@ -18268,6 +18285,7 @@ GameObject:
   - component: {fileID: 1035097971}
   - component: {fileID: 1035097973}
   - component: {fileID: 1035097972}
+  - component: {fileID: 1035097974}
   m_Layer: 0
   m_Name: Trap_Top
   m_TagString: Untagged
@@ -18333,6 +18351,22 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1035097970}
   m_Mesh: {fileID: 4300002, guid: 4a3a647ff0a49c444a6a770af90576d1, type: 3}
+--- !u!114 &1035097974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1035097970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67a63892661cc6646be4bfd3c0465407, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  limitedShootDistance: 12
+  minimumShootDistance: 4
+  decalMovementSpeed: 4
+  canonWayOutPoint: 0.15
+  canonTargetDecalGOTransform: {fileID: 0}
 --- !u!1001 &1036349845
 Prefab:
   m_ObjectHideFlags: 0
@@ -20441,6 +20475,7 @@ GameObject:
   - component: {fileID: 1178986593}
   - component: {fileID: 1178986595}
   - component: {fileID: 1178986594}
+  - component: {fileID: 1178986596}
   m_Layer: 0
   m_Name: Trap_Top
   m_TagString: Untagged
@@ -20506,6 +20541,22 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1178986592}
   m_Mesh: {fileID: 4300002, guid: 4a3a647ff0a49c444a6a770af90576d1, type: 3}
+--- !u!114 &1178986596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1178986592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67a63892661cc6646be4bfd3c0465407, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  limitedShootDistance: 12
+  minimumShootDistance: 4
+  decalMovementSpeed: 4
+  canonWayOutPoint: 0.15
+  canonTargetDecalGOTransform: {fileID: 0}
 --- !u!1 &1180436890
 GameObject:
   m_ObjectHideFlags: 0

@@ -30,17 +30,7 @@ public class CanonTurretAttack : StateAction
 
     private GameObject currentCanonBall = null;
     private CanonBallMotion currentCanonBallMotion = null;
-
-    [Header("Canon Decal Fields")]
-    public float limitedShootDistance;
-    public float minimumShootDistance;
-    public float decalMovementSpeed;
-    
-
-    [Header("Canon Fields")]
-    public float canonWayOutPoint;
-
-    private static Transform canonTargetDecalGOTransform = null;
+    private CanonInfo canon = null;
 
     private Player playerRef = null;
 
@@ -67,8 +57,9 @@ public class CanonTurretAttack : StateAction
     #region Private Methods
     private void CanonAttackFirstUsePreparations(Player player)
     {
+        canon = playerRef.currentTrap.rotatingHead.GetComponent<CanonInfo>();
         canonBallStartPoint = playerRef.currentTrap.canonBallStartPoint;
-        canonTargetDecalGOTransform = player.currentTrap.canonTargetDecal.transform;
+        canon.canonTargetDecalGOTransform = player.currentTrap.canonTargetDecal.transform;
 
         UnityEngine.Assertions.Assert.IsFalse(canonBallExplosionRange > playerRef.currentTrap.attractionRadius, "ERROR: CanonBall explosion range can't be greater than its owner trap attraction radius");
 
@@ -93,10 +84,10 @@ public class CanonTurretAttack : StateAction
 
     private void checkMoveBackShootDecal(float decalNewDistance, Vector3 movementMagnitude)
     {
-        if(decalNewDistance > limitedShootDistance || (decalNewDistance < minimumShootDistance))
+        if(decalNewDistance > canon.limitedShootDistance || (decalNewDistance < canon.minimumShootDistance))
         { 
       
-            canonTargetDecalGOTransform.localPosition = canonTargetDecalGOTransform.localPosition - movementMagnitude * Time.deltaTime * decalMovementSpeed;
+            canon.canonTargetDecalGOTransform.localPosition = canon.canonTargetDecalGOTransform.localPosition - movementMagnitude * Time.deltaTime * canon.decalMovementSpeed;
         }
     }
 
@@ -104,42 +95,42 @@ public class CanonTurretAttack : StateAction
     {
         if (InputManager.instance.GetRightStickUp())
         {
-            canonTargetDecalGOTransform.localPosition += canonTargetDecalGOTransform.forward * Time.deltaTime * decalMovementSpeed;
+            canon.canonTargetDecalGOTransform.localPosition += canon.canonTargetDecalGOTransform.forward * Time.deltaTime * canon.decalMovementSpeed;
 
-            float distanceAfterMovement = Vector3.Distance(canonTargetDecalGOTransform.position, playerRef.currentTrap.transform.position);
-            checkMoveBackShootDecal(distanceAfterMovement, canonTargetDecalGOTransform.forward);           
+            float distanceAfterMovement = Vector3.Distance(canon.canonTargetDecalGOTransform.position, playerRef.currentTrap.transform.position);
+            checkMoveBackShootDecal(distanceAfterMovement, canon.canonTargetDecalGOTransform.forward);           
         }
         if (InputManager.instance.GetRightStickDown())
         {
-            canonTargetDecalGOTransform.localPosition += -canonTargetDecalGOTransform.forward * Time.deltaTime * decalMovementSpeed;
+            canon.canonTargetDecalGOTransform.localPosition += -canon.canonTargetDecalGOTransform.forward * Time.deltaTime * canon.decalMovementSpeed;
 
-            float distanceAfterMovement = Vector3.Distance(canonTargetDecalGOTransform.position, playerRef.currentTrap.transform.position);
-            checkMoveBackShootDecal(distanceAfterMovement, -canonTargetDecalGOTransform.forward);
+            float distanceAfterMovement = Vector3.Distance(canon.canonTargetDecalGOTransform.position, playerRef.currentTrap.transform.position);
+            checkMoveBackShootDecal(distanceAfterMovement, -canon.canonTargetDecalGOTransform.forward);
         }
         if (InputManager.instance.GetRightStickRight())
         {
-            canonTargetDecalGOTransform.localPosition += canonTargetDecalGOTransform.right * Time.deltaTime * decalMovementSpeed;
+            canon.canonTargetDecalGOTransform.localPosition += canon.canonTargetDecalGOTransform.right * Time.deltaTime * canon.decalMovementSpeed;
 
-            float distanceAfterMovement = Vector3.Distance(canonTargetDecalGOTransform.position, playerRef.currentTrap.transform.position);
-            checkMoveBackShootDecal(distanceAfterMovement, canonTargetDecalGOTransform.right);
+            float distanceAfterMovement = Vector3.Distance(canon.canonTargetDecalGOTransform.position, playerRef.currentTrap.transform.position);
+            checkMoveBackShootDecal(distanceAfterMovement, canon.canonTargetDecalGOTransform.right);
         }
         if (InputManager.instance.GetRightStickLeft())
         {
-            canonTargetDecalGOTransform.localPosition += -canonTargetDecalGOTransform.right * Time.deltaTime * decalMovementSpeed;
+            canon.canonTargetDecalGOTransform.localPosition += -canon.canonTargetDecalGOTransform.right * Time.deltaTime * canon.decalMovementSpeed;
 
-            float distanceAfterMovement = Vector3.Distance(canonTargetDecalGOTransform.position, playerRef.currentTrap.transform.position);
-            checkMoveBackShootDecal(distanceAfterMovement, -canonTargetDecalGOTransform.right);
+            float distanceAfterMovement = Vector3.Distance(canon.canonTargetDecalGOTransform.position, playerRef.currentTrap.transform.position);
+            checkMoveBackShootDecal(distanceAfterMovement, -canon.canonTargetDecalGOTransform.right);
         }
     }
 
     private void ShootCanonBall()
     {
-        Vector3 shootDistance = canonBallStartPoint.position - canonTargetDecalGOTransform.position;
+        Vector3 shootDistance = canonBallStartPoint.position - canon.canonTargetDecalGOTransform.position;
         float shootingDuration = shootDistance.magnitude / canonBallshootingSpeed;
 
         currentCanonBallMotion.canonBallShootingDuration = shootingDuration;
         currentCanonBallMotion.canonBallShotingDistance = shootDistance;
-        currentCanonBallMotion.canonBallVisibleFromProgression = canonWayOutPoint;
+        currentCanonBallMotion.canonBallVisibleFromProgression = canon.canonWayOutPoint;
 
         currentCanonBallMotion.SetAlreadyFired(true);
 
