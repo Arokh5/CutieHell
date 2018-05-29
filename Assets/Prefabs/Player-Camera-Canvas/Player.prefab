@@ -1437,8 +1437,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1351661036542954}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.21, y: 36.2, z: -70.61}
+  m_LocalRotation: {x: -0, y: -0.094155475, z: -0, w: 0.99555755}
+  m_LocalPosition: {x: -6.8, y: 36.646, z: -55.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4039087186657490}
@@ -1448,7 +1448,7 @@ Transform:
   - {fileID: 4127734796921036}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -10.805, z: 0}
 --- !u!4 &4127734796921036
 Transform:
   m_ObjectHideFlags: 1
@@ -2753,7 +2753,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   footSteps: {fileID: 1627844250683504}
-  floorClearance: 0.15
+  floorClearance: 0.1
   currentSpeed: {x: 0, y: 0, z: 0}
   lastValidPosition: {x: 0, y: 0, z: 0}
   maxEvilLevel: 50
@@ -2797,6 +2797,7 @@ MonoBehaviour:
   accumulatedFogEvilCost: 0
   timeSinceLastFogHit: 0
   currentFogAttackTargets: []
+  toRemoveFogAttackTargets: []
   footstepsClip: {fileID: 8300000, guid: 690a4c72912b47d42addf3591cc0d266, type: 3}
   footstepsSource: {fileID: 82051252336897788}
   audioSource: {fileID: 82002686486523422}
@@ -2975,8 +2976,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0.00020170212, y: 0.8001671, z: -0.083869934}
-    m_Extent: {x: 0.31299952, y: 0.85534084, z: 0.61553055}
+    m_Center: {x: 0.0002002716, y: 0.8001671, z: -0.08387756}
+    m_Extent: {x: 0.46532592, y: 0.88815695, z: 0.726033}
   m_DirtyAABB: 0
 --- !u!137 &137922916964217542
 SkinnedMeshRenderer:
