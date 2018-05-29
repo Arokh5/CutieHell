@@ -175,10 +175,9 @@ public class BuildingEffects : MonoBehaviour
 
         // Now we attempt to convert convertible props
 
-        float limitRadius = maxEffectRadius * progress;
         foreach (Convertible convertible in convertibles)
         {
-            if (!convertible.IsConverting() && Vector3.Distance(transform.position, convertible.transform.position) < limitRadius)
+            if (!convertible.IsConverting() && !convertible.IsConverted() && Vector3.Distance(transform.position, convertible.transform.position) < effectOnMapRadius)
             {
                 convertible.Convert();
             }
