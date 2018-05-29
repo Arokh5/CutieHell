@@ -227,7 +227,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     // Called by the AIPlayer or an Attack to damage the AIEnemy
     public void TakeDamage(float damage, AttackType attacktype)
     {
-        if (IsDead() || !isTargetable)
+        if (IsDead() || !isTargetable || !gameObject.activeSelf)
             return;
 
         currentHealth -= damage;
