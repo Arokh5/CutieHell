@@ -108,6 +108,7 @@ public class CameraController : MonoBehaviour {
                     break;
                 case Player.CameraState.MOVE:
                     {
+
                         if (this.transform.parent != null) this.transform.parent = null;
                         y = ClampAngle(y, yMinLimit, yMaxLimit);
                         Quaternion rotation = Quaternion.Euler(y, x, 0);
@@ -268,21 +269,12 @@ public class CameraController : MonoBehaviour {
                     }
                 case Player.CameraState.TRANSITION:
                     {
-                        Quaternion rotation = this.transform.rotation;
+                        y = ClampAngle(y, yMinLimit, yMaxLimit);
+                        Quaternion rotation = Quaternion.Euler(y, x, 0);
                         float noCollisionDistance = distance;
                         timeOnTransition += Time.deltaTime;
-                        for (float zOffset = distance; zOffset >= 0.5f; zOffset -= 0.025f)
-                        {
-                            noCollisionDistance = zOffset;
-                            Vector3 tempPos = rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position;
-
-                            if (DoubleViewingPosCheck(tempPos, zOffset))
-                            {
-                                break;
-                            }
-                        }
                         this.transform.position = Vector3.Lerp(this.transform.position, rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position, timeOnTransition / 2f);
-                        this.transform.LookAt(player.transform.position + player.transform.up * focusY + player.transform.right * focusX + player.transform.forward * focusDistance);
+                        this.transform.LookAt(player.transform.position + rotation * Vector3.up * focusY + rotation * Vector3.right * focusX + rotation * Vector3.forward * focusDistance);
                         break;
                     }
                 default:
