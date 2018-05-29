@@ -68,7 +68,9 @@ public class TutorialEvents: MonoBehaviour
             RestoreUI,              // 08
             DisableCMBrain,         // 09
             PlayerMoveLesson,       // 10
-            PlayerTeleportLesson    // 11
+            HideInfoPrompt,         // 11
+            PlayerTeleportLesson,   // 12
+            Teleported              // 13
         };
     }
     #endregion
@@ -191,20 +193,26 @@ public class TutorialEvents: MonoBehaviour
     private void PlayerMoveLesson()
     {
         tutorialController.NextPlayerState();
-        infoPromptController.ShowPrompt(infoPrompts[0], 3);
+        infoPromptController.ShowPrompt(infoPrompts[0]);
     }
 
     // 11
-    private void PlayerTeleportLesson()
+    private void HideInfoPrompt()
     {
-        tutorialController.NextPlayerState();
-        infoPromptController.ShowPrompt(infoPrompts[1], 3);
+        infoPromptController.HidePrompt();
     }
 
     // 12
+    private void PlayerTeleportLesson()
+    {
+        tutorialController.NextPlayerState();
+        infoPromptController.ShowPrompt(infoPrompts[1]);
+    }
+
+    // 13
     private void Teleported()
     {
-        infoPromptController.ShowPrompt(infoPrompts[2], 3);
+        infoPromptController.ShowPrompt(infoPrompts[2]);
     }
 
 

@@ -36,7 +36,7 @@ public class EventLauncher : MonoBehaviour
     {
         if (type == LauncherType.TRIGGER_ENTER && tutorialController)
         {
-            if (triggerLayerMask.value == other.gameObject.layer)
+            if (((1 << other.gameObject.layer) & triggerLayerMask) != 0)
             {
                 LaunchEvent();
             }

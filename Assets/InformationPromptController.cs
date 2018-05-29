@@ -25,6 +25,7 @@ public class InformationPromptController : MonoBehaviour
     private float showYPos;
     private float hideYPos;
     private RectTransform rectTransform;
+    private bool keepOpen = false;
     #endregion
 
     #region MonoBehaviour Methods
@@ -65,6 +66,26 @@ public class InformationPromptController : MonoBehaviour
     #region Public Methods
     public void ShowPrompt(string content, float duration)
     {
+        keepOpen = false;
+        Prompt(content, duration);
+    }
+
+    public void ShowPrompt(string content)
+    {
+        keepOpen = true;
+        Prompt(content, 0);
+    }
+
+    public void HidePrompt()
+    {
+        keepOpen = false;
+        waitTimer = 0;
+    }
+    #endregion
+
+    #region Private Methods
+    private void Prompt(string content, float duration)
+    {
         SetPromptText(content);
         switch (state)
         {
@@ -83,9 +104,7 @@ public class InformationPromptController : MonoBehaviour
         waitTimer = duration;
         moveOutTimer = animationDuration;
     }
-    #endregion
 
-    #region Private Methods
     private void SetPromptText(string info)
     {
         infoText.text = info;
@@ -106,9 +125,12 @@ public class InformationPromptController : MonoBehaviour
 
     private void Wait()
     {
-        waitTimer -= Time.deltaTime;
-        if (waitTimer <= 0)
-            state = AnimationState.MOVE_OUT;
+        if (!keepOpen)
+        {
+            waitTimer -= Time.deltaTime;
+            if (waitTimer <= 0)
+                state = AnimationState.MOVE_OUT;
+        }
     }
 
     private void MoveOut()
