@@ -14,6 +14,7 @@ public class Monument : Building
     [SerializeField]
     private float lowHealthScreen;
     [Space]
+    public float maxRepairDistance = 5;
     [SerializeField]
     private MonumentIndicator monumentIndicator;
     [SerializeField]
