@@ -170,6 +170,9 @@ public class Player : MonoBehaviour {
 
         currentState.EnterState(this);
 
+        // Quick fix. More info above ReEnable method.
+        enabled = false;
+        Invoke("ReEnable", 0);
     }
 
     private void Update()
@@ -269,6 +272,12 @@ public class Player : MonoBehaviour {
     #endregion
 
     #region Private Methods
+    // Used for a quick fix on a bug where the player wouldn't be able to move after reloading the Game scene
+    private void ReEnable()
+    {
+        enabled = true;
+    }
+
     private void UpdateNearestMonument()
     {
         float nearestMonumentDistance = float.MaxValue;
