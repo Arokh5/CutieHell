@@ -104,8 +104,11 @@ public class Player : MonoBehaviour {
     public float accumulatedFogEvilCost = 0;
     [HideInInspector]
     public float timeSinceLastFogHit = 0;
-    [HideInInspector]
+    //[HideInInspector]
     public List<AIEnemy> currentFogAttackTargets = new List<AIEnemy>();
+    [HideInInspector]
+    public List<AIEnemy> toRemoveFogAttackTargets = new List<AIEnemy>();
+
 
     [Header("Footsteps")]
     public AudioClip footstepsClip;
