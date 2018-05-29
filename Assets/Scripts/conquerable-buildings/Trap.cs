@@ -62,6 +62,12 @@ public class Trap : Building, IUsable
     {
         Gizmos.color = new Color(1, 0, 0 ,0.5f);
         Gizmos.DrawWireSphere(transform.position, attractionRadius);
+
+        if(canonBallsList.Count > 0)
+        {
+            Gizmos.color = new Color(1, 0, 0, 0.5f);
+            Gizmos.DrawWireSphere(canonBallsList[0].transform.position, canonBallInfo.canonBallExplosionRange);
+        }
     }
 
    
