@@ -56,6 +56,8 @@ public class Player : MonoBehaviour {
     [HideInInspector]
     public Trap[] allTraps;
     public Trap nearbyTrap;
+    [HideInInspector]
+    public bool currentlyUsingTrap = false;
     public Trap currentTrap;
     public int trapUseCooldown;
     public float trapMaxUseDistance;

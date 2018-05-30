@@ -20,7 +20,7 @@ public class Trap : Building, IUsable
     public bool deactivate = false;
 
     [Header("Canon")]
-    public ParticleSystem canonTargetDecal;
+    public GameObject canonTargetDecal;
     public Transform canonBallStartPoint;
     public ParticleSystem canonShootingSmokeVFX;
     public List<CanonBallMotion> canonBallsList = new List<CanonBallMotion>();
@@ -62,6 +62,12 @@ public class Trap : Building, IUsable
     {
         Gizmos.color = new Color(1, 0, 0 ,0.5f);
         Gizmos.DrawWireSphere(transform.position, attractionRadius);
+
+        if(canonBallsList.Count > 0)
+        {
+            Gizmos.color = new Color(1, 0, 0, 0.5f);
+            Gizmos.DrawWireSphere(canonBallsList[0].transform.position, canonBallInfo.canonBallExplosionRange);
+        }
     }
 
    
@@ -186,12 +192,12 @@ public class Trap : Building, IUsable
         for (int i = 0; i < canonBallsList.Count; i++)
         {
             evaluatedCanonBall = canonBallsList[i];
-            evaluatedCanonBall.canonBallElapsedTime += Time.deltaTime;
-            motionProgress = evaluatedCanonBall.canonBallElapsedTime / evaluatedCanonBall.canonBallShootingDuration;
+            evaluatedCanonBall.canonBallFiringTime += Time.deltaTime;
+            motionProgress = evaluatedCanonBall.canonBallFiringTime / evaluatedCanonBall.canonBallShootingDuration;
 
-            if (!evaluatedCanonBall.canonBall.gameObject.activeSelf && motionProgress >= evaluatedCanonBall.canonBallVisibleFromProgression)
+            if (!evaluatedCanonBall.canonBallRenderer.enabled && motionProgress >= evaluatedCanonBall.canonBallVisibleFromProgression)
             {
-                evaluatedCanonBall.canonBall.gameObject.SetActive(true);
+                evaluatedCanonBall.canonBallRenderer.enabled = true;
                 if (!canonShootingSmokeVFX.gameObject.activeSelf)
                 {
                     canonShootingSmokeVFX.gameObject.SetActive(true);
@@ -237,7 +243,7 @@ public class Trap : Building, IUsable
             affectedEnemies[j].TakeDamage(canonBallInfo.canonBallExplosionRange, AttackType.TRAP_AREA);
         }
 
-        Destroy(canonBall.canonBall.gameObject);
+        Destroy(canonBall.gameObject);
     }
     #endregion
 }
