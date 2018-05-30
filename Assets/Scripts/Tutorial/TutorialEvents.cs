@@ -18,7 +18,9 @@ public class TutorialEvents: MonoBehaviour
     [SerializeField]
     private GameObject tutObjectiveIcon;
     [SerializeField]
-    private GameObject[] bannersAndMarkers;
+    private GameObject objectiveBanners;
+    [SerializeField]
+    private GameObject objectiveMarkers;
     [SerializeField]
     private GameObject crosshair;
     [SerializeField]
@@ -68,6 +70,10 @@ public class TutorialEvents: MonoBehaviour
     [SerializeField]
     private GameObject zoneAttackInfoText;
 
+    [Header("21-PlayerZoneTrapLesson")]
+    [SerializeField]
+    private GameObject zoneTrapWaveEnemyCountMonitor;
+
     private TutorialController tutorialController;
     private TutorialEvent[] events;
     private TutorialEnemiesManager tutorialEnemiesManager;
@@ -105,7 +111,8 @@ public class TutorialEvents: MonoBehaviour
             RepositionPlayer,       // 18
             SpawnZoneAtkWave,       // 19
             ZoneAttackInfo,         // 20
-            PlayerZoneTrapLesson    // 21   
+            PlayerZoneTrapLesson,   // 21   
+            ZoneTrapWaveKilled      // 22
         };
     }
     #endregion
@@ -125,14 +132,15 @@ public class TutorialEvents: MonoBehaviour
     {
         damageLimiterTutZone.gameObject.SetActive(true);
 
-        foreach (GameObject go in bannersAndMarkers)
-            go.SetActive(false);
+        objectiveMarkers.SetActive(false);
+        objectiveBanners.SetActive(false);
 
         foreach (GameObject go in enemyCountMonitors)
             go.SetActive(false);
 
         strongWaveEnemyCountMonitor.SetActive(false);
         zoneAttackInfoText.SetActive(false);
+        zoneTrapWaveEnemyCountMonitor.SetActive(false);
 
         tutObjectiveIcon.SetActive(true);
         tutObjectiveMarker.SetActive(false);
@@ -225,9 +233,8 @@ public class TutorialEvents: MonoBehaviour
     // 08
     private void RestoreUI()
     {
-        foreach (GameObject go in bannersAndMarkers)
-            go.SetActive(true);
-
+        objectiveMarkers.SetActive(true);
+        objectiveBanners.SetActive(true);
         tutObjectiveIcon.SetActive(false);
         tutObjectiveMarker.SetActive(false);
         crosshair.SetActive(true);
@@ -303,6 +310,7 @@ public class TutorialEvents: MonoBehaviour
         playerAlignedCamera.transform.rotation = Camera.main.transform.rotation;
         infoPromptController.HidePrompt();
         crosshair.SetActive(false);
+        objectiveMarkers.SetActive(false);
         cmBrain.enabled = true;
         tutorialController.director.Resume();
     }
@@ -341,10 +349,18 @@ public class TutorialEvents: MonoBehaviour
         Camera.main.transform.rotation = zoneAtkCameraPos.rotation;
         Camera.main.GetComponent<CameraController>().SetCameraXAngle(-75);
         crosshair.SetActive(true);
+        objectiveMarkers.SetActive(true);
         infoPromptController.ShowPrompt(infoPrompts[5]);
         player.AddEvilPoints(player.GetMaxEvilLevel() - player.GetEvilLevel());
         tutorialController.NextPlayerState();
         cmBrain.enabled = false;
+        zoneTrapWaveEnemyCountMonitor.SetActive(true);
+    }
+
+    // 22
+    private void ZoneTrapWaveKilled()
+    {
+        tutorialController.RequestEndTutorial();
     }
 
     #endregion

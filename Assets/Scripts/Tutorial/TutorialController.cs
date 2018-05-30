@@ -29,6 +29,7 @@ public class TutorialController : MonoBehaviour
     private bool running;
     private bool paused;
     private Vector3 playerStartingPos;
+    private Quaternion playerStartingRot;
     [HideInInspector]
     public PlayableDirector director;
     private TutorialEvents tutorialEvents;
@@ -50,6 +51,7 @@ public class TutorialController : MonoBehaviour
         tutorialEnemiesManager = new TutorialEnemiesManager();
         tutorialEvents.SetTutorialEnemiesManager(tutorialEnemiesManager);
         playerStartingPos = player.transform.position;
+        playerStartingRot = player.transform.rotation;
     }
 
     private void Update()
@@ -74,7 +76,7 @@ public class TutorialController : MonoBehaviour
         if (running)
         {
             if (InputManager.instance.GetPS4OptionsDown())
-                EndTutorial();
+                RequestEndTutorial();
         }
     }
     #endregion
@@ -90,6 +92,11 @@ public class TutorialController : MonoBehaviour
             tutorialEvents.OnTutorialStarted();
             screenFadeController.FadeToTransparent(StartTutorial);
         }
+    }
+
+    public void RequestEndTutorial()
+    {
+        screenFadeController.FadeToOpaque(OnTutorialEnded);
     }
 
     public void LaunchEvent(int eventIndex)
@@ -114,6 +121,9 @@ public class TutorialController : MonoBehaviour
         running = false;
         director.Stop();
         cinemachineBrain.enabled = false;
+        player.transform.position = playerStartingPos;
+        player.transform.rotation = playerStartingRot;
+        Camera.main.GetComponent<CameraController>().SetCameraXAngle(0);
         player.AddEvilPoints(player.GetMaxEvilLevel() - player.GetEvilLevel());
         tutorialUIParent.SetActive(false);
         gameObject.SetActive(false);
@@ -136,11 +146,6 @@ public class TutorialController : MonoBehaviour
     {
         running = true;
         director.Play();
-    }
-
-    private void EndTutorial()
-    {
-        screenFadeController.FadeToOpaque(OnTutorialEnded);
     }
     #endregion
 }
