@@ -7,6 +7,8 @@ public class TutorialController : MonoBehaviour
     #region Fields
     [Header("UI objects")]
     [SerializeField]
+    private GameObject tutorialUIParent;
+    [SerializeField]
     private GameObject crosshair;
 
     [Header("Tutorial config")]
@@ -51,6 +53,8 @@ public class TutorialController : MonoBehaviour
 
     private void Update()
     {
+        tutorialEnemiesManager.CheckEnemies();
+
         if (!paused && GameManager.instance.gameIsPaused)
         {
             paused = true;
@@ -103,6 +107,7 @@ public class TutorialController : MonoBehaviour
         running = false;
         director.Stop();
         cinemachineBrain.enabled = false;
+        tutorialUIParent.SetActive(false);
         gameObject.SetActive(false);
 
         player.transform.position = playerStartingPos;

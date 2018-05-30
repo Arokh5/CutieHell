@@ -171,6 +171,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1221370114701694
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4283315103321780}
+  - component: {fileID: 114883131830560062}
+  - component: {fileID: 135223813992292778}
+  m_Layer: 0
+  m_Name: 11-HideInfoPrompt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1226003857162124
 GameObject:
   m_ObjectHideFlags: 1
@@ -595,9 +612,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4725846295673416}
   - component: {fileID: 114248382838002864}
-  - component: {fileID: 135376857506837662}
+  - component: {fileID: 65674342676723606}
   m_Layer: 0
-  m_Name: 11-HideInfoPrompt
+  m_Name: 14-EnterZoneBtoCBridge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -718,6 +735,7 @@ Transform:
   - {fileID: 4630039392858442}
   - {fileID: 4277096847765772}
   - {fileID: 4727807601060740}
+  - {fileID: 4283315103321780}
   - {fileID: 4725846295673416}
   - {fileID: 4816647237308928}
   m_Father: {fileID: 4124070079434272}
@@ -796,6 +814,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4191440315577882}
   m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4283315103321780
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1221370114701694}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -13.15, y: 33.45, z: -1.62}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4191440315577882}
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4360782362481780
 Transform:
@@ -974,13 +1005,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1960555512581648}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -13.15, y: 33.45, z: -1.62}
+  m_LocalRotation: {x: 0, y: -0.13052624, z: 0, w: 0.9914449}
+  m_LocalPosition: {x: -15.2, y: 35.5, z: 8.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4191440315577882}
-  m_RootOrder: 14
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: -15, z: 0}
 --- !u!4 &4727807601060740
 Transform:
   m_ObjectHideFlags: 1
@@ -1033,7 +1064,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4191440315577882}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4841984771661134
 Transform:
@@ -1168,6 +1199,18 @@ Transform:
   m_Father: {fileID: 4191440315577882}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &65674342676723606
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1960555512581648}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 7, y: 5, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95132252540178980
 Animator:
   serializedVersion: 3
@@ -1416,8 +1459,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24fa1ee0435449048b72f70ad6337ae6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
-  eventIndex: 11
+  type: 1
+  eventIndex: 14
   deactivateOnLaunch: 1
   triggerLayerMask:
     serializedVersion: 2
@@ -1524,6 +1567,7 @@ MonoBehaviour:
   - Use LS to move and RS to look around
   - Use R1 to teleport to the cemetery
   - You can also use L1 to return to the garden (later)
+  - Use R1 to launch an attack at the cuties
   lightingPrefab: {fileID: 198128217843348246, guid: e0ad8c49f2eb5a4478dd110d17ec7883,
     type: 2}
   lightingPosition: {fileID: 4905490150227636}
@@ -1742,6 +1786,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5121af91e8df424eaa1e57975c2c213, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tutorialUIParent: {fileID: 0}
   crosshair: {fileID: 0}
   cinemachineBrain: {fileID: 0}
   screenFadeController: {fileID: 0}
@@ -1751,6 +1796,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5ffbd5af897338a4ab9108e251027884, type: 2}
   - {fileID: 11400000, guid: 585e93ea45cdf9441924c0ccae8f7cfc, type: 2}
   - {fileID: 11400000, guid: e01d909c3ea57e445ae20f83a8724ae9, type: 2}
+  - {fileID: 11400000, guid: 0a25fa5287aef1a4baeb4c48c4dcd1fa, type: 2}
 --- !u!114 &114514602462705042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2011,6 +2057,23 @@ MonoBehaviour:
   triggerLayerMask:
     serializedVersion: 2
     m_Bits: 0
+--- !u!114 &114883131830560062
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1221370114701694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24fa1ee0435449048b72f70ad6337ae6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 2
+  eventIndex: 11
+  deactivateOnLaunch: 1
+  triggerLayerMask:
+    serializedVersion: 2
+    m_Bits: 32768
 --- !u!114 &114904565880672806
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2143,12 +2206,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &135376857506837662
+--- !u!135 &135223813992292778
 SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1960555512581648}
+  m_GameObject: {fileID: 1221370114701694}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1

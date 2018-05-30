@@ -70,7 +70,8 @@ public class TutorialEvents: MonoBehaviour
             PlayerMoveLesson,       // 10
             HideInfoPrompt,         // 11
             PlayerTeleportLesson,   // 12
-            Teleported              // 13
+            Teleported,             // 13
+            EnterZoneBtoCBridge     // 14
         };
     }
     #endregion
@@ -213,6 +214,14 @@ public class TutorialEvents: MonoBehaviour
     private void Teleported()
     {
         infoPromptController.ShowPrompt(infoPrompts[2]);
+    }
+
+    // 14
+    private void EnterZoneBtoCBridge()
+    {
+        infoPromptController.ShowPrompt(infoPrompts[3]);
+        tutorialEnemiesManager.ResumeEnemies();
+        tutorialController.NextPlayerState();
     }
 
 
