@@ -9,7 +9,11 @@ public class TutorialController : MonoBehaviour
     [SerializeField]
     private GameObject startMessage;
     [SerializeField]
+    private float startMessageDuration;
+    [SerializeField]
     private GameObject endMessage;
+    [SerializeField]
+    private float endMessageDuration;
     [SerializeField]
     private GameObject tutorialUIParent;
     [SerializeField]
@@ -98,7 +102,7 @@ public class TutorialController : MonoBehaviour
             tutorialEvents.OnTutorialStarted();
             startMessage.SetActive(true);
             screenFadeController.TurnOpaque();
-            Invoke("TutorialStarter", 2);
+            Invoke("TutorialStarter", startMessageDuration);
         }
     }
 
@@ -149,7 +153,7 @@ public class TutorialController : MonoBehaviour
         tutorialEvents.OnTutorialEnded();
 
         endMessage.SetActive(true);
-        Invoke("TutorialEnder", 2);
+        Invoke("TutorialEnder", endMessageDuration);
     }
 
     private void TutorialStarter()

@@ -383,7 +383,7 @@ GameObject:
   - component: {fileID: 4475975135551162}
   - component: {fileID: 114740602830611852}
   m_Layer: 0
-  m_Name: DamageLimiter
+  m_Name: DamageLimiterZoneC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -436,6 +436,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!1 &1470427649616002
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4170480190257218}
+  - component: {fileID: 114639038525247722}
+  m_Layer: 0
+  m_Name: EvilLimiter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1476208616505340
 GameObject:
   m_ObjectHideFlags: 1
@@ -801,6 +817,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1920820061363094
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4395769874614346}
+  - component: {fileID: 114501133314358364}
+  m_Layer: 0
+  m_Name: DamageLimiterTutZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1927223363647694
 GameObject:
   m_ObjectHideFlags: 1
@@ -909,7 +941,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4124070079434272}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4021274009886668
 Transform:
@@ -976,7 +1008,9 @@ Transform:
   m_Children:
   - {fileID: 4191440315577882}
   - {fileID: 4376989025409102}
+  - {fileID: 4395769874614346}
   - {fileID: 4475975135551162}
+  - {fileID: 4170480190257218}
   - {fileID: 4006296683369966}
   - {fileID: 4699286164897612}
   - {fileID: 4223677347716340}
@@ -1008,6 +1042,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4191440315577882}
   m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4170480190257218
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1470427649616002}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4124070079434272}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4174746320312080
 Transform:
@@ -1094,7 +1141,7 @@ Transform:
   - {fileID: 4923260986472802}
   - {fileID: 4398664384390526}
   m_Father: {fileID: 4124070079434272}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4240714828788968
 Transform:
@@ -1227,6 +1274,19 @@ Transform:
   m_Father: {fileID: 4599667971813496}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4395769874614346
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1920820061363094}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4124070079434272}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4398664384390526
 Transform:
   m_ObjectHideFlags: 1
@@ -1286,12 +1346,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1392355568026100}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4124070079434272}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4506705335427910
 Transform:
@@ -1424,7 +1484,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4124070079434272}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4725846295673416
 Transform:
@@ -2093,11 +2153,14 @@ MonoBehaviour:
   objectiveMarkers: {fileID: 0}
   crosshair: {fileID: 0}
   evilGainInfoText: {fileID: 0}
+  evilMisuseInfoText: {fileID: 0}
   cmBrain: {fileID: 0}
   tutorialSpawner: {fileID: 0}
   tutorialSpawner2: {fileID: 0}
   zoneDSpawner: {fileID: 0}
-  damageLimiterTutZone: {fileID: 114740602830611852}
+  damageLimiterTutZone: {fileID: 114501133314358364}
+  damageLimiterZoneC: {fileID: 114740602830611852}
+  evilLimiter: {fileID: 114639038525247722}
   enemyDescriptionController: {fileID: 0}
   enemyLabelInfos:
   - name: THE SLIME
@@ -2399,6 +2462,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 32768
   enemyCount: -1
+--- !u!114 &114501133314358364
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1920820061363094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a88045680b4e9f4d9dbd61325a292f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  building: {fileID: 0}
+  normalizedMaxDamage: 1
 --- !u!114 &114507089560650444
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2436,7 +2512,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startMessage: {fileID: 0}
+  startMessageDuration: 3.5
   endMessage: {fileID: 0}
+  endMessageDuration: 2
   tutorialUIParent: {fileID: 0}
   crosshair: {fileID: 0}
   cinemachineBrain: {fileID: 0}
@@ -2566,6 +2644,21 @@ MonoBehaviour:
     FarClipPlane: 5000
     Dutch: 0
   m_ComponentOwner: {fileID: 4205023958151748}
+--- !u!114 &114639038525247722
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1470427649616002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67792384cdf70ae4a8571db1fc42eb8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlType: 0
+  actionType: 1
+  lowLimit: 15
+  highLimit: 30
 --- !u!114 &114640955912280868
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2674,7 +2767,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   building: {fileID: 0}
-  normalizedMaxDamage: 1
+  normalizedMaxDamage: 0.6
 --- !u!114 &114786056214965756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3142,7 +3235,7 @@ PlayableDirector:
   - key: {fileID: 114204864228271988, guid: 6b211c1882ca79e49a59135ca1c9230b, type: 2}
     value: {fileID: 1195984678897206}
   - key: {fileID: 114588829419603030, guid: 6b211c1882ca79e49a59135ca1c9230b, type: 2}
-    value: {fileID: 1392355568026100}
+    value: {fileID: 1920820061363094}
   - key: {fileID: 114012078622510562, guid: 6b211c1882ca79e49a59135ca1c9230b, type: 2}
     value: {fileID: 0}
   - key: {fileID: 114286765124321046, guid: 6b211c1882ca79e49a59135ca1c9230b, type: 2}

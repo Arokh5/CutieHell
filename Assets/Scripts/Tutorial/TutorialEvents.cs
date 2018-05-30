@@ -25,6 +25,8 @@ public class TutorialEvents: MonoBehaviour
     private GameObject crosshair;
     [SerializeField]
     private GameObject evilGainInfoText;
+    [SerializeField]
+    private GameObject evilMisuseInfoText;
 
     [Header("General")]
     [SerializeField]
@@ -34,6 +36,10 @@ public class TutorialEvents: MonoBehaviour
     public AISpawner zoneDSpawner;
     [SerializeField]
     private DamageLimiter damageLimiterTutZone;
+    [SerializeField]
+    private DamageLimiter damageLimiterZoneC;
+    [SerializeField]
+    private EvilLimiter evilLimiter;
     public EnemyDescriptionController enemyDescriptionController;
     [SerializeField]
     private EnemyLabelInfo[] enemyLabelInfos;
@@ -131,6 +137,9 @@ public class TutorialEvents: MonoBehaviour
     public void OnTutorialStarted()
     {
         damageLimiterTutZone.gameObject.SetActive(true);
+        damageLimiterZoneC.gameObject.SetActive(true);
+        evilLimiter.gameObject.SetActive(false);
+        evilLimiter.RegisterCallback(EvilLimitReached);
 
         objectiveMarkers.SetActive(false);
         objectiveBanners.SetActive(false);
@@ -150,7 +159,8 @@ public class TutorialEvents: MonoBehaviour
     public void OnTutorialEnded()
     {
         damageLimiterTutZone.gameObject.SetActive(false);
-
+        damageLimiterZoneC.gameObject.SetActive(false);
+        evilLimiter.gameObject.SetActive(false);
         RestoreUI();
     }
 
@@ -300,11 +310,13 @@ public class TutorialEvents: MonoBehaviour
         tutorialController.NextPlayerState();
         infoPromptController.ShowPrompt(infoPrompts[4]);
         strongWaveEnemyCountMonitor.SetActive(true);
+        evilLimiter.gameObject.SetActive(true);
     }
 
     // 17
     private void StrongAttackWaveKilled()
     {
+        evilLimiter.gameObject.SetActive(false);
         tutorialController.NextPlayerState();
         playerAlignedCamera.transform.position = Camera.main.transform.position;
         playerAlignedCamera.transform.rotation = Camera.main.transform.rotation;
@@ -382,6 +394,11 @@ public class TutorialEvents: MonoBehaviour
         {
             Debug.LogError("ERROR: infoIndex paremeter out of range in TutorialEvents::SetEnemyLabelInfo in gameObject '" + gameObject.name + "'!");
         }
+    }
+
+    private void EvilLimitReached()
+    {
+        evilMisuseInfoText.gameObject.SetActive(true);
     }
     #endregion
 }
