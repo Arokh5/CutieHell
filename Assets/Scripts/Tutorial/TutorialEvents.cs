@@ -21,6 +21,8 @@ public class TutorialEvents: MonoBehaviour
     private GameObject[] bannersAndMarkers;
     [SerializeField]
     private GameObject crosshair;
+    [SerializeField]
+    private GameObject evilGainInfoText;
 
     [Header("General")]
     [SerializeField]
@@ -39,6 +41,10 @@ public class TutorialEvents: MonoBehaviour
     [SerializeField]
     private string[] infoPrompts;
 
+    [Header("Events to activate")]
+    [SerializeField]
+    private GameObject[] enemyCountMonitors;
+
     [Header("0-DropLighting")]
     public ParticleSystem lightingPrefab;
     public Transform lightingPosition;
@@ -55,6 +61,7 @@ public class TutorialEvents: MonoBehaviour
     {
         tutorialController = GetComponent<TutorialController>();
         UnityEngine.Assertions.Assert.IsNotNull(tutorialController, "ERROR: A TutorialController Component could not be found by TutorialEvents in GameObject " + gameObject.name);
+        evilGainInfoText.SetActive(false);
 
         events = new TutorialEvent[]{
             DropLighting,           // 00
@@ -71,7 +78,9 @@ public class TutorialEvents: MonoBehaviour
             HideInfoPrompt,         // 11
             PlayerTeleportLesson,   // 12
             Teleported,             // 13
-            EnterZoneBtoCBridge     // 14
+            EnterZoneBtoCBridge,    // 14
+            EnemyCountTo1,          // 15
+            EnemyCountTo0           // 16
         };
     }
     #endregion
@@ -82,11 +91,19 @@ public class TutorialEvents: MonoBehaviour
         this.tutorialEnemiesManager = tutorialEnemiesManager;
     }
 
+    public int GetEnemiesCount()
+    {
+        return tutorialEnemiesManager.GetEnemiesCount();
+    }
+
     public void OnTutorialStarted()
     {
         damageLimiterTutZone.gameObject.SetActive(true);
 
         foreach (GameObject go in bannersAndMarkers)
+            go.SetActive(false);
+
+        foreach (GameObject go in enemyCountMonitors)
             go.SetActive(false);
 
         tutObjectiveIcon.SetActive(true);
@@ -104,13 +121,17 @@ public class TutorialEvents: MonoBehaviour
     public void LaunchEvent(int eventIndex)
     {
         if (eventIndex >= 0 && eventIndex < events.Length)
+        {
+            Debug.Log("Launching event with index " + eventIndex);
             events[eventIndex]();
+        }
         else
             Debug.LogError("ERROR: eventIndex parameter (" + eventIndex + ") out of range in TutorialEvents::LaunchEvent in gameObject '" + gameObject.name + "'!");
     }
     #endregion
 
     #region Private Methods
+    #region Events
     // 00
     private void DropLighting()
     {
@@ -222,17 +243,29 @@ public class TutorialEvents: MonoBehaviour
         infoPromptController.ShowPrompt(infoPrompts[3]);
         tutorialEnemiesManager.ResumeEnemies();
         tutorialController.NextPlayerState();
+        foreach (GameObject go in enemyCountMonitors)
+            go.SetActive(true);
     }
 
+    // 15
+    private void EnemyCountTo1()
+    {
+        evilGainInfoText.SetActive(true);
+    }
 
-    // ####
-    private void Spawn4Slimes()
+    // 16
+    private void EnemyCountTo0()
     {
         tutorialEnemiesManager.AddEnemy(zoneDSpawner.SpawnOne(EnemyType.BASIC));
         tutorialEnemiesManager.AddEnemy(zoneDSpawner.SpawnOne(EnemyType.BASIC));
         tutorialEnemiesManager.AddEnemy(zoneDSpawner.SpawnOne(EnemyType.BASIC));
         tutorialEnemiesManager.AddEnemy(zoneDSpawner.SpawnOne(EnemyType.BASIC));
+        tutorialController.NextPlayerState();
+        infoPromptController.ShowPrompt(infoPrompts[4]);
     }
+
+
+    #endregion
 
     private AIEnemy SpawnEnemy(AISpawner spawner, EnemyType enemyType)
     {

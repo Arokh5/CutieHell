@@ -53,7 +53,7 @@ public class TutorialController : MonoBehaviour
 
     private void Update()
     {
-        tutorialEnemiesManager.CheckEnemies();
+        tutorialEnemiesManager.RemoveDeadEnemies();
 
         if (!paused && GameManager.instance.gameIsPaused)
         {
@@ -83,6 +83,7 @@ public class TutorialController : MonoBehaviour
     {
         if (!running)
         {
+            player.AddEvilPoints(-12);
             playerStateIndex = -1;
             NextPlayerState();
             tutorialEvents.OnTutorialStarted();
@@ -99,6 +100,11 @@ public class TutorialController : MonoBehaviour
     {
         player.TransitionToState(tutorialStates[++playerStateIndex]);
     }
+
+    public int GetEnemiesCount()
+    {
+        return tutorialEvents.GetEnemiesCount();
+    }
     #endregion
 
     #region Private Methods
@@ -107,6 +113,7 @@ public class TutorialController : MonoBehaviour
         running = false;
         director.Stop();
         cinemachineBrain.enabled = false;
+        player.AddEvilPoints(player.GetMaxEvilLevel() - player.GetEvilLevel());
         tutorialUIParent.SetActive(false);
         gameObject.SetActive(false);
 

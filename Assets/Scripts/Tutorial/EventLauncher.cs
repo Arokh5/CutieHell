@@ -6,7 +6,8 @@ public class EventLauncher : MonoBehaviour
     {
         ACTIVATION,
         TRIGGER_ENTER,
-        TRIGGER_EXIT
+        TRIGGER_EXIT,
+        ENEMY_COUNT
     }
 
     #region Fields
@@ -14,7 +15,13 @@ public class EventLauncher : MonoBehaviour
     private LauncherType type;
     public int eventIndex = -1;
     public bool deactivateOnLaunch = false;
+
+    [Header("Trigger")]
     public LayerMask triggerLayerMask;
+
+    [Header("Enemy Count")]
+    public int enemyCount = -1;
+    private bool enemyCountReached = false;
 
     private TutorialController tutorialController;
     #endregion
@@ -24,6 +31,23 @@ public class EventLauncher : MonoBehaviour
     {
         tutorialController = GetComponentInParent<TutorialController>();
         UnityEngine.Assertions.Assert.IsNotNull(tutorialController, "ERROR: A TutorialController Component could not be found in the parent hierarchy by EventLauncher in GameObject " + gameObject.name);
+    }
+
+    private void Update()
+    {
+        if (type == LauncherType.ENEMY_COUNT)
+        {
+            int currentEnemyCount = tutorialController.GetEnemiesCount();
+            if (!enemyCountReached && currentEnemyCount == enemyCount)
+            {
+                enemyCountReached = true;
+                LaunchEvent();
+            }
+            else if (enemyCountReached && currentEnemyCount != enemyCount)
+            {
+                enemyCountReached = false;
+            }
+        }
     }
 
     private void OnEnable()

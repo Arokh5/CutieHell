@@ -9,7 +9,12 @@ public class TutorialEnemiesManager
     #endregion
 
     #region Public Methods
-    public void CheckEnemies()
+    public int GetEnemiesCount()
+    {
+        return enemies.Count;
+    }
+
+    public void RemoveDeadEnemies()
     {
         foreach (AIEnemy enemy in enemies)
         {

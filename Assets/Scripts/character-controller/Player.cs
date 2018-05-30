@@ -155,12 +155,13 @@ public class Player : MonoBehaviour {
         footstepsSource.loop = true;
 
         fogStateLastTime = float.MinValue;
+        evilLevel = maxEvilLevel;
+        UIManager.instance.SetEvilBarValue(evilLevel);
     }
 
     private void Start () 
     {
         footSteps.SetActive(false);
-        evilLevel = maxEvilLevel;
 
         timeSinceLastTrapUse = trapUseCooldown;
         timeSinceLastAttack = 1000.0f;
