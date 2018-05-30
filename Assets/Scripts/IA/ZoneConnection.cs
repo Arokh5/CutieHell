@@ -7,12 +7,27 @@ public class ZoneConnection : MonoBehaviour {
 
     #region Fields
     private List<AIEnemy> aiEnemiesInConnection = new List<AIEnemy>();
+    private List<AIEnemy> toRemove = new List<AIEnemy>();
     #endregion
 
     #region MonoBehavior Methods
     private void Awake()
     {
         GetComponent<BoxCollider>().isTrigger = true;
+    }
+
+    private void Update()
+    {
+        foreach (AIEnemy enemy in aiEnemiesInConnection)
+        {
+            if (enemy.IsDead())
+                toRemove.Add(enemy);
+        }
+        foreach (AIEnemy enemy in toRemove)
+        {
+            aiEnemiesInConnection.Remove(enemy);
+        }
+        toRemove.Clear();
     }
 
     private void OnTriggerEnter(Collider other)
