@@ -64,7 +64,7 @@ public class Monument : Building
     #region Private Methods
     private void OnGUI()
     {
-        if (currentHealth <= (baseHealth * lowHealthScreen) && currentHealth > 0)
+        if (currentHealth <= (baseHealth * lowHealthScreen) && currentHealth > 0 && zoneController.GetZoneEnemiesCount() > 0)
         {
             if (showAlmostConqueredScreenTintTexture > 1)
             {

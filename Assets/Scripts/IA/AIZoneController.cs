@@ -214,6 +214,11 @@ public class AIZoneController : MonoBehaviour
         return aiEnemies;
     }
 
+    public int GetZoneEnemiesCount()
+    {
+        return aiEnemies.Count;
+    }
+
     #endregion
 
     #region Private Methods
