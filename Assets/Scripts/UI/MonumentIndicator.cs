@@ -14,6 +14,9 @@ public class MonumentIndicator : MonoBehaviour {
     private Sprite closedSprite;
     [SerializeField]
     private ObjectiveMarker marker;
+    [SerializeField]
+    private GameObject iconConquered;
+
     public bool startClosed;
     private bool shouldClose;
     #endregion
@@ -23,6 +26,7 @@ public class MonumentIndicator : MonoBehaviour {
     {
         UnityEngine.Assertions.Assert.IsNotNull(bannerImage, "ERROR: MonumentIndicator in gameObject '" + gameObject.name + "' doesn't have bannerImage assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(fillImage, "ERROR: MonumentIndicator in gameObject '" + gameObject.name + "' doesn't have fillImage assigned!");
+        UnityEngine.Assertions.Assert.IsNotNull(iconConquered, "ERROR: iconConquered could not be unassigned on the GameObject " + gameObject.name);
     }
 
     private void Start()
@@ -55,6 +59,16 @@ public class MonumentIndicator : MonoBehaviour {
     public void RequestClose()
     {
         shouldClose = true;
+    }
+
+    public void ActivateIconConquered()
+    {
+        iconConquered.SetActive(true);
+    }
+
+    public void DeactivateIconConquered()
+    {
+        iconConquered.SetActive(false);
     }
     #endregion
 

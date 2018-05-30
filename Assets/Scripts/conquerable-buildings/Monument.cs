@@ -51,6 +51,7 @@ public class Monument : Building
         zoneController.OnMonumentTaken();
         if (protectedMonument)
             protectedMonument.monumentIndicator.RequestOpen();
+        monumentIndicator.DeactivateIconConquered();
     }
 
     public override void BuildingRecovered()
@@ -64,18 +65,28 @@ public class Monument : Building
     #region Private Methods
     private void OnGUI()
     {
-        if (currentHealth <= (baseHealth * lowHealthScreen) && currentHealth > 0 && zoneController.GetZoneEnemiesCount() > 0)
+        if(zoneController.GetZoneEnemiesCount() > 0)
         {
-            if (showAlmostConqueredScreenTintTexture > 1)
+            if (currentHealth <= (baseHealth * lowHealthScreen) && currentHealth > 0)
             {
-                GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), almostConqueredScreenTintTexture);
+                if (showAlmostConqueredScreenTintTexture > 1)
+                {
+                    GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), almostConqueredScreenTintTexture);
+                    monumentIndicator.ActivateIconConquered();
+                }
+                if (showAlmostConqueredScreenTintTexture > 2)
+                {
+                    showAlmostConqueredScreenTintTexture = 0;
+                    monumentIndicator.DeactivateIconConquered();
+                }
+                showAlmostConqueredScreenTintTexture += Time.deltaTime;
             }
-            if (showAlmostConqueredScreenTintTexture > 2)
-            {
-                showAlmostConqueredScreenTintTexture = 0;
-            }
-            showAlmostConqueredScreenTintTexture += Time.deltaTime;
         }
+        else
+        {
+            monumentIndicator.DeactivateIconConquered();
+        }
+
     }
     #endregion
 }
