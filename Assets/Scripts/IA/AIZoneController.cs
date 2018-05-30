@@ -23,6 +23,11 @@ public class AIZoneController : MonoBehaviour
     [ShowOnly]
     private Building currentZoneTarget;
 
+    [SerializeField]
+    private LivingFogManager fogWallsManager;
+    [SerializeField]
+    private int[] fogWallID;
+
     // List that contains all AIEnemy that were spawned on this ZoneController's area and are still alive
     [SerializeField]
     private List<AIEnemy> aiEnemies;
@@ -88,6 +93,10 @@ public class AIZoneController : MonoBehaviour
     public void OnMonumentRecovered()
     {
         monumentTaken = false;
+        for (int i = 0; i < fogWallID.Length; i++)
+        {
+            fogWallsManager.ActivateFogWall(fogWallID[i]);
+        }
         currentZoneTarget = monument;
         OnTargetBuildingChanged();
     }
@@ -96,7 +105,10 @@ public class AIZoneController : MonoBehaviour
     public void OnMonumentTaken()
     {
         monumentTaken = true;
-
+        for(int i = 0; i < fogWallID.Length; i++)
+        {
+            fogWallsManager.DeactivateFogWall(fogWallID[i]);
+        }
         foreach (Trap trap in traps)
         {
             trap.TakeDamage(trap.GetMaxHealth(), AttackType.NONE);
