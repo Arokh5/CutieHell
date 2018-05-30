@@ -166,7 +166,7 @@ public class CameraController : MonoBehaviour {
                     break;
                 case Player.CameraState.FOG:
                     {
-                        y = ClampAngle(y, yFogMin, yFogMax);
+                        y = ClampAngle(y, yFogMin, yFogMax);                        
 
                         Quaternion rotation = Quaternion.Euler(y, x, 0);
                         float noCollisionDistance = distance;
@@ -245,6 +245,9 @@ public class CameraController : MonoBehaviour {
                             Vector3 canonTargetDecalDirection = playerScript.currentTrap.canonTargetDecal.transform.position - transform.position;
                             playerScript.currentTrap.rotatingHead.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(canonTargetDecalDirection), Time.deltaTime * lerpTowardsCanonTargetDecal);
                             playerScript.currentTrap.canonTargetDecal.transform.rotation = Quaternion.Euler(0, playerScript.currentTrap.rotatingHead.rotation.eulerAngles.y, 0);
+
+                            y = playerScript.currentTrap.rotatingHead.transform.rotation.eulerAngles.x;
+                            x = playerScript.currentTrap.rotatingHead.transform.rotation.eulerAngles.y;
                         }
                         break;
                     }
