@@ -7,6 +7,10 @@ public class TutorialController : MonoBehaviour
     #region Fields
     [Header("UI objects")]
     [SerializeField]
+    private GameObject startMessage;
+    [SerializeField]
+    private GameObject endMessage;
+    [SerializeField]
     private GameObject tutorialUIParent;
     [SerializeField]
     private GameObject crosshair;
@@ -52,6 +56,8 @@ public class TutorialController : MonoBehaviour
         tutorialEvents.SetTutorialEnemiesManager(tutorialEnemiesManager);
         playerStartingPos = player.transform.position;
         playerStartingRot = player.transform.rotation;
+        startMessage.SetActive(false);
+        endMessage.SetActive(false);
     }
 
     private void Update()
@@ -90,12 +96,15 @@ public class TutorialController : MonoBehaviour
             playerStateIndex = -1;
             NextPlayerState();
             tutorialEvents.OnTutorialStarted();
-            screenFadeController.FadeToTransparent(StartTutorial);
+            startMessage.SetActive(true);
+            screenFadeController.TurnOpaque();
+            Invoke("TutorialStarter", 2);
         }
     }
 
     public void RequestEndTutorial()
     {
+        startMessage.SetActive(false);
         screenFadeController.FadeToOpaque(OnTutorialEnded);
     }
 
@@ -139,6 +148,19 @@ public class TutorialController : MonoBehaviour
         tutorialEnemiesManager.ClearEnemies();
         tutorialEvents.OnTutorialEnded();
 
+        endMessage.SetActive(true);
+        Invoke("TutorialEnder", 2);
+    }
+
+    private void TutorialStarter()
+    {
+        startMessage.SetActive(false);
+        screenFadeController.FadeToTransparent(StartTutorial);
+    }
+
+    private void TutorialEnder()
+    {
+        endMessage.SetActive(false);
         GameManager.instance.OnTutorialFinished();
     }
 

@@ -58,6 +58,18 @@ public class ScreenFadeController : MonoBehaviour
             endAlpha = 0;
         }
     }
+
+    public void TurnOpaque()
+    {
+        image.color = opaqueColor;
+    }
+
+    public void TurnTransparent()
+    {
+        Color targetColor = opaqueColor;
+        targetColor.a = 0;
+        image.color = targetColor;
+    }
     #endregion
 
     #region Private Methods
