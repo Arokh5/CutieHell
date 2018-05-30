@@ -41,19 +41,38 @@ public class TutorialEvents: MonoBehaviour
     [SerializeField]
     private string[] infoPrompts;
 
-    [Header("Events to activate")]
-    [SerializeField]
-    private GameObject[] enemyCountMonitors;
-
     [Header("0-DropLighting")]
     public ParticleSystem lightingPrefab;
     public Transform lightingPosition;
     public MonumentIndicator monumentIndicator;
 
+    [Header("14-EnterZoneBtoCBridge")]
+    [SerializeField]
+    private GameObject[] enemyCountMonitors;
+
+    [Header("16-EnemyCountTo0")]
+    [SerializeField]
+    private GameObject strongWaveEnemyCountMonitor;
+
+    [Header("17-ZoneTrapWave")]
+    [SerializeField]
+    private Cinemachine.CinemachineVirtualCamera playerAlignedCamera;
+
+    [Header("18-RepositionPlayer")]
+    [SerializeField]
+    private Transform zoneAtkPlayerMovePos;
+    [SerializeField]
+    private Transform zoneAtkCameraPos;
+
+    [Header("20-ZoneAttackInfo")]
+    [SerializeField]
+    private GameObject zoneAttackInfoText;
+
     private TutorialController tutorialController;
     private TutorialEvent[] events;
     private TutorialEnemiesManager tutorialEnemiesManager;
     private AIEnemy firstConqueror;
+    private Player player;
     #endregion
 
     #region MonoBehaviour Methods
@@ -62,6 +81,7 @@ public class TutorialEvents: MonoBehaviour
         tutorialController = GetComponent<TutorialController>();
         UnityEngine.Assertions.Assert.IsNotNull(tutorialController, "ERROR: A TutorialController Component could not be found by TutorialEvents in GameObject " + gameObject.name);
         evilGainInfoText.SetActive(false);
+        player = GameManager.instance.GetPlayer1();
 
         events = new TutorialEvent[]{
             DropLighting,           // 00
@@ -80,7 +100,12 @@ public class TutorialEvents: MonoBehaviour
             Teleported,             // 13
             EnterZoneBtoCBridge,    // 14
             EnemyCountTo1,          // 15
-            EnemyCountTo0           // 16
+            EnemyCountTo0,          // 16
+            StrongAttackWaveKilled, // 17
+            RepositionPlayer,       // 18
+            SpawnZoneAtkWave,       // 19
+            ZoneAttackInfo,         // 20
+            PlayerZoneTrapLesson    // 21   
         };
     }
     #endregion
@@ -105,6 +130,9 @@ public class TutorialEvents: MonoBehaviour
 
         foreach (GameObject go in enemyCountMonitors)
             go.SetActive(false);
+
+        strongWaveEnemyCountMonitor.SetActive(false);
+        zoneAttackInfoText.SetActive(false);
 
         tutObjectiveIcon.SetActive(true);
         tutObjectiveMarker.SetActive(false);
@@ -216,6 +244,7 @@ public class TutorialEvents: MonoBehaviour
     {
         tutorialController.NextPlayerState();
         infoPromptController.ShowPrompt(infoPrompts[0]);
+        tutorialController.director.Pause();
     }
 
     // 11
@@ -256,14 +285,67 @@ public class TutorialEvents: MonoBehaviour
     // 16
     private void EnemyCountTo0()
     {
+        // Enemies spawned so that the player uses the strong attack
         tutorialEnemiesManager.AddEnemy(zoneDSpawner.SpawnOne(EnemyType.BASIC));
         tutorialEnemiesManager.AddEnemy(zoneDSpawner.SpawnOne(EnemyType.BASIC));
         tutorialEnemiesManager.AddEnemy(zoneDSpawner.SpawnOne(EnemyType.BASIC));
         tutorialEnemiesManager.AddEnemy(zoneDSpawner.SpawnOne(EnemyType.BASIC));
         tutorialController.NextPlayerState();
         infoPromptController.ShowPrompt(infoPrompts[4]);
+        strongWaveEnemyCountMonitor.SetActive(true);
     }
 
+    // 17
+    private void StrongAttackWaveKilled()
+    {
+        tutorialController.NextPlayerState();
+        playerAlignedCamera.transform.position = Camera.main.transform.position;
+        playerAlignedCamera.transform.rotation = Camera.main.transform.rotation;
+        infoPromptController.HidePrompt();
+        crosshair.SetActive(false);
+        cmBrain.enabled = true;
+        tutorialController.director.Resume();
+    }
+
+    // 18
+    private void RepositionPlayer()
+    {
+        player.transform.position = zoneAtkPlayerMovePos.position;
+        player.transform.rotation = zoneAtkPlayerMovePos.rotation;
+        playerAlignedCamera.transform.position = zoneAtkCameraPos.position;
+        playerAlignedCamera.transform.rotation = zoneAtkCameraPos.rotation;
+    }
+
+    // 19
+    private void SpawnZoneAtkWave()
+    {
+        int slimesCount = 15;
+        for (int i = 0; i < slimesCount; ++i)
+        {
+            AIEnemy slime = zoneDSpawner.SpawnOne(EnemyType.BASIC);
+            tutorialEnemiesManager.AddEnemy(slime);
+            slime.ignorePath = true;
+        }
+    }
+
+    // 20
+    private void ZoneAttackInfo()
+    {
+        zoneAttackInfoText.SetActive(true);
+    }
+
+    // 21
+    private void PlayerZoneTrapLesson()
+    {
+        Camera.main.transform.position = zoneAtkCameraPos.position;
+        Camera.main.transform.rotation = zoneAtkCameraPos.rotation;
+        Camera.main.GetComponent<CameraController>().SetCameraXAngle(-75);
+        crosshair.SetActive(true);
+        infoPromptController.ShowPrompt(infoPrompts[5]);
+        player.AddEvilPoints(player.GetMaxEvilLevel() - player.GetEvilLevel());
+        tutorialController.NextPlayerState();
+        cmBrain.enabled = false;
+    }
 
     #endregion
 

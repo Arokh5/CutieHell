@@ -340,9 +340,14 @@ public class CameraController : MonoBehaviour {
         return true;
     }
 
-    public void SetCameraLerp()
+    public void SetCameraXAngle(float x)
     {
+        this.x = x;
+    }
 
+    public void SetCameraYAngle(float y)
+    {
+        this.y = y;
     }
 
 }

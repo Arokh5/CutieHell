@@ -29,7 +29,8 @@ public class TutorialController : MonoBehaviour
     private bool running;
     private bool paused;
     private Vector3 playerStartingPos;
-    private PlayableDirector director;
+    [HideInInspector]
+    public PlayableDirector director;
     private TutorialEvents tutorialEvents;
     private TutorialEnemiesManager tutorialEnemiesManager;
     private AIZoneController[] zoneControllers;
