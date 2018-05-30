@@ -220,7 +220,7 @@ public class UIManager : MonoBehaviour
             {
                 SoundManager.instance.PlaySfxClip(coinSfx);
                 basicEnemiesCounter++;
-                basicEnemies.text = "Basic: " + basicEnemiesCounter.ToString();
+                basicEnemies.text = basicEnemiesCounter.ToString();
                 basicEnemiesPrevTimeCount = basicEnemiesTimeCount;
             }
         }
@@ -231,7 +231,7 @@ public class UIManager : MonoBehaviour
             {
                 SoundManager.instance.PlaySfxClip(coinSfx);
                 rangeEnemiesCounter++;
-                rangeEnemies.text = "Range: " + rangeEnemiesCounter.ToString();
+                rangeEnemies.text = rangeEnemiesCounter.ToString();
                 rangeEnemiesPrevTimeCount = rangeEnemiesTimeCount;
             }
         }
@@ -242,7 +242,7 @@ public class UIManager : MonoBehaviour
             {
                 SoundManager.instance.PlaySfxClip(coinSfx);
                 conquerorEnemiesCounter++;
-                conquerorEnemies.text = "Conqueror: " + conquerorEnemiesCounter.ToString();
+                conquerorEnemies.text = conquerorEnemiesCounter.ToString();
                 conquerorEnemiesPrevTimeCount = conquerorEnemiesTimeCount;
             }
         }
