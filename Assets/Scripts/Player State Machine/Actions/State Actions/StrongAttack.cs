@@ -10,6 +10,9 @@ public class StrongAttack : StateAction
     public int damage;
     public GameObject strongAttackVFX;
 
+    [SerializeField]
+    private AudioClip attackSfx;
+
     public override void Act(Player player)
     {
         if (player.timeSinceLastStrongAttack >= strongAttackCadency && player.GetEvilLevel() >= Mathf.Abs(evilCost) && !player.animatingAttack)
@@ -20,6 +23,7 @@ public class StrongAttack : StateAction
             if (InputManager.instance.GetR2ButtonDown())
             {
                 player.animator.SetTrigger("StrongAttack");
+                SoundManager.instance.PlaySfxClip(attackSfx);
             }
         }
         else
