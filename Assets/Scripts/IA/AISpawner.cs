@@ -16,6 +16,10 @@ public class AISpawner : MonoBehaviour {
 
     [SerializeField]
     private GameObject lightningVFX;
+    [SerializeField]
+    private AudioSource lightningSource;
+    [SerializeField]
+    private AudioClip lightningClip;
 
     [SerializeField]
     private List<SpawnInfo> activeSpawnInfos;
@@ -26,6 +30,7 @@ public class AISpawner : MonoBehaviour {
     {
         UnityEngine.Assertions.Assert.IsNotNull(zoneController, "ERROR: ZoneController not set for AISpawner in gameObject '" + gameObject.name + "'");
         UnityEngine.Assertions.Assert.IsNotNull(spawnController, "ERROR: SpawnController not set for AISpawner in gameObject '" + gameObject.name + "'");
+        lightningSource.clip = lightningClip;
     }
 
     private void Update()
@@ -65,6 +70,7 @@ public class AISpawner : MonoBehaviour {
     {
         if (!activeSpawnInfos.Contains(spawnInfo))
         {
+            lightningSource.Play();
             Destroy(Instantiate(lightningVFX, this.transform.position, lightningVFX.transform.rotation), 2.0f);
             zoneController.monument.GetMonumentIndicator().RequestOpen();
             activeSpawnInfos.Add(spawnInfo);
