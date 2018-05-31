@@ -70,7 +70,16 @@ public class UIManager : MonoBehaviour
     private Text endBtnText;
 
     [SerializeField]
+    private GameObject slimeDead;
+    [SerializeField]
+    private GameObject bearDead;
+    [SerializeField]
+    private GameObject conquerorDead;
+
+    [SerializeField]
     private AudioClip coinSfx;
+    [SerializeField]
+    private AudioClip stampSfx;
 
     private const float enemiesCountVel = 0.15f;
 
@@ -226,6 +235,9 @@ public class UIManager : MonoBehaviour
             }
         }
 
+        SoundManager.instance.PlaySfxClip(stampSfx);
+        slimeDead.SetActive(true);
+
         if (rangeEnemiesTimeCount - rangeEnemiesPrevTimeCount >= enemiesCountVel)
         {
             if (rangeEnemiesCounter < StatsManager.instance.GetRangeEnemiesKilled())
@@ -236,6 +248,9 @@ public class UIManager : MonoBehaviour
                 rangeEnemiesPrevTimeCount = rangeEnemiesTimeCount;
             }
         }
+        
+        SoundManager.instance.PlaySfxClip(stampSfx);
+        bearDead.SetActive(true);
 
         if (conquerorEnemiesTimeCount - conquerorEnemiesPrevTimeCount >= enemiesCountVel)
         {
@@ -247,6 +262,9 @@ public class UIManager : MonoBehaviour
                 conquerorEnemiesPrevTimeCount = conquerorEnemiesTimeCount;
             }
         }
+
+        SoundManager.instance.PlaySfxClip(stampSfx);
+        conquerorDead.SetActive(true);
     }
 
     public void ResetEnemiesCounters()

@@ -9,6 +9,8 @@ public class WaveProgressFiller : MonoBehaviour
     public Image progressFiller;
     [SerializeField]
     private float currentNormalizedAmount;
+    [SerializeField]
+    private GameObject clockHand;
 
     // Use this for initialization
     void Start()
@@ -28,5 +30,8 @@ public class WaveProgressFiller : MonoBehaviour
             currentNormalizedAmount = 1.0f;
 
         progressFiller.fillAmount = currentNormalizedAmount;
+        Vector3 eulerAngles = clockHand.transform.localEulerAngles;
+        eulerAngles.z = -360 * currentNormalizedAmount;
+        clockHand.transform.localEulerAngles = eulerAngles;
     }
 }
