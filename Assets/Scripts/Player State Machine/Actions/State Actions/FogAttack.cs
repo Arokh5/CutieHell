@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 [CreateAssetMenu(menuName = "Player State Machine/Actions/FogAttack")]
 public class FogAttack : StateAction
@@ -6,7 +7,7 @@ public class FogAttack : StateAction
     public float evilCostPerSecond;
     public float hitInterval;
     public int dps;
-    
+
     public override void Act(Player player)
     {
         player.accumulatedFogEvilCost += evilCostPerSecond * Time.deltaTime;
@@ -22,8 +23,16 @@ public class FogAttack : StateAction
             player.timeSinceLastFogHit -= hitInterval;
             foreach (AIEnemy aiEnemy in player.currentFogAttackTargets)
             {
-                aiEnemy.TakeDamage(dps * hitInterval, AttackType.FOG);
+                if(aiEnemy.IsDead() || !aiEnemy.gameObject.activeSelf)
+                    player.toRemoveFogAttackTargets.Add(aiEnemy);
+                else
+                    aiEnemy.TakeDamage(dps * hitInterval, AttackType.FOG);
             }
+            foreach (AIEnemy aiEnemy in player.toRemoveFogAttackTargets)
+            {
+                player.currentFogAttackTargets.Remove(aiEnemy);
+            }
+            player.toRemoveFogAttackTargets.Clear();
         }
     }
 }

@@ -220,7 +220,7 @@ public class UIManager : MonoBehaviour
             {
                 SoundManager.instance.PlaySfxClip(coinSfx);
                 basicEnemiesCounter++;
-                basicEnemies.text = "Basic: " + basicEnemiesCounter.ToString();
+                basicEnemies.text = basicEnemiesCounter.ToString();
                 basicEnemiesPrevTimeCount = basicEnemiesTimeCount;
             }
         }
@@ -231,7 +231,7 @@ public class UIManager : MonoBehaviour
             {
                 SoundManager.instance.PlaySfxClip(coinSfx);
                 rangeEnemiesCounter++;
-                rangeEnemies.text = "Range: " + rangeEnemiesCounter.ToString();
+                rangeEnemies.text = rangeEnemiesCounter.ToString();
                 rangeEnemiesPrevTimeCount = rangeEnemiesTimeCount;
             }
         }
@@ -242,7 +242,7 @@ public class UIManager : MonoBehaviour
             {
                 SoundManager.instance.PlaySfxClip(coinSfx);
                 conquerorEnemiesCounter++;
-                conquerorEnemies.text = "Conqueror: " + conquerorEnemiesCounter.ToString();
+                conquerorEnemies.text = conquerorEnemiesCounter.ToString();
                 conquerorEnemiesPrevTimeCount = conquerorEnemiesTimeCount;
             }
         }
@@ -314,7 +314,7 @@ public class UIManager : MonoBehaviour
         switch (activeCombo)
         {
             case ComboTypes.StrongCombo:
-                if (strongCombo.transform.localScale.x < 0.75f)
+                if (strongCombo.transform.localScale.x < 0.40f)
                 {
                     strongComboscaleModifier += Time.deltaTime;
                     strongCombo.transform.localScale = new Vector3(strongCombo.transform.localScale.x + strongComboscaleModifier * strongComboScaleVelocity, strongCombo.transform.localScale.y + strongComboscaleModifier * strongComboScaleVelocity, strongCombo.transform.localScale.z);
@@ -338,7 +338,7 @@ public class UIManager : MonoBehaviour
                 break;
 
             case ComboTypes.BadCombo:
-                if (badCombo.transform.localScale.x < 1f)
+                if (badCombo.transform.localScale.x < 0.25f)
                 {
                     badComboscaleModifier += Time.deltaTime;
                     badCombo.transform.localScale = new Vector3(badCombo.transform.localScale.x + badComboscaleModifier * badComboScaleVelocity, badCombo.transform.localScale.y + badComboscaleModifier * badComboScaleVelocity, badCombo.transform.localScale.z);

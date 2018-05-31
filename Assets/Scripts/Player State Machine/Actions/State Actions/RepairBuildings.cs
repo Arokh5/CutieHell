@@ -5,13 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Player State Machine/Actions/RepairBuildings")]
 public class RepairBuildings : StateAction
 {
-    public float maxMonumentRepairDistance = 5.0f;
-
     public override void Act(Player player)
     {
         bool showMessage = false;
         bool showLockedMessage = false;
 
+        // Trap repair
         if (player.nearbyTrap && !player.nearbyTrap.HasFullHealth())
         {
             showLockedMessage = true;
@@ -27,7 +26,8 @@ public class RepairBuildings : StateAction
             }
         }
         
-        if (Vector3.Distance(player.transform.position, player.monument.transform.position) < maxMonumentRepairDistance && !player.monument.HasFullHealth())
+        // Monnument repair
+        if (!player.monument.HasFullHealth() && Vector3.Distance(player.transform.position, player.monument.transform.position) < player.monument.maxRepairDistance)
         {
             showLockedMessage = true;
             if (player.monument.GetRepairCost() <= player.evilLevel)

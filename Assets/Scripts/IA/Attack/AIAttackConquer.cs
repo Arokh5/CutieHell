@@ -28,6 +28,11 @@ public class AIAttackConquer : AIAttackLogic {
     private Building targetInConquest;
     private Animator animator;
 
+    [SerializeField]
+    private AudioSource attackSource;
+    [SerializeField]
+    private AudioClip attackClip;
+
     #endregion
 
     #region MonoBehaviour Methods
@@ -42,6 +47,7 @@ public class AIAttackConquer : AIAttackLogic {
         //UnityEngine.Assertions.Assert.IsNotNull(mainModelRenderer, "ERROR: mainModelRenderer was not assigned in the Inspector for the AIAttackConquer script in GameOBject " + gameObject.name);
         //UnityEngine.Assertions.Assert.IsNotNull(alternateModelRenderer, "ERROR: alternateModelRenderer was not assigned in the Inspector for the AIAttackConquer script in GameOBject " + gameObject.name);
         //alternateModelRenderer.material.SetFloat("_Size", 0.0f);
+        attackSource.clip = attackClip;
     }
 
     private void Update()
@@ -70,6 +76,7 @@ public class AIAttackConquer : AIAttackLogic {
     #endregion
 
     #region Public Methods
+
     public override void AttemptAttack(Building attackTarget, Vector3 navigationTarget)
     {
         if (!targetInConquest)
@@ -98,6 +105,7 @@ public class AIAttackConquer : AIAttackLogic {
     public void EndTransformation()
     {
         inConquest = true;
+        attackSource.Play();
         elapsedTime = 0;
     }
     #endregion

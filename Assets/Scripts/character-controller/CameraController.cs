@@ -41,6 +41,9 @@ public class CameraController : MonoBehaviour {
     public float t_cameraY;
     public float t_fov;
 
+    /*Canon camera values*/
+    public float lerpTowardsCanonTargetDecal; 
+
     [Header("Fog setup")]
     public float fogDistance;
     public float yFogMin;
@@ -108,6 +111,7 @@ public class CameraController : MonoBehaviour {
                     break;
                 case Player.CameraState.MOVE:
                     {
+
                         if (this.transform.parent != null) this.transform.parent = null;
                         y = ClampAngle(y, yMinLimit, yMaxLimit);
                         Quaternion rotation = Quaternion.Euler(y, x, 0);
@@ -163,7 +167,7 @@ public class CameraController : MonoBehaviour {
                     break;
                 case Player.CameraState.FOG:
                     {
-                        y = ClampAngle(y, yFogMin, yFogMax);
+                        y = ClampAngle(y, yFogMin, yFogMax);                        
 
                         Quaternion rotation = Quaternion.Euler(y, x, 0);
                         float noCollisionDistance = distance;
@@ -239,9 +243,13 @@ public class CameraController : MonoBehaviour {
                     {
                         if (playerScript.currentTrap.canonTargetDecal.gameObject.activeSelf)
                         {
-                            playerScript.currentTrap.rotatingHead.LookAt(playerScript.currentTrap.canonTargetDecal.transform);
+                            Vector3 canonTargetDecalDirection = playerScript.currentTrap.canonTargetDecal.transform.position - transform.position;
+                            playerScript.currentTrap.rotatingHead.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(canonTargetDecalDirection), Time.deltaTime * lerpTowardsCanonTargetDecal);
                             playerScript.currentTrap.canonTargetDecal.transform.rotation = Quaternion.Euler(0, playerScript.currentTrap.rotatingHead.rotation.eulerAngles.y, 0);
-                        }     
+
+                            y = playerScript.currentTrap.rotatingHead.transform.rotation.eulerAngles.x;
+                            x = playerScript.currentTrap.rotatingHead.transform.rotation.eulerAngles.y;
+                        }
                         break;
                     }
                 case Player.CameraState.ZOOMOUT:
@@ -268,21 +276,12 @@ public class CameraController : MonoBehaviour {
                     }
                 case Player.CameraState.TRANSITION:
                     {
-                        Quaternion rotation = this.transform.rotation;
+                        y = ClampAngle(y, yMinLimit, yMaxLimit);
+                        Quaternion rotation = Quaternion.Euler(y, x, 0);
                         float noCollisionDistance = distance;
                         timeOnTransition += Time.deltaTime;
-                        for (float zOffset = distance; zOffset >= 0.5f; zOffset -= 0.025f)
-                        {
-                            noCollisionDistance = zOffset;
-                            Vector3 tempPos = rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position;
-
-                            if (DoubleViewingPosCheck(tempPos, zOffset))
-                            {
-                                break;
-                            }
-                        }
                         this.transform.position = Vector3.Lerp(this.transform.position, rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position, timeOnTransition / 2f);
-                        this.transform.LookAt(player.transform.position + player.transform.up * focusY + player.transform.right * focusX + player.transform.forward * focusDistance);
+                        this.transform.LookAt(player.transform.position + rotation * Vector3.up * focusY + rotation * Vector3.right * focusX + rotation * Vector3.forward * focusDistance);
                         break;
                     }
                 default:

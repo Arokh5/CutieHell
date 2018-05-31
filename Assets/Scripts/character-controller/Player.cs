@@ -59,6 +59,8 @@ public class Player : MonoBehaviour {
     [HideInInspector]
     public Trap[] allTraps;
     public Trap nearbyTrap;
+    [HideInInspector]
+    public bool currentlyUsingTrap = false;
     public Trap currentTrap;
     public int trapUseCooldown;
     public float trapMaxUseDistance;
@@ -107,8 +109,11 @@ public class Player : MonoBehaviour {
     public float accumulatedFogEvilCost = 0;
     [HideInInspector]
     public float timeSinceLastFogHit = 0;
-    [HideInInspector]
+    //[HideInInspector]
     public List<AIEnemy> currentFogAttackTargets = new List<AIEnemy>();
+    [HideInInspector]
+    public List<AIEnemy> toRemoveFogAttackTargets = new List<AIEnemy>();
+
 
     [Header("Footsteps")]
     public AudioClip footstepsClip;
@@ -171,6 +176,9 @@ public class Player : MonoBehaviour {
 
         currentState.EnterState(this);
 
+        // Quick fix. More info above ReEnable method.
+        enabled = false;
+        Invoke("ReEnable", 0);
     }
 
     private void Update()
@@ -270,6 +278,12 @@ public class Player : MonoBehaviour {
     #endregion
 
     #region Private Methods
+    // Used for a quick fix on a bug where the player wouldn't be able to move after reloading the Game scene
+    private void ReEnable()
+    {
+        enabled = true;
+    }
+
     private void UpdateNearestMonument()
     {
         float nearestMonumentDistance = float.MaxValue;
