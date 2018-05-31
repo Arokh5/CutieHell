@@ -13,7 +13,9 @@ public class Trap : Building, IUsable
     private Player player;
     public Transform rotatingHead;
     [SerializeField]
-    private CurrentTrapIndicator trapIndicator;
+    private GameObject trapIndicator;
+    [SerializeField]
+    private PercentageCounter trapPercentageCounter;
 
     [Header("Trap testing")]
     public bool activate = false;
@@ -26,7 +28,7 @@ public class Trap : Building, IUsable
     public List<CanonBallMotion> canonBallsList = new List<CanonBallMotion>();
     private CanonBallInfo canonBallInfo;
     [SerializeField]
-    private CurrentTrapIndicator canonAmmoIndicator;
+    private Transform canonAmmoIndicator;
 
 
     [ShowOnly]
@@ -83,13 +85,14 @@ public class Trap : Building, IUsable
     public override void TakeDamage(float damage, AttackType attacktype)
     {
         base.TakeDamage(damage, attacktype);
-        trapIndicator.SetFill((baseHealth - currentHealth) / baseHealth);
+        Debug.Log((baseHealth - currentHealth) / baseHealth);
+        trapPercentageCounter.UpdatePercentage(((baseHealth - currentHealth) / baseHealth) * 100);
     }
 
     public override void FullRepair()
     {
             base.FullRepair();
-            trapIndicator.SetFill(0);
+            trapPercentageCounter.UpdatePercentage(0f);
     }
 
     // IUsable
@@ -105,14 +108,13 @@ public class Trap : Building, IUsable
         return usageCost;
     }
 
-    // Called by TrapEnterAction
-    public CurrentTrapIndicator GetCurrentTrapIndicator()
+    //Called by CanonTrapEnterAction
+    public GameObject GetCurrentTrapIndicator()
     {
         return trapIndicator;
     }
 
-    //Called by CanonTrapEnterAction
-    public CurrentTrapIndicator GetCanonAmmoIndicator()
+    public Transform GetCanonAmmoIndicator()
     {
         return canonAmmoIndicator;
     }
