@@ -89,15 +89,20 @@ public class TutorialController : MonoBehaviour
             crosshair.SetActive(false);
         }
 
-        if (running)
-        {
-            if (InputManager.instance.GetPS4OptionsDown())
-                RequestEndTutorial();
-        }
+        //if (running)
+        //{
+        //    if (InputManager.instance.GetPS4OptionsDown())
+        //        RequestEndTutorial();
+        //}
     }
     #endregion
 
     #region Public Methods
+    public bool IsRunning()
+    {
+        return running;
+    }
+
     public void RequestStartTutorial()
     {
         if (!running)

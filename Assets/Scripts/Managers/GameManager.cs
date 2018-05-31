@@ -21,7 +21,9 @@ public class GameManager : MonoBehaviour
 
     public bool gameIsPaused;
     [SerializeField]
-    PauseMenuController pauseMenuController;
+    private PauseMenuController pauseMenuController;
+    [SerializeField]
+    private PauseMenuController tutorialPauseMenuController;
 
     public enum GameStates { OnStartMenu, InGame, OnWaveEnd, OnGameEnd, OnGamePaused };
     public GameStates gameState;
@@ -86,7 +88,10 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameStates.OnGamePaused:
-                pauseMenuController.HandlePause();
+                if (tutorialController.IsRunning())
+                    tutorialPauseMenuController.HandlePause();
+                else
+                    pauseMenuController.HandlePause();
                 break;
         }
     }
@@ -157,7 +162,11 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 0.0f;
             crosshair.SetActive(false);
-            pauseMenuController.gameObject.SetActive(true);
+
+            if (tutorialController.IsRunning())
+                tutorialPauseMenuController.gameObject.SetActive(true);
+            else
+                pauseMenuController.gameObject.SetActive(true);
 
             gameIsPaused = true;
 
@@ -170,7 +179,27 @@ public class GameManager : MonoBehaviour
         if (gameState == GameStates.OnGamePaused)
         {
             crosshair.SetActive(true);
-            pauseMenuController.gameObject.SetActive(false);
+            if (tutorialController.IsRunning())
+                tutorialPauseMenuController.gameObject.SetActive(false);
+            else
+                pauseMenuController.gameObject.SetActive(false);
+
+            Time.timeScale = 1.0f;
+
+            gameIsPaused = false;
+
+            gameState = GameStates.InGame;
+        }
+    }
+
+    public void SkipTutorial()
+    {
+        if (gameState == GameStates.OnGamePaused)
+        {
+            crosshair.SetActive(true);
+            tutorialPauseMenuController.gameObject.SetActive(false);
+            tutorialController.RequestEndTutorial();
+
             Time.timeScale = 1.0f;
 
             gameIsPaused = false;
