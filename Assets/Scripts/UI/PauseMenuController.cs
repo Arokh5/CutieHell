@@ -6,7 +6,7 @@ public class PauseMenuController : MonoBehaviour {
 
     #region Fields
     [SerializeField]
-    private MenuButton[] pauseButtons = new MenuButton[2];
+    private MenuButton[] pauseButtons = new MenuButton[3];
     private int pauseIndex = 0;
     #endregion
 
