@@ -28,7 +28,7 @@ public class Trap : Building, IUsable
     public List<CanonBallMotion> canonBallsList = new List<CanonBallMotion>();
     private CanonBallInfo canonBallInfo;
     [SerializeField]
-    private Transform canonAmmoIndicator;
+    private ImageExchanger ammunitionUIExchanger;
 
 
     [ShowOnly]
@@ -85,7 +85,6 @@ public class Trap : Building, IUsable
     public override void TakeDamage(float damage, AttackType attacktype)
     {
         base.TakeDamage(damage, attacktype);
-        Debug.Log((baseHealth - currentHealth) / baseHealth);
         trapPercentageCounter.UpdatePercentage(((baseHealth - currentHealth) / baseHealth) * 100);
     }
 
@@ -114,9 +113,9 @@ public class Trap : Building, IUsable
         return trapIndicator;
     }
 
-    public Transform GetCanonAmmoIndicator()
+    public ImageExchanger GetCanonAmmunitionImageExchanger()
     {
-        return canonAmmoIndicator;
+        return ammunitionUIExchanger;
     }
 
     public List<AIEnemy> ObtainEnemiesAffectedByTrapRangedDamage(Transform emissionTransform, float aoeRange)

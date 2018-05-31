@@ -44,7 +44,7 @@ public class CanonTurretAttack : StateAction
 
         if (currentCanonBallMotion.canonBallElapsedTime >= canonBallCooldownTime)            
         {
-            playerRef.currentTrap.GetCanonAmmoIndicator().gameObject.SetActive(true);
+            playerRef.currentTrap.GetCanonAmmunitionImageExchanger().ActivateSecondaryImage();
             if (InputManager.instance.GetR2ButtonDown())
                 {
                     ShootCanonBall();
@@ -135,7 +135,7 @@ public class CanonTurretAttack : StateAction
         currentCanonBallMotion.SetAlreadyFired(true);
 
         playerRef.currentTrap.canonBallsList.Add(currentCanonBallMotion);
-        playerRef.currentTrap.GetCanonAmmoIndicator().gameObject.SetActive(false);
+        playerRef.currentTrap.GetCanonAmmunitionImageExchanger().ActivateMainImage();
 
         //We prepare the following canonBall now the previous has already been fired
         PrepareCanonBall();

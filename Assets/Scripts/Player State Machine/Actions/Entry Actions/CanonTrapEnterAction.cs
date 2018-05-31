@@ -22,6 +22,7 @@ public class CanonTrapEnterAction : StateAction
         }
         
         GameManager.instance.SetCrosshairActivate(false);
+        player.currentTrap.GetCanonAmmunitionImageExchanger().gameObject.SetActive(true);
         player.bulletSpawnPoint.SetParent(player.currentTrap.transform);
 
         SetUpCanonTargetDecalInitialPosition();
