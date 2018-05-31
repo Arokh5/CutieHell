@@ -27,7 +27,10 @@ public class Monument : Building
     public override void FullRepair()
     {
         if (!zoneController.isFinalZone || currentHealth != 0)
+        {
             base.FullRepair();
+            monumentIndicator.SetFill((baseHealth - currentHealth) / baseHealth);
+        }
     }
 
     public override void TakeDamage(float damage, AttackType attacktype)
