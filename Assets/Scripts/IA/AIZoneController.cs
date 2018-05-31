@@ -102,6 +102,7 @@ public class AIZoneController : MonoBehaviour
         OnTargetBuildingChanged();
 
         UIManager.instance.indicatorsController.MonumentRepaired(iconIndex);
+        UIManager.instance.markersController.MonumentRepaired(iconIndex);
     }
 
     // Called by Monument when it gets conquered. The method is meant to open the door
@@ -126,6 +127,7 @@ public class AIZoneController : MonoBehaviour
         }
 
         UIManager.instance.indicatorsController.MonumentConquered(iconIndex);
+        UIManager.instance.markersController.MonumentConquered(iconIndex);
     }
 
     // Called by Trap when it gets activated by Player

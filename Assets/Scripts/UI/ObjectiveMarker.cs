@@ -12,6 +12,10 @@ public class ObjectiveMarker : MonoBehaviour
     public Image arrow;
     [SerializeField]
     private Camera mainCamera;
+    [SerializeField]
+    private Sprite defendSprite;
+    [SerializeField]
+    private Sprite repairSprite;
 
     private float horizontalOffset;
     private float hAngle;
@@ -24,6 +28,9 @@ public class ObjectiveMarker : MonoBehaviour
         float radVFov = mainCamera.fieldOfView * Mathf.Deg2Rad;
         float radHFov = 2 * Mathf.Atan(Mathf.Tan(radVFov / 2) * mainCamera.aspect);
         hAngle = Mathf.Rad2Deg * Mathf.Atan((Mathf.Tan(0.5f * radHFov) * (1 - horizontalOffsetPercentage)));
+
+        Image image = GetComponent<Image>();
+        image.sprite = defendSprite;
     }
 
     void Update()
@@ -119,5 +126,17 @@ public class ObjectiveMarker : MonoBehaviour
         Vector3 arrowRotation = arrowTransform.parent.localRotation.eulerAngles;
         arrowRotation.z = angle;
         arrowTransform.parent.localRotation = Quaternion.Euler(arrowRotation);
+    }
+
+    public void MonumentTaken()
+    {
+        Image image = GetComponent<Image>();
+        image.sprite = repairSprite;
+    }
+
+    public void MonumentRepaired()
+    {
+        Image image = GetComponent<Image>();
+        image.sprite = defendSprite;
     }
 }

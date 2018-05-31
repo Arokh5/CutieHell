@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private WaveProgressFiller waveProgressFiller;
     public IndicatorsController indicatorsController;
+    public MarkersController markersController;
     //[SerializeField]
     //private WaveTimer waveRadialProgressBar;
 

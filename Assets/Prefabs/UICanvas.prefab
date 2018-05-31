@@ -1809,6 +1809,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224543668301894970}
+  - component: {fileID: 114573267599407510}
   m_Layer: 5
   m_Name: ObjectiveMarkers
   m_TagString: Untagged
@@ -2004,6 +2005,8 @@ MonoBehaviour:
   target: {fileID: 0}
   arrow: {fileID: 114750187084285422}
   mainCamera: {fileID: 0}
+  defendSprite: {fileID: 21300054, guid: cb533ae1869032641babc46330b14c89, type: 3}
+  repairSprite: {fileID: 21300046, guid: cb533ae1869032641babc46330b14c89, type: 3}
 --- !u!114 &114047557418140710
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2483,6 +2486,8 @@ MonoBehaviour:
   target: {fileID: 0}
   arrow: {fileID: 114511922829197624}
   mainCamera: {fileID: 0}
+  defendSprite: {fileID: 21300056, guid: cb533ae1869032641babc46330b14c89, type: 3}
+  repairSprite: {fileID: 21300048, guid: cb533ae1869032641babc46330b14c89, type: 3}
 --- !u!114 &114254086323063234
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2560,6 +2565,8 @@ MonoBehaviour:
   target: {fileID: 0}
   arrow: {fileID: 114906335463325814}
   mainCamera: {fileID: 0}
+  defendSprite: {fileID: 0}
+  repairSprite: {fileID: 0}
 --- !u!114 &114296122750243942
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3101,6 +3108,8 @@ MonoBehaviour:
   target: {fileID: 0}
   arrow: {fileID: 114471433400748230}
   mainCamera: {fileID: 0}
+  defendSprite: {fileID: 21300052, guid: cb533ae1869032641babc46330b14c89, type: 3}
+  repairSprite: {fileID: 21300044, guid: cb533ae1869032641babc46330b14c89, type: 3}
 --- !u!114 &114517631015208300
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3300,6 +3309,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedButton: {fileID: 1063120183919596}
+--- !u!114 &114573267599407510
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1971764570543780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf326cbc68079584cad1d381631216b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monumentIndicators:
+  - {fileID: 114035595282849316}
+  - {fileID: 114251216045031656}
+  - {fileID: 114514683238999866}
 --- !u!114 &114583121105349090
 MonoBehaviour:
   m_ObjectHideFlags: 1
