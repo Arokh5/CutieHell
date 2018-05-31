@@ -24,6 +24,8 @@ public class TutorialController : MonoBehaviour
     private CinemachineBrain cinemachineBrain;
     [SerializeField]
     private ScreenFadeController screenFadeController;
+    [SerializeField]
+    private ScenarioController scenarioController;
 
     [Header("Player")]
     [SerializeField]
@@ -32,8 +34,12 @@ public class TutorialController : MonoBehaviour
     private State playerDefaultState;
     [SerializeField]
     private State[] tutorialStates;
-    private int playerStateIndex = -1;
 
+    [Header("Other")]
+    [SerializeField]
+    private Monument tutorialMonument;
+
+    private int playerStateIndex = -1;
     private bool running;
     private bool paused;
     private Vector3 playerStartingPos;
@@ -134,6 +140,7 @@ public class TutorialController : MonoBehaviour
         running = false;
         director.Stop();
         cinemachineBrain.enabled = false;
+        tutorialMonument.TakeDamage(tutorialMonument.GetCurrentHealth(), AttackType.NONE);
         player.transform.position = playerStartingPos;
         player.transform.rotation = playerStartingRot;
         Camera.main.GetComponent<CameraController>().SetCameraXAngle(0);
@@ -146,7 +153,11 @@ public class TutorialController : MonoBehaviour
 
         foreach (AIZoneController zoneController in zoneControllers)
         {
-            zoneController.DestroyAllEnemies();
+            if (zoneController.HasEnemies())
+            {
+                zoneController.DestroyAllEnemies();
+                scenarioController.OnZoneEmpty();
+            }
         }
 
         tutorialEnemiesManager.ClearEnemies();
