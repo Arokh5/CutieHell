@@ -168,7 +168,7 @@ public class TutorialEvents: MonoBehaviour
     {
         if (eventIndex >= 0 && eventIndex < events.Length)
         {
-            Debug.Log("Launching event with index " + eventIndex);
+            //Debug.Log("Launching event with index " + eventIndex);
             events[eventIndex]();
         }
         else
