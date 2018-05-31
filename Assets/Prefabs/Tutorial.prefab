@@ -430,7 +430,7 @@ GameObject:
   - component: {fileID: 4580842779920522}
   - component: {fileID: 114590315551782844}
   m_Layer: 0
-  m_Name: 00-Lighting
+  m_Name: 00-Lightning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -645,6 +645,7 @@ GameObject:
   - component: {fileID: 114510619637958208}
   - component: {fileID: 320400532580166328}
   - component: {fileID: 114325232345552390}
+  - component: {fileID: 82325985891617908}
   m_Layer: 0
   m_Name: Tutorial
   m_TagString: Untagged
@@ -1725,6 +1726,86 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 7, y: 5, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!82 &82325985891617908
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1671902613955374}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!95 &95132252540178980
 Animator:
   serializedVersion: 3
@@ -2161,6 +2242,7 @@ MonoBehaviour:
   damageLimiterTutZone: {fileID: 114501133314358364}
   damageLimiterZoneC: {fileID: 114740602830611852}
   evilLimiter: {fileID: 114639038525247722}
+  audioSource: {fileID: 82325985891617908}
   enemyDescriptionController: {fileID: 0}
   enemyLabelInfos:
   - name: THE SLIME
@@ -2177,10 +2259,11 @@ MonoBehaviour:
   - Use R2 to launch an attack at the cuties
   - Hold L2 and then use R2 to launch a devastating area attack
   - Use CIRCLE to trigger the ZONE TRAP
-  lightingPrefab: {fileID: 198128217843348246, guid: e0ad8c49f2eb5a4478dd110d17ec7883,
+  lightningPrefab: {fileID: 198128217843348246, guid: e0ad8c49f2eb5a4478dd110d17ec7883,
     type: 2}
-  lightingPosition: {fileID: 4905490150227636}
+  lightningPosition: {fileID: 4905490150227636}
   monumentIndicator: {fileID: 0}
+  lightningSFX: {fileID: 8300000, guid: a9996607c0e453c4cb45ee3e98a0c773, type: 3}
   enemyCountMonitors:
   - {fileID: 1927223363647694}
   - {fileID: 1773501700214026}

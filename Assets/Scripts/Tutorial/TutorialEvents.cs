@@ -40,6 +40,8 @@ public class TutorialEvents: MonoBehaviour
     private DamageLimiter damageLimiterZoneC;
     [SerializeField]
     private EvilLimiter evilLimiter;
+    [SerializeField]
+    private AudioSource audioSource;
     public EnemyDescriptionController enemyDescriptionController;
     [SerializeField]
     private EnemyLabelInfo[] enemyLabelInfos;
@@ -49,10 +51,15 @@ public class TutorialEvents: MonoBehaviour
     [SerializeField]
     private string[] infoPrompts;
 
-    [Header("0-DropLighting")]
-    public ParticleSystem lightingPrefab;
-    public Transform lightingPosition;
-    public MonumentIndicator monumentIndicator;
+    [Header("0-DropLightning")]
+    [SerializeField]
+    private ParticleSystem lightningPrefab;
+    [SerializeField]
+    private Transform lightningPosition;
+    [SerializeField]
+    private MonumentIndicator monumentIndicator;
+    [SerializeField]
+    private AudioClip lightningSFX;
 
     [Header("14-EnterZoneBtoCBridge")]
     [SerializeField]
@@ -96,7 +103,7 @@ public class TutorialEvents: MonoBehaviour
         player = GameManager.instance.GetPlayer1();
 
         events = new TutorialEvent[]{
-            DropLighting,           // 00
+            DropLightning,          // 00
             SpawnSlime,             // 01
             SlimeAttack,            // 02
             SpawnBear,              // 03
@@ -179,10 +186,11 @@ public class TutorialEvents: MonoBehaviour
     #region Private Methods
     #region Events
     // 00
-    private void DropLighting()
+    private void DropLightning()
     {
-        ParticlesManager.instance.LaunchParticleSystem(lightingPrefab, lightingPosition.position, lightingPrefab.transform.rotation);
+        ParticlesManager.instance.LaunchParticleSystem(lightningPrefab, lightningPosition.position, lightningPrefab.transform.rotation);
         monumentIndicator.RequestOpen();
+        audioSource.PlayOneShot(lightningSFX);
         tutObjectiveMarker.SetActive(false);
     }
 
