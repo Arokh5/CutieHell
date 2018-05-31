@@ -8,16 +8,18 @@ public class MarkersController : MonoBehaviour
     [SerializeField]
     private ObjectiveMarker[] monumentIndicators = new ObjectiveMarker[3];
     #endregion
-    
+
     #region Public Methods
     public void MonumentConquered(int index)
     {
-        monumentIndicators[index].MonumentTaken();
+        if (index != -1)
+            monumentIndicators[index].MonumentTaken();
     }
 
     public void MonumentRepaired(int index)
     {
-        monumentIndicators[index].MonumentRepaired();
+        if (index != -1)
+            monumentIndicators[index].MonumentRepaired();
     }
     #endregion
 }
