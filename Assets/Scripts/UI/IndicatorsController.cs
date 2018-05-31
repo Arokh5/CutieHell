@@ -3,6 +3,7 @@
 public class IndicatorsController : MonoBehaviour
 {
     #region Fields
+    public GameObject[] monumentConqueredIcons = new GameObject[3];
     private MonumentIndicator[] monumentIndicators = null;
     #endregion
 
@@ -23,6 +24,16 @@ public class IndicatorsController : MonoBehaviour
         {
             monumentIndicator.OnNewWaveStarted();
         }
+    }
+
+    public void MonumentConquered(int index)
+    {
+        monumentConqueredIcons[index].SetActive(true);
+    }
+
+    public void MonumentRepaired(int index)
+    {
+        monumentConqueredIcons[index].SetActive(false);
     }
     #endregion
 }

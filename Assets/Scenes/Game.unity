@@ -818,6 +818,11 @@ Transform:
   m_PrefabParentObject: {fileID: 4107662294762830, guid: 4dd411abb7bf7db42861402cd09c33b6,
     type: 2}
   m_PrefabInternal: {fileID: 51483134}
+--- !u!1 &60227002 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1310928845831414, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+    type: 2}
+  m_PrefabInternal: {fileID: 965058875}
 --- !u!4 &61826019 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4574107624585298, guid: 6674267c483307c44b3bf1156b47edee,
@@ -1251,6 +1256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneID: 0
+  iconIndex: 0
   isFinalZone: 0
   monument: {fileID: 0}
   traps:
@@ -4728,6 +4734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneID: 0
+  iconIndex: 0
   isFinalZone: 0
   monument: {fileID: 0}
   traps:
@@ -8734,6 +8741,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneID: 0
+  iconIndex: 2
   isFinalZone: 0
   monument: {fileID: 273357513}
   traps: []
@@ -13782,6 +13790,11 @@ Transform:
   m_Father: {fileID: 1366232079}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &808763384 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1738916285760024, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+    type: 2}
+  m_PrefabInternal: {fileID: 965058875}
 --- !u!114 &808770458 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114863763437889564, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
@@ -19948,11 +19961,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114770646056306062, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-        type: 2}
-      propertyPath: pauseButtons.Array.size
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 224050234008403358, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -20073,113 +20081,61 @@ Prefab:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 230846840}
-    - target: {fileID: 114770646056306062, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+    - target: {fileID: 1750937853811712, guid: ea64b03fd47dae043a3d7cf8c919a7b7, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114762222737200046, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
-      propertyPath: pauseButtons.Array.data[2]
+      propertyPath: monumentConqueredIcons.Array.data[0]
       value: 
-      objectReference: {fileID: 965058894}
-    - target: {fileID: 1371109811652420, guid: ea64b03fd47dae043a3d7cf8c919a7b7, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1641582826883632, guid: ea64b03fd47dae043a3d7cf8c919a7b7, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1927105317555622, guid: ea64b03fd47dae043a3d7cf8c919a7b7, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1978607790626004, guid: ea64b03fd47dae043a3d7cf8c919a7b7, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114879272397099092, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+      objectReference: {fileID: 1549756619}
+    - target: {fileID: 114762222737200046, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
-      propertyPath: m_Sprite
+      propertyPath: monumentConqueredIcons.Array.data[1]
       value: 
-      objectReference: {fileID: 21300008, guid: 8d216f39e7edf9b48ae74ea86ad275b2,
+      objectReference: {fileID: 60227002}
+    - target: {fileID: 114762222737200046, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+        type: 2}
+      propertyPath: monumentConqueredIcons.Array.data[2]
+      value: 
+      objectReference: {fileID: 808763384}
+    - target: {fileID: 114697539579646732, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+        type: 2}
+      propertyPath: openedSprite
+      value: 
+      objectReference: {fileID: 21300018, guid: cb533ae1869032641babc46330b14c89,
         type: 3}
-    - target: {fileID: 224509339761701804, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+    - target: {fileID: 114697539579646732, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 129
-      objectReference: {fileID: 0}
-    - target: {fileID: 224509339761701804, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-        type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 133
-      objectReference: {fileID: 0}
-    - target: {fileID: 114879272397099092, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-        type: 2}
-      propertyPath: m_PreserveAspect
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224509339761701804, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-        type: 2}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 224509339761701804, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-        type: 2}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 224509339761701804, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-        type: 2}
-      propertyPath: m_LocalScale.z
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 224509339761701804, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 166.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1199924661244414, guid: ea64b03fd47dae043a3d7cf8c919a7b7, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114630228643227542, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-        type: 2}
-      propertyPath: m_Sprite
+      propertyPath: closedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 8d216f39e7edf9b48ae74ea86ad275b2,
+      objectReference: {fileID: 21300036, guid: cb533ae1869032641babc46330b14c89,
         type: 3}
-    - target: {fileID: 224274822364918172, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+    - target: {fileID: 114406020603326828, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 129
-      objectReference: {fileID: 0}
-    - target: {fileID: 224274822364918172, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+      propertyPath: openedSprite
+      value: 
+      objectReference: {fileID: 21300012, guid: cb533ae1869032641babc46330b14c89,
+        type: 3}
+    - target: {fileID: 114406020603326828, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 133
-      objectReference: {fileID: 0}
-    - target: {fileID: 114630228643227542, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+      propertyPath: closedSprite
+      value: 
+      objectReference: {fileID: 21300032, guid: cb533ae1869032641babc46330b14c89,
+        type: 3}
+    - target: {fileID: 114017703950758042, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
-      propertyPath: m_PreserveAspect
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224274822364918172, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+      propertyPath: openedSprite
+      value: 
+      objectReference: {fileID: 21300016, guid: cb533ae1869032641babc46330b14c89,
+        type: 3}
+    - target: {fileID: 114017703950758042, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 224274822364918172, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-        type: 2}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 224274822364918172, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-        type: 2}
-      propertyPath: m_LocalScale.z
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 224274822364918172, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 166.7
-      objectReference: {fileID: 0}
+      propertyPath: closedSprite
+      value: 
+      objectReference: {fileID: 21300040, guid: cb533ae1869032641babc46330b14c89,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ea64b03fd47dae043a3d7cf8c919a7b7, type: 2}
   m_IsPrefabParent: 0
@@ -20277,12 +20233,6 @@ GameObject:
   m_PrefabParentObject: {fileID: 1755804917722622, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
     type: 2}
   m_PrefabInternal: {fileID: 965058875}
---- !u!114 &965058894 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114925822645479806, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-    type: 2}
-  m_PrefabInternal: {fileID: 965058875}
-  m_Script: {fileID: 11500000, guid: f46a213abe0e8a241989395fc8abfb06, type: 3}
 --- !u!1001 &967478126
 Prefab:
   m_ObjectHideFlags: 0
@@ -22014,6 +21964,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneID: 0
+  iconIndex: 1
   isFinalZone: 0
   monument: {fileID: 433428441}
   traps: []
@@ -32906,6 +32857,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneID: 0
+  iconIndex: 0
   isFinalZone: 0
   monument: {fileID: 0}
   traps: []
@@ -34470,6 +34422,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1546994886}
   m_Mesh: {fileID: 4300000, guid: fd56d3fb73a2c06498112a166e9aa42c, type: 3}
+--- !u!1 &1549756619 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1750937853811712, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+    type: 2}
+  m_PrefabInternal: {fileID: 965058875}
 --- !u!4 &1555071975 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4221736623741722, guid: 663b71004d1fe7e44b1e2a63aba27e00,
@@ -35834,6 +35791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneID: 0
+  iconIndex: 0
   isFinalZone: 0
   monument: {fileID: 2133688004}
   traps: []
@@ -41283,6 +41241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneID: 0
+  iconIndex: 0
   isFinalZone: 1
   monument: {fileID: 2036540555}
   traps:

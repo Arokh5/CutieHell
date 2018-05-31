@@ -7,6 +7,7 @@ public class AIZoneController : MonoBehaviour
     #region Fields
     [HideInInspector]
     public int zoneID;
+    public int iconIndex;
     public bool isFinalZone = false;
     public Monument monument = null;
     public Trap[] traps;
@@ -99,6 +100,8 @@ public class AIZoneController : MonoBehaviour
         }
         currentZoneTarget = monument;
         OnTargetBuildingChanged();
+
+        UIManager.instance.indicatorsController.MonumentRepaired(iconIndex);
     }
 
     // Called by Monument when it gets conquered. The method is meant to open the door
@@ -121,6 +124,8 @@ public class AIZoneController : MonoBehaviour
             currentZoneTarget = scenarioController.GetAlternateTarget(this);
             OnTargetBuildingChanged();
         }
+
+        UIManager.instance.indicatorsController.MonumentConquered(iconIndex);
     }
 
     // Called by Trap when it gets activated by Player
