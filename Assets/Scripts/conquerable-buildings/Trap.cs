@@ -30,6 +30,7 @@ public class Trap : Building, IUsable
     [SerializeField]
     private ImageExchanger ammunitionUIExchanger;
 
+    private WaitForSeconds canonWaitForSeconds = new WaitForSeconds(0.5f);
 
     [ShowOnly]
     public bool isActive = false;
@@ -236,7 +237,7 @@ public class Trap : Building, IUsable
         canonBall.gameObject.SetActive(false);
         canonBallsList.Remove(canonBall);
 
-        yield return new WaitForSeconds(0.5f);
+        yield return canonWaitForSeconds;
 
         List<AIEnemy> affectedEnemies = ObtainEnemiesAffectedByTrapRangedDamage(canonBall.transform, explosionRange);
         for (int j = 0; j < affectedEnemies.Count; j++)

@@ -19,6 +19,7 @@ public class ObjectiveMarker : MonoBehaviour
 
     private float horizontalOffset;
     private float hAngle;
+    private bool arrowEnableState = true;
 
     void Start()
     {
@@ -32,10 +33,10 @@ public class ObjectiveMarker : MonoBehaviour
         Image image = GetComponent<Image>();
         image.sprite = defendSprite;
     }
-
+    
     void Update()
     {
-        arrow.gameObject.SetActive(true);
+        bool currentArrowEnableState = true;
 
         Vector2 screenPosition;
         Vector3 iconPosition = Vector3.zero;
@@ -69,7 +70,7 @@ public class ObjectiveMarker : MonoBehaviour
             if (front)
             {
                 if (screenPosition.y < topOffset && screenPosition.y > bottomOffset)
-                    arrow.gameObject.SetActive(false);
+                    currentArrowEnableState = false;
 
                 iconPosition.y = mainCamera.pixelHeight * Mathf.Clamp(screenPosition.y, bottomOffset, topOffset);
                 iconPosition.x = mainCamera.pixelWidth * Mathf.Clamp(screenPosition.x, horizontalOffsetPercentage, 1 - horizontalOffsetPercentage);
@@ -122,10 +123,16 @@ public class ObjectiveMarker : MonoBehaviour
         Vector3 centerOfIcon = transform.position;
         centerOfIcon.z = 0f;
 
-        float angle = Vector3.SignedAngle(new Vector3(0f, 1f, 0f), centerOfScreen - centerOfIcon, new Vector3(0f, 0f, 1f));
+        float angle = Vector3.SignedAngle(Vector3.up, centerOfScreen - centerOfIcon, Vector3.forward);
         Vector3 arrowRotation = arrowTransform.parent.localRotation.eulerAngles;
         arrowRotation.z = angle;
         arrowTransform.parent.localRotation = Quaternion.Euler(arrowRotation);
+
+        if (currentArrowEnableState != arrowEnableState)
+        {
+            arrow.gameObject.SetActive(currentArrowEnableState);
+            arrowEnableState = currentArrowEnableState;
+        }
     }
 
     public void MonumentTaken()

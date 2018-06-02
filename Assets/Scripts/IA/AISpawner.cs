@@ -15,14 +15,15 @@ public class AISpawner : MonoBehaviour {
     private ParticleSystem spawnVFX;
 
     [SerializeField]
-    private GameObject lightningVFX;
+    private ParticleSystem lightningVFX;
     [SerializeField]
     private AudioSource lightningSource;
     [SerializeField]
     private AudioClip lightningClip;
 
     [SerializeField]
-    private List<SpawnInfo> activeSpawnInfos;
+    private List<SpawnInfo> activeSpawnInfos = new List<SpawnInfo>(8);
+    private List<SpawnInfo> spawnInfosToRemove = new List<SpawnInfo>(8);
     #endregion
 
     #region MonoBehaviour Methods
@@ -35,8 +36,6 @@ public class AISpawner : MonoBehaviour {
 
     private void Update()
     {
-        List<SpawnInfo> spawnInfosToRemove = new List<SpawnInfo>();
-
         foreach (SpawnInfo spawnInfo in activeSpawnInfos)
         {
             spawnInfo.elapsedTime += Time.deltaTime;
@@ -70,7 +69,7 @@ public class AISpawner : MonoBehaviour {
         if (!activeSpawnInfos.Contains(spawnInfo))
         {
             lightningSource.Play();
-            Destroy(Instantiate(lightningVFX, this.transform.position, lightningVFX.transform.rotation), 2.0f);
+            ParticlesManager.instance.LaunchParticleSystem(lightningVFX, this.transform.position, lightningVFX.transform.rotation);
             zoneController.monument.GetMonumentIndicator().RequestOpen();
             activeSpawnInfos.Add(spawnInfo);
             spawnInfo.elapsedTime = 0;

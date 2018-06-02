@@ -18,8 +18,8 @@ public class TextureChangerSource : MonoBehaviour
     #region MonoBehaviour Methods
     private void Awake()
     {
-        aiEnemies = new List<AIEnemy>();
-        buildingEffects = new List<BuildingEffects>();
+        aiEnemies = new List<AIEnemy>(32);
+        buildingEffects = new List<BuildingEffects>(8);
 
         aiPositions = new Vector4[maxPositions];
         buildingsBlendStartRadius = new float[maxBuildings];
