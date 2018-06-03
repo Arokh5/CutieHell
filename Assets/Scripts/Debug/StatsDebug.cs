@@ -41,17 +41,12 @@ public class StatsDebug : MonoBehaviour {
                 accum = 0.0F;
                 frames = 0;
                 GetObjectStats();
+                UpdateStatisticsPanel();
             }
         }
     }
 
-    void OnGUI() {
-        if (Show_Stats)
-            ShowStatistics();
-    }
-
-    void ShowStatistics() {
-        GUILayout.BeginArea(new Rect(Screen.width - 200, Screen.height - 300, 300, 300));
+    void UpdateStatisticsPanel() {
         if (Show_FPS) {
             fpsText.text = "Fps : " + fps.ToString("00.00");
         }
@@ -61,7 +56,6 @@ public class StatsDebug : MonoBehaviour {
         if (Show_Verts) {
             vertsText.text = "Verts : " + verts.ToString("###,###,###");
         }
-        GUILayout.EndArea();
     }
 
     void GetObjectStats() {

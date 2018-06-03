@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Monument : Building
 {
@@ -8,7 +7,8 @@ public class Monument : Building
     #region Fields
     [Header("Monument attributes")]
     [SerializeField]
-    private Texture almostConqueredScreenTintTexture;
+    private Image almostConqueredScreenOverlay;
+    private bool showingScreenOverlay = false;
     private float showAlmostConqueredScreenTintTexture = 0;
     [Range(0, 1)]
     [SerializeField]
@@ -19,6 +19,14 @@ public class Monument : Building
     private MonumentIndicator monumentIndicator;
     [SerializeField]
     private Monument protectedMonument;
+    #endregion
+
+    #region MonoBehaviour Methods
+    private new void Update()
+    {
+        base.Update();
+        ShowAlmostConqueredScreenTint();
+    }
     #endregion
 
     #region Public Methods
@@ -66,15 +74,16 @@ public class Monument : Building
     #endregion
 
     #region Private Methods
-    private void OnGUI()
+    private void ShowAlmostConqueredScreenTint()
     {
-        if(zoneController.GetZoneEnemiesCount() > 0)
+        bool shouldShowScreenOverlay = false;
+        if (zoneController.GetZoneEnemiesCount() > 0)
         {
             if (currentHealth <= (baseHealth * lowHealthScreen) && currentHealth > 0)
             {
                 if (showAlmostConqueredScreenTintTexture > 1)
                 {
-                    GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), almostConqueredScreenTintTexture);
+                    shouldShowScreenOverlay = true;
                     monumentIndicator.ActivateIconConquered();
                 }
                 if (showAlmostConqueredScreenTintTexture > 2)
@@ -90,6 +99,11 @@ public class Monument : Building
             monumentIndicator.DeactivateIconConquered();
         }
 
+        if (shouldShowScreenOverlay != showingScreenOverlay)
+        {
+            almostConqueredScreenOverlay.gameObject.SetActive(shouldShowScreenOverlay);
+            showingScreenOverlay = shouldShowScreenOverlay;
+        }
     }
     #endregion
 }
