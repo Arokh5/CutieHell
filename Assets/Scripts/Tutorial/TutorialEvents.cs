@@ -100,7 +100,6 @@ public class TutorialEvents: MonoBehaviour
         tutorialController = GetComponent<TutorialController>();
         UnityEngine.Assertions.Assert.IsNotNull(tutorialController, "ERROR: A TutorialController Component could not be found by TutorialEvents in GameObject " + gameObject.name);
         evilGainInfoText.SetActive(false);
-        player = GameManager.instance.GetPlayer1();
 
         events = new TutorialEvent[]{
             DropLightning,          // 00
@@ -127,6 +126,11 @@ public class TutorialEvents: MonoBehaviour
             PlayerZoneTrapLesson,   // 21   
             ZoneTrapWaveKilled      // 22
         };
+    }
+
+    private void Start()
+    {
+        player = GameManager.instance.GetPlayer1();
     }
     #endregion
 
