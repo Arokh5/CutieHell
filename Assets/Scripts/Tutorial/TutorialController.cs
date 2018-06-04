@@ -76,28 +76,28 @@ public class TutorialController : MonoBehaviour
 
         if (!paused && GameManager.instance.gameIsPaused)
         {
-            paused = true;
-            if (running && director.playableGraph.IsValid())
-                director.playableGraph.GetRootPlayable(0).SetSpeed(0);
-                // Using director.Pause() allows the cameras to snap back to the default priority settings.
+            PauseTutorial(true);
         }
         else if (paused && !GameManager.instance.gameIsPaused)
         {
-            paused = false;
-            if (running && director.playableGraph.IsValid())
-                director.playableGraph.GetRootPlayable(0).SetSpeed(1);
+            PauseTutorial(false);
             crosshair.SetActive(false);
         }
-
-        //if (running)
-        //{
-        //    if (InputManager.instance.GetPS4OptionsDown())
-        //        RequestEndTutorial();
-        //}
     }
     #endregion
 
     #region Public Methods
+    public void PauseTutorial(bool pause)
+    {
+        if (running)
+        {
+            paused = pause;
+            if (running && director.playableGraph.IsValid())
+                director.playableGraph.GetRootPlayable(0).SetSpeed(pause ? 0 : 1);
+            // Using director.Pause() allows the cameras to snap back to the default priority settings.
+        }
+    }
+
     public bool IsRunning()
     {
         return running;

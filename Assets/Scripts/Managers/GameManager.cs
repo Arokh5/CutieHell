@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class GameManager : MonoBehaviour
 {
@@ -53,6 +56,10 @@ public class GameManager : MonoBehaviour
         crosshair = GameObject.Find("Crosshair");
         gameIsPaused = false;
         instance = this;
+
+#if UNITY_EDITOR
+        EditorApplication.pauseStateChanged += EditorPaused;
+#endif
     }
 
     private void Start()
@@ -96,10 +103,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause)
+        {
+            OnGamePaused();
+            tutorialController.PauseTutorial(true);
+        }
+    }
     #endregion
 
     #region Public Methods
-
     public void OnTutorialFinished()
     {
         screenFadeController.FadeToTransparent(StartNextWave);
@@ -260,5 +274,14 @@ public class GameManager : MonoBehaviour
         UIManager.instance.indicatorsController.OnNewWaveStarted();
         Debug.Log("Starting wave (index) " + aiSpawnController.GetCurrentWaveIndex() + "!");
     }
-    #endregion
+
+#if UNITY_EDITOR
+    private void EditorPaused(PauseState state)
+    {
+        if (state == PauseState.Paused)
+            OnApplicationPause(true);
+    }
+#endif
+
+#endregion
 }
