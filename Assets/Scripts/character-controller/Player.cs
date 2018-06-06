@@ -47,6 +47,7 @@ public class Player : MonoBehaviour {
     [Header("Attacks")]
     [SerializeField]
     public Transform bulletSpawnPoint;
+    public ParticleSystem shootBirth;
 
     private float timeSinceLastMonumentChecking = 0f;
     private float checkingMonumentRepetitionTime = 1f;

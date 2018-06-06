@@ -6,6 +6,7 @@ public class WeakAttackAnimatorBehaivour : StateMachineBehaviour {
 
     public float shotTriggerNormalizedTime;
     public ParticleSystem prefab;
+    public ParticleSystem birthParticles;
     private bool shotDone = false;
     private Player player;
 
@@ -27,6 +28,7 @@ public class WeakAttackAnimatorBehaivour : StateMachineBehaviour {
         {
             shotDone = true;
             player.InstantiateAttack(prefab, player.weakAttackTargetTransform, player.weakAttackTargetHitOffset);
+            ParticlesManager.instance.LaunchParticleSystem(player.shootBirth, player.bulletSpawnPoint.transform.position, player.shootBirth.transform.rotation);
             player.weakAttackTargetTransform = null;
             player.weakAttackTargetHitOffset = Vector3.zero;
         }
