@@ -6,7 +6,6 @@ public class WeakAttackAnimatorBehaivour : StateMachineBehaviour {
 
     public float shotTriggerNormalizedTime;
     public ParticleSystem prefab;
-    public ParticleSystem birthParticles;
     private bool shotDone = false;
     private Player player;
 

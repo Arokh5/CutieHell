@@ -72,6 +72,7 @@ GameObject:
   - component: {fileID: 4066503284476358}
   - component: {fileID: 198617536003066498}
   - component: {fileID: 199590078474845356}
+  - component: {fileID: 114332074101259962}
   m_Layer: 15
   m_Name: ShootBirthVFX
   m_TagString: Untagged
@@ -135,6 +136,18 @@ Transform:
   m_Father: {fileID: 4066503284476358}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114332074101259962
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1883530672420054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb21fc7b641e3544fae69356650e080d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToReturnToPool: 1
 --- !u!198 &198470296239346800
 ParticleSystem:
   m_ObjectHideFlags: 1
