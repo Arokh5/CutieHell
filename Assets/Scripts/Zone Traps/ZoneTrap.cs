@@ -57,7 +57,7 @@ public abstract class ZoneTrap : MonoBehaviour
     #region Public Methods
     public bool CanUse()
     {
-        return cooldownTimeleft <= 0;
+        return cooldownTimeleft <= 0 && zoneController.monumentTaken == false;
     }
 
     public int GetUsageCost()
