@@ -61,10 +61,10 @@ public class StatsDebug : MonoBehaviour {
     void GetObjectStats() {
         verts = 0;
         tris = 0;
+
         GameObject[] ob = FindObjectsOfType(typeof(GameObject)) as GameObject[];
         foreach (GameObject obj in ob) {
             Renderer render = obj.GetComponent<Renderer>();
-
             if (render != null)
             {
                 if (render.isVisible)
@@ -72,37 +72,23 @@ public class StatsDebug : MonoBehaviour {
                     GetObjectStats(obj);
                 }
             }
-            SkinnedMeshRenderer rend = obj.GetComponent<SkinnedMeshRenderer>();
-
-            if (rend != null)
-            {
-                if (rend.isVisible)
-                {
-                    GetObjectStats(obj);
-                }
-            }
         }
     }
 
+    List<MeshFilter> children;
     void GetObjectStats(GameObject obj) {
-        Component[] filters;
-        filters = obj.GetComponentsInChildren<MeshFilter>();
-        foreach (MeshFilter f in filters) {
-            if (f.sharedMesh)
-            {
-                tris += f.sharedMesh.triangles.Length / 3;
-                verts += f.sharedMesh.vertexCount;
-            }
-        }
-        Component[] newfilters = obj.GetComponentsInChildren<SkinnedMeshRenderer>();
-        foreach (SkinnedMeshRenderer f in newfilters)
+        MeshFilter meshFilter = obj.GetComponent<MeshFilter>();
+        if (meshFilter != null && meshFilter.sharedMesh)
         {
+            tris += meshFilter.sharedMesh.triangles.Length / 3;
+            verts += meshFilter.sharedMesh.vertexCount;
+        }
 
-            if (f.sharedMesh)
-            {
-                tris += f.sharedMesh.triangles.Length / 3;
-                verts += f.sharedMesh.vertexCount;
-            }
+        SkinnedMeshRenderer skinnedMeshRenderer = obj.GetComponent<SkinnedMeshRenderer>();
+        if (skinnedMeshRenderer != null && skinnedMeshRenderer.sharedMesh)
+        {
+            tris += skinnedMeshRenderer.sharedMesh.triangles.Length / 3;
+            verts += skinnedMeshRenderer.sharedMesh.vertexCount;
         }
     }
 }
