@@ -5,10 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Player State Machine/Actions/StrongAttack")]
 public class StrongAttack : StateAction
 {
-    public int evilCost;
     public int damage;
     public ParticleSystem strongAttackVFX;
-    public float timeToGoOut, timeToGoIn;
+    public float timeToGoOut, timeToGoIn, delay;
 
     [SerializeField]
     private AudioClip attackSfx;
@@ -30,23 +29,38 @@ public class StrongAttack : StateAction
                 {
                     player.teleportState = Player.TeleportStates.IN;
                     player.timeSinceLastStrongAttack = 0.0f;
-                    player.cameraState = Player.CameraState.MOVE;
-                    player.mainCameraController.y = 10.0f;
                     ParticlesManager.instance.LaunchParticleSystem(strongAttackVFX, player.transform.position, strongAttackVFX.transform.rotation);
                     player.canMove = false;
+                    player.animator.Rebind();
                 }
                 break;
             case Player.TeleportStates.IN:
                 if (player.timeSinceLastStrongAttack >= timeToGoIn)
                 {
-                    player.comeBackFromStrongAttack = true;
-                    player.timeSinceLastTeleport = 0.0f;
+                    player.cameraState = Player.CameraState.MOVE;
+                    player.SetRenderersVisibility(true);
+                    player.mainCameraController.y = 10.0f;
+                    player.timeSinceLastStrongAttack = 0.0f;
                     player.teleported = true;
+                    player.teleportState = Player.TeleportStates.DELAY;
+                    HurtEnemies(player, damage);
                 }
-
+                break;
+            case Player.TeleportStates.DELAY:
+                if (player.timeSinceLastStrongAttack >= delay)
+                {
+                    player.comeBackFromStrongAttack = true;
+                }
                 break;
             default:
                 break;
+        }
+    }
+    private void HurtEnemies(Player player, int damage)
+    {
+        foreach (AIEnemy aiEnemy in player.currentStrongAttackTargets)
+        {
+            aiEnemy.TakeDamage(damage, AttackType.STRONG);
         }
     }
 }

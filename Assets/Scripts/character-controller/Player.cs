@@ -94,6 +94,7 @@ public class Player : MonoBehaviour {
 
     [Header("Strong Attack")]
     public float strongAttackStateCooldown;
+    public SphereCollider strongAttackCollider;
     [HideInInspector]
     public float timeSinceLastStrongAttack;
     [HideInInspector]
@@ -127,7 +128,7 @@ public class Player : MonoBehaviour {
     #endregion
 
     public enum CameraState { STILL, MOVE, WOLF, FOG, BATTURRET, CANONTURRET, TRANSITION, ZOOMOUT, ZOOMIN}
-    public enum TeleportStates { OUT, TRAVEL, IN}
+    public enum TeleportStates { OUT, TRAVEL, IN, DELAY}
     
 
     #region MonoBehaviour Methods
@@ -260,6 +261,7 @@ public class Player : MonoBehaviour {
         {
             colliders[i].enabled = visible;
         }
+        strongAttackCollider.enabled = true;
     }
 
     public void InstantiateAttack(ParticleSystem attackPrefab, Transform enemy, Vector3 hitOffset)

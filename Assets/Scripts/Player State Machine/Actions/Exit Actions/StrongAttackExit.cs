@@ -9,9 +9,11 @@ public class StrongAttackExit : StateAction
     {
         player.timeSinceLastStrongAttack = 0.0f;
         player.SetRenderersVisibility(true);
+        player.strongAttackCollider.enabled = false;
+        player.strongAttackCollider.gameObject.SetActive(false);
         player.cameraState = Player.CameraState.MOVE;
         player.canMove = true;
-        /* Untarget all enemies */
+
         foreach (AIEnemy aiEnemy in player.currentStrongAttackTargets)
         {
             aiEnemy.MarkAsTarget(false);
