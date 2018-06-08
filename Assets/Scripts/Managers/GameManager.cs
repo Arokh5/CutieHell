@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     [SerializeField]
+    private bool skipTutorial = false;
+    [SerializeField]
     private TutorialController tutorialController;
     [SerializeField]
     private ScreenFadeController screenFadeController;
@@ -64,7 +66,10 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        tutorialController.RequestStartTutorial();
+        if (skipTutorial)
+            tutorialController.RequestBypassTutorial();
+        else
+            tutorialController.RequestStartTutorial();
     }
 
     private void Update()
