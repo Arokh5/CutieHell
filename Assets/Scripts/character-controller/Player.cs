@@ -14,6 +14,8 @@ public class Player : MonoBehaviour {
     public GameObject footSteps;
 
     [Header("Movement")]
+    [HideInInspector]
+    public bool canMove;
     public float floorClearance;
     [HideInInspector]
     public Vector3 currentSpeed;
@@ -91,14 +93,15 @@ public class Player : MonoBehaviour {
     public Transform weakAttackTargetTransform;
 
     [Header("Strong Attack")]
-    public GameObject strongAttackObject;
-    public ProjectorColorChange projector;
-    public MeshCollider strongAttackMeshCollider;
-    public ParticleSystem strongAttackExplosion;
+    public float strongAttackStateCooldown;
     [HideInInspector]
     public float timeSinceLastStrongAttack;
     [HideInInspector]
     public List<AIEnemy> currentStrongAttackTargets = new List<AIEnemy>();
+    [HideInInspector]
+    public Transform initialPositionOnStrongAttack;
+    [HideInInspector]
+    public bool comeBackFromStrongAttack;
 
     [Header("Fog Attack")]
     public SphereCollider fogCollider;
@@ -159,6 +162,8 @@ public class Player : MonoBehaviour {
         footstepsSource = GetComponent<AudioSource>();
         footstepsSource.clip = footstepsClip;
         footstepsSource.loop = true;
+        canMove = true;
+        comeBackFromStrongAttack = false;
 
         fogStateLastTime = float.MinValue;
         evilLevel = maxEvilLevel;
@@ -265,17 +270,6 @@ public class Player : MonoBehaviour {
         FollowTarget attackClone = attack.GetComponent<FollowTarget>();
         attackClone.SetEnemyTransform(enemy);
         attackClone.SetHitOffset(hitOffset);
-    }
-
-    public void InstantiateStrongAttack(int evilCost)
-    {
-        AddEvilPoints(evilCost);
-        ParticleSystem strongAttackReference = ParticlesManager.instance.LaunchParticleSystem(strongAttackExplosion, transform.position, transform.rotation);
-        Transform particlesParent = strongAttackReference.transform.parent;
-        strongAttackReference.transform.SetParent(this.transform);
-        strongAttackReference.transform.localPosition = new Vector3(0.0f, 1.5f, 0.0f);
-        strongAttackReference.transform.localRotation = Quaternion.Euler(new Vector3(-90, 180, 0));
-        strongAttackReference.transform.SetParent(particlesParent);
     }
     #endregion
 

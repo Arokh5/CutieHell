@@ -9,12 +9,12 @@ public class CameraController : MonoBehaviour {
     private Player playerScript;
     private CapsuleCollider playerCapsuleCollider;
 
-    private const float xSpeed = 2.5f; //2.5f
-    private const float ySpeed = 1.2f; // 1.2f
+    private const float xSpeed = 2.5f;
+    private const float ySpeed = 1.2f;
     private const float yMinLimit = -20f;
     private const float yMaxLimit = 40f;
     private const float lerpSpeed = 0.1f;
-    private const float transitionTime = 2.0f;
+    private const float transitionTime = 0.55f;
     private float timeOnTransition = 10.0f;
     private Player.CameraState lastState;
     [HideInInspector]
@@ -24,7 +24,8 @@ public class CameraController : MonoBehaviour {
 
     private int collisionLayers;
     private float x;
-    private float y;
+    [HideInInspector]
+    public float y;
 
     /* Player camera values */
     public float distance;
@@ -58,14 +59,6 @@ public class CameraController : MonoBehaviour {
         playerScript = player.GetComponent<Player>();
         playerCapsuleCollider = player.GetComponent<CapsuleCollider>();
 
-        /*
-        distance = 3.0f;
-        cameraX = 0.5f;
-        cameraY = 1.75f;
-        focusDistance = 0.4f;
-        focusX = 0.3f;
-        focusY = 1.7f;
-        */
         distance = 2.8f;
         cameraX = 0.45f;
         cameraY = 1.8f;

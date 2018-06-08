@@ -5,47 +5,48 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Player State Machine/Actions/StrongAttack")]
 public class StrongAttack : StateAction
 {
-    public float strongAttackCadency;
     public int evilCost;
     public int damage;
-    public GameObject strongAttackVFX;
+    public ParticleSystem strongAttackVFX;
+    public float timeToGoOut, timeToGoIn;
 
     [SerializeField]
     private AudioClip attackSfx;
 
     public override void Act(Player player)
     {
-        if (player.timeSinceLastStrongAttack >= strongAttackCadency && player.GetEvilLevel() >= Mathf.Abs(evilCost) && !player.animatingAttack)
+        switch (player.teleportState)
         {
-            player.projector.SwitchToDefaultColor();
-            player.strongAttackMeshCollider.enabled = true;
+            case Player.TeleportStates.OUT:
+                if (player.timeSinceLastStrongAttack >= timeToGoOut)
+                {
+                    player.canMove = true;
+                    player.teleportState = Player.TeleportStates.TRAVEL;
 
-            if (InputManager.instance.GetR2ButtonDown())
-            {
-                player.animator.SetTrigger("StrongAttack");
-                SoundManager.instance.PlaySfxClip(attackSfx);
-            }
-        }
-        else
-        {
-            player.projector.SwitchToAlternateColor();
-            player.strongAttackMeshCollider.enabled = false;
-        }
-        /* Player rotation */
-        player.mainCameraController.timeSinceLastAction = 0.0f;
-        player.mainCameraController.fastAction = true;
-    }
+                }
+                break;
+            case Player.TeleportStates.TRAVEL:
+                if (InputManager.instance.GetOButtonDown())
+                {
+                    player.teleportState = Player.TeleportStates.IN;
+                    player.timeSinceLastStrongAttack = 0.0f;
+                    player.cameraState = Player.CameraState.MOVE;
+                    player.mainCameraController.y = 10.0f;
+                    ParticlesManager.instance.LaunchParticleSystem(strongAttackVFX, player.transform.position, strongAttackVFX.transform.rotation);
+                    player.canMove = false;
+                }
+                break;
+            case Player.TeleportStates.IN:
+                if (player.timeSinceLastStrongAttack >= timeToGoIn)
+                {
+                    player.comeBackFromStrongAttack = true;
+                    player.timeSinceLastTeleport = 0.0f;
+                    player.teleported = true;
+                }
 
-    private void HurtEnemies(Player player)
-    {
-        foreach (AIEnemy aiEnemy in player.currentStrongAttackTargets)
-        {
-            aiEnemy.MarkAsTarget(false);
-            aiEnemy.TakeDamage(damage, AttackType.STRONG);
+                break;
+            default:
+                break;
         }
-        player.currentStrongAttackTargets.Clear();
-
-        player.timeSinceLastStrongAttack = 0f;
-        player.strongAttackMeshCollider.enabled = false;
     }
 }
