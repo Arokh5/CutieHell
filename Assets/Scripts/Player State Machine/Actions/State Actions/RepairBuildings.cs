@@ -20,7 +20,6 @@ public class RepairBuildings : StateAction
 
                 if (InputManager.instance.GetTriangleButtonDown())
                 {
-                    player.AddEvilPoints(-player.nearbyTrap.GetRepairCost());
                     player.nearbyTrap.FullRepair();
                 }
             }
@@ -36,8 +35,7 @@ public class RepairBuildings : StateAction
 
                 if (InputManager.instance.GetTriangleButtonDown())
                 {
-                    player.AddEvilPoints(-player.monument.GetRepairCost());
-                    player.monument.FullRepair();
+                   player.monument.FullRepair();
                 }
             }
         }
