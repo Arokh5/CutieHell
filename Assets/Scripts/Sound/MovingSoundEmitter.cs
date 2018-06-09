@@ -7,12 +7,13 @@ public class MovingSoundEmitter : SoundEmitter
     {
         public Vector3 startOffset;
         public Vector3 endOffset;
-        public bool offsetInReferenceLocalSpace;
+        [Tooltip("Set to true in order to use the offset in the local coordinate space of the reference transform.")]
+        public bool offsetInLocalSpace;
         public float motionDuration;
     }
 
     #region Fields
-    public bool restartOnRetrigger;
+    [Header("Moving Source Setup")]
     public Transform reference;
     public MotionInfo motionInfo;
 
@@ -42,7 +43,7 @@ public class MovingSoundEmitter : SoundEmitter
     protected override void PlaySoundEffect()
     {
         enabled = true;
-        if (restartOnRetrigger || !audioSource.isPlaying)
+        if (!audioSource.isPlaying)
         {
             StartUpEffectInfo();
             audioSource.Play();
@@ -60,7 +61,7 @@ public class MovingSoundEmitter : SoundEmitter
     private void StartUpEffectInfo()
     {
         elapsedTime = 0;
-        if (motionInfo.offsetInReferenceLocalSpace)
+        if (motionInfo.offsetInLocalSpace)
         {
             globalStartPosition = reference.position + reference.TransformDirection(motionInfo.startOffset);
             globalEndPosition = reference.position + reference.TransformDirection(motionInfo.endOffset);

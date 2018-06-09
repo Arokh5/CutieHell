@@ -1,13 +1,9 @@
 ﻿public class FixedSoundEmitter : SoundEmitter
 {
-    #region Fields
-    public bool restartOnRetrigger;
-    #endregion
-
     #region Protected Methods
     protected override void PlaySoundEffect()
     {
-        if (restartOnRetrigger || !audioSource.isPlaying)
+        if (!audioSource.isPlaying)
         {
             audioSource.Play();
         }

@@ -8,7 +8,7 @@ public class RandomTimedTrigger : SoundTrigger
     public float testingInterval = 1.0f;
     public float triggeredDuration = 2.0f;
 
-    private float pauseTimeLeft = 0;
+    private float timeToTriggerOff = 0;
     private float timeToNextTest = 0;
     private bool isOn;
     #endregion
@@ -16,10 +16,10 @@ public class RandomTimedTrigger : SoundTrigger
     #region MonoBehaviour Methods
     private void Update()
     {
-        if (pauseTimeLeft > 0)
-            pauseTimeLeft -= Time.deltaTime;
+        if (timeToTriggerOff > 0)
+            timeToTriggerOff -= Time.deltaTime;
 
-        if (pauseTimeLeft <= 0)
+        if (timeToTriggerOff <= 0)
         {
             if (isOn)
             {
@@ -38,7 +38,7 @@ public class RandomTimedTrigger : SoundTrigger
         if (ShouldTrigger())
         {
             isOn = true;
-            pauseTimeLeft = triggeredDuration;
+            timeToTriggerOff = triggeredDuration;
             TriggerOn();
         }
     }

@@ -3,6 +3,7 @@
 public abstract class SoundEmitter : MonoBehaviour
 {
     #region Fields
+    [Header("Audio Source Setup")]
     public AudioClip clip;
     public bool loopAudio;
     public float soundMaxDistance = 10.0f;
