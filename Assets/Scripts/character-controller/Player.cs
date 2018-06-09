@@ -26,6 +26,12 @@ public class Player : MonoBehaviour {
     [SerializeField]
     private int maxEvilLevel = 50;
     public int evilLevel;
+    [SerializeField][Range(0,5)]
+    private float autoEvilRecoveringTime;
+    [SerializeField]
+    [Range(0, 5)]
+    private int autoEvilRecoveringValue;
+    private float lastAutoEvilRecovering = 0;
     [SerializeField]
     private EvilManaController evilManaController;
 
@@ -197,6 +203,9 @@ public class Player : MonoBehaviour {
         {
             footstepsSource.Stop();
             return;
+        }else
+        {
+            EvilAutoRecovering();
         }
 
         if ( timeSinceLastMonumentChecking >= checkingMonumentRepetitionTime)
@@ -282,6 +291,17 @@ public class Player : MonoBehaviour {
     private void ReEnable()
     {
         enabled = true;
+    }
+
+    private void EvilAutoRecovering()
+    {
+        lastAutoEvilRecovering += Time.deltaTime;
+
+        if(lastAutoEvilRecovering >= autoEvilRecoveringTime)
+        {
+            AddEvilPoints(autoEvilRecoveringValue);
+            lastAutoEvilRecovering = 0;
+        }
     }
 
     private void UpdateNearestMonument()
