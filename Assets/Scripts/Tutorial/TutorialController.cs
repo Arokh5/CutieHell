@@ -117,6 +117,12 @@ public class TutorialController : MonoBehaviour
         }
     }
 
+    public void RequestBypassTutorial()
+    {
+        screenFadeController.TurnOpaque();
+        OnTutorialEnded();
+    }
+
     public void RequestEndTutorial()
     {
         startMessage.SetActive(false);
@@ -153,7 +159,6 @@ public class TutorialController : MonoBehaviour
         tutorialUIParent.SetActive(false);
         gameObject.SetActive(false);
 
-        player.transform.position = playerStartingPos;
         player.TransitionToState(playerDefaultState);
 
         foreach (AIZoneController zoneController in zoneControllers)
