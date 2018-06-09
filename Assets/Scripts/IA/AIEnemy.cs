@@ -202,8 +202,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         UpdateTarget();
     }
 
-    // Called by the ZoneController in case the Monument gets repaired (this will cause all AIEnemy to return to the ZoneController's area)
-    // or when a Trap gets deactivated or when the area-type Trap explodes
+    // Called by the ZoneController when a Trap gets deactivated
     public void SetCurrentTarget(Building target)
     {
         if (currentTarget != target)

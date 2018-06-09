@@ -12,14 +12,8 @@ public class MarkersController : MonoBehaviour
     #region Public Methods
     public void MonumentConquered(int index)
     {
-        if (index != -1)
+        if (index >= 0 && index < monumentIndicators.Length)
             monumentIndicators[index].MonumentTaken();
-    }
-
-    public void MonumentRepaired(int index)
-    {
-        if (index != -1)
-            monumentIndicators[index].MonumentRepaired();
     }
     #endregion
 }

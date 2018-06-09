@@ -34,12 +34,8 @@ public class UIManager : MonoBehaviour
     private Vector3 badComboOriginalScale;
     private Color badComboOriginalColor;
 
-    [Header("Repair and Use panels")]
+    [Header("Use panels")]
     public Color lockedPanelTintColor = Color.red;
-    [SerializeField]
-    private float distanceBetweenPopUps = 500.0f;
-    [SerializeField]
-    private Image repairText;
     [SerializeField]
     private Image useText;
         
@@ -166,44 +162,21 @@ public class UIManager : MonoBehaviour
         waveProgressFiller.SetNormalizedAmount(normalizedProgress);
     }
 
-    public void ShowRepairText()
-    {
-        repairText.color = Color.white;
-        repairText.gameObject.SetActive(true);
-        UpdatePopUpsPosition();
-    }
-
-    public void ShowLockedRepairText()
-    {
-        repairText.color = lockedPanelTintColor;
-        repairText.gameObject.SetActive(true);
-        UpdatePopUpsPosition();
-    }
-
-    public void HideRepairText()
-    {
-        repairText.gameObject.SetActive(false);
-        UpdatePopUpsPosition();
-    }
-
     public void ShowUseText()
     {
         useText.color = Color.white;
         useText.gameObject.SetActive(true);
-        UpdatePopUpsPosition();
     }
 
     public void ShowLockedUseText()
     {
         useText.color = lockedPanelTintColor;
         useText.gameObject.SetActive(true);
-        UpdatePopUpsPosition();
     }
 
     public void HideUseText()
     {
         useText.gameObject.SetActive(false);
-        UpdatePopUpsPosition();
     }
 
     public void ShowComboText(ComboTypes comboType)
@@ -292,20 +265,6 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #region Private Methods
-
-    private void UpdatePopUpsPosition()
-    {
-        if (useText.IsActive() && repairText.IsActive())
-        {
-            SetLocalXPos(useText.rectTransform, -0.5f * distanceBetweenPopUps);
-            SetLocalXPos(repairText.rectTransform, 0.5f * distanceBetweenPopUps);
-        }
-        else if (useText.IsActive())
-            SetLocalXPos(useText.rectTransform, 0);
-        else if (repairText.IsActive())
-            SetLocalXPos(repairText.rectTransform, 0);
-    }
-
     private void SetLocalXPos(RectTransform rectTransform, float xValue)
     {
         Vector3 refPos = rectTransform.localPosition;

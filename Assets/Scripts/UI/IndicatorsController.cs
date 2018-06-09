@@ -28,14 +28,8 @@ public class IndicatorsController : MonoBehaviour
 
     public void MonumentConquered(int index)
     {
-        if (index != -1)
+        if (index >= 0 && index < monumentConqueredIcons.Length)
             monumentConqueredIcons[index].SetActive(true);
-    }
-
-    public void MonumentRepaired(int index)
-    {
-        if (index != -1)
-            monumentConqueredIcons[index].SetActive(false);
     }
     #endregion
 }

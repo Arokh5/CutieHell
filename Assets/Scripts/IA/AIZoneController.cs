@@ -90,21 +90,6 @@ public class AIZoneController : MonoBehaviour
         return zoneID;
     }
 
-    // Called by Monument when it gets repaired
-    public void OnMonumentRecovered()
-    {
-        monumentTaken = false;
-        for (int i = 0; i < fogWallID.Length; i++)
-        {
-            fogWallsManager.ActivateFogWall(fogWallID[i]);
-        }
-        currentZoneTarget = monument;
-        OnTargetBuildingChanged();
-
-        UIManager.instance.indicatorsController.MonumentRepaired(iconIndex);
-        UIManager.instance.markersController.MonumentRepaired(iconIndex);
-    }
-
     // Called by Monument when it gets conquered. The method is meant to open the door
     public void OnMonumentTaken()
     {

@@ -11,6 +11,12 @@ public class DamageLimiter : MonoBehaviour
     #endregion
 
     #region MonoBehaviour Methods
+    private void OnDisable()
+    {
+        if (building)
+            building.immortal = false;
+    }
+
     private void Update()
     {
         if (building)
@@ -18,9 +24,9 @@ public class DamageLimiter : MonoBehaviour
             float maxHealth = building.GetMaxHealth();
             float normalizedDamage = (maxHealth - building.GetCurrentHealth()) / maxHealth;
             if (normalizedDamage > normalizedMaxDamage)
-            {
-                building.SetHealth(maxHealth * (1 - normalizedMaxDamage));
-            }
+                building.immortal = true;
+            else
+                building.immortal = false;
         }
     }
     #endregion
