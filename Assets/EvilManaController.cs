@@ -22,7 +22,6 @@ public class EvilManaController : MonoBehaviour {
         UnityEngine.Assertions.Assert.IsNotNull(evilStrongFrame, "Error: evilStrongFrame is not assigned in GameObject: " + gameObject.name);
 
         maxPlayerEvil = GameManager.instance.GetPlayer1().GetMaxEvilLevel();
-
     }
 
     // Update is called once per frame
@@ -53,6 +52,7 @@ public class EvilManaController : MonoBehaviour {
             if (currentEvil <= maxPlayerEvil / 2)
             {
                 evilStrongFrame.gameObject.SetActive(false);
+                isMainFrameActive = false;
             }
         }
         else
@@ -63,6 +63,7 @@ public class EvilManaController : MonoBehaviour {
             if (currentEvil > maxPlayerEvil / 2)
             {
                 evilStrongFrame.gameObject.SetActive(true);
+                isMainFrameActive = true;
             }
         }
     }

@@ -19,12 +19,19 @@ public class EvilFrameController : MonoBehaviour {
     #endregion
 
     // Use this for initialization
-    void Awaken () 
+    void Start () 
 	{
         UnityEngine.Assertions.Assert.IsNotNull(evilFragmentsNumber, "Error: No Text assigned to: " + gameObject.name);
         maxPlayerEvil = GameManager.instance.GetPlayer1().GetMaxEvilLevel();
-        evilFragmentsNumber.text = NormalizeEvilNumber(maxPlayerEvil).ToString("0");
-	}
+
+        if(isMainFrame)
+        {
+            evilFragmentsNumber.text = NormalizeEvilNumber(maxPlayerEvil).ToString("0");
+        }else
+        {
+            evilFragmentsNumber.text = NormalizeEvilNumber(maxPlayerEvil * 0.5f).ToString("0");
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () 
@@ -45,14 +52,24 @@ public class EvilFrameController : MonoBehaviour {
 
     public void UpdateFragmentsFiller(float currentEvil)
     {
-        evilFragmentsFiller.fillAmount = currentEvil / maxPlayerEvil;
+        if (isMainFrame)
+        {
+            evilFragmentsFiller.fillAmount = (currentEvil / maxPlayerEvil) - (1 - currentEvil / maxPlayerEvil);
+        }
+        else
+        {
+            evilFragmentsFiller.fillAmount = (currentEvil * 2/ maxPlayerEvil);
+        }
+        Debug.Log("CurrentEvil : " + currentEvil);
+        Debug.Log("Current fill amount : " + evilFragmentsFiller.fillAmount);
 
         if(int.Parse(evilFragmentsNumber.text) != NormalizeEvilNumber(currentEvil))
         {
             float normalizedEvil = NormalizeEvilNumber(currentEvil);
             evilFragmentsNumber.text = normalizedEvil.ToString("0");
-
+            Debug.Log("Normalized number : " + normalizedEvil);
         }
+        
     }
 	#endregion
 	
@@ -60,7 +77,8 @@ public class EvilFrameController : MonoBehaviour {
 	private float NormalizeEvilNumber(float evil)
     {
         float normalizedEvilNumber = 0f;
-        normalizedEvilNumber = evil / 10;
+        //Divided / 10 because we are working two digits evil values, but the UI shows only one digit value. 
+        normalizedEvilNumber = (evil / 10); 
 
         return normalizedEvilNumber;
     }

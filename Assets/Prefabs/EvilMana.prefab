@@ -207,6 +207,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224746765375330838}
   - component: {fileID: 222768615878340660}
+  - component: {fileID: 114366685065109474}
   m_Layer: 5
   m_Name: EvilWeakFrame
   m_TagString: Untagged
@@ -240,6 +241,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224961168262136352}
   - component: {fileID: 222921391073365112}
+  - component: {fileID: 114441857023735472}
   m_Layer: 5
   m_Name: EvilStrongFrame
   m_TagString: Untagged
@@ -258,8 +260,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cb35b7fac09fa3459cffce42d4cab7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  evilWeakFrame: {fileID: 1778036186188852}
-  evilStrongFrame: {fileID: 1927437535384960}
+  evilWeakFrame: {fileID: 114366685065109474}
+  evilStrongFrame: {fileID: 114441857023735472}
 --- !u!114 &114042635968929518
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -374,6 +376,34 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114366685065109474
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1778036186188852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13e831adefed0f44795c633e35aafb65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  evilFragmentsFiller: {fileID: 114733985094913260}
+  evilFragmentsNumber: {fileID: 114100641224507882}
+  isMainFrame: 0
+--- !u!114 &114441857023735472
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1927437535384960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13e831adefed0f44795c633e35aafb65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  evilFragmentsFiller: {fileID: 114292254890233010}
+  evilFragmentsNumber: {fileID: 114751810739612146}
+  isMainFrame: 1
 --- !u!114 &114628941497204002
 MonoBehaviour:
   m_ObjectHideFlags: 1
