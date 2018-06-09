@@ -41,10 +41,7 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
         buildingEffects = GetComponent<BuildingEffects>();
         if (!buildingEffects)
             Debug.LogWarning("WARNING: A BuildingEffects Component could not be found by Building in GameObject " + gameObject.name + ". No effects will be used.");
-    }
 
-    private void Start()
-    {
         currentHealth = baseHealth;
     }
 
