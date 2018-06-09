@@ -26,6 +26,8 @@ public class Player : MonoBehaviour {
     [SerializeField]
     private int maxEvilLevel = 50;
     public int evilLevel;
+    [SerializeField]
+    private EvilManaController evilManaController;
 
     [HideInInspector]
     public Rigidbody rb;
@@ -172,8 +174,6 @@ public class Player : MonoBehaviour {
 
     private void Start () 
     {
-        UIManager.instance.SetEvilBarValue(evilLevel);
-
         footSteps.SetActive(false);
 
         timeSinceLastTrapUse = trapUseCooldown;
@@ -248,7 +248,7 @@ public class Player : MonoBehaviour {
             evilLevel = maxEvilLevel;
         }
 
-        UIManager.instance.SetEvilBarValue(evilLevel);
+        evilManaController.UpdateCurrentEvil(evilLevel);
     }
 
     public void SetRenderersVisibility(bool visible)
