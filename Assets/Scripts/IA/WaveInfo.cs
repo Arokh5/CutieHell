@@ -1,12 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using UnityEngine;
 
 [System.Serializable]
 public class WaveInfo
 {
-    [UnityEngine.Tooltip("Duration is expressed in seconds")]
-    public float waveDuration;
-    public List<SpawnInfo> spawnInfos;
+    [Tooltip("Delay counts from the last spawn of the previous wave, unless this is the first wave")]
+    public float waveStartDelay;
+    public SpawnInfo[] spawnInfos;
 
-    [ShowOnly]
+    [HideInInspector]
+    public float elapsedTime;
+    [HideInInspector]
+    public int nextSpawnIndex;
+    [HideInInspector]
     public float lastEnemySpawnTime;
 }

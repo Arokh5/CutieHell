@@ -1,22 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using UnityEngine;
 
 [System.Serializable]
 public class SpawnInfo
 {
     // Used by AISpawnController
-    [UnityEngine.Tooltip("Time is expressed in seconds")]
+    [Tooltip("Time is expressed in seconds")]
     public float spawnTime;
     // Used by AISpawnController
     public int spawnerIndex;
     // Used by AISpawner
-    [UnityEngine.Tooltip("Duration is expressed in seconds")]
+    [Tooltip("Duration is expressed in seconds")]
     public float spawnDuration;
     // Used by AISpawner
-    public List<EnemyType> enemiesToSpawn;
-    [UnityEngine.HideInInspector]
+    public EnemyType[] enemiesToSpawn;
+    [HideInInspector]
     public float elapsedTime;
-    [UnityEngine.HideInInspector]
+    [HideInInspector]
     public float nextSpawnTime;
-    [UnityEngine.HideInInspector]
+    [HideInInspector]
     public int nextSpawnIndex;
 }

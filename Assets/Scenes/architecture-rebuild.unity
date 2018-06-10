@@ -8314,119 +8314,54 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scenario: {fileID: 804468631}
-  firstWaveStartDelay: 5
-  nextWavesStartDelay: 7
-  elapsedTime: 0
+  currentRoundIndex: -1
   currentWaveIndex: -1
-  nextSpawnIndex: 0
-  wavesInfo:
-  - waveDuration: 70
-    spawnInfos:
-    - spawnTime: 0
-      spawnerIndex: 0
-      spawnDuration: 20
-      enemiesToSpawn: 000000000000000000000000000000000000000001000000000000000000000000000000000000000100000001000000000000000000000001000000
+  roundInfos:
+  - waveInfos:
+    - waveStartDelay: 2
+      spawnInfos:
+      - spawnTime: 2
+        spawnerIndex: 0
+        spawnDuration: 5
+        enemiesToSpawn: 02000000
+        elapsedTime: 0
+        nextSpawnTime: 0
+        nextSpawnIndex: 0
       elapsedTime: 0
-      nextSpawnTime: 0
       nextSpawnIndex: 0
-    - spawnTime: 25
-      spawnerIndex: 0
-      spawnDuration: 1
-      enemiesToSpawn: 00000000000000000100000000000000000000000100000001000000
+      lastEnemySpawnTime: 0
+    - waveStartDelay: 5
+      spawnInfos:
+      - spawnTime: 5
+        spawnerIndex: 1
+        spawnDuration: 5
+        enemiesToSpawn: 0000000001000000
+        elapsedTime: 0
+        nextSpawnTime: 0
+        nextSpawnIndex: 0
+      - spawnTime: 5
+        spawnerIndex: 2
+        spawnDuration: 5
+        enemiesToSpawn: 0000000001000000
+        elapsedTime: 0
+        nextSpawnTime: 0
+        nextSpawnIndex: 0
       elapsedTime: 0
-      nextSpawnTime: 0
       nextSpawnIndex: 0
-    - spawnTime: 35
-      spawnerIndex: 0
-      spawnDuration: 15
-      enemiesToSpawn: 000000000000000001000000000000000000000001000000000000000000000000000000010000000000000000000000010000000000000000000000
+      lastEnemySpawnTime: 0
+  - waveInfos:
+    - waveStartDelay: 5
+      spawnInfos:
+      - spawnTime: 0
+        spawnerIndex: 0
+        spawnDuration: 3
+        enemiesToSpawn: 000000000000000000000000
+        elapsedTime: 0
+        nextSpawnTime: 0
+        nextSpawnIndex: 0
       elapsedTime: 0
-      nextSpawnTime: 0
       nextSpawnIndex: 0
-    lastEnemySpawnTime: 0
-  - waveDuration: 100
-    spawnInfos:
-    - spawnTime: 0
-      spawnerIndex: 1
-      spawnDuration: 5
-      enemiesToSpawn: 0000000001000000000000000100000000000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 10
-      spawnerIndex: 1
-      spawnDuration: 10
-      enemiesToSpawn: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 26
-      spawnerIndex: 1
-      spawnDuration: 1
-      enemiesToSpawn: 0100000001000000010000000100000001000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 42
-      spawnerIndex: 2
-      spawnDuration: 10
-      enemiesToSpawn: 000000000000000000000000010000000000000000000000000000000100000001000000000000000000000001000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 60
-      spawnerIndex: 0
-      spawnDuration: 6
-      enemiesToSpawn: 000000000000000000000000010000000000000000000000000000000100000001000000000000000000000001000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    lastEnemySpawnTime: 0
-  - waveDuration: 110
-    spawnInfos:
-    - spawnTime: 0
-      spawnerIndex: 1
-      spawnDuration: 5
-      enemiesToSpawn: 0000000001000000010000000100000000000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 10
-      spawnerIndex: 1
-      spawnDuration: 10
-      enemiesToSpawn: 0100000000000000000000000000000001000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 15
-      spawnerIndex: 2
-      spawnDuration: 3
-      enemiesToSpawn: 00000000000000000000000000000000020000000100000000000000000000000100000001000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 30
-      spawnerIndex: 2
-      spawnDuration: 5
-      enemiesToSpawn: 00000000000000000000000000000000000000000100000000000000000000000100000002000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 40
-      spawnerIndex: 1
-      spawnDuration: 1
-      enemiesToSpawn: 0000000001000000020000000100000000000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    - spawnTime: 50
-      spawnerIndex: 2
-      spawnDuration: 10
-      enemiesToSpawn: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-      elapsedTime: 0
-      nextSpawnTime: 0
-      nextSpawnIndex: 0
-    lastEnemySpawnTime: 0
+      lastEnemySpawnTime: 0
   aiSpawners:
   - {fileID: 1090187993}
   - {fileID: 1281987910}
@@ -29649,6 +29584,11 @@ Transform:
   m_Father: {fileID: 1802087114}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1314818402 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1233682858619750, guid: caca1dac2152c464594348a4deb8bb3e,
+    type: 2}
+  m_PrefabInternal: {fileID: 1973893027}
 --- !u!1001 &1320812810
 Prefab:
   m_ObjectHideFlags: 0
@@ -38893,6 +38833,11 @@ Prefab:
       propertyPath: stampSfx
       value: 
       objectReference: {fileID: 8300000, guid: 9e5532aad3c174145a7a7a0f98a88d6c, type: 3}
+    - target: {fileID: 114837128050638308, guid: 072f0e8cd7d5fa546bfb04a41af9fa42,
+        type: 2}
+      propertyPath: roundEndText
+      value: 
+      objectReference: {fileID: 1293799614}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 072f0e8cd7d5fa546bfb04a41af9fa42, type: 2}
   m_IsPrefabParent: 0
@@ -41784,6 +41729,34 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114269043851900310, guid: caca1dac2152c464594348a4deb8bb3e,
+        type: 2}
+      propertyPath: m_Text
+      value: '+ -> Next Round
+
+        - -> Previous Round
+
+        1-9 -> Spawn wave #
+
+        Z -> Restart Wave
+
+        X -> Win Active Waves
+
+        C -> Win Active Round'
+      objectReference: {fileID: 0}
+    - target: {fileID: 114962117174150288, guid: caca1dac2152c464594348a4deb8bb3e,
+        type: 2}
+      propertyPath: roundsDebugInfo
+      value: 
+      objectReference: {fileID: 1314818402}
+    - target: {fileID: 1117799347468700, guid: caca1dac2152c464594348a4deb8bb3e, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1782098655402450, guid: caca1dac2152c464594348a4deb8bb3e, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1715067051346852, guid: caca1dac2152c464594348a4deb8bb3e, type: 2}
       propertyPath: m_IsActive

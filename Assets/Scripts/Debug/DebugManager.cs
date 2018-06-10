@@ -32,9 +32,9 @@ public class DebugManager : MonoBehaviour {
     private GameObject instructionsWorldCamera;
 
     [Space]
-    [Header("Waves Debug")]
+    [Header("Rounds Debug")]
     [SerializeField]
-    private GameObject wavesDebugInfo;
+    private GameObject roundsDebugInfo;
 
     [Space]
     [Header("Player Debug")]
@@ -159,12 +159,12 @@ public class DebugManager : MonoBehaviour {
 
         if (wavesDebug.isOn)
         {
-            wavesDebugInfo.SetActive(true);
+            roundsDebugInfo.SetActive(true);
             WavesDebug();
         }
         else
         {
-            wavesDebugInfo.SetActive(false);
+            roundsDebugInfo.SetActive(false);
         }
         if (playerDebug.isOn)
         {
@@ -386,12 +386,27 @@ public class DebugManager : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            spawnController.WinCurrentWave();
+            spawnController.RestartCurrentWave();
         }
 
         if (Input.GetKeyDown(KeyCode.X))
         {
-            spawnController.RestartCurrentWave();
+            spawnController.WinActiveWaves();
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            spawnController.WinActiveRound();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Plus) || Input.GetKeyDown(KeyCode.KeypadPlus))
+        {
+            spawnController.ForceNextRound();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Minus) || Input.GetKeyDown(KeyCode.KeypadMinus))
+        {
+            spawnController.ForcePreviousRound();
         }
 
         for (int i = 0; i < numberKeyCodes.Length; ++i)

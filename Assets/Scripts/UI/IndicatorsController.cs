@@ -18,11 +18,11 @@ public class IndicatorsController : MonoBehaviour
     #endregion
 
     #region Public Methods
-    public void OnNewWaveStarted()
+    public void OnNewRoundStarted()
     {
         foreach (MonumentIndicator monumentIndicator in monumentIndicators)
         {
-            monumentIndicator.OnNewWaveStarted();
+            monumentIndicator.OnNewRoundStarted();
         }
     }
 

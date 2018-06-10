@@ -61,7 +61,7 @@ public class UIManager : MonoBehaviour
     private Text conquerorEnemies;
 
     [SerializeField]
-    private Text waveEndText;
+    private Text roundEndText;
     [SerializeField]
     private Text endBtnText;
 
@@ -122,9 +122,9 @@ public class UIManager : MonoBehaviour
 
     #region Public Methods
 
-    public void ChangeWaveEndText(string text)
+    public void ChangeRoundEndText(string text)
     {
-        waveEndText.text = text;
+        roundEndText.text = text;
     }
 
     public void ChangeEndBtnText(string text)
@@ -148,6 +148,18 @@ public class UIManager : MonoBehaviour
     public void ZoneConnectionOpened(int zoneConnectionID)
     {
         Debug.LogError("NOT IMPLEMENTED:UIManager::ZoneConnectionOpened");
+    }
+
+    // Called by AISpawnController to change the Wave indicator values
+    public void SetWaveIndicator(int currentWaveNumber, int totalWavesNumber)
+    {
+        //Debug.LogError("ERROR: SetWaveIndicator NOT implemented!");
+    }
+
+    // Called by AISpawnController to update the wave delay indicator
+    public void SetWaveDelayIndicator(float normalizedTimeLeft)
+    {
+        //Debug.LogError("ERROR: SetWaveDelayIndicator NOT implemented!");
     }
 
     // Called by AISpawnController to move the Wave indicator forward

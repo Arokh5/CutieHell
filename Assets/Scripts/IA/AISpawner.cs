@@ -45,7 +45,7 @@ public class AISpawner : MonoBehaviour {
                 SpawnNextEnemy(spawnInfo);
             }
 
-            if (spawnInfo.nextSpawnIndex >= spawnInfo.enemiesToSpawn.Count)
+            if (spawnInfo.nextSpawnIndex >= spawnInfo.enemiesToSpawn.Length)
             {
                 spawnInfosToRemove.Add(spawnInfo);
             }
@@ -74,7 +74,7 @@ public class AISpawner : MonoBehaviour {
             activeSpawnInfos.Add(spawnInfo);
             spawnInfo.elapsedTime = 0;
             spawnInfo.nextSpawnIndex = 0;
-            spawnInfo.nextSpawnTime = (spawnInfo.nextSpawnIndex + 1) * spawnInfo.spawnDuration / spawnInfo.enemiesToSpawn.Count;
+            spawnInfo.nextSpawnTime = (spawnInfo.nextSpawnIndex + 1) * spawnInfo.spawnDuration / spawnInfo.enemiesToSpawn.Length;
         }
     }
 
@@ -119,7 +119,7 @@ public class AISpawner : MonoBehaviour {
     {
         EnemyType enemyType = spawnInfo.enemiesToSpawn[spawnInfo.nextSpawnIndex];
         ++spawnInfo.nextSpawnIndex;
-        spawnInfo.nextSpawnTime = spawnInfo.nextSpawnIndex * spawnInfo.spawnDuration / spawnInfo.enemiesToSpawn.Count;
+        spawnInfo.nextSpawnTime = spawnInfo.nextSpawnIndex * spawnInfo.spawnDuration / spawnInfo.enemiesToSpawn.Length;
 
         SpawnOne(enemyType);
     }
