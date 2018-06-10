@@ -53,6 +53,8 @@ public class EvilManaController : MonoBehaviour {
             {
                 evilStrongFrame.gameObject.SetActive(false);
                 isMainFrameActive = false;
+
+                evilWeakFrame.UpdateFragmentsFiller(currentEvil);
             }
         }
         else
@@ -64,6 +66,8 @@ public class EvilManaController : MonoBehaviour {
             {
                 evilStrongFrame.gameObject.SetActive(true);
                 isMainFrameActive = true;
+
+                evilStrongFrame.UpdateFragmentsFiller(currentEvil);
             }
         }
     }

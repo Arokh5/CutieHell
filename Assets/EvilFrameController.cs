@@ -66,7 +66,7 @@ public class EvilFrameController : MonoBehaviour {
         if(int.Parse(evilFragmentsNumber.text) != NormalizeEvilNumber(currentEvil))
         {
             float normalizedEvil = NormalizeEvilNumber(currentEvil);
-            evilFragmentsNumber.text = normalizedEvil.ToString("0");
+            evilFragmentsNumber.text = normalizedEvil.ToString();
             Debug.Log("Normalized number : " + normalizedEvil);
         }
         
@@ -74,11 +74,11 @@ public class EvilFrameController : MonoBehaviour {
 	#endregion
 	
 	#region Private methods
-	private float NormalizeEvilNumber(float evil)
+	private int NormalizeEvilNumber(float evil)
     {
-        float normalizedEvilNumber = 0f;
+        int normalizedEvilNumber = 0;
         //Divided / 10 because we are working two digits evil values, but the UI shows only one digit value. 
-        normalizedEvilNumber = (evil / 10); 
+        normalizedEvilNumber = (int) (evil / 10); 
 
         return normalizedEvilNumber;
     }
