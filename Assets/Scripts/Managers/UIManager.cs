@@ -132,18 +132,6 @@ public class UIManager : MonoBehaviour
         endBtnText.text = text;
     }
 
-    // Called by Player when using or earning Evil Points
-    public void SetEvilBarValue(int value)
-    {
-        evilnessBar.fillAmount = ((float)value / GameManager.instance.GetPlayer1().GetMaxEvilLevel());
-    }
-
-    // Called by Player when increasing its maximum of Evil Point
-    public void SetEvilBarMaxValue(int maxValue)
-    {
-        Debug.LogError("NOT IMPLEMENTED:UIManager::SetEvilBarMaxValue");
-    }
-
     // Called by ZonesConnection when the connection gets opened
     public void ZoneConnectionOpened(int zoneConnectionID)
     {
