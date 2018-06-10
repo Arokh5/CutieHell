@@ -17,7 +17,7 @@ public class GameOptions : MonoBehaviour
     #region Private Methods
     void LeaveOptionsMenu()
     {
-        if (InputManager.instance.GetOButtonDown())
+        if (InputManager.instance.GetOButtonDown() && SceneManager.GetActiveScene().name.Equals("OptionsScreen"))
         {
             SceneManager.LoadScene("TitleScreen", LoadSceneMode.Single);
         }

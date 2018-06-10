@@ -9,13 +9,23 @@ public class PauseMenuController : MonoBehaviour {
     [SerializeField]
     private MenuButton[] pauseButtons = new MenuButton[3];
     private int pauseIndex = 0;
+    [SerializeField]
+    private GameObject optionsScreen;
+    private bool inOptionsScreen = false;
     #endregion
 
     #region Public Methods
     public void HandlePause()
     {
-        HandleSelection();
-        HandleConfirm();
+        if (!inOptionsScreen)
+        {
+            HandleSelection();
+            HandleConfirm();
+        }
+        else
+        {
+            GoBack();
+        }
     }
     #endregion
 
@@ -70,6 +80,11 @@ public class PauseMenuController : MonoBehaviour {
                     break;
 
                 case 1:
+                    optionsScreen.SetActive(true);
+                    inOptionsScreen = true;
+                    break;
+
+                case 2:
                     GameManager.instance.gameState = GameManager.GameStates.OnGameEnd;
                     break;
             }
@@ -78,6 +93,15 @@ public class PauseMenuController : MonoBehaviour {
         if (InputManager.instance.GetPS4OptionsDown())
         {
             GameManager.instance.ResumeGamePaused();
+        }
+    }
+
+    private void GoBack()
+    {
+        if (InputManager.instance.GetOButtonDown())
+        {
+            optionsScreen.SetActive(false);
+            inOptionsScreen = false;
         }
     }
     #endregion
