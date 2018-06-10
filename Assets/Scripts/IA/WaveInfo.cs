@@ -13,4 +13,6 @@ public class WaveInfo
     public int nextSpawnIndex;
     [HideInInspector]
     public float lastEnemySpawnTime;
+    [HideInInspector]
+    public int totalEnemies;
 }

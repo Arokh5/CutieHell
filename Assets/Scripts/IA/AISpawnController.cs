@@ -89,7 +89,7 @@ public class AISpawnController : MonoBehaviour
                     waveDelayLeft = 0;
                     StartNextWave();
                 }
-                UIManager.instance.SetWaveDelayIndicator(waveDelayLeft / waveDelayTime);
+                UIManager.instance.SetWaveDelayIndicatorFill((waveDelayTime - waveDelayLeft) / waveDelayTime);
             }
             HandleActiveWaves();
         }
@@ -125,9 +125,13 @@ public class AISpawnController : MonoBehaviour
             RoundInfo roundInfo = roundInfos[currentRoundIndex];
             currentWaveIndex = -1;
             wavesLeftToFinishSpawn = roundInfo.waveInfos.Length;
-            waveDelayLeft = roundInfo.waveInfos[0].waveStartDelay;
+            waveDelayTime = roundInfo.waveInfos[0].waveStartDelay;
+            waveDelayLeft = waveDelayTime;
             roundRunning = true;
             scenario.OnNewRoundStarted();
+            UIManager.instance.SetWaveEnemiesCount(0);
+            UIManager.instance.SetWaveIndicator(0, roundInfo.waveInfos.Length);
+            UIManager.instance.SetWaveDelayIndicatorVisibility(true);
             Debug.Log("Starting round (index) " + currentRoundIndex + "!");
             return true;
         }
@@ -153,6 +157,9 @@ public class AISpawnController : MonoBehaviour
             waveInfo.elapsedTime = 0;
             waveInfo.nextSpawnIndex = 0;
             activeWaves.Add(waveInfo);
+            UIManager.instance.AddWaveEnemiesCount(waveInfo.totalEnemies);
+            UIManager.instance.SetWaveDelayIndicatorFill(0);
+            UIManager.instance.SetWaveDelayIndicatorVisibility(false);
             UIManager.instance.SetWaveIndicator(currentWaveIndex + 1, roundInfo.waveInfos.Length);
             Debug.Log("Starting wave (index) " + currentWaveIndex + " in round (index) " + currentRoundIndex + "!");
             return true;
@@ -170,7 +177,8 @@ public class AISpawnController : MonoBehaviour
             activeWaves.Clear();
 
             currentRoundIndex = roundIndex - 1;
-            UIManager.instance.SetWaveDelayIndicator(0);
+            UIManager.instance.SetWaveEnemiesCount(0);
+            UIManager.instance.SetWaveDelayIndicatorFill(0);
             return StartNextRound();
         }
         return false;
@@ -193,6 +201,8 @@ public class AISpawnController : MonoBehaviour
 
                 currentWaveIndex = waveIndex - 1;
                 waveDelayLeft = 0;
+                UIManager.instance.SetWaveEnemiesCount(0);
+                UIManager.instance.SetWaveDelayIndicatorFill(0);
                 return StartNextWave();
             }
         }
@@ -212,6 +222,9 @@ public class AISpawnController : MonoBehaviour
             foreach (AISpawner spawner in aiSpawners)
                 spawner.ClearSpawnInfos();
             wavesToRemove.AddRange(activeWaves);
+            OnCurrentWaveFinishedSpawning();
+            ClearFinishedWaves();
+            scenario.CheckRoundWon();
         }
     }
 
@@ -290,6 +303,8 @@ public class AISpawnController : MonoBehaviour
         {
             waveDelayTime = roundInfos[currentRoundIndex].waveInfos[currentWaveIndex + 1].waveStartDelay;
             waveDelayLeft = waveDelayTime;
+            UIManager.instance.SetWaveDelayIndicatorFill(0);
+            UIManager.instance.SetWaveDelayIndicatorVisibility(true);
         }
     }
 
@@ -349,6 +364,7 @@ public class AISpawnController : MonoBehaviour
                 }
                 float lastSpawnTime = -1;
                 waveInfo.lastEnemySpawnTime = -1;
+                waveInfo.totalEnemies = 0;
                 for (int s = 0; s < waveInfo.spawnInfos.Length; ++s)
                 {
                     SpawnInfo spawnInfo = waveInfo.spawnInfos[s];
@@ -392,6 +408,7 @@ public class AISpawnController : MonoBehaviour
                     {
                         waveInfo.lastEnemySpawnTime = lastEnemySpawnTime;
                     }
+                    waveInfo.totalEnemies += spawnInfo.enemiesToSpawn.Length;
                 }
             }
         }

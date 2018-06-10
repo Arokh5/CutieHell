@@ -11,17 +11,9 @@ public class UIManager : MonoBehaviour
     public enum ComboTypes { None, StrongCombo, BadCombo };
     public ComboTypes activeCombo;
 
-    [SerializeField]
-    private Image evilnessBar;
-
-    private int currentWaveNumber = -1;
-    [SerializeField]
-    private Text waveNumberText;
-
-    [SerializeField]
-    private WaveProgressFiller waveProgressFiller;
     public IndicatorsController indicatorsController;
     public MarkersController markersController;
+    public RoundInfoController roundInfoController;
     //[SerializeField]
     //private WaveTimer waveRadialProgressBar;
 
@@ -141,25 +133,37 @@ public class UIManager : MonoBehaviour
     // Called by AISpawnController to change the Wave indicator values
     public void SetWaveIndicator(int currentWaveNumber, int totalWavesNumber)
     {
-        //Debug.LogError("ERROR: SetWaveIndicator NOT implemented!");
+        roundInfoController.SetCurrentWave(currentWaveNumber);
+        roundInfoController.SetTotalWaves(totalWavesNumber);
+    }
+
+    // Called by AISpawnController
+    public void SetWaveDelayIndicatorVisibility(bool isVisible)
+    {
+        roundInfoController.SetWaveDelayVisibility(isVisible);
     }
 
     // Called by AISpawnController to update the wave delay indicator
-    public void SetWaveDelayIndicator(float normalizedTimeLeft)
+    public void SetWaveDelayIndicatorFill(float normalizedFill)
     {
-        //Debug.LogError("ERROR: SetWaveDelayIndicator NOT implemented!");
+        roundInfoController.SetWaveDelayFill(normalizedFill);
     }
 
-    // Called by AISpawnController to move the Wave indicator forward
-    public void SetWaveNumberAndProgress(int waveNumber, float normalizedProgress)
+    public void SetWaveEnemiesCount(int enemiesNumber)
     {
-        if (currentWaveNumber != waveNumber)
-        {
-            currentWaveNumber = waveNumber;
-            waveNumberText.text = currentWaveNumber.ToString();
-        }
-        //waveRadialProgressBar.SetNormalizedAmount(normalizedProgress);
-        waveProgressFiller.SetNormalizedAmount(normalizedProgress);
+        roundInfoController.SetEnemiesCount(enemiesNumber);
+    }
+
+    // Called by AISpawnController when starting a new wave
+    public void AddWaveEnemiesCount(int numberToAdd)
+    {
+        roundInfoController.AddToEnemiesCount(numberToAdd);
+    }
+
+    // Called by AIEnemy when DestroySelf happens
+    public void ReduceEnemyCount()
+    {
+        roundInfoController.AddToEnemiesCount(-1);
     }
 
     public void ShowUseText()

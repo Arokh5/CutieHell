@@ -97,11 +97,8 @@ public class ScenarioController : MonoBehaviour
     {
         ++zonesWithEnemiesCount;
     }
-    #endregion
 
-    #region Private Methods
-
-    private void CheckRoundWon()
+    public void CheckRoundWon()
     {
         if (lastSpawnIsOver && zonesWithEnemiesCount == 0)
         {
