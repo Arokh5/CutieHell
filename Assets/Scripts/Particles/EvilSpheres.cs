@@ -44,7 +44,8 @@ public class EvilSpheres : PooledParticleSystem
             {
                 if (Vector3.SqrMagnitude(player.transform.position + Vector3.up - particles[i].position) < 1.0f)
                 {
-                    SetEvil(particles.Length);
+                    Debug.Log("Enemies Death is no longer giving evil to the player");
+                    //SetEvil(particles.Length);
                     particles[i].remainingLifetime = 0;
                 }
                 else
