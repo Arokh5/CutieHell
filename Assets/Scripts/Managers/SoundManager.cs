@@ -11,6 +11,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField]
     private AudioSource musicSource;
     [SerializeField]
+    private AudioSource ambienceSource;
+    [SerializeField]
     private AudioSource sfxSource;
 
 	#endregion

@@ -8,6 +8,12 @@ public class ProximitySoundTrigger : SoundTrigger
     #endregion
 
     #region MonoBehaviour Methods
+    private void Start()
+    {
+        if (!reference)
+            reference = Camera.main.transform;
+    }
+
     private void Update()
     {
         if (Vector3.SqrMagnitude(reference.position - transform.position) <= triggerDistance * triggerDistance)
