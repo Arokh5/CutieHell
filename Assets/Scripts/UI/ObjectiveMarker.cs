@@ -12,14 +12,11 @@ public class ObjectiveMarker : MonoBehaviour
     public Image arrow;
     [SerializeField]
     private Camera mainCamera;
-    [SerializeField]
-    private Sprite defendSprite;
-    [SerializeField]
-    private Sprite repairSprite;
 
     private float horizontalOffset;
     private float hAngle;
     private bool arrowEnableState = true;
+    private RectTransform iconTransform;
 
     void Start()
     {
@@ -30,8 +27,7 @@ public class ObjectiveMarker : MonoBehaviour
         float radHFov = 2 * Mathf.Atan(Mathf.Tan(radVFov / 2) * mainCamera.aspect);
         hAngle = Mathf.Rad2Deg * Mathf.Atan((Mathf.Tan(0.5f * radHFov) * (1 - horizontalOffsetPercentage)));
 
-        Image image = GetComponent<Image>();
-        image.sprite = defendSprite;
+        iconTransform = GetComponent<RectTransform>();
     }
     
     void Update()
@@ -113,7 +109,6 @@ public class ObjectiveMarker : MonoBehaviour
 
         }
 
-        RectTransform iconTransform = gameObject.GetComponent<Image>().rectTransform;
         RectTransform arrowTransform = arrow.rectTransform;
 
         iconTransform.position = iconPosition;
@@ -137,13 +132,6 @@ public class ObjectiveMarker : MonoBehaviour
 
     public void MonumentTaken()
     {
-        Image image = GetComponent<Image>();
-        image.sprite = repairSprite;
-    }
-
-    public void MonumentRepaired()
-    {
-        Image image = GetComponent<Image>();
-        image.sprite = defendSprite;
+        gameObject.SetActive(false);
     }
 }

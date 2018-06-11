@@ -19,19 +19,26 @@ public class AISpawnController : MonoBehaviour
 
     [SerializeField]
     ScenarioController scenario;
-    public float firstWaveStartDelay = 0.0f;
-    public float nextWavesStartDelay = 10.0f;
+    //[ShowOnly]
+    //[SerializeField]
+    //private float roundElapsedTime;
+    
     [ShowOnly]
     [SerializeField]
-    private float elapsedTime;
+    private int currentRoundIndex = -1;
+    [ShowOnly]
     [SerializeField]
     private int currentWaveIndex = -1;
     [SerializeField]
-    private int nextSpawnIndex;
+    private RoundInfo[] roundInfos;
     [SerializeField]
-    private List<WaveInfo> wavesInfo;
-    [SerializeField]
-    private List<AISpawner> aiSpawners;
+    private List<AISpawner> aiSpawners = new List<AISpawner>();
+
+    private int wavesLeftToFinishSpawn = -1;
+    private float waveDelayTime = float.MaxValue;
+    private float waveDelayLeft = 0;
+    private List<WaveInfo> activeWaves = new List<WaveInfo>();
+    private List<WaveInfo> wavesToRemove = new List<WaveInfo>();
 
     public Transform pooledEnemies;
     public Transform activeEnemies;
@@ -40,8 +47,8 @@ public class AISpawnController : MonoBehaviour
     private EnemyTypePrefab[] enemyPrefabs;
     private Dictionary<EnemyType, ObjectPool<AIEnemy>> enemyPools;
 
-    private bool validWavesInfo = true;
-    private bool waveRunning = false;
+    private bool validRoundsInfo = true;
+    private bool roundRunning = false;
 
     #endregion
 
@@ -66,40 +73,25 @@ public class AISpawnController : MonoBehaviour
         {
             enemyPools.Add(enemyPrefabs[i].type, new ObjectPool<AIEnemy>(enemyPrefabs[i].prefab, pooledEnemies));
         }
-        validWavesInfo = VerifyWaveInfos();
-        currentWaveIndex = -1;
+        validRoundsInfo = VerifyRoundInfos();
+        currentRoundIndex = -1;
     }
 
     private void Update()
     {
-        if (waveRunning)
+        if (roundRunning)
         {
-            WaveInfo currentWaveInfo = wavesInfo[currentWaveIndex];
-
-            if (nextSpawnIndex < currentWaveInfo.spawnInfos.Count)
+            if (waveDelayLeft > 0)
             {
-                SpawnInfo spawnInfo = currentWaveInfo.spawnInfos[nextSpawnIndex];
-                if (elapsedTime >= spawnInfo.spawnTime)
+                waveDelayLeft -= Time.deltaTime;
+                if (waveDelayLeft < 0)
                 {
-                    AISpawner spawner = aiSpawners[spawnInfo.spawnerIndex];
-                    spawner.Spawn(spawnInfo);
-                    ++nextSpawnIndex;
+                    waveDelayLeft = 0;
+                    StartNextWave();
                 }
+                UIManager.instance.SetWaveDelayIndicatorFill((waveDelayTime - waveDelayLeft) / waveDelayTime);
             }
-            elapsedTime += Time.deltaTime;
-
-            /* Update UI */
-            UIManager.instance.SetWaveNumberAndProgress(currentWaveIndex + 1, elapsedTime / currentWaveInfo.waveDuration);
-
-            if (elapsedTime >= currentWaveInfo.lastEnemySpawnTime)
-            {
-                scenario.OnLastEnemySpawned();
-            }
-
-            if (elapsedTime > currentWaveInfo.waveDuration)
-            {
-                WaveFinished();
-            }
+            HandleActiveWaves();
         }
     }
 
@@ -118,65 +110,157 @@ public class AISpawnController : MonoBehaviour
         enemyPools[enemy.enemyType].ReturnToPool(enemy);
     }
 
-    public bool HasNextWave()
+    public bool HasNextRound()
     {
-        return validWavesInfo && currentWaveIndex < wavesInfo.Count - 1;
+        return validRoundsInfo
+            && currentRoundIndex >= -1
+            && currentRoundIndex < roundInfos.Length - 1;
     }
 
-    public bool StartNextWave()
+    public bool StartNextRound()
     {
-        if (validWavesInfo && currentWaveIndex < wavesInfo.Count - 1)
+        if (HasNextRound())
         {
-            ++currentWaveIndex;
-            elapsedTime = currentWaveIndex == 0 ? -firstWaveStartDelay : -nextWavesStartDelay;
-            nextSpawnIndex = 0;
-            waveRunning = true;
-            return true;
-        }
-        else
-            return false;
-    }
-
-    public bool ForceStartWave(int waveIndex)
-    {
-        if (validWavesInfo && waveIndex < wavesInfo.Count)
-        {
-            scenario.OnNewWaveStarted();
-            WaveFinished();
-
-            foreach (AISpawner spawner in aiSpawners)
-                spawner.ClearSpawnInfos();
-
-            currentWaveIndex = waveIndex;
-
-            waveRunning = true;
-            elapsedTime = 0;
-            nextSpawnIndex = 0;
-
+            ++currentRoundIndex;
+            RoundInfo roundInfo = roundInfos[currentRoundIndex];
+            currentWaveIndex = -1;
+            wavesLeftToFinishSpawn = roundInfo.waveInfos.Length;
+            waveDelayTime = roundInfo.waveInfos[0].waveStartDelay;
+            waveDelayLeft = waveDelayTime;
+            roundRunning = true;
+            scenario.OnNewRoundStarted();
+            UIManager.instance.SetWaveEnemiesCount(0);
+            UIManager.instance.SetWaveIndicator(0, roundInfo.waveInfos.Length);
+            UIManager.instance.SetWaveDelayIndicatorVisibility(true);
+            Debug.Log("Starting round (index) " + currentRoundIndex + "!");
             return true;
         }
         return false;
     }
 
-    public void WinCurrentWave()
+    public bool HasNextWaveInRound()
     {
-        if (waveRunning)
+        return validRoundsInfo
+            && currentRoundIndex >= 0
+            && currentRoundIndex < roundInfos.Length
+            && currentWaveIndex >= -1
+            && currentWaveIndex < roundInfos[currentRoundIndex].waveInfos.Length - 1;
+    }
+
+    public bool StartNextWave()
+    {
+        if (HasNextWaveInRound())
         {
-            scenario.OnLastEnemySpawned();
-            WaveFinished();
+            ++currentWaveIndex;
+            RoundInfo roundInfo = roundInfos[currentRoundIndex];
+            WaveInfo waveInfo = roundInfo.waveInfos[currentWaveIndex];
+            waveInfo.elapsedTime = 0;
+            waveInfo.nextSpawnIndex = 0;
+            activeWaves.Add(waveInfo);
+            UIManager.instance.AddWaveEnemiesCount(waveInfo.totalEnemies);
+            UIManager.instance.SetWaveDelayIndicatorFill(0);
+            UIManager.instance.SetWaveDelayIndicatorVisibility(false);
+            UIManager.instance.SetWaveIndicator(currentWaveIndex + 1, roundInfo.waveInfos.Length);
+            Debug.Log("Starting wave (index) " + currentWaveIndex + " in round (index) " + currentRoundIndex + "!");
+            return true;
+        }
+        return false;
+    }
+
+    public bool ForceStartRound(int roundIndex)
+    {
+        if(validRoundsInfo && roundIndex >= 0 && roundIndex < roundInfos.Length)
+        {
+            scenario.ClearCurrentActiveEnemies();
             foreach (AISpawner spawner in aiSpawners)
                 spawner.ClearSpawnInfos();
+            activeWaves.Clear();
+
+            currentRoundIndex = roundIndex - 1;
+            UIManager.instance.SetWaveEnemiesCount(0);
+            UIManager.instance.SetWaveDelayIndicatorFill(0);
+            return StartNextRound();
         }
+        return false;
+    }
+
+    public bool ForceStartWave(int waveIndex)
+    {
+        if (validRoundsInfo && currentRoundIndex >= 0 && currentRoundIndex < roundInfos.Length)
+        {
+            RoundInfo roundInfo = roundInfos[currentRoundIndex];
+            if (validRoundsInfo && waveIndex >= 0 && waveIndex < roundInfo.waveInfos.Length)
+            {
+                scenario.ClearCurrentActiveEnemies();
+                foreach (AISpawner spawner in aiSpawners)
+                    spawner.ClearSpawnInfos();
+                activeWaves.Clear();
+
+                wavesLeftToFinishSpawn = roundInfo.waveInfos.Length - waveIndex;
+                scenario.OnNewRoundStarted();
+
+                currentWaveIndex = waveIndex - 1;
+                waveDelayLeft = 0;
+                UIManager.instance.SetWaveEnemiesCount(0);
+                UIManager.instance.SetWaveDelayIndicatorFill(0);
+                return StartNextWave();
+            }
+        }
+        return false;
     }
 
     public void RestartCurrentWave()
     {
-        ForceStartWave(currentWaveIndex);
+        ForceStartWave(currentRoundIndex);
     }
 
-    public void StopWave()
+    public void WinActiveWaves()
     {
-        waveRunning = false;
+        if (roundRunning)
+        {
+            scenario.ClearCurrentActiveEnemies();
+            foreach (AISpawner spawner in aiSpawners)
+                spawner.ClearSpawnInfos();
+            wavesToRemove.AddRange(activeWaves);
+            OnCurrentWaveFinishedSpawning();
+            ClearFinishedWaves();
+            scenario.CheckRoundWon();
+        }
+    }
+
+    public void WinActiveRound()
+    {
+        if (roundRunning)
+        {
+            wavesLeftToFinishSpawn = -1;
+            roundRunning = false;
+            scenario.OnLastEnemySpawned();
+
+            scenario.ClearCurrentActiveEnemies();
+            foreach (AISpawner spawner in aiSpawners)
+                spawner.ClearSpawnInfos();
+            activeWaves.Clear();
+        }
+    }
+
+    public void ForceNextRound()
+    {
+        ForceStartRound(currentRoundIndex + 1);
+    }
+
+    public void ForcePreviousRound()
+    {
+        ForceStartRound(currentRoundIndex - 1);
+    }
+
+    public void StopRound()
+    {
+        roundRunning = false;
+    }
+
+    public int GetCurrentRoundIndex()
+    {
+        return currentRoundIndex;
     }
 
     public int GetCurrentWaveIndex()
@@ -186,38 +270,146 @@ public class AISpawnController : MonoBehaviour
     #endregion
 
     #region Private Methods
-    void WaveFinished()
+    private void HandleActiveWaves()
     {
-        waveRunning = false;
-        scenario.OnWaveTimeOver();
-    }
-
-    bool VerifyWaveInfos()
-    {
-        for (int w = 0; w < wavesInfo.Count; ++w)
+        for (int i = 0; i < activeWaves.Count; ++i)
         {
-            WaveInfo waveInfo = wavesInfo[w];
-            float lastSpawnTime = -1;
-            waveInfo.lastEnemySpawnTime = -1;
-            for (int s = 0; s < waveInfo.spawnInfos.Count; ++s)
+            WaveInfo waveInfo = activeWaves[i];
+            if (waveInfo.nextSpawnIndex < waveInfo.spawnInfos.Length)
             {
-                SpawnInfo spawnInfo = waveInfo.spawnInfos[s];
-                if (spawnInfo.spawnTime < lastSpawnTime)
+                SpawnInfo spawnInfo = waveInfo.spawnInfos[waveInfo.nextSpawnIndex];
+                if (waveInfo.elapsedTime >= spawnInfo.spawnTime)
                 {
-                    Debug.LogError("ERROR: WavesInfo error on AISpawnController. In Wave " + w + ", SpawnInfo " + s + ", has a spawn time that is smaller than the previous SpawnInfo!");
-                    return false;
-                }
-                float lastEnemySpawnTime = spawnInfo.spawnTime + spawnInfo.spawnDuration;
-                if (lastEnemySpawnTime > waveInfo.lastEnemySpawnTime)
-                {
-                    waveInfo.lastEnemySpawnTime = lastEnemySpawnTime;
+                    AISpawner spawner = aiSpawners[spawnInfo.spawnerIndex];
+                    spawner.Spawn(spawnInfo);
+                    ++waveInfo.nextSpawnIndex;
                 }
             }
-
-            if (waveInfo.waveDuration <= waveInfo.lastEnemySpawnTime)
+            else if (waveInfo.elapsedTime > waveInfo.lastEnemySpawnTime)
             {
-                Debug.LogError("ERROR: WavesInfo error on AISpawnController. In Wave " + w + ", the last enemy would be spawned after the wave duration has finished!");
+                if (i == activeWaves.Count - 1)
+                    OnCurrentWaveFinishedSpawning();
+
+                wavesToRemove.Add(waveInfo);
+            }
+            waveInfo.elapsedTime += Time.deltaTime;
+        }
+        ClearFinishedWaves();
+    }
+
+    private void OnCurrentWaveFinishedSpawning()
+    {
+        if (HasNextWaveInRound())
+        {
+            waveDelayTime = roundInfos[currentRoundIndex].waveInfos[currentWaveIndex + 1].waveStartDelay;
+            waveDelayLeft = waveDelayTime;
+            UIManager.instance.SetWaveDelayIndicatorFill(0);
+            UIManager.instance.SetWaveDelayIndicatorVisibility(true);
+        }
+    }
+
+    private void ClearFinishedWaves()
+    {
+        foreach (WaveInfo waveInfo in wavesToRemove)
+        {
+            --wavesLeftToFinishSpawn;
+            activeWaves.Remove(waveInfo);
+        }
+        wavesToRemove.Clear();
+        CheckAllWavesSpawned();
+    }
+
+    private void CheckAllWavesSpawned()
+    {
+        if (wavesLeftToFinishSpawn == 0)
+        {
+            wavesLeftToFinishSpawn = -1;
+            roundRunning = false;
+            scenario.OnLastEnemySpawned();
+        }
+    }
+
+    private bool VerifyRoundInfos()
+    {
+        for (int r = 0; r < roundInfos.Length; ++r)
+        {
+            RoundInfo roundInfo = roundInfos[r];
+            if (roundInfo == null)
+            {
+                Debug.LogError("ERROR: RoundInfos error on AISpawnController. RoundInfo " + r + " is null!");
                 return false;
+            }
+            if (roundInfo.waveInfos.Length == 0)
+            {
+                Debug.LogError("ERROR: RoundInfos error on AISpawnController. RoundInfo " + r + " contains an empty array of WaveInfos!");
+                return false;
+            }
+            for (int w = 0; w < roundInfo.waveInfos.Length; ++w)
+            {
+                WaveInfo waveInfo = roundInfo.waveInfos[w];
+                if (waveInfo == null)
+                {
+                    Debug.LogError("ERROR: RoundInfos error on AISpawnController. RoundInfo " + r + ", WaveInfo " + w + " is null!");
+                    return false;
+                }
+                if (waveInfo.waveStartDelay < 0)
+                {
+                    Debug.LogError("ERROR: RoundInfos error on AISpawnController. RoundInfo " + r + ", WaveInfo " + w + " has a negative waveStartDelay!");
+                    return false;
+                }
+                if (waveInfo.spawnInfos.Length == 0)
+                {
+                    Debug.LogError("ERROR: RoundInfos error on AISpawnController. RoundInfo " + r + ", WaveInfo " + w + " contains an empty array of SpawnInfos!");
+                    return false;
+                }
+                float lastSpawnTime = -1;
+                waveInfo.lastEnemySpawnTime = -1;
+                waveInfo.totalEnemies = 0;
+                for (int s = 0; s < waveInfo.spawnInfos.Length; ++s)
+                {
+                    SpawnInfo spawnInfo = waveInfo.spawnInfos[s];
+                    if (spawnInfo == null)
+                    {
+                        Debug.LogError("ERROR: RoundInfos error on AISpawnController. RoundInfo " + r + ", WaveInfo " + w + ", SpawnInfo " + s + " is null!");
+                        return false;
+                    }
+                    if (spawnInfo.enemiesToSpawn == null)
+                    {
+                        Debug.LogError("ERROR: RoundInfos error on AISpawnController. RoundInfo " + r + ", WaveInfo " + w + ", SpawnInfo " + s + ", enemiesToSpawn is null!");
+                        return false;
+                    }
+                    if (spawnInfo.enemiesToSpawn == null)
+                    {
+                        Debug.LogError("ERROR: RoundInfos error on AISpawnController. RoundInfo " + r + ", WaveInfo " + w + ", SpawnInfo " + s + ", contains an empty array of enemiesToSpawn!");
+                        return false;
+                    }
+                    if (spawnInfo.spawnerIndex < 0 || spawnInfo.spawnerIndex >= aiSpawners.Count)
+                    {
+                        Debug.LogError("ERROR: RoundInfos error on AISpawnController. RoundInfo " + r + ", WaveInfo " + w + ", SpawnInfo " + s + ", spawnerIndex is out of the range defined in aiSpawners!");
+                        return false;
+                    }
+                    if (spawnInfo.spawnTime < 0)
+                    {
+                        Debug.LogError("ERROR: RoundInfos error on AISpawnController. RoundInfo " + r + ", WaveInfo " + w + ", SpawnInfo " + s + ", has a negative spawnTime!");
+                        return false;
+                    }
+                    if (spawnInfo.spawnDuration < 0)
+                    {
+                        Debug.LogError("ERROR: RoundInfos error on AISpawnController. RoundInfo " + r + ", WaveInfo " + w + ", SpawnInfo " + s + ", has a negative spawnDuration!");
+                        return false;
+                    }
+                    if (spawnInfo.spawnTime < lastSpawnTime)
+                    {
+                        Debug.LogError("ERROR: RoundInfos error on AISpawnController. RoundInfo " + r + " WaveInfo " + w + ", SpawnInfo " + s + ", has a spawn time that is less than the previous SpawnInfo!");
+                        return false;
+                    }
+                    float lastEnemySpawnTime = spawnInfo.spawnTime + spawnInfo.spawnDuration;
+                    if (lastEnemySpawnTime > waveInfo.lastEnemySpawnTime)
+                    {
+                        waveInfo.lastEnemySpawnTime = lastEnemySpawnTime;
+                    }
+                    waveInfo.totalEnemies += spawnInfo.enemiesToSpawn.Length;
+                }
             }
         }
         return true;

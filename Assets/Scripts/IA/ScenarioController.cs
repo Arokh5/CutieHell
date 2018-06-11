@@ -54,7 +54,7 @@ public class ScenarioController : MonoBehaviour
         return null;
     }
 
-    public void OnWaveTimeOver()
+    public void ClearCurrentActiveEnemies()
     {
         bool onZoneEmptyCalled = false;
         foreach (AIZoneController zoneController in zoneControllers)
@@ -68,10 +68,10 @@ public class ScenarioController : MonoBehaviour
         }
 
         if (!onZoneEmptyCalled)
-            CheckWaveWon();
+            CheckRoundWon();
     }
 
-    public void OnNewWaveStarted()
+    public void OnNewRoundStarted()
     {
         lastSpawnIsOver = false;
     }
@@ -83,30 +83,27 @@ public class ScenarioController : MonoBehaviour
 
     public void OnFinalZoneConquered()
     {
-        spawnController.StopWave();
+        spawnController.StopRound();
         GameManager.instance.OnGameLost();
     }
 
     public void OnZoneEmpty()
     {
         --zonesWithEnemiesCount;
-        CheckWaveWon();
+        CheckRoundWon();
     }
 
     public void OnZoneNotEmpty()
     {
         ++zonesWithEnemiesCount;
     }
-    #endregion
 
-    #region Private Methods
-
-    private void CheckWaveWon()
+    public void CheckRoundWon()
     {
         if (lastSpawnIsOver && zonesWithEnemiesCount == 0)
         {
-            spawnController.StopWave();
-            GameManager.instance.OnWaveWon();
+            spawnController.StopRound();
+            GameManager.instance.OnRoundWon();
         }
     }
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Building : MonoBehaviour, IDamageable, IRepairable
+public abstract class Building : MonoBehaviour, IDamageable
 {
 
     #region Fields
@@ -12,7 +12,6 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     protected AIZoneController zoneController;
     [Tooltip("The initial amount of hit points for the conquerable building.")]
     public float baseHealth;
-    public int fullRepairCost;
     [Tooltip("The radius within which enemies are attracted to this building if it is set as target. Negative numbers stand for infinite radius")]
     public float attractionRadius = -1;
 
@@ -26,11 +25,11 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     private BuildingEffects buildingEffects;
     [HideInInspector]
     public bool animating = false;
-   
+
     [Header("Damage testing")]
+    public bool immortal = false;
     public bool takeDamage = false; // TEST
     public float lifeLossPerSecond = 0; // TEST
-    public bool fullRepair = false;
 
     #endregion
 
@@ -55,11 +54,20 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     #region Public Methods
     public abstract void BuildingConverted();
     public abstract void BuildingKilled();
-    public abstract void BuildingRecovered();
 
     public float GetMaxHealth()
     {
         return baseHealth;
+    }
+
+    public float GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+
+    public bool HasFullHealth()
+    {
+        return currentHealth == baseHealth;
     }
 
     // IDamageable
@@ -71,7 +79,7 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
     // IDamageable
     public virtual void TakeDamage(float damage, AttackType attacktype)
     {
-        if (currentHealth == 0)
+        if (immortal || currentHealth == 0)
             return;
 
         currentHealth -= damage;
@@ -95,105 +103,11 @@ public abstract class Building : MonoBehaviour, IDamageable, IRepairable
                 BuildingConverted();
         }
     }
-
-    // IRepairable
-    public virtual void FullRepair()
-    {
-        Debug.LogWarning("REMINDER: To prevent: Repairing a building while it's losing health due to a conqueror " +
-            "will cause the conqueror to finish its attack without fully conquering the trap!");
-
-        if (currentHealth == 0)
-        {
-            if (buildingEffects)
-                buildingEffects.StartUnconquerEffect();
-            else
-                BuildingRecovered();
-
-            if (attachedConqueror)
-            {
-                zoneController.RemoveEnemy(attachedConqueror);
-                attachedConqueror.DieAfterMatch();
-                attachedConqueror = null;
-            }
-        }
-
-        currentHealth = baseHealth;
-        buildingEffects.AdjustMaterials(0);
-    }
-
-    // IRepairable
-    public bool HasFullHealth()
-    {
-        return currentHealth == baseHealth;
-    }
-
-    // IRepairable
-    public int GetRepairCost()
-    {
-        float normalizedDamageTaken = ( (baseHealth - currentHealth ) / baseHealth );
-
-        if (normalizedDamageTaken < 0.25f)
-        {
-            return fullRepairCost * 1/4;
-        }
-        else if (normalizedDamageTaken < 0.50f)
-        {
-            return fullRepairCost * 2/4;
-        }
-        else if (normalizedDamageTaken < 0.75f)
-        {
-            return fullRepairCost * 3/4;
-        }
-        else
-        {
-            return fullRepairCost;
-        }
-        
-    }
-
-    // IRepairable
-    public virtual bool CanRepair()
-    {
-        return !animating;
-    }
-
-    public float GetCurrentHealth()
-    {
-        return currentHealth;
-    }
-
-    public void SetHealth(float healthValue)
-    {
-        healthValue = Mathf.Clamp(healthValue, 0, baseHealth);
-
-        currentHealth = healthValue;
-        
-        // Do not reset the underAttackElapsedTime timer
-        if (buildingEffects)
-        {
-            buildingEffects.AdjustMaterials((baseHealth - currentHealth) / (float)baseHealth);
-        }
-
-        if (currentHealth == 0)
-        {
-            BuildingKilled();
-            if (buildingEffects)
-                buildingEffects.StartConquerEffect();
-            else
-                BuildingConverted();
-        }
-    }
     #endregion
 
     #region Private Methods
     private void Test()
     {
-        if (fullRepair)
-        {
-            fullRepair = false;
-            FullRepair();
-        }
-
         if (takeDamage)
         {
             TakeDamage(lifeLossPerSecond * Time.deltaTime, AttackType.ENEMY);

@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 114269043851900310}
   - component: {fileID: 114892802675451340}
   m_Layer: 5
-  m_Name: WavesDebugInfo
+  m_Name: RoundDebugInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -553,7 +553,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1774234388246394
 GameObject:
   m_ObjectHideFlags: 1
@@ -1273,11 +1273,17 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '1-9 -> Spawn wave #
+  m_Text: '+ -> Next Round
 
-    Z -> Win Wave
+    - -> Previous Round
 
-    X -> Restart Wave'
+    1-9 -> Spawn wave #
+
+    Z -> Restart Wave
+
+    X -> Win Active Waves
+
+    C -> Win Active Round'
 --- !u!114 &114279823861016952
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2407,7 +2413,7 @@ MonoBehaviour:
   grid: {fileID: 114982043875543532}
   worldCamera: {fileID: 1135769280871330}
   instructionsWorldCamera: {fileID: 1799137103232024}
-  wavesDebugInfo: {fileID: 1233682858619750}
+  roundsDebugInfo: {fileID: 1233682858619750}
   playerDebugInfo: {fileID: 1960499365516940}
   greenCircle: {fileID: 1700529794803630}
   playerDefaultMoveAction: {fileID: 11400000, guid: 0114d4abe69aa214eafa844b779ee729,

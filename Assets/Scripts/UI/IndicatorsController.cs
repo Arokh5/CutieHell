@@ -18,24 +18,18 @@ public class IndicatorsController : MonoBehaviour
     #endregion
 
     #region Public Methods
-    public void OnNewWaveStarted()
+    public void OnNewRoundStarted()
     {
         foreach (MonumentIndicator monumentIndicator in monumentIndicators)
         {
-            monumentIndicator.OnNewWaveStarted();
+            monumentIndicator.OnNewRoundStarted();
         }
     }
 
     public void MonumentConquered(int index)
     {
-        if (index != -1)
+        if (index >= 0 && index < monumentConqueredIcons.Length)
             monumentConqueredIcons[index].SetActive(true);
-    }
-
-    public void MonumentRepaired(int index)
-    {
-        if (index != -1)
-            monumentConqueredIcons[index].SetActive(false);
     }
     #endregion
 }

@@ -42,7 +42,7 @@ public class MonumentIndicator : MonoBehaviour {
         fillImage.fillAmount = normalizedFill;
     }
 
-    public void OnNewWaveStarted()
+    public void OnNewRoundStarted()
     {
         if (shouldClose)
         {

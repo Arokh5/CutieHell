@@ -14,7 +14,6 @@ public class Monument : Building
     [SerializeField]
     private float lowHealthScreen;
     [Space]
-    public float maxRepairDistance = 5;
     [SerializeField]
     private MonumentIndicator monumentIndicator;
     [SerializeField]
@@ -31,16 +30,6 @@ public class Monument : Building
 
     #region Public Methods
     // IDamageable
-    // If this method is called, it should inform the ZoneController and UIManager
-    public override void FullRepair()
-    {
-        if (!zoneController.isFinalZone || currentHealth != 0)
-        {
-            base.FullRepair();
-            monumentIndicator.SetFill((baseHealth - currentHealth) / baseHealth);
-        }
-    }
-
     public override void TakeDamage(float damage, AttackType attacktype)
     {
         base.TakeDamage(damage, attacktype);
@@ -59,17 +48,9 @@ public class Monument : Building
 
     public override void BuildingKilled()
     {
-        zoneController.OnMonumentTaken();
         if (protectedMonument)
             protectedMonument.monumentIndicator.RequestOpen();
         monumentIndicator.DeactivateIconConquered();
-    }
-
-    public override void BuildingRecovered()
-    {
-        zoneController.OnMonumentRecovered();
-        if (protectedMonument)
-            protectedMonument.monumentIndicator.RequestClose();
     }
     #endregion
 

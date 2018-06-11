@@ -32,9 +32,9 @@ public class DebugManager : MonoBehaviour {
     private GameObject instructionsWorldCamera;
 
     [Space]
-    [Header("Waves Debug")]
+    [Header("Rounds Debug")]
     [SerializeField]
-    private GameObject wavesDebugInfo;
+    private GameObject roundsDebugInfo;
 
     [Space]
     [Header("Player Debug")]
@@ -70,8 +70,8 @@ public class DebugManager : MonoBehaviour {
     private float playerInitialSpeed;
 
     private GameObject player;
-    private Building monument;
-    private GameObject[] traps;
+    private Building[] buildings;
+    private Trap[] traps;
 
     private KeyCode[] numberKeyCodes =
     {
@@ -99,8 +99,8 @@ public class DebugManager : MonoBehaviour {
         playerInitialSpeed = playerDefaultMoveAction.maxSpeed;
         worldCameraComponent = worldCamera.GetComponent<Camera>();
         spawnController = FindObjectOfType<AISpawnController>();
-        monument = GameObject.FindGameObjectWithTag("Monument").GetComponent<Monument>();
-        traps = GameObject.FindGameObjectsWithTag("Traps");
+        buildings = FindObjectsOfType<Building>();
+        traps = FindObjectsOfType<Trap>();
     }
 
 	void Update () {
@@ -110,19 +110,6 @@ public class DebugManager : MonoBehaviour {
         if (infiniteEvil)
         {
             playerScript.AddEvilPoints(playerScript.GetMaxEvilLevel());
-        }
-        if (immortalStructures)
-        {
-            greenCircle.SetActive(true);
-            monument.FullRepair();
-            foreach(GameObject build in traps)
-            {
-                build.GetComponent<Building>().FullRepair();
-            }
-        }
-        else
-        {
-            greenCircle.SetActive(false);
         }
     }
 
@@ -172,12 +159,12 @@ public class DebugManager : MonoBehaviour {
 
         if (wavesDebug.isOn)
         {
-            wavesDebugInfo.SetActive(true);
+            roundsDebugInfo.SetActive(true);
             WavesDebug();
         }
         else
         {
-            wavesDebugInfo.SetActive(false);
+            roundsDebugInfo.SetActive(false);
         }
         if (playerDebug.isOn)
         {
@@ -227,32 +214,38 @@ public class DebugManager : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            immortalStructures = true;
+            // Immortal Buildings ON
+            greenCircle.SetActive(true);
+            foreach (Building building in buildings)
+                building.immortal = true;
         }
 
         if (Input.GetKeyDown(KeyCode.X))
         {
-            immortalStructures = false;
+            // Immortal Buildings OFF
+            greenCircle.SetActive(false);
+            foreach (Building building in buildings)
+                building.immortal = false;
         }
 
         if (Input.GetKeyDown(KeyCode.C))
         {
-            float closerDistance = 99999999999.9f;
+            float closerDistance = float.MaxValue;
             Trap closerBuilding = null;
-            foreach(GameObject o in traps)
+            foreach(Trap trap in traps)
             {
-                if (Vector3.SqrMagnitude(player.transform.position - o.transform.position) <= closerDistance)
+                if (Vector3.SqrMagnitude(player.transform.position - trap.transform.position) <= closerDistance)
                 {
-                    if (!o.GetComponent<Trap>().IsDead())
+                    if (!trap.IsDead())
                     {
-                        closerDistance = Vector3.SqrMagnitude(player.transform.position - o.transform.position);
-                        closerBuilding = o.GetComponent<Trap>();
+                        closerDistance = Vector3.SqrMagnitude(player.transform.position - trap.transform.position);
+                        closerBuilding = trap;
                     }
                 }
             }
             if (closerBuilding != null)
             {
-                closerBuilding.TakeDamage(9999999999.9f, AttackType.ENEMY);
+                closerBuilding.TakeDamage(closerBuilding.GetMaxHealth(), AttackType.ENEMY);
             }
         }
     }
@@ -393,12 +386,27 @@ public class DebugManager : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            spawnController.WinCurrentWave();
+            spawnController.RestartCurrentWave();
         }
 
         if (Input.GetKeyDown(KeyCode.X))
         {
-            spawnController.RestartCurrentWave();
+            spawnController.WinActiveWaves();
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            spawnController.WinActiveRound();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Plus) || Input.GetKeyDown(KeyCode.KeypadPlus))
+        {
+            spawnController.ForceNextRound();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Minus) || Input.GetKeyDown(KeyCode.KeypadMinus))
+        {
+            spawnController.ForcePreviousRound();
         }
 
         for (int i = 0; i < numberKeyCodes.Length; ++i)

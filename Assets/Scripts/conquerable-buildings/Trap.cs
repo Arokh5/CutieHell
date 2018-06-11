@@ -63,36 +63,22 @@ public class Trap : Building, IUsable
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = new Color(1, 0, 0 ,0.5f);
+        Gizmos.color = new Color(1, 0, 0, 0.5f);
         Gizmos.DrawWireSphere(transform.position, attractionRadius);
 
-        if(canonBallsList.Count > 0)
+        if (canonBallsList.Count > 0)
         {
             Gizmos.color = new Color(1, 0, 0, 0.5f);
             Gizmos.DrawWireSphere(canonBallsList[0].transform.position, canonBallInfo.canonBallExplosionRange);
         }
     }
-
-   
     #endregion
 
     #region Public Methods
-    // IRepairable
-    public override bool CanRepair()
-    {
-        return !animating && !zoneController.monumentTaken && !HasFullHealth();
-    }
-
     public override void TakeDamage(float damage, AttackType attacktype)
     {
         base.TakeDamage(damage, attacktype);
         trapPercentageCounter.UpdatePercentage(((baseHealth - currentHealth) / baseHealth) * 100);
-    }
-
-    public override void FullRepair()
-    {
-            base.FullRepair();
-            trapPercentageCounter.UpdatePercentage(0f);
     }
 
     // IUsable
@@ -174,11 +160,6 @@ public class Trap : Building, IUsable
     }
 
     public override void BuildingConverted()
-    {
-        /* Nothing needs to be done here */
-    }
-
-    public override void BuildingRecovered()
     {
         /* Nothing needs to be done here */
     }

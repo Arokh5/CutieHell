@@ -102,23 +102,6 @@ public class BuildingEffects : MonoBehaviour
         }
     }
 
-    public void StartUnconquerEffect()
-    {
-        foreach (Convertible convertible in convertibles)
-        {
-            convertible.Unconvert();
-        }
-
-        alternateBuildingRenderer.transform.localScale = Vector3.zero;
-        alternateBuildingRenderer.gameObject.SetActive(false);
-        buildingRenderer.transform.localScale = Vector3.one;
-        AdjustMaterials(0);
-
-        Reset();
-        conquered = false;
-        attachedBuilding.BuildingRecovered();
-    }
-
     public float GetBlendRadius()
     {
         if (conquered)

@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private PauseMenuController tutorialPauseMenuController;
 
-    public enum GameStates { OnStartMenu, InGame, OnWaveEnd, OnGameEnd, OnGamePaused };
+    public enum GameStates { OnStartMenu, InGame, OnRoundEnd, OnGameEnd, OnGamePaused };
     public GameStates gameState;
 
     [SerializeField]
@@ -87,10 +87,10 @@ public class GameManager : MonoBehaviour
                 }
                 break;
 
-            case GameStates.OnWaveEnd:
+            case GameStates.OnRoundEnd:
                 UIManager.instance.SetEnemiesKilledCount();
                 UIManager.instance.IncreaseEnemiesTimeCount();
-                GoToNextWave();
+                GoToNextRound();
                 break;
 
             case GameStates.OnGameEnd:
@@ -121,33 +121,33 @@ public class GameManager : MonoBehaviour
     #region Public Methods
     public void OnTutorialFinished()
     {
-        screenFadeController.FadeToTransparent(StartNextWave);
+        screenFadeController.FadeToTransparent(StartNextRound);
     }
 
-    public void OnWaveWon()
+    public void OnRoundWon()
     {
-        Debug.Log("Wave (index) " + aiSpawnController.GetCurrentWaveIndex() + " finished!");
+        Debug.Log("Round (index) " + aiSpawnController.GetCurrentRoundIndex() + " finished!");
 
-        if (aiSpawnController.HasNextWave())  
+        if (aiSpawnController.HasNextRound())  
         {
-            OnWaveEnd();
+            OnRoundEnd();
         }
         else
         {
-            Debug.Log("No more waves available!");
+            Debug.Log("No more rounds available!");
             OnGameWon();
         }
     }
 
-    public void OnWaveEnd()
+    public void OnRoundEnd()
     {
         if (gameState == GameStates.InGame)
         {
             crosshair.SetActive(false);
             gameOverPanel.SetActive(true);
-            UIManager.instance.ChangeWaveEndText("WAVE " + (aiSpawnController.GetCurrentWaveIndex() + 1) + " SUCCEEDED");
-            UIManager.instance.ChangeEndBtnText("Go To Next Wave");
-            gameState = GameStates.OnWaveEnd;
+            UIManager.instance.ChangeRoundEndText("ROUND " + (aiSpawnController.GetCurrentRoundIndex() + 1) + " SUCCEEDED");
+            UIManager.instance.ChangeEndBtnText("Go To Next Round");
+            gameState = GameStates.OnRoundEnd;
         }
     }
 
@@ -157,7 +157,7 @@ public class GameManager : MonoBehaviour
         {
             crosshair.SetActive(false);
             gameOverPanel.SetActive(true);
-            UIManager.instance.ChangeWaveEndText("YOU WIN!");
+            UIManager.instance.ChangeRoundEndText("YOU WIN!");
             UIManager.instance.ChangeEndBtnText("Go To Title Screen");
             gameState = GameStates.OnGameEnd;
         }
@@ -169,7 +169,7 @@ public class GameManager : MonoBehaviour
         {
             crosshair.SetActive(false);
             gameOverPanel.SetActive(true);
-            UIManager.instance.ChangeWaveEndText("YOU LOSE!");
+            UIManager.instance.ChangeRoundEndText("YOU LOSE!");
             UIManager.instance.ChangeEndBtnText("Go To Title Screen");
             gameState = GameStates.OnGameEnd;
         }
@@ -232,7 +232,7 @@ public class GameManager : MonoBehaviour
         return player;
     }
 
-    public void GoToNextWave()
+    public void GoToNextRound()
     {
         if (InputManager.instance.GetXButtonDown())
         {
@@ -243,7 +243,7 @@ public class GameManager : MonoBehaviour
             StatsManager.instance.ResetBadComboCount();
             gameState = GameStates.InGame;
 
-            StartNextWave();
+            StartNextRound();
         }
     }
 
@@ -272,12 +272,10 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Private Methods
-    private void StartNextWave()
+    private void StartNextRound()
     {
-        aiSpawnController.StartNextWave();
-        scenarioController.OnNewWaveStarted();
-        UIManager.instance.indicatorsController.OnNewWaveStarted();
-        Debug.Log("Starting wave (index) " + aiSpawnController.GetCurrentWaveIndex() + "!");
+        aiSpawnController.StartNextRound();
+        UIManager.instance.indicatorsController.OnNewRoundStarted();
     }
 
 #if UNITY_EDITOR

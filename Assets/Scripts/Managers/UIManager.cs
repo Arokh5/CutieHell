@@ -11,17 +11,9 @@ public class UIManager : MonoBehaviour
     public enum ComboTypes { None, StrongCombo, BadCombo };
     public ComboTypes activeCombo;
 
-    [SerializeField]
-    private Image evilnessBar;
-
-    private int currentWaveNumber = -1;
-    [SerializeField]
-    private Text waveNumberText;
-
-    [SerializeField]
-    private WaveProgressFiller waveProgressFiller;
     public IndicatorsController indicatorsController;
     public MarkersController markersController;
+    public RoundInfoController roundInfoController;
     //[SerializeField]
     //private WaveTimer waveRadialProgressBar;
 
@@ -34,12 +26,8 @@ public class UIManager : MonoBehaviour
     private Vector3 badComboOriginalScale;
     private Color badComboOriginalColor;
 
-    [Header("Repair and Use panels")]
+    [Header("Use panels")]
     public Color lockedPanelTintColor = Color.red;
-    [SerializeField]
-    private float distanceBetweenPopUps = 500.0f;
-    [SerializeField]
-    private Image repairText;
     [SerializeField]
     private Image useText;
         
@@ -65,7 +53,7 @@ public class UIManager : MonoBehaviour
     private Text conquerorEnemies;
 
     [SerializeField]
-    private Text waveEndText;
+    private Text roundEndText;
     [SerializeField]
     private Text endBtnText;
 
@@ -126,9 +114,9 @@ public class UIManager : MonoBehaviour
 
     #region Public Methods
 
-    public void ChangeWaveEndText(string text)
+    public void ChangeRoundEndText(string text)
     {
-        waveEndText.text = text;
+        roundEndText.text = text;
     }
 
     public void ChangeEndBtnText(string text)
@@ -142,56 +130,57 @@ public class UIManager : MonoBehaviour
         Debug.LogError("NOT IMPLEMENTED:UIManager::ZoneConnectionOpened");
     }
 
-    // Called by AISpawnController to move the Wave indicator forward
-    public void SetWaveNumberAndProgress(int waveNumber, float normalizedProgress)
+    // Called by AISpawnController to change the Wave indicator values
+    public void SetWaveIndicator(int currentWaveNumber, int totalWavesNumber)
     {
-        if (currentWaveNumber != waveNumber)
-        {
-            currentWaveNumber = waveNumber;
-            waveNumberText.text = currentWaveNumber.ToString();
-        }
-        //waveRadialProgressBar.SetNormalizedAmount(normalizedProgress);
-        waveProgressFiller.SetNormalizedAmount(normalizedProgress);
+        roundInfoController.SetCurrentWave(currentWaveNumber);
+        roundInfoController.SetTotalWaves(totalWavesNumber);
     }
 
-    public void ShowRepairText()
+    // Called by AISpawnController
+    public void SetWaveDelayIndicatorVisibility(bool isVisible)
     {
-        repairText.color = Color.white;
-        repairText.gameObject.SetActive(true);
-        UpdatePopUpsPosition();
+        roundInfoController.SetWaveDelayVisibility(isVisible);
     }
 
-    public void ShowLockedRepairText()
+    // Called by AISpawnController to update the wave delay indicator
+    public void SetWaveDelayIndicatorFill(float normalizedFill)
     {
-        repairText.color = lockedPanelTintColor;
-        repairText.gameObject.SetActive(true);
-        UpdatePopUpsPosition();
+        roundInfoController.SetWaveDelayFill(normalizedFill);
     }
 
-    public void HideRepairText()
+    public void SetWaveEnemiesCount(int enemiesNumber)
     {
-        repairText.gameObject.SetActive(false);
-        UpdatePopUpsPosition();
+        roundInfoController.SetEnemiesCount(enemiesNumber);
+    }
+
+    // Called by AISpawnController when starting a new wave
+    public void AddWaveEnemiesCount(int numberToAdd)
+    {
+        roundInfoController.AddToEnemiesCount(numberToAdd);
+    }
+
+    // Called by AIEnemy when DestroySelf happens
+    public void ReduceEnemyCount()
+    {
+        roundInfoController.AddToEnemiesCount(-1);
     }
 
     public void ShowUseText()
     {
         useText.color = Color.white;
         useText.gameObject.SetActive(true);
-        UpdatePopUpsPosition();
     }
 
     public void ShowLockedUseText()
     {
         useText.color = lockedPanelTintColor;
         useText.gameObject.SetActive(true);
-        UpdatePopUpsPosition();
     }
 
     public void HideUseText()
     {
         useText.gameObject.SetActive(false);
-        UpdatePopUpsPosition();
     }
 
     public void ShowComboText(ComboTypes comboType)
@@ -280,20 +269,6 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #region Private Methods
-
-    private void UpdatePopUpsPosition()
-    {
-        if (useText.IsActive() && repairText.IsActive())
-        {
-            SetLocalXPos(useText.rectTransform, -0.5f * distanceBetweenPopUps);
-            SetLocalXPos(repairText.rectTransform, 0.5f * distanceBetweenPopUps);
-        }
-        else if (useText.IsActive())
-            SetLocalXPos(useText.rectTransform, 0);
-        else if (repairText.IsActive())
-            SetLocalXPos(repairText.rectTransform, 0);
-    }
-
     private void SetLocalXPos(RectTransform rectTransform, float xValue)
     {
         Vector3 refPos = rectTransform.localPosition;
