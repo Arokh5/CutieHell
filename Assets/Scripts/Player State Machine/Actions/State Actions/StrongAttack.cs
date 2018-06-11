@@ -20,6 +20,8 @@ public class StrongAttack : StateAction
                 if (player.timeSinceLastStrongAttack >= timeToGoOut)
                 {
                     player.canMove = true;
+                    player.strongAttackCollider.enabled = true;
+                    player.strongAttackCollider.gameObject.SetActive(true);
                     player.teleportState = Player.TeleportStates.TRAVEL;
 
                 }
@@ -30,6 +32,8 @@ public class StrongAttack : StateAction
                     player.teleportState = Player.TeleportStates.IN;
                     player.timeSinceLastStrongAttack = 0.0f;
                     ParticlesManager.instance.LaunchParticleSystem(strongAttackVFX, player.transform.position, strongAttackVFX.transform.rotation);
+                    player.strongAttackCollider.enabled = false;
+                    player.strongAttackCollider.gameObject.SetActive(false);
                     player.canMove = false;
                     player.animator.Rebind();
                 }

@@ -15,8 +15,6 @@ public class StrongAttackEnter : StateAction
         player.comeBackFromStrongAttack = false;
         player.timeSinceLastStrongAttack = 0.0f;
         player.SetRenderersVisibility(false);
-        player.strongAttackCollider.enabled = true;
-        player.strongAttackCollider.gameObject.SetActive(true);
         player.teleported = false;
         player.timeSinceLastTeleport = 0.0f;
         player.initialPositionOnStrongAttack = player.transform;
