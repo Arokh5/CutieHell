@@ -10,7 +10,9 @@ public class StrongAttack : StateAction
     public float timeToGoOut, timeToGoIn, delay;
 
     [SerializeField]
-    private AudioClip attackSfx;
+    private AudioClip takeOffSfx;
+    [SerializeField]
+    private AudioClip landingSfx;
 
     public override void Act(Player player)
     {
@@ -23,7 +25,6 @@ public class StrongAttack : StateAction
                     player.strongAttackCollider.enabled = true;
                     player.strongAttackCollider.gameObject.SetActive(true);
                     player.teleportState = Player.TeleportStates.TRAVEL;
-
                 }
                 break;
             case Player.TeleportStates.TRAVEL:
