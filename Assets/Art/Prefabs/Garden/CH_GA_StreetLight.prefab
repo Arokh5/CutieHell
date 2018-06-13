@@ -242,8 +242,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1952519385354690}
-  m_LocalRotation: {x: -0.015174623, y: -0.98420024, z: 0.014079044, w: 0.175845}
-  m_LocalPosition: {x: -12.935579, y: 0.41898274, z: 7.6294217}
+  m_LocalRotation: {x: -0.017370127, y: -0.99977803, z: 0.011259124, w: 0.003938064}
+  m_LocalPosition: {x: -0.056417704, y: 0.41898274, z: 12.473846}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4863355588187416}
@@ -251,7 +251,7 @@ Transform:
   - {fileID: 4468100480624374}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 1.2820001, y: 8.511001, z: 1.996}
+  m_LocalEulerAnglesHint: {x: 1.2820001, y: -11.298, z: 1.996}
 --- !u!4 &4828926226394996
 Transform:
   m_ObjectHideFlags: 1
@@ -559,7 +559,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: fa6c9a10b68bf8843854476461dccd47, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -568,7 +568,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 0
-  MaxDistance: 5
+  MaxDistance: 8
   Pan2D: 0
   rolloffMode: 2
   BypassEffects: 0
@@ -732,7 +732,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: fa6c9a10b68bf8843854476461dccd47, type: 3}
   loopAudio: 1
-  soundMaxDistance: 5
+  soundMaxDistance: 8
 --- !u!114 &114504402555514008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -745,4 +745,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reference: {fileID: 0}
-  triggerDistance: 5
+  triggerDistance: 8
