@@ -10,7 +10,7 @@ public class StrongAttackEnter : StateAction
 
     public override void Act(Player player)
     {
-        player.AddEvilPoints(-evilCost);
+        player.AddEvilPoints(-player.strongAttackEvilCost);
         player.canMove = false;
         player.comeBackFromStrongAttack = false;
         player.timeSinceLastStrongAttack = 0.0f;

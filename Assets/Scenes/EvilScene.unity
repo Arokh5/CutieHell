@@ -839,6 +839,11 @@ Prefab:
       propertyPath: footstepsClip
       value: 
       objectReference: {fileID: 8300000, guid: ecb6ce47f20c36e4aa1c0c5982b0c767, type: 3}
+    - target: {fileID: 114580650670945556, guid: 182da881c3eee6548aa68ab299d1e64c,
+        type: 2}
+      propertyPath: strongAttackEvilCost
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
   m_IsPrefabParent: 0
@@ -21268,7 +21273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.29893506, g: 0, b: 0.33088237, a: 1}
+  m_Color: {r: 0.13333334, g: 0, b: 0.3019608, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -21280,7 +21285,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 0.9
+  m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 2
 --- !u!222 &1120954519
@@ -21640,15 +21645,15 @@ MonoBehaviour:
   evilFragmentsVoid: {fileID: 71487181}
   evilFragmentsNumber: {fileID: 2118586993}
   colors:
-  - {r: 0.7058823, g: 0.7058823, b: 0.7058823, a: 0}
-  - {r: 0.90196085, g: 0, b: 1, a: 0}
-  - {r: 0.7372549, g: 0, b: 0.81568635, a: 0}
-  - {r: 0.46274513, g: 0, b: 0.5137255, a: 0}
-  - {r: 0.2784314, g: 0, b: 0.30980393, a: 0}
-  - {r: 0.43892717, g: 0, b: 1, a: 0}
-  - {r: 0.35686275, g: 0, b: 0.8078432, a: 0}
-  - {r: 0.22352943, g: 0, b: 0.5019608, a: 0}
-  - {r: 0.13178946, g: 0, b: 0.30147058, a: 0}
+  - {r: 1, g: 0.53676474, b: 0.9105475, a: 1}
+  - {r: 0.90196085, g: 0, b: 1, a: 1}
+  - {r: 0.7372549, g: 0, b: 0.81568635, a: 1}
+  - {r: 0.46274513, g: 0, b: 0.5137255, a: 1}
+  - {r: 0.2784314, g: 0, b: 0.30980393, a: 1}
+  - {r: 0.43892717, g: 0, b: 1, a: 1}
+  - {r: 0.35686275, g: 0, b: 0.8078432, a: 1}
+  - {r: 0.22352943, g: 0, b: 0.5019608, a: 1}
+  - {r: 0.13333334, g: 0, b: 0.3019608, a: 1}
 --- !u!1 &1137152577
 GameObject:
   m_ObjectHideFlags: 0
