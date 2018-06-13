@@ -11,14 +11,22 @@ public class EvilManaController : MonoBehaviour {
     [SerializeField]
     private Image evilFragmentsVoid;
     [SerializeField]
+    private Image evilFragmentsGlow;
+    [SerializeField]
     private Text evilFragmentsNumber;
-
+    
     [Header("Colors for the evil Circle")]
     [SerializeField]
     Color[] colors;
 
     private float maxPlayerEvil = 0;
     private float evilUnits = 0;
+
+    private bool evilModified = false;
+    [Range(0.5f, 2f)]
+    [SerializeField]
+    private float glowingTime;
+    private float glowingElapsedTime = 0f;
     #endregion
 
     #region MonoBehaviour Methods
@@ -37,6 +45,14 @@ public class EvilManaController : MonoBehaviour {
         evilFragmentsNumber.text = NormalizeEvilNumber(maxPlayerEvil).ToString();
 
     }
+
+    public void Update()
+    {
+        if(evilModified)
+        {
+            HandleGlowingAlert();
+        }       
+    }
     #endregion
 
     #region Public methods
@@ -54,8 +70,8 @@ public class EvilManaController : MonoBehaviour {
             evilFragmentsNumber.text = normalizedEvil.ToString();
             evilFragmentsFiller.color = ColorCircleFiller((int)normalizedEvil);
             evilFragmentsVoid.color = ColorCircleFiller((int)normalizedEvil - 1);
+            evilModified = true;
         }
-
     }
     #endregion
 
@@ -80,6 +96,34 @@ public class EvilManaController : MonoBehaviour {
         }
         //representing empty color
         return Color.white; 
+    }
+
+    private void HandleGlowingAlert()
+    {
+        if (glowingElapsedTime == 0f)
+        {
+            Color colorWithOppositeAlpha = evilFragmentsGlow.color;
+            colorWithOppositeAlpha.a = 255f; //make it visible
+            evilFragmentsGlow.color = colorWithOppositeAlpha;
+
+            glowingElapsedTime += Time.deltaTime;
+        }
+        else
+        {
+            if (glowingElapsedTime > glowingTime)
+            {
+                Color colorWithOppositeAlpha = evilFragmentsGlow.color;
+                colorWithOppositeAlpha.a = 0f; //make it transparent
+                evilFragmentsGlow.color = colorWithOppositeAlpha;
+                glowingElapsedTime = 0f;
+                evilModified = false;
+            }
+            else
+            {
+                glowingElapsedTime += Time.deltaTime;
+            }
+        }
+
     }
     #endregion
 }

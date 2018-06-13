@@ -263,8 +263,7 @@ public class Player : MonoBehaviour {
         {
             evilLevel = maxEvilLevel;
         }
-        Debug.Log("value: " + value);
-        Debug.Log("isAutoRecoveringEvil" + isAutoRecoveringEvil);
+
         if(value < 0 || isAutoRecoveringEvil)
         evilManaController.UpdateCurrentEvil(evilLevel);
     }
