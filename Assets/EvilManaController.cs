@@ -3,12 +3,13 @@ using UnityEngine.UI;
 
 
 public class EvilManaController : MonoBehaviour {
-
-
+   
     #region Attributes
     [Header("Fragments UI info")]
     [SerializeField]
     private Image evilFragmentsFiller;
+    [SerializeField]
+    private Image evilFragmentsVoid;
     [SerializeField]
     private Text evilFragmentsNumber;
 
@@ -22,17 +23,19 @@ public class EvilManaController : MonoBehaviour {
 
     #region MonoBehaviour Methods
     // Use this for initialization
-    void Start()
+    public void Start()
     {
         UnityEngine.Assertions.Assert.IsNotNull(evilFragmentsNumber, "Error: No Text assigned to: " + gameObject.name);
         
         maxPlayerEvil = GameManager.instance.GetPlayer1().GetMaxEvilLevel();
-        UnityEngine.Assertions.Assert.AreEqual(maxPlayerEvil / 10, colors.Length, "Error: Player's max evil level attribute and and numEvilColors must match" + gameObject.name);
+        UnityEngine.Assertions.Assert.AreEqual(maxPlayerEvil / 10, colors.Length -1, "Error: Player's max evil level attribute and and numEvilColors must match (counting the +1 default evilColor" + gameObject.name);
 
+        //Initialize evil UI resource
         evilUnits = NormalizeEvilNumber(maxPlayerEvil);
+        evilFragmentsFiller.color = ColorCircleFiller((int) evilUnits);
+        evilFragmentsVoid.color = ColorCircleFiller((int)evilUnits - 1);
+        evilFragmentsNumber.text = NormalizeEvilNumber(maxPlayerEvil).ToString();
 
-        evilFragmentsNumber.text = NormalizeEvilNumber(maxPlayerEvil).ToString("0");
-        
     }
     #endregion
 
@@ -40,14 +43,17 @@ public class EvilManaController : MonoBehaviour {
 
     public void UpdateCurrentEvil(float currentEvil)
     {
-        Debug.Log(currentEvil);
-        evilFragmentsFiller.fillAmount = ( (float) currentEvil/100);
-        Debug.Log(evilFragmentsFiller.fillAmount);
+
+        //Fill attribute has to be normalized to exist between 0 and 1
+        evilFragmentsFiller.fillAmount = ((currentEvil % 10f) / 10) ;
         
+        //Check if evil has increased or decreased to a new evil point
         if (int.Parse(evilFragmentsNumber.text) != NormalizeEvilNumber(currentEvil))
         {
             float normalizedEvil = NormalizeEvilNumber(currentEvil);
             evilFragmentsNumber.text = normalizedEvil.ToString();
+            evilFragmentsFiller.color = ColorCircleFiller((int)normalizedEvil);
+            evilFragmentsVoid.color = ColorCircleFiller((int)normalizedEvil - 1);
         }
 
     }
@@ -63,16 +69,17 @@ public class EvilManaController : MonoBehaviour {
         return normalizedEvilNumber;
     }
 
-    private void ColorCircleFiller(int currentEvil)
+    private Color ColorCircleFiller(int currentEvil)
     {
         for (int i = 0; i < colors.Length; i++)
         {
-            if(i == currentEvil)
+            if (i == currentEvil)
             {
-                evilFragmentsFiller.color = colors[i];
-                break;
+                return colors[i];
             }
         }
+        //representing empty color
+        return Color.white; 
     }
     #endregion
 }
