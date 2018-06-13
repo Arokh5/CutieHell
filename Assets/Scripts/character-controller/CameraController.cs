@@ -105,7 +105,7 @@ public class CameraController : MonoBehaviour {
                 case Player.CameraState.MOVE:
                     {
 
-                        if (this.transform.parent != null) this.transform.parent = null;
+                        //if (this.transform.parent != null) this.transform.parent = null;
                         y = ClampAngle(y, yMinLimit, yMaxLimit);
                         Quaternion rotation = Quaternion.Euler(y, x, 0);
                         float noCollisionDistance = distance;

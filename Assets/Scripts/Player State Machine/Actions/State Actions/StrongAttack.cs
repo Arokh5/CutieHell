@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EZCameraShake;
 
 [CreateAssetMenu(menuName = "Player State Machine/Actions/StrongAttack")]
 public class StrongAttack : StateAction
@@ -42,6 +43,7 @@ public class StrongAttack : StateAction
             case Player.TeleportStates.IN:
                 if (player.timeSinceLastStrongAttack >= timeToGoIn)
                 {
+                    CameraShaker.Instance.ShakeOnce(0.5f, 12f, 0.1f, 0.7f);
                     player.cameraState = Player.CameraState.MOVE;
                     player.SetRenderersVisibility(true);
                     player.mainCameraController.y = 10.0f;
