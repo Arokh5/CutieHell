@@ -114,7 +114,7 @@ public class Player : MonoBehaviour {
 
     [Header("Fog Attack")]
     public SphereCollider fogCollider;
-    public ParticleSystem fogVFX;
+    public GameObject fogVFX;
     public float fogStateCooldown;
     [HideInInspector]
     public float fogStateLastTime;

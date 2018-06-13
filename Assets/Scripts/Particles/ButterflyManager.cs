@@ -12,45 +12,61 @@ public class ButterflyManager : MonoBehaviour {
     private List<Vector3> targets;
     [SerializeField]
     private float radius;
+    [SerializeField]
+    private float speed;
+    [SerializeField]
+    private float yRatio;
+    [SerializeField]
+    private float detectionDistance;
 
-	void OnEnable () {
+    void Awake () {
         targets = new List<Vector3>();
-        for(int i = butterflies.Count; butterfliesNumber > butterflies.Count; i++)
-        {
-            GameObject o = Instantiate(butterfliesOptions[Random.Range(0, 5)]);
-            o.GetComponent<Animator>().SetFloat("Speed", Random.Range(0.75f, 1.25f));
-            //o.transform.SetParent(this.transform);
-            butterflies.Add(o);
-        }
         Vector3 newPos = Vector3.zero;
-        int k = butterflies.Count;
-        for (int i = 0; i < k; i++)
+        float x = 0;
+        float y = 0;
+        float angle = 0;
+        for (int i = butterflies.Count; butterfliesNumber > i; i++)
         {
-            targets.Add(this.transform.position + new Vector3(Random.Range(-radius, radius), Random.Range(-radius, radius), Random.Range(-radius, radius)));
-            newPos = this.transform.position + new Vector3(Random.Range(-radius, radius), Random.Range(-radius, radius), Random.Range(-radius, radius));
-            butterflies[i].transform.position = newPos;
-            butterflies[i].transform.LookAt(targets[i]);
+            GameObject o = Instantiate(butterfliesOptions[Random.Range(0, butterfliesOptions.Count)]);
+            angle = Random.Range(0, 360);
+            x = Mathf.Sin(angle) * Random.Range(0, radius);
+            y = Mathf.Cos(angle) * Random.Range(0, radius);
+            newPos = this.transform.position + new Vector3(x, Random.Range(-radius, radius) * yRatio, y);
+            o.transform.position = newPos;
+            o.GetComponent<Animator>().SetFloat("Speed", Random.Range(0.75f, 1.25f));
+            o.transform.SetParent(this.transform);
+            butterflies.Add(o);
+            angle = Random.Range(0, 360);
+            x = Mathf.Sin(angle) * Random.Range(0, radius);
+            y = Mathf.Cos(angle) * Random.Range(0, radius);
+            targets.Add(new Vector3(x, Random.Range(-radius, radius) * yRatio, y));
         }
 	}
 	
 	void Update () {
         int k = butterflies.Count;
-
+        Vector3 parentRotation = this.transform.parent.transform.rotation.eulerAngles;
         for (int i = 0; i < k; i++)
         {
-            if(Vector3.SqrMagnitude(butterflies[i].transform.localPosition - (targets[i])) < 0.5f)
+            Vector3 target = targets[i];
+            target = Quaternion.Euler(0, parentRotation.y, 0) * target;
+
+            if (Vector3.SqrMagnitude(butterflies[i].transform.position - (this.transform.position + target)) < detectionDistance)
             {
                 NewTarget(i);
             }
-            butterflies[i].transform.Translate(Vector3.forward * 1.5f * Time.deltaTime);
-            butterflies[i].transform.LookAt(targets[i]);
+            butterflies[i].transform.LookAt(this.transform.position + target);
+            butterflies[i].transform.Translate(Vector3.forward * speed * Time.deltaTime);
+
         }
 
 	}
 
     private void NewTarget(int id)
     {
-        targets[id] = this.transform.position + new Vector3(Random.Range(-radius, radius), Random.Range(-radius, radius), Random.Range(-radius, radius));
-        butterflies[id].transform.LookAt(targets[id]);
+        float angle = Random.Range(0, 360);
+        float x = Mathf.Sin(angle) * Random.Range(0,radius);
+        float y = Mathf.Cos(angle) * Random.Range(0, radius);
+        targets[id] = new Vector3(x, Random.Range(-radius, radius) * yRatio, y);
     }
 }

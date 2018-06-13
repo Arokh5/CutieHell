@@ -187,27 +187,7 @@ public class CameraController : MonoBehaviour {
                             Camera.main.fieldOfView = fov;
                             this.transform.position = rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position;
                         }
-
-                        if (timeSinceLastAction < 0.5f)
-                        {
-                            timeSinceLastAction += Time.deltaTime;
-                            if (fastAction)
-                            {
-                                SetPlayerDirection(rotation.eulerAngles.y, 0.7f);
-                            }
-                            else if (slowAction)
-                            {
-                                SetPlayerDirection(rotation.eulerAngles.y, 0.2f);
-                            }
-                            else
-                            {
-                                SetPlayerDirection(rotation.eulerAngles.y);//, playerScript.rb.velocity.magnitude / 10.0f);
-                            }
-                        }
-                        else
-                        {
-                            fastAction = slowAction = false;
-                        }
+                        SetPlayerDirection(rotation.eulerAngles.y, 0.7f);                    
                         this.transform.LookAt(player.transform.position + rotation * Vector3.up * focusY + rotation * Vector3.right * focusX + rotation * Vector3.forward * focusDistance);
                     }
                     break;

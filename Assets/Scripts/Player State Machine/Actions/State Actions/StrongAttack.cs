@@ -44,7 +44,7 @@ public class StrongAttack : StateAction
 
                 if (player.timeSinceLastStrongAttack >= timeToGoIn)
                 {
-                    CameraShaker.Instance.ShakeOnce(0.5f, 10f, 0.1f, 0.7f);
+                    CameraShaker.Instance.ShakeOnce(0.8f, 15.5f, 0.1f, 0.7f);
                     player.cameraState = Player.CameraState.MOVE;
                     player.SetRenderersVisibility(true);
                     player.mainCameraController.y = 10.0f;
