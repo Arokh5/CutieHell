@@ -8,6 +8,7 @@ public class StrongAttackExit : StateAction
     public override void Act(Player player)
     {
         player.timeSinceLastStrongAttack = 0.0f;
+        player.SetIsAutoRecoveringEvil(true);
         player.SetRenderersVisibility(true);
         player.strongAttackCollider.enabled = false;
         player.strongAttackCollider.gameObject.SetActive(false);

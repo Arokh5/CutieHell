@@ -31,6 +31,8 @@ public class Player : MonoBehaviour {
     [SerializeField]
     [Range(0, 5)]
     private int autoEvilRecoveringValue;
+    [SerializeField]
+    private bool isAutoRecoveringEvil = false;
     private float lastAutoEvilRecovering = 0;
     [SerializeField]
     private EvilManaController evilManaController;
@@ -58,7 +60,6 @@ public class Player : MonoBehaviour {
     [SerializeField]
     public Transform bulletSpawnPoint;
     public ParticleSystem shootBirth;
-    public int strongAttackEvilCost;
 
     private float timeSinceLastMonumentChecking = 0f;
     private float checkingMonumentRepetitionTime = 1f;
@@ -112,6 +113,8 @@ public class Player : MonoBehaviour {
     public Transform initialPositionOnStrongAttack;
     [HideInInspector]
     public bool comeBackFromStrongAttack;
+    public int strongAttackEvilCost;
+
 
     [Header("Fog Attack")]
     public SphereCollider fogCollider;
@@ -182,6 +185,7 @@ public class Player : MonoBehaviour {
     private void Start () 
     {
         evilManaController.UpdateCurrentEvil(evilLevel);
+        isAutoRecoveringEvil = true;
 
         footSteps.SetActive(false);
 
@@ -259,7 +263,9 @@ public class Player : MonoBehaviour {
         {
             evilLevel = maxEvilLevel;
         }
-
+        Debug.Log("value: " + value);
+        Debug.Log("isAutoRecoveringEvil" + isAutoRecoveringEvil);
+        if(value < 0 || isAutoRecoveringEvil)
         evilManaController.UpdateCurrentEvil(evilLevel);
     }
 
@@ -284,6 +290,16 @@ public class Player : MonoBehaviour {
         FollowTarget attackClone = attack.GetComponent<FollowTarget>();
         attackClone.SetEnemyTransform(enemy);
         attackClone.SetHitOffset(hitOffset);
+    }
+
+    public bool SetIsAutoRecoveringEvil()
+    {
+        return isAutoRecoveringEvil;
+    }
+
+    public void SetIsAutoRecoveringEvil(bool isRecovering)
+    {
+        isAutoRecoveringEvil = isRecovering;
     }
     #endregion
 
