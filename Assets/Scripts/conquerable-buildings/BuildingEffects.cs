@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildingEffects : MonoBehaviour
+public class BuildingEffects : MonoBehaviour, ITextureChanger
 {
     #region Fields
     private Building attachedBuilding;
@@ -102,7 +102,8 @@ public class BuildingEffects : MonoBehaviour
         }
     }
 
-    public float GetBlendRadius()
+    // ITextureChanger
+    public float GetEffectStartBlendRadius()
     {
         if (conquered)
             return maxEffectRadius / maxBlendedRadius;
@@ -110,6 +111,12 @@ public class BuildingEffects : MonoBehaviour
             return (conquerEffectElapsedTime / conquerEffectDuration) * (maxEffectRadius / maxBlendedRadius);
         else
             return 0.0f;
+    }
+
+    // ITextureChanger
+    public float GetEffectMaxRadius()
+    {
+        return effectOnMapRadius;
     }
 
     public void SetUnderAttack(bool underAttackState)
@@ -166,6 +173,5 @@ public class BuildingEffects : MonoBehaviour
             }
         }
     }
-
     #endregion
 }

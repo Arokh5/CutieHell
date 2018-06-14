@@ -61,7 +61,7 @@ public class AIZoneController : MonoBehaviour
         currentZoneTarget = monument;
 
         foreach (BuildingEffects effect in buildingEffects)
-            textureChangerSource.AddBuildingEffect(effect);
+            textureChangerSource.AddTextureChanger(effect);
     }
 
     private void Update()
@@ -158,8 +158,6 @@ public class AIZoneController : MonoBehaviour
         if (!aiEnemies.Contains(aiEnemy))
         {
             aiEnemies.Add(aiEnemy);
-            textureChangerSource.AddEnemy(aiEnemy);
-
             /* If we just added a first enemy*/
             if (aiEnemies.Count == 1)
             {
@@ -174,8 +172,6 @@ public class AIZoneController : MonoBehaviour
         bool removed = aiEnemies.Remove(aiEnemy);
         if (removed)
         {
-            textureChangerSource.RemoveEnemy(aiEnemy);
-
             if (aiEnemies.Count == 0)
             {
                 scenarioController.OnZoneEmpty();
@@ -194,7 +190,6 @@ public class AIZoneController : MonoBehaviour
         foreach (AIEnemy aiEnemy in aiEnemies)
         {
             aiEnemy.DieAfterMatch();
-            textureChangerSource.RemoveEnemy(aiEnemy);
         }
         aiEnemies.Clear();
     }
