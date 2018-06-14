@@ -1,79 +1,129 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class EvilManaController : MonoBehaviour {
 
+public class EvilManaController : MonoBehaviour {
+   
     #region Attributes
-    [Header("Frames")]
+    [Header("Fragments UI info")]
     [SerializeField]
-    private EvilFrameController evilWeakFrame;
+    private Image evilFragmentsFiller;
     [SerializeField]
-    private EvilFrameController evilStrongFrame;
+    private Image evilFragmentsVoid;
+    [SerializeField]
+    private Image evilFragmentsGlow;
+    [SerializeField]
+    private Text evilFragmentsNumber;
+    
+    [Header("Colors for the evil Circle")]
+    [SerializeField]
+    Color[] colors;
 
     private float maxPlayerEvil = 0;
-    private bool isMainFrameActive = true;
+    private float evilUnits = 0;
+
+    private bool evilModified = false;
+    [Range(0.5f, 2f)]
+    [SerializeField]
+    private float glowingTime;
+    private float glowingElapsedTime = 0f;
     #endregion
 
     #region MonoBehaviour Methods
     // Use this for initialization
-    void Start()
+    public void Start()
     {
-        UnityEngine.Assertions.Assert.IsNotNull(evilWeakFrame, "Error : evilWeakFrame is not assigned in GameObject: " + gameObject.name);
-        UnityEngine.Assertions.Assert.IsNotNull(evilStrongFrame, "Error: evilStrongFrame is not assigned in GameObject: " + gameObject.name);
-
+        UnityEngine.Assertions.Assert.IsNotNull(evilFragmentsNumber, "Error: No Text assigned to: " + gameObject.name);
+        
         maxPlayerEvil = GameManager.instance.GetPlayer1().GetMaxEvilLevel();
+        UnityEngine.Assertions.Assert.AreEqual(maxPlayerEvil / 10, colors.Length -1, "Error: Player's max evil level attribute and and numEvilColors must match (counting the +1 default evilColor" + gameObject.name);
+
+        //Initialize evil UI resource
+        evilUnits = NormalizeEvilNumber(maxPlayerEvil);
+        evilFragmentsFiller.color = ColorCircleFiller((int) evilUnits);
+        evilFragmentsVoid.color = ColorCircleFiller((int)evilUnits - 1);
+        evilFragmentsNumber.text = NormalizeEvilNumber(maxPlayerEvil).ToString();
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Update()
     {
-
+        if(evilModified)
+        {
+            HandleGlowingAlert();
+        }       
     }
     #endregion
 
     #region Public methods
-    public void SetMainFrameActive(bool active)
-    {
-        isMainFrameActive = active;
-    }
-
-    public bool GetMainFrameActive()
-    {
-        return isMainFrameActive;
-    }
 
     public void UpdateCurrentEvil(float currentEvil)
     {
-        if (isMainFrameActive)
+
+        //Fill attribute has to be normalized to exist between 0 and 1
+        evilFragmentsFiller.fillAmount = ((currentEvil % 10f) / 10) ;
+        
+        //Check if evil has increased or decreased to a new evil point
+        if (int.Parse(evilFragmentsNumber.text) != NormalizeEvilNumber(currentEvil))
         {
-            evilStrongFrame.UpdateFragmentsFiller(currentEvil);
-
-            //Check if mainFrame has to be deactivated
-            if (currentEvil <= maxPlayerEvil / 2)
-            {
-                evilStrongFrame.gameObject.SetActive(false);
-                isMainFrameActive = false;
-
-                evilWeakFrame.UpdateFragmentsFiller(currentEvil);
-            }
-        }
-        else
-        {
-            evilWeakFrame.UpdateFragmentsFiller(currentEvil);
-
-            //Check if mainFrame has to be activated
-            if (currentEvil > maxPlayerEvil / 2)
-            {
-                evilStrongFrame.gameObject.SetActive(true);
-                isMainFrameActive = true;
-
-                evilStrongFrame.UpdateFragmentsFiller(currentEvil);
-            }
+            float normalizedEvil = NormalizeEvilNumber(currentEvil);
+            evilFragmentsNumber.text = normalizedEvil.ToString();
+            evilFragmentsFiller.color = ColorCircleFiller((int)normalizedEvil);
+            evilFragmentsVoid.color = ColorCircleFiller((int)normalizedEvil - 1);
+            evilModified = true;
         }
     }
     #endregion
 
     #region Private methods
+    private int NormalizeEvilNumber(float evil)
+    {
+        int normalizedEvilNumber = 0;
+        //Divided / 10 because we are working two digits evil values, but the UI shows only one digit value. 
+        normalizedEvilNumber = (int)(evil / 10);
 
+        return normalizedEvilNumber;
+    }
+
+    private Color ColorCircleFiller(int currentEvil)
+    {
+        for (int i = 0; i < colors.Length; i++)
+        {
+            if (i == currentEvil)
+            {
+                return colors[i];
+            }
+        }
+        //representing empty color
+        return Color.white; 
+    }
+
+    private void HandleGlowingAlert()
+    {
+        if (glowingElapsedTime == 0f)
+        {
+            Color colorWithOppositeAlpha = evilFragmentsGlow.color;
+            colorWithOppositeAlpha.a = 255f; //make it visible
+            evilFragmentsGlow.color = colorWithOppositeAlpha;
+
+            glowingElapsedTime += Time.deltaTime;
+        }
+        else
+        {
+            if (glowingElapsedTime > glowingTime)
+            {
+                Color colorWithOppositeAlpha = evilFragmentsGlow.color;
+                colorWithOppositeAlpha.a = 0f; //make it transparent
+                evilFragmentsGlow.color = colorWithOppositeAlpha;
+                glowingElapsedTime = 0f;
+                evilModified = false;
+            }
+            else
+            {
+                glowingElapsedTime += Time.deltaTime;
+            }
+        }
+
+    }
     #endregion
 }

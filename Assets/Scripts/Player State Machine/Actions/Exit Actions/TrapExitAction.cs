@@ -26,6 +26,8 @@ public class TrapExitAction : StateAction {
         player.transform.position = new Vector3(player.currentTrap.transform.position.x - nextPos.x, player.transform.position.y, player.currentTrap.transform.position.z - nextPos.z);
         player.currentTrap = null;
         player.timeSinceLastTrapUse = 0f;
+
+        player.SetIsAutoRecoveringEvil(true);
         
     }
 }
