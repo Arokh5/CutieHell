@@ -331,6 +331,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         zoneController = null;
         animator.Rebind();
         spawnController.ReturnEnemy(this);
+        UIManager.instance.ReduceEnemyCount();
     }
 
     private void UpdateNodePath()
