@@ -62,6 +62,7 @@ public class ObjectiveMarker : MonoBehaviour
             screenPosition = mainCamera.projectionMatrix.MultiplyPoint(mainCamera.worldToCameraMatrix.MultiplyPoint(targetPos));
             screenPosition.x = screenPosition.x * 0.5f + 0.5f;
             screenPosition.y = screenPosition.y * 0.5f + 0.5f;
+            Debug.Log(screenPosition.x);
 
             if (front)
             {
@@ -87,21 +88,10 @@ public class ObjectiveMarker : MonoBehaviour
 
                 float screenUpwardsFactor;
 
-                if (screenPosition.y < topOffset)
-                {
-                    if (screenPosition.y > bottomOffset)
-                    {
-                        screenUpwardsFactor = bottomOffset + upwardsFactor * (screenPosition.y - bottomOffset);
-                    }
-                    else
-                    {
-                        screenUpwardsFactor = bottomOffset;
-                    }
-                }
+                if (screenPosition.y < topOffset && screenPosition.y > bottomOffset)
+                    screenUpwardsFactor = bottomOffset + upwardsFactor * (screenPosition.y - bottomOffset);
                 else
-                {
                     screenUpwardsFactor = bottomOffset + upwardsFactor * (topOffset - bottomOffset);
-                }
 
                 iconPosition.y = mainCamera.pixelHeight * screenUpwardsFactor;
 
