@@ -3,6 +3,6 @@
 public interface ITextureChanger
 {
     Transform transform { get; }
-    float GetEffectStartBlendRadius();
+    float GetNormalizedBlendStartRadius();
     float GetEffectMaxRadius();
 }

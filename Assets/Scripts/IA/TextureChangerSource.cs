@@ -8,7 +8,7 @@ public class TextureChangerSource : MonoBehaviour
     private List<ITextureChanger> textureChangers;
     private int maxElements = 128;  // IMPORTANT: This number must be reflected in the TextureChanger.shader file
     private Vector4[] elements;
-    private float[] elementsBlendStartRadius;
+    private float[] normalizedBlendStartRadii;
     private int activeElements = 0;
     #endregion
 
@@ -17,7 +17,7 @@ public class TextureChangerSource : MonoBehaviour
     {
         textureChangers = new List<ITextureChanger>(128);
         elements = elements = new Vector4[maxElements];
-        elementsBlendStartRadius = new float[maxElements];
+        normalizedBlendStartRadii = new float[maxElements];
         activeElements = 0;
     }
 
@@ -31,7 +31,7 @@ public class TextureChangerSource : MonoBehaviour
             elements[i].y = textureChangers[i].transform.position.y;
             elements[i].z = textureChangers[i].transform.position.z;
             elements[i].w = textureChangers[i].GetEffectMaxRadius();
-            elementsBlendStartRadius[i] = textureChangers[i].GetEffectStartBlendRadius();
+            normalizedBlendStartRadii[i] = textureChangers[i].GetNormalizedBlendStartRadius();
         }
     }
     #endregion
@@ -41,7 +41,7 @@ public class TextureChangerSource : MonoBehaviour
     {
         material.SetInt("_ActiveElements", activeElements);
         material.SetVectorArray("_Elements", elements);
-        material.SetFloatArray("_ElementsBlendStartRadius", elementsBlendStartRadius);
+        material.SetFloatArray("_NormalizedBlendStartRadii", normalizedBlendStartRadii);
     }
 
     public void AddTextureChanger(ITextureChanger textureChanger)

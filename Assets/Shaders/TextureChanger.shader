@@ -29,7 +29,7 @@
 		// The next 3 variables are assign from the TextureChangerSource C# script
 		int _ActiveElements;
 		float4 _Elements[128];
-		float _ElementsBlendStartRadius[128];
+		float _NormalizedBlendStartRadii[128];
 
 		fixed4 _Color;
 		float _BlendRadius;
@@ -74,7 +74,7 @@
 				{
 					inEffectRadius = true;
 					float inPct = distanceToEnemy / _Elements[i].w;
-					float blendRadius = _ElementsBlendStartRadius[i];
+					float blendRadius = _NormalizedBlendStartRadii[i];
 					float lerpFactor = (inPct - blendRadius) / (1 - blendRadius);
 					if (lerpFactor < finalLerpFactor)
 						finalLerpFactor = lerpFactor;
