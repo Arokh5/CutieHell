@@ -33,7 +33,9 @@ public class Monument : Building
     public override void TakeDamage(float damage, AttackType attacktype)
     {
         base.TakeDamage(damage, attacktype);
-        monumentIndicator.SetFill((baseHealth - currentHealth) / baseHealth);
+        float normalizedDamage = (baseHealth - currentHealth) / baseHealth;
+        monumentIndicator.SetFill(normalizedDamage);
+        zoneController.InformMonumentDamage(normalizedDamage);
     }
     
     public MonumentIndicator GetMonumentIndicator()

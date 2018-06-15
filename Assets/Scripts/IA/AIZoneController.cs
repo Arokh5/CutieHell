@@ -34,6 +34,10 @@ public class AIZoneController : MonoBehaviour
     private List<AIEnemy> aiEnemies;
     public List<BuildingEffects> buildingEffects;
 
+    [ShowOnly]
+    [SerializeField]
+    private List<CuteEffect> cuteEffects = new List<CuteEffect>();
+
     #endregion
 
     #region MonoBehaviour Methods
@@ -178,6 +182,36 @@ public class AIZoneController : MonoBehaviour
             }
         }
         return removed;
+    }
+
+    // Called by CuteEffects to register
+    public void AddCuteEffects(CuteEffect cuteEffect)
+    {
+        if (!cuteEffects.Contains(cuteEffect))
+        {
+            cuteEffects.Add(cuteEffect);
+            textureChangerSource.AddTextureChanger(cuteEffect);
+        }
+    }
+
+    // Called by CuteEffects to unregister
+    public bool RemoveCuteEffect(CuteEffect cuteEffect)
+    {
+        if (cuteEffects.Remove(cuteEffect))
+        {
+            textureChangerSource.RemoveTextureChanger(cuteEffect);
+            return true;
+        }
+        return false;
+    }
+
+    // Called by Monument to pass information to CuteEffects
+    public void InformMonumentDamage(float normalizedDamage)
+    {
+        foreach (CuteEffect cuteEffect in cuteEffects)
+        {
+            cuteEffect.InformMonumentDamage(normalizedDamage);
+        }
     }
 
     public bool HasEnemies()
