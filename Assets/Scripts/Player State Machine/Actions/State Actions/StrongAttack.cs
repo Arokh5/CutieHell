@@ -26,6 +26,7 @@ public class StrongAttack : StateAction
                     player.strongAttackCollider.enabled = true;
                     player.strongAttackCollider.gameObject.SetActive(true);
                     player.teleportState = Player.TeleportStates.TRAVEL;
+                    SoundManager.instance.PlaySfxClip(takeOffSfx);
                 }
                 break;
             case Player.TeleportStates.TRAVEL:
@@ -52,13 +53,14 @@ public class StrongAttack : StateAction
                     player.teleported = true;
                     player.teleportState = Player.TeleportStates.DELAY;
                     HurtEnemies(player, damage);
+                    SoundManager.instance.PlaySfxClip(landingSfx);
                 }
                 break;
             case Player.TeleportStates.DELAY:
                 if (player.timeSinceLastStrongAttack >= delay)
                 {
                     player.comeBackFromStrongAttack = true;
-                }
+                }   
                 break;
             default:
                 break;

@@ -12,6 +12,8 @@ public class FollowTarget : PooledParticleSystem
     private float lifeTime;
     [SerializeField]
     private int damage;
+    [SerializeField]
+    private AudioClip explosionSfx;
 
     private Transform mainCamera;
     private Vector3 camForwardDir;
@@ -47,6 +49,7 @@ public class FollowTarget : PooledParticleSystem
             {
                 StatsManager.instance.RegisterWeakAttackHit();
                 enemyHit.TakeDamage(damage, attackType);
+                SoundManager.instance.PlaySfxClip(explosionSfx);
             }
             else if (attackType == AttackType.WEAK)
             {
