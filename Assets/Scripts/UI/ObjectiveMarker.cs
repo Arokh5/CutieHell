@@ -62,7 +62,6 @@ public class ObjectiveMarker : MonoBehaviour
             screenPosition = mainCamera.projectionMatrix.MultiplyPoint(mainCamera.worldToCameraMatrix.MultiplyPoint(targetPos));
             screenPosition.x = screenPosition.x * 0.5f + 0.5f;
             screenPosition.y = screenPosition.y * 0.5f + 0.5f;
-            Debug.Log(screenPosition.x);
 
             if (front)
             {

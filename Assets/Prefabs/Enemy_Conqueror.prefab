@@ -2260,22 +2260,14 @@ MonoBehaviour:
   currentPath: []
   currentNode: {fileID: 0}
   agent: {fileID: 0}
-  basicMat: {fileID: 2100000, guid: 3e3fea1282b6cfb4dbb170abc6d0b3f9, type: 2}
-  outlinedMat: {fileID: 2100000, guid: 154317c921ce1594080bee80b684014f, type: 2}
-  effectOnMapRadius: 5
+  outlineThickness: 0.0125
   attackLogic: {fileID: 114404706228728106}
   baseHealth: 25
   evilKillReward: 20
-  evilSpheresPrefab: {fileID: 198344956554177534, guid: 72b16e7e61c0eb545ab1a934c4be174e,
-    type: 2}
-  evilSpheresToSpawn: 5
   getHitVFX: {fileID: 198944252932203134, guid: 2b5dad98c6fb37d4fb643b69e96bac3e,
     type: 2}
   deathVFX: {fileID: 198975771329515660, guid: ab7d3ffbb16031741a985c5bd17a7a2b, type: 2}
   heightOffset: 0
-  initialColor: {r: 1, g: 1, b: 1, a: 1}
-  halfColor: {r: 1, g: 0.8088235, b: 0.8088235, a: 1}
-  deadColor: {r: 1, g: 0.58823526, b: 0.58823526, a: 1}
   healthToReduce: 100
   hit: 0
 --- !u!114 &114861395737797846
@@ -2334,7 +2326,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 3e3fea1282b6cfb4dbb170abc6d0b3f9, type: 2}
+  - {fileID: 2100000, guid: f0a3dce25afefb8468618e870230ee95, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
