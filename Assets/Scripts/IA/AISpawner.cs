@@ -60,6 +60,13 @@ public class AISpawner : MonoBehaviour {
         }
         spawnInfosToRemove.Clear();
     }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = new Color(1.0f, 0, 0, 1.0f);
+        GizmosHelper.DrawWireRectangularCuboid(transform, spawnerArea.x, spawnerArea.y, spawnerArea.z, true);
+        GizmosHelper.DrawArrow(transform.position, transform.position + transform.forward * (1 + 0.5f * spawnerArea.z));
+    }
     #endregion
 
     #region Public Methods

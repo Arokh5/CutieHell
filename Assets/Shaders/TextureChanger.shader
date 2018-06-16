@@ -1,7 +1,6 @@
 ﻿Shader "Custom/TextureChanger" {
 	Properties{
 		_Color ("Color", Color) = (1,1,1,1)
-		_BlendRadius("Blend Radius Start", Range(0.0, 1.0)) = 0.5
 		[Header(Default Textures)]
 		_MainTex ("Main Texture", 2D) = "white" {}
 		[Normal]
@@ -17,7 +16,7 @@
 
 	}
 	SubShader {
-		Tags { "RenderType"="Opaque" }
+		Tags { "RenderType" = "Opaque" }
 		LOD 200
 
 		CGPROGRAM
@@ -27,10 +26,10 @@
 		// Use shader model 3.0 target, to get nicer looking lighting
 		#pragma target 3.0
 
-		int _ActiveEnemies = 0;
-		int _BuildingsCount = 0;
-		float4 _AiPositions[128];
-		float _BuildingsBlendStartRadius[8];
+		// The next 3 variables are assign from the TextureChangerSource C# script
+		int _ActiveElements;
+		float4 _Elements[128];
+		float _NormalizedBlendStartRadii[128];
 
 		fixed4 _Color;
 		float _BlendRadius;
@@ -67,16 +66,15 @@
 			// Albedo comes from a texture tinted by color
 			float finalLerpFactor = 1;
 			bool inEffectRadius = false;
-			int totalElements = _BuildingsCount + _ActiveEnemies;
 
-			for (int i = 0; i < totalElements; ++i)
+			for (int i = 0; i < _ActiveElements; ++i)
 			{
-				float distanceToEnemy = distance(IN.worldPos.xyz, _AiPositions[i].xyz);
-				if (distanceToEnemy < _AiPositions[i].w)
+				float distanceToEnemy = distance(IN.worldPos.xyz, _Elements[i].xyz);
+				if (distanceToEnemy < _Elements[i].w)
 				{
 					inEffectRadius = true;
-					float inPct = distanceToEnemy / _AiPositions[i].w;
-					float blendRadius = i < _BuildingsCount ? _BuildingsBlendStartRadius[i] : _BlendRadius;
+					float inPct = distanceToEnemy / _Elements[i].w;
+					float blendRadius = _NormalizedBlendStartRadii[i];
 					float lerpFactor = (inPct - blendRadius) / (1 - blendRadius);
 					if (lerpFactor < finalLerpFactor)
 						finalLerpFactor = lerpFactor;
