@@ -40,17 +40,18 @@ public class PathNode : MonoBehaviour
                 continue;
 
             Gizmos.color = layerColor;
+            Vector3 midPoint = transform.position + 0.5f * (pathNode.transform.position - transform.position);
+            GizmosHelper.DrawArrow(transform.position, midPoint, 1.5f, 25);
             if (pathNode.pathNodeLayer == pathNodeLayer)
             {
-                GizmosHelper.DrawLine(transform.position, pathNode.transform.position, 4);
+                GizmosHelper.DrawLine(transform.position, pathNode.transform.position, 3);
             }
             else
             {
                 Color lineEndColor = GetLayerColor(pathNode.pathNodeLayer);
-                Vector3 midPoint = transform.position + 0.5f * (pathNode.transform.position - transform.position);
-                GizmosHelper.DrawLine(transform.position, midPoint, 4);
+                GizmosHelper.DrawLine(transform.position, midPoint, 3);
                 Gizmos.color = lineEndColor;
-                GizmosHelper.DrawLine(midPoint, pathNode.transform.position, 4);
+                GizmosHelper.DrawLine(midPoint, pathNode.transform.position, 3);
             }
         }
     }
