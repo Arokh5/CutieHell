@@ -54,6 +54,12 @@ public class AIZoneController : MonoBehaviour
             UnityEngine.Assertions.Assert.IsNotNull(textureChangerSource, "ERROR: AIZoneController could not find a TextureChangerSource in its parent hierarchy in gameObject '" + gameObject.name + "'");
         }
 
+        for (int i = 0; i < buildingEffects.Count; ++i)
+        {
+            if (buildingEffects[i] == null)
+                Debug.LogError("ERROR: AIZoneController in gameObject '" + gameObject.name + "' contains a 'null' in index " + i + " of its buildingEffects!");
+        }
+
         hasMonument = monument != null;
     }
 
