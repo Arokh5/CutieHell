@@ -84,6 +84,9 @@ public class Player : MonoBehaviour {
 
     [Header("Player States")]
     [SerializeField]
+    private State defaultState;
+    [ShowOnly]
+    [SerializeField]
     private State currentState;
     public CameraState cameraState;
     public Camera mainCamera;
@@ -152,7 +155,11 @@ public class Player : MonoBehaviour {
         initialBulletSpawnPointPos = new Vector3(0.8972f, 1.3626f, 0.1209f);
 
         renderers = this.GetComponentsInChildren<Renderer>();
-        colliders = this.GetComponentsInChildren<Collider>();
+
+        List<Collider> colls = new List<Collider>();
+        this.GetComponentsInChildren<Collider>(colls);
+        colls.RemoveAll((Collider coll) => coll.isTrigger);
+        colliders = colls.ToArray();
 
         rb = this.GetComponent<Rigidbody>();
         animator = this.GetComponent<Animator>();
@@ -180,6 +187,7 @@ public class Player : MonoBehaviour {
 
         fogStateLastTime = float.MinValue;
         evilLevel = maxEvilLevel;
+        currentState = defaultState;
     }
 
     private void Start () 
@@ -299,6 +307,11 @@ public class Player : MonoBehaviour {
     public void SetIsAutoRecoveringEvil(bool isRecovering)
     {
         isAutoRecoveringEvil = isRecovering;
+    }
+
+    public void OnRoundOver()
+    {
+        TransitionToState(defaultState);
     }
     #endregion
 

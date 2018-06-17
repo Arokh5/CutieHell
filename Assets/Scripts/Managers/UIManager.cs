@@ -14,8 +14,6 @@ public class UIManager : MonoBehaviour
     public IndicatorsController indicatorsController;
     public MarkersController markersController;
     public RoundInfoController roundInfoController;
-    //[SerializeField]
-    //private WaveTimer waveRadialProgressBar;
 
     [SerializeField]
     private Text strongCombo;
@@ -128,42 +126,6 @@ public class UIManager : MonoBehaviour
     public void ZoneConnectionOpened(int zoneConnectionID)
     {
         Debug.LogError("NOT IMPLEMENTED:UIManager::ZoneConnectionOpened");
-    }
-
-    // Called by AISpawnController to change the Wave indicator values
-    public void SetWaveIndicator(int currentWaveNumber, int totalWavesNumber)
-    {
-        roundInfoController.SetCurrentWave(currentWaveNumber);
-        roundInfoController.SetTotalWaves(totalWavesNumber);
-    }
-
-    // Called by AISpawnController
-    public void SetWaveDelayIndicatorVisibility(bool isVisible)
-    {
-        roundInfoController.SetWaveDelayVisibility(isVisible);
-    }
-
-    // Called by AISpawnController to update the wave delay indicator
-    public void SetWaveDelayIndicatorFill(float normalizedFill)
-    {
-        roundInfoController.SetWaveDelayFill(normalizedFill);
-    }
-
-    public void SetWaveEnemiesCount(int enemiesNumber)
-    {
-        roundInfoController.SetEnemiesCount(enemiesNumber);
-    }
-
-    // Called by AISpawnController when starting a new wave
-    public void AddWaveEnemiesCount(int numberToAdd)
-    {
-        roundInfoController.AddToEnemiesCount(numberToAdd);
-    }
-
-    // Called by AIEnemy when DestroySelf happens
-    public void ReduceEnemyCount()
-    {
-        roundInfoController.AddToEnemiesCount(-1);
     }
 
     public void ShowUseText()
