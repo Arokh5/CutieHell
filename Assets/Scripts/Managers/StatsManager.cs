@@ -19,6 +19,14 @@ public class StatsManager : MonoBehaviour {
     private int conquerorEnemiesKilled;
     private int rangeEnemiesKilled;
 
+    private int globalPoints;
+
+    [Header("Max combo")]
+    [SerializeField]
+    private float maxSec;
+    private float time;
+    private bool maxComboEnabled = false;
+
     #endregion
 
     #region Properties
@@ -38,6 +46,11 @@ public class StatsManager : MonoBehaviour {
         return rangeEnemiesKilled;
     }
 
+    public void IncreaseGlobalPoints(int points)
+    {
+        this.globalPoints += points;
+    }
+
     #endregion
 
     #region MonoBehaviour Methods
@@ -55,6 +68,22 @@ public class StatsManager : MonoBehaviour {
 
         ResetKillCounts();
         ResetBadComboCount();
+        ResetGlobalPoins();
+        ResetTime();
+    }
+
+    private void Update()
+    {
+        if (maxComboEnabled)
+        {
+            time += Time.deltaTime;
+
+            if (time >= maxSec)
+            {
+                maxComboEnabled = false;
+                ResetTime();
+            }
+        }
     }
 
     #endregion
@@ -78,6 +107,22 @@ public class StatsManager : MonoBehaviour {
                 rangeEnemiesKilled++;
                 break;
         }
+
+        if (maxComboEnabled)
+        {
+            IncreaseGlobalPoints(500);
+            Debug.Log("Max combo!! Current points: " + globalPoints);
+        }
+    }
+
+    public void ResetTime()
+    {
+        time = 0f;
+    }
+
+    public void EnableMaxCombo()
+    {
+        maxComboEnabled = true;
     }
 
     public void ResetKillCounts()
@@ -85,6 +130,11 @@ public class StatsManager : MonoBehaviour {
         basicEnemiesKilled = 0;
         rangeEnemiesKilled = 0;
         conquerorEnemiesKilled = 0;
+    }
+
+    public void ResetGlobalPoins()
+    {
+        globalPoints = 0;
     }
 
     // Called by Player when gaining EP (Evil Points)

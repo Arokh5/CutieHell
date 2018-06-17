@@ -242,6 +242,7 @@ public class GameManager : MonoBehaviour
             StatsManager.instance.ResetKillCounts();
             UIManager.instance.ResetEnemiesCounters();
             StatsManager.instance.ResetBadComboCount();
+            StatsManager.instance.ResetGlobalPoins();
             gameState = GameStates.InGame;
 
             StartNextRound();
