@@ -62,7 +62,13 @@ public class PlayerMove : StateAction
 
             /* Remove currentSpeed components that are not aligned with acceleration */
             if (accelerationMagnitude != 0.0f)
-                player.currentSpeed = (accelerationVector / accelerationMagnitude) * Vector3.Dot(accelerationVector / accelerationMagnitude, player.currentSpeed);
+            {
+                float dot = Vector3.Dot(accelerationVector / accelerationMagnitude, player.currentSpeed);
+                if (dot > 0)
+                    player.currentSpeed = (accelerationVector / accelerationMagnitude) * dot;
+                else
+                    player.currentSpeed = Vector3.zero;
+            }
             else
                 player.currentSpeed = Vector3.zero;
 
