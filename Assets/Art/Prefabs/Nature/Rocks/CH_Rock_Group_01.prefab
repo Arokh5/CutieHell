@@ -53,6 +53,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4553282408530516}
+  - component: {fileID: 136991403833030610}
   m_Layer: 0
   m_Name: CH_Rock_Group_01
   m_TagString: Untagged
@@ -130,8 +131,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1276946488849004}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -29.39, y: 35.32, z: 31.56}
+  m_LocalRotation: {x: 0.009472517, y: 0.12208499, z: 0.07677488, w: 0.98950046}
+  m_LocalPosition: {x: -6.608589, y: 0.56840134, z: -3.539868}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4835405035966824}
@@ -141,7 +142,7 @@ Transform:
   - {fileID: 4861514646240408}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 8.873}
 --- !u!4 &4684483227666308
 Transform:
   m_ObjectHideFlags: 1
@@ -399,3 +400,16 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1208652149155080}
   m_Mesh: {fileID: 4300000, guid: 034bd819a0839fa4689788d07720e554, type: 3}
+--- !u!136 &136991403833030610
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1276946488849004}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.58
+  m_Height: 0
+  m_Direction: 1
+  m_Center: {x: 0.000000014422259, y: -0.7, z: 0.04}
