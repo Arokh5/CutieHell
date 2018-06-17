@@ -14,6 +14,8 @@ public class RoundInfoController : MonoBehaviour
     private Image waveDelayBackgroundImage;
     [SerializeField]
     private Image waveDelayFillImage;
+    [SerializeField]
+    private Text rushPrompt;
 
     private int currentWaveNumber = -1;
     private int totalWavesCount = -1;
@@ -32,6 +34,12 @@ public class RoundInfoController : MonoBehaviour
     #endregion
 
     #region Public Methods
+    public void SetWaveIndicator(int currentWaveNumber, int totalWavesNumber)
+    {
+        SetCurrentWave(currentWaveNumber);
+        SetTotalWaves(totalWavesNumber);
+    }
+
     public void SetCurrentWave(int currentWaveNumber)
     {
         if (this.currentWaveNumber != currentWaveNumber)
@@ -78,6 +86,11 @@ public class RoundInfoController : MonoBehaviour
     {
         waveDelayBackgroundImage.enabled = isVisible;
         waveDelayFillImage.enabled = isVisible;
+    }
+
+    public void SetRushPromptVisibility(bool isVisible)
+    {
+        rushPrompt.enabled = isVisible;
     }
     #endregion
 }
