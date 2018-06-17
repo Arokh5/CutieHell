@@ -104,6 +104,9 @@ public class ScenarioController : MonoBehaviour
         {
             spawnController.StopRound();
             GameManager.instance.OnRoundWon();
+            StatsManager.instance.WinRoundPoints();
+            StatsManager.instance.SetRoundState(false);
+            StatsManager.instance.ResetRoundTime();
         }
     }
 

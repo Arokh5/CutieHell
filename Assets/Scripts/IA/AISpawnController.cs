@@ -129,6 +129,7 @@ public class AISpawnController : MonoBehaviour
             waveDelayLeft = waveDelayTime;
             roundRunning = true;
             scenario.OnNewRoundStarted();
+            StatsManager.instance.SetRoundState(true);
             UIManager.instance.SetWaveEnemiesCount(0);
             UIManager.instance.SetWaveIndicator(0, roundInfo.waveInfos.Length);
             UIManager.instance.SetWaveDelayIndicatorVisibility(true);
