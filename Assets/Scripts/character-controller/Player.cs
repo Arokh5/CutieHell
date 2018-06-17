@@ -155,7 +155,11 @@ public class Player : MonoBehaviour {
         initialBulletSpawnPointPos = new Vector3(0.8972f, 1.3626f, 0.1209f);
 
         renderers = this.GetComponentsInChildren<Renderer>();
-        colliders = this.GetComponentsInChildren<Collider>();
+
+        List<Collider> colls = new List<Collider>();
+        this.GetComponentsInChildren<Collider>(colls);
+        colls.RemoveAll((Collider coll) => coll.isTrigger);
+        colliders = colls.ToArray();
 
         rb = this.GetComponent<Rigidbody>();
         animator = this.GetComponent<Animator>();
