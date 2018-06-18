@@ -34,8 +34,7 @@ public class Player : MonoBehaviour {
     [SerializeField]
     private bool isAutoRecoveringEvil = false;
     private float lastAutoEvilRecovering = 0;
-    [SerializeField]
-    private EvilManaController evilManaController;
+    
 
     [HideInInspector]
     public Rigidbody rb;
@@ -192,7 +191,7 @@ public class Player : MonoBehaviour {
 
     private void Start () 
     {
-        evilManaController.UpdateCurrentEvil(evilLevel);
+        Debug.Log("Missing Mana Controller");
         isAutoRecoveringEvil = true;
 
         footSteps.SetActive(false);
@@ -272,8 +271,8 @@ public class Player : MonoBehaviour {
             evilLevel = maxEvilLevel;
         }
 
-        if(value < 0 || isAutoRecoveringEvil)
-        evilManaController.UpdateCurrentEvil(evilLevel);
+        if (value < 0 || isAutoRecoveringEvil)
+            Debug.Log("Missing Mana Controller;");
     }
 
     public void SetRenderersVisibility(bool visible)
