@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildingEffects : MonoBehaviour
+public class BuildingEffects : MonoBehaviour, ITextureChanger
 {
     #region Fields
     private Building attachedBuilding;
@@ -17,7 +17,7 @@ public class BuildingEffects : MonoBehaviour
     public float effectOnMapRadius = 0.0f;
     [Tooltip("The max radius within which the texture will be completely changed while the building is being damaged.")]
     [SerializeField]
-    private float maxEffectRadius = 5.0f;
+    private float maxFullEffectRadius = 5.0f;
     [Tooltip("The max radius within which the cute and evil textures will be blended together once the building is conquered.")]
     [SerializeField]
     private float maxBlendedRadius = 35.0f;
@@ -102,14 +102,21 @@ public class BuildingEffects : MonoBehaviour
         }
     }
 
-    public float GetBlendRadius()
+    // ITextureChanger
+    public float GetNormalizedBlendStartRadius()
     {
         if (conquered)
-            return maxEffectRadius / maxBlendedRadius;
+            return maxFullEffectRadius / maxBlendedRadius;
         else if (conquering)
-            return (conquerEffectElapsedTime / conquerEffectDuration) * (maxEffectRadius / maxBlendedRadius);
+            return (conquerEffectElapsedTime / conquerEffectDuration) * (maxFullEffectRadius / maxBlendedRadius);
         else
             return 0.0f;
+    }
+
+    // ITextureChanger
+    public float GetEffectMaxRadius()
+    {
+        return effectOnMapRadius;
     }
 
     public void SetUnderAttack(bool underAttackState)
@@ -134,7 +141,7 @@ public class BuildingEffects : MonoBehaviour
     public void AdjustMaterials(float conquerFactor)
     {
         buildingRenderer.material.SetFloat("_ConquerFactor", conquerFactor);
-        effectOnMapRadius = conquerFactor * maxEffectRadius;
+        effectOnMapRadius = conquerFactor * maxFullEffectRadius;
     }
     #endregion
 
@@ -143,7 +150,7 @@ public class BuildingEffects : MonoBehaviour
     {
         
         float progress = conquerEffectElapsedTime / conquerEffectDuration;
-        effectOnMapRadius = maxEffectRadius + progress * (maxBlendedRadius - maxEffectRadius);
+        effectOnMapRadius = maxFullEffectRadius + progress * (maxBlendedRadius - maxFullEffectRadius);
 
         if (progress < 0.5f)
         {
@@ -166,6 +173,5 @@ public class BuildingEffects : MonoBehaviour
             }
         }
     }
-
     #endregion
 }

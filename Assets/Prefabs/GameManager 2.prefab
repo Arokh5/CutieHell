@@ -64,15 +64,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8f1269efa60b0449a042ce49db70d0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skipTutorial: 1
   tutorialController: {fileID: 0}
   screenFadeController: {fileID: 0}
   aiSpawnController: {fileID: 0}
   scenarioController: {fileID: 0}
   gameIsPaused: 0
   pauseMenuController: {fileID: 0}
+  tutorialPauseMenuController: {fileID: 0}
   gameState: 1
   player: {fileID: 0}
   gameOverPanel: {fileID: 0}
+  crosshair: {fileID: 0}
 --- !u!114 &114402565021805656
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -86,3 +89,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemiesToBadCombo: 5
   badComboPenalty: 5
+  maxComboReward: 500
+  maxComboLimitTime: 2
+  roundTimeReward: 100
+  roundMaxTime: 60

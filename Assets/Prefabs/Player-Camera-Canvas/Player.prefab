@@ -3791,6 +3791,7 @@ MonoBehaviour:
   evilLevel: 0
   autoEvilRecoveringTime: 3
   autoEvilRecoveringValue: 1
+  isAutoRecoveringEvil: 0
   evilManaController: {fileID: 0}
   rb: {fileID: 0}
   initialBulletSpawnPointPos: {x: 0, y: 0, z: 0}
@@ -3811,7 +3812,8 @@ MonoBehaviour:
   trapMaxUseDistance: 3
   shouldExitTrap: 0
   zoneTrap: {fileID: 0}
-  currentState: {fileID: 11400000, guid: 7876ea8555f7f6c4cb97c6dd742b336b, type: 2}
+  defaultState: {fileID: 11400000, guid: 7876ea8555f7f6c4cb97c6dd742b336b, type: 2}
+  currentState: {fileID: 0}
   cameraState: 0
   mainCamera: {fileID: 0}
   mainCameraController: {fileID: 0}
@@ -3826,6 +3828,7 @@ MonoBehaviour:
   currentStrongAttackTargets: []
   initialPositionOnStrongAttack: {fileID: 0}
   comeBackFromStrongAttack: 0
+  strongAttackEvilCost: 15
   fogCollider: {fileID: 135076191655738780}
   fogVFX: {fileID: 1362348381220060}
   fogStateCooldown: 2

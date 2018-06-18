@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject gameOverPanel;
 
+    [SerializeField]
     private GameObject crosshair;
 
     #endregion
@@ -54,8 +55,8 @@ public class GameManager : MonoBehaviour
         UnityEngine.Assertions.Assert.IsNotNull(scenarioController, "ERROR: The GameManager in gameObject '" + gameObject.name + "' doesn't have a ScenarioController assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(tutorialController, "ERROR: The GameManager in gameObject '" + gameObject.name + "' doesn't have a TutorialController assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(screenFadeController, "ERROR: The GameManager in gameObject '" + gameObject.name + "' doesn't have a ScreenFadeController assigned!");
+        UnityEngine.Assertions.Assert.IsNotNull(crosshair, "ERROR: The GameManager in gameObject '" + gameObject.name + "' doesn't have a Crosshair assigned!");
 
-        crosshair = GameObject.Find("Crosshair");
         gameIsPaused = false;
         instance = this;
 
@@ -241,6 +242,7 @@ public class GameManager : MonoBehaviour
             StatsManager.instance.ResetKillCounts();
             UIManager.instance.ResetEnemiesCounters();
             StatsManager.instance.ResetBadComboCount();
+            StatsManager.instance.ResetGlobalPoins();
             gameState = GameStates.InGame;
 
             StartNextRound();

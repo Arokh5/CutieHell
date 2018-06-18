@@ -18,11 +18,10 @@ public class AISpawnController : MonoBehaviour
     #region Fields
 
     [SerializeField]
-    ScenarioController scenario;
-    //[ShowOnly]
-    //[SerializeField]
-    //private float roundElapsedTime;
-    
+    private ScenarioController scenario;
+    [SerializeField]
+    private float waveDelayRushSpeed = 2.0f;
+
     [ShowOnly]
     [SerializeField]
     private int currentRoundIndex = -1;
@@ -49,6 +48,7 @@ public class AISpawnController : MonoBehaviour
 
     private bool validRoundsInfo = true;
     private bool roundRunning = false;
+    private bool rushingWave = false;
 
     #endregion
 
@@ -77,24 +77,34 @@ public class AISpawnController : MonoBehaviour
         currentRoundIndex = -1;
     }
 
+    private void Start()
+    {
+        UIManager.instance.roundInfoController.SetEnemiesCount(0);
+        UIManager.instance.roundInfoController.SetWaveIndicator(0, roundInfos.Length > 0 ? roundInfos[0].waveInfos.Length : 0);
+        UIManager.instance.roundInfoController.SetWaveDelayFill(0);
+        UIManager.instance.roundInfoController.SetWaveDelayVisibility(false);
+        UIManager.instance.roundInfoController.SetRushPromptVisibility(false);
+    }
+
     private void Update()
     {
         if (roundRunning)
         {
             if (waveDelayLeft > 0)
             {
-                waveDelayLeft -= Time.deltaTime;
-                if (waveDelayLeft < 0)
+                rushingWave = InputManager.instance.GetPadUp();
+                waveDelayLeft -= Time.deltaTime * (rushingWave ? waveDelayRushSpeed : 1);
+                if (waveDelayLeft <= 0)
                 {
                     waveDelayLeft = 0;
+                    rushingWave = false;
                     StartNextWave();
                 }
-                UIManager.instance.SetWaveDelayIndicatorFill((waveDelayTime - waveDelayLeft) / waveDelayTime);
+                UIManager.instance.roundInfoController.SetWaveDelayFill((waveDelayTime - waveDelayLeft) / waveDelayTime);
             }
             HandleActiveWaves();
         }
     }
-
     #endregion
 
     #region Public Methods
@@ -129,9 +139,11 @@ public class AISpawnController : MonoBehaviour
             waveDelayLeft = waveDelayTime;
             roundRunning = true;
             scenario.OnNewRoundStarted();
-            UIManager.instance.SetWaveEnemiesCount(0);
-            UIManager.instance.SetWaveIndicator(0, roundInfo.waveInfos.Length);
-            UIManager.instance.SetWaveDelayIndicatorVisibility(true);
+            StatsManager.instance.SetRoundState(true);
+            UIManager.instance.roundInfoController.SetEnemiesCount(0);
+            UIManager.instance.roundInfoController.SetWaveIndicator(0, roundInfo.waveInfos.Length);
+            UIManager.instance.roundInfoController.SetWaveDelayVisibility(true);
+            UIManager.instance.roundInfoController.SetRushPromptVisibility(true);
             Debug.Log("Starting round (index) " + currentRoundIndex + "!");
             return true;
         }
@@ -157,10 +169,11 @@ public class AISpawnController : MonoBehaviour
             waveInfo.elapsedTime = 0;
             waveInfo.nextSpawnIndex = 0;
             activeWaves.Add(waveInfo);
-            UIManager.instance.AddWaveEnemiesCount(waveInfo.totalEnemies);
-            UIManager.instance.SetWaveDelayIndicatorFill(0);
-            UIManager.instance.SetWaveDelayIndicatorVisibility(false);
-            UIManager.instance.SetWaveIndicator(currentWaveIndex + 1, roundInfo.waveInfos.Length);
+            UIManager.instance.roundInfoController.AddToEnemiesCount(waveInfo.totalEnemies);
+            UIManager.instance.roundInfoController.SetWaveDelayFill(0);
+            UIManager.instance.roundInfoController.SetWaveDelayVisibility(false);
+            UIManager.instance.roundInfoController.SetRushPromptVisibility(false);
+            UIManager.instance.roundInfoController.SetWaveIndicator(currentWaveIndex + 1, roundInfo.waveInfos.Length);
             Debug.Log("Starting wave (index) " + currentWaveIndex + " in round (index) " + currentRoundIndex + "!");
             return true;
         }
@@ -177,8 +190,9 @@ public class AISpawnController : MonoBehaviour
             activeWaves.Clear();
 
             currentRoundIndex = roundIndex - 1;
-            UIManager.instance.SetWaveEnemiesCount(0);
-            UIManager.instance.SetWaveDelayIndicatorFill(0);
+            UIManager.instance.roundInfoController.SetEnemiesCount(0);
+            UIManager.instance.roundInfoController.SetWaveDelayFill(0);
+            UIManager.instance.roundInfoController.SetRushPromptVisibility(false);
             return StartNextRound();
         }
         return false;
@@ -201,8 +215,9 @@ public class AISpawnController : MonoBehaviour
 
                 currentWaveIndex = waveIndex - 1;
                 waveDelayLeft = 0;
-                UIManager.instance.SetWaveEnemiesCount(0);
-                UIManager.instance.SetWaveDelayIndicatorFill(0);
+                UIManager.instance.roundInfoController.SetEnemiesCount(0);
+                UIManager.instance.roundInfoController.SetWaveDelayFill(0);
+                UIManager.instance.roundInfoController.SetRushPromptVisibility(false);
                 return StartNextWave();
             }
         }
@@ -303,8 +318,9 @@ public class AISpawnController : MonoBehaviour
         {
             waveDelayTime = roundInfos[currentRoundIndex].waveInfos[currentWaveIndex + 1].waveStartDelay;
             waveDelayLeft = waveDelayTime;
-            UIManager.instance.SetWaveDelayIndicatorFill(0);
-            UIManager.instance.SetWaveDelayIndicatorVisibility(true);
+            UIManager.instance.roundInfoController.SetWaveDelayFill(0);
+            UIManager.instance.roundInfoController.SetWaveDelayVisibility(true);
+            UIManager.instance.roundInfoController.SetRushPromptVisibility(true);
         }
     }
 

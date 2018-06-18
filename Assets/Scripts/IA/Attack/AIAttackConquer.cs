@@ -58,6 +58,9 @@ public class AIAttackConquer : AIAttackLogic {
         if (converted)
         {
             targetInConquest.attachedConqueror = aiEnemy;
+            aiEnemy.GetZoneController().RemoveEnemy(aiEnemy);
+            UIManager.instance.roundInfoController.AddToEnemiesCount(-1);
+            enabled = false;
         }
 
         if (inConquest)

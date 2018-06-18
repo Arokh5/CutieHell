@@ -13,5 +13,6 @@ public class FogExit : StateAction
         player.currentFogAttackTargets.Clear();
         player.accumulatedFogEvilCost = 0.0f;
         player.timeSinceLastFogHit = 0.0f;
+        player.SetIsAutoRecoveringEvil(true);
     }
 }

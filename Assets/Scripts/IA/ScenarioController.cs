@@ -102,8 +102,12 @@ public class ScenarioController : MonoBehaviour
     {
         if (lastSpawnIsOver && zonesWithEnemiesCount == 0)
         {
+            GameManager.instance.GetPlayer1().OnRoundOver();
             spawnController.StopRound();
             GameManager.instance.OnRoundWon();
+            StatsManager.instance.WinRoundPoints();
+            StatsManager.instance.SetRoundState(false);
+            StatsManager.instance.ResetRoundTime();
         }
     }
 

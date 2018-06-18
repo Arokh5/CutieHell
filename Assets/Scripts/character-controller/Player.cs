@@ -31,6 +31,8 @@ public class Player : MonoBehaviour {
     [SerializeField]
     [Range(0, 5)]
     private int autoEvilRecoveringValue;
+    [SerializeField]
+    private bool isAutoRecoveringEvil = false;
     private float lastAutoEvilRecovering = 0;
     [SerializeField]
     private EvilManaController evilManaController;
@@ -82,6 +84,9 @@ public class Player : MonoBehaviour {
 
     [Header("Player States")]
     [SerializeField]
+    private State defaultState;
+    [ShowOnly]
+    [SerializeField]
     private State currentState;
     public CameraState cameraState;
     public Camera mainCamera;
@@ -111,6 +116,8 @@ public class Player : MonoBehaviour {
     public Transform initialPositionOnStrongAttack;
     [HideInInspector]
     public bool comeBackFromStrongAttack;
+    public int strongAttackEvilCost;
+
 
     [Header("Fog Attack")]
     public SphereCollider fogCollider;
@@ -148,7 +155,11 @@ public class Player : MonoBehaviour {
         initialBulletSpawnPointPos = new Vector3(0.8972f, 1.3626f, 0.1209f);
 
         renderers = this.GetComponentsInChildren<Renderer>();
-        colliders = this.GetComponentsInChildren<Collider>();
+
+        List<Collider> colls = new List<Collider>();
+        this.GetComponentsInChildren<Collider>(colls);
+        colls.RemoveAll((Collider coll) => coll.isTrigger);
+        colliders = colls.ToArray();
 
         rb = this.GetComponent<Rigidbody>();
         animator = this.GetComponent<Animator>();
@@ -176,11 +187,13 @@ public class Player : MonoBehaviour {
 
         fogStateLastTime = float.MinValue;
         evilLevel = maxEvilLevel;
+        currentState = defaultState;
     }
 
     private void Start () 
     {
         evilManaController.UpdateCurrentEvil(evilLevel);
+        isAutoRecoveringEvil = true;
 
         footSteps.SetActive(false);
 
@@ -259,6 +272,7 @@ public class Player : MonoBehaviour {
             evilLevel = maxEvilLevel;
         }
 
+        if(value < 0 || isAutoRecoveringEvil)
         evilManaController.UpdateCurrentEvil(evilLevel);
     }
 
@@ -283,6 +297,21 @@ public class Player : MonoBehaviour {
         FollowTarget attackClone = attack.GetComponent<FollowTarget>();
         attackClone.SetEnemyTransform(enemy);
         attackClone.SetHitOffset(hitOffset);
+    }
+
+    public bool SetIsAutoRecoveringEvil()
+    {
+        return isAutoRecoveringEvil;
+    }
+
+    public void SetIsAutoRecoveringEvil(bool isRecovering)
+    {
+        isAutoRecoveringEvil = isRecovering;
+    }
+
+    public void OnRoundOver()
+    {
+        TransitionToState(defaultState);
     }
     #endregion
 

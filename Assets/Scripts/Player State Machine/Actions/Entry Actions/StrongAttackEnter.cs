@@ -10,7 +10,7 @@ public class StrongAttackEnter : StateAction
 
     public override void Act(Player player)
     {
-        player.AddEvilPoints(-evilCost);
+        player.AddEvilPoints(-player.strongAttackEvilCost);
         player.canMove = false;
         player.comeBackFromStrongAttack = false;
         player.timeSinceLastStrongAttack = 0.0f;
@@ -20,6 +20,7 @@ public class StrongAttackEnter : StateAction
         player.initialPositionOnStrongAttack = player.transform;
         player.cameraState = Player.CameraState.FOG;
         player.teleportState = Player.TeleportStates.OUT;
+        player.SetIsAutoRecoveringEvil(false);
         ParticlesManager.instance.LaunchParticleSystem(teleportIn, player.transform.position, teleportIn.transform.rotation);
     }
 }

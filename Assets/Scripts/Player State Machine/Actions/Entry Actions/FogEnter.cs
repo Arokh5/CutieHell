@@ -9,5 +9,6 @@ public class FogEnter : StateAction
         player.SetRenderersVisibility(false);
         player.fogCollider.enabled = true;
         player.fogVFX.gameObject.SetActive(true);
+        player.SetIsAutoRecoveringEvil(false);
     }
 }

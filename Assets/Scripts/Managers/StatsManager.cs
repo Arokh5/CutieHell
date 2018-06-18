@@ -19,6 +19,24 @@ public class StatsManager : MonoBehaviour {
     private int conquerorEnemiesKilled;
     private int rangeEnemiesKilled;
 
+    private int globalPoints;
+
+    [Header("Max combo")]
+    [SerializeField]
+    private int maxComboReward;
+    [SerializeField]
+    private float maxComboLimitTime;
+    private float maxComboTime;
+    private bool maxComboEnabled = false;
+
+    [Header("Round time")]
+    [SerializeField]
+    private int roundTimeReward;
+    [SerializeField]
+    private float roundMaxTime;
+    private float roundTime;
+    private bool roundActive = false;
+
     #endregion
 
     #region Properties
@@ -38,6 +56,21 @@ public class StatsManager : MonoBehaviour {
         return rangeEnemiesKilled;
     }
 
+    public void IncreaseGlobalPoints(int points)
+    {
+        this.globalPoints += points;
+    }
+
+    public void ResetRoundTime()
+    {
+        roundTime = 0f;
+    }
+
+    public void SetRoundState(bool active)
+    {
+        roundActive = active;
+    }
+
     #endregion
 
     #region MonoBehaviour Methods
@@ -55,6 +88,28 @@ public class StatsManager : MonoBehaviour {
 
         ResetKillCounts();
         ResetBadComboCount();
+        ResetGlobalPoins();
+        ResetMaxComboTime();
+        ResetRoundTime();
+    }
+
+    private void Update()
+    {
+        if (maxComboEnabled)
+        {
+            maxComboTime += Time.deltaTime;
+
+            if (maxComboTime >= maxComboLimitTime)
+            {
+                maxComboEnabled = false;
+                ResetMaxComboTime();
+            }
+        }
+
+        if (roundActive)
+        {
+            IncreaseRoundTime();
+        }
     }
 
     #endregion
@@ -78,6 +133,34 @@ public class StatsManager : MonoBehaviour {
                 rangeEnemiesKilled++;
                 break;
         }
+
+        if (maxComboEnabled)
+        {
+            IncreaseGlobalPoints(maxComboReward);
+            Debug.Log("Max combo!! Current points: " + globalPoints);
+        }
+    }
+
+    public void IncreaseRoundTime()
+    {
+        roundTime += Time.deltaTime;
+        if (roundTime > roundMaxTime) roundTime = roundMaxTime;
+    }
+
+    public void WinRoundPoints()
+    {
+        IncreaseGlobalPoints((int)Mathf.Round(roundMaxTime - roundTime) * roundTimeReward);
+        Debug.Log("You win " + (int)Mathf.Round(roundMaxTime - roundTime) * roundTimeReward + " round points!!");
+    }
+
+    public void ResetMaxComboTime()
+    {
+        maxComboTime = 0f;
+    }
+
+    public void EnableMaxCombo()
+    {
+        maxComboEnabled = true;
     }
 
     public void ResetKillCounts()
@@ -85,6 +168,11 @@ public class StatsManager : MonoBehaviour {
         basicEnemiesKilled = 0;
         rangeEnemiesKilled = 0;
         conquerorEnemiesKilled = 0;
+    }
+
+    public void ResetGlobalPoins()
+    {
+        globalPoints = 0;
     }
 
     // Called by Player when gaining EP (Evil Points)

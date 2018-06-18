@@ -83,12 +83,14 @@ public class PropModelChanger : Convertible
 
     public override void Convert()
     {
-        converting = true;
+        if (!isConverted)
+            converting = true;
     }
 
     public override void Unconvert()
     {
-        unconverting = true;
+        if (isConverted)
+            unconverting = true;
     }
 
 }

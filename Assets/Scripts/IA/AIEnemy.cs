@@ -28,12 +28,9 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private Renderer mRenderer;
     private Animator animator;
 
-    [Header("Materials")]
+    [Header("Outline")]
     [SerializeField]
-    private Material basicMat;
-    [SerializeField]
-    private Material outlinedMat;
-    public float effectOnMapRadius = 1.0f;
+    private float outlineThickness = 0.05f;
 
     [Header("Attack information")]
     [SerializeField]
@@ -52,11 +49,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
     protected float currentHealth;
 
-    [Header("Color changing Testing")]
-    public Color initialColor;
-    public Color halfColor;
-    public Color deadColor;
-    public float healthToReduce = 1;
+    [Header("Damage Testing")]
+    public float healthToReduce = 100;
     public bool hit;
     private bool isTargetable = true;
     private bool isTarget = false;
@@ -166,14 +160,13 @@ public class AIEnemy : MonoBehaviour, IDamageable
     public void Restart()
     {
         currentHealth = baseHealth;
-        mRenderer.material = basicMat;
-        mRenderer.material.color = initialColor;
         enemyCollider.enabled = true;
         agent.enabled = true;
         isTargetable = true;
         isTarget = false;
         GetComponent<EnemyCanvasController>().SetHealthBar();
         active = true;
+        AdjustMaterials();
     }
 
     public AIZoneController GetZoneController()
@@ -257,7 +250,6 @@ public class AIEnemy : MonoBehaviour, IDamageable
         if (isTargetable && this.isTarget != isTarget)
         {
             this.isTarget = isTarget;
-            mRenderer.material = isTarget ? outlinedMat : basicMat;
             AdjustMaterials();
             return true;
         }
@@ -278,7 +270,6 @@ public class AIEnemy : MonoBehaviour, IDamageable
             if (!isTargetable && isTarget)
             {
                 isTarget = false;
-                mRenderer.material = basicMat;
                 AdjustMaterials();
             }
         }
@@ -289,26 +280,17 @@ public class AIEnemy : MonoBehaviour, IDamageable
     #region Private Methods
     private void AdjustMaterials()
     {
-        Color finalColor;
-        float normalizedHealth = currentHealth / baseHealth;
-
-        if (normalizedHealth < 0.5f)
-        {
-            normalizedHealth *= 2;
-            finalColor = deadColor * (1 - normalizedHealth) + halfColor * normalizedHealth;
-        }
+        if (isTarget)
+            mRenderer.material.SetFloat("_Outline", outlineThickness);
         else
-        {
-            normalizedHealth = (normalizedHealth - 0.5f) * 2;
-            finalColor = halfColor * (1 - normalizedHealth) + initialColor * normalizedHealth;
-        }
-        mRenderer.material.color = finalColor;
+            mRenderer.material.SetFloat("_Outline", 0.0f);
     }
 
     // Called on Animator
     public void Die()
     {
         StatsManager.instance.RegisterKill(enemyType);
+        StatsManager.instance.EnableMaxCombo();
         zoneController.RemoveEnemy(this);
         killingHit = AttackType.NONE;
 
@@ -331,6 +313,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         zoneController = null;
         animator.Rebind();
         spawnController.ReturnEnemy(this);
+        UIManager.instance.roundInfoController.AddToEnemiesCount(-1);
     }
 
     private void UpdateNodePath()

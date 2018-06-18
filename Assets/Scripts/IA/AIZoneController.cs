@@ -34,6 +34,10 @@ public class AIZoneController : MonoBehaviour
     private List<AIEnemy> aiEnemies;
     public List<BuildingEffects> buildingEffects;
 
+    [ShowOnly]
+    [SerializeField]
+    private List<CuteEffect> cuteEffects = new List<CuteEffect>();
+
     #endregion
 
     #region MonoBehaviour Methods
@@ -50,6 +54,12 @@ public class AIZoneController : MonoBehaviour
             UnityEngine.Assertions.Assert.IsNotNull(textureChangerSource, "ERROR: AIZoneController could not find a TextureChangerSource in its parent hierarchy in gameObject '" + gameObject.name + "'");
         }
 
+        for (int i = 0; i < buildingEffects.Count; ++i)
+        {
+            if (buildingEffects[i] == null)
+                Debug.LogError("ERROR: AIZoneController in gameObject '" + gameObject.name + "' contains a 'null' in index " + i + " of its buildingEffects!");
+        }
+
         hasMonument = monument != null;
     }
 
@@ -61,7 +71,7 @@ public class AIZoneController : MonoBehaviour
         currentZoneTarget = monument;
 
         foreach (BuildingEffects effect in buildingEffects)
-            textureChangerSource.AddBuildingEffect(effect);
+            textureChangerSource.AddTextureChanger(effect);
     }
 
     private void Update()
@@ -158,8 +168,6 @@ public class AIZoneController : MonoBehaviour
         if (!aiEnemies.Contains(aiEnemy))
         {
             aiEnemies.Add(aiEnemy);
-            textureChangerSource.AddEnemy(aiEnemy);
-
             /* If we just added a first enemy*/
             if (aiEnemies.Count == 1)
             {
@@ -174,14 +182,42 @@ public class AIZoneController : MonoBehaviour
         bool removed = aiEnemies.Remove(aiEnemy);
         if (removed)
         {
-            textureChangerSource.RemoveEnemy(aiEnemy);
-
             if (aiEnemies.Count == 0)
             {
                 scenarioController.OnZoneEmpty();
             }
         }
         return removed;
+    }
+
+    // Called by CuteEffects to register
+    public void AddCuteEffects(CuteEffect cuteEffect)
+    {
+        if (!cuteEffects.Contains(cuteEffect))
+        {
+            cuteEffects.Add(cuteEffect);
+            textureChangerSource.AddTextureChanger(cuteEffect);
+        }
+    }
+
+    // Called by CuteEffects to unregister
+    public bool RemoveCuteEffect(CuteEffect cuteEffect)
+    {
+        if (cuteEffects.Remove(cuteEffect))
+        {
+            textureChangerSource.RemoveTextureChanger(cuteEffect);
+            return true;
+        }
+        return false;
+    }
+
+    // Called by Monument to pass information to CuteEffects
+    public void InformMonumentDamage(float normalizedDamage)
+    {
+        foreach (CuteEffect cuteEffect in cuteEffects)
+        {
+            cuteEffect.InformMonumentDamage(normalizedDamage);
+        }
     }
 
     public bool HasEnemies()
@@ -194,7 +230,6 @@ public class AIZoneController : MonoBehaviour
         foreach (AIEnemy aiEnemy in aiEnemies)
         {
             aiEnemy.DieAfterMatch();
-            textureChangerSource.RemoveEnemy(aiEnemy);
         }
         aiEnemies.Clear();
     }
