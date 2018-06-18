@@ -72,7 +72,7 @@ public class EvilLimiter : MonoBehaviour
     #region Private Methods
     private bool CheckLowLimit()
     {
-        int minDif = lowLimit - player.GetEvilLevel();
+        float minDif = lowLimit - player.GetEvilLevel();
         if (minDif > 0)
         {
             if (actionType == ActionType.MAINTAIN)
@@ -87,7 +87,7 @@ public class EvilLimiter : MonoBehaviour
 
     private bool CheckHighLimit()
     {
-        int maxDif = player.GetEvilLevel() - highLimit;
+        float maxDif = player.GetEvilLevel() - highLimit;
         if (maxDif > 0)
         {
             if (actionType == ActionType.MAINTAIN)

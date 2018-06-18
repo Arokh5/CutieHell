@@ -24,13 +24,13 @@ public class Player : MonoBehaviour {
 
     [Header("Evilness")]
     [SerializeField]
-    private int maxEvilLevel = 50;
-    public int evilLevel;
+    private float maxEvilLevel;
+    public float evilLevel;
     [SerializeField][Range(0,5)]
     private float autoEvilRecoveringTime;
     [SerializeField]
-    [Range(0, 5)]
-    private int autoEvilRecoveringValue;
+    [Range(0, 1)]
+    private float autoEvilRecoveringValue;
     [SerializeField]
     private bool isAutoRecoveringEvil = false;
     private float lastAutoEvilRecovering = 0;
@@ -115,7 +115,7 @@ public class Player : MonoBehaviour {
     public Transform initialPositionOnStrongAttack;
     [HideInInspector]
     public bool comeBackFromStrongAttack;
-    public int strongAttackEvilCost;
+    public float strongAttackEvilCost;
 
 
     [Header("Fog Attack")]
@@ -248,17 +248,17 @@ public class Player : MonoBehaviour {
         shouldExitTrap = true;
     }
 
-    public int GetMaxEvilLevel()
+    public float GetMaxEvilLevel()
     {
         return maxEvilLevel;
     }
 
-    public int GetEvilLevel()
+    public float GetEvilLevel()
     {
         return evilLevel;
     }
 
-    public void AddEvilPoints(int value)
+    public void AddEvilPoints(float value)
     {
         evilLevel += value;
 
