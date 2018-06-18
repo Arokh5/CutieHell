@@ -6,9 +6,10 @@ public delegate void FadeCallback();
 public class ScreenFadeController : MonoBehaviour
 {
     #region Fields
-    public float fadeDuration;
+    public float defaultFadeDuration;
     public Color opaqueColor;
 
+    private float currentFadeDuration;
     private Image image;
     private FadeCallback endCallback;
     private bool fading;
@@ -35,8 +36,14 @@ public class ScreenFadeController : MonoBehaviour
     #region Public Methods
     public void FadeToOpaque(FadeCallback endCallback = null)
     {
+        FadeToOpaque(defaultFadeDuration, endCallback);
+    }
+
+    public void FadeToOpaque(float fadeDuration, FadeCallback endCallback = null)
+    {
         if (!fading)
         {
+            currentFadeDuration = fadeDuration;
             this.endCallback = endCallback;
             fading = true;
             elapsedTime = 0;
@@ -48,8 +55,14 @@ public class ScreenFadeController : MonoBehaviour
 
     public void FadeToTransparent(FadeCallback endCallback = null)
     {
+        FadeToTransparent(defaultFadeDuration, endCallback);
+    }
+
+    public void FadeToTransparent(float fadeDuration, FadeCallback endCallback = null)
+    {
         if (!fading)
         {
+            currentFadeDuration = fadeDuration;
             this.endCallback = endCallback;
             fading = true;
             elapsedTime = 0;
@@ -76,7 +89,7 @@ public class ScreenFadeController : MonoBehaviour
     private void Fade()
     {
         elapsedTime += Time.deltaTime;
-        float u = elapsedTime / fadeDuration;
+        float u = elapsedTime / currentFadeDuration;
         
         if (u < 1)
         {

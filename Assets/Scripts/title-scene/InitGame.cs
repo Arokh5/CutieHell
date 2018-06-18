@@ -8,6 +8,8 @@ public class InitGame : MonoBehaviour
 
     [SerializeField]
     private MenuButton[] buttons;
+    [SerializeField]
+    private Text loadingText;
 
     [Header("Alternate screens")]
     [SerializeField]
@@ -33,6 +35,9 @@ public class InitGame : MonoBehaviour
     #region MonoBehaviour Methods
     private void Awake()
     {
+        UnityEngine.Assertions.Assert.IsNotNull(loadingText, "ERROR: Text (loadingText) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
+        UnityEngine.Assertions.Assert.IsNotNull(helpScreen, "ERROR: Image (helpScreen) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
+        UnityEngine.Assertions.Assert.IsNotNull(creditsScreen, "ERROR: Image (creditsScreen) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
         UnityEngine.Assertions.Assert.IsNotNull(blackFader, "ERROR: ScreenFadeController (blackFader) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
         UnityEngine.Assertions.Assert.IsNotNull(foregroundFader, "ERROR: ScreenFadeController (foregroundFader) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
     }
@@ -40,7 +45,8 @@ public class InitGame : MonoBehaviour
     private void Start()
     {
         helpScreen.enabled = false;
-        creditsScreen.enabled =      false;
+        creditsScreen.enabled = false;
+        loadingText.enabled = false;
         blackFader.TurnOpaque();
         foregroundFader.TurnOpaque();
         blackFader.FadeToTransparent(OnFadedIn);
@@ -117,7 +123,8 @@ public class InitGame : MonoBehaviour
             switch (index)
             {
                 case 0:
-                    SceneManager.LoadScene("Game", LoadSceneMode.Single);
+                    menuActive = false;
+                    blackFader.FadeToOpaque(0.5f, LoadGameScene);
                     break;
 
                 case 1:
@@ -147,5 +154,11 @@ public class InitGame : MonoBehaviour
             creditsScreen.enabled = false;
         }
     }
-	#endregion
+
+    private void LoadGameScene()
+    {
+        loadingText.enabled = true;
+        SceneManager.LoadScene("Game", LoadSceneMode.Single);
+    }
+    #endregion
 }
