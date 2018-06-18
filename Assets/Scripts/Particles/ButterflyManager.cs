@@ -25,18 +25,19 @@ public class ButterflyManager : MonoBehaviour {
     void Awake () {
         targets = new List<Vector3>();
         butterflies = new List<GameObject>();
-        Vector3 newPos = Vector3.zero;
+        //Vector3 newPos = Vector3.zero;
         float x = 0;
+        Debug.Log("A");
         float y = 0;
         float angle = 0;
         for (int i = butterflies.Count; butterfliesNumber > i; i++)
         {
             GameObject o = Instantiate(butterfliesOptions[Random.Range(0, butterfliesOptions.Count)]);
-            angle = Random.Range(0, Mathf.PI * 2);
-            x = Mathf.Sin(angle) * Random.Range(0, 0.5f);
-            y = Mathf.Cos(angle) * Random.Range(0, 0.5f);
-            newPos = this.transform.position + new Vector3(x, Random.Range(-radius, radius) * yRatio, y);
-            o.transform.position = newPos;
+            //angle = Random.Range(0, Mathf.PI * 2);
+            //x = Mathf.Sin(angle) * Random.Range(0, 0.5f);
+            //y = Mathf.Cos(angle) * Random.Range(0, 0.5f);
+            //newPos = this.transform.position + new Vector3(x, Random.Range(-radius, radius) * yRatio, y);
+            //o.transform.position = newPos;
             o.GetComponent<Animator>().SetFloat("Speed", Random.Range(0.75f, 1.25f));
             o.transform.SetParent(this.transform);
             butterflies.Add(o);
@@ -46,8 +47,23 @@ public class ButterflyManager : MonoBehaviour {
             targets.Add(new Vector3(x, Random.Range(-radius, radius) * yRatio, y));
         }
 	}
-	
-	void Update () {
+    private void OnEnable()
+    {
+        Vector3 newPos = Vector3.zero;
+        float x = 0;
+        float y = 0;
+        float angle = 0;
+        for (int i = 0; butterfliesNumber > i; i++)
+        {
+            angle = Random.Range(0, Mathf.PI * 2);
+            x = Mathf.Sin(angle) * Random.Range(0, 0.5f);
+            y = Mathf.Cos(angle) * Random.Range(0, 0.5f);
+            newPos = new Vector3(x, Random.Range(-radius, radius) * yRatio, y);
+            butterflies[i].transform.localPosition = newPos;
+        }
+    }
+
+    void Update () {
         int k = butterflies.Count;
         Vector3 parentRotation = this.transform.parent.transform.rotation.eulerAngles;
         for (int i = 0; i < k; i++)
@@ -65,6 +81,14 @@ public class ButterflyManager : MonoBehaviour {
         }
 
 	}
+
+    private void Reposition()
+    {
+        for(int i = 0; i < butterfliesNumber; i++)
+        {
+
+        }
+    }
 
     private void NewTarget(int id)
     {
