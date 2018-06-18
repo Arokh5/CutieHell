@@ -163,7 +163,7 @@ public class CameraController : MonoBehaviour {
                         y = ClampAngle(y, yFogMin, yFogMax);                        
 
                         Quaternion rotation = Quaternion.Euler(y, x, 0);
-                        float noCollisionDistance = distance;
+                        float noCollisionDistance = fogDistance;
 
                         for (float zOffset = fogDistance; zOffset >= 0.5f; zOffset -= 0.025f)
                         {

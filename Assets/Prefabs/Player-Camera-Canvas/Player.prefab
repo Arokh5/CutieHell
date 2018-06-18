@@ -591,6 +591,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1362348381220060
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4293483784880266}
+  - component: {fileID: 114932960618020446}
+  m_Layer: 0
+  m_Name: CrowStorm
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
 --- !u!1 &1372635502461254
 GameObject:
   m_ObjectHideFlags: 1
@@ -1753,6 +1769,7 @@ Transform:
   m_Children:
   - {fileID: 4741950994764832}
   - {fileID: 4132273406707746}
+  - {fileID: 4293483784880266}
   m_Father: {fileID: 4121203388434420}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2061,6 +2078,19 @@ Transform:
   - {fileID: 4931061005397514}
   m_Father: {fileID: 4975548938712470}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4293483784880266
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1362348381220060}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.63, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4127734796921036}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4304612665669776
 Transform:
@@ -3608,8 +3638,12 @@ MonoBehaviour:
   - {fileID: 1946852262640474, guid: 26ae2a79e49da414a93342c9a7fbd8f5, type: 2}
   - {fileID: 1969812553653980, guid: 5b3a64bf7b3e24c4382017c93206cacc, type: 2}
   butterfliesNumber: 100
-  butterflies: []
   radius: 3
+  minRadius: 0
+  speed: 0
+  yRatio: 0
+  detectionDistance: 0
+  circularMove: 0
 --- !u!114 &114092266706485956
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3710,8 +3744,12 @@ MonoBehaviour:
   - {fileID: 1946852262640474, guid: 26ae2a79e49da414a93342c9a7fbd8f5, type: 2}
   - {fileID: 1969812553653980, guid: 5b3a64bf7b3e24c4382017c93206cacc, type: 2}
   butterfliesNumber: 100
-  butterflies: []
   radius: 3
+  minRadius: 0
+  speed: 0
+  yRatio: 0
+  detectionDistance: 0
+  circularMove: 0
 --- !u!114 &114543614518654240
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3789,7 +3827,7 @@ MonoBehaviour:
   initialPositionOnStrongAttack: {fileID: 0}
   comeBackFromStrongAttack: 0
   fogCollider: {fileID: 135076191655738780}
-  fogVFX: {fileID: 198374869117904962}
+  fogVFX: {fileID: 1362348381220060}
   fogStateCooldown: 2
   fogStateLastTime: 0
   accumulatedFogEvilCost: 0
@@ -3895,6 +3933,26 @@ MonoBehaviour:
   chanceToTrigger: 20
   testingInterval: 5
   triggeredDuration: 5
+--- !u!114 &114932960618020446
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1362348381220060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51a40e5875947174fb082fc73eefc871, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  butterfliesOptions:
+  - {fileID: 1164589029476448, guid: b1cc1128b7dd98a4b8d36e4b3e08ba8a, type: 2}
+  butterfliesNumber: 200
+  radius: 4
+  minRadius: 1.25
+  speed: 5
+  yRatio: 0.27
+  detectionDistance: 0.1
+  circularMove: 1
 --- !u!119 &119521045237097644
 Projector:
   m_ObjectHideFlags: 1
@@ -3941,7 +3999,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 5.5
+  m_Radius: 3.7
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135334392647865466
 SphereCollider:
