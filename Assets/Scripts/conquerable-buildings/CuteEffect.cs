@@ -60,6 +60,12 @@ public class CuteEffect : MonoBehaviour, ITextureChanger
             zoneController.RemoveCuteEffect(this);
     }
 
+    private void OnValidate()
+    {
+        if (finished)
+            currentMaxEffectRadius = effectMaxBlendedRadius;
+    }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = new Color(0, 1, 0, 0.75f);
@@ -137,6 +143,7 @@ public class CuteEffect : MonoBehaviour, ITextureChanger
             modelChanger.Convert();
         modelChangers.Clear();
 
+        runningEffect = false;
         finished = true;
         enabled = false;
     }
