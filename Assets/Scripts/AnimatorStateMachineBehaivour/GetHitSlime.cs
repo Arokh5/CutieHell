@@ -6,13 +6,14 @@ using UnityEngine.AI;
 public class GetHitSlime : StateMachineBehaviour {
 
     private NavMeshAgent navMeshAgent;
+    private AIEnemy aiEnemy;
 
 	 // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         CheckNavMeshAgent(animator);
         animator.SetBool("GetHit", false);
-        navMeshAgent.enabled = false;
+        navMeshAgent.speed = 0.0f;
 	}
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -24,7 +25,8 @@ public class GetHitSlime : StateMachineBehaviour {
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         CheckNavMeshAgent(animator);
-        navMeshAgent.enabled = true;
+        CheckAIEnemy(animator);
+        navMeshAgent.speed = aiEnemy.initialSpeed;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here
@@ -41,5 +43,11 @@ public class GetHitSlime : StateMachineBehaviour {
     {
         if (!navMeshAgent)
             navMeshAgent = animator.GetComponent<NavMeshAgent>();
+    }
+
+    private void CheckAIEnemy(Animator animator)
+    {
+        if (!aiEnemy)
+            aiEnemy = animator.GetComponent<AIEnemy>();
     }
 }
