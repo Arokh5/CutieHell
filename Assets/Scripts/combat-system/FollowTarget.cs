@@ -49,6 +49,7 @@ public class FollowTarget : PooledParticleSystem
             {
                 StatsManager.instance.RegisterWeakAttackHit();
                 enemyHit.TakeDamage(damage, attackType);
+                enemyHit.SetKnockback(this.transform.position);
                 SoundManager.instance.PlaySfxClip(explosionSfx);
             }
             else if (attackType == AttackType.WEAK)

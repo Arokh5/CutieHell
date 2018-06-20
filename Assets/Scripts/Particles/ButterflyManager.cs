@@ -27,7 +27,6 @@ public class ButterflyManager : MonoBehaviour {
         butterflies = new List<GameObject>();
         //Vector3 newPos = Vector3.zero;
         float x = 0;
-        Debug.Log("A");
         float y = 0;
         float angle = 0;
         for (int i = butterflies.Count; butterfliesNumber > i; i++)

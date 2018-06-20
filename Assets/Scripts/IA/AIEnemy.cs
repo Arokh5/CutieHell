@@ -23,6 +23,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
     [HideInInspector]
     public NavMeshAgent agent;
+    [HideInInspector]
+    public float initialSpeed;
     private float originalStoppingDistance;
 
     private Renderer mRenderer;
@@ -35,6 +37,15 @@ public class AIEnemy : MonoBehaviour, IDamageable
     [Header("Attack information")]
     [SerializeField]
     private AIAttackLogic attackLogic;
+    [HideInInspector]
+    public Vector3 lastAttackRecivedDirection;
+    [HideInInspector]
+    public float timeSinceLastAttackRecived;
+    [SerializeField]
+    private float knockbackTime;
+    [SerializeField]
+    private float knockbackForce;
+    private float knockbackCurrentForce;
 
     [Header("Health information")]
     [Tooltip("The initial amount of hit points for the conquerable building.")]
@@ -76,7 +87,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
         enemyCollider = GetComponent<Collider>();
         originalStoppingDistance = agent.stoppingDistance;
         active = false;
-
+        initialSpeed = agent.speed;
+        timeSinceLastAttackRecived = 0.0f;
         heightOffset = enemyCollider.bounds.size.y / 2.0f;
     }
 
@@ -87,7 +99,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
             GetComponent<EnemySFX>().GetWalkSource().Play();
             active = false;
         }
-
+        Knockback();
         // Motion through NavMeshAgent
         if (currentTarget && agent.enabled)
         {
@@ -145,6 +157,14 @@ public class AIEnemy : MonoBehaviour, IDamageable
     #endregion
 
     #region Public Methods
+
+    public void SetKnockback(Vector3 originForce)
+    {
+        knockbackCurrentForce = knockbackForce;
+        timeSinceLastAttackRecived = Time.time;
+        lastAttackRecivedDirection = (this.transform.position - originForce).normalized;
+        lastAttackRecivedDirection.y = 0;
+    }
 
     public float GetCurrentHealth()
     {
@@ -284,6 +304,15 @@ public class AIEnemy : MonoBehaviour, IDamageable
             mRenderer.material.SetFloat("_Outline", outlineThickness);
         else
             mRenderer.material.SetFloat("_Outline", 0.0f);
+    }
+
+    private void Knockback()
+    {
+        if (timeSinceLastAttackRecived + knockbackTime > Time.time)
+        {
+            knockbackCurrentForce = Mathf.Lerp(knockbackCurrentForce, 0.0f, 0.2f);
+            this.transform.Translate(lastAttackRecivedDirection * knockbackCurrentForce * Time.deltaTime,Space.World);
+        }
     }
 
     // Called on Animator
