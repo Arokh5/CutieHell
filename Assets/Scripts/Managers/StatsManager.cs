@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StatsManager : MonoBehaviour {
+public class StatsManager : MonoBehaviour
+{
 
     #region Fields
 
@@ -28,6 +29,8 @@ public class StatsManager : MonoBehaviour {
     private float maxComboLimitTime;
     private float maxComboTime;
     private bool maxComboEnabled = false;
+    private int maxComboReached = 0;
+    private int currentCombo = 0;
 
     [Header("Round time")]
     [SerializeField]
@@ -89,7 +92,7 @@ public class StatsManager : MonoBehaviour {
         ResetKillCounts();
         ResetBadComboCount();
         ResetGlobalPoins();
-        ResetMaxComboTime();
+        ResetMaxCombo();
         ResetRoundTime();
     }
 
@@ -102,7 +105,7 @@ public class StatsManager : MonoBehaviour {
             if (maxComboTime >= maxComboLimitTime)
             {
                 maxComboEnabled = false;
-                ResetMaxComboTime();
+                ResetMaxCombo();
             }
         }
 
@@ -136,9 +139,15 @@ public class StatsManager : MonoBehaviour {
 
         if (maxComboEnabled)
         {
-            IncreaseGlobalPoints(maxComboReward);
-            Debug.Log("Max combo!! Current points: " + globalPoints);
+            //IncreaseGlobalPoints(maxComboReward);
+            IncreaseCombo();
+            Debug.Log("Max combo!! Current combo: " + currentCombo);
         }
+    }
+
+    private void IncreaseCombo()
+    {
+        currentCombo++;
     }
 
     public void IncreaseRoundTime()
@@ -150,12 +159,18 @@ public class StatsManager : MonoBehaviour {
     public void WinRoundPoints()
     {
         IncreaseGlobalPoints((int)Mathf.Round(roundMaxTime - roundTime) * roundTimeReward);
+        Debug.Log("Max combo of " + maxComboReached);
         Debug.Log("You win " + (int)Mathf.Round(roundMaxTime - roundTime) * roundTimeReward + " round points!!");
     }
 
-    public void ResetMaxComboTime()
+    public void ResetMaxCombo()
     {
         maxComboTime = 0f;
+
+        if (currentCombo > maxComboReached)
+            maxComboReached = currentCombo;
+
+        currentCombo = 0;
     }
 
     public void EnableMaxCombo()
