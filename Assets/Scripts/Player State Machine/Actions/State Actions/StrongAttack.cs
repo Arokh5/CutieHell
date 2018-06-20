@@ -71,7 +71,7 @@ public class StrongAttack : StateAction
         foreach (AIEnemy aiEnemy in player.currentStrongAttackTargets)
         {
             aiEnemy.TakeDamage(damage, AttackType.STRONG);
-            aiEnemy.SetKnockback(player.transform.position);
+            aiEnemy.SetKnockback(player.transform.position, 3.0f);
         }
     }
 }

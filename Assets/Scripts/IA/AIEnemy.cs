@@ -41,8 +41,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     public Vector3 lastAttackRecivedDirection;
     [HideInInspector]
     public float timeSinceLastAttackRecived;
-    [SerializeField]
-    private float knockbackTime;
+    public float knockbackForceMultiplier;
     [SerializeField]
     private float knockbackForce;
     private float knockbackCurrentForce;
@@ -158,8 +157,9 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
     #region Public Methods
 
-    public void SetKnockback(Vector3 originForce)
+    public void SetKnockback(Vector3 originForce, float forceMultiplier = 1.0f)
     {
+        knockbackForceMultiplier = forceMultiplier;
         knockbackCurrentForce = knockbackForce;
         timeSinceLastAttackRecived = Time.time;
         lastAttackRecivedDirection = (this.transform.position - originForce).normalized;
@@ -308,10 +308,10 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
     private void Knockback()
     {
-        if (timeSinceLastAttackRecived + knockbackTime > Time.time)
+        if (knockbackCurrentForce > 0.1f)
         {
-            knockbackCurrentForce = Mathf.Lerp(knockbackCurrentForce, 0.0f, 0.2f);
-            this.transform.Translate(lastAttackRecivedDirection * knockbackCurrentForce * Time.deltaTime,Space.World);
+        knockbackCurrentForce = Mathf.Lerp(knockbackCurrentForce, 0.0f, 0.2f);
+        this.transform.Translate(lastAttackRecivedDirection * knockbackCurrentForce * knockbackForceMultiplier * Time.deltaTime,Space.World);
         }
     }
 
