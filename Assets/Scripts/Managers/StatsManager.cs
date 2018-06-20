@@ -148,6 +148,7 @@ public class StatsManager : MonoBehaviour
     private void IncreaseCombo()
     {
         currentCombo++;
+        maxComboTime = 0f;
     }
 
     public void IncreaseRoundTime()

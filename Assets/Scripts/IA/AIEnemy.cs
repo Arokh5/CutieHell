@@ -289,8 +289,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
     // Called on Animator
     public void Die()
     {
-        StatsManager.instance.RegisterKill(enemyType);
         StatsManager.instance.EnableMaxCombo();
+        StatsManager.instance.RegisterKill(enemyType);
         zoneController.RemoveEnemy(this);
         killingHit = AttackType.NONE;
 
