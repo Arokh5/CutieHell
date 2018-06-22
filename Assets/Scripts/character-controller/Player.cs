@@ -24,18 +24,18 @@ public class Player : MonoBehaviour {
 
     [Header("Evilness")]
     [SerializeField]
-    private int maxEvilLevel = 50;
-    public int evilLevel;
-    [SerializeField][Range(0,5)]
+    EvilManaController evilManaController;
+    [SerializeField]
+    private float maxEvilLevel;
+    public float evilLevel;
+    [SerializeField][Range(0,1)]
     private float autoEvilRecoveringTime;
     [SerializeField]
-    [Range(0, 5)]
-    private int autoEvilRecoveringValue;
-    [SerializeField]
+    [Range(0, 0.5f)]
+    private float autoEvilRecoveringValue;
     private bool isAutoRecoveringEvil = false;
     private float lastAutoEvilRecovering = 0;
-    [SerializeField]
-    private EvilManaController evilManaController;
+    
 
     [HideInInspector]
     public Rigidbody rb;
@@ -116,7 +116,7 @@ public class Player : MonoBehaviour {
     public Transform initialPositionOnStrongAttack;
     [HideInInspector]
     public bool comeBackFromStrongAttack;
-    public int strongAttackEvilCost;
+    public float strongAttackEvilCost;
 
 
     [Header("Fog Attack")]
@@ -192,7 +192,7 @@ public class Player : MonoBehaviour {
 
     private void Start () 
     {
-        evilManaController.UpdateCurrentEvil(evilLevel);
+        Debug.Log("Missing Mana Controller");
         isAutoRecoveringEvil = true;
 
         footSteps.SetActive(false);
@@ -249,31 +249,32 @@ public class Player : MonoBehaviour {
         shouldExitTrap = true;
     }
 
-    public int GetMaxEvilLevel()
+    public float GetMaxEvilLevel()
     {
         return maxEvilLevel;
     }
 
-    public int GetEvilLevel()
+    public float GetEvilLevel()
     {
         return evilLevel;
     }
 
-    public void AddEvilPoints(int value)
+    public void AddEvilPoints(float value)
     {
-        evilLevel += value;
-
-        if (evilLevel < 0)
+        if (value < 0 || (isAutoRecoveringEvil && evilLevel < maxEvilLevel))
         {
-            evilLevel = 0;
-        }
-        else if (evilLevel > maxEvilLevel)
-        {
-            evilLevel = maxEvilLevel;
-        }
+            evilLevel += value;
 
-        if(value < 0 || isAutoRecoveringEvil)
-        evilManaController.UpdateCurrentEvil(evilLevel);
+            if (evilLevel < 0)
+            {
+                evilLevel = 0;
+            }
+            else if (evilLevel > maxEvilLevel)
+            {
+                evilLevel = maxEvilLevel;
+            }
+            evilManaController.ModifyEvil(evilLevel);
+        }
     }
 
     public void SetRenderersVisibility(bool visible)

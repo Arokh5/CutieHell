@@ -6,7 +6,7 @@ public class FogAttack : StateAction
 {
     public float evilCostPerSecond;
     public float hitInterval;
-    public int dps;
+    public float dps;
 
     public override void Act(Player player)
     {

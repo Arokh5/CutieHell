@@ -3787,12 +3787,11 @@ MonoBehaviour:
   floorClearance: 0.1
   currentSpeed: {x: 0, y: 0, z: 0}
   lastValidPosition: {x: 0, y: 0, z: 0}
-  maxEvilLevel: 80
-  evilLevel: 0
-  autoEvilRecoveringTime: 3
-  autoEvilRecoveringValue: 1
-  isAutoRecoveringEvil: 0
   evilManaController: {fileID: 0}
+  maxEvilLevel: 5
+  evilLevel: 0
+  autoEvilRecoveringTime: 0.2
+  autoEvilRecoveringValue: 0.05
   rb: {fileID: 0}
   initialBulletSpawnPointPos: {x: 0, y: 0, z: 0}
   timeSinceLastTrapUse: 0
@@ -3828,7 +3827,7 @@ MonoBehaviour:
   currentStrongAttackTargets: []
   initialPositionOnStrongAttack: {fileID: 0}
   comeBackFromStrongAttack: 0
-  strongAttackEvilCost: 15
+  strongAttackEvilCost: 1
   fogCollider: {fileID: 135076191655738780}
   fogVFX: {fileID: 1362348381220060}
   fogStateCooldown: 2

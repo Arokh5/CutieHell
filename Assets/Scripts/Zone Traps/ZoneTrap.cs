@@ -6,7 +6,7 @@ public abstract class ZoneTrap : MonoBehaviour
 {
     #region Fields
     [SerializeField]
-    private int usageCost = 50;
+    private float usageCost;
     [SerializeField]
     protected float animationCooldownTime = 1.0f;
     private float cooldownTimeleft = 0;
@@ -60,7 +60,7 @@ public abstract class ZoneTrap : MonoBehaviour
         return cooldownTimeleft <= 0 && zoneController.monumentTaken == false;
     }
 
-    public int GetUsageCost()
+    public float GetUsageCost()
     {
         return usageCost;
     }

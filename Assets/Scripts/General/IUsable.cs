@@ -3,7 +3,7 @@
     // Called by Player
     bool CanUse();
     // Called by Player
-    int GetUsageCost();
+    float GetUsageCost();
     // Called by Player
     bool Activate(Player player);
     // Called by Player

@@ -9,7 +9,7 @@ public class Trap : Building, IUsable
     [SerializeField]
     private int trapID;
     public TrapTypes trapType;
-    public int usageCost;
+    public float usageCost;
     private Player player;
     public Transform rotatingHead;
     [SerializeField]
@@ -89,7 +89,7 @@ public class Trap : Building, IUsable
     }
 
     // Called by Player
-    public int GetUsageCost()
+    public float GetUsageCost()
     {
         return usageCost;
     }
