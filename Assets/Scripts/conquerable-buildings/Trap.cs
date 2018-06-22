@@ -16,6 +16,8 @@ public class Trap : Building, IUsable
     private GameObject trapIndicator;
     [SerializeField]
     private PercentageCounter trapPercentageCounter;
+    [SerializeField]
+    private ParticleSystem markerParticleSystem;
 
     [Header("Trap testing")]
     public bool activate = false;
@@ -157,6 +159,9 @@ public class Trap : Building, IUsable
             player.StopTrapUse();
             player = null;
         }
+
+        markerParticleSystem.Stop();
+        markerParticleSystem.gameObject.SetActive(false);
     }
 
     public override void BuildingConverted()
