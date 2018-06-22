@@ -18,6 +18,9 @@ public class CuteEffect : MonoBehaviour, ITextureChanger
     [Range(0.0f, 1.0f)]
     private float monumentDamage;
     [SerializeField]
+    [Tooltip("The time (in seconds) that will be waited before triggering the effect AFTER the monument has reached monumentDamage")]
+    private float delay;
+    [SerializeField]
     AIZoneController zoneController;
     [SerializeField]
     List<PropModelChanger> modelChangers;
@@ -26,7 +29,8 @@ public class CuteEffect : MonoBehaviour, ITextureChanger
     private bool runningEffect = false;
     private bool finished = false;
 
-    private float elapsedTime = 0;
+    private float delayElapsedTime = 0.0f;
+    private float elapsedTime = 0.0f;
     private float currentMaxEffectRadius;
     List<PropModelChanger> toRemove = new List<PropModelChanger>();
     #endregion
@@ -51,7 +55,12 @@ public class CuteEffect : MonoBehaviour, ITextureChanger
     private void Update()
     {
         if (!finished && runningEffect)
-            UpdateEffect();
+        {
+            if (delayElapsedTime >= delay)
+                UpdateEffect();
+            else
+                delayElapsedTime += Time.deltaTime;
+        }
     }
 
     private void OnDestroy()

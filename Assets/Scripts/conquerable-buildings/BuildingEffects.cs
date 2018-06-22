@@ -87,6 +87,14 @@ public class BuildingEffects : MonoBehaviour, ITextureChanger
             }
         }
     }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = new Color(0, 1, 0, 0.75f);
+        Gizmos.DrawWireSphere(transform.position, maxBlendedRadius);
+        Gizmos.color = new Color(0, 1, 0, 0.25f);
+        Gizmos.DrawWireSphere(transform.position, maxFullEffectRadius);
+    }
     #endregion
 
     #region Public Methods
