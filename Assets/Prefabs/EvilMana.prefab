@@ -37,6 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224235563513582886}
   - component: {fileID: 222127324561246250}
+  - component: {fileID: 114048088851634546}
   m_Layer: 5
   m_Name: EvilPoint3
   m_TagString: Untagged
@@ -138,6 +139,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224490804769084028}
   - component: {fileID: 222355100607028838}
+  - component: {fileID: 114868374247016302}
   m_Layer: 5
   m_Name: EvilPoint5
   m_TagString: Untagged
@@ -154,6 +156,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224603789727528988}
   - component: {fileID: 222549979622455216}
+  - component: {fileID: 114716175639729670}
   m_Layer: 5
   m_Name: EvilMana
   m_TagString: Untagged
@@ -289,6 +292,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224625022907799038}
   - component: {fileID: 222716823647990552}
+  - component: {fileID: 114221503882604244}
   m_Layer: 5
   m_Name: EvilPoint1
   m_TagString: Untagged
@@ -339,6 +343,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224570323891397872}
   - component: {fileID: 222429667442625918}
+  - component: {fileID: 114039472100895814}
   m_Layer: 5
   m_Name: EvilPoint4
   m_TagString: Untagged
@@ -372,6 +377,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224273122541790080}
   - component: {fileID: 222943997932492976}
+  - component: {fileID: 114576425755048154}
   m_Layer: 5
   m_Name: EvilPoint2
   m_TagString: Untagged
@@ -501,6 +507,22 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 1
+--- !u!114 &114039472100895814
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1784029462036662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e7636814dee4984d9b9dcb6c07c3ad5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  evilBarFillness: {fileID: 114024994757534386}
+  evilBarBase: {fileID: 114058637689158882}
+  evilBarIcon: {fileID: 114839616888337284}
+  evilBarProgressMarker: {fileID: 114678638709355782}
+  markerRadius: 22
 --- !u!114 &114046427515674460
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -528,6 +550,22 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114048088851634546
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1041020420158318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e7636814dee4984d9b9dcb6c07c3ad5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  evilBarFillness: {fileID: 114157443419961894}
+  evilBarBase: {fileID: 114818631834468526}
+  evilBarIcon: {fileID: 114201836364642426}
+  evilBarProgressMarker: {fileID: 114596513198438314}
+  markerRadius: 22
 --- !u!114 &114058637689158882
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -609,6 +647,22 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114221503882604244
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1706927129922944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e7636814dee4984d9b9dcb6c07c3ad5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  evilBarFillness: {fileID: 114856559344149310}
+  evilBarBase: {fileID: 114029699237644096}
+  evilBarIcon: {fileID: 114046427515674460}
+  evilBarProgressMarker: {fileID: 114487408869106036}
+  markerRadius: 22
 --- !u!114 &114290892782063112
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -744,6 +798,22 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 1
+--- !u!114 &114576425755048154
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1865471995333778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e7636814dee4984d9b9dcb6c07c3ad5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  evilBarFillness: {fileID: 114772895990853040}
+  evilBarBase: {fileID: 114515124468244468}
+  evilBarIcon: {fileID: 114910649048323270}
+  evilBarProgressMarker: {fileID: 114290892782063112}
+  markerRadius: 22
 --- !u!114 &114596513198438314
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -798,6 +868,23 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114716175639729670
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1230084208188446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c45ef6593cb5304e979953e6f1a7139, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  evilPoints:
+  - {fileID: 114221503882604244}
+  - {fileID: 114576425755048154}
+  - {fileID: 114048088851634546}
+  - {fileID: 114039472100895814}
+  - {fileID: 114868374247016302}
 --- !u!114 &114772895990853040
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -933,6 +1020,22 @@ MonoBehaviour:
   m_FillAmount: 0.923
   m_FillClockwise: 1
   m_FillOrigin: 1
+--- !u!114 &114868374247016302
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1225085710431694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e7636814dee4984d9b9dcb6c07c3ad5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  evilBarFillness: {fileID: 114292254890233010}
+  evilBarBase: {fileID: 114905045938371676}
+  evilBarIcon: {fileID: 114852229327914734}
+  evilBarProgressMarker: {fileID: 114469294965627970}
+  markerRadius: 22
 --- !u!114 &114905045938371676
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -24,6 +24,8 @@ public class Player : MonoBehaviour {
 
     [Header("Evilness")]
     [SerializeField]
+    EvilManaController evilManaController;
+    [SerializeField]
     private float maxEvilLevel;
     public float evilLevel;
     [SerializeField][Range(0,5)]
@@ -260,19 +262,20 @@ public class Player : MonoBehaviour {
 
     public void AddEvilPoints(float value)
     {
-        evilLevel += value;
-
-        if (evilLevel < 0)
+        if (value < 0 || (isAutoRecoveringEvil && evilLevel < maxEvilLevel))
         {
-            evilLevel = 0;
-        }
-        else if (evilLevel > maxEvilLevel)
-        {
-            evilLevel = maxEvilLevel;
-        }
+            evilLevel += value;
 
-        if (value < 0 || isAutoRecoveringEvil)
-            Debug.Log("Missing Mana Controller;");
+            if (evilLevel < 0)
+            {
+                evilLevel = 0;
+            }
+            else if (evilLevel > maxEvilLevel)
+            {
+                evilLevel = maxEvilLevel;
+            }
+            evilManaController.ModifyEvil(evilLevel);
+        }
     }
 
     public void SetRenderersVisibility(bool visible)

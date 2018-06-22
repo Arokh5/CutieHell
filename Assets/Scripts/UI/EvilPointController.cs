@@ -16,8 +16,11 @@ public class EvilPointController : MonoBehaviour {
     private Image evilBarBase;
     [SerializeField]
     private Image evilBarIcon;
+    [Header("Marker")]
     [SerializeField]
     private Image evilBarProgressMarker;
+    [SerializeField]
+    private float markerRadius;
     #endregion
 
     #region MonoBehaviour methods
@@ -44,20 +47,15 @@ public class EvilPointController : MonoBehaviour {
     public void ModifyEvilPoint(float amount)
     {
         evilCurrentAmount = amount;
-        if(evilCurrentAmount == 1)
-        {
+        ActiveProgressMarker();
 
-        }else if(evilCurrentAmount == 0)
-        {
-
-        }
-        else
-        {
-
-        }
+        float fillPercentage = CalculateFillPercentage();
+        CalculateMarkerPosition(fillPercentage);
+        evilBarFillness.fillAmount = fillPercentage;
+        
     }
 
-    public void completeFill()
+    public void CompleteFill()
     {
         Color transparentMarker = evilBarProgressMarker.color;
         transparentMarker.a = 0f;
@@ -70,19 +68,47 @@ public class EvilPointController : MonoBehaviour {
         evilPointState = EvilPointState.FULL;
     }
 
-    public void completeVoid()
+    public void CompleteVoid()
     {
-        Color opaqueMarker = evilBarProgressMarker.color;
-        opaqueMarker.a = 1f;
-        evilBarProgressMarker.color = opaqueMarker;
+        Color transparentMarker = evilBarProgressMarker.color;
+        transparentMarker.a = 0f;
+        evilBarProgressMarker.color = transparentMarker;
 
         evilBarIcon.color = Color.grey;
 
+        evilBarFillness.fillAmount = 0f;
+
         evilPointState = EvilPointState.VOID;
     }
+   
     #endregion
 
     #region Private methods
+    private void CalculateMarkerPosition(float currentFillPercentage)
+    {
+        int completeAngleDegrees = 360; 
+        float markerAngleRad = (completeAngleDegrees * currentFillPercentage * Mathf.PI) / 180;
 
+        // marker posY will be calculated using angular movement using posY = radius * sen (- markerAngle)
+        // marker posY will be calculated using angular movement using posX = radius * cos (- markerAngle)
+        float posY = markerRadius * Mathf.Sin(-markerAngleRad);
+        float posX = markerRadius * Mathf.Cos(-markerAngleRad);
+
+        evilBarProgressMarker.transform.localPosition = new Vector3(posX, posY);
+
+    }
+
+    private void ActiveProgressMarker()
+    {
+        Color opaqueMarker = evilBarProgressMarker.color;
+        opaqueMarker.a = 255f;
+        evilBarProgressMarker.color = opaqueMarker;
+    }
+
+    private float CalculateFillPercentage()
+    {
+        float currentFillPercentage =  evilCurrentAmount - (int) evilCurrentAmount;
+        return currentFillPercentage;
+    }
     #endregion
 }

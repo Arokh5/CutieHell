@@ -8,6 +8,7 @@ public class EvilManaController : MonoBehaviour {
     [SerializeField]
     private EvilPointController[] evilPoints;
     private float maxEvil;
+    private float currentEvil;
 	#endregion
 	
 	#region MonoBehaviour methods
@@ -15,6 +16,7 @@ public class EvilManaController : MonoBehaviour {
 	void Start () 
 	{
         maxEvil = GameManager.instance.GetPlayer1().GetMaxEvilLevel();
+        currentEvil = maxEvil;
         UnityEngine.Assertions.Assert.AreEqual(maxEvil, evilPoints.Length, "ERROR: There has to be as many UI EvilPoints as Player maxEvil value, check GameObject called: " + gameObject.name);
         InitializeEvilPoints();
     }
@@ -25,20 +27,56 @@ public class EvilManaController : MonoBehaviour {
 		
 	}
 	#endregion
-	
-	
+		
 	
 	#region Public methods
-	
+	public void ModifyEvil(float _currentEvil)
+    {
+        //Check if evilPoints have not either increased or decreased in comparison with last modification
+        if ((int) currentEvil == (int)_currentEvil) 
+        {
+            evilPoints[(int)currentEvil].ModifyEvilPoint(_currentEvil);
+        }
+        else
+        {
+            int evilPointsAvailable = DetermineCurrentEvilPointsAvailable(_currentEvil);
+            int evilPointsUnavailable = (int) maxEvil - evilPointsAvailable;
+
+            //Check on the available evil points
+            for(int i = 0; i < evilPointsAvailable; i++)
+            {
+                evilPoints[i].CompleteFill();
+            }
+
+            //Check on the consumed evil points
+            for(int i = evilPointsAvailable; i < maxEvil; i++)
+            {
+                evilPoints[i].CompleteVoid();
+                //Singularity on the smallest evil point available because it will be "on progress"
+                if (i == evilPointsAvailable)
+                    evilPoints[i].ModifyEvilPoint(_currentEvil);               
+            }
+        }
+        currentEvil = _currentEvil;
+    }
 	#endregion
 	
 	#region Private methods
-	void InitializeEvilPoints()
+	private void InitializeEvilPoints()
     {
         for(int i = 0; i < evilPoints.Length; i++)
         {
-            evilPoints[i].completeFill();
+            evilPoints[i].CompleteFill();
         }
     } 
+
+    private int DetermineCurrentEvilPointsAvailable(float _currentEvilPoints)
+    {
+        int currentEvilPoints = (int)_currentEvilPoints;
+
+        return currentEvilPoints;
+    }
+    
+    
 	#endregion
 }

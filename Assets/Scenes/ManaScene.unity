@@ -1403,17 +1403,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 114672234268194792, guid: 182da881c3eee6548aa68ab299d1e64c,
-        type: 2}
-      propertyPath: reference
-      value: 
-      objectReference: {fileID: 2052622974}
-    - target: {fileID: 114624676859903252, guid: 182da881c3eee6548aa68ab299d1e64c,
-        type: 2}
-      propertyPath: reference
-      value: 
-      objectReference: {fileID: 2052622974}
-    - target: {fileID: 114350427958116988, guid: 182da881c3eee6548aa68ab299d1e64c,
+    - target: {fileID: 114029336207075494, guid: 182da881c3eee6548aa68ab299d1e64c,
         type: 2}
       propertyPath: reference
       value: 
@@ -1423,7 +1413,17 @@ Prefab:
       propertyPath: reference
       value: 
       objectReference: {fileID: 2052622974}
-    - target: {fileID: 114029336207075494, guid: 182da881c3eee6548aa68ab299d1e64c,
+    - target: {fileID: 114350427958116988, guid: 182da881c3eee6548aa68ab299d1e64c,
+        type: 2}
+      propertyPath: reference
+      value: 
+      objectReference: {fileID: 2052622974}
+    - target: {fileID: 114624676859903252, guid: 182da881c3eee6548aa68ab299d1e64c,
+        type: 2}
+      propertyPath: reference
+      value: 
+      objectReference: {fileID: 2052622974}
+    - target: {fileID: 114672234268194792, guid: 182da881c3eee6548aa68ab299d1e64c,
         type: 2}
       propertyPath: reference
       value: 
@@ -1445,9 +1445,19 @@ Prefab:
       objectReference: {fileID: 707458723}
     - target: {fileID: 114580650670945556, guid: 182da881c3eee6548aa68ab299d1e64c,
         type: 2}
+      propertyPath: evilManaController
+      value: 
+      objectReference: {fileID: 203688697}
+    - target: {fileID: 114580650670945556, guid: 182da881c3eee6548aa68ab299d1e64c,
+        type: 2}
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 230846840}
+    - target: {fileID: 114580650670945556, guid: 182da881c3eee6548aa68ab299d1e64c,
+        type: 2}
+      propertyPath: autoEvilRecoveringTime
+      value: 0.3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
   m_IsPrefabParent: 0
@@ -4550,6 +4560,12 @@ RectTransform:
   m_PrefabParentObject: {fileID: 224603789727528988, guid: 6b5e3a5b2ac18a5408dd03bcf17d7a0d,
     type: 2}
   m_PrefabInternal: {fileID: 130613262}
+--- !u!114 &203688697 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114716175639729670, guid: 6b5e3a5b2ac18a5408dd03bcf17d7a0d,
+    type: 2}
+  m_PrefabInternal: {fileID: 130613262}
+  m_Script: {fileID: 11500000, guid: 1c45ef6593cb5304e979953e6f1a7139, type: 3}
 --- !u!1001 &203853232
 Prefab:
   m_ObjectHideFlags: 0
