@@ -202,11 +202,15 @@ public class AIEnemy : MonoBehaviour, IDamageable
             return;
         }
 
+        /*
+         * Enemy MUST be added to the new ZoneController before removing it from the original one to avoid 
+         * potentially reporting all zones as empty when only 1 enemy is left!
+         */
+        newZoneController.AddEnemy(this);
         if (zoneController)
         {
             zoneController.RemoveEnemy(this);
         }
-        newZoneController.AddEnemy(this);
         zoneController = newZoneController;
         if (!ignorePath)
             UpdateNodePath();
