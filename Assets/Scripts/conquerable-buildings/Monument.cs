@@ -38,9 +38,10 @@ public class Monument : Building
         zoneController.InformMonumentDamage(normalizedDamage);
     }
     
-    public MonumentIndicator GetMonumentIndicator()
+    public void OnEnemiesComing()
     {
-        return monumentIndicator;
+        if (currentHealth > 0)
+            monumentIndicator.RequestOpen();
     }
 
     public override void BuildingConverted()

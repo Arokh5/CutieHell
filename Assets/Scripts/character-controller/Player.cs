@@ -192,7 +192,6 @@ public class Player : MonoBehaviour {
 
     private void Start () 
     {
-        Debug.Log("Missing Mana Controller");
         isAutoRecoveringEvil = true;
 
         footSteps.SetActive(false);

@@ -77,7 +77,7 @@ public class AISpawner : MonoBehaviour {
         {
             lightningSource.Play();
             ParticlesManager.instance.LaunchParticleSystem(lightningVFX, this.transform.position, lightningVFX.transform.rotation);
-            zoneController.monument.GetMonumentIndicator().RequestOpen();
+            zoneController.monument.OnEnemiesComing();
             activeSpawnInfos.Add(spawnInfo);
             spawnInfo.elapsedTime = 0;
             spawnInfo.nextSpawnIndex = 0;
