@@ -28,12 +28,11 @@ public class Player : MonoBehaviour {
     [SerializeField]
     private float maxEvilLevel;
     public float evilLevel;
-    [SerializeField][Range(0,5)]
+    [SerializeField][Range(0,1)]
     private float autoEvilRecoveringTime;
     [SerializeField]
-    [Range(0, 1)]
+    [Range(0, 0.5f)]
     private float autoEvilRecoveringValue;
-    [SerializeField]
     private bool isAutoRecoveringEvil = false;
     private float lastAutoEvilRecovering = 0;
     
