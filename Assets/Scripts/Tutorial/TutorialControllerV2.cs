@@ -36,7 +36,7 @@ public class TutorialControllerV2 : TutorialController
     private State[] tutorialStates;
 
     private PlayableDirector director;
-    private TutorialEvents tutorialEvents;
+    private TutorialEventsV2 tutorialEvents;
 
     private bool running;
     private bool paused;
@@ -55,23 +55,45 @@ public class TutorialControllerV2 : TutorialController
 
         director = GetComponent<PlayableDirector>();
         UnityEngine.Assertions.Assert.IsNotNull(director, "ERROR: A PlayableDirector Component could not be found by TutorialController in GameObject " + gameObject.name);
-        tutorialEvents = GetComponent<TutorialEvents>();
+        tutorialEvents = GetComponent<TutorialEventsV2>();
         UnityEngine.Assertions.Assert.IsNotNull(tutorialEvents, "ERROR: A TutorialEvents Component could not be found by TutorialController in GameObject " + gameObject.name);
 
         playerStartingPos = player.transform.position;
         playerStartingRot = player.transform.rotation;
+    }
+
+    private void Update()
+    {
+        if (InputManager.instance.GetXButtonDown())
+            tutorialEvents.OnXPressed();
+
+        if (!paused && GameManager.instance.gameIsPaused)
+        {
+            PauseTutorial(true);
+        }
+        else if (paused && !GameManager.instance.gameIsPaused)
+        {
+            PauseTutorial(false);
+            crosshair.SetActive(false);
+        }
     }
     #endregion
 
     #region Public Methods
     public override void PauseTutorial(bool pause)
     {
-        throw new System.NotImplementedException();
+        if (running)
+        {
+            paused = pause;
+            if (director.playableGraph.IsValid())
+                director.playableGraph.GetRootPlayable(0).SetSpeed(pause ? 0 : 1);
+            // Using director.Pause() allows the cameras to snap back to the default priority settings.
+        }
     }
 
     public override bool IsRunning()
     {
-        throw new System.NotImplementedException();
+        return running;
     }
 
     public override void RequestStartTutorial()
@@ -95,17 +117,18 @@ public class TutorialControllerV2 : TutorialController
 
     public override void RequestEndTutorial()
     {
-        throw new System.NotImplementedException();
+        startMessage.SetActive(false);
+        screenFadeController.FadeToOpaque(OnTutorialEnded);
     }
 
     public override void LaunchEvent(int eventIndex)
     {
-        throw new System.NotImplementedException();
+        tutorialEvents.LaunchEvent(eventIndex);
     }
 
     public override void NextPlayerState()
     {
-        throw new System.NotImplementedException();
+        player.TransitionToState(tutorialStates[++playerStateIndex]);
     }
 
     public override int GetEnemiesCount()
@@ -115,12 +138,12 @@ public class TutorialControllerV2 : TutorialController
 
     public override void PauseTimelineAndReleaseCamera()
     {
-        throw new System.NotImplementedException();
+        director.Pause();
     }
 
     public override void ResumeTimelineAndCaptureCamera()
     {
-        throw new System.NotImplementedException();
+        director.Resume();
     }
     #endregion
 
@@ -153,6 +176,7 @@ public class TutorialControllerV2 : TutorialController
     private void TutorialEnder()
     {
         endMessage.SetActive(false);
+        stripes.HideAnimated();
         GameManager.instance.OnTutorialFinished();
     }
 
@@ -160,6 +184,7 @@ public class TutorialControllerV2 : TutorialController
     {
         running = true;
         director.Play();
+        stripes.ShowAnimated();
     }
     #endregion
 }

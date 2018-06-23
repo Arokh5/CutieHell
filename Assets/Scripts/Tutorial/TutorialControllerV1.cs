@@ -140,7 +140,7 @@ public class TutorialControllerV1 : TutorialController
 
     public override int GetEnemiesCount()
     {
-        return tutorialEvents.GetEnemiesCount();
+        return tutorialEnemiesManager.GetEnemiesCount();
     }
 
     public override void PauseTimelineAndReleaseCamera()

@@ -98,7 +98,7 @@ public class TutorialEventsV1 : TutorialEvents
     private void Awake()
     {
         tutorialController = GetComponent<TutorialController>();
-        UnityEngine.Assertions.Assert.IsNotNull(tutorialController, "ERROR: A TutorialController Component could not be found by TutorialEvents in GameObject " + gameObject.name);
+        UnityEngine.Assertions.Assert.IsNotNull(tutorialController, "ERROR: A TutorialController Component could not be found by TutorialEventsV1 in GameObject " + gameObject.name);
         evilGainInfoText.SetActive(false);
 
         events = new TutorialEvent[]{
@@ -140,11 +140,6 @@ public class TutorialEventsV1 : TutorialEvents
         this.tutorialEnemiesManager = tutorialEnemiesManager;
     }
 
-    public override int GetEnemiesCount()
-    {
-        return tutorialEnemiesManager.GetEnemiesCount();
-    }
-
     public override void OnTutorialStarted()
     {
         damageLimiterTutZone.gameObject.SetActive(true);
@@ -183,7 +178,7 @@ public class TutorialEventsV1 : TutorialEvents
             events[eventIndex]();
         }
         else
-            Debug.LogError("ERROR: eventIndex parameter (" + eventIndex + ") out of range in TutorialEvents::LaunchEvent in gameObject '" + gameObject.name + "'!");
+            Debug.LogError("ERROR: eventIndex parameter (" + eventIndex + ") out of range in TutorialEventsV1::LaunchEvent in gameObject '" + gameObject.name + "'!");
     }
     #endregion
 
