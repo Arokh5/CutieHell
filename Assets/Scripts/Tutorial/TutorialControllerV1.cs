@@ -39,13 +39,12 @@ public class TutorialControllerV1 : TutorialController
     [SerializeField]
     private Monument tutorialMonument;
 
-    private int playerStateIndex = -1;
     private bool running;
     private bool paused;
+    private int playerStateIndex = -1;
     private Vector3 playerStartingPos;
     private Quaternion playerStartingRot;
-    [HideInInspector]
-    public PlayableDirector director;
+    private PlayableDirector director;
     private TutorialEvents tutorialEvents;
     private TutorialEnemiesManager tutorialEnemiesManager;
     private AIZoneController[] zoneControllers;
@@ -54,13 +53,13 @@ public class TutorialControllerV1 : TutorialController
     #region MonoBehaviour Methods
     private void Awake()
     {
-        UnityEngine.Assertions.Assert.IsNotNull(cinemachineBrain, "ERROR: The TutorialController in gameObject '" + gameObject.name + "' doesn't have a CinemachineBrain assigned!");
-        UnityEngine.Assertions.Assert.IsNotNull(screenFadeController, "ERROR: The TutorialController in gameObject '" + gameObject.name + "' doesn't have a ScreenFadeController assigned!");
-        UnityEngine.Assertions.Assert.IsNotNull(player, "ERROR: The TutorialController in gameObject '" + gameObject.name + "' doesn't have a Player assigned!");
+        UnityEngine.Assertions.Assert.IsNotNull(cinemachineBrain, "ERROR: The TutorialControllerV1 in gameObject '" + gameObject.name + "' doesn't have a CinemachineBrain assigned!");
+        UnityEngine.Assertions.Assert.IsNotNull(screenFadeController, "ERROR: The TutorialControllerV1 in gameObject '" + gameObject.name + "' doesn't have a ScreenFadeController assigned!");
+        UnityEngine.Assertions.Assert.IsNotNull(player, "ERROR: The TutorialControllerV1 in gameObject '" + gameObject.name + "' doesn't have a Player assigned!");
         director = GetComponent<PlayableDirector>();
-        UnityEngine.Assertions.Assert.IsNotNull(director, "ERROR: A PlayableDirector Component could not be found by TutorialController in GameObject " + gameObject.name);
+        UnityEngine.Assertions.Assert.IsNotNull(director, "ERROR: A PlayableDirector Component could not be found by TutorialControllerV1 in GameObject " + gameObject.name);
         tutorialEvents = GetComponent<TutorialEvents>();
-        UnityEngine.Assertions.Assert.IsNotNull(tutorialEvents, "ERROR: A TutorialEvents Component could not be found by TutorialController in GameObject " + gameObject.name);
+        UnityEngine.Assertions.Assert.IsNotNull(tutorialEvents, "ERROR: A TutorialEvents Component could not be found by TutorialControllerV1 in GameObject " + gameObject.name);
         zoneControllers = FindObjectsOfType<AIZoneController>();
         tutorialEnemiesManager = new TutorialEnemiesManager();
         tutorialEvents.SetTutorialEnemiesManager(tutorialEnemiesManager);
@@ -92,7 +91,7 @@ public class TutorialControllerV1 : TutorialController
         if (running)
         {
             paused = pause;
-            if (running && director.playableGraph.IsValid())
+            if (director.playableGraph.IsValid())
                 director.playableGraph.GetRootPlayable(0).SetSpeed(pause ? 0 : 1);
             // Using director.Pause() allows the cameras to snap back to the default priority settings.
         }
