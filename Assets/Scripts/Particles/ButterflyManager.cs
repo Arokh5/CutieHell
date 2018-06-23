@@ -21,6 +21,7 @@ public class ButterflyManager : MonoBehaviour {
     private float detectionDistance;
     [SerializeField]
     private bool circularMove;
+    private Transform parent;
 
     void Awake () {
         targets = new List<Vector3>();
@@ -29,14 +30,13 @@ public class ButterflyManager : MonoBehaviour {
         float x = 0;
         float y = 0;
         float angle = 0;
+        if (this.transform.parent != null)
+            parent = this.transform.parent;
+        else
+            parent = this.transform;
         for (int i = butterflies.Count; butterfliesNumber > i; i++)
         {
             GameObject o = Instantiate(butterfliesOptions[Random.Range(0, butterfliesOptions.Count)]);
-            //angle = Random.Range(0, Mathf.PI * 2);
-            //x = Mathf.Sin(angle) * Random.Range(0, 0.5f);
-            //y = Mathf.Cos(angle) * Random.Range(0, 0.5f);
-            //newPos = this.transform.position + new Vector3(x, Random.Range(-radius, radius) * yRatio, y);
-            //o.transform.position = newPos;
             o.GetComponent<Animator>().SetFloat("Speed", Random.Range(0.75f, 1.25f));
             o.transform.SetParent(this.transform);
             butterflies.Add(o);
@@ -64,7 +64,7 @@ public class ButterflyManager : MonoBehaviour {
 
     void Update () {
         int k = butterflies.Count;
-        Vector3 parentRotation = this.transform.parent.transform.rotation.eulerAngles;
+        Vector3 parentRotation = parent.transform.rotation.eulerAngles;
         for (int i = 0; i < k; i++)
         {
             Vector3 target = targets[i];
