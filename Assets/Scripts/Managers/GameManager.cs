@@ -14,8 +14,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private bool skipTutorial = false;
-    [SerializeField]
-    private TutorialController tutorialController;
+    public TutorialController tutorialController;
     [SerializeField]
     private ScreenFadeController screenFadeController;
 

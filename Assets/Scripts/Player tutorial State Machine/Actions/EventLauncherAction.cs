@@ -7,6 +7,6 @@ public class EventLauncherAction : StateAction
 
     public override void Act(Player player)
     {
-        player.tutorialController.LaunchEvent(eventIndex);
+        GameManager.instance.tutorialController.LaunchEvent(eventIndex);
     }
 }

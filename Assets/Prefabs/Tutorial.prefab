@@ -642,9 +642,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4124070079434272}
-  - component: {fileID: 114510619637958208}
+  - component: {fileID: 114012354144039488}
   - component: {fileID: 320400532580166328}
-  - component: {fileID: 114325232345552390}
+  - component: {fileID: 114484744718497106}
   - component: {fileID: 82325985891617908}
   m_Layer: 0
   m_Name: Tutorial
@@ -1737,7 +1737,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 243254919489864220, guid: dc00f49cad4603e4ca624f7439e523d9,
     type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1860,6 +1860,38 @@ MonoBehaviour:
   m_PitchDamping: 0
   m_YawDamping: 0
   m_RollDamping: 0
+--- !u!114 &114012354144039488
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1671902613955374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63431b5869bcbdb46ae7f65e7a792b21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startMessage: {fileID: 0}
+  startMessageDuration: 3.5
+  endMessage: {fileID: 0}
+  endMessageDuration: 2
+  tutorialUIParent: {fileID: 0}
+  crosshair: {fileID: 0}
+  cinemachineBrain: {fileID: 0}
+  screenFadeController: {fileID: 0}
+  scenarioController: {fileID: 0}
+  player: {fileID: 0}
+  playerDefaultState: {fileID: 11400000, guid: 7876ea8555f7f6c4cb97c6dd742b336b, type: 2}
+  tutorialStates:
+  - {fileID: 11400000, guid: 5ffbd5af897338a4ab9108e251027884, type: 2}
+  - {fileID: 11400000, guid: 585e93ea45cdf9441924c0ccae8f7cfc, type: 2}
+  - {fileID: 11400000, guid: e01d909c3ea57e445ae20f83a8724ae9, type: 2}
+  - {fileID: 11400000, guid: 0a25fa5287aef1a4baeb4c48c4dcd1fa, type: 2}
+  - {fileID: 11400000, guid: 479554744188bad46898899f73009c3d, type: 2}
+  - {fileID: 11400000, guid: 5ffbd5af897338a4ab9108e251027884, type: 2}
+  - {fileID: 11400000, guid: fd8ecbdd88dbb3641ae934560c9c04a8, type: 2}
+  tutorialMonument: {fileID: 0}
+  director: {fileID: 0}
 --- !u!114 &114020962370413610
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2218,62 +2250,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   enemyCount: 0
---- !u!114 &114325232345552390
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1671902613955374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3c70508fe71b1742bd1a022524dd732, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tutObjectiveMarker: {fileID: 0}
-  tutObjectiveIcon: {fileID: 0}
-  objectiveBanners: {fileID: 0}
-  objectiveMarkers: {fileID: 0}
-  crosshair: {fileID: 0}
-  evilGainInfoText: {fileID: 0}
-  evilMisuseInfoText: {fileID: 0}
-  cmBrain: {fileID: 0}
-  tutorialSpawner: {fileID: 0}
-  tutorialSpawner2: {fileID: 0}
-  zoneDSpawner: {fileID: 0}
-  damageLimiterTutZone: {fileID: 114501133314358364}
-  damageLimiterZoneC: {fileID: 114740602830611852}
-  evilLimiter: {fileID: 114639038525247722}
-  audioSource: {fileID: 82325985891617908}
-  enemyDescriptionController: {fileID: 0}
-  enemyLabelInfos:
-  - name: THE SLIME
-    description: Low damage, annoying in groups
-  - name: THE BEAR
-    description: Mid damage, ranged attack
-  - name: THE CONQUEROR
-    description: BEWARE! Cutifies upon arrival
-  infoPromptController: {fileID: 0}
-  infoPrompts:
-  - Use LS to move and RS to look around
-  - Use R1 to teleport to the cemetery
-  - You can also use L1 to return to the garden (later)
-  - Use R2 to launch an attack at the cuties
-  - Hold L2 and then use R2 to launch a devastating area attack
-  - Use CIRCLE to trigger the ZONE TRAP
-  lightningPrefab: {fileID: 198128217843348246, guid: e0ad8c49f2eb5a4478dd110d17ec7883,
-    type: 2}
-  lightningPosition: {fileID: 4905490150227636}
-  monumentIndicator: {fileID: 0}
-  lightningSFX: {fileID: 8300000, guid: a9996607c0e453c4cb45ee3e98a0c773, type: 3}
-  enemyCountMonitors:
-  - {fileID: 1927223363647694}
-  - {fileID: 1773501700214026}
-  strongWaveEnemyCountMonitor: {fileID: 1960555512581648}
-  playerAlignedCamera: {fileID: 114786056214965756}
-  zoneAtkPlayerMovePos: {fileID: 4006296683369966}
-  zoneAtkCameraPos: {fileID: 4699286164897612}
-  zoneAttackInfoText: {fileID: 0}
-  zoneTrapWaveEnemyCountMonitor: {fileID: 1102874883995504}
 --- !u!114 &114327517595982278
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2546,6 +2522,62 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 32768
   enemyCount: -1
+--- !u!114 &114484744718497106
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1671902613955374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bd5e6e4e5e6d7e44ad550ba42506e34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tutObjectiveMarker: {fileID: 0}
+  tutObjectiveIcon: {fileID: 0}
+  objectiveBanners: {fileID: 0}
+  objectiveMarkers: {fileID: 0}
+  crosshair: {fileID: 0}
+  evilGainInfoText: {fileID: 0}
+  evilMisuseInfoText: {fileID: 0}
+  cmBrain: {fileID: 0}
+  tutorialSpawner: {fileID: 0}
+  tutorialSpawner2: {fileID: 0}
+  zoneDSpawner: {fileID: 0}
+  damageLimiterTutZone: {fileID: 114501133314358364}
+  damageLimiterZoneC: {fileID: 114740602830611852}
+  evilLimiter: {fileID: 114639038525247722}
+  audioSource: {fileID: 82325985891617908}
+  enemyDescriptionController: {fileID: 0}
+  enemyLabelInfos:
+  - name: THE SLIME
+    description: Low damage, annoying in groups
+  - name: THE BEAR
+    description: Mid damage, ranged attack
+  - name: THE CONQUEROR
+    description: BEWARE! Cutifies upon arrival
+  infoPromptController: {fileID: 0}
+  infoPrompts:
+  - Use LS to move and RS to look around
+  - Use R1 to teleport to the cemetery
+  - You can also use L1 to return to the garden (later)
+  - Use R2 to launch an attack at the cuties
+  - Hold L2 and then use R2 to launch a devastating area attack
+  - Use CIRCLE to trigger the ZONE TRAP
+  lightningPrefab: {fileID: 198128217843348246, guid: e0ad8c49f2eb5a4478dd110d17ec7883,
+    type: 2}
+  lightningPosition: {fileID: 4905490150227636}
+  monumentIndicator: {fileID: 0}
+  lightningSFX: {fileID: 8300000, guid: a9996607c0e453c4cb45ee3e98a0c773, type: 3}
+  enemyCountMonitors:
+  - {fileID: 1927223363647694}
+  - {fileID: 1773501700214026}
+  strongWaveEnemyCountMonitor: {fileID: 1960555512581648}
+  playerAlignedCamera: {fileID: 114786056214965756}
+  zoneAtkPlayerMovePos: {fileID: 4006296683369966}
+  zoneAtkCameraPos: {fileID: 4699286164897612}
+  zoneAttackInfoText: {fileID: 0}
+  zoneTrapWaveEnemyCountMonitor: {fileID: 1102874883995504}
 --- !u!114 &114501133314358364
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2584,38 +2616,6 @@ MonoBehaviour:
     FarClipPlane: 5000
     Dutch: 0
   m_ComponentOwner: {fileID: 4419867890269816}
---- !u!114 &114510619637958208
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1671902613955374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5121af91e8df424eaa1e57975c2c213, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startMessage: {fileID: 0}
-  startMessageDuration: 3.5
-  endMessage: {fileID: 0}
-  endMessageDuration: 2
-  tutorialUIParent: {fileID: 0}
-  crosshair: {fileID: 0}
-  cinemachineBrain: {fileID: 0}
-  screenFadeController: {fileID: 0}
-  scenarioController: {fileID: 0}
-  player: {fileID: 0}
-  playerDefaultState: {fileID: 11400000, guid: 7876ea8555f7f6c4cb97c6dd742b336b, type: 2}
-  tutorialStates:
-  - {fileID: 11400000, guid: 5ffbd5af897338a4ab9108e251027884, type: 2}
-  - {fileID: 11400000, guid: 585e93ea45cdf9441924c0ccae8f7cfc, type: 2}
-  - {fileID: 11400000, guid: e01d909c3ea57e445ae20f83a8724ae9, type: 2}
-  - {fileID: 11400000, guid: 0a25fa5287aef1a4baeb4c48c4dcd1fa, type: 2}
-  - {fileID: 11400000, guid: 479554744188bad46898899f73009c3d, type: 2}
-  - {fileID: 11400000, guid: 5ffbd5af897338a4ab9108e251027884, type: 2}
-  - {fileID: 11400000, guid: fd8ecbdd88dbb3641ae934560c9c04a8, type: 2}
-  tutorialMonument: {fileID: 0}
-  director: {fileID: 0}
 --- !u!114 &114514602462705042
 MonoBehaviour:
   m_ObjectHideFlags: 1
