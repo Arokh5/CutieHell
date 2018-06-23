@@ -7,6 +7,6 @@ public class StopMoveAnimation : StateAction
     {
         player.animator.SetBool("Move", false);
         player.footSteps.SetActive(false);
-        player.footstepsSource.Stop();
+        player.loopAudioSource.Stop();
     }
 }

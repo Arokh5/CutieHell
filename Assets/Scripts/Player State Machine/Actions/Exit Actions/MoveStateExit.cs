@@ -7,6 +7,6 @@ public class MoveStateExit : StateAction
 {
     public override void Act(Player player)
     {
-        player.footstepsSource.Stop();
+        player.loopAudioSource.Stop();
     }
 }

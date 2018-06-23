@@ -7,6 +7,6 @@ public class PlaySound : StateAction
 
     public override void Act(Player player)
     {
-        player.audioSource.PlayOneShot(audioClip);
+        player.oneShotAudioSource.PlayOneShot(audioClip);
     }
 }

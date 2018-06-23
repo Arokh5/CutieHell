@@ -3,6 +3,8 @@
 [CreateAssetMenu(menuName = "Player State Machine/Actions/FogEnter")]
 public class FogEnter : StateAction
 {
+    public AudioClip loopingAudioClip;
+
     public override void Act(Player player)
     {
         player.fogStateLastTime = Time.time;
@@ -10,5 +12,9 @@ public class FogEnter : StateAction
         player.fogCollider.enabled = true;
         player.fogVFX.gameObject.SetActive(true);
         player.SetIsAutoRecoveringEvil(false);
+
+        player.oneShotAudioSource.loop = true;
+        player.oneShotAudioSource.clip = loopingAudioClip;
+        player.oneShotAudioSource.Play();
     }
 }

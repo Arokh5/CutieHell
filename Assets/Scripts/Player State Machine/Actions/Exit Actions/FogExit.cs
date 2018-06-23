@@ -14,5 +14,8 @@ public class FogExit : StateAction
         player.accumulatedFogEvilCost = 0.0f;
         player.timeSinceLastFogHit = 0.0f;
         player.SetIsAutoRecoveringEvil(true);
+
+        player.oneShotAudioSource.Stop();
+        player.oneShotAudioSource.loop = false;
     }
 }

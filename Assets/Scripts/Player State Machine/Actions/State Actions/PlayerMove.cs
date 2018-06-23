@@ -40,8 +40,8 @@ public class PlayerMove : StateAction
                 if (useFootsteps)
                 {
                     player.footSteps.SetActive(true);
-                    if (!player.footstepsSource.isPlaying)
-                        player.footstepsSource.Play();
+                    if (!player.loopAudioSource.isPlaying)
+                        player.loopAudioSource.Play();
                 }
             }
             else
@@ -54,7 +54,7 @@ public class PlayerMove : StateAction
                 if (useFootsteps)
                 {
                     player.footSteps.SetActive(false);
-                    player.footstepsSource.Stop();
+                    player.loopAudioSource.Stop();
                 }
             }
 

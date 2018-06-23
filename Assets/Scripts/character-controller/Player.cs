@@ -137,8 +137,8 @@ public class Player : MonoBehaviour {
 
     [Header("Footsteps")]
     public AudioClip footstepsClip;
-    public AudioSource footstepsSource;
-    public AudioSource audioSource;
+    public AudioSource loopAudioSource;
+    public AudioSource oneShotAudioSource;
 
     #endregion
 
@@ -179,9 +179,9 @@ public class Player : MonoBehaviour {
 
         UpdateNearestMonument();
 
-        footstepsSource = GetComponent<AudioSource>();
-        footstepsSource.clip = footstepsClip;
-        footstepsSource.loop = true;
+        loopAudioSource.loop = true;
+        oneShotAudioSource.loop = false;
+
         canMove = true;
         comeBackFromStrongAttack = false;
 
@@ -213,7 +213,7 @@ public class Player : MonoBehaviour {
     {
         if (GameManager.instance.gameIsPaused)
         {
-            footstepsSource.Stop();
+            loopAudioSource.Stop();
             return;
         }else
         {
