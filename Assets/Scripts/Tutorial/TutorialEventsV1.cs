@@ -140,7 +140,7 @@ public class TutorialEventsV1 : TutorialEvents
         this.tutorialEnemiesManager = tutorialEnemiesManager;
     }
 
-    public override void OnTutorialStarted()
+    public override void OnTutorialWillStart()
     {
         damageLimiterTutZone.gameObject.SetActive(true);
         damageLimiterZoneC.gameObject.SetActive(true);

@@ -73,10 +73,15 @@ public class TutorialEventsV2 : TutorialEvents
         throw new System.NotImplementedException();
     }
 
-    public override void OnTutorialStarted()
+    public override void OnTutorialWillStart()
     {
         crosshair.SetActive(false);
         continuePrompt.SetActive(false);
+        skipPrompt.SetActive(false);
+    }
+
+    public void OnTutorialStarted()
+    {
         skipPrompt.SetActive(true);
     }
 

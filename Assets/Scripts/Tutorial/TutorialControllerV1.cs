@@ -109,7 +109,7 @@ public class TutorialControllerV1 : TutorialController
             player.AddEvilPoints(-12);
             playerStateIndex = -1;
             NextPlayerState();
-            tutorialEvents.OnTutorialStarted();
+            tutorialEvents.OnTutorialWillStart();
             startMessage.SetActive(true);
             screenFadeController.TurnOpaque();
             Invoke("TutorialStarter", startMessageDuration);

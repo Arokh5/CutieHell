@@ -109,7 +109,7 @@ public class TutorialControllerV2 : TutorialController
         {
             playerStateIndex = -1;
             NextPlayerState();  // StoppedState
-            tutorialEvents.OnTutorialStarted();
+            tutorialEvents.OnTutorialWillStart();
             startMessage.SetActive(true);
             screenFadeController.TurnOpaque();
             Invoke("TutorialStarter", startMessageDuration);
@@ -192,6 +192,7 @@ public class TutorialControllerV2 : TutorialController
         running = true;
         director.Play();
         stripes.ShowAnimated();
+        tutorialEvents.OnTutorialStarted();
     }
 
     private void TutorialPause()
