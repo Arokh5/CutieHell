@@ -23,17 +23,29 @@ public class TutorialEventsV2 : TutorialEvents
     [SerializeField]
     private string[] infoPrompts;
 
-    [Header("01-ShowStatue")]
+    [Header("02-ShowStatue")]
     [SerializeField]
     private GameObject infoStatue;
 
-    [Header("01-ShowMausoleum")]
+    [Header("03-ShowMausoleum")]
     [SerializeField]
     private GameObject infoMausoleum;
 
-    [Header("01-ShowFountain")]
+    [Header("04-ShowFountain")]
     [SerializeField]
     private GameObject infoFountain;
+
+    [Header("06-ShowSpawnerLeft")]
+    [SerializeField]
+    private GameObject infoSpawnerLeft;
+
+    [Header("07-ShowSpawnerCenter")]
+    [SerializeField]
+    private GameObject infoSpawnerCenter;
+
+    [Header("08-ShowSpawnerRight")]
+    [SerializeField]
+    private GameObject infoSpawnerRight;
 
     private TutorialController tutorialController;
     private TutorialEvent[] events;
@@ -54,13 +66,20 @@ public class TutorialEventsV2 : TutorialEvents
         UnityEngine.Assertions.Assert.IsNotNull(infoStatue, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (infoStatue) assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(infoMausoleum, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (ìnfoMausoleum) assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(infoFountain, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (infoFountain) assigned!");
+        UnityEngine.Assertions.Assert.IsNotNull(infoSpawnerLeft, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (infoSpawnerLeft) assigned!");
+        UnityEngine.Assertions.Assert.IsNotNull(infoSpawnerCenter, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (infoSpawnerCenter) assigned!");
+        UnityEngine.Assertions.Assert.IsNotNull(infoSpawnerRight, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (infoSpawnerRight) assigned!");
 
         events = new TutorialEvent[]{
             ShowVlad,               // 00
             ShowMonumentsPrompt,    // 01
             ShowStatue,             // 02
             ShowMausoleum,          // 03
-            ShowFountain            // 04
+            ShowFountain,           // 04
+            ShowSpawnersPrompt,     // 05
+            ShowSpawnerLeft,        // 06
+            ShowSpawnerCenter,      // 07
+            ShowSpawnerRight        // 08
         };
     }
 
@@ -175,6 +194,52 @@ public class TutorialEventsV2 : TutorialEvents
     private void ShowFountainOver()
     {
         infoFountain.SetActive(false);
+        infoPromptController.HidePrompt();
+    }
+
+    // 05
+    private void ShowSpawnersPrompt()
+    {
+        infoPromptController.ShowPrompt(infoPrompts[2]);
+    }
+
+    // 06
+    private void ShowSpawnerLeft()
+    {
+        infoSpawnerLeft.SetActive(true);
+        WaitForUser(ShowSpawnerLeftOver);
+    }
+
+    // 06 OVER
+    private void ShowSpawnerLeftOver()
+    {
+        infoSpawnerLeft.SetActive(false);
+    }
+
+    // 07
+    private void ShowSpawnerCenter()
+    {
+        infoSpawnerCenter.SetActive(true);
+        WaitForUser(ShowSpawnerCenterOver);
+    }
+
+    // 07 OVER
+    private void ShowSpawnerCenterOver()
+    {
+        infoSpawnerCenter.SetActive(false);
+    }
+
+    // 08
+    private void ShowSpawnerRight()
+    {
+        infoSpawnerRight.SetActive(true);
+        WaitForUser(ShowSpawnerRightOver);
+    }
+
+    // 08 OVER
+    private void ShowSpawnerRightOver()
+    {
+        infoSpawnerRight.SetActive(false);
         infoPromptController.HidePrompt();
     }
 
