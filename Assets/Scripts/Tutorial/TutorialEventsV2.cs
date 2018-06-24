@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TutorialEventsV2 : TutorialEvents
 {
@@ -47,6 +45,18 @@ public class TutorialEventsV2 : TutorialEvents
     [SerializeField]
     private GameObject infoSpawnerRight;
 
+    [Header("10-ShowPathFountain")]
+    [SerializeField]
+    private GameObject infoPathFountain;
+
+    [Header("11-ShowPathMausoleum")]
+    [SerializeField]
+    private GameObject infoPathMausoleum;
+
+    [Header("12-ShowPathStatue")]
+    [SerializeField]
+    private GameObject infoPathStatue;
+
     private TutorialController tutorialController;
     private TutorialEvent[] events;
     private Player player;
@@ -59,6 +69,8 @@ public class TutorialEventsV2 : TutorialEvents
     {
         tutorialController = GetComponent<TutorialController>();
         UnityEngine.Assertions.Assert.IsNotNull(tutorialController, "ERROR: A TutorialController Component could not be found by TutorialEventsV2 in GameObject " + gameObject.name);
+
+        // Asigned from the Inspector
         UnityEngine.Assertions.Assert.IsNotNull(crosshair, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (crosshair) assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(continuePrompt, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (continuePrompt) assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(skipPrompt, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (skipPrompt) assigned!");
@@ -69,6 +81,9 @@ public class TutorialEventsV2 : TutorialEvents
         UnityEngine.Assertions.Assert.IsNotNull(infoSpawnerLeft, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (infoSpawnerLeft) assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(infoSpawnerCenter, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (infoSpawnerCenter) assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(infoSpawnerRight, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (infoSpawnerRight) assigned!");
+        UnityEngine.Assertions.Assert.IsNotNull(infoPathFountain, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (infoPathFountain) assigned!");
+        UnityEngine.Assertions.Assert.IsNotNull(infoPathMausoleum, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (infoPathMausoleum) assigned!");
+        UnityEngine.Assertions.Assert.IsNotNull(infoPathStatue, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (infoPathStatue) assigned!");
 
         events = new TutorialEvent[]{
             ShowVlad,               // 00
@@ -79,7 +94,11 @@ public class TutorialEventsV2 : TutorialEvents
             ShowSpawnersPrompt,     // 05
             ShowSpawnerLeft,        // 06
             ShowSpawnerCenter,      // 07
-            ShowSpawnerRight        // 08
+            ShowSpawnerRight,       // 08
+            ShowEnemiesPathPrompt,  // 09
+            ShowPathFountain,       // 10
+            ShowPathMausoleum,      // 11
+            ShowPathStatue          // 12
         };
     }
 
@@ -92,7 +111,7 @@ public class TutorialEventsV2 : TutorialEvents
     #region Public Methods
     public override void SetTutorialEnemiesManager(TutorialEnemiesManager tutorialEnemiesManager)
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override void OnTutorialWillStart()
@@ -241,6 +260,51 @@ public class TutorialEventsV2 : TutorialEvents
     {
         infoSpawnerRight.SetActive(false);
         infoPromptController.HidePrompt();
+    }
+
+    // 09
+    private void ShowEnemiesPathPrompt()
+    {
+        infoPromptController.ShowPrompt(infoPrompts[3]);
+    }
+
+    // 10
+    private void ShowPathFountain()
+    {
+        infoPathFountain.SetActive(true);
+        WaitForUser(ShowPathFountainOver);
+    }
+
+    // 10 OVER
+    private void ShowPathFountainOver()
+    {
+        infoPathFountain.SetActive(false);
+    }
+
+    // 11
+    private void ShowPathMausoleum()
+    {
+        infoPathMausoleum.SetActive(true);
+        WaitForUser(ShowPathMausoleumOver);
+    }
+
+    // 11 OVER
+    private void ShowPathMausoleumOver()
+    {
+        infoPathMausoleum.SetActive(false);
+    }
+
+    // 12
+    private void ShowPathStatue()
+    {
+        infoPathStatue.SetActive(true);
+        WaitForUser(ShowPathStatueOver);
+    }
+
+    // 12 OVER
+    private void ShowPathStatueOver()
+    {
+        infoPathStatue.SetActive(false);
     }
 
     #endregion
