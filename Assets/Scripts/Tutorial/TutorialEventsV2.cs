@@ -307,6 +307,7 @@ public class TutorialEventsV2 : TutorialEvents
     private void ShowPathStatueOver()
     {
         infoPathStatue.SetActive(false);
+        infoPromptController.HidePrompt();
     }
 
     // 13
