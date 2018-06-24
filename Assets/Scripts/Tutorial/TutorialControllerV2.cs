@@ -39,11 +39,21 @@ public class TutorialControllerV2 : TutorialController
     private TutorialEventsV2 tutorialEvents;
 
     private bool running;
-    private bool paused;
+    private bool gamePaused;
+    private bool timelinePaused;
     private int playerStateIndex = -1;
     private Vector3 playerStartingPos;
     private Quaternion playerStartingRot;
+    #endregion
 
+    #region Properties
+    private bool paused
+    {
+        get
+        {
+            return gamePaused || timelinePaused;
+        }
+    }
     #endregion
 
     #region MonoBehaviour Methods
@@ -64,16 +74,18 @@ public class TutorialControllerV2 : TutorialController
 
     private void Update()
     {
-        if (InputManager.instance.GetXButtonDown())
+        if (!gamePaused && InputManager.instance.GetXButtonDown())
             tutorialEvents.OnXPressed();
 
-        if (!paused && GameManager.instance.gameIsPaused)
+        if (!gamePaused && GameManager.instance.gameIsPaused)
         {
-            PauseTutorial(true);
+            gamePaused = true;
+            TutorialPause();
         }
-        else if (paused && !GameManager.instance.gameIsPaused)
+        else if (gamePaused && !GameManager.instance.gameIsPaused)
         {
-            PauseTutorial(false);
+            gamePaused = false;
+            TutorialPause();
             crosshair.SetActive(false);
         }
     }
@@ -82,13 +94,8 @@ public class TutorialControllerV2 : TutorialController
     #region Public Methods
     public override void PauseTutorial(bool pause)
     {
-        if (running)
-        {
-            paused = pause;
-            if (director.playableGraph.IsValid())
-                director.playableGraph.GetRootPlayable(0).SetSpeed(pause ? 0 : 1);
-            // Using director.Pause() allows the cameras to snap back to the default priority settings.
-        }
+        timelinePaused = pause;
+        TutorialPause();
     }
 
     public override bool IsRunning()
@@ -185,6 +192,16 @@ public class TutorialControllerV2 : TutorialController
         running = true;
         director.Play();
         stripes.ShowAnimated();
+    }
+
+    private void TutorialPause()
+    {
+        if (running && director.playableGraph.IsValid())
+        {
+            float speed = paused ? 0 : 1;
+            director.playableGraph.GetRootPlayable(0).SetSpeed(speed);
+            // Using director.Pause() allows the cameras to snap back to the default priority settings.
+        }
     }
     #endregion
 }

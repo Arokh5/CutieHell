@@ -16,9 +16,22 @@ public class TutorialEventsV2 : TutorialEvents
     private GameObject skipPrompt;
 
     [Header("Info Prompts")]
-    public InformationPromptController infoPromptController;
+    [SerializeField]
+    private InformationPromptController infoPromptController;
     [SerializeField]
     private string[] infoPrompts;
+
+    [Header("01-ShowStatue")]
+    [SerializeField]
+    private GameObject infoStatue;
+
+    [Header("01-ShowMausoleum")]
+    [SerializeField]
+    private GameObject infoMausoleum;
+
+    [Header("01-ShowFountain")]
+    [SerializeField]
+    private GameObject infoFountain;
 
     private TutorialController tutorialController;
     private TutorialEvent[] events;
@@ -35,10 +48,16 @@ public class TutorialEventsV2 : TutorialEvents
         UnityEngine.Assertions.Assert.IsNotNull(crosshair, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (crosshair) assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(continuePrompt, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (continuePrompt) assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(skipPrompt, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (skipPrompt) assigned!");
-
+        UnityEngine.Assertions.Assert.IsNotNull(infoPromptController, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a InformationPromptController assigned!");
+        UnityEngine.Assertions.Assert.IsNotNull(infoStatue, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (infoStatue) assigned!");
+        UnityEngine.Assertions.Assert.IsNotNull(infoMausoleum, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (ìnfoMausoleum) assigned!");
+        UnityEngine.Assertions.Assert.IsNotNull(infoFountain, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (infoFountain) assigned!");
 
         events = new TutorialEvent[]{
-            ShowVladMessage         // 00
+            ShowVlad,           // 00
+            ShowStatue,         // 01
+            ShowMausoleum,      // 02
+            ShowFountain        // 03
         };
     }
 
@@ -83,9 +102,7 @@ public class TutorialEventsV2 : TutorialEvents
     {
         if (waitingForPlayer)
         {
-            continuePrompt.SetActive(false);
-            waitingForPlayer = false;
-            waitEndedCallback();
+            Continue();
         }
     }
     #endregion
@@ -93,15 +110,56 @@ public class TutorialEventsV2 : TutorialEvents
     #region Private Methods
     #region Events
     // 00
-    private void ShowVladMessage()
+    private void ShowVlad()
     {
         infoPromptController.ShowPrompt(infoPrompts[0]);
-        WaitForUser(VladMessageWaitOver);
+        WaitForUser(ShowVladOver);
     }
 
-    // 00 after wait
-    private void VladMessageWaitOver()
+    // 00 OVER
+    private void ShowVladOver()
     {
+        infoPromptController.HidePrompt();
+    }
+
+    // 01
+    private void ShowStatue()
+    {
+        infoPromptController.ShowPrompt(infoPrompts[1]);
+        infoStatue.SetActive(true);
+        WaitForUser(ShowStatueOver);
+    }
+
+    // 01 OVER
+    private void ShowStatueOver()
+    {
+        infoStatue.SetActive(false);
+    }
+
+    // 02
+    private void ShowMausoleum()
+    {
+        infoMausoleum.SetActive(true);
+        WaitForUser(ShowMausoleumOver);
+    }
+
+    // 02 OVER
+    private void ShowMausoleumOver()
+    {
+        infoMausoleum.SetActive(false);
+    }
+
+    // 03
+    private void ShowFountain()
+    {
+        infoFountain.SetActive(true);
+        WaitForUser(ShowFountainOver);
+    }
+
+    // 03 OVER
+    private void ShowFountainOver()
+    {
+        infoFountain.SetActive(false);
         infoPromptController.HidePrompt();
     }
 
@@ -110,8 +168,17 @@ public class TutorialEventsV2 : TutorialEvents
     private void WaitForUser(TutorialEvent callback)
     {
         waitEndedCallback = callback;
+        tutorialController.PauseTutorial(true);
         continuePrompt.SetActive(true);
         waitingForPlayer = true;
+    }
+
+    private void Continue()
+    {
+        waitingForPlayer = false;
+        continuePrompt.SetActive(false);
+        tutorialController.PauseTutorial(false);
+        waitEndedCallback();
     }
     #endregion
 }
