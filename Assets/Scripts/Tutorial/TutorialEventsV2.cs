@@ -14,6 +14,8 @@ public class TutorialEventsV2 : TutorialEvents
     private GameObject continuePrompt;
     [SerializeField]
     private GameObject skipPrompt;
+    [SerializeField]
+    private GameObject[] normalGameUI;
 
     [Header("Info Prompts")]
     [SerializeField]
@@ -79,6 +81,7 @@ public class TutorialEventsV2 : TutorialEvents
         crosshair.SetActive(false);
         continuePrompt.SetActive(false);
         skipPrompt.SetActive(false);
+        SetNormalGameUIVisibility(false);
     }
 
     public void OnTutorialStarted()
@@ -91,6 +94,7 @@ public class TutorialEventsV2 : TutorialEvents
         crosshair.SetActive(true);
         continuePrompt.SetActive(false);
         skipPrompt.SetActive(false);
+        SetNormalGameUIVisibility(false);
     }
 
     public override void LaunchEvent(int eventIndex)
@@ -190,6 +194,14 @@ public class TutorialEventsV2 : TutorialEvents
         continuePrompt.SetActive(false);
         tutorialController.PauseTutorial(false);
         waitEndedCallback();
+    }
+
+    private void SetNormalGameUIVisibility(bool visible)
+    {
+        foreach (GameObject go in normalGameUI)
+        {
+            go.SetActive(visible);
+        }
     }
     #endregion
 }
