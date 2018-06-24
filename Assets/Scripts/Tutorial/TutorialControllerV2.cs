@@ -70,6 +70,7 @@ public class TutorialControllerV2 : TutorialController
 
         playerStartingPos = player.transform.position;
         playerStartingRot = player.transform.rotation;
+        cinemachineBrain.enabled = false;
     }
 
     private void Update()
@@ -109,6 +110,7 @@ public class TutorialControllerV2 : TutorialController
         {
             playerStateIndex = -1;
             NextPlayerState();  // StoppedState
+            cinemachineBrain.enabled = true;
             tutorialEvents.OnTutorialWillStart();
             startMessage.SetActive(true);
             screenFadeController.TurnOpaque();
@@ -138,7 +140,7 @@ public class TutorialControllerV2 : TutorialController
         player.TransitionToState(tutorialStates[++playerStateIndex]);
     }
 
-    public override int GetEnemiesCount()
+    public override int GetEnemiesCount()   
     {
         throw new System.NotImplementedException();
     }
@@ -184,6 +186,7 @@ public class TutorialControllerV2 : TutorialController
     {
         endMessage.SetActive(false);
         stripes.HideAnimated();
+        player.TransitionToState(playerDefaultState);
         GameManager.instance.OnTutorialFinished();
     }
 

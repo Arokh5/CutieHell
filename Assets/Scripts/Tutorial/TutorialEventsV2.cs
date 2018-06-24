@@ -98,7 +98,9 @@ public class TutorialEventsV2 : TutorialEvents
             ShowEnemiesPathPrompt,  // 09
             ShowPathFountain,       // 10
             ShowPathMausoleum,      // 11
-            ShowPathStatue          // 12
+            ShowPathStatue,         // 12
+            ShowReadyPrompt,        // 13
+            FinishTutorial          // 14
         };
     }
 
@@ -132,7 +134,7 @@ public class TutorialEventsV2 : TutorialEvents
         crosshair.SetActive(true);
         continuePrompt.SetActive(false);
         skipPrompt.SetActive(false);
-        SetNormalGameUIVisibility(false);
+        SetNormalGameUIVisibility(true);
     }
 
     public override void LaunchEvent(int eventIndex)
@@ -305,6 +307,25 @@ public class TutorialEventsV2 : TutorialEvents
     private void ShowPathStatueOver()
     {
         infoPathStatue.SetActive(false);
+    }
+
+    // 13
+    private void ShowReadyPrompt()
+    {
+        infoPromptController.ShowPrompt(infoPrompts[4]);
+        WaitForUser(ShowPathStatueOver);
+    }
+
+    // 13 OVER
+    private void ShowReadyPromptOver()
+    {
+        infoPromptController.HidePrompt();
+    }
+
+    // 14
+    private void FinishTutorial()
+    {
+        tutorialController.RequestEndTutorial();
     }
 
     #endregion
