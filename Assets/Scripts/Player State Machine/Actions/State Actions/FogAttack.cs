@@ -7,14 +7,16 @@ public class FogAttack : StateAction
     public float evilCostPerSecond;
     public float hitInterval;
     public float dps;
+    [SerializeField]
+    private float decreaseRate;
 
     public override void Act(Player player)
     {
         player.accumulatedFogEvilCost += evilCostPerSecond * Time.deltaTime;
-        if (player.accumulatedFogEvilCost > 1.0f)
+        if (player.accumulatedFogEvilCost > decreaseRate)
         {
-            player.accumulatedFogEvilCost -= 1.0f;
-            player.AddEvilPoints(-1);
+            player.accumulatedFogEvilCost -= decreaseRate;
+            player.AddEvilPoints(-decreaseRate);
         }
 
         player.timeSinceLastFogHit += Time.deltaTime;

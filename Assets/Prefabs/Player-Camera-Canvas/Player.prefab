@@ -3789,8 +3789,8 @@ MonoBehaviour:
   evilManaController: {fileID: 0}
   maxEvilLevel: 5
   evilLevel: 0
-  autoEvilRecoveringTime: 0.2
-  autoEvilRecoveringValue: 0.05
+  autoEvilRecoveringTime: 0.1
+  autoEvilRecoveringValue: 0.025
   rb: {fileID: 0}
   initialBulletSpawnPointPos: {x: 0, y: 0, z: 0}
   timeSinceLastTrapUse: 0
@@ -3820,7 +3820,7 @@ MonoBehaviour:
   animatingAttack: 0
   weakAttackTargetHitOffset: {x: 0, y: 0, z: 0}
   weakAttackTargetTransform: {fileID: 0}
-  strongAttackStateCooldown: 1
+  strongAttackStateCooldown: 0.5
   strongAttackCollider: {fileID: 135737643089272894}
   timeSinceLastStrongAttack: 0
   currentStrongAttackTargets: []
@@ -3829,7 +3829,7 @@ MonoBehaviour:
   strongAttackEvilCost: 1
   fogCollider: {fileID: 135076191655738780}
   fogVFX: {fileID: 1362348381220060}
-  fogStateCooldown: 2
+  fogStateCooldown: 0.5
   fogStateLastTime: 0
   accumulatedFogEvilCost: 0
   timeSinceLastFogHit: 0

@@ -27,8 +27,7 @@ public class EvilManaController : MonoBehaviour {
 		
 	}
 	#endregion
-		
-	
+			
 	#region Public methods
 	public void ModifyEvil(float _currentEvil)
     {
