@@ -22,16 +22,6 @@ public class StatsManager : MonoBehaviour
 
     private int globalPoints;
 
-    [Header("Max combo")]
-    [SerializeField]
-    private int maxComboReward;
-    [SerializeField]
-    private float maxComboLimitTime;
-    private float maxComboTime;
-    private bool maxComboEnabled = false;
-    private int maxComboReached = 0;
-    private int currentCombo = 0;
-
     [Header("Round time")]
     [SerializeField]
     private int roundTimeReward;
@@ -39,6 +29,10 @@ public class StatsManager : MonoBehaviour
     private float roundMaxTime;
     private float roundTime;
     private bool roundActive = false;
+
+    [Header("Combos")]
+    [SerializeField]
+    private MaxCombo maxCombo;
 
     #endregion
 
@@ -92,22 +86,11 @@ public class StatsManager : MonoBehaviour
         ResetKillCounts();
         ResetBadComboCount();
         ResetGlobalPoins();
-        ResetMaxCombo();
         ResetRoundTime();
     }
 
     private void Update()
     {
-        if (maxComboEnabled)
-        {
-            maxComboTime += Time.deltaTime;
-
-            if (maxComboTime >= maxComboLimitTime)
-            {
-                maxComboEnabled = false;
-                ResetMaxCombo();
-            }
-        }
 
         if (roundActive)
         {
@@ -115,6 +98,10 @@ public class StatsManager : MonoBehaviour
         }
     }
 
+    private void UpdateCombosBasedOnKills()
+    {
+        maxCombo.IncreaseCurrentCount(1);
+    }
     #endregion
 
     #region Public Methods
@@ -137,18 +124,7 @@ public class StatsManager : MonoBehaviour
                 break;
         }
 
-        if (maxComboEnabled)
-        {
-            //IncreaseGlobalPoints(maxComboReward);
-            IncreaseCombo();
-            Debug.Log("Max combo!! Current combo: " + currentCombo);
-        }
-    }
-
-    private void IncreaseCombo()
-    {
-        currentCombo++;
-        maxComboTime = 0f;
+        UpdateCombosBasedOnKills();
     }
 
     public void IncreaseRoundTime()
@@ -160,23 +136,7 @@ public class StatsManager : MonoBehaviour
     public void WinRoundPoints()
     {
         IncreaseGlobalPoints((int)Mathf.Round(roundMaxTime - roundTime) * roundTimeReward);
-        Debug.Log("Max combo of " + maxComboReached);
         Debug.Log("You win " + (int)Mathf.Round(roundMaxTime - roundTime) * roundTimeReward + " round points!!");
-    }
-
-    public void ResetMaxCombo()
-    {
-        maxComboTime = 0f;
-
-        if (currentCombo > maxComboReached)
-            maxComboReached = currentCombo;
-
-        currentCombo = 0;
-    }
-
-    public void EnableMaxCombo()
-    {
-        maxComboEnabled = true;
     }
 
     public void ResetKillCounts()
@@ -230,5 +190,9 @@ public class StatsManager : MonoBehaviour
         currentShotMissed = 0;
     }
 
+    public Combo GetMaxCombo()
+    {
+        return maxCombo;
+    }
     #endregion
 }
