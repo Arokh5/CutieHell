@@ -14,7 +14,6 @@ public class UIFlasher : MonoBehaviour
 
     private RectTransform targetTransform;
     Vector3 initialScale;
-    private bool flashing;
     private bool shouldStop;
     float elapsedTime;
     #endregion
@@ -26,26 +25,27 @@ public class UIFlasher : MonoBehaviour
         UnityEngine.Assertions.Assert.IsNotNull(targetTransform, "ERROR: A RectTransform Component could not be found by UIFlasher in GameObject " + gameObject.name);
         initialScale = targetTransform.localScale;
         if (flashOnAwake)
-            flashing = true;
+            enabled = true;
+        else
+            enabled = false;
     }
 
     private void Update()
     {
-        if (flashing)
-            FlashAnimation();
+        FlashAnimation();
     }
     #endregion
 
     #region Public Methods
     public void StartFlash()
     {
-        flashing = true;
+        enabled = true;
         elapsedTime = 0;
     }
 
     public void CancelFlash()
     {
-        if (flashing)
+        if (enabled)
             shouldStop = true;
     }
     #endregion
@@ -85,8 +85,8 @@ public class UIFlasher : MonoBehaviour
     private void Stop()
     {
         shouldStop = false;
-        flashing = false;
         targetTransform.localScale = initialScale;
+        enabled = false;
     }
 
     private float Interpolate(float start, float end, float u)
