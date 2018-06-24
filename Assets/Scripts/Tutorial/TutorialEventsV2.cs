@@ -54,10 +54,11 @@ public class TutorialEventsV2 : TutorialEvents
         UnityEngine.Assertions.Assert.IsNotNull(infoFountain, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (infoFountain) assigned!");
 
         events = new TutorialEvent[]{
-            ShowVlad,           // 00
-            ShowStatue,         // 01
-            ShowMausoleum,      // 02
-            ShowFountain        // 03
+            ShowVlad,               // 00
+            ShowMonumentsPrompt,    // 01
+            ShowStatue,             // 02
+            ShowMausoleum,          // 03
+            ShowFountain            // 04
         };
     }
 
@@ -128,40 +129,45 @@ public class TutorialEventsV2 : TutorialEvents
     }
 
     // 01
-    private void ShowStatue()
+    private void ShowMonumentsPrompt()
     {
         infoPromptController.ShowPrompt(infoPrompts[1]);
+    }
+
+    // 02
+    private void ShowStatue()
+    {
         infoStatue.SetActive(true);
         WaitForUser(ShowStatueOver);
     }
 
-    // 01 OVER
+    // 02 OVER
     private void ShowStatueOver()
     {
         infoStatue.SetActive(false);
     }
 
-    // 02
+    // 03
     private void ShowMausoleum()
     {
         infoMausoleum.SetActive(true);
         WaitForUser(ShowMausoleumOver);
     }
 
-    // 02 OVER
+    // 03 OVER
     private void ShowMausoleumOver()
     {
         infoMausoleum.SetActive(false);
     }
 
-    // 03
+    // 04
     private void ShowFountain()
     {
         infoFountain.SetActive(true);
         WaitForUser(ShowFountainOver);
     }
 
-    // 03 OVER
+    // 04 OVER
     private void ShowFountainOver()
     {
         infoFountain.SetActive(false);
