@@ -148,6 +148,10 @@ public class GameManager : MonoBehaviour
             UIManager.instance.ChangeRoundEndText("ROUND " + (aiSpawnController.GetCurrentRoundIndex() + 1) + " SUCCEEDED");
             UIManager.instance.ChangeEndBtnText("Go To Next Round");
             gameState = GameStates.OnRoundEnd;
+
+            StatsManager.instance.GetMaxCombo().GrantReward();
+            StatsManager.instance.GetTimeCombo().GrantReward();
+
         }
     }
 
@@ -160,6 +164,10 @@ public class GameManager : MonoBehaviour
             UIManager.instance.ChangeRoundEndText("YOU WIN!");
             UIManager.instance.ChangeEndBtnText("Go To Title Screen");
             gameState = GameStates.OnGameEnd;
+
+            //Generate final player statistics
+            StatsManager.instance.GetMaxCombo().GrantReward();
+            StatsManager.instance.GetTimeCombo().GrantReward();
         }
     }
 

@@ -33,6 +33,8 @@ public class StatsManager : MonoBehaviour
     [Header("Combos")]
     [SerializeField]
     private MaxCombo maxCombo;
+    [SerializeField]
+    private TimeCombo timeCombo;
 
     #endregion
 
@@ -193,6 +195,11 @@ public class StatsManager : MonoBehaviour
     public Combo GetMaxCombo()
     {
         return maxCombo;
+    }
+
+    public Combo GetTimeCombo()
+    {
+        return timeCombo;
     }
     #endregion
 }

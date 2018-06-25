@@ -1193,6 +1193,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224924943079218876}
   - component: {fileID: 114951580705271822}
+  - component: {fileID: 114970720560169576}
   m_Layer: 5
   m_Name: Combos
   m_TagString: Untagged
@@ -6066,7 +6067,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 003d61c83c57c8445829c00d1a00a045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  comboName: 
+  comboName: Max Combo
   description: Max number of consecutive defeated cuties
   reward: 500
   maxComboLimitTime: 2
@@ -6242,6 +6243,21 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114970720560169576
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1416175148160070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82a874f0dc8ccef45aec7c3bc2de08e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comboName: Time Combo
+  description: Game beating time
+  reward: 100
+  minimumBeatingTime: 500
 --- !u!114 &114970837612465336
 MonoBehaviour:
   m_ObjectHideFlags: 1

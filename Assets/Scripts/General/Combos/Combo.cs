@@ -44,12 +44,11 @@ public class Combo : MonoBehaviour
     {
 
     }
-    #endregion
 
-    #region Protected methods
-    protected virtual void GrantReward()
+    public virtual void GrantReward()
     {
         StatsManager.instance.IncreaseGlobalPoints(reward);
     }
     #endregion
+
 }

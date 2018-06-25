@@ -60,15 +60,14 @@ public class MaxCombo : Combo {
         maxComboUITimer.gameObject.SetActive(false);
         maxComboUITimer.fillAmount = 1;
     }
-    #endregion
 
-    #region Protected methods
-    protected override void GrantReward()
+    public override void GrantReward()
     {
-        Debug.Log("TODO: GrantReward() from: " + comboName + "has to be called at the end of the game");
+        Debug.Log("TODO: GrantReward() is sending to StatsManager: " + reward * maxComboRecord);
         StatsManager.instance.IncreaseGlobalPoints(reward * maxComboRecord);
     }
     #endregion
+
 
     #region Private methods
     private void UpdateUIMaxComboTimer()
