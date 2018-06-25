@@ -165,7 +165,6 @@ public class GameManager : MonoBehaviour
             UIManager.instance.ChangeEndBtnText("Go To Title Screen");
             gameState = GameStates.OnGameEnd;
 
-            //Generate final player statistics
             StatsManager.instance.GetMaxCombo().GrantReward();
             StatsManager.instance.GetTimeCombo().GrantReward();
         }

@@ -24,6 +24,8 @@ public class TimeCombo : Combo {
 
     public override void GrantReward()
     {
+        if ((int)(minimumBeatingTime - beatingTime) < 0)
+            beatingTime = minimumBeatingTime;
         Debug.Log("TODO: GrantReward() is sending to StatsManager: " + reward * (int)(minimumBeatingTime - beatingTime));
         StatsManager.instance.IncreaseGlobalPoints(reward * (int)(minimumBeatingTime - beatingTime));
     }
