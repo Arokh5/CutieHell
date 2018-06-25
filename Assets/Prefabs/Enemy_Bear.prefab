@@ -809,13 +809,13 @@ GameObject:
   - component: {fileID: 4700691076941678}
   - component: {fileID: 114700444110497872}
   - component: {fileID: 114626561581401496}
+  - component: {fileID: 114991655444845708}
+  - component: {fileID: 114123264923208892}
   - component: {fileID: 95635546357380784}
   - component: {fileID: 195185363159092638}
   - component: {fileID: 136149160522779052}
   - component: {fileID: 82091526541744270}
   - component: {fileID: 82813430409202384}
-  - component: {fileID: 114991655444845708}
-  - component: {fileID: 114123264923208892}
   m_Layer: 8
   m_Name: Enemy_Bear
   m_TagString: Untagged
@@ -2351,11 +2351,12 @@ MonoBehaviour:
   currentPath: []
   currentNode: {fileID: 0}
   agent: {fileID: 0}
+  initialSpeed: 0
   outlineThickness: 0.05
   attackLogic: {fileID: 114626561581401496}
   lastAttackRecivedDirection: {x: 0, y: 0, z: 0}
   timeSinceLastAttackRecived: 0
-  knockbackTime: 0.5
+  knockbackForceMultiplier: 0
   knockbackForce: 15
   baseHealth: 15
   evilKillReward: 10

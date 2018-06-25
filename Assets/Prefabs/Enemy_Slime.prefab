@@ -85,12 +85,13 @@ GameObject:
   - component: {fileID: 4855197175978678}
   - component: {fileID: 114281369883354696}
   - component: {fileID: 114178141976866938}
+  - component: {fileID: 114717388091579204}
+  - component: {fileID: 114307467650093880}
+  - component: {fileID: 114635717462804158}
   - component: {fileID: 95063420550164430}
   - component: {fileID: 195335205196000428}
   - component: {fileID: 135889793316833140}
-  - component: {fileID: 114717388091579204}
   - component: {fileID: 82829625976766150}
-  - component: {fileID: 114307467650093880}
   m_Layer: 8
   m_Name: Enemy_Slime
   m_TagString: Untagged
@@ -532,11 +533,12 @@ MonoBehaviour:
   currentPath: []
   currentNode: {fileID: 0}
   agent: {fileID: 0}
+  initialSpeed: 0
   outlineThickness: 0.05
   attackLogic: {fileID: 114178141976866938}
   lastAttackRecivedDirection: {x: 0, y: 0, z: 0}
   timeSinceLastAttackRecived: 0
-  knockbackTime: 0.5
+  knockbackForceMultiplier: 0
   knockbackForce: 25
   baseHealth: 5
   evilKillReward: 2
@@ -559,6 +561,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSource: {fileID: 82829625976766150}
   walkClip: {fileID: 8300000, guid: 2c5292ba5cf254919a6b9e2b18e04f49, type: 3}
+--- !u!114 &114635717462804158
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1245194488886842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a67bddfaa663274d8339042b37260a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114717388091579204
 MonoBehaviour:
   m_ObjectHideFlags: 1

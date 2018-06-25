@@ -156,13 +156,13 @@ GameObject:
   - component: {fileID: 4722523582441826}
   - component: {fileID: 114853848441839558}
   - component: {fileID: 114404706228728106}
+  - component: {fileID: 114804218402386404}
+  - component: {fileID: 114861395737797846}
   - component: {fileID: 82729359210663708}
   - component: {fileID: 95551480250669244}
   - component: {fileID: 195441599717727524}
   - component: {fileID: 136984457153044466}
-  - component: {fileID: 114804218402386404}
   - component: {fileID: 82156476253691038}
-  - component: {fileID: 114861395737797846}
   m_Layer: 8
   m_Name: Enemy_Conqueror
   m_TagString: Untagged
@@ -2260,8 +2260,13 @@ MonoBehaviour:
   currentPath: []
   currentNode: {fileID: 0}
   agent: {fileID: 0}
+  initialSpeed: 0
   outlineThickness: 0.0125
   attackLogic: {fileID: 114404706228728106}
+  lastAttackRecivedDirection: {x: 0, y: 0, z: 0}
+  timeSinceLastAttackRecived: 0
+  knockbackForceMultiplier: 0
+  knockbackForce: 0
   baseHealth: 25
   evilKillReward: 20
   getHitVFX: {fileID: 198944252932203134, guid: 2b5dad98c6fb37d4fb643b69e96bac3e,
