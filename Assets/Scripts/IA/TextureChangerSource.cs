@@ -16,7 +16,7 @@ public class TextureChangerSource : MonoBehaviour
     private void Awake()
     {
         textureChangers = new List<ITextureChanger>(128);
-        elements = elements = new Vector4[maxElements];
+        elements = new Vector4[maxElements];
         normalizedBlendStartRadii = new float[maxElements];
         activeElements = 0;
     }
