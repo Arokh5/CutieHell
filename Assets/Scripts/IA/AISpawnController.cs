@@ -92,7 +92,7 @@ public class AISpawnController : MonoBehaviour
         {
             if (waveDelayLeft > 0)
             {
-                rushingWave = InputManager.instance.GetPadUp();
+                rushingWave = AnyArrow();
                 waveDelayLeft -= Time.deltaTime * (rushingWave ? waveDelayRushSpeed : 1);
                 if (waveDelayLeft <= 0)
                 {
@@ -285,6 +285,14 @@ public class AISpawnController : MonoBehaviour
     #endregion
 
     #region Private Methods
+    private bool AnyArrow()
+    {
+        return InputManager.instance.GetPadUp()
+            || InputManager.instance.GetPadDown()
+            || InputManager.instance.GetPadLeft()
+            || InputManager.instance.GetPadRight();
+    }
+
     private void HandleActiveWaves()
     {
         for (int i = 0; i < activeWaves.Count; ++i)
