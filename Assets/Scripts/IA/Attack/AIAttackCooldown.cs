@@ -53,7 +53,7 @@ public class AIAttackCooldown : AIAttackLogic
 
     public override bool IsInAttackRange(Vector3 navigationTarget)
     {
-        return Vector3.Distance(transform.position, navigationTarget) < attackRange;
+        return Vector3.Distance(this.transform.position, navigationTarget) < attackRange;
     }
 
     public void LaunchAttack()
