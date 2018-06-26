@@ -68,8 +68,7 @@ public class PauseMenuController : MonoBehaviour {
     {
         if (InputManager.instance.GetXButtonDown())
         {
-            Time.timeScale = 1.0f;
-
+            
             switch (pauseIndex)
             {
                 case 0:
@@ -85,6 +84,7 @@ public class PauseMenuController : MonoBehaviour {
                     break;
 
                 case 2:
+                    Time.timeScale = 1.0f;
                     GameManager.instance.gameState = GameManager.GameStates.OnGameEnd;
                     break;
             }

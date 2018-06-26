@@ -260,6 +260,7 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
+        Time.timeScale = 1.0f;
         gameIsPaused = false;
         gameState = GameStates.InGame;
         SceneManager.LoadScene("Game", LoadSceneMode.Single);
