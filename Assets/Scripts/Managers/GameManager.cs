@@ -151,6 +151,7 @@ public class GameManager : MonoBehaviour
 
             StatsManager.instance.GetMaxCombo().GrantReward();
             StatsManager.instance.GetTimeCombo().GrantReward();
+            StatsManager.instance.GetReceivedDamageCombo().GrantReward();
 
         }
     }
@@ -167,6 +168,8 @@ public class GameManager : MonoBehaviour
 
             StatsManager.instance.GetMaxCombo().GrantReward();
             StatsManager.instance.GetTimeCombo().GrantReward();
+            StatsManager.instance.GetReceivedDamageCombo().GrantReward();
+
         }
     }
 

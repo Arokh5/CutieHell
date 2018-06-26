@@ -35,6 +35,8 @@ public class StatsManager : MonoBehaviour
     private MaxCombo maxCombo;
     [SerializeField]
     private TimeCombo timeCombo;
+    [SerializeField]
+    private ReceivedDamageCombo receivedDamageCombo;
 
     #endregion
 
@@ -200,6 +202,11 @@ public class StatsManager : MonoBehaviour
     public Combo GetTimeCombo()
     {
         return timeCombo;
+    }
+
+    public ReceivedDamageCombo GetReceivedDamageCombo()
+    {
+        return receivedDamageCombo;
     }
     #endregion
 }

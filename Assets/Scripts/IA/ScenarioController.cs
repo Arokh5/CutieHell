@@ -74,6 +74,12 @@ public class ScenarioController : MonoBehaviour
     public void OnNewRoundStarted()
     {
         lastSpawnIsOver = false;
+
+        for (int i = 0; i < zoneControllers.Count; ++i)
+        {
+            if (zoneControllers[i].hasMonument)
+                StatsManager.instance.GetReceivedDamageCombo().AddMonumentRoundBaseHealth(zoneControllers[i].monument.GetCurrentHealth());
+        }
     }
 
     public void OnLastEnemySpawned()
@@ -104,6 +110,15 @@ public class ScenarioController : MonoBehaviour
         {
             GameManager.instance.GetPlayer1().OnRoundOver();
             spawnController.StopRound();
+
+            for (int i = 0; i < zoneControllers.Count; i++)
+            {
+                if (zoneControllers[i].hasMonument)
+                {
+                    StatsManager.instance.GetReceivedDamageCombo().AddMonumentRoundFinalHealth(zoneControllers[i].monument.GetCurrentHealth());
+                }
+            }
+
             GameManager.instance.OnRoundWon();
             StatsManager.instance.WinRoundPoints();
             StatsManager.instance.SetRoundState(false);
