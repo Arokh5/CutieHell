@@ -16,8 +16,10 @@ public class SlimeWalkSpeedRandomizer : MonoBehaviour
         UnityEngine.Assertions.Assert.IsNotNull(animator, "ERROR: An Animator Component could not be found by SlimeWalkSpeedRandomizer in GameObject " + gameObject.name);
     }
 
-    private void Start()
+    private void OnEnable()
     {
+        if(animator == null)
+            animator = GetComponent<Animator>();
         float speed = Random.Range(minValue, maxValue);
         animator.SetFloat("Speed", speed);
     }
