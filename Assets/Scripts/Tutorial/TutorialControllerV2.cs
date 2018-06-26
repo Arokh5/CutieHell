@@ -80,13 +80,11 @@ public class TutorialControllerV2 : TutorialController
 
         if (!gamePaused && GameManager.instance.gameIsPaused)
         {
-            Debug.Log("GP true");
             gamePaused = true;
             TutorialPause();
         }
         else if (gamePaused && !GameManager.instance.gameIsPaused)
         {
-            Debug.Log("GP false");
             gamePaused = false;
             TutorialPause();
             crosshair.SetActive(false);

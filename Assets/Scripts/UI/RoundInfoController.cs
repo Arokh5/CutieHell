@@ -11,9 +11,7 @@ public class RoundInfoController : MonoBehaviour
     [SerializeField]
     private Text enemiesCountText;
     [SerializeField]
-    private Image waveDelayBackgroundImage;
-    [SerializeField]
-    private Image waveDelayFillImage;
+    private FillIndicator waveDelayFillIndicator;
     [SerializeField]
     private Text rushPrompt;
 
@@ -28,8 +26,7 @@ public class RoundInfoController : MonoBehaviour
         UnityEngine.Assertions.Assert.IsNotNull(currentWaveText, "ERROR: currentWaveText not assigned for RoundInfoController in gameObject '" + gameObject.name + "'");
         UnityEngine.Assertions.Assert.IsNotNull(totalWavesText, "ERROR: totalWavesText not assigned for RoundInfoController in gameObject '" + gameObject.name + "'");
         UnityEngine.Assertions.Assert.IsNotNull(enemiesCountText, "ERROR: enemiesCountText not assigned for RoundInfoController in gameObject '" + gameObject.name + "'");
-        UnityEngine.Assertions.Assert.IsNotNull(waveDelayBackgroundImage, "ERROR: waveDelayBackgroundImage not assigned for RoundInfoController in gameObject '" + gameObject.name + "'");
-        UnityEngine.Assertions.Assert.IsNotNull(waveDelayFillImage, "ERROR: waveDelayFillImage not assigned for RoundInfoController in gameObject '" + gameObject.name + "'");
+        UnityEngine.Assertions.Assert.IsNotNull(waveDelayFillIndicator, "ERROR: waveDelayFillIndicator not assigned for RoundInfoController in gameObject '" + gameObject.name + "'");
     }
     #endregion
 
@@ -79,13 +76,12 @@ public class RoundInfoController : MonoBehaviour
     public void SetWaveDelayFill(float normalizedFill)
     {
         normalizedFill = Mathf.Clamp01(normalizedFill);
-        waveDelayFillImage.fillAmount = normalizedFill;
+        waveDelayFillIndicator.SetFill(normalizedFill);
     }
 
     public void SetWaveDelayVisibility(bool isVisible)
     {
-        waveDelayBackgroundImage.enabled = isVisible;
-        waveDelayFillImage.enabled = isVisible;
+        waveDelayFillIndicator.enabled = isVisible;
     }
 
     public void SetRushPromptVisibility(bool isVisible)
