@@ -37,9 +37,8 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySfxClip(AudioClip efxClip, float pitch = 1f)
     {
-        sfxSource.clip = efxClip;
         sfxSource.pitch = pitch;
-        sfxSource.Play();
+        sfxSource.PlayOneShot(efxClip);
     }
 
     #endregion
