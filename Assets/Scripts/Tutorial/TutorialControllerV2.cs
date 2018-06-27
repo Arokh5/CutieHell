@@ -166,11 +166,8 @@ public class TutorialControllerV2 : TutorialController
         player.transform.rotation = playerStartingRot;
         Camera.main.GetComponent<CameraController>().SetCameraXAngle(0);
         tutorialUIParent.SetActive(false);
-        gameObject.SetActive(false);
 
-        player.TransitionToState(playerDefaultState);
-
-        tutorialEvents.OnTutorialEnded();
+        tutorialEvents.OnTutorialWillEnd();
 
         endMessage.SetActive(true);
         Invoke("TutorialEnder", endMessageDuration);
@@ -187,7 +184,7 @@ public class TutorialControllerV2 : TutorialController
         endMessage.SetActive(false);
         stripes.HideAnimated();
         player.TransitionToState(playerDefaultState);
-        GameManager.instance.OnTutorialFinished();
+        tutorialEvents.OnTutorialEnded();
     }
 
     private void StartTutorial()

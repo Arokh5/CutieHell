@@ -69,11 +69,26 @@ public class TutorialEventsV2 : TutorialEvents
     [SerializeField]
     private GameObject statueBanner;
 
+    [Header("13-ShowShieldIcon")]
+    [SerializeField]
+    private GameObject infoShieldIcon;
+    [SerializeField]
+    private GameObject objectiveMarkers;
+
+    [Header("15-PlayerStartedMoving")]
+    [SerializeField]
+    private GameObject playerExitTrigger;
+
+    [Header("16-ArrivedAtFountain")]
+    [SerializeField]
+    private GameObject fountainEntryTrigger;
+
     private TutorialController tutorialController;
     private TutorialEvent[] events;
     private Player player;
     private bool waitingForPlayer = false;
     private TutorialEvent waitEndedCallback = null;
+    private bool tutorialContinues = false;
     #endregion
 
     #region MonoBehaviour Methods
@@ -105,6 +120,9 @@ public class TutorialEventsV2 : TutorialEvents
         UnityEngine.Assertions.Assert.IsNotNull(infoStatueHealth, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (infoStatueHealth) assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(statueBanner, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (statueBanner) assigned!");
 
+        UnityEngine.Assertions.Assert.IsNotNull(infoShieldIcon, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (infoShieldIcon) assigned!");
+        UnityEngine.Assertions.Assert.IsNotNull(objectiveMarkers, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (objectiveMarkers) assigned!");
+
         events = new TutorialEvent[]{
             ShowVlad,               // 00
             ShowMonumentsPrompt,    // 01
@@ -119,14 +137,18 @@ public class TutorialEventsV2 : TutorialEvents
             ShowPathFountain,       // 10
             ShowPathMausoleum,      // 11
             ShowPathStatue,         // 12
-            ShowReadyPrompt,        // 13
-            FinishTutorial          // 14
+            ShowShieldIcon,         // 13
+            FinishTutorial,         // 14
+            PlayerStartedMoving,    // 15
+            ArrivedAtFountain       // 16
         };
     }
 
     private void Start()
     {
         player = GameManager.instance.GetPlayer1();
+        playerExitTrigger.SetActive(false);
+        fountainEntryTrigger.SetActive(false);
     }
     #endregion
 
@@ -149,12 +171,25 @@ public class TutorialEventsV2 : TutorialEvents
         skipPrompt.SetActive(true);
     }
 
-    public override void OnTutorialEnded()
+    public void OnTutorialWillEnd()
     {
-        crosshair.SetActive(true);
         continuePrompt.SetActive(false);
         skipPrompt.SetActive(false);
         SetNormalGameUIVisibility(true);
+        crosshair.SetActive(true);
+    }
+
+    public override void OnTutorialEnded()
+    {
+        if (!tutorialContinues)
+        {
+            gameObject.SetActive(false);
+            GameManager.instance.OnTutorialFinished();
+        }
+        else
+        {
+            GameManager.instance.OnTutorialFinished(TutorialEndFadeCallback);
+        }
     }
 
     public override void LaunchEvent(int eventIndex)
@@ -340,22 +375,47 @@ public class TutorialEventsV2 : TutorialEvents
     }
 
     // 13
-    private void ShowReadyPrompt()
+    private void ShowShieldIcon()
     {
         infoPromptController.ShowPrompt(infoPrompts[4]);
-        WaitForUser(ShowPathStatueOver);
+        infoShieldIcon.SetActive(true);
+        objectiveMarkers.SetActive(true);
+        WaitForUser(ShowShieldIconOver);
     }
 
     // 13 OVER
-    private void ShowReadyPromptOver()
+    private void ShowShieldIconOver()
     {
+        infoShieldIcon.SetActive(false);
         infoPromptController.HidePrompt();
     }
 
     // 14
     private void FinishTutorial()
     {
+        tutorialContinues = true;
+        playerExitTrigger.transform.position = player.transform.position;
+        playerExitTrigger.SetActive(true);
         tutorialController.RequestEndTutorial();
+    }
+
+    // 15
+    private void PlayerStartedMoving()
+    {
+        fountainEntryTrigger.SetActive(true);
+    }
+
+    // 16
+    private void ArrivedAtFountain()
+    {
+        ArrivedAtFountainOver();
+    }
+
+    // 16 OVER
+    private void ArrivedAtFountainOver()
+    {
+        GameManager.instance.StartNextRound();
+        gameObject.SetActive(false);
     }
 
     #endregion
@@ -382,6 +442,11 @@ public class TutorialEventsV2 : TutorialEvents
         {
             go.SetActive(visible);
         }
+    }
+
+    private void TutorialEndFadeCallback()
+    {
+        infoPromptController.ShowPrompt(infoPrompts[5]);
     }
     #endregion
 }

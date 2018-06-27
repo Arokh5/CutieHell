@@ -27,10 +27,7 @@ public class MonumentIndicator : MonoBehaviour {
         UnityEngine.Assertions.Assert.IsNotNull(bannerImage, "ERROR: MonumentIndicator in gameObject '" + gameObject.name + "' doesn't have bannerImage assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(fillImage, "ERROR: MonumentIndicator in gameObject '" + gameObject.name + "' doesn't have fillImage assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(iconConquered, "ERROR: iconConquered could not be unassigned on the GameObject " + gameObject.name);
-    }
 
-    private void Start()
-    {
         if (startClosed)
             Close();
     }

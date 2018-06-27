@@ -282,6 +282,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1340518666838902
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4267423945720984}
+  - component: {fileID: 114780191027469990}
+  m_Layer: 0
+  m_Name: 14-FinishTutorial
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
 --- !u!1 &1344882811333528
 GameObject:
   m_ObjectHideFlags: 1
@@ -323,8 +339,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4959109974882634}
   - component: {fileID: 114798346587317694}
+  - component: {fileID: 135564010716968638}
   m_Layer: 0
-  m_Name: 14-FinishTutorial
+  m_Name: 16-ArrivedAtFountain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -580,6 +597,23 @@ GameObject:
   - component: {fileID: 114427506281993032}
   m_Layer: 0
   m_Name: 06-ShowSpawnerLeft
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!1 &1661641457440758
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4656966517364350}
+  - component: {fileID: 114632371739864398}
+  - component: {fileID: 135308932862568086}
+  m_Layer: 0
+  m_Name: 15-PlayerStartedMoving
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -959,6 +993,19 @@ Transform:
   m_Father: {fileID: 4898560074868138}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4267423945720984
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1340518666838902}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4915807162522284}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4293141271335664
 Transform:
   m_ObjectHideFlags: 1
@@ -1114,8 +1161,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1038519870715934}
-  m_LocalRotation: {x: -0.14734446, y: 0.1653267, z: -0.024988329, w: -0.9748499}
-  m_LocalPosition: {x: 13.721878, y: 52.44206, z: -98.966705}
+  m_LocalRotation: {x: 0.133934, y: -0.17589164, z: 0.024162848, w: 0.9749564}
+  m_LocalPosition: {x: 13.721874, y: 52.442055, z: -98.966705}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4829879056090166}
@@ -1202,6 +1249,19 @@ Transform:
   m_Father: {fileID: 4915807162522284}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4656966517364350
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1661641457440758}
+  m_LocalRotation: {x: 0, y: -0.3420201, z: 0, w: 0.9396927}
+  m_LocalPosition: {x: 0.31, y: 36.52, z: -70.32}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4915807162522284}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: -40, z: 0}
 --- !u!4 &4672946026517650
 Transform:
   m_ObjectHideFlags: 1
@@ -1439,6 +1499,8 @@ Transform:
   - {fileID: 4580842779920522}
   - {fileID: 4791599235207514}
   - {fileID: 4345708586127294}
+  - {fileID: 4267423945720984}
+  - {fileID: 4656966517364350}
   - {fileID: 4959109974882634}
   m_Father: {fileID: 4124070079434272}
   m_RootOrder: 1
@@ -1475,12 +1537,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1348184228720152}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -20.61, y: 33, z: 40}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4915807162522284}
-  m_RootOrder: 14
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &82325985891617908
 AudioSource:
@@ -1599,6 +1661,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   infoPromptController: {fileID: 0}
   infoPrompts:
   - You are Vlad. And you are tired of cuteness...
@@ -1606,6 +1670,7 @@ MonoBehaviour:
   - Cute enemies will spawn from 3 locations...
   - Cuties will attack one Monument at a time...
   - ARE YOU READY?
+  - Let's go and protect the Fountain
   infoStatue: {fileID: 0}
   infoMausoleum: {fileID: 0}
   infoFountain: {fileID: 0}
@@ -1613,8 +1678,18 @@ MonoBehaviour:
   infoSpawnerCenter: {fileID: 0}
   infoSpawnerRight: {fileID: 0}
   infoPathFountain: {fileID: 0}
+  infoFountainHealth: {fileID: 0}
+  fountainBanner: {fileID: 0}
   infoPathMausoleum: {fileID: 0}
+  infoMausoleumHealth: {fileID: 0}
+  mausoleumBanner: {fileID: 0}
   infoPathStatue: {fileID: 0}
+  infoStatueHealth: {fileID: 0}
+  statueBanner: {fileID: 0}
+  infoShieldIcon: {fileID: 0}
+  objectiveMarkers: {fileID: 0}
+  playerExitTrigger: {fileID: 1661641457440758}
+  fountainEntryTrigger: {fileID: 1348184228720152}
 --- !u!114 &114083801095204346
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2233,6 +2308,24 @@ MonoBehaviour:
     FarClipPlane: 5000
     Dutch: 0
   m_ComponentOwner: {fileID: 4910120576686952}
+--- !u!114 &114632371739864398
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1661641457440758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24fa1ee0435449048b72f70ad6337ae6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 2
+  eventIndex: 15
+  deactivateOnLaunch: 1
+  triggerLayerMask:
+    serializedVersion: 2
+    m_Bits: 32768
+  enemyCount: -1
 --- !u!114 &114668315247117028
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2344,12 +2437,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   enemyCount: -1
---- !u!114 &114798346587317694
+--- !u!114 &114780191027469990
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1348184228720152}
+  m_GameObject: {fileID: 1340518666838902}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 24fa1ee0435449048b72f70ad6337ae6, type: 3}
@@ -2361,6 +2454,24 @@ MonoBehaviour:
   triggerLayerMask:
     serializedVersion: 2
     m_Bits: 0
+  enemyCount: -1
+--- !u!114 &114798346587317694
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1348184228720152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24fa1ee0435449048b72f70ad6337ae6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  eventIndex: 16
+  deactivateOnLaunch: 1
+  triggerLayerMask:
+    serializedVersion: 2
+    m_Bits: 32768
   enemyCount: -1
 --- !u!114 &114813337077347968
 MonoBehaviour:
@@ -2461,6 +2572,30 @@ MonoBehaviour:
     FarClipPlane: 5000
     Dutch: 0
   m_ComponentOwner: {fileID: 4759694232040824}
+--- !u!135 &135308932862568086
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1661641457440758}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &135564010716968638
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1348184228720152}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 17
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!320 &320400532580166328
 PlayableDirector:
   m_ObjectHideFlags: 1
@@ -2558,7 +2693,7 @@ PlayableDirector:
   - key: {fileID: 114775593131072430, guid: d80adea7988fbac44bc5ff406e06a64c, type: 2}
     value: {fileID: 1131356967009214}
   - key: {fileID: 114366177500855562, guid: d80adea7988fbac44bc5ff406e06a64c, type: 2}
-    value: {fileID: 1348184228720152}
+    value: {fileID: 1340518666838902}
   m_ExposedReferences:
     m_References:
     - 5b825bb706a256644a5acf82ab91cb9f: {fileID: 0}
