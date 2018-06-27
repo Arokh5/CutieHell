@@ -76,6 +76,8 @@ public class RoundInfoController : MonoBehaviour
     public void SetWaveDelayFill(float normalizedFill)
     {
         normalizedFill = Mathf.Clamp01(normalizedFill);
+        if (normalizedFill == 1.0f)
+            normalizedFill = 0.0f;
         waveDelayFillIndicator.SetFill(normalizedFill);
     }
 
