@@ -119,7 +119,7 @@ public class GameManager : MonoBehaviour
     #region Public Methods
     public void OnTutorialFinished(FadeCallback callback = null)
     {
-        screenFadeController.FadeToTransparent(callback != null ? callback : StartNextRound);
+        screenFadeController.FadeToTransparent(callback != null ? callback : null); // StartNextRound);
     }
 
     public void OnRoundWon()
