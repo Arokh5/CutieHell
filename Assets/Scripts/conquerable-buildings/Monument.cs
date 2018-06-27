@@ -34,7 +34,7 @@ public class Monument : Building
     {
         base.TakeDamage(damage, attacktype);
         float normalizedDamage = (baseHealth - currentHealth) / baseHealth;
-        monumentIndicator.SetFill(normalizedDamage);
+        monumentIndicator.SetFill(1.0f - normalizedDamage);
         zoneController.InformMonumentDamage(normalizedDamage);
     }
     
