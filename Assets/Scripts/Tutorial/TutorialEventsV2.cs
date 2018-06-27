@@ -48,14 +48,26 @@ public class TutorialEventsV2 : TutorialEvents
     [Header("10-ShowPathFountain")]
     [SerializeField]
     private GameObject infoPathFountain;
+    [SerializeField]
+    private GameObject infoFountainHealth;
+    [SerializeField]
+    private GameObject fountainBanner;
 
     [Header("11-ShowPathMausoleum")]
     [SerializeField]
     private GameObject infoPathMausoleum;
+    [SerializeField]
+    private GameObject infoMausoleumHealth;
+    [SerializeField]
+    private GameObject mausoleumBanner;
 
     [Header("12-ShowPathStatue")]
     [SerializeField]
     private GameObject infoPathStatue;
+    [SerializeField]
+    private GameObject infoStatueHealth;
+    [SerializeField]
+    private GameObject statueBanner;
 
     private TutorialController tutorialController;
     private TutorialEvent[] events;
@@ -78,12 +90,20 @@ public class TutorialEventsV2 : TutorialEvents
         UnityEngine.Assertions.Assert.IsNotNull(infoStatue, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (infoStatue) assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(infoMausoleum, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (ìnfoMausoleum) assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(infoFountain, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (infoFountain) assigned!");
+
         UnityEngine.Assertions.Assert.IsNotNull(infoSpawnerLeft, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (infoSpawnerLeft) assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(infoSpawnerCenter, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (infoSpawnerCenter) assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(infoSpawnerRight, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (infoSpawnerRight) assigned!");
+
         UnityEngine.Assertions.Assert.IsNotNull(infoPathFountain, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (infoPathFountain) assigned!");
+        UnityEngine.Assertions.Assert.IsNotNull(infoFountainHealth, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (infoFountainHealth) assigned!");
+        UnityEngine.Assertions.Assert.IsNotNull(fountainBanner, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (fountainBanner) assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(infoPathMausoleum, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (infoPathMausoleum) assigned!");
+        UnityEngine.Assertions.Assert.IsNotNull(infoMausoleumHealth, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (infoMausoleumHealth) assigned!");
+        UnityEngine.Assertions.Assert.IsNotNull(mausoleumBanner, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (mausoleumBanner) assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(infoPathStatue, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (infoPathStatue) assigned!");
+        UnityEngine.Assertions.Assert.IsNotNull(infoStatueHealth, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (infoStatueHealth) assigned!");
+        UnityEngine.Assertions.Assert.IsNotNull(statueBanner, "ERROR: The TutorialEventsV2 in gameObject '" + gameObject.name + "' doesn't have a GameObject (statueBanner) assigned!");
 
         events = new TutorialEvent[]{
             ShowVlad,               // 00
@@ -274,6 +294,8 @@ public class TutorialEventsV2 : TutorialEvents
     private void ShowPathFountain()
     {
         infoPathFountain.SetActive(true);
+        infoFountainHealth.SetActive(true);
+        fountainBanner.SetActive(true);
         WaitForUser(ShowPathFountainOver);
     }
 
@@ -281,12 +303,15 @@ public class TutorialEventsV2 : TutorialEvents
     private void ShowPathFountainOver()
     {
         infoPathFountain.SetActive(false);
+        infoFountainHealth.SetActive(false);
     }
 
     // 11
     private void ShowPathMausoleum()
     {
         infoPathMausoleum.SetActive(true);
+        infoMausoleumHealth.SetActive(true);
+        mausoleumBanner.SetActive(true);
         WaitForUser(ShowPathMausoleumOver);
     }
 
@@ -294,12 +319,15 @@ public class TutorialEventsV2 : TutorialEvents
     private void ShowPathMausoleumOver()
     {
         infoPathMausoleum.SetActive(false);
+        infoMausoleumHealth.SetActive(false);
     }
 
     // 12
     private void ShowPathStatue()
     {
         infoPathStatue.SetActive(true);
+        infoStatueHealth.SetActive(true);
+        statueBanner.SetActive(true);
         WaitForUser(ShowPathStatueOver);
     }
 
@@ -307,6 +335,7 @@ public class TutorialEventsV2 : TutorialEvents
     private void ShowPathStatueOver()
     {
         infoPathStatue.SetActive(false);
+        infoStatueHealth.SetActive(false);
         infoPromptController.HidePrompt();
     }
 

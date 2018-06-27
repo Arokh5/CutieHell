@@ -82,9 +82,10 @@ public class MonumentIndicator : MonoBehaviour {
 
     private void Close()
     {
+        marker.gameObject.SetActive(false);
+        return;
         bannerImage.sprite = closedSprite;
         fillImage.enabled = false;
-        marker.gameObject.SetActive(false);
     }
     #endregion
 }
