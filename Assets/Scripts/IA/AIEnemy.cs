@@ -54,6 +54,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private ParticleSystem getHitVFX;
     [SerializeField]
     private ParticleSystem deathVFX;
+    [SerializeField]
+    private AudioClip deathSFX;
     [HideInInspector]
     public float heightOffset;
 
@@ -93,11 +95,6 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        if (active)
-        {
-            GetComponent<EnemySFX>().GetWalkSource().Play();
-            active = false;
-        }
         Knockback();
         // Motion through NavMeshAgent
         if (currentTarget && agent.enabled)
@@ -113,7 +110,6 @@ public class AIEnemy : MonoBehaviour, IDamageable
                 if (enemyType == EnemyType.RANGE && attackLogic.IsInAttackRange(agent.destination))
                 {
                     animator.SetBool("Move", false);
-                    GetComponent<EnemySFX>().GetWalkSource().Stop();
                 }
             }
             else
@@ -137,7 +133,6 @@ public class AIEnemy : MonoBehaviour, IDamageable
             if (enemyType == EnemyType.RANGE && !attackLogic.IsInAttackRange(agent.destination))
             {
                 animator.SetBool("Move", true);
-                GetComponent<EnemySFX>().GetWalkSource().Play();
             }
         }
 
@@ -250,7 +245,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
             SetIsTargetable(false);
             killingHit = attacktype;
             animator.SetBool("DieStandard", true);
-            GetComponent<EnemySFX>().GetWalkSource().Stop();
+            SoundManager.instance.PlaySfxClip(deathSFX);
             //Die();
         }
         else
