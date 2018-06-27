@@ -7,6 +7,14 @@ public class AIAttackDPS : AIAttackLogic {
     #region Fields
     public float attackRange;
     public float dps;
+    private Animator animator;
+    #endregion
+
+    #region MonoBehaviour Methods
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
     #endregion
 
     #region Public Methods
@@ -14,6 +22,8 @@ public class AIAttackDPS : AIAttackLogic {
     {
         if (IsInAttackRange(navigationTarget))
         {
+            animator.SetTrigger("Attack");
+            this.transform.LookAt(target.transform.position);
             Attack(target);
         }
     }

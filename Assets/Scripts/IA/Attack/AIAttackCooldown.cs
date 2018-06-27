@@ -40,6 +40,7 @@ public class AIAttackCooldown : AIAttackLogic
             if (Time.time - lastAttackTime > cooldownDuration)
             {
                 animator.SetTrigger("Attack");
+                this.transform.LookAt(attackTarget.transform.position);
                 /* Actual attack will be launched by the Animation */
                 this.attackTarget = attackTarget;
                 lastAttackTime = Time.time;
