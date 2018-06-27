@@ -15,7 +15,7 @@ public class AttackBearAnimatorController : StateMachineBehaviour {
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if(stateInfo.normalizedTime >= 0.40f && !flag)
+        if(stateInfo.normalizedTime >= 0.31f && !flag)
         {
             flag = true;
             animator.gameObject.GetComponent<AIAttackCooldown>().LaunchAttack();
