@@ -15,9 +15,11 @@ public class EnemyCanvasController : MonoBehaviour
     private float fadeOutBaseTime;
     private float fadeOutTime;
     [SerializeField]
-    private Image healthImage;
-    [SerializeField]
     private Image healthContainer;
+    [SerializeField]
+    private Image healthFill;
+    [SerializeField]
+    private Image healthIcon;
     private float baseHealth;
     private float time;
     private bool fadeOut;
@@ -58,14 +60,15 @@ public class EnemyCanvasController : MonoBehaviour
 	
     public void SetHealthBar()
     {
-        healthImage.fillAmount = enemyScript.GetCurrentHealth() / baseHealth;
+        healthFill.fillAmount = enemyScript.GetCurrentHealth() / baseHealth;
     }
 
     public void EnableHealthBar(bool takeDamage)
     {
         healthBarCanvas.gameObject.SetActive(true);
-        healthImage.color = Color.white;
         healthContainer.color = Color.white;
+        healthFill.color = Color.white;
+        healthIcon.color = Color.white;
 
         if (takeDamage || (!takeDamage && time <= targetActiveTime))
         {
@@ -90,8 +93,10 @@ public class EnemyCanvasController : MonoBehaviour
     private void HealthBarFadeOut()
     {
         fadeOutTime -= Time.deltaTime;
-        healthImage.color = Color.Lerp(Color.white, transparent, 1 - (fadeOutTime / fadeOutBaseTime));
-        healthContainer.color = Color.Lerp(Color.white, transparent, 1 - (fadeOutTime / fadeOutBaseTime));
+        Color currentColor = Color.Lerp(Color.white, transparent, 1 - (fadeOutTime / fadeOutBaseTime));
+        healthContainer.color = currentColor;
+        healthFill.color = currentColor;
+        healthIcon.color = currentColor;
 
         if (fadeOutTime <= 0)
         {

@@ -7,7 +7,6 @@ using UnityEditor;
 
 public class GameManager : MonoBehaviour
 {
-
     #region Fields
 
     public static GameManager instance;
@@ -113,15 +112,14 @@ public class GameManager : MonoBehaviour
         if (pause)
         {
             OnGamePaused();
-            tutorialController.PauseTutorial(true);
         }
     }
     #endregion
 
     #region Public Methods
-    public void OnTutorialFinished()
+    public void OnTutorialFinished(FadeCallback callback = null)
     {
-        screenFadeController.FadeToTransparent(StartNextRound);
+        screenFadeController.FadeToTransparent(callback != null ? callback : null); // StartNextRound);
     }
 
     public void OnRoundWon()
@@ -197,11 +195,15 @@ public class GameManager : MonoBehaviour
     {
         if (gameState == GameStates.OnGamePaused)
         {
-            crosshair.SetActive(true);
             if (tutorialController.IsRunning())
+            {
                 tutorialPauseMenuController.gameObject.SetActive(false);
+            }
             else
+            {
                 pauseMenuController.gameObject.SetActive(false);
+                crosshair.SetActive(true);
+            }
 
             Time.timeScale = 1.0f;
 
@@ -271,15 +273,14 @@ public class GameManager : MonoBehaviour
         crosshair.SetActive(activate);
     }
 
-    #endregion
-
-    #region Private Methods
-    private void StartNextRound()
+    public void StartNextRound()
     {
         aiSpawnController.StartNextRound();
         UIManager.instance.indicatorsController.OnNewRoundStarted();
     }
+    #endregion
 
+    #region Private Methods
 #if UNITY_EDITOR
     private void EditorPaused(PauseState state)
     {
@@ -287,6 +288,5 @@ public class GameManager : MonoBehaviour
             OnApplicationPause(true);
     }
 #endif
-
-#endregion
+    #endregion
 }

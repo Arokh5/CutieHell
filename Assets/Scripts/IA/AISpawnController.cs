@@ -174,7 +174,6 @@ public class AISpawnController : MonoBehaviour
             UIManager.instance.roundInfoController.SetWaveDelayVisibility(false);
             UIManager.instance.roundInfoController.SetRushPromptVisibility(false);
             UIManager.instance.roundInfoController.SetWaveIndicator(currentWaveIndex + 1, roundInfo.waveInfos.Length);
-            Debug.Log("Starting wave (index) " + currentWaveIndex + " in round (index) " + currentRoundIndex + "!");
             return true;
         }
         return false;

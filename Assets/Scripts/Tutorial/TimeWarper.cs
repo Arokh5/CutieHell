@@ -20,6 +20,14 @@ public class TimeWarper : MonoBehaviour
             UpdateTimeScale();
         }
     }
+
+#if UNITY_EDITOR
+    private void OnDestroy()
+    {
+        Time.timeScale = 1.0f;
+    }
+#endif
+
     #endregion
 
     #region Private Methods
