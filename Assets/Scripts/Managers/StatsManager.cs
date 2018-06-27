@@ -38,6 +38,9 @@ public class StatsManager : MonoBehaviour
     [SerializeField]
     private ReceivedDamageCombo receivedDamageCombo;
 
+    [Header("Screens")]
+    [SerializeField]
+    private RoundScore roundScore;
     #endregion
 
     #region Properties
