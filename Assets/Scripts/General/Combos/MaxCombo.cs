@@ -12,6 +12,8 @@ public class MaxCombo : Combo {
     private Image maxComboUITimer;
     [SerializeField]
     private Text maxComboUICounter;
+    [SerializeField]
+    RoundScore roundScore;
     #endregion
 
     #region MonoBehaviour methods
@@ -60,15 +62,18 @@ public class MaxCombo : Combo {
         maxComboUITimer.gameObject.SetActive(false);
         maxComboUITimer.fillAmount = 1;
     }
-    #endregion
 
-    #region Protected methods
-    protected override void GrantReward()
+    public override void GrantReward()
     {
-        Debug.Log("TODO: GrantReward() from: " + comboName + "has to be called at the end of the game");
-        StatsManager.instance.IncreaseGlobalPoints(reward * maxComboRecord);
+        score = reward * maxComboRecord;
+
+        roundScore.SetUpConsecutiveKillingsCount(maxComboRecord);
+        roundScore.SetUpConsecutiveKillingScore(score);
+
+        StatsManager.instance.IncreaseGlobalPoints(score);
     }
     #endregion
+
 
     #region Private methods
     private void UpdateUIMaxComboTimer()

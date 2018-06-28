@@ -7,6 +7,7 @@ public class Combo : MonoBehaviour
     public string comboName;
     public string description;
     public int reward;
+    public int score;
     protected int currentCount = 0;
     protected bool comboEnabled = false;
     #endregion
@@ -44,12 +45,12 @@ public class Combo : MonoBehaviour
     {
 
     }
-    #endregion
 
-    #region Protected methods
-    protected virtual void GrantReward()
+    public virtual void GrantReward()
     {
         StatsManager.instance.IncreaseGlobalPoints(reward);
     }
+
     #endregion
+
 }

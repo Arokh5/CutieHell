@@ -97,7 +97,6 @@ public class UIManager : MonoBehaviour
         strongComboColorModifier = 0f;
         badComboscaleModifier = 0f;
         badComboColorModifier = 0f;
-        ResetEnemiesCounters();
     }
 
     private void Update()
@@ -161,65 +160,6 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void SetEnemiesKilledCount()
-    {
-        if (basicEnemiesTimeCount - basicEnemiesPrevTimeCount >= enemiesCountVel)
-        {
-            if (basicEnemiesCounter < StatsManager.instance.GetBasicEnemiesKilled())
-            {
-                SoundManager.instance.PlaySfxClip(coinSfx);
-                basicEnemiesCounter++;
-                basicEnemies.text = basicEnemiesCounter.ToString();
-                basicEnemiesPrevTimeCount = basicEnemiesTimeCount;
-            }
-        }
-
-        SoundManager.instance.PlaySfxClip(stampSfx);
-        slimeDead.SetActive(true);
-
-        if (rangeEnemiesTimeCount - rangeEnemiesPrevTimeCount >= enemiesCountVel)
-        {
-            if (rangeEnemiesCounter < StatsManager.instance.GetRangeEnemiesKilled())
-            {
-                SoundManager.instance.PlaySfxClip(coinSfx);
-                rangeEnemiesCounter++;
-                rangeEnemies.text = rangeEnemiesCounter.ToString();
-                rangeEnemiesPrevTimeCount = rangeEnemiesTimeCount;
-            }
-        }
-        
-        SoundManager.instance.PlaySfxClip(stampSfx);
-        bearDead.SetActive(true);
-
-        if (conquerorEnemiesTimeCount - conquerorEnemiesPrevTimeCount >= enemiesCountVel)
-        {
-            if (conquerorEnemiesCounter < StatsManager.instance.GetConquerorEnemiesKilled())
-            {
-                SoundManager.instance.PlaySfxClip(coinSfx);
-                conquerorEnemiesCounter++;
-                conquerorEnemies.text = conquerorEnemiesCounter.ToString();
-                conquerorEnemiesPrevTimeCount = conquerorEnemiesTimeCount;
-            }
-        }
-
-        SoundManager.instance.PlaySfxClip(stampSfx);
-        conquerorDead.SetActive(true);
-    }
-
-    public void ResetEnemiesCounters()
-    {
-        basicEnemiesTimeCount = enemiesCountVel;
-        basicEnemiesPrevTimeCount = 0f;
-        basicEnemiesCounter = 0;
-
-        rangeEnemiesTimeCount = enemiesCountVel;
-        rangeEnemiesPrevTimeCount = 0f;
-        rangeEnemiesCounter = 0;
-
-        conquerorEnemiesTimeCount = enemiesCountVel;
-        conquerorEnemiesPrevTimeCount = 0f;
-        conquerorEnemiesCounter = 0;
-    }
 
     public void IncreaseEnemiesTimeCount()
     {

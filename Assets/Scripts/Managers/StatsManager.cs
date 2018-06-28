@@ -33,6 +33,10 @@ public class StatsManager : MonoBehaviour
     [Header("Combos")]
     [SerializeField]
     private MaxCombo maxCombo;
+    [SerializeField]
+    private TimeCombo timeCombo;
+    [SerializeField]
+    private ReceivedDamageCombo receivedDamageCombo;
 
     #endregion
 
@@ -136,7 +140,6 @@ public class StatsManager : MonoBehaviour
     public void WinRoundPoints()
     {
         IncreaseGlobalPoints((int)Mathf.Round(roundMaxTime - roundTime) * roundTimeReward);
-        Debug.Log("You win " + (int)Mathf.Round(roundMaxTime - roundTime) * roundTimeReward + " round points!!");
     }
 
     public void ResetKillCounts()
@@ -190,9 +193,24 @@ public class StatsManager : MonoBehaviour
         currentShotMissed = 0;
     }
 
+    public int GetGlobalPoints()
+    {
+        return globalPoints;
+    }
+
     public Combo GetMaxCombo()
     {
         return maxCombo;
+    }
+
+    public Combo GetTimeCombo()
+    {
+        return timeCombo;
+    }
+
+    public ReceivedDamageCombo GetReceivedDamageCombo()
+    {
+        return receivedDamageCombo;
     }
     #endregion
 }

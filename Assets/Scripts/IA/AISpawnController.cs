@@ -210,7 +210,7 @@ public class AISpawnController : MonoBehaviour
                 activeWaves.Clear();
 
                 wavesLeftToFinishSpawn = roundInfo.waveInfos.Length - waveIndex;
-                scenario.OnNewRoundStarted();
+                scenario.OnNewWaveStarted();
 
                 currentWaveIndex = waveIndex - 1;
                 waveDelayLeft = 0;
