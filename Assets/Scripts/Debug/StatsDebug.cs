@@ -40,7 +40,7 @@ public class StatsDebug : MonoBehaviour {
                 timeleft = updateInterval;
                 accum = 0.0F;
                 frames = 0;
-                GetObjectStats();
+                //GetObjectStats();
                 UpdateStatisticsPanel();
             }
         }
@@ -50,12 +50,12 @@ public class StatsDebug : MonoBehaviour {
         if (Show_FPS) {
             fpsText.text = "Fps : " + fps.ToString("00.00");
         }
-        if (Show_Tris) {
-            trisText.text = "Tris : " + tris.ToString("###,###,###");
-        }
-        if (Show_Verts) {
-            vertsText.text = "Verts : " + verts.ToString("###,###,###");
-        }
+        //if (Show_Tris) {
+        //    trisText.text = "Tris : " + tris.ToString("###,###,###");
+        //}
+        //if (Show_Verts) {
+        //    vertsText.text = "Verts : " + verts.ToString("###,###,###");
+        //}
     }
 
     void GetObjectStats() {
