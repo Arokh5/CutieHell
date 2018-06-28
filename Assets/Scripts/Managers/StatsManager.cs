@@ -38,9 +38,6 @@ public class StatsManager : MonoBehaviour
     [SerializeField]
     private ReceivedDamageCombo receivedDamageCombo;
 
-    [Header("Screens")]
-    [SerializeField]
-    private RoundScore roundScore;
     #endregion
 
     #region Properties
@@ -195,6 +192,11 @@ public class StatsManager : MonoBehaviour
     public void ResetBadComboCount()
     {
         currentShotMissed = 0;
+    }
+
+    public int GetGlobalPoints()
+    {
+        return globalPoints;
     }
 
     public Combo GetMaxCombo()

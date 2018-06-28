@@ -6,6 +6,9 @@ public class ReceivedDamageCombo : Combo
     #region Attributes
     private float roundBaseHealth = 0;
     private float roundFinalHealth = 0;
+    [SerializeField]
+    private RoundScore roundScore;
+
     #endregion
 
     #region MonoBehaviour methods
@@ -28,8 +31,10 @@ public class ReceivedDamageCombo : Combo
 
     public override void GrantReward()
     {
-        Debug.Log("TODO: GrantReward() is sending to StatsManager: " + (int)(reward * (roundFinalHealth / roundBaseHealth)));
-        StatsManager.instance.IncreaseGlobalPoints((int) (reward * (roundFinalHealth / roundBaseHealth)));
+        score = (int)(reward * (roundFinalHealth / roundBaseHealth));
+        roundScore.SetUpDamageReceivedCount((roundFinalHealth / roundBaseHealth) * 100);
+        roundScore.SetUpDamageReceivedScore(score);
+        StatsManager.instance.IncreaseGlobalPoints(score);
     }
     #endregion
 }

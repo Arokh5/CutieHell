@@ -71,10 +71,14 @@ public class ScenarioController : MonoBehaviour
             CheckRoundWon();
     }
 
-    public void OnNewRoundStarted()
+    public void OnNewWaveStarted()
     {
         lastSpawnIsOver = false;
+    }
 
+    public void OnNewRoundStarted()
+    {
+        OnNewWaveStarted();
         for (int i = 0; i < zoneControllers.Count; ++i)
         {
             if (zoneControllers[i].hasMonument)
@@ -82,7 +86,7 @@ public class ScenarioController : MonoBehaviour
         }
     }
 
-    public void OnLastEnemySpawned()
+public void OnLastEnemySpawned()
     {
         lastSpawnIsOver = true;
     }

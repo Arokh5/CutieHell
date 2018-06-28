@@ -34,11 +34,14 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private Player player;
-    [SerializeField]
-    private GameObject gameOverPanel;
-
+   
     [SerializeField]
     private GameObject crosshair;
+
+    [SerializeField]
+    private GameObject gameOverPanel;
+    [SerializeField]
+    private RoundScore roundScore;
 
     #endregion
 
@@ -88,13 +91,11 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameStates.OnRoundEnd:
-                UIManager.instance.SetEnemiesKilledCount();
                 UIManager.instance.IncreaseEnemiesTimeCount();
                 GoToNextRound();
                 break;
 
             case GameStates.OnGameEnd:
-                UIManager.instance.SetEnemiesKilledCount();
                 UIManager.instance.IncreaseEnemiesTimeCount();
                 GoToTitleScreen();
                 break;
@@ -144,15 +145,13 @@ public class GameManager : MonoBehaviour
         if (gameState == GameStates.InGame)
         {
             crosshair.SetActive(false);
-            gameOverPanel.SetActive(true);
-            UIManager.instance.ChangeRoundEndText("ROUND " + (aiSpawnController.GetCurrentRoundIndex() + 1) + " SUCCEEDED");
-            UIManager.instance.ChangeEndBtnText("Go To Next Round");
-            gameState = GameStates.OnRoundEnd;
 
+            roundScore.gameObject.SetActive(true);
             StatsManager.instance.GetMaxCombo().GrantReward();
             StatsManager.instance.GetTimeCombo().GrantReward();
             StatsManager.instance.GetReceivedDamageCombo().GrantReward();
-
+            roundScore.SetUpTotalScore(StatsManager.instance.GetGlobalPoints());
+            gameState = GameStates.OnRoundEnd;
         }
     }
 
@@ -161,15 +160,15 @@ public class GameManager : MonoBehaviour
         if (gameState == GameStates.InGame)
         {
             crosshair.SetActive(false);
-            gameOverPanel.SetActive(true);
-            UIManager.instance.ChangeRoundEndText("YOU WIN!");
-            UIManager.instance.ChangeEndBtnText("Go To Title Screen");
-            gameState = GameStates.OnGameEnd;
 
+            Debug.Log("TODO: Still same code in OnRoundEnd");
+            roundScore.gameObject.SetActive(true);
             StatsManager.instance.GetMaxCombo().GrantReward();
             StatsManager.instance.GetTimeCombo().GrantReward();
             StatsManager.instance.GetReceivedDamageCombo().GrantReward();
+            roundScore.SetUpTotalScore(StatsManager.instance.GetGlobalPoints());
 
+            gameState = GameStates.OnGameEnd;   
         }
     }
 
@@ -178,6 +177,7 @@ public class GameManager : MonoBehaviour
         if (gameState == GameStates.InGame)
         {
             crosshair.SetActive(false);
+            gameOverPanel.SetActive(true);
             gameOverPanel.SetActive(true);
             UIManager.instance.ChangeRoundEndText("YOU LOSE!");
             UIManager.instance.ChangeEndBtnText("Go To Title Screen");
@@ -249,9 +249,11 @@ public class GameManager : MonoBehaviour
             crosshair.SetActive(true);
             gameOverPanel.SetActive(false);
             StatsManager.instance.ResetKillCounts();
-            UIManager.instance.ResetEnemiesCounters();
             StatsManager.instance.ResetBadComboCount();
             StatsManager.instance.ResetGlobalPoins();
+            StatsManager.instance.GetMaxCombo().ResetCount();
+            StatsManager.instance.GetTimeCombo().ResetCount();
+            StatsManager.instance.GetReceivedDamageCombo().ResetCount();
             gameState = GameStates.InGame;
 
             StartNextRound();

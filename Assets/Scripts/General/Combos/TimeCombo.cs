@@ -6,6 +6,8 @@ public class TimeCombo : Combo {
     private float beatingTime = 0f;
     [SerializeField]
     private float minimumBeatingTime;
+    [SerializeField]
+    RoundScore roundScore;
     #endregion
 
     #region MonoBehaviour methods
@@ -26,8 +28,11 @@ public class TimeCombo : Combo {
     {
         if ((int)(minimumBeatingTime - beatingTime) < 0)
             beatingTime = minimumBeatingTime;
-        Debug.Log("TODO: GrantReward() is sending to StatsManager: " + reward * (int)(minimumBeatingTime - beatingTime));
-        StatsManager.instance.IncreaseGlobalPoints(reward * (int)(minimumBeatingTime - beatingTime));
+        score = reward * (int)(minimumBeatingTime - beatingTime);
+
+        roundScore.SetUpBeatingTimeCount(beatingTime);
+        roundScore.SetUpBeatingTimeScore(score);
+        StatsManager.instance.IncreaseGlobalPoints(score);
     }
     #endregion
 }
