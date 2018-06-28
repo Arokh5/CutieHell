@@ -413,6 +413,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1898157473145030
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4363831848207328}
+  - component: {fileID: 114915420130843686}
+  m_Layer: 0
+  m_Name: Butterflies
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1923998309002058
 GameObject:
   m_ObjectHideFlags: 1
@@ -654,10 +670,23 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1551674749953662}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: 0.18}
+  m_LocalPosition: {x: 0, y: 0, z: 0.374}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4880440568634986}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4363831848207328
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1898157473145030}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.17, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4376747880888310}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4376747880888310
@@ -667,12 +696,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1179314277279608}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -23.425283, y: 33.96524, z: 72.451675}
+  m_LocalPosition: {x: -23.982475, y: 33.473183, z: -9.445596}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4088100260146132}
   - {fileID: 4630215432588886}
   - {fileID: 224137330162008816}
+  - {fileID: 4363831848207328}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1182,6 +1212,30 @@ MonoBehaviour:
     type: 2}
   bearAttackSource: {fileID: 82792165882438392}
   bearAttackClip: {fileID: 8300000, guid: 52320e590bf774734a288886eba557ba, type: 3}
+--- !u!114 &114915420130843686
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1898157473145030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51a40e5875947174fb082fc73eefc871, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  butterfliesOptions:
+  - {fileID: 1492545554833008, guid: f6ee4023ed3664b4b8ee74cd088fed3d, type: 2}
+  - {fileID: 1705130761786918, guid: a9d856afc682ab24fb7f323268385483, type: 2}
+  - {fileID: 1694330973516536, guid: 5dd69135f1c45a045847801d1f7e0216, type: 2}
+  - {fileID: 1946852262640474, guid: 26ae2a79e49da414a93342c9a7fbd8f5, type: 2}
+  - {fileID: 1969812553653980, guid: 5b3a64bf7b3e24c4382017c93206cacc, type: 2}
+  butterfliesNumber: 3
+  radius: 3
+  minRadius: 0
+  speed: 1.8
+  yRatio: 0.3
+  detectionDistance: 0.1
+  circularMove: 0
 --- !u!114 &114955173554023188
 MonoBehaviour:
   m_ObjectHideFlags: 1
