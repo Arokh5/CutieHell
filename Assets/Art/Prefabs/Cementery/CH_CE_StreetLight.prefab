@@ -37,6 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4550693874681058}
   - component: {fileID: 114616708657076472}
+  - component: {fileID: 136702015502483616}
   m_Layer: 0
   m_Name: CH_CE_StreetLight
   m_TagString: Untagged
@@ -254,9 +255,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1146477133875988}
-  m_LocalRotation: {x: -0, y: 0.14569403, z: -0, w: 0.98932976}
-  m_LocalPosition: {x: 12.312622, y: 1.1776085, z: 19.111124}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0.94358706, z: -0, w: -0.33112454}
+  m_LocalPosition: {x: -1.43, y: 1.09, z: -14.55}
+  m_LocalScale: {x: 1.0000001, y: 1, z: 1.0000001}
   m_Children:
   - {fileID: 4382475055026248}
   - {fileID: 4967792830507632}
@@ -264,7 +265,7 @@ Transform:
   - {fileID: 4162457891276692}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 2.055, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -218.674, z: 0}
 --- !u!4 &4674122068018328
 Transform:
   m_ObjectHideFlags: 1
@@ -782,3 +783,16 @@ MonoBehaviour:
   alternateProp: {fileID: 23469412148798938}
   propCollapseDuration: 0.25
   alternatePropGrowDuration: 0.75
+--- !u!136 &136702015502483616
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1146477133875988}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.97
+  m_Height: 7.06
+  m_Direction: 1
+  m_Center: {x: -0.26, y: 0, z: -0.49}
