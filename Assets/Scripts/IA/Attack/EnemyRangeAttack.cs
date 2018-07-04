@@ -10,6 +10,7 @@ public class EnemyRangeAttack : MonoBehaviour {
     public EnemyType enemyType;
     [Tooltip("Speed is expressed in meters per second")]
     public float speed;
+    public float maxHitDistance = 1.0f;
 
     private Vector3 initialPosition;
     private Vector3 fullMotion;
@@ -30,6 +31,13 @@ public class EnemyRangeAttack : MonoBehaviour {
             }
         }
 	}
+
+    private void OnTriggerEnter(Collider other)
+    {
+        target = other.GetComponent<Player>();
+        if (target != null)
+            Attack();   
+    }
     #endregion
 
     #region Public Methods
@@ -62,7 +70,11 @@ public class EnemyRangeAttack : MonoBehaviour {
 
     private void Attack()
     {
-        target.TakeDamage(damage, AttackType.ENEMY);
+        Vector3 bulletToTarget = target.transform.position - transform.position;
+        bulletToTarget.y = 0;
+        if (bulletToTarget.magnitude < maxHitDistance)
+            target.TakeDamage(damage, AttackType.ENEMY);
+
         target = null;
         AttacksPool.instance.ReturnAttackObject(enemyType, gameObject);
     }
