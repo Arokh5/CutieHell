@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour, IDamageable {
 
     #region Fields
     [Header("Movement Variabes")]
@@ -19,6 +19,13 @@ public class Player : MonoBehaviour {
     [HideInInspector]
     public Vector3 lastValidPosition;
 
+    [Header("Health")]
+    [SerializeField]
+    private float baseHealth = 200.0f;
+
+    private bool isDead = false;
+    private float currentHealth;
+
     [Header("Evilness")]
     [SerializeField]
     EvilManaController evilManaController;
@@ -30,6 +37,7 @@ public class Player : MonoBehaviour {
     [SerializeField]
     [Range(0, 0.5f)]
     private float autoEvilRecoveringValue;
+    
     private bool isAutoRecoveringEvil = false;
     private float lastAutoEvilRecovering = 0;
     
@@ -198,6 +206,8 @@ public class Player : MonoBehaviour {
         timeSinceLastStrongAttack = 1000.0f;
         timeSinceLastTeleport = 0.0f;
         teleported = false;
+        currentHealth = baseHealth;
+        UIManager.instance.SetPlayerHealth(1.0f);
 
         currentState.EnterState(this);
 
@@ -233,6 +243,35 @@ public class Player : MonoBehaviour {
     #endregion
 
     #region Public Methods
+    // IDamageable
+    public float GetMaxHealth()
+    {
+        return baseHealth;
+    }
+
+    public float GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+
+    // IDamageable
+    public bool IsDead()
+    {
+        return isDead;
+    }
+
+    // IDamageable
+    public void TakeDamage(float damage, AttackType attacktype)
+    {
+        currentHealth -= damage;
+        if (currentHealth < 0)
+        {
+            currentHealth = 0;
+            PlayerKilled();
+        }
+        UIManager.instance.SetPlayerHealth(currentHealth / baseHealth);
+    }
+
     public virtual void TransitionToState(State targetState)
     {
         currentState.ExitState(this);
@@ -344,6 +383,12 @@ public class Player : MonoBehaviour {
                 monument = allMonuments[i];
             }
         }
+    }
+
+    private void PlayerKilled()
+    {
+        isDead = true;
+        Debug.Log("Player killed!");
     }
     #endregion
 }

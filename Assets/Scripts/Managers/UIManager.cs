@@ -24,6 +24,10 @@ public class UIManager : MonoBehaviour
     private Vector3 badComboOriginalScale;
     private Color badComboOriginalColor;
 
+    [Space]
+    [SerializeField]
+    private HealthBar playerHealthBar;
+
     [Header("Use panels")]
     public Color lockedPanelTintColor = Color.red;
     [SerializeField]
@@ -31,6 +35,7 @@ public class UIManager : MonoBehaviour
         
     private float strongComboscaleModifier;
     private float strongComboColorModifier;
+    [Header("Combos")]
     [SerializeField]
     private float strongComboScaleVelocity;
     [SerializeField]
@@ -43,6 +48,7 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private float fadeOutBadComboVelocity;
 
+    [Header("Round End")]
     [SerializeField]
     private Text basicEnemies;
     [SerializeField]
@@ -110,6 +116,10 @@ public class UIManager : MonoBehaviour
     #endregion
 
     #region Public Methods
+    public void SetPlayerHealth(float normalizedHealth)
+    {
+        playerHealthBar.SetHealthBarFill(normalizedHealth);
+    }
 
     public void ChangeRoundEndText(string text)
     {

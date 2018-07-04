@@ -13,7 +13,9 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private AIZoneController zoneController;
     private SubZoneType currentSubZone;
 
-    private Building currentTarget;
+    private Player playerTarget;
+    private IDamageable currentTarget;
+    private Building currentTargetBuilding;
     public bool ignorePath = false;
     [SerializeField]
     private List<PathNode> currentPath;
@@ -29,6 +31,18 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
     private Renderer mRenderer;
     private Animator animator;
+
+    [Header("Player Detection")]
+    [SerializeField]
+    private bool canAttackPlayer = false;
+    [SerializeField]
+    [Tooltip("The radius within which the player gets detected and becomes the target of the enemy")]
+    private float detectionRadius = 4.0f;
+    [SerializeField]
+    [Tooltip("The radius outside of which a targeted player gets ignored by the enemy")]
+    private float escapeRadius = 8.0f;
+    private Player player;
+    private bool hasPlayerAsTarget;
 
     [Header("Outline")]
     [SerializeField]
@@ -91,17 +105,19 @@ public class AIEnemy : MonoBehaviour, IDamageable
         initialSpeed = agent.speed;
         timeSinceLastAttackRecived = 0.0f;
         heightOffset = enemyCollider.bounds.size.y / 2.0f;
+        player = GameManager.instance.GetPlayer1();
     }
 
     private void Update()
     {
+        UpdateCurrentTarget();
         Knockback();
         // Motion through NavMeshAgent
-        if (currentTarget && agent.enabled)
+        if (currentTarget != null && agent.enabled)
         {
             agent.stoppingDistance = 0.0f;
-            /* First case is when going for the Monument, second case is when going for a Trap */
-            if (currentNode == null || currentTarget.GetType() != typeof(Monument))
+            /* First case is when going for the Monument, second case is when going for a Trap, third for a player target */
+            if (currentNode == null || currentTargetBuilding.GetType() != typeof(Monument) || hasPlayerAsTarget)
             {
                 agent.stoppingDistance = originalStoppingDistance;
                 agent.SetDestination(currentTarget.transform.position);
@@ -136,16 +152,33 @@ public class AIEnemy : MonoBehaviour, IDamageable
             }
         }
 
+        if (isTarget)
+        {
+            GetComponent<EnemyCanvasController>().EnableHealthBar(false);
+        }
+
         // Testing
         if (hit)
         {
             hit = false;
             TakeDamage(healthToReduce, AttackType.ENEMY);
         }
+    }
 
-        if (isTarget)
+    private void OnDrawGizmosSelected()
+    {
+        if (!canAttackPlayer)
+            return;
+
+        Gizmos.color = new Color(0, 1, 0, 1);
+        Gizmos.DrawWireSphere(transform.position, escapeRadius);
+        Gizmos.color = new Color(1, 0, 0, 1);
+        Gizmos.DrawWireSphere(transform.position, detectionRadius);
+        if (hasPlayerAsTarget)
         {
-            GetComponent<EnemyCanvasController>().EnableHealthBar(false);
+            Vector3 offset = Vector3.up;
+            Gizmos.color = new Color(1, 0, 0, 1);
+            GizmosHelper.DrawArrow(transform.position + offset, player.transform.position + offset);
         }
     }
     #endregion
@@ -159,6 +192,11 @@ public class AIEnemy : MonoBehaviour, IDamageable
         timeSinceLastAttackRecived = Time.time;
         lastAttackRecivedDirection = (this.transform.position - originForce).normalized;
         lastAttackRecivedDirection.y = 0;
+    }
+
+    public float GetMaxHealth()
+    {
+        return baseHealth;
     }
 
     public float GetCurrentHealth()
@@ -215,9 +253,9 @@ public class AIEnemy : MonoBehaviour, IDamageable
     // Called by the ZoneController when a Trap gets deactivated
     public void SetCurrentTarget(Building target)
     {
-        if (currentTarget != target)
+        if (currentTargetBuilding != target)
         {
-            currentTarget = target;
+            currentTargetBuilding = target;
         }
     }
 
@@ -261,7 +299,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     public void UpdateTarget()
     {
         UnityEngine.Assertions.Assert.IsNotNull(zoneController, "Error: zoneController is null for AIEnemy in GameObject '" + gameObject.name + "'!");
-        currentTarget = zoneController.GetTargetBuilding(transform);
+        currentTargetBuilding = zoneController.GetTargetBuilding(transform);
     }
 
     public bool MarkAsTarget(bool isTarget)
@@ -294,6 +332,35 @@ public class AIEnemy : MonoBehaviour, IDamageable
         }
     }
 
+    // Called on Animator
+    public void Die()
+    {
+        StatsManager.instance.GetMaxCombo().EnableCombo();
+        StatsManager.instance.RegisterKill(enemyType);
+        zoneController.RemoveEnemy(this);
+        killingHit = AttackType.NONE;
+
+        if (deathVFX != null)
+            ParticlesManager.instance.LaunchParticleSystem(deathVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation);
+
+        DestroySelf();
+    }
+
+    public void DieAfterMatch()
+    {
+        if (deathVFX != null)
+            ParticlesManager.instance.LaunchParticleSystem(deathVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation);
+
+        DestroySelf();
+    }
+
+    public void DestroySelf()
+    {
+        zoneController = null;
+        animator.Rebind();
+        spawnController.ReturnEnemy(this);
+        UIManager.instance.roundInfoController.AddToEnemiesCount(-1);
+    }
     #endregion
 
     #region Private Methods
@@ -309,39 +376,9 @@ public class AIEnemy : MonoBehaviour, IDamageable
     {
         if (knockbackCurrentForce > 0.1f)
         {
-        knockbackCurrentForce = Mathf.Lerp(knockbackCurrentForce, 0.0f, 0.2f);
-        this.transform.Translate(lastAttackRecivedDirection * knockbackCurrentForce * knockbackForceMultiplier * Time.deltaTime,Space.World);
+            knockbackCurrentForce = Mathf.Lerp(knockbackCurrentForce, 0.0f, 0.2f);
+            this.transform.Translate(lastAttackRecivedDirection * knockbackCurrentForce * knockbackForceMultiplier * Time.deltaTime,Space.World);
         }
-    }
-
-    // Called on Animator
-    public void Die()
-    {
-        StatsManager.instance.GetMaxCombo().EnableCombo();
-        StatsManager.instance.RegisterKill(enemyType);
-        zoneController.RemoveEnemy(this);
-        killingHit = AttackType.NONE;
-
-        if(deathVFX != null)
-            ParticlesManager.instance.LaunchParticleSystem(deathVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation);
-
-        DestroySelf();
-    }
-
-    public void DieAfterMatch()
-    {
-        if(deathVFX != null)
-            ParticlesManager.instance.LaunchParticleSystem(deathVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation);
-
-        DestroySelf();
-    }
-
-    public void DestroySelf()
-    {
-        zoneController = null;
-        animator.Rebind();
-        spawnController.ReturnEnemy(this);
-        UIManager.instance.roundInfoController.AddToEnemiesCount(-1);
     }
 
     private void UpdateNodePath()
@@ -358,6 +395,35 @@ public class AIEnemy : MonoBehaviour, IDamageable
         {
             currentNodeIndex = -1;
             currentNode = null;
+        }
+    }
+
+    private void UpdateCurrentTarget()
+    {
+        if (currentTarget == null)
+            currentTarget = currentTargetBuilding;
+
+        if (canAttackPlayer)
+        {
+            Vector3 enemyToPlayer = player.transform.position - transform.position;
+            if (hasPlayerAsTarget)
+            {
+                // So we check if the player has exited the escapeRadius
+                if (player.IsDead() || enemyToPlayer.sqrMagnitude > escapeRadius * escapeRadius)
+                {
+                    hasPlayerAsTarget = false;
+                    currentTarget = currentTargetBuilding;
+                }
+            }
+            else
+            {
+                // So we check if the player has entered the detectionRadius
+                if (!player.IsDead() && enemyToPlayer.sqrMagnitude < detectionRadius * detectionRadius)
+                {
+                    hasPlayerAsTarget = true;
+                    currentTarget = player;
+                }
+            }
         }
     }
     #endregion

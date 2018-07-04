@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyRangeAttack : MonoBehaviour {
 
     #region Fields
-    private Building target;
+    private IDamageable target;
     private float damage;
     public EnemyType enemyType;
     [Tooltip("Speed is expressed in meters per second")]
@@ -21,7 +21,7 @@ public class EnemyRangeAttack : MonoBehaviour {
     #region MonoBehaviour Methods
     // Update is called once per frame
     private void Update () {
-	    if (target)
+	    if (target != null)
         {
             Move();
             if (elapsedTime >= lifeTime)
@@ -33,7 +33,7 @@ public class EnemyRangeAttack : MonoBehaviour {
     #endregion
 
     #region Public Methods
-    public void Fire(Building target, float damage)
+    public void Fire(IDamageable target, float damage)
     {
         elapsedTime = 0;
         this.target = target;
@@ -63,6 +63,7 @@ public class EnemyRangeAttack : MonoBehaviour {
     private void Attack()
     {
         target.TakeDamage(damage, AttackType.ENEMY);
+        target = null;
         AttacksPool.instance.ReturnAttackObject(enemyType, gameObject);
     }
     #endregion

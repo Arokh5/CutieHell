@@ -18,7 +18,7 @@ public class AIAttackDPS : AIAttackLogic {
     #endregion
 
     #region Public Methods
-    public override void AttemptAttack(Building target, Vector3 navigationTarget)
+    public override void AttemptAttack(IDamageable target, Vector3 navigationTarget)
     {
         if (IsInAttackRange(navigationTarget))
         {
@@ -35,7 +35,7 @@ public class AIAttackDPS : AIAttackLogic {
     #endregion
 
     #region Private Methods
-    private void Attack(Building target)
+    private void Attack(IDamageable target)
     {
         target.TakeDamage(dps * Time.deltaTime, AttackType.ENEMY);
     }

@@ -13,7 +13,7 @@ public class AIAttackCooldown : AIAttackLogic
 
     public Transform attackSpawnPoint;
     public EnemyRangeAttack attackPrefab;
-    private Building attackTarget = null;
+    private IDamageable attackTarget = null;
 
     private float lastAttackTime = 0;
     private Animator animator;
@@ -34,7 +34,7 @@ public class AIAttackCooldown : AIAttackLogic
     #endregion
 
     #region Public Methods
-    public override void AttemptAttack(Building attackTarget, Vector3 navigationTarget)
+    public override void AttemptAttack(IDamageable attackTarget, Vector3 navigationTarget)
     {
         if (IsInAttackRange(navigationTarget))
         {
@@ -60,7 +60,7 @@ public class AIAttackCooldown : AIAttackLogic
 
     public void LaunchAttack()
     {
-        if (attackTarget)
+        if (attackTarget != null)
         {
             Attack(attackTarget);
         }
@@ -69,7 +69,7 @@ public class AIAttackCooldown : AIAttackLogic
     #endregion
 
     #region Private Methods
-    private void Attack(Building target)
+    private void Attack(IDamageable target)
     {
         EnemyRangeAttack currentAttack = AttacksPool.instance.GetAttackObject(enemyType, attackSpawnPoint.position, attackSpawnPoint.rotation).GetComponent<EnemyRangeAttack>();
         ParticlesManager.instance.LaunchParticleSystem(heartShotVFX, attackSpawnPoint.position, attackSpawnPoint.rotation);

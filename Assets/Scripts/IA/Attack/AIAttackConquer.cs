@@ -80,13 +80,14 @@ public class AIAttackConquer : AIAttackLogic {
 
     #region Public Methods
 
-    public override void AttemptAttack(Building attackTarget, Vector3 navigationTarget)
+    public override void AttemptAttack(IDamageable attackTarget, Vector3 navigationTarget)
     {
-        if (!targetInConquest)
+        Building building = attackTarget as Building;
+        if (building && !targetInConquest)
         {
-            if (attackTarget.attachedConqueror == null && IsInAttackRange(navigationTarget))
+            if (building.attachedConqueror == null && IsInAttackRange(navigationTarget))
             {
-                targetInConquest = attackTarget;
+                targetInConquest = building;
                 targetInConquest.attachedConqueror = aiEnemy;
                 //inTransformationAnimation = true;
                 animator.SetTrigger("Attack");
@@ -95,7 +96,7 @@ public class AIAttackConquer : AIAttackLogic {
                 aiEnemy.SetIsTargetable(false);
                 //mainModelRenderer.material.color = Color.cyan;
                 /* Now we calculate the actual dps */
-                dps = conquestDuration == 0 ? -1 : attackTarget.GetMaxHealth() / conquestDuration;
+                dps = conquestDuration == 0 ? -1 : building.GetMaxHealth() / conquestDuration;
             }
         }
     }
