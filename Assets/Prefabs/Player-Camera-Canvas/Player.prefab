@@ -1741,8 +1741,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1351661036542954}
-  m_LocalRotation: {x: 0, y: -0.17364825, z: 0, w: 0.9848078}
-  m_LocalPosition: {x: -1.51, y: 36.646, z: -66.03}
+  m_LocalRotation: {x: 0, y: -0.3420201, z: 0, w: 0.9396927}
+  m_LocalPosition: {x: 0.31, y: 36.52, z: -70.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4039087186657490}
@@ -1756,7 +1756,7 @@ Transform:
   - {fileID: 4058633085511954}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -20, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -40, z: 0}
 --- !u!4 &4127734796921036
 Transform:
   m_ObjectHideFlags: 1
@@ -3827,6 +3827,11 @@ MonoBehaviour:
   initialPositionOnStrongAttack: {fileID: 0}
   comeBackFromStrongAttack: 0
   strongAttackEvilCost: 1
+  coneAttackVFX: {fileID: 198821035992068780, guid: 95f4f9075dbcfc2408318fe0c8bd85e6,
+    type: 2}
+  coneAttackEvilCost: 1
+  comeBackFromConeAttack: 0
+  timeSinceLastConeAttack: 0
   fogCollider: {fileID: 135076191655738780}
   fogVFX: {fileID: 1362348381220060}
   fogStateCooldown: 0.5
@@ -4159,8 +4164,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0.00020217896, y: 0.8001671, z: -0.083869934}
-    m_Extent: {x: 0.57884973, y: 0.91261333, z: 0.808386}
+    m_Center: {x: 0.00019454956, y: 0.8001709, z: -0.08387375}
+    m_Extent: {x: 0.72030187, y: 0.94308686, z: 0.9110031}
   m_DirtyAABB: 0
 --- !u!137 &137922916964217542
 SkinnedMeshRenderer:

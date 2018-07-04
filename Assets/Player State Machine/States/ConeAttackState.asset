@@ -9,17 +9,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1418da0e4d857ce4fb2339e94e78f9a8, type: 3}
-  m_Name: _StrongAttackState
+  m_Name: ConeAttackState
   m_EditorClassIdentifier: 
   onEnterActions:
   - {fileID: 11400000, guid: 0eed128db3a246842be6b329e9898312, type: 2}
-  - {fileID: 11400000, guid: 944270cec7328094f9819c0e0efc6252, type: 2}
+  - {fileID: 11400000, guid: dbe5f3b13b4d24440b78460ef011ac74, type: 2}
   onExitActions:
   - {fileID: 11400000, guid: 5ba46e5a9ddd9954798451421d48950e, type: 2}
-  - {fileID: 11400000, guid: 2be716f4653ee8a47a6a6bce9d428d50, type: 2}
   stateActions:
   - {fileID: 11400000, guid: 0114d4abe69aa214eafa844b779ee729, type: 2}
-  - {fileID: 11400000, guid: bb5a9c3516442844781837a33297fa7a, type: 2}
   transitions:
-  - decision: {fileID: 11400000, guid: c7b5ad24fdcd46b4bacc58cb157c96e4, type: 2}
+  - decision: {fileID: 11400000, guid: d0e97e8597cdafd4f82bb11a9adf958e, type: 2}
     targetState: {fileID: 11400000, guid: 7876ea8555f7f6c4cb97c6dd742b336b, type: 2}
