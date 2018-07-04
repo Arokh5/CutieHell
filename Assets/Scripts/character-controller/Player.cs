@@ -22,6 +22,8 @@ public class Player : MonoBehaviour, IDamageable {
     [Header("Health")]
     [SerializeField]
     private float baseHealth = 200.0f;
+    public float autoHealDelay = 2.0f;
+    public float fullAutoHealDuration = 2.0f;
     public float recoveryDuration = 5.0f;
     public float timeSavedPerClick = 0.5f;
 
@@ -29,6 +31,8 @@ public class Player : MonoBehaviour, IDamageable {
     public float elapsedRecoveryTime = 0.0f;
     [HideInInspector]
     public bool isGrounded = false;
+    [HideInInspector]
+    public float timeSinceLastHit;
     [SerializeField]
     [ShowOnly]
     private float currentHealth;
@@ -218,6 +222,7 @@ public class Player : MonoBehaviour, IDamageable {
         timeSinceLastTeleport = 0.0f;
         teleported = false;
         currentHealth = baseHealth;
+        timeSinceLastHit = autoHealDelay;
         UIManager.instance.SetPlayerHealth(1.0f);
 
         currentState.EnterState(this);
@@ -295,6 +300,7 @@ public class Player : MonoBehaviour, IDamageable {
         if (isGrounded)
             return;
 
+        timeSinceLastHit = 0;
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
