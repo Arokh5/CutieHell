@@ -22,8 +22,15 @@ public class Player : MonoBehaviour, IDamageable {
     [Header("Health")]
     [SerializeField]
     private float baseHealth = 200.0f;
+    public float recoveryDuration = 5.0f;
+    public float timeSavedPerClick = 0.5f;
 
-    private bool isDead = false;
+    [HideInInspector]
+    public float elapsedRecoveryTime = 0.0f;
+    [HideInInspector]
+    public bool isGrounded = false;
+    [SerializeField]
+    [ShowOnly]
     private float currentHealth;
 
     [Header("Evilness")]
@@ -238,11 +245,22 @@ public class Player : MonoBehaviour, IDamageable {
         timeSinceLastStrongAttack += Time.deltaTime;
         timeSinceLastMonumentChecking += Time.deltaTime;
         currentState.UpdateState(this);
-        
     }
     #endregion
 
     #region Public Methods
+    public void SetCurrentHealth(float normalizedHealth)
+    {
+        if (normalizedHealth < 0 || normalizedHealth > 1)
+        {
+            Debug.LogError("ERROR: Player.SetCurrentHealth called with an argument outside of range [0, 1]!");
+            return;
+        }
+
+        currentHealth = baseHealth * normalizedHealth;
+        UIManager.instance.SetPlayerHealth(normalizedHealth);
+    }
+
     // IDamageable
     public float GetMaxHealth()
     {
@@ -257,7 +275,7 @@ public class Player : MonoBehaviour, IDamageable {
     // IDamageable
     public bool IsDead()
     {
-        return isDead;
+        return isGrounded;
     }
 
     // IDamageable
@@ -387,7 +405,7 @@ public class Player : MonoBehaviour, IDamageable {
 
     private void PlayerKilled()
     {
-        isDead = true;
+        isGrounded = true;
         Debug.Log("Player killed!");
     }
     #endregion

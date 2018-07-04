@@ -8,5 +8,6 @@ public class MoveStateExit : StateAction
     public override void Act(Player player)
     {
         player.loopAudioSource.Stop();
+        player.animator.SetBool("Move", false);
     }
 }

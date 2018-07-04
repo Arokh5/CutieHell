@@ -24,9 +24,12 @@ public class UIManager : MonoBehaviour
     private Vector3 badComboOriginalScale;
     private Color badComboOriginalColor;
 
+    [Header("Player Health")]
     [Space]
     [SerializeField]
     private HealthBar playerHealthBar;
+    [SerializeField]
+    private GameObject buttonMashPrompt;
 
     [Header("Use panels")]
     public Color lockedPanelTintColor = Color.red;
@@ -119,6 +122,11 @@ public class UIManager : MonoBehaviour
     public void SetPlayerHealth(float normalizedHealth)
     {
         playerHealthBar.SetHealthBarFill(normalizedHealth);
+    }
+
+    public void SetPlayerHealthButtonMashVisibility(bool isVisible)
+    {
+        buttonMashPrompt.SetActive(isVisible);
     }
 
     public void ChangeRoundEndText(string text)
