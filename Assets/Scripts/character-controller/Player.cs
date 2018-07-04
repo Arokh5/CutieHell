@@ -33,6 +33,10 @@ public class Player : MonoBehaviour, IDamageable {
     [ShowOnly]
     private float currentHealth;
 
+    [Header("Damage Testing")]
+    public float healthToReduce = 100;
+    public bool hit;
+
     [Header("Evilness")]
     [SerializeField]
     EvilManaController evilManaController;
@@ -245,6 +249,13 @@ public class Player : MonoBehaviour, IDamageable {
         timeSinceLastStrongAttack += Time.deltaTime;
         timeSinceLastMonumentChecking += Time.deltaTime;
         currentState.UpdateState(this);
+
+        // Testing
+        if (hit)
+        {
+            hit = false;
+            TakeDamage(healthToReduce, AttackType.NONE);
+        }
     }
     #endregion
 
@@ -281,8 +292,11 @@ public class Player : MonoBehaviour, IDamageable {
     // IDamageable
     public void TakeDamage(float damage, AttackType attacktype)
     {
+        if (isGrounded)
+            return;
+
         currentHealth -= damage;
-        if (currentHealth < 0)
+        if (currentHealth <= 0)
         {
             currentHealth = 0;
             PlayerKilled();
