@@ -140,6 +140,13 @@ public class Player : MonoBehaviour, IDamageable {
     public bool comeBackFromStrongAttack;
     public float strongAttackEvilCost;
 
+    [Header("Cone Attack")]
+    public ParticleSystem coneAttackVFX;
+    public float coneAttackEvilCost;
+    [HideInInspector]
+    public bool comeBackFromConeAttack;
+    [HideInInspector]
+    public float timeSinceLastConeAttack = 0;
 
     [Header("Fog Attack")]
     public SphereCollider fogCollider;
@@ -206,6 +213,7 @@ public class Player : MonoBehaviour, IDamageable {
 
         canMove = true;
         comeBackFromStrongAttack = false;
+        comeBackFromConeAttack = false;
 
         fogStateLastTime = float.MinValue;
         evilLevel = maxEvilLevel;

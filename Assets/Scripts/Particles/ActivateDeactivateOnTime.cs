@@ -31,6 +31,7 @@ public class ActivateDeactivateOnTime : MonoBehaviour {
 
     private float timer,sizeInDiference, sizeOutDiference;
     private Projector projector;
+    private Material mat;
     private ProjectorStates state;
     private Color startColorDiference, endColorDiference;
 
@@ -46,9 +47,25 @@ public class ActivateDeactivateOnTime : MonoBehaviour {
 
     void OnEnable () {
         projector = this.GetComponent<Projector>();
+        var rend = GetComponent<Renderer>();
+        if (rend == null)
+        {
+            var projector = GetComponent<Projector>();
+            if (projector != null)
+            {
+                if (!projector.material.name.EndsWith("(Instance)"))
+                    projector.material = new Material(projector.material) { name = projector.material.name + " (Instance)" };
+                mat = projector.material;
+
+            }
+        }
+        else
+        {
+            mat = rend.material;
+        }
         Color newColor = projector.material.GetColor("_TintColor");
         newColor = startColorOnActivate;
-        projector.material.SetColor("_TintColor", newColor);
+        mat.SetColor("_TintColor", newColor);
         projector.orthographicSize = startSizeOnActivate;
         timer = 0.0f;
         state = ProjectorStates.DEACTIVATED;
@@ -78,9 +95,9 @@ public class ActivateDeactivateOnTime : MonoBehaviour {
                 }
                 else
                 {
-                    Color newColor = projector.material.GetColor("_TintColor");
+                    Color newColor = mat.GetColor("_TintColor");
                     newColor.a += startColorDiference.a * Time.deltaTime / timeToFadeIn;
-                    projector.material.SetColor("_TintColor", newColor);
+                    mat.SetColor("_TintColor", newColor);
                     projector.orthographicSize += sizeInDiference * Time.deltaTime / timeToFadeIn;
                 }
                 break;
@@ -99,17 +116,17 @@ public class ActivateDeactivateOnTime : MonoBehaviour {
                 }
                 else
                 {
-                    Color newColor = projector.material.GetColor("_TintColor");
+                    Color newColor = mat.GetColor("_TintColor");
                     newColor.a += endColorDiference.a * Time.deltaTime / timeToFadeOut;
                     newColor.a = Mathf.Clamp(newColor.a, 0.0f, 1.0f);
-                    projector.material.SetColor("_TintColor", newColor);
+                    mat.SetColor("_TintColor", newColor);
                     projector.orthographicSize += sizeOutDiference * Time.deltaTime / timeToFadeOut;
                 }
                 break;
             case ProjectorStates.DEACTIVATED2:
                 {
                     Color newColor = new Color(1.0f,1.0f,1.0f,0.0f);
-                    projector.material.SetColor("_TintColor", newColor);
+                    mat.SetColor("_TintColor", newColor);
                     ++state;
                 }
                 break;
