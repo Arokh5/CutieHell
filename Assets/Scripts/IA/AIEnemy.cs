@@ -409,7 +409,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
             if (hasPlayerAsTarget)
             {
                 // So we check if the player has exited the escapeRadius
-                if (player.IsDead() || enemyToPlayer.sqrMagnitude > escapeRadius * escapeRadius)
+                if (!player.isTargetable || player.IsDead() || enemyToPlayer.sqrMagnitude > escapeRadius * escapeRadius)
                 {
                     hasPlayerAsTarget = false;
                     currentTarget = currentTargetBuilding;
@@ -418,7 +418,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
             else
             {
                 // So we check if the player has entered the detectionRadius
-                if (!player.IsDead() && enemyToPlayer.sqrMagnitude < detectionRadius * detectionRadius)
+                if (player.isTargetable && !player.IsDead() && enemyToPlayer.sqrMagnitude < detectionRadius * detectionRadius)
                 {
                     hasPlayerAsTarget = true;
                     currentTarget = player;

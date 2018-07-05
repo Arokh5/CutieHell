@@ -26,6 +26,8 @@ public class Player : MonoBehaviour, IDamageable {
     public float fullAutoHealDuration = 2.0f;
     public float recoveryDuration = 5.0f;
     public float timeSavedPerClick = 0.5f;
+    [ShowOnly]
+    public bool isTargetable = true;
 
     [HideInInspector]
     public float elapsedRecoveryTime = 0.0f;
