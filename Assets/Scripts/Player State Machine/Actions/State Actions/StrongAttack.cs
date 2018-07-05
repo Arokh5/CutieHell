@@ -45,6 +45,7 @@ public class StrongAttack : StateAction
 
                 if (player.timeSinceLastStrongAttack >= timeToGoIn)
                 {
+                    BulletTime.instance.DoSlowmotion(0.01f, 0.5f);
                     CameraShaker.Instance.ShakeOnce(0.8f, 15.5f, 0.1f, 0.7f);
                     player.cameraState = Player.CameraState.MOVE;
                     player.SetRenderersVisibility(true);

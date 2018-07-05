@@ -11,7 +11,10 @@ public class ConeAttackAnimator : StateMachineBehaviour {
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        CheckPlayer(animator);
+        player.canMove = false;
         flag = false;
+        BulletTime.instance.DoSlowmotion(0.01f,0.5f);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

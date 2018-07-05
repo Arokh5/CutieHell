@@ -9,7 +9,6 @@ public class ConeAttackEnterAction : StateAction
     public override void Act(Player player)
     {
         player.AddEvilPoints(-player.coneAttackEvilCost);
-        player.canMove = false;
         player.comeBackFromConeAttack = false;
         player.timeSinceLastConeAttack = 0.0f;
         player.animator.SetTrigger("ConeAttack");

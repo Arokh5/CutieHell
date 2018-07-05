@@ -1485,15 +1485,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4121203388434420, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0.31
+      value: -20.93
       objectReference: {fileID: 0}
     - target: {fileID: 4121203388434420, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 36.52
+      value: 33.28
       objectReference: {fileID: 0}
     - target: {fileID: 4121203388434420, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -70.32
+      value: 32.83
       objectReference: {fileID: 0}
     - target: {fileID: 4121203388434420, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1560,6 +1560,36 @@ Prefab:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 230846840}
+    - target: {fileID: 137922503858195014, guid: 182da881c3eee6548aa68ab299d1e64c,
+        type: 2}
+      propertyPath: m_AABB.m_Center.x
+      value: 0.00020265579
+      objectReference: {fileID: 0}
+    - target: {fileID: 137922503858195014, guid: 182da881c3eee6548aa68ab299d1e64c,
+        type: 2}
+      propertyPath: m_AABB.m_Center.y
+      value: 0.8001709
+      objectReference: {fileID: 0}
+    - target: {fileID: 137922503858195014, guid: 182da881c3eee6548aa68ab299d1e64c,
+        type: 2}
+      propertyPath: m_AABB.m_Center.z
+      value: -0.083869934
+      objectReference: {fileID: 0}
+    - target: {fileID: 137922503858195014, guid: 182da881c3eee6548aa68ab299d1e64c,
+        type: 2}
+      propertyPath: m_AABB.m_Extent.x
+      value: 0.72030175
+      objectReference: {fileID: 0}
+    - target: {fileID: 137922503858195014, guid: 182da881c3eee6548aa68ab299d1e64c,
+        type: 2}
+      propertyPath: m_AABB.m_Extent.y
+      value: 0.94308686
+      objectReference: {fileID: 0}
+    - target: {fileID: 137922503858195014, guid: 182da881c3eee6548aa68ab299d1e64c,
+        type: 2}
+      propertyPath: m_AABB.m_Extent.z
+      value: 0.911003
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 182da881c3eee6548aa68ab299d1e64c, type: 2}
   m_IsPrefabParent: 0
@@ -10853,6 +10883,24 @@ GameObject:
   m_PrefabParentObject: {fileID: 1184764017968070, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
     type: 2}
   m_PrefabInternal: {fileID: 1384274908}
+--- !u!1 &600330493 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1639395492040046, guid: aa7289eb32dc80043a9fe97e38c6cbff,
+    type: 2}
+  m_PrefabInternal: {fileID: 1438943455}
+--- !u!114 &600330498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 600330493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41a332a233a9a234c82a336863a7cdd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slowdownFactor: 0.05
+  slowdownLength: 0.5
 --- !u!1001 &601690457
 Prefab:
   m_ObjectHideFlags: 0
