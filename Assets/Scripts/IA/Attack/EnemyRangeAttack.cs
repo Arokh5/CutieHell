@@ -34,7 +34,7 @@ public class EnemyRangeAttack : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        target = other.GetComponent<Player>();
+        target = other.GetComponentInParent<Player>();
         if (target != null)
             Attack();   
     }
