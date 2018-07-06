@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AIZoneController : MonoBehaviour
 {
@@ -24,11 +24,15 @@ public class AIZoneController : MonoBehaviour
     [ShowOnly]
     private Building currentZoneTarget;
 
+    [Header("Bridges to next zone")]
     [SerializeField]
     private LivingFogManager fogWallsManager;
     [SerializeField]
     private int[] fogWallID;
+    [SerializeField]
+    NavMeshObstacle[] blockages;
 
+    [Space]
     // List that contains all AIEnemy that were spawned on this ZoneController's area and are still alive
     [SerializeField]
     private List<AIEnemy> aiEnemies;
@@ -111,6 +115,10 @@ public class AIZoneController : MonoBehaviour
         foreach (Trap trap in traps)
         {
             trap.TakeDamage(trap.GetMaxHealth(), AttackType.NONE);
+        }
+        foreach(NavMeshObstacle blockage in blockages)
+        {
+            blockage.gameObject.SetActive(false);
         }
 
         if (isFinalZone)
