@@ -54,7 +54,7 @@ public class BuryZoneTrap : ZoneTrap
     {
         foreach (AIEnemy aiEnemy in aiEnemies)
         {
-            aiEnemy.TakeDamage(aiEnemy.baseHealth, AttackType.ZONE_TRAP);
+            //aiEnemy.TakeDamage(aiEnemy.baseHealth, AttackType.ZONE_TRAP);
         }
         aiEnemies = null;
     }

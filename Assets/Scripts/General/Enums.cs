@@ -12,11 +12,10 @@ public enum AttackType
     ENEMY,
     WEAK,
     STRONG,
-    WOLF,
-    FOG,
-    TRAP_BASIC,
-    TRAP_AREA,
-    ZONE_TRAP
+    MINE,
+    CONE,
+    METEORITE,
+    TRAP_AREA
 }
 
 

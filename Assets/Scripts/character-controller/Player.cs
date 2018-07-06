@@ -148,6 +148,11 @@ public class Player : MonoBehaviour, IDamageable {
     [HideInInspector]
     public float timeSinceLastConeAttack = 0;
 
+    [Header("Mine Attack")]
+    public ParticleSystem minePrefab;
+    public int maxMinesNumber;
+    public ActivateMineExplosion[] mines;
+
     [Header("Fog Attack")]
     public SphereCollider fogCollider;
     public GameObject fogVFX;
@@ -190,6 +195,7 @@ public class Player : MonoBehaviour, IDamageable {
         colls.RemoveAll((Collider coll) => coll.isTrigger);
         colliders = colls.ToArray();
 
+        mines = new ActivateMineExplosion[maxMinesNumber];
         rb = this.GetComponent<Rigidbody>();
         animator = this.GetComponent<Animator>();
         GameObject[] allTrapsGameObjects = GameObject.FindGameObjectsWithTag("Traps");
@@ -259,6 +265,13 @@ public class Player : MonoBehaviour, IDamageable {
             timeSinceLastMonumentChecking -= checkingMonumentRepetitionTime;
         }
 
+        // TEMPORAL MINE
+        if (InputManager.instance.GetXButtonDown())
+        {
+            InstantiateMine();
+        }
+        // TEMPORAL MINE
+
         timeSinceLastTrapUse += Time.deltaTime;
         timeSinceLastAttack += Time.deltaTime;
         timeSinceLastStrongAttack += Time.deltaTime;
@@ -275,6 +288,22 @@ public class Player : MonoBehaviour, IDamageable {
     #endregion
 
     #region Public Methods
+
+    // TEMPORAL MINES
+    public void RemoveMine(ActivateMineExplosion mineToRemove)
+    {
+        for(int i = 0; i < maxMinesNumber; i++)
+        {
+            if(mines[i] == mineToRemove)
+            {
+                mines[i] = null;
+            }
+        }
+        SortMines();
+    }
+    // TEMPORAL MINES
+
+
     public void SetCurrentHealth(float normalizedHealth)
     {
         if (normalizedHealth < 0 || normalizedHealth > 1)
@@ -400,6 +429,38 @@ public class Player : MonoBehaviour, IDamageable {
     #endregion
 
     #region Private Methods
+
+    // TEMPORAL MINE
+    private void InstantiateMine()
+    {
+        for(int i = 0; i < maxMinesNumber; i++)
+        {
+            if (mines[i] == null)
+            {
+                mines[i] = ParticlesManager.instance.LaunchParticleSystem(minePrefab, this.transform.position, minePrefab.transform.rotation).GetComponent<ActivateMineExplosion>();
+                return;
+            }
+        }
+        mines[0].DestroyMine();
+        mines[0] = null;
+        SortMines();
+        mines[maxMinesNumber - 1] = ParticlesManager.instance.LaunchParticleSystem(minePrefab, this.transform.position, minePrefab.transform.rotation).GetComponent<ActivateMineExplosion>();
+    }
+
+    private void SortMines()
+    {
+        for(int i = 0; i < maxMinesNumber - 1; i++)
+        {
+            if(mines[i] == null)
+            {
+                mines[i] = mines[i + 1];
+                mines[i + 1] = null;
+            }
+        }
+    }
+    // TEMPORAL MINE
+
+
     // Used for a quick fix on a bug where the player wouldn't be able to move after reloading the Game scene
     private void ReEnable()
     {

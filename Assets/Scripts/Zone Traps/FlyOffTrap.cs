@@ -59,7 +59,7 @@ public class FlyOffTrap : ZoneTrap
                 else if (!info.dead)
                 {
                     info.dead = true;
-                    info.enemy.TakeDamage(info.enemy.baseHealth, AttackType.ZONE_TRAP);
+                    //info.enemy.TakeDamage(info.enemy.baseHealth, AttackType.ZONE_TRAP);
                 }
 
             }

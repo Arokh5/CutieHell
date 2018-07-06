@@ -25,10 +25,6 @@ public class FogAttack : StateAction
             player.timeSinceLastFogHit -= hitInterval;
             foreach (AIEnemy aiEnemy in player.currentFogAttackTargets)
             {
-                if(aiEnemy.IsDead() || !aiEnemy.gameObject.activeSelf)
-                    player.toRemoveFogAttackTargets.Add(aiEnemy);
-                else
-                    aiEnemy.TakeDamage(dps * hitInterval, AttackType.FOG);
             }
             foreach (AIEnemy aiEnemy in player.toRemoveFogAttackTargets)
             {
