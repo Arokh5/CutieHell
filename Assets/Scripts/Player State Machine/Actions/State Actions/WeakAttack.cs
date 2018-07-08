@@ -59,7 +59,7 @@ public class WeakAttack : StateAction
 
     private void Shoot(Player player, bool hitSuccess, RaycastHit hitInfo)
     {
-        if (InputManager.instance.GetR2Button() && player.timeSinceLastAttack >= attackCadency && !player.animatingAttack)
+        if (InputManager.instance.GetR2Button() && player.timeSinceLastAttack >= attackCadency && !player.animatingAttack && FindObjectOfType<FollowTarget>() == null)
         {
             SoundManager.instance.PlaySfxClip(attackSfx, 1.5f);
 
