@@ -7,8 +7,6 @@ public class FollowTarget : PooledParticleSystem
     public AttackType attackType;
     public LayerMask hitLayerMask;
     [SerializeField]
-    private float attackSpeed;
-    [SerializeField]
     private float lifeTime;
     [SerializeField]
     private int damage;
@@ -17,11 +15,24 @@ public class FollowTarget : PooledParticleSystem
 
     private Transform mainCamera;
     private Vector3 camForwardDir;
-    private bool directionSet = false;
+    private Vector3 camBackwardDir;
     private AIEnemy enemy;
     private Transform enemyTransform;
     private Vector3 hitOffset;
-    private float time = 0;
+
+    [SerializeField]
+    private float goWaySpeed = 20f;
+    [SerializeField]
+    private float returnWaySpeed = 25f;
+    [SerializeField]
+    private float maxDistance = 12f;
+    [SerializeField]
+    private float goWayFinalWaitTime = 0.5f;
+    private Vector3 initPos;
+    private float time;
+
+    private enum AttackStates { GoWay, ReturnWay, Stay };
+    private AttackStates attackState;
 
     #endregion
 
@@ -34,8 +45,6 @@ public class FollowTarget : PooledParticleSystem
 
     private void Update()
     {
-        if (enemy)
-            CheckForEnemyDeath();
         SetOrbDirection();
         DestroyOrb();
     }
@@ -52,11 +61,6 @@ public class FollowTarget : PooledParticleSystem
                 enemyHit.SetKnockback(this.transform.position);
                 SoundManager.instance.PlaySfxClip(explosionSfx);
             }
-            else if (attackType == AttackType.WEAK)
-            {
-                StatsManager.instance.RegisterWeakAttackMissed();
-            }
-            ReturnToPool();
         }
     }
 
@@ -66,8 +70,10 @@ public class FollowTarget : PooledParticleSystem
 
     public override void Restart()
     {
-        time = 0;
-        directionSet = false;
+        time = 0f;
+        initPos = transform.position;
+        attackState = AttackStates.GoWay;
+        camForwardDir = transform.InverseTransformDirection(mainCamera.forward);
         enemyTransform = null;
         enemy = null;
         hitOffset = Vector3.zero;
@@ -88,48 +94,46 @@ public class FollowTarget : PooledParticleSystem
     #endregion
 
     #region Private Methods
-    
-    private void CheckForEnemyDeath()
-    {
-        if (enemy.IsDead())
-        {
-            Vector3 hitPos = new Vector3(enemyTransform.position.x, enemyTransform.position.y + hitOffset.y, enemyTransform.position.z);
-            camForwardDir = transform.InverseTransformDirection((hitPos - transform.position).normalized);
-            directionSet = true;
-            enemyTransform = null;
-            enemy = null;
-        }
-    }
 
     private void SetOrbDirection()
     {
-        if (enemyTransform != null)
+        switch (attackState)
         {
-            Vector3 hitPos = new Vector3(enemyTransform.position.x, enemyTransform.position.y + hitOffset.y, enemyTransform.position.z);
-            transform.position = Vector3.MoveTowards(transform.position, hitPos, attackSpeed * Time.deltaTime);
-        }
-        else
-        {
-            if (!directionSet)
-            {
-                camForwardDir = transform.InverseTransformDirection(mainCamera.forward);
-                directionSet = true;
-            }
-            
-            transform.Translate(camForwardDir * attackSpeed * Time.deltaTime);
+            case AttackStates.GoWay:
+                if (Vector3.Distance(initPos, transform.position) < maxDistance)
+                {
+                    transform.Translate(camForwardDir * goWaySpeed * Time.deltaTime);
+                }
+                else
+                {
+                    attackState = AttackStates.Stay;
+                }
+                break;
+
+            case AttackStates.Stay:
+                time += Time.deltaTime;
+                if (time >= goWayFinalWaitTime)
+                {
+                    attackState = AttackStates.ReturnWay;
+                }
+                break;
+
+            case AttackStates.ReturnWay:
+                transform.position = Vector3.MoveTowards(transform.position, GameManager.instance.GetPlayer1().transform.position, returnWaySpeed * Time.deltaTime);
+                break;
         }
     }
 
     private void DestroyOrb()
     {
-        time += Time.deltaTime;
-
-        if (time >= lifeTime)
+        if (attackState == AttackStates.ReturnWay)
         {
-            if (attackType == AttackType.WEAK)
-                StatsManager.instance.RegisterWeakAttackMissed();
-            ReturnToPool();
+            if (Vector3.Distance(GameManager.instance.GetPlayer1().transform.position, transform.position) < 1f)
+            {
+                ReturnToPool();
+            }
         }
     }
+
     #endregion
 }
