@@ -14,7 +14,7 @@ public class ConeAttackAnimator : StateMachineBehaviour {
         CheckPlayer(animator);
         player.canMove = false;
         flag = false;
-        BulletTime.instance.DoSlowmotion(0.01f,0.5f);
+        BulletTime.instance.DoSlowmotion(0.001f,0.75f);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

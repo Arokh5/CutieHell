@@ -11,7 +11,7 @@ public class ConeAttackCameraShake : MonoBehaviour {
     private void OnEnable()
     {
         shaked = false;
-        timeToShake = 0.5f;
+        timeToShake = 0.1f;
     }
 
     private void Update()
