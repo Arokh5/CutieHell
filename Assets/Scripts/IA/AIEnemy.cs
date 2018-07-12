@@ -75,6 +75,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
     public float heightOffset;
     [HideInInspector]
     public float timeOnSlow;
+    [HideInInspector]
+    public float timeOnStun;
 
     protected float currentHealth;
 
@@ -109,6 +111,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
         timeSinceLastAttackRecived = 0.0f;
         heightOffset = enemyCollider.bounds.size.y / 2.0f;
         player = GameManager.instance.GetPlayer1();
+        timeOnStun = 0.0f;
+        timeOnSlow = 0.0f;
     }
 
     private void Update()
@@ -119,40 +123,43 @@ public class AIEnemy : MonoBehaviour, IDamageable
         // Motion through NavMeshAgent
         if (currentTarget != null && agent.enabled)
         {
-            agent.stoppingDistance = 0.0f;
-            /* First case is when going for the Monument, second case is when going for a Trap, third for a player target */
-            if (currentNode == null || currentTargetBuilding.GetType() != typeof(Monument) || hasPlayerAsTarget)
+            if (!IsStunned())
             {
-                agent.stoppingDistance = originalStoppingDistance;
-                agent.SetDestination(currentTarget.transform.position);
-                attackLogic.AttemptAttack(currentTarget, agent.destination);
-                
-                if (enemyType == EnemyType.RANGE && attackLogic.IsInAttackRange(agent.destination))
+                agent.stoppingDistance = 0.0f;
+                /* First case is when going for the Monument, second case is when going for a Trap, third for a player target */
+                if (currentNode == null || currentTargetBuilding.GetType() != typeof(Monument) || hasPlayerAsTarget)
                 {
-                    animator.SetBool("Move", false);
-                }
-            }
-            else
-            {
-                agent.SetDestination(currentNode.transform.position);
-                if ((transform.position - currentNode.transform.position).sqrMagnitude < currentNode.radius * currentNode.radius)
-                {
-                    if (currentNodeIndex < currentPath.Count - 1)
-                    {
-                        ++currentNodeIndex;
-                        currentNode = currentPath[currentNodeIndex];
-                    }
-                    else
-                    {
-                        currentNodeIndex = -1;
-                        currentNode = null;
-                    }
-                }
-            }
+                    agent.stoppingDistance = originalStoppingDistance;
+                    agent.SetDestination(currentTarget.transform.position);
+                    attackLogic.AttemptAttack(currentTarget, agent.destination);
 
-            if (enemyType == EnemyType.RANGE && !attackLogic.IsInAttackRange(agent.destination))
-            {
-                animator.SetBool("Move", true);
+                    if (enemyType == EnemyType.RANGE && attackLogic.IsInAttackRange(agent.destination))
+                    {
+                        animator.SetBool("Move", false);
+                    }
+                }
+                else
+                {
+                    agent.SetDestination(currentNode.transform.position);
+                    if ((transform.position - currentNode.transform.position).sqrMagnitude < currentNode.radius * currentNode.radius)
+                    {
+                        if (currentNodeIndex < currentPath.Count - 1)
+                        {
+                            ++currentNodeIndex;
+                            currentNode = currentPath[currentNodeIndex];
+                        }
+                        else
+                        {
+                            currentNodeIndex = -1;
+                            currentNode = null;
+                        }
+                    }
+                }
+
+                if (enemyType == EnemyType.RANGE && !attackLogic.IsInAttackRange(agent.destination))
+                {
+                    animator.SetBool("Move", true);
+                }
             }
         }
 
@@ -198,6 +205,11 @@ public class AIEnemy : MonoBehaviour, IDamageable
         lastAttackRecivedDirection.y = 0;
     }
 
+    public void SetStun(float timeToStun)
+    {
+        timeOnStun = timeToStun;
+    }
+
     public void SetSlow(float timeToSloDown)
     {
         timeOnSlow = timeToSloDown;
@@ -221,6 +233,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
     public void Restart()
     {
+        timeOnStun = 0.0f;
+        timeOnSlow = 0.0f;
         currentHealth = baseHealth;
         enemyCollider.enabled = true;
         agent.enabled = true;
@@ -383,7 +397,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
     private void UpdateSlowSpeed()
     {
-        if (timeOnSlow >= 0.0f)
+        if (timeOnSlow > 0.0f)
         {
             timeOnSlow -= Time.deltaTime;
             agent.speed = speedOnSlow;
@@ -392,6 +406,20 @@ public class AIEnemy : MonoBehaviour, IDamageable
         {
             agent.speed = initialSpeed;
         }
+        if(timeOnStun > 0.0f)
+        {
+            timeOnStun -= Time.deltaTime;
+            agent.speed = 0.0f;
+        }
+    }
+
+    private bool IsStunned()
+    {
+        if (timeOnStun > 0.0f)
+        {
+            return true;
+        }
+        return false;
     }
 
     private void Knockback()
