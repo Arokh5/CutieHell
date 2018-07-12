@@ -44,7 +44,7 @@ public class ActivateMineExplosion : PooledParticleSystem
                 aiEnemy.SetKnockback(this.transform.position, knockBack);
             }
             ParticlesManager.instance.LaunchParticleSystem(explosionVFX, this.transform.position, explosionVFX.transform.rotation);
-            CameraShaker.Instance.ShakeOnce(0.3f, 4.5f, 0.1f, 0.7f);
+            CameraShaker.Instance.ShakeOnce(0.5f, 4.5f, 0.1f, 0.7f);
             mineTargets.currentMineTargets.Clear();
             GameManager.instance.GetPlayer1().RemoveMine(this);
             ReturnToPool();
