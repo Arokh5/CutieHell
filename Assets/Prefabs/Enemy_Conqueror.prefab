@@ -2321,11 +2321,14 @@ MonoBehaviour:
   currentNode: {fileID: 0}
   agent: {fileID: 0}
   initialSpeed: 0
+  speedOnSlow: 0.5
+  canAttackPlayer: 0
+  detectionRadius: 4
+  escapeRadius: 8
   outlineThickness: 0.0125
   attackLogic: {fileID: 114404706228728106}
   lastAttackRecivedDirection: {x: 0, y: 0, z: 0}
   timeSinceLastAttackRecived: 0
-  knockbackForceMultiplier: 0
   knockbackForce: 0
   baseHealth: 25
   evilKillReward: 20
@@ -2334,6 +2337,8 @@ MonoBehaviour:
   deathVFX: {fileID: 198975771329515660, guid: ab7d3ffbb16031741a985c5bd17a7a2b, type: 2}
   deathSFX: {fileID: 8300000, guid: 326c5829d18c2d9438b8eb151155fc62, type: 3}
   heightOffset: 0
+  timeOnSlow: 0
+  timeOnStun: 0
   healthToReduce: 100
   hit: 0
 --- !u!114 &114861395737797846
