@@ -14,7 +14,6 @@ public class ConeAttackAnimator : StateMachineBehaviour {
         CheckPlayer(animator);
         player.canMove = false;
         flag = false;
-        BulletTime.instance.DoSlowmotion(0.001f,0.75f);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -22,6 +21,7 @@ public class ConeAttackAnimator : StateMachineBehaviour {
     {
         if(stateInfo.normalizedTime >= attackSpawnTime && !flag)
         {
+            BulletTime.instance.DoSlowmotion(0.15f, 0.45f);
             flag = true;
             CheckPlayer(animator);
             ParticlesManager.instance.LaunchParticleSystem(player.coneAttackVFX, player.transform.position, player.transform.rotation);
