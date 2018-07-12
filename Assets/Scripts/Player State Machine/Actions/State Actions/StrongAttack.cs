@@ -73,6 +73,7 @@ public class StrongAttack : StateAction
         {
             aiEnemy.TakeDamage(damage, AttackType.STRONG);
             aiEnemy.SetKnockback(player.transform.position, 3.0f);
+            aiEnemy.SetStun(1.0f);
         }
     }
 }
