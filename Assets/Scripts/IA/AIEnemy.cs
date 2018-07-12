@@ -56,7 +56,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     public Vector3 lastAttackRecivedDirection;
     [HideInInspector]
     public float timeSinceLastAttackRecived;
-    public float knockbackForceMultiplier;
+    private float knockbackForceMultiplier;
     [SerializeField]
     private float knockbackForce;
     private float knockbackCurrentForce;

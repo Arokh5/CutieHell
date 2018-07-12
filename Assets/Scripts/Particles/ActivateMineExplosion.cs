@@ -42,6 +42,7 @@ public class ActivateMineExplosion : PooledParticleSystem
             {
                 aiEnemy.TakeDamage(damage, AttackType.MINE);
                 aiEnemy.SetKnockback(this.transform.position, knockBack);
+                aiEnemy.SetSlow(8.0f);
             }
             ParticlesManager.instance.LaunchParticleSystem(explosionVFX, this.transform.position, explosionVFX.transform.rotation);
             CameraShaker.Instance.ShakeOnce(0.5f, 4.5f, 0.1f, 0.7f);
