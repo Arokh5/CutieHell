@@ -11,7 +11,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     [HideInInspector]
     public AISpawnController spawnController;
     private AIZoneController zoneController;
-    private SubZoneType currentSubZone;
+    private SubZoneType currentSubZone; 
 
     private Player playerTarget;
     private IDamageable currentTarget;
@@ -27,6 +27,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     public NavMeshAgent agent;
     [HideInInspector]
     public float initialSpeed;
+    public float speedOnSlow;
     private float originalStoppingDistance;
 
     private Renderer mRenderer;
@@ -72,6 +73,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private AudioClip deathSFX;
     [HideInInspector]
     public float heightOffset;
+    [HideInInspector]
+    public float timeOnSlow;
 
     protected float currentHealth;
 
@@ -112,6 +115,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     {
         UpdateCurrentTarget();
         Knockback();
+        UpdateSlowSpeed();
         // Motion through NavMeshAgent
         if (currentTarget != null && agent.enabled)
         {
@@ -192,6 +196,11 @@ public class AIEnemy : MonoBehaviour, IDamageable
         timeSinceLastAttackRecived = Time.time;
         lastAttackRecivedDirection = (this.transform.position - originForce).normalized;
         lastAttackRecivedDirection.y = 0;
+    }
+
+    public void SetSlow(float timeToSloDown)
+    {
+        timeOnSlow = timeToSloDown;
     }
 
     public float GetMaxHealth()
@@ -370,6 +379,19 @@ public class AIEnemy : MonoBehaviour, IDamageable
             mRenderer.material.SetFloat("_Outline", outlineThickness);
         else
             mRenderer.material.SetFloat("_Outline", 0.0f);
+    }
+
+    private void UpdateSlowSpeed()
+    {
+        if (timeOnSlow >= 0.0f)
+        {
+            timeOnSlow -= Time.deltaTime;
+            agent.speed = speedOnSlow;
+        }
+        else
+        {
+            agent.speed = initialSpeed;
+        }
     }
 
     private void Knockback()
