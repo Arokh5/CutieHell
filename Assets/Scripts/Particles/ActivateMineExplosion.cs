@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EZCameraShake;
 
 public class ActivateMineExplosion : PooledParticleSystem
 {
     [SerializeField]
     private MineTargets mineTargets;
-
+    [SerializeField]
+    private ParticleSystem explosionVFX;
     [SerializeField]
     private SphereCollider sphereCollider;
     private float timeOnActivate;
@@ -41,6 +43,8 @@ public class ActivateMineExplosion : PooledParticleSystem
                 aiEnemy.TakeDamage(damage, AttackType.MINE);
                 aiEnemy.SetKnockback(this.transform.position, knockBack);
             }
+            ParticlesManager.instance.LaunchParticleSystem(explosionVFX, this.transform.position, explosionVFX.transform.rotation);
+            CameraShaker.Instance.ShakeOnce(0.3f, 4.5f, 0.1f, 0.7f);
             mineTargets.currentMineTargets.Clear();
             GameManager.instance.GetPlayer1().RemoveMine(this);
             ReturnToPool();
