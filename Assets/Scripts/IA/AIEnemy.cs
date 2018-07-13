@@ -77,6 +77,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     public float timeOnSlow;
     [HideInInspector]
     public float timeOnStun;
+    public GameObject stunVFX;
 
     protected float currentHealth;
 
@@ -113,6 +114,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         player = GameManager.instance.GetPlayer1();
         timeOnStun = 0.0f;
         timeOnSlow = 0.0f;
+        stunVFX.SetActive(false);
     }
 
     private void Update()
@@ -311,7 +313,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         }
         else
         {
-            animator.SetBool("GetHit", true);
+            animator.SetTrigger("GetHit");
         }
         GetComponent<EnemyCanvasController>().EnableHealthBar(true);
         GetComponent<EnemyCanvasController>().SetHealthBar();
@@ -410,6 +412,11 @@ public class AIEnemy : MonoBehaviour, IDamageable
         {
             timeOnStun -= Time.deltaTime;
             agent.speed = 0.0f;
+            animator.SetBool("Stunned", true);
+        }
+        else
+        {
+            animator.SetBool("Stunned", false);
         }
     }
 
