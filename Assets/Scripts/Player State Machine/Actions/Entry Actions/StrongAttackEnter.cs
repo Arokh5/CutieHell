@@ -6,11 +6,10 @@ using UnityEngine;
 public class StrongAttackEnter : StateAction
 {
     public ParticleSystem teleportIn;
-    public int evilCost;
 
     public override void Act(Player player)
     {
-        player.AddEvilPoints(-player.strongAttackEvilCost);
+        player.AddEvilPoints(0);
         player.canMove = false;
         player.comeBackFromStrongAttack = false;
         player.timeSinceLastStrongAttack = 0.0f;
