@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4176502336132698}
   - component: {fileID: 198044732847800444}
   - component: {fileID: 199112596178360106}
+  - component: {fileID: 114992714660150712}
+  - component: {fileID: 114871853428923050}
   m_Layer: 0
   m_Name: Meteorite
   m_TagString: Untagged
@@ -128,13 +130,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1310584988994888}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.32, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalRotation: {x: -0.57761884, y: -0.31348893, z: -0.35940245, w: 0.6625037}
+  m_LocalPosition: {x: 0.11, y: 0.02, z: -0.6}
+  m_LocalScale: {x: 2.65, y: 2.65, z: 2.65}
   m_Children: []
   m_Father: {fileID: 4176502336132698}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -82.174, y: -0.076000005, z: -56.893}
 --- !u!23 &23347939486642074
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -193,6 +195,30 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114871853428923050
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1267991960168598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb21fc7b641e3544fae69356650e080d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToReturnToPool: 2
+--- !u!114 &114992714660150712
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1267991960168598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cda806e142e02454fae2387e68950f49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 45
 --- !u!198 &198044732847800444
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -253,7 +279,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 897503050
+  randomSeed: -806763495
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3614,7 +3640,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1947559682
+  randomSeed: -931938923
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3766,8 +3792,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 3
-      minScalar: 4
+      scalar: 2.75
+      minScalar: 3.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4215,7 +4241,7 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 20
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -4268,8 +4294,20 @@ ParticleSystem:
         - serializedVersion: 2
           time: 0
           value: 1
-          inSlope: -1
-          outSlope: -1
+          inSlope: -0.32047182
+          outSlope: -0.32047182
+          tangentMode: 0
+        - serializedVersion: 2
+          time: 0.0995933
+          value: 0.96277195
+          inSlope: -1.0001659
+          outSlope: -1.0001659
+          tangentMode: 0
+        - serializedVersion: 2
+          time: 0.15881371
+          value: 0.7192286
+          inSlope: -1.1321902
+          outSlope: -1.1321902
           tangentMode: 0
         - serializedVersion: 2
           time: 1
@@ -4524,8 +4562,8 @@ ParticleSystem:
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
-        ctime0: 20239
-        ctime1: 39514
+        ctime0: 9252
+        ctime1: 31226
         ctime2: 65535
         ctime3: 65535
         ctime4: 64186
@@ -6975,14 +7013,14 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 954099216
+  randomSeed: 417281846
   InitialModule:
     serializedVersion: 3
     enabled: 1
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.65
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -7128,7 +7166,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 3
-      minScalar: 4
+      minScalar: 2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -7576,7 +7614,7 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 4
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -7634,7 +7672,7 @@ ParticleSystem:
           tangentMode: 0
         - serializedVersion: 2
           time: 1
-          value: 0
+          value: 0.23214722
           inSlope: -1
           outSlope: -1
           tangentMode: 0
@@ -10423,11 +10461,11 @@ ParticleSystemRenderer:
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
-  m_MaxParticleSize: 0.5
+  m_MaxParticleSize: 5
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
   m_LengthScale: 2
-  m_SortingFudge: 0
+  m_SortingFudge: -50
   m_NormalDirection: 1
   m_RenderAlignment: 0
   m_Pivot: {x: 0, y: 0, z: 0}
