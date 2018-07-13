@@ -21,7 +21,7 @@ public class ConeAttackAnimator : StateMachineBehaviour {
     {
         if(stateInfo.normalizedTime >= attackSpawnTime && !flag)
         {
-            BulletTime.instance.DoSlowmotion(0.15f, 0.45f);
+            BulletTime.instance.DoSlowmotion(0.65f, 0.25f);
             flag = true;
             CheckPlayer(animator);
             ParticlesManager.instance.LaunchParticleSystem(player.coneAttackVFX, player.transform.position, player.transform.rotation);

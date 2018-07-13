@@ -62,7 +62,6 @@ public class StrongAttackBehaviour : PooledParticleSystem
     {
         if (comboCount >= enemiesToCombo)
         {
-            //Debug.Log("COMBO!!");
             GameManager.instance.GetPlayer1().AddEvilPoints(evilComboReward);
             UIManager.instance.ShowComboText(UIManager.ComboTypes.StrongCombo);
         }
