@@ -151,6 +151,9 @@ public class Player : MonoBehaviour, IDamageable {
     [Header("Mine Attack")]
     public ParticleSystem minePrefab;
     public int maxMinesNumber;
+    public int currentMinesNumber;
+    public float timeToGetAnotherMine;
+    private float timeSinceLastMine;
     public ActivateMineExplosion[] mines;
 
     [Header("Fog Attack")]
@@ -240,6 +243,8 @@ public class Player : MonoBehaviour, IDamageable {
         currentHealth = baseHealth;
         timeSinceLastHit = autoHealDelay;
         UIManager.instance.SetPlayerHealth(1.0f);
+        currentMinesNumber = maxMinesNumber;
+        timeSinceLastMine = 0.0f;
 
         currentState.EnterState(this);
 
@@ -266,10 +271,23 @@ public class Player : MonoBehaviour, IDamageable {
         }
 
         // TEMPORAL MINE
-        if (InputManager.instance.GetXButtonDown())
+
+        if (InputManager.instance.GetXButtonDown() && currentMinesNumber > 0)
         {
             InstantiateMine();
         }
+
+        //Should stop when game is paused!!
+        if(currentMinesNumber < maxMinesNumber)
+        {
+            timeSinceLastMine += Time.deltaTime;
+            if(timeSinceLastMine >= timeToGetAnotherMine)
+            {
+                currentMinesNumber++;
+                timeSinceLastMine = 0.0f;
+            }
+        }
+
         // TEMPORAL MINE
 
         timeSinceLastTrapUse += Time.deltaTime;
@@ -433,7 +451,8 @@ public class Player : MonoBehaviour, IDamageable {
     // TEMPORAL MINE
     private void InstantiateMine()
     {
-        for(int i = 0; i < maxMinesNumber; i++)
+        currentMinesNumber--;
+        for (int i = 0; i < maxMinesNumber; i++)
         {
             if (mines[i] == null)
             {
