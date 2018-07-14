@@ -34,10 +34,6 @@ public class ActivateMineExplosion : PooledParticleSystem
     {
         if(other.gameObject.layer == 8)
         {
-            if(mineTargets.currentMineTargets.Count == 0)
-            {
-                
-            }
             foreach (AIEnemy aiEnemy in mineTargets.currentMineTargets)
             {
                 aiEnemy.TakeDamage(damage, AttackType.MINE);

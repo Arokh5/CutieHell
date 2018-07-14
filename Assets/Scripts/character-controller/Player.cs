@@ -107,6 +107,8 @@ public class Player : MonoBehaviour, IDamageable {
     [Header("Player States")]
     [SerializeField]
     private State defaultState;
+    [SerializeField]
+    private State stoppedState;
     [ShowOnly]
     [SerializeField]
     private State currentState;
@@ -114,6 +116,7 @@ public class Player : MonoBehaviour, IDamageable {
     public Camera mainCamera;
     [HideInInspector]
     public CameraController mainCameraController;
+    private float lastTransitionTime = -1.0f;
 
     [Header("Basic Attacks")]
     [HideInInspector]
@@ -153,9 +156,10 @@ public class Player : MonoBehaviour, IDamageable {
     [Header("Mine Attack")]
     public ParticleSystem minePrefab;
     public int maxMinesNumber;
-    public int currentMinesNumber;
+    public int availableMinesNumber;
     public float timeToGetAnotherMine;
-    private float timeSinceLastMine;
+    [HideInInspector]
+    public float timeSinceLastMine;
     public ActivateMineExplosion[] mines;
 
     [Header("Fog Attack")]
@@ -245,7 +249,7 @@ public class Player : MonoBehaviour, IDamageable {
         currentHealth = baseHealth;
         timeSinceLastHit = autoHealDelay;
         UIManager.instance.SetPlayerHealth(1.0f);
-        currentMinesNumber = maxMinesNumber;
+        availableMinesNumber = maxMinesNumber;
         timeSinceLastMine = 0.0f;
 
         currentState.EnterState(this);
@@ -261,7 +265,8 @@ public class Player : MonoBehaviour, IDamageable {
         {
             loopAudioSource.Stop();
             return;
-        }else
+        }
+        else
         {
             EvilAutoRecovering();
         }
@@ -272,31 +277,14 @@ public class Player : MonoBehaviour, IDamageable {
             timeSinceLastMonumentChecking -= checkingMonumentRepetitionTime;
         }
 
-        // TEMPORAL MINE
-
-        if (InputManager.instance.GetXButtonDown() && currentMinesNumber > 0)
-        {
-            InstantiateMine();
-        }
-
-        //Should stop when game is paused!!
-        if(currentMinesNumber < maxMinesNumber)
-        {
-            timeSinceLastMine += Time.deltaTime;
-            if(timeSinceLastMine >= timeToGetAnotherMine)
-            {
-                currentMinesNumber++;
-                timeSinceLastMine = 0.0f;
-            }
-        }
-
-        // TEMPORAL MINE
-
         timeSinceLastTrapUse += Time.deltaTime;
         timeSinceLastAttack += Time.deltaTime;
         timeSinceLastStrongAttack += Time.deltaTime;
         timeSinceLastMonumentChecking += Time.deltaTime;
-        currentState.UpdateState(this);
+        if (lastTransitionTime != Time.time)
+        {
+            currentState.UpdateState(this);
+        }
 
         // Testing
         if (hit)
@@ -309,7 +297,23 @@ public class Player : MonoBehaviour, IDamageable {
 
     #region Public Methods
 
-    // TEMPORAL MINES
+    public void InstantiateMine()
+    {
+        availableMinesNumber--;
+        for (int i = 0; i < maxMinesNumber; i++)
+        {
+            if (mines[i] == null)
+            {
+                mines[i] = ParticlesManager.instance.LaunchParticleSystem(minePrefab, this.transform.position, minePrefab.transform.rotation).GetComponent<ActivateMineExplosion>();
+                return;
+            }
+        }
+        mines[0].DestroyMine();
+        mines[0] = null;
+        SortMines();
+        mines[maxMinesNumber - 1] = ParticlesManager.instance.LaunchParticleSystem(minePrefab, this.transform.position, minePrefab.transform.rotation).GetComponent<ActivateMineExplosion>();
+    }
+
     public void RemoveMine(ActivateMineExplosion mineToRemove)
     {
         for(int i = 0; i < maxMinesNumber; i++)
@@ -321,8 +325,6 @@ public class Player : MonoBehaviour, IDamageable {
         }
         SortMines();
     }
-    // TEMPORAL MINES
-
 
     public void SetCurrentHealth(float normalizedHealth)
     {
@@ -374,6 +376,7 @@ public class Player : MonoBehaviour, IDamageable {
         currentState.ExitState(this);
         targetState.EnterState(this);
         currentState = targetState;
+        lastTransitionTime = Time.time;
     }
 
     public void StopTrapUse()
@@ -441,31 +444,18 @@ public class Player : MonoBehaviour, IDamageable {
         isAutoRecoveringEvil = isRecovering;
     }
 
-    public void OnRoundOver()
+    public void OnRoundStarted()
     {
         TransitionToState(defaultState);
+    }
+
+    public void OnRoundOver()
+    {
+        TransitionToState(stoppedState);
     }
     #endregion
 
     #region Private Methods
-
-    // TEMPORAL MINE
-    private void InstantiateMine()
-    {
-        currentMinesNumber--;
-        for (int i = 0; i < maxMinesNumber; i++)
-        {
-            if (mines[i] == null)
-            {
-                mines[i] = ParticlesManager.instance.LaunchParticleSystem(minePrefab, this.transform.position, minePrefab.transform.rotation).GetComponent<ActivateMineExplosion>();
-                return;
-            }
-        }
-        mines[0].DestroyMine();
-        mines[0] = null;
-        SortMines();
-        mines[maxMinesNumber - 1] = ParticlesManager.instance.LaunchParticleSystem(minePrefab, this.transform.position, minePrefab.transform.rotation).GetComponent<ActivateMineExplosion>();
-    }
 
     private void SortMines()
     {
@@ -478,8 +468,6 @@ public class Player : MonoBehaviour, IDamageable {
             }
         }
     }
-    // TEMPORAL MINE
-
 
     // Used for a quick fix on a bug where the player wouldn't be able to move after reloading the Game scene
     private void ReEnable()

@@ -112,7 +112,6 @@ public void OnLastEnemySpawned()
     {
         if (lastSpawnIsOver && zonesWithEnemiesCount == 0)
         {
-            GameManager.instance.GetPlayer1().OnRoundOver();
             spawnController.StopRound();
 
             for (int i = 0; i < zoneControllers.Count; i++)

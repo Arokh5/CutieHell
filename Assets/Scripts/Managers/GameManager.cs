@@ -126,6 +126,7 @@ public class GameManager : MonoBehaviour
     public void OnRoundWon()
     {
         Debug.Log("Round (index) " + aiSpawnController.GetCurrentRoundIndex() + " finished!");
+        player.OnRoundOver();
 
         if (aiSpawnController.HasNextRound())  
         {
@@ -174,6 +175,7 @@ public class GameManager : MonoBehaviour
     {
         if (gameState == GameStates.InGame)
         {
+            player.OnRoundOver();
             crosshair.SetActive(false);
             gameOverPanel.SetActive(true);
             gameOverPanel.SetActive(true);
@@ -289,6 +291,7 @@ public class GameManager : MonoBehaviour
     {
         aiSpawnController.StartNextRound();
         UIManager.instance.indicatorsController.OnNewRoundStarted();
+        player.OnRoundStarted();
     }
     #endregion
 
