@@ -9,6 +9,7 @@ public class WeakAttack : StateAction
     public LayerMask targetsLayerMask;
     public float sphereCastRadius;
     public float attackCadency;
+    public bool allowMultipleAttacks = false;
 
     [SerializeField]
     private AudioClip attackSfx;
@@ -59,7 +60,11 @@ public class WeakAttack : StateAction
 
     private void Shoot(Player player, bool hitSuccess, RaycastHit hitInfo)
     {
-        if (InputManager.instance.GetR2Button() && player.timeSinceLastAttack >= attackCadency && !player.animatingAttack && FindObjectOfType<FollowTarget>() == null)
+        if (InputManager.instance.GetR2Button() 
+            && player.timeSinceLastAttack >= attackCadency 
+            && !player.animatingAttack 
+            && (allowMultipleAttacks || player.basicAttacksCount == 0)
+            )
         {
             SoundManager.instance.PlaySfxClip(attackSfx, 1.5f);
 

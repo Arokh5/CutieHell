@@ -44,6 +44,7 @@ public class FollowTarget : PooledParticleSystem
 
     private enum AttackStates { GoWay, ReturnWay, Stay };
     private AttackStates attackState;
+    private Player player;
 
     #endregion
 
@@ -52,6 +53,7 @@ public class FollowTarget : PooledParticleSystem
     private void Awake()
     {
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera").transform;
+        player = GameManager.instance.GetPlayer1();
     }
 
     private void Update()
@@ -90,16 +92,14 @@ public class FollowTarget : PooledParticleSystem
         hitOffset = Vector3.zero;
     }
 
-    public void SetEnemyTransform(Transform enemyTransform)
+    public void Fire(Transform enemyTransform, Vector3 hitOffset)
     {
         this.enemyTransform = enemyTransform;
         if (enemyTransform)
             this.enemy = enemyTransform.GetComponent<AIEnemy>();
-    }
 
-    public void SetHitOffset(Vector3 hitOffset)
-    {
         this.hitOffset = hitOffset;
+        ++player.basicAttacksCount;
     }
 
     #endregion
@@ -143,6 +143,7 @@ public class FollowTarget : PooledParticleSystem
         {
             if (Vector3.Distance(GameManager.instance.GetPlayer1().transform.position, transform.position) < 1f)
             {
+                --player.basicAttacksCount;
                 ReturnToPool();
             }
         }
