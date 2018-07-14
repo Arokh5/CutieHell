@@ -119,6 +119,8 @@ public class Player : MonoBehaviour, IDamageable {
     [HideInInspector]
     public float timeSinceLastAttack;
     [HideInInspector]
+    public int basicAttacksCount = 0;
+    [HideInInspector]
     public AIEnemy currentBasicAttackTarget = null;
     [HideInInspector]
     public bool animatingAttack = false;
@@ -426,11 +428,10 @@ public class Player : MonoBehaviour, IDamageable {
 
         ParticleSystem attack = ParticlesManager.instance.LaunchParticleSystem(attackPrefab, spawningPos, transform.rotation);
         FollowTarget attackClone = attack.GetComponent<FollowTarget>();
-        attackClone.SetEnemyTransform(enemy);
-        attackClone.SetHitOffset(hitOffset);
+        attackClone.Fire(enemy, hitOffset);
     }
 
-    public bool SetIsAutoRecoveringEvil()
+    public bool GetIsAutoRecoveringEvil()
     {
         return isAutoRecoveringEvil;
     }
