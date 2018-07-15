@@ -42,6 +42,9 @@ public class AIEnemy : MonoBehaviour, IDamageable
     [SerializeField]
     [Tooltip("The radius outside of which a targeted player gets ignored by the enemy")]
     private float escapeRadius = 8.0f;
+    [SerializeField]
+    [Tooltip("The distance at which the enemy stops approaching the player")]
+    private float minDistance = 1.0f;
     private Player player;
     private bool hasPlayerAsTarget;
 
@@ -131,7 +134,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
                 /* First case is when going for the Monument, second case is when going for a Trap, third for a player target */
                 if (currentNode == null || currentTargetBuilding.GetType() != typeof(Monument) || hasPlayerAsTarget)
                 {
-                    agent.stoppingDistance = originalStoppingDistance;
+                    agent.stoppingDistance = hasPlayerAsTarget? minDistance : originalStoppingDistance;
                     agent.SetDestination(currentTarget.transform.position);
                     attackLogic.AttemptAttack(currentTarget, agent.destination);
 
