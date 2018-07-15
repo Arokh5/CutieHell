@@ -366,7 +366,7 @@ public class Player : MonoBehaviour, IDamageable {
         if (currentHealth <= 0)
         {
             currentHealth = 0;
-            PlayerKilled();
+            PlayerGrounded();
         }
         UIManager.instance.SetPlayerHealth(currentHealth / baseHealth);
     }
@@ -418,9 +418,14 @@ public class Player : MonoBehaviour, IDamageable {
         {
             renderers[i].enabled = visible;
         }
+        SetCollidersActiveState(visible);
+    }
+
+    public void SetCollidersActiveState(bool isActive)
+    {
         for (int i = 0; i < colliders.Length; i++)
         {
-            colliders[i].enabled = visible;
+            colliders[i].enabled = isActive;
         }
         strongAttackCollider.enabled = true;
     }
@@ -502,10 +507,9 @@ public class Player : MonoBehaviour, IDamageable {
         }
     }
 
-    private void PlayerKilled()
+    private void PlayerGrounded()
     {
         isGrounded = true;
-        Debug.Log("Player killed!");
     }
     #endregion
 }
