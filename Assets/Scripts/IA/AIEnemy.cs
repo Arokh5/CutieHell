@@ -483,7 +483,15 @@ public class AIEnemy : MonoBehaviour, IDamageable
                     hasPlayerAsTarget = true;
                     currentTarget = player;
                 }
+                else
+                {
+                    currentTarget = currentTargetBuilding;
+                }
             }
+        }
+        else
+        {
+            currentTarget = currentTargetBuilding;
         }
     }
     #endregion
