@@ -1697,7 +1697,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1351661036542954}
   m_LocalRotation: {x: 0, y: -0.3420201, z: 0, w: 0.9396927}
-  m_LocalPosition: {x: -25.15, y: 32.977, z: 32.69}
+  m_LocalPosition: {x: -30.73, y: 34.92, z: 13.662}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4039087186657490}
@@ -3715,11 +3715,13 @@ MonoBehaviour:
   shouldExitTrap: 0
   zoneTrap: {fileID: 0}
   defaultState: {fileID: 11400000, guid: 7876ea8555f7f6c4cb97c6dd742b336b, type: 2}
+  stoppedState: {fileID: 11400000, guid: 5ffbd5af897338a4ab9108e251027884, type: 2}
   currentState: {fileID: 0}
   cameraState: 0
   mainCamera: {fileID: 0}
   mainCameraController: {fileID: 0}
   timeSinceLastAttack: 1000
+  basicAttacksCount: 0
   currentBasicAttackTarget: {fileID: 0}
   animatingAttack: 0
   weakAttackTargetHitOffset: {x: 0, y: 0, z: 0}
@@ -3739,9 +3741,13 @@ MonoBehaviour:
   minePrefab: {fileID: 198004336150570630, guid: 6cfede698414cdc43a874ab388791ee0,
     type: 2}
   maxMinesNumber: 3
-  currentMinesNumber: 3
+  availableMinesNumber: 0
   timeToGetAnotherMine: 4
+  timeSinceLastMine: 0
   mines: []
+  meteoriteVFX: {fileID: 198295018943285422, guid: 7c44d66324ea8ef4d896a4da6cf5bfa5,
+    type: 2}
+  meteoritesShot: 0
   fogCollider: {fileID: 135076191655738780}
   fogVFX: {fileID: 1362348381220060}
   fogStateCooldown: 0.5
@@ -4074,8 +4080,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0.00020039082, y: 0.8001709, z: -0.08387184}
-    m_Extent: {x: 0.72030175, y: 0.94308686, z: 0.911003}
+    m_Center: {x: 0.00020217896, y: 0.8001709, z: -0.08387184}
+    m_Extent: {x: 0.72030115, y: 0.9430866, z: 0.9110023}
   m_DirtyAABB: 0
 --- !u!137 &137922916964217542
 SkinnedMeshRenderer:
