@@ -27,6 +27,9 @@ public class CameraController : MonoBehaviour {
     [HideInInspector]
     public float y;
 
+    public float aR, aF, aU,zX,zY,zZ;
+
+
     /* Player camera values */
     public float distance;
     public float cameraX;
@@ -59,13 +62,20 @@ public class CameraController : MonoBehaviour {
         playerScript = player.GetComponent<Player>();
         playerCapsuleCollider = player.GetComponent<CapsuleCollider>();
 
-        distance = 2.8f;
-        cameraX = 0.45f;
-        cameraY = 1.8f;
-        focusDistance = 0.65f;
-        focusX = 0.55f;
-        focusY = 1.65f;
+        zZ = distance = 2.8f;
+        zX = cameraX = 0.45f;
+        zY = cameraY = 1.8f;
+        aF = focusDistance = 0.65f;
+        aR = focusX = 0.55f;
+        aU = focusY = 1.65f;
         fov = 60f;
+
+        aR = 0.35f;
+        aF = 1.7f;
+        aU = 2.0f;
+        zX = 1.1f;
+        zY = 0.13f;
+        zZ = 4.22f;
 
         t_distance = -2.2f;
         t_cameraY = 0.6f;
@@ -257,7 +267,68 @@ public class CameraController : MonoBehaviour {
                         this.transform.LookAt(player.transform.position + rotation * Vector3.up * focusY + rotation * Vector3.right * focusX + rotation * Vector3.forward * focusDistance);
                         break;
                     }
+                case Player.CameraState.METEORITEAIM:
+                    {
+                        y = ClampAngle(y, 40, 70);
+                        Quaternion rotation = Quaternion.Euler(y, x, 0);
+
+                        Vector3 position = rotation * new Vector3(zX, zY, -zZ) + player.position;
+                        this.transform.position = position;
+
+                        SetPlayerDirection(rotation.eulerAngles.y);
+                        if (Input.GetKey(KeyCode.A))
+                        {
+                            aR += Time.deltaTime;
+                        }
+                        if (Input.GetKey(KeyCode.S))
+                        {
+                            aR -= Time.deltaTime;
+                        }
+                        if (Input.GetKey(KeyCode.D))
+                        {
+                            aU += Time.deltaTime;
+                        }
+                        if (Input.GetKey(KeyCode.F))
+                        {
+                            aU -= Time.deltaTime;
+                        }
+                        if (Input.GetKey(KeyCode.G))
+                        {
+                            aF += Time.deltaTime;
+                        }
+                        if (Input.GetKey(KeyCode.H))
+                        {
+                            aF -= Time.deltaTime;
+                        }
+                        if (Input.GetKey(KeyCode.Q))
+                        {
+                            zX += Time.deltaTime;
+                        }
+                        if (Input.GetKey(KeyCode.W))
+                        {
+                            zX -= Time.deltaTime;
+                        }
+                        if (Input.GetKey(KeyCode.E))
+                        {
+                            zY += Time.deltaTime;
+                        }
+                        if (Input.GetKey(KeyCode.R))
+                        {
+                            zY -= Time.deltaTime;
+                        }
+                        if (Input.GetKey(KeyCode.T))
+                        {
+                            zZ += Time.deltaTime;
+                        }
+                        if (Input.GetKey(KeyCode.Y))
+                        {
+                            zZ -= Time.deltaTime;
+                        }
+                        this.transform.LookAt(player.transform.position + rotation * Vector3.up * aU + rotation * Vector3.right * aR + rotation * Vector3.forward * aF);
+                    }           
+                    break;
                 default:
+
                     break;
             }
             lastState = playerScript.cameraState;

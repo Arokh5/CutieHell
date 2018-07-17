@@ -8,7 +8,6 @@ public class MeteoriteAim : StateAction
 {
     public int damage;
     public ParticleSystem meteoritePrefab;
-
     public float maxSpeed, acceleration;
 
     public override void Act(Player player)

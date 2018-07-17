@@ -9,6 +9,7 @@ public class MeteoriteEnterAction : StateAction
     {
         player.AddEvilPoints(-player.meteoriteAttackEvilCost);
         player.comeBackFromMeteoriteAttack = false;
+        player.cameraState = Player.CameraState.METEORITEAIM;
         player.transform.position = new Vector3(player.transform.position.x, 55.0f, player.transform.position.z);
         player.transform.rotation = Quaternion.LookRotation(Vector3.forward);
     }
