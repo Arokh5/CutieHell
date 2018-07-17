@@ -163,9 +163,8 @@ public class Player : MonoBehaviour, IDamageable {
     public ActivateMineExplosion[] mines;
 
     [Header("Meteorite Attack")]
-    public ParticleSystem meteoriteVFX;
     [HideInInspector]
-    public bool meteoritesShot;
+    public bool comeBackFromMeteoriteAttack;
     public float meteoriteAttackEvilCost;
 
     [Header("Fog Attack")]

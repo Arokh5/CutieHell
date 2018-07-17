@@ -5,6 +5,6 @@ public class MeteoriteExitDecision : Decision
 {
     public override bool Decide(Player player)
     {
-        return !player.IsDead();
+        return player.comeBackFromMeteoriteAttack;
     }
 }
