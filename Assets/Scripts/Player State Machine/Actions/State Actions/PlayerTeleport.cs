@@ -30,7 +30,7 @@ public class PlayerTeleport : StateAction
                 if (player.timeSinceLastTeleport >= timeToTravel)
                 {
                     player.timeSinceLastTeleport = 0.0f;
-                    // player.cameraState = Player.CameraState.ZOOMIN;
+                    player.cameraState = Player.CameraState.ZOOMIN;
                     player.teleportState = Player.TeleportStates.IN;
                     ParticlesManager.instance.LaunchParticleSystem(teleportVFX, player.transform.position, teleportVFX.transform.rotation);
                 }

@@ -11,13 +11,24 @@ public class Player : MonoBehaviour, IDamageable {
     public GameObject footSteps;
 
     [Header("Movement")]
+    public float floorClearance;
     [HideInInspector]
     public bool canMove;
-    public float floorClearance;
     [HideInInspector]
     public Vector3 currentSpeed;
     [HideInInspector]
     public Vector3 lastValidPosition;
+
+    [Header("Zone change")]
+    public AIZoneController startingZone;
+    [ShowOnly]
+    [SerializeField]
+    private AIZoneController currentZoneController;
+    [SerializeField]
+    private float knockbackForce = 25.0f;
+    private float knockbackCurrentForce;
+    private Vector3 knockbackDirection;
+    private bool knockbackActive = false;
 
     [Header("Health")]
     [SerializeField]
@@ -200,6 +211,9 @@ public class Player : MonoBehaviour, IDamageable {
     #region MonoBehaviour Methods
     private void Awake() 
     {
+        UnityEngine.Assertions.Assert.IsNotNull(startingZone, "ERROR: startingZone (AIZoneController) not assigned for Player in gameObject '" + gameObject.name + "'");
+        currentZoneController = startingZone;
+
         cameraState = CameraState.MOVE;
         mainCameraController = mainCamera.GetComponent<CameraController>();
         teleportState = TeleportStates.OUT;
@@ -289,7 +303,13 @@ public class Player : MonoBehaviour, IDamageable {
         timeSinceLastAttack += Time.deltaTime;
         timeSinceLastStrongAttack += Time.deltaTime;
         timeSinceLastMonumentChecking += Time.deltaTime;
-        if (lastTransitionTime != Time.time)
+
+        if (knockbackActive)
+        {
+            Knockback();
+        }
+
+        if (lastTransitionTime != Time.time && !knockbackActive)
         {
             currentState.UpdateState(this);
         }
@@ -304,6 +324,20 @@ public class Player : MonoBehaviour, IDamageable {
     #endregion
 
     #region Public Methods
+
+    public void SetZoneController(AIZoneController zoneController, Vector3 knockbackDirection)
+    {
+        if (!zoneController.isConquered)
+        {
+            currentZoneController = zoneController;
+        }
+        else
+        {
+            knockbackActive = true;
+            knockbackCurrentForce = knockbackForce;
+            this.knockbackDirection = knockbackDirection;
+        }
+    }
 
     public void InstantiateMine()
     {
@@ -469,6 +503,19 @@ public class Player : MonoBehaviour, IDamageable {
     #endregion
 
     #region Private Methods
+
+    private void Knockback()
+    {
+        if (knockbackActive)
+        {
+            knockbackCurrentForce = Mathf.Lerp(knockbackCurrentForce, 0.0f, 0.5f);
+            rb.position += knockbackDirection * knockbackForce * Time.deltaTime;
+            if (knockbackCurrentForce < 0.2f)
+            {
+                knockbackActive = false;
+            }
+        }
+    }
 
     private void SortMines()
     {

@@ -122,22 +122,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1109704577589108
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4850563326724284}
-  - component: {fileID: 119042252798411448}
-  m_Layer: 15
-  m_Name: MeteoriteAttackDestination
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
 --- !u!1 &1114131532033912
 GameObject:
   m_ObjectHideFlags: 1
@@ -1226,6 +1210,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1883720237332354
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4173129060855718}
+  - component: {fileID: 135073150376634054}
+  m_Layer: 19
+  m_Name: ZoneControllerDetection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1886399234528298
 GameObject:
   m_ObjectHideFlags: 1
@@ -1582,7 +1582,7 @@ Transform:
   - {fileID: 4156202130563534}
   - {fileID: 4103545053942430}
   m_Father: {fileID: 4121203388434420}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4059012596554548
 Transform:
@@ -1664,7 +1664,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4121203388434420}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 90, y: 14, z: 0}
 --- !u!4 &4113637474218184
 Transform:
@@ -1721,9 +1721,9 @@ Transform:
   - {fileID: 4312738934694794}
   - {fileID: 4665612204102786}
   - {fileID: 4127734796921036}
-  - {fileID: 4058633085511954}
   - {fileID: 4108389020949214}
-  - {fileID: 4850563326724284}
+  - {fileID: 4058633085511954}
+  - {fileID: 4173129060855718}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -40, z: 0}
@@ -1865,6 +1865,19 @@ Transform:
   - {fileID: 4952187399988608}
   m_Father: {fileID: 4145815165130062}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4173129060855718
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1883720237332354}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4121203388434420}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4173676322346384
 Transform:
@@ -2715,19 +2728,6 @@ Transform:
   m_Father: {fileID: 4652706993773634}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4850563326724284
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1109704577589108}
-  m_LocalRotation: {x: 0.6889837, y: -0.15906444, z: 0.15906444, w: 0.6889837}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4121203388434420}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 90, y: 14, z: 0}
 --- !u!4 &4851156245706578
 Transform:
   m_ObjectHideFlags: 1
@@ -3704,10 +3704,13 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   footSteps: {fileID: 1627844250683504}
-  canMove: 0
   floorClearance: 0.1
+  canMove: 0
   currentSpeed: {x: 0, y: 0, z: 0}
   lastValidPosition: {x: 0, y: 0, z: 0}
+  startingZone: {fileID: 0}
+  currentZoneController: {fileID: 0}
+  knockbackForce: 5
   baseHealth: 100
   autoHealDelay: 3.5
   fullAutoHealDuration: 2
@@ -3775,10 +3778,6 @@ MonoBehaviour:
   timeToGetAnotherMine: 4
   timeSinceLastMine: 0
   mines: []
-  meteoriteAttackEvilCost: 0
-  comeBackFromMeteoriteAttack: 0
-  lastMeteoriteAttackDestination: {x: 0, y: 0, z: 0}
-  meteoriteDestinationMarker: {fileID: 1109704577589108}
   fogCollider: {fileID: 135076191655738780}
   fogVFX: {fileID: 1362348381220060}
   fogStateCooldown: 0.5
@@ -3906,24 +3905,6 @@ MonoBehaviour:
   yRatio: 0.07
   detectionDistance: 0.1
   circularMove: 1
---- !u!119 &119042252798411448
-Projector:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1109704577589108}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_NearClipPlane: 0.1
-  m_FarClipPlane: 5
-  m_FieldOfView: 60
-  m_AspectRatio: 1
-  m_Orthographic: 1
-  m_OrthographicSize: 4
-  m_Material: {fileID: 2100000, guid: 4fcb4687c89f53544b99ba7438128277, type: 2}
-  m_IgnoreLayers:
-    serializedVersion: 2
-    m_Bits: 4294966271
 --- !u!119 &119521045237097644
 Projector:
   m_ObjectHideFlags: 1
@@ -3960,6 +3941,18 @@ Projector:
   m_IgnoreLayers:
     serializedVersion: 2
     m_Bits: 4294966271
+--- !u!135 &135073150376634054
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1883720237332354}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!135 &135076191655738780
 SphereCollider:
   m_ObjectHideFlags: 1
