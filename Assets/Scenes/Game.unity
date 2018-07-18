@@ -5982,13 +5982,13 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2133626939}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 36.874, z: -68}
+  m_LocalRotation: {x: -0, y: -0.21635652, z: -0, w: 0.9763144}
+  m_LocalPosition: {x: 2.3, y: 36.48, z: -48.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 299870560}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -24.990002, z: 0}
 --- !u!1001 &278340534
 Prefab:
   m_ObjectHideFlags: 0
@@ -6958,6 +6958,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 707458723}
+  - component: {fileID: 378300211}
   m_Layer: 9
   m_Name: ZoneBTeleport
   m_TagString: Untagged
@@ -6965,6 +6966,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &378300211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 378300210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6a35829de797a44b6fbe5713e03ab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoneController: {fileID: 1083314264}
 --- !u!1001 &382108199
 Prefab:
   m_ObjectHideFlags: 0
@@ -13540,13 +13553,13 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 378300210}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13, y: 33.35, z: 0}
+  m_LocalRotation: {x: -0, y: -0.13172705, z: -0, w: 0.99128604}
+  m_LocalPosition: {x: -5.2, y: 34.05, z: -5.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 299870560}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -15.139001, z: 0}
 --- !u!1 &712597070
 GameObject:
   m_ObjectHideFlags: 0
@@ -40526,6 +40539,10 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.015000001
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
   m_IsPrefabParent: 0
@@ -41020,6 +41037,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 278172891}
+  - component: {fileID: 2133626940}
   m_Layer: 9
   m_Name: ZoneATeleport
   m_TagString: Untagged
@@ -41027,6 +41045,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &2133626940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2133626939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6a35829de797a44b6fbe5713e03ab5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoneController: {fileID: 1955635918}
 --- !u!1 &2133688000
 GameObject:
   m_ObjectHideFlags: 0
