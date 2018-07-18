@@ -27,6 +27,14 @@ public class ZoneConnectionOutlet : MonoBehaviour
             // If the zoneConnection doesn't contain the enemy, that means that the Enemy is exiting the conection through this outlet
             enemy.SetZoneController(outletZoneController);
         }
+        else
+        {
+            Player player = other.GetComponentInParent<Player>();
+            if (player && !zoneConnection.ContainsPlayer())
+            {
+                player.SetZoneController(outletZoneController, -transform.forward);
+            }
+        }
     }
     #endregion
 }
