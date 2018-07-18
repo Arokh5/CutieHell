@@ -163,9 +163,12 @@ public class Player : MonoBehaviour, IDamageable {
     public ActivateMineExplosion[] mines;
 
     [Header("Meteorite Attack")]
+    public float meteoriteAttackEvilCost;
     [HideInInspector]
     public bool comeBackFromMeteoriteAttack;
-    public float meteoriteAttackEvilCost;
+    [HideInInspector]
+    public Vector3 lastMeteoriteAttackDestination;
+    public GameObject meteoriteDestinationMarker;
 
     [Header("Fog Attack")]
     public SphereCollider fogCollider;

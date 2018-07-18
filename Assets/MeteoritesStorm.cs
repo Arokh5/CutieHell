@@ -8,8 +8,10 @@ public class MeteoritesStorm : MonoBehaviour {
     public ParticleSystem meteoriteVFX;
     private float timeSinceLastMeteoriteLaunch;
 
-	void Start ()
+	void OnEnable ()
     {
+        timeDelay = 2.0f;
+        attackDuration = 6.5f;
         timeSinceLastMeteoriteLaunch = 0.0f;
 	}
 	

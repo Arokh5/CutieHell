@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 4027311235096984}
   - component: {fileID: 198295018943285422}
   - component: {fileID: 199996406730658826}
+  - component: {fileID: 114791209668680702}
   m_Layer: 0
   m_Name: MeteoriteStorm
   m_TagString: Untagged
@@ -378,6 +379,18 @@ MonoBehaviour:
   delayOnMeteoritesLaunch: 0.15
   meteoriteVFX: {fileID: 198044732847800444, guid: de547e911c583db4e81bdd0104de5992,
     type: 2}
+--- !u!114 &114791209668680702
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1747398569403456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb21fc7b641e3544fae69356650e080d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToReturnToPool: 10
 --- !u!114 &114957448146084412
 MonoBehaviour:
   m_ObjectHideFlags: 1

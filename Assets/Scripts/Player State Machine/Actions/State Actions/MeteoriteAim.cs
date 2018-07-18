@@ -8,6 +8,8 @@ public class MeteoriteAim : StateAction
 {
     public int damage;
     public ParticleSystem meteoritePrefab;
+    public GameObject meteoriteDestinationPrefab;
+    private GameObject meteoriteDestination;
     public float maxSpeed, acceleration;
 
     public override void Act(Player player)
@@ -50,6 +52,22 @@ public class MeteoriteAim : StateAction
 
             player.rb.position = playerPos;
         }
+        RaycastHit hit;
+        int layerMask = 1 << 17;
+        if (Physics.Raycast(player.mainCamera.transform.position, player.mainCamera.transform.forward, out hit, Mathf.Infinity, layerMask))
+        {
+            player.lastMeteoriteAttackDestination = hit.point + Vector3.up;
+            player.meteoriteDestinationMarker.SetActive(true);
+            player.meteoriteDestinationMarker.transform.position = player.lastMeteoriteAttackDestination;
+        }
+        else
+        {
+            player.meteoriteDestinationMarker.SetActive(false);
+        }
+        if (InputManager.instance.GetTriangleButtonDown() && player.meteoriteDestinationMarker.activeSelf)
+        {
+            ParticlesManager.instance.LaunchParticleSystem(meteoritePrefab, player.lastMeteoriteAttackDestination, meteoritePrefab.transform.rotation);
+            player.comeBackFromMeteoriteAttack = true;
+        }
     }
-
 }

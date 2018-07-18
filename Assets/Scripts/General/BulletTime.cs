@@ -32,6 +32,11 @@ public class BulletTime : MonoBehaviour {
                 Time.timeScale = Mathf.Clamp(Time.timeScale, 0.0f, 1.0f);
                 Time.fixedDeltaTime = Time.timeScale * 0.02f;
             }
+            else
+            {
+                Time.timeScale = 1.0f;
+                Time.fixedDeltaTime = Time.timeScale * 0.02f;
+            }
         }
     }
 
