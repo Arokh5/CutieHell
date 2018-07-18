@@ -9,9 +9,9 @@ public class BuildingEffects : MonoBehaviour, ITextureChanger
 
     [Header("Elements setup")]
     [SerializeField]
-    private MeshRenderer buildingRenderer;
+    private GameObject buildingRenderer;
     [SerializeField]
-    private MeshRenderer alternateBuildingRenderer;
+    private GameObject alternateBuildingRenderer;
 
     [Header("Area of Effect")]
     public float effectOnMapRadius = 0.0f;
@@ -136,11 +136,11 @@ public class BuildingEffects : MonoBehaviour, ITextureChanger
         {
             if (underAttackState)
             {
-                buildingRenderer.material.SetFloat("_UnderAttack", 1);
+                //buildingRenderer.material.SetFloat("_UnderAttack", 1);
             }
             else
             {
-                buildingRenderer.material.SetFloat("_UnderAttack", 0);
+                //buildingRenderer.material.SetFloat("_UnderAttack", 0);
             }
         }
         underAttack = underAttackState;
@@ -148,7 +148,7 @@ public class BuildingEffects : MonoBehaviour, ITextureChanger
 
     public void AdjustMaterials(float conquerFactor)
     {
-        buildingRenderer.material.SetFloat("_ConquerFactor", conquerFactor);
+        //buildingRenderer.material.SetFloat("_ConquerFactor", conquerFactor);
         effectOnMapRadius = conquerFactor * maxFullEffectRadius;
     }
     #endregion
