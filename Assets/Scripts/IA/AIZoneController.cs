@@ -44,6 +44,16 @@ public class AIZoneController : MonoBehaviour
 
     #endregion
 
+    #region Properties
+    public bool isConquered
+    {
+        get
+        {
+            return !hasMonument || monumentTaken;
+        }
+    }
+    #endregion
+
     #region MonoBehaviour Methods
     private void Awake()
     {
