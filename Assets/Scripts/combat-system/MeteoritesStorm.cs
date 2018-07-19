@@ -5,7 +5,7 @@ using UnityEngine;
 public class MeteoritesStorm : MonoBehaviour {
 
     public float timeDelay, attackDuration, delayOnMeteoritesLaunch;
-    public ParticleSystem meteoriteVFX;
+    public ParticleSystem meteoriteVFX, spawnVFX;
     private float timeSinceLastMeteoriteLaunch;
 
 	void OnEnable ()
@@ -36,7 +36,8 @@ public class MeteoritesStorm : MonoBehaviour {
                     float z = Mathf.Cos(angle) * Random.Range(0.0f, 9.0f);
                     x += this.transform.position.x;
                     z += this.transform.position.z;
-                    ParticlesManager.instance.LaunchParticleSystem(meteoriteVFX, new Vector3(x , this.transform.position.y ,z), Quaternion.LookRotation(Vector3.down));
+                    ParticleSystem ps = ParticlesManager.instance.LaunchParticleSystem(meteoriteVFX, new Vector3(x , this.transform.position.y + 5.0f ,z), Quaternion.LookRotation(Vector3.down));
+                    ParticleSystem spawn = ParticlesManager.instance.LaunchParticleSystem(spawnVFX, new Vector3(x, this.transform.position.y, z), spawnVFX.transform.rotation);
                 }
             }
         }
