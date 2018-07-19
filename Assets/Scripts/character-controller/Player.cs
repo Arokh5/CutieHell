@@ -154,7 +154,6 @@ public class Player : MonoBehaviour, IDamageable {
     public Transform initialPositionOnStrongAttack;
     [HideInInspector]
     public bool comeBackFromStrongAttack;
-    public Vector3 initialPos;
 
     [Header("Cone Attack")]
     public ParticleSystem coneAttackVFX;
@@ -174,12 +173,16 @@ public class Player : MonoBehaviour, IDamageable {
     public ActivateMineExplosion[] mines;
 
     [Header("Meteorite Attack")]
-    public float meteoriteAttackEvilCost;
+    public GameObject meteoriteDestinationMarker;
+    public Vector3 initialPos;
+    public float meteoriteCooldown;
+    [HideInInspector]
+    public float timeSinceLastMeteoriteAttack;
     [HideInInspector]
     public bool comeBackFromMeteoriteAttack;
     [HideInInspector]
     public Vector3 lastMeteoriteAttackDestination;
-    public GameObject meteoriteDestinationMarker;
+
 
     [Header("Fog Attack")]
     public SphereCollider fogCollider;
@@ -303,6 +306,7 @@ public class Player : MonoBehaviour, IDamageable {
         timeSinceLastAttack += Time.deltaTime;
         timeSinceLastStrongAttack += Time.deltaTime;
         timeSinceLastMonumentChecking += Time.deltaTime;
+        timeSinceLastMeteoriteAttack += Time.deltaTime;
 
         if (knockbackActive)
         {

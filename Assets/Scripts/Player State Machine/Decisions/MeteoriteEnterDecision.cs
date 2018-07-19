@@ -7,6 +7,6 @@ public class MeteoriteEnterDecision : Decision
 {
     public override bool Decide(Player player)
     {
-        return InputManager.instance.GetTriangleButtonDown();
+        return InputManager.instance.GetTriangleButtonDown() && player.timeSinceLastMeteoriteAttack > player.meteoriteCooldown;
     }
 }
