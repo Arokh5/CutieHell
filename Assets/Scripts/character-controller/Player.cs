@@ -154,7 +154,7 @@ public class Player : MonoBehaviour, IDamageable {
     public Transform initialPositionOnStrongAttack;
     [HideInInspector]
     public bool comeBackFromStrongAttack;
-    public float strongAttackEvilCost;
+    public Vector3 initialPos;
 
     [Header("Cone Attack")]
     public ParticleSystem coneAttackVFX;

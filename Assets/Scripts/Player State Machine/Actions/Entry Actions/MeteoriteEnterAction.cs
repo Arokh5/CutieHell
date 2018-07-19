@@ -7,7 +7,7 @@ public class MeteoriteEnterAction : StateAction
 {
     public override void Act(Player player)
     {
-        player.AddEvilPoints(-player.meteoriteAttackEvilCost);
+        player.initialPos = player.transform.position;
         player.meteoriteDestinationMarker.SetActive(false);
         player.comeBackFromMeteoriteAttack = false;
         player.cameraState = Player.CameraState.METEORITEAIM;
