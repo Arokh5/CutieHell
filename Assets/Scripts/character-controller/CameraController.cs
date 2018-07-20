@@ -201,40 +201,6 @@ public class CameraController : MonoBehaviour {
                         this.transform.LookAt(player.transform.position + rotation * Vector3.up * focusY + rotation * Vector3.right * focusX + rotation * Vector3.forward * focusDistance);
                     }
                     break;
-                case Player.CameraState.BATTURRET:
-                    {
-                        y = ClampAngle(y, yMinLimit, yMaxLimit);
-                        Quaternion rotation = Quaternion.Euler(y, x, 0);
-                        playerScript.currentTrap.rotatingHead.rotation = rotation;
-                        this.transform.SetParent(playerScript.currentTrap.rotatingHead);
-                        if (timeOnTransition < transitionTime)
-                        {
-                            timeOnTransition += Time.deltaTime;
-                            this.transform.localPosition = Vector3.Lerp(this.transform.localPosition, new Vector3(0.0f, t_cameraY, t_distance), timeOnTransition / 2f);
-                            Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, t_fov, 0.1f);
-                        }
-                        else
-                        {
-                            Camera.main.fieldOfView = t_fov;
-                            this.transform.localPosition = new Vector3(0.0f, t_cameraY, t_distance);
-                        }
-                        this.transform.localRotation = Quaternion.identity;
-                        SetPlayerDirection(rotation.eulerAngles.y);
-                        break;
-                    }
-                case Player.CameraState.CANONTURRET:
-                    {
-                        if (playerScript.currentTrap.canonTargetDecal.gameObject.activeSelf)
-                        {
-                            Vector3 canonTargetDecalDirection = playerScript.currentTrap.canonTargetDecal.transform.position - transform.position;
-                            playerScript.currentTrap.rotatingHead.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(canonTargetDecalDirection), Time.deltaTime * lerpTowardsCanonTargetDecal);
-                            playerScript.currentTrap.canonTargetDecal.transform.rotation = Quaternion.Euler(0, playerScript.currentTrap.rotatingHead.rotation.eulerAngles.y, 0);
-
-                            y = playerScript.currentTrap.rotatingHead.transform.rotation.eulerAngles.x;
-                            x = playerScript.currentTrap.rotatingHead.transform.rotation.eulerAngles.y;
-                        }
-                        break;
-                    }
                 case Player.CameraState.ZOOMOUT:
                     this.transform.Translate((this.transform.forward * -4 + this.transform.up * 2) * Time.deltaTime, Space.World);
                     break;

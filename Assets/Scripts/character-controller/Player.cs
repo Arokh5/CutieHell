@@ -76,8 +76,6 @@ public class Player : MonoBehaviour, IDamageable {
     public Rigidbody rb;
     [HideInInspector]
     public Vector3 initialBulletSpawnPointPos;
-    [HideInInspector]
-    public float timeSinceLastTrapUse;
     private Renderer[] renderers;
     private Collider[] colliders;
     [HideInInspector]
@@ -103,18 +101,7 @@ public class Player : MonoBehaviour, IDamageable {
     [HideInInspector]
     public Monument monument;
 
-    [Header("Actual Trap")]
-    [HideInInspector]
-    public Trap[] allTraps;
-    public Trap nearbyTrap;
-    [HideInInspector]
-    public bool currentlyUsingTrap = false;
-    public Trap currentTrap;
-    public int trapUseCooldown;
-    public float trapMaxUseDistance;
-    [HideInInspector]
-    public bool shouldExitTrap = false;
-
+    [Header("ZoneTrap")]
     public ZoneTrap zoneTrap = null;
 
     [Header("Player States")]
@@ -211,7 +198,7 @@ public class Player : MonoBehaviour, IDamageable {
 
     #endregion
 
-    public enum CameraState { STILL, MOVE, WOLF, FOG, BATTURRET, CANONTURRET, TRANSITION, ZOOMOUT, ZOOMIN, METEORITEAIM}
+    public enum CameraState { STILL, MOVE, WOLF, FOG, TRANSITION, ZOOMOUT, ZOOMIN, METEORITEAIM}
     public enum TeleportStates { OUT, TRAVEL, IN, DELAY}
     
 
@@ -236,12 +223,6 @@ public class Player : MonoBehaviour, IDamageable {
         mines = new ActivateMineExplosion[maxMinesNumber];
         rb = this.GetComponent<Rigidbody>();
         animator = this.GetComponent<Animator>();
-        GameObject[] allTrapsGameObjects = GameObject.FindGameObjectsWithTag("Traps");
-        allTraps = new Trap[allTrapsGameObjects.Length];
-        for (int i = 0; i < allTrapsGameObjects.Length; ++i)
-        {
-            allTraps[i] = allTrapsGameObjects[i].GetComponent<Trap>();
-        }
 
         GameObject[] allMonumentsGameObjects = GameObject.FindGameObjectsWithTag("Monument");
         allMonuments = new Monument[allMonumentsGameObjects.Length];
@@ -270,7 +251,6 @@ public class Player : MonoBehaviour, IDamageable {
 
         footSteps.SetActive(false);
 
-        timeSinceLastTrapUse = trapUseCooldown;
         timeSinceLastAttack = 1000.0f;
         timeSinceLastStrongAttack = 1000.0f;
         timeSinceLastTeleport = 0.0f;
@@ -306,7 +286,6 @@ public class Player : MonoBehaviour, IDamageable {
             timeSinceLastMonumentChecking -= checkingMonumentRepetitionTime;
         }
 
-        timeSinceLastTrapUse += Time.deltaTime;
         timeSinceLastAttack += Time.deltaTime;
         timeSinceLastStrongAttack += Time.deltaTime;
         timeSinceLastMonumentChecking += Time.deltaTime;
@@ -437,11 +416,6 @@ public class Player : MonoBehaviour, IDamageable {
         targetState.EnterState(this);
         currentState = targetState;
         lastTransitionTime = Time.time;
-    }
-
-    public void StopTrapUse()
-    {
-        shouldExitTrap = true;
     }
 
     public float GetMaxEvilLevel()

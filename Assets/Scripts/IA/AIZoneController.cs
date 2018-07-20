@@ -10,7 +10,6 @@ public class AIZoneController : MonoBehaviour
     public int iconIndex;
     public bool isFinalZone = false;
     public Monument monument = null;
-    public Trap[] traps;
     [HideInInspector]
     public bool monumentTaken = false;
     [HideInInspector]
@@ -90,24 +89,6 @@ public class AIZoneController : MonoBehaviour
         foreach (BuildingEffects effect in buildingEffects)
             textureChangerSource.AddTextureChanger(effect);
     }
-
-    private void Update()
-    {
-        /* Trap as target */
-        if (currentZoneTarget.GetType() == typeof(Trap))
-        {
-            foreach (AIEnemy aiEnemy in aiEnemies)
-            {
-                /* Consider distance in XZ-Plane */
-                Vector3 buildingToEnemy = aiEnemy.transform.position - currentZoneTarget.transform.position;
-                buildingToEnemy.y = 0;
-                if (buildingToEnemy.sqrMagnitude < currentZoneTarget.attractionRadius * currentZoneTarget.attractionRadius)
-                {
-                    aiEnemy.SetCurrentTarget(currentZoneTarget);
-                }
-            }
-        }
-    }
     #endregion
 
     #region Public Methods
@@ -124,10 +105,6 @@ public class AIZoneController : MonoBehaviour
         for(int i = 0; i < fogWallID.Length; i++)
         {
             fogWallsManager.DeactivateFogWall(fogWallID[i]);
-        }
-        foreach (Trap trap in traps)
-        {
-            trap.TakeDamage(trap.GetMaxHealth(), AttackType.NONE);
         }
         foreach(NavMeshObstacle blockage in blockages)
         {
@@ -149,33 +126,10 @@ public class AIZoneController : MonoBehaviour
         UIManager.instance.markersController.MonumentConquered(iconIndex);
     }
 
-    // Called by Trap when it gets activated by Player
-    public void OnTrapActivated(Building trap)
-    {
-        currentZoneTarget = trap;
-        OnTargetBuildingChanged();
-    }
-
-    // Called by Trap when it gets deactivated by Player
-    public void OnTrapDeactivated()
-    {
-        currentZoneTarget = monument;
-        OnTargetBuildingChanged();
-    }
-
     // Called by AIEnemy when it finishes conquering a Building or when the trap it was attacking becomes inactive
     public Building GetTargetBuilding(Transform location)
     {
-        Vector3 buildingToLocation = location.position - currentZoneTarget.transform.position;
-        buildingToLocation.y = 0;
-        if (buildingToLocation.sqrMagnitude < currentZoneTarget.attractionRadius * currentZoneTarget.attractionRadius)
-        {
-            return currentZoneTarget;
-        }
-        else
-        {
-            return monument;
-        }
+        return currentZoneTarget;
     }
 
     public List<PathNode> GetPath(Vector3 startingPos)
@@ -287,25 +241,9 @@ public class AIZoneController : MonoBehaviour
     #region Private Methods
     private void OnTargetBuildingChanged()
     {
-        if (currentZoneTarget.attractionRadius != 0)
+        foreach (AIEnemy enemy in aiEnemies)
         {
-            foreach (AIEnemy enemy in aiEnemies)
-            {
-                if (currentZoneTarget.attractionRadius < 0)
-                {
-                    enemy.SetCurrentTarget(currentZoneTarget);
-                }
-                else
-                {
-                    /* Consider distance in XZ-Plane */
-                    Vector3 buildingToEnemy = enemy.transform.position - currentZoneTarget.transform.position;
-                    buildingToEnemy.y = 0;
-                    if (buildingToEnemy.sqrMagnitude < currentZoneTarget.attractionRadius * currentZoneTarget.attractionRadius)
-                    {
-                        enemy.SetCurrentTarget(currentZoneTarget);
-                    }
-                }
-            }
+            enemy.SetCurrentTarget(currentZoneTarget);
         }
     }
     #endregion

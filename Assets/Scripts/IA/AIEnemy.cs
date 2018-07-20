@@ -131,8 +131,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
             if (!IsStunned())
             {
                 agent.stoppingDistance = 0.0f;
-                /* First case is when going for the Monument, second case is when going for a Trap, third for a player target */
-                if (currentNode == null || currentTargetBuilding.GetType() != typeof(Monument) || hasPlayerAsTarget)
+                /* First case is when going for the Monument, second is for a player target */
+                if (currentNode == null || hasPlayerAsTarget)
                 {
                     agent.stoppingDistance = hasPlayerAsTarget? minDistance : originalStoppingDistance;
                     agent.SetDestination(currentTarget.transform.position);

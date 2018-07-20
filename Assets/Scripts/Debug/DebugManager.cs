@@ -71,7 +71,6 @@ public class DebugManager : MonoBehaviour {
 
     private GameObject player;
     private Building[] buildings;
-    private Trap[] traps;
 
     private KeyCode[] numberKeyCodes =
     {
@@ -100,7 +99,6 @@ public class DebugManager : MonoBehaviour {
         worldCameraComponent = worldCamera.GetComponent<Camera>();
         spawnController = FindObjectOfType<AISpawnController>();
         buildings = FindObjectsOfType<Building>();
-        traps = FindObjectsOfType<Trap>();
     }
 
 	void Update () {
@@ -227,31 +225,11 @@ public class DebugManager : MonoBehaviour {
             foreach (Building building in buildings)
                 building.immortal = false;
         }
-
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            float closerDistance = float.MaxValue;
-            Trap closerBuilding = null;
-            foreach(Trap trap in traps)
-            {
-                if (Vector3.SqrMagnitude(player.transform.position - trap.transform.position) <= closerDistance)
-                {
-                    if (!trap.IsDead())
-                    {
-                        closerDistance = Vector3.SqrMagnitude(player.transform.position - trap.transform.position);
-                        closerBuilding = trap;
-                    }
-                }
-            }
-            if (closerBuilding != null)
-            {
-                closerBuilding.TakeDamage(closerBuilding.GetMaxHealth(), AttackType.ENEMY);
-            }
-        }
     }
 
     private void DebugCamera() {
-        switch (playerScript.cameraState) {
+        switch (playerScript.cameraState)
+        {
             case Player.CameraState.MOVE:
                 if (Input.GetKeyDown(KeyCode.Z)) {
                     showGrid = !showGrid;
@@ -313,38 +291,6 @@ public class DebugManager : MonoBehaviour {
                     cameraController.cameraX + "\nCameraY : " + cameraController.cameraY + "\nFocus Distance" +
                     cameraController.focusDistance + "\nFocusX : " + cameraController.focusX + "\nFocusY : " + cameraController.focusY
                     + "\nFOV : " + cameraController.fov;
-                break;
-            case Player.CameraState.BATTURRET:
-                if (Input.GetKeyDown(KeyCode.Z)) {
-                    showGrid = !showGrid;
-                }
-                grid.gameObject.SetActive(showGrid);
-                if (Input.GetKey(KeyCode.X)) {
-                    cameraController.t_distance += Time.deltaTime * 0.5f;
-                }
-                if (Input.GetKey(KeyCode.C)) {
-                    cameraController.t_distance -= Time.deltaTime * 0.5f;
-                }
-                if (Input.GetKey(KeyCode.N)) {
-                    cameraController.t_cameraY += Time.deltaTime * 0.5f;
-                }
-                if (Input.GetKey(KeyCode.M)) {
-                    cameraController.t_cameraY -= Time.deltaTime * 0.5f;
-                }
-                if (Input.GetKey(KeyCode.S)) {
-                    cameraController.t_fov += Time.deltaTime * 4f;
-                }
-                if (Input.GetKey(KeyCode.D)) {
-                    cameraController.t_fov -= Time.deltaTime * 4f;
-                }
-                if (Input.GetKeyDown(KeyCode.Return)) {
-                    cameraController.t_distance = 3.0f;
-                    cameraController.t_cameraY = 1.75f;
-                    cameraController.t_fov = 40;
-                    showGrid = false;
-                }
-                values.text = "Distance : " + cameraController.t_distance + "\nCameraY : " + cameraController.t_cameraY +
-                    "\nFOV : " + cameraController.t_fov;
                 break;
         }
     }

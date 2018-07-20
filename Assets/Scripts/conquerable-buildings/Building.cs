@@ -12,8 +12,6 @@ public abstract class Building : MonoBehaviour, IDamageable
     protected AIZoneController zoneController;
     [Tooltip("The initial amount of hit points for the conquerable building.")]
     public float baseHealth;
-    [Tooltip("The radius within which enemies are attracted to this building if it is set as target. Negative numbers stand for infinite radius")]
-    public float attractionRadius = -1;
 
     [SerializeField]
     [ShowOnly]

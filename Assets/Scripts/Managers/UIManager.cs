@@ -30,11 +30,6 @@ public class UIManager : MonoBehaviour
     private HealthBar playerHealthBar;
     [SerializeField]
     private GameObject buttonMashPrompt;
-
-    [Header("Use panels")]
-    public Color lockedPanelTintColor = Color.red;
-    [SerializeField]
-    private Image useText;
         
     private float strongComboscaleModifier;
     private float strongComboColorModifier;
@@ -145,23 +140,6 @@ public class UIManager : MonoBehaviour
         Debug.LogError("NOT IMPLEMENTED:UIManager::ZoneConnectionOpened");
     }
 
-    public void ShowUseText()
-    {
-        useText.color = Color.white;
-        useText.gameObject.SetActive(true);
-    }
-
-    public void ShowLockedUseText()
-    {
-        useText.color = lockedPanelTintColor;
-        useText.gameObject.SetActive(true);
-    }
-
-    public void HideUseText()
-    {
-        useText.gameObject.SetActive(false);
-    }
-
     public void ShowComboText(ComboTypes comboType)
     {
         switch (comboType)
@@ -177,7 +155,6 @@ public class UIManager : MonoBehaviour
                 break;
         }
     }
-
 
     public void IncreaseEnemiesTimeCount()
     {
