@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Player State Machine/Actions/PlayerTeleport")]
 public class PlayerTeleport : StateAction
 {
-    public int teleportTargetIndex;
     public float timeToGoOut, timeToTravel, timeToGoIn;
     public ParticleSystem teleportVFX;
 
@@ -21,9 +20,14 @@ public class PlayerTeleport : StateAction
                     player.timeSinceLastTeleport = 0.0f;
                     player.cameraState = Player.CameraState.TRANSITION;
                     player.teleportState = Player.TeleportStates.TRAVEL;
-                    if (teleportTargetIndex >= 0 && teleportTargetIndex < player.teleportTargets.Length)
-                        player.transform.position = player.teleportTargets[teleportTargetIndex].position;
-
+                    if (player.currentTelepotTarget != null)
+                    {
+                        player.transform.position = player.currentTelepotTarget.transform.position;
+                        player.transform.rotation = player.currentTelepotTarget.transform.rotation;
+                        player.SetZoneController(player.currentTelepotTarget.zoneController);
+                        Camera.main.GetComponent<CameraController>().SetCameraXAngle(player.currentTelepotTarget.transform.rotation.eulerAngles.y);
+                        player.currentTelepotTarget = null;
+                    }
                 }
                 break;
             case Player.TeleportStates.TRAVEL:

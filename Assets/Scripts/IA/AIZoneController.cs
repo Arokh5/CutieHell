@@ -36,6 +36,9 @@ public class AIZoneController : MonoBehaviour
     // List that contains all AIEnemy that were spawned on this ZoneController's area and are still alive
     [SerializeField]
     private List<AIEnemy> aiEnemies;
+
+    [Header("Zone Conquering")]
+    public TeleportTarget playerExpelTarget;
     public List<BuildingEffects> buildingEffects;
 
     [ShowOnly]
@@ -138,6 +141,9 @@ public class AIZoneController : MonoBehaviour
             currentZoneTarget = scenarioController.GetAlternateTarget(this);
             OnTargetBuildingChanged();
         }
+
+        if (playerExpelTarget != null)
+            GameManager.instance.GetPlayer1().ExpelFromZone(this, playerExpelTarget);
 
         UIManager.instance.indicatorsController.MonumentConquered(iconIndex);
         UIManager.instance.markersController.MonumentConquered(iconIndex);
