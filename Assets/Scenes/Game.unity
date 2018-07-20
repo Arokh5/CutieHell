@@ -1635,6 +1635,7 @@ MonoBehaviour:
   fogWallID: 
   blockages: []
   aiEnemies: []
+  playerExpelTarget: {fileID: 0}
   buildingEffects: []
   cuteEffects: []
 --- !u!4 &81311734 stripped
@@ -8865,6 +8866,7 @@ MonoBehaviour:
   fogWallID: 
   blockages: []
   aiEnemies: []
+  playerExpelTarget: {fileID: 0}
   buildingEffects: []
   cuteEffects: []
 --- !u!1001 &245302995
@@ -11619,6 +11621,7 @@ GameObject:
   - component: {fileID: 433428439}
   - component: {fileID: 433428441}
   - component: {fileID: 433428440}
+  - component: {fileID: 433428442}
   m_Layer: 16
   m_Name: Monument_Z2
   m_TagString: Monument
@@ -11693,6 +11696,18 @@ MonoBehaviour:
   lowHealthScreen: 0.2
   monumentIndicator: {fileID: 1964483283}
   protectedMonument: {fileID: 2036540555}
+--- !u!65 &433428442
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 433428438}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5.9}
+  m_Center: {x: 0, y: 2, z: -0.5}
 --- !u!1 &433731803
 GameObject:
   m_ObjectHideFlags: 0
@@ -16638,6 +16653,7 @@ MonoBehaviour:
   - {fileID: 742576165}
   - {fileID: 409989031}
   aiEnemies: []
+  playerExpelTarget: {fileID: 378300211}
   buildingEffects:
   - {fileID: 273357512}
   cuteEffects: []
@@ -22271,7 +22287,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.23333333
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: 4179d28d969849b4d9c79a5871dae1cd, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: c8c24a69c740d8342b83d113cad79f97, type: 2}
 --- !u!114 &804468633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22299,7 +22315,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.23333333
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: 5bb9ead04a61e004ca093c2226da0a89, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 2b8cd8c2c6f2db040bbe413833fa8dfc, type: 2}
 --- !u!114 &804468634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22327,7 +22343,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.23333333
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: 18bc21d2e47a20a43865884152f06ab9, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 7d4dced4b59b77a44b08356a61427662, type: 2}
 --- !u!114 &804468635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27088,6 +27104,7 @@ MonoBehaviour:
   - {fileID: 160419093}
   - {fileID: 1494749703}
   aiEnemies: []
+  playerExpelTarget: {fileID: 2133626940}
   buildingEffects:
   - {fileID: 433428440}
   - {fileID: 560434946}
@@ -35835,6 +35852,7 @@ MonoBehaviour:
   fogWallID: 00000000
   blockages: []
   aiEnemies: []
+  playerExpelTarget: {fileID: 0}
   buildingEffects: []
   cuteEffects: []
 --- !u!4 &1488729348
@@ -38734,6 +38752,7 @@ MonoBehaviour:
   fogWallID: 00000000
   blockages: []
   aiEnemies: []
+  playerExpelTarget: {fileID: 0}
   buildingEffects:
   - {fileID: 2133688003}
   cuteEffects: []
@@ -44677,6 +44696,7 @@ MonoBehaviour:
   fogWallID: 
   blockages: []
   aiEnemies: []
+  playerExpelTarget: {fileID: 0}
   buildingEffects:
   - {fileID: 2036540558}
   - {fileID: 1734176301}
@@ -48492,6 +48512,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 8783934286ef70e4e8d2c5fcb59b9cf9, type: 2}
+    - target: {fileID: 100004, guid: 3cc8ebe54f1d66a4c8457f18dd901954, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3cc8ebe54f1d66a4c8457f18dd901954, type: 3}
   m_IsPrefabParent: 0

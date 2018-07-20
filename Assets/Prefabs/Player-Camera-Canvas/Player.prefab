@@ -3730,6 +3730,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1001fc1c05d1f242abd7f8a8c02112f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentTelepotTarget: {fileID: 0}
   teleportTargets:
   - {fileID: 0}
   - {fileID: 0}
@@ -3779,6 +3780,7 @@ MonoBehaviour:
   zoneTrap: {fileID: 0}
   defaultState: {fileID: 11400000, guid: 7876ea8555f7f6c4cb97c6dd742b336b, type: 2}
   stoppedState: {fileID: 11400000, guid: 5ffbd5af897338a4ab9108e251027884, type: 2}
+  teleportExpelState: {fileID: 11400000, guid: 6083ae89b323ad24b8360a8622f8549e, type: 2}
   currentState: {fileID: 0}
   cameraState: 0
   mainCamera: {fileID: 0}
@@ -3795,7 +3797,6 @@ MonoBehaviour:
   currentStrongAttackTargets: []
   initialPositionOnStrongAttack: {fileID: 0}
   comeBackFromStrongAttack: 0
-  strongAttackEvilCost: 1
   coneAttackVFX: {fileID: 198821035992068780, guid: 95f4f9075dbcfc2408318fe0c8bd85e6,
     type: 2}
   coneAttackEvilCost: 1
@@ -3808,10 +3809,12 @@ MonoBehaviour:
   timeToGetAnotherMine: 4
   timeSinceLastMine: 0
   mines: []
-  meteoriteAttackEvilCost: 0
+  meteoriteDestinationMarker: {fileID: 1484865646973730}
+  initialPos: {x: 0, y: 0, z: 0}
+  meteoriteCooldown: 0
+  timeSinceLastMeteoriteAttack: 0
   comeBackFromMeteoriteAttack: 0
   lastMeteoriteAttackDestination: {x: 0, y: 0, z: 0}
-  meteoriteDestinationMarker: {fileID: 1484865646973730}
   fogCollider: {fileID: 135076191655738780}
   fogVFX: {fileID: 1362348381220060}
   fogStateCooldown: 0.5

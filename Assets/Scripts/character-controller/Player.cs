@@ -7,6 +7,8 @@ public class Player : MonoBehaviour, IDamageable {
 
     #region Fields
     [Header("Movement Variabes")]
+    [ShowOnly]
+    public TeleportTarget currentTelepotTarget;
     public Transform[] teleportTargets;
     public GameObject footSteps;
 
@@ -120,6 +122,8 @@ public class Player : MonoBehaviour, IDamageable {
     private State defaultState;
     [SerializeField]
     private State stoppedState;
+    [SerializeField]
+    private State teleportExpelState;
     [ShowOnly]
     [SerializeField]
     private State currentState;
@@ -329,7 +333,7 @@ public class Player : MonoBehaviour, IDamageable {
 
     #region Public Methods
 
-    public void SetZoneController(AIZoneController zoneController, Vector3 knockbackDirection)
+    public void SetZoneController(AIZoneController zoneController, Vector3 knockbackDirection = default(Vector3))
     {
         if (!zoneController.isConquered)
         {
@@ -340,6 +344,16 @@ public class Player : MonoBehaviour, IDamageable {
             knockbackActive = true;
             knockbackCurrentForce = knockbackForce;
             this.knockbackDirection = knockbackDirection;
+        }
+    }
+
+    public void ExpelFromZone(AIZoneController sourceZone, TeleportTarget teleportTarget)
+    {
+        if (currentZoneController == sourceZone)
+        {
+            currentTelepotTarget = teleportTarget;
+            currentZoneController = teleportTarget.zoneController;
+            TransitionToState(teleportExpelState);
         }
     }
 
