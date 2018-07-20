@@ -154,7 +154,6 @@ public class Player : MonoBehaviour, IDamageable {
     public Transform initialPositionOnStrongAttack;
     [HideInInspector]
     public bool comeBackFromStrongAttack;
-    public float strongAttackEvilCost;
 
     [Header("Cone Attack")]
     public ParticleSystem coneAttackVFX;
@@ -172,6 +171,18 @@ public class Player : MonoBehaviour, IDamageable {
     [HideInInspector]
     public float timeSinceLastMine;
     public ActivateMineExplosion[] mines;
+
+    [Header("Meteorite Attack")]
+    public GameObject meteoriteDestinationMarker;
+    public Vector3 initialPos;
+    public float meteoriteCooldown;
+    [HideInInspector]
+    public float timeSinceLastMeteoriteAttack;
+    [HideInInspector]
+    public bool comeBackFromMeteoriteAttack;
+    [HideInInspector]
+    public Vector3 lastMeteoriteAttackDestination;
+
 
     [Header("Fog Attack")]
     public SphereCollider fogCollider;
@@ -196,7 +207,7 @@ public class Player : MonoBehaviour, IDamageable {
 
     #endregion
 
-    public enum CameraState { STILL, MOVE, WOLF, FOG, BATTURRET, CANONTURRET, TRANSITION, ZOOMOUT, ZOOMIN}
+    public enum CameraState { STILL, MOVE, WOLF, FOG, BATTURRET, CANONTURRET, TRANSITION, ZOOMOUT, ZOOMIN, METEORITEAIM}
     public enum TeleportStates { OUT, TRAVEL, IN, DELAY}
     
 
@@ -295,6 +306,7 @@ public class Player : MonoBehaviour, IDamageable {
         timeSinceLastAttack += Time.deltaTime;
         timeSinceLastStrongAttack += Time.deltaTime;
         timeSinceLastMonumentChecking += Time.deltaTime;
+        timeSinceLastMeteoriteAttack += Time.deltaTime;
 
         if (knockbackActive)
         {

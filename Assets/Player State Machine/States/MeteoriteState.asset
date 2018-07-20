@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1418da0e4d857ce4fb2339e94e78f9a8, type: 3}
+  m_Name: MeteoriteState
+  m_EditorClassIdentifier: 
+  onEnterActions:
+  - {fileID: 11400000, guid: 2b5ad6879901bd9488e3c7cc061fb88a, type: 2}
+  onExitActions: []
+  stateActions:
+  - {fileID: 11400000, guid: b700480fb1f30e3409694632dafa5718, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: 770721cfb1ae23e4088e796c74433fad, type: 2}
+    targetState: {fileID: 11400000, guid: 7876ea8555f7f6c4cb97c6dd742b336b, type: 2}

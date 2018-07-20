@@ -809,6 +809,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1484865646973730
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4369069371631072}
+  - component: {fileID: 119760716353917764}
+  m_Layer: 15
+  m_Name: MeteoriteAttackDestination
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1485685516331334
 GameObject:
   m_ObjectHideFlags: 1
@@ -1724,6 +1740,7 @@ Transform:
   - {fileID: 4108389020949214}
   - {fileID: 4058633085511954}
   - {fileID: 4173129060855718}
+  - {fileID: 4369069371631072}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -40, z: 0}
@@ -2144,6 +2161,19 @@ Transform:
   m_Father: {fileID: 4704697903329522}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4369069371631072
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1484865646973730}
+  m_LocalRotation: {x: 0.6889837, y: -0.15906443, z: 0.15906443, w: 0.6889837}
+  m_LocalPosition: {x: -29.772175, y: 36.69578, z: 10.87834}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4121203388434420}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 90, y: 14, z: 0}
 --- !u!4 &4372988157506096
 Transform:
   m_ObjectHideFlags: 1
@@ -3778,6 +3808,10 @@ MonoBehaviour:
   timeToGetAnotherMine: 4
   timeSinceLastMine: 0
   mines: []
+  meteoriteAttackEvilCost: 0
+  comeBackFromMeteoriteAttack: 0
+  lastMeteoriteAttackDestination: {x: 0, y: 0, z: 0}
+  meteoriteDestinationMarker: {fileID: 1484865646973730}
   fogCollider: {fileID: 135076191655738780}
   fogVFX: {fileID: 1362348381220060}
   fogStateCooldown: 0.5
@@ -3919,6 +3953,24 @@ Projector:
   m_AspectRatio: 1
   m_Orthographic: 1
   m_OrthographicSize: 4
+  m_Material: {fileID: 2100000, guid: 4fcb4687c89f53544b99ba7438128277, type: 2}
+  m_IgnoreLayers:
+    serializedVersion: 2
+    m_Bits: 4294966271
+--- !u!119 &119760716353917764
+Projector:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1484865646973730}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_NearClipPlane: 0.1
+  m_FarClipPlane: 5
+  m_FieldOfView: 60
+  m_AspectRatio: 1
+  m_Orthographic: 1
+  m_OrthographicSize: 7
   m_Material: {fileID: 2100000, guid: 4fcb4687c89f53544b99ba7438128277, type: 2}
   m_IgnoreLayers:
     serializedVersion: 2

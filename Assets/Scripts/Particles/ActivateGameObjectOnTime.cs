@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ActivateGameObjectOnTime : MonoBehaviour {
 
-    [HideInInspector]
     public GameObject objectToActivate;
 
     public float timeToActivate;
