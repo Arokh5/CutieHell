@@ -166,8 +166,6 @@ public class CameraController : MonoBehaviour {
                     }
 
                     break;
-                case Player.CameraState.WOLF:
-                    break;
                 case Player.CameraState.STRONG_ATTACK:
                     {
                         y = ClampAngle(y, yFogMin, yFogMax);                        

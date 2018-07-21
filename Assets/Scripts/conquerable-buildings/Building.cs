@@ -7,7 +7,6 @@ public abstract class Building : MonoBehaviour, IDamageable
 
     #region Fields
     [Header ("General Building fields")]
-    public SubZoneType zoneType;
     [SerializeField]
     protected AIZoneController zoneController;
     [Tooltip("The initial amount of hit points for the conquerable building.")]

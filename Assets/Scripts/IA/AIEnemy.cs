@@ -11,7 +11,6 @@ public class AIEnemy : MonoBehaviour, IDamageable
     [HideInInspector]
     public AISpawnController spawnController;
     private AIZoneController zoneController;
-    private SubZoneType currentSubZone; 
 
     private Player playerTarget;
     private IDamageable currentTarget;

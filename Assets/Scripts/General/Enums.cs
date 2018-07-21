@@ -14,14 +14,5 @@ public enum AttackType
     STRONG,
     MINE,
     CONE,
-    METEORITE,
-    TRAP_AREA
-}
-
-
-public enum SubZoneType
-{
-    WEAK_TRAP,
-    STRONG_TRAP,
-    MONUMENT
+    METEORITE
 }
