@@ -1,28 +1,32 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class MeteoriteDamageTrigger : MonoBehaviour {
 
     public float damage;
-    public List<AIEnemy> enemiesInRange;
+    public List<AIEnemy> enemiesInRange = new List<AIEnemy>();
     private float delayUntilExplosion;
+    private bool triggered;
 
     private void OnEnable()
     {
+        enemiesInRange.Clear();
         delayUntilExplosion = 0.05f;
-        enemiesInRange = new List<AIEnemy>();
+        triggered = false;
     }
 
     private void Update()
     {
-        if(delayUntilExplosion < 0.0f)
+        if (!triggered)
         {
-            HurtEnemies();
-        }
-        else
-        {
-            delayUntilExplosion -= Time.deltaTime;
+            if (delayUntilExplosion < 0.0f)
+            {
+                HurtEnemies();
+            }
+            else
+            {
+                delayUntilExplosion -= Time.deltaTime;
+            }
         }
     }
 
@@ -42,6 +46,6 @@ public class MeteoriteDamageTrigger : MonoBehaviour {
             aiEnemy.SetKnockback(this.transform.position, 1.0f);
             aiEnemy.SetSlow(0.75f);
         }
-
+        triggered = true;
     }
 }
