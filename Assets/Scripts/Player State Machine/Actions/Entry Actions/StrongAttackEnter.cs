@@ -17,7 +17,7 @@ public class StrongAttackEnter : StateAction
         player.teleported = false;
         player.timeSinceLastTeleport = 0.0f;
         player.initialPositionOnStrongAttack = player.transform;
-        player.cameraState = Player.CameraState.FOG;
+        player.cameraState = Player.CameraState.STRONG_ATTACK;
         player.teleportState = Player.TeleportStates.OUT;
         player.SetIsAutoRecoveringEvil(false);
         ParticlesManager.instance.LaunchParticleSystem(teleportIn, player.transform.position, teleportIn.transform.rotation);

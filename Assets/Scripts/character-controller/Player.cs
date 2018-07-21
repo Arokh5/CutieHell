@@ -175,22 +175,6 @@ public class Player : MonoBehaviour, IDamageable {
     public Vector3 lastMeteoriteAttackDestination;
 
 
-    [Header("Fog Attack")]
-    public SphereCollider fogCollider;
-    public GameObject fogVFX;
-    public float fogStateCooldown;
-    [HideInInspector]
-    public float fogStateLastTime;
-    [HideInInspector]
-    public float accumulatedFogEvilCost = 0;
-    [HideInInspector]
-    public float timeSinceLastFogHit = 0;
-    //[HideInInspector]
-    public List<AIEnemy> currentFogAttackTargets = new List<AIEnemy>();
-    [HideInInspector]
-    public List<AIEnemy> toRemoveFogAttackTargets = new List<AIEnemy>();
-
-
     [Header("Footsteps")]
     public AudioClip footstepsClip;
     public AudioSource loopAudioSource;
@@ -198,7 +182,7 @@ public class Player : MonoBehaviour, IDamageable {
 
     #endregion
 
-    public enum CameraState { STILL, MOVE, WOLF, FOG, TRANSITION, ZOOMOUT, ZOOMIN, METEORITEAIM}
+    public enum CameraState { STILL, MOVE, WOLF, STRONG_ATTACK, TRANSITION, ZOOMOUT, ZOOMIN, METEORITEAIM}
     public enum TeleportStates { OUT, TRAVEL, IN, DELAY}
     
 
@@ -240,7 +224,6 @@ public class Player : MonoBehaviour, IDamageable {
         comeBackFromStrongAttack = false;
         comeBackFromConeAttack = false;
 
-        fogStateLastTime = float.MinValue;
         evilLevel = maxEvilLevel;
         currentState = defaultState;
     }
