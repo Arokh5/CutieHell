@@ -101,9 +101,6 @@ public class Player : MonoBehaviour, IDamageable {
     [HideInInspector]
     public Monument monument;
 
-    [Header("ZoneTrap")]
-    public ZoneTrap zoneTrap = null;
-
     [Header("Player States")]
     [SerializeField]
     private State defaultState;

@@ -230,12 +230,6 @@ public class AIEnemy : MonoBehaviour, IDamageable
         return currentHealth;
     }
 
-    public void HitByZoneTrap()
-    {
-        agent.enabled = false;
-        enemyCollider.enabled = false;
-    }
-
     public void Restart()
     {
         timeOnStun = 0.0f;
