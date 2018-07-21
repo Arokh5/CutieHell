@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ActivateGameObjectOnTime : MonoBehaviour {
 
@@ -15,12 +13,14 @@ public class ActivateGameObjectOnTime : MonoBehaviour {
 	
 	void Update ()
     {
-        if (objectToActivate && !objectToActivate.activeSelf)
+        if (objectToActivate)
         {
-            if (timeElapsed < timeToActivate) timeElapsed += Time.deltaTime;
-            if (timeToActivate < timeElapsed)
+            if (timeElapsed < timeToActivate)
+                timeElapsed += Time.deltaTime;
+            else
             {
                 objectToActivate.SetActive(true);
+                objectToActivate = null;
             }
         }
 	}
