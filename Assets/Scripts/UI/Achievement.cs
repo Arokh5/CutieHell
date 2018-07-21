@@ -5,11 +5,7 @@ public class Achievement : Combo {
 
     #region Attributes
     [SerializeField]
-    private TransitionUI achievementTransition;
-    [SerializeField]
-    private Image icon;
-    [SerializeField]
-    private 
+    private Sprite icon; 
     #endregion
 
     #region MonoBehaviour methods
