@@ -93,7 +93,6 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private AttackType killingHit = AttackType.NONE;
 
     private bool active;
-
     #endregion
 
     #region MonoBehaviour Methods
@@ -303,6 +302,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
             agent.enabled = false;
             SetIsTargetable(false);
             killingHit = attacktype;
+            Achievements.instance.IncreaseCurrentCountKillingType(1, killingHit);
             animator.SetBool("DieStandard", true);
             SoundManager.instance.PlaySfxClip(deathSFX);
             //Die();
