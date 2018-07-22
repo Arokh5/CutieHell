@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MeteoriteMovement : MonoBehaviour {
 
+    [SerializeField]
+    private LayerMask explodeLayer;
     public float speed = 8.0f;
     public float damage = 4.0f;
     [SerializeField]
@@ -17,12 +19,11 @@ public class MeteoriteMovement : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 17)
+        if (Helpers.GameObjectInLayerMask(other.gameObject, explodeLayer))
         {
             MeteoriteDamageTrigger o = ParticlesManager.instance.LaunchParticleSystem(damageDealer, this.transform.position, damageDealer.transform.rotation).GetComponent<MeteoriteDamageTrigger>();
             o.damage = 3.0f;
             pool.ReturnToPool();
         }
-
     }
 }

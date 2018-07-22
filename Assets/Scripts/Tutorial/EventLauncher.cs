@@ -60,7 +60,7 @@ public class EventLauncher : MonoBehaviour
     {
         if (type == LauncherType.TRIGGER_ENTER && tutorialController)
         {
-            if (((1 << other.gameObject.layer) & triggerLayerMask) != 0)
+            if (Helpers.GameObjectInLayerMask(other.gameObject, triggerLayerMask))
             {
                 LaunchEvent();
             }
@@ -71,7 +71,7 @@ public class EventLauncher : MonoBehaviour
     {
         if (type == LauncherType.TRIGGER_EXIT && tutorialController)
         {
-            if (((1 << other.gameObject.layer) & triggerLayerMask) != 0)
+            if (Helpers.GameObjectInLayerMask(other.gameObject, triggerLayerMask))
             {
                 LaunchEvent();
             }

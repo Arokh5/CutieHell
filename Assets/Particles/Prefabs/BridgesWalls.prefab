@@ -655,7 +655,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1034720633779118}
   m_LocalRotation: {x: 0.080688484, y: 0.2368644, z: -0.019744346, w: 0.967985}
-  m_LocalPosition: {x: -15.28, y: 0.099998474, z: 6.14}
+  m_LocalPosition: {x: -15.4, y: 0.099998474, z: 5.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4614761580279152}
@@ -682,7 +682,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1360246550851440}
   m_LocalRotation: {x: 0.080688484, y: 0.2368644, z: -0.019744346, w: 0.967985}
-  m_LocalPosition: {x: 12.52, y: 0.099998474, z: 10.25}
+  m_LocalPosition: {x: 11.2, y: 0.099998474, z: 11}
   m_LocalScale: {x: 1, y: 1, z: 0.9999999}
   m_Children:
   - {fileID: 4242568481295436}
@@ -709,7 +709,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1434502035674992}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.76, y: -1.09, z: -3.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4479343638445914}
@@ -897,7 +897,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1080283169107472}
   m_LocalRotation: {x: 0.1730429, y: -0.044333734, z: 0.007797289, w: 0.9838851}
-  m_LocalPosition: {x: -10.28, y: 0.5999985, z: -3.6}
+  m_LocalPosition: {x: -10.66, y: 0.5999985, z: -0.98}
   m_LocalScale: {x: 1, y: 1, z: 1.0000001}
   m_Children:
   - {fileID: 4165272291313490}
@@ -1053,7 +1053,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1187627258899956}
   m_LocalRotation: {x: 0.1730429, y: -0.044333734, z: 0.007797289, w: 0.9838851}
-  m_LocalPosition: {x: 18.57, y: 0.5999985, z: -0.9}
+  m_LocalPosition: {x: 19.23, y: 0.5999985, z: -0.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4163697658494276}
@@ -1374,7 +1374,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: c997ec61cbccc4840906eb3516c2513a, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.35
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1383,7 +1383,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 0
-  MaxDistance: 8
+  MaxDistance: 10
   Pan2D: 0
   rolloffMode: 2
   BypassEffects: 0
@@ -1470,7 +1470,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 0
-  MaxDistance: 10
+  MaxDistance: 11.5
   Pan2D: 0
   rolloffMode: 2
   BypassEffects: 0
@@ -1557,7 +1557,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 0
-  MaxDistance: 11
+  MaxDistance: 12
   Pan2D: 0
   rolloffMode: 2
   BypassEffects: 0
@@ -1635,7 +1635,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 8300000, guid: c997ec61cbccc4840906eb3516c2513a, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.35
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1644,7 +1644,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 0
-  MaxDistance: 8
+  MaxDistance: 9.5
   Pan2D: 0
   rolloffMode: 2
   BypassEffects: 0
@@ -1747,7 +1747,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: c997ec61cbccc4840906eb3516c2513a, type: 3}
   loopAudio: 1
-  soundMaxDistance: 10
+  soundMaxDistance: 11.5
 --- !u!114 &114174246558345240
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1761,7 +1761,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: c997ec61cbccc4840906eb3516c2513a, type: 3}
   loopAudio: 1
-  soundMaxDistance: 11
+  soundMaxDistance: 12
 --- !u!114 &114185332648040036
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1773,6 +1773,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d7c6edd965bc6f42986369ce6d03729, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemiesLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &114206869799365304
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1784,6 +1787,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d7c6edd965bc6f42986369ce6d03729, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemiesLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &114216552050386000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1795,6 +1801,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d7c6edd965bc6f42986369ce6d03729, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemiesLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &114276811333511180
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1807,7 +1816,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reference: {fileID: 0}
-  triggerDistance: 10
+  triggerDistance: 11.5
 --- !u!114 &114311956635473770
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1832,7 +1841,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reference: {fileID: 0}
-  triggerDistance: 8
+  triggerDistance: 10
 --- !u!114 &114399711955649592
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1845,7 +1854,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reference: {fileID: 0}
-  triggerDistance: 11
+  triggerDistance: 12
 --- !u!114 &114413226900729430
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1857,6 +1866,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d7c6edd965bc6f42986369ce6d03729, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemiesLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &114421088160428758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1904,6 +1916,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d7c6edd965bc6f42986369ce6d03729, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemiesLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &114524504701723476
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1915,6 +1930,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d7c6edd965bc6f42986369ce6d03729, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemiesLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &114635385731395316
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1928,7 +1946,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: c997ec61cbccc4840906eb3516c2513a, type: 3}
   loopAudio: 1
-  soundMaxDistance: 8
+  soundMaxDistance: 10
 --- !u!114 &114643015712012820
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1940,6 +1958,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d7c6edd965bc6f42986369ce6d03729, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemiesLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &114695848435825522
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1951,6 +1972,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d7c6edd965bc6f42986369ce6d03729, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemiesLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &114736285348129220
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1986,6 +2010,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d7c6edd965bc6f42986369ce6d03729, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemiesLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &114885118026604990
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1999,7 +2026,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: c997ec61cbccc4840906eb3516c2513a, type: 3}
   loopAudio: 1
-  soundMaxDistance: 8
+  soundMaxDistance: 9.5
 --- !u!114 &114893270748935434
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2035,6 +2062,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d7c6edd965bc6f42986369ce6d03729, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemiesLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &114965768211075946
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2047,7 +2077,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reference: {fileID: 0}
-  triggerDistance: 8
+  triggerDistance: 9.5
 --- !u!198 &198056484996925932
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -8881,7 +8911,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -316590993
+  randomSeed: -1619867735
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -15699,7 +15729,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 816105113
+  randomSeed: 757934380
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -29290,7 +29320,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1116989294
+  randomSeed: -995178373
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -36102,7 +36132,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1138769010
+  randomSeed: -2025780048
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -42920,7 +42950,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -467426890
+  randomSeed: -1024199967
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -53144,7 +53174,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1326286824
+  randomSeed: -64045782
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -63374,7 +63404,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1887254639
+  randomSeed: 373092265
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -73604,7 +73634,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -970236062
+  randomSeed: 1258649810
   InitialModule:
     serializedVersion: 3
     enabled: 1

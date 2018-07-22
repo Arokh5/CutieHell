@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class StrongAttackDetection : MonoBehaviour
 {
@@ -10,7 +9,7 @@ public class StrongAttackDetection : MonoBehaviour
     #region MonoBehaviour Methods
     private void OnTriggerEnter(Collider other)
     {
-        if (((1 << other.gameObject.layer) & layerMask) != 0)
+        if (Helpers.GameObjectInLayerMask(other.gameObject, layerMask))
         {
             AIEnemy aIEnemy = other.GetComponent<AIEnemy>();
             if (aIEnemy)
@@ -23,7 +22,7 @@ public class StrongAttackDetection : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (((1 << other.gameObject.layer) & layerMask) != 0)
+        if (Helpers.GameObjectInLayerMask(other.gameObject, layerMask))
         {
             AIEnemy aIEnemy = other.GetComponent<AIEnemy>();
             if (aIEnemy)

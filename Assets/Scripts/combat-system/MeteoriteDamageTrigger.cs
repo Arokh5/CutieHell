@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class MeteoriteDamageTrigger : MonoBehaviour {
 
+    [SerializeField]
+    private LayerMask enemiesLayer;
     public float damage;
     public List<AIEnemy> enemiesInRange = new List<AIEnemy>();
     private float delayUntilExplosion;
@@ -32,7 +34,7 @@ public class MeteoriteDamageTrigger : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer == 8)
+        if (Helpers.GameObjectInLayerMask(other.gameObject, enemiesLayer))
         {
             enemiesInRange.Add(other.GetComponent<AIEnemy>());
         }

@@ -6,6 +6,8 @@ using EZCameraShake;
 public class ActivateMineExplosion : PooledParticleSystem
 {
     [SerializeField]
+    private LayerMask enemiesLayer;
+    [SerializeField]
     private MineTargets mineTargets;
     [SerializeField]
     private ParticleSystem explosionVFX;
@@ -32,7 +34,7 @@ public class ActivateMineExplosion : PooledParticleSystem
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer == 8)
+        if (Helpers.GameObjectInLayerMask(other.gameObject, enemiesLayer))
         {
             foreach (AIEnemy aiEnemy in mineTargets.currentMineTargets)
             {

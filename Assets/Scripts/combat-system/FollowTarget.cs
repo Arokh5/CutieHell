@@ -64,7 +64,7 @@ public class FollowTarget : PooledParticleSystem
 
     private void OnTriggerEnter(Collider other)
     {
-        if ((1 << other.gameObject.layer & hitLayerMask) != 0)
+        if (Helpers.GameObjectInLayerMask(other.gameObject, hitLayerMask))
         {
             AIEnemy enemyHit = other.GetComponent<AIEnemy>();
             if (enemyHit)

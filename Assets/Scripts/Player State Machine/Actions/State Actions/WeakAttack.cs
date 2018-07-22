@@ -85,6 +85,6 @@ public class WeakAttack : StateAction
 
     private bool HitInEnemyLayer(RaycastHit hit)
     {
-        return ((1 << hit.transform.gameObject.layer) & targetsLayerMask) != 0;
+        return Helpers.GameObjectInLayerMask(hit.transform.gameObject, targetsLayerMask);
     }
 }

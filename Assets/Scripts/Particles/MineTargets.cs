@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class MineTargets : MonoBehaviour {
 
+    [SerializeField]
+    private LayerMask enemiesLayer;
     public List<AIEnemy> currentMineTargets = new List<AIEnemy>();
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 8)
+        if (Helpers.GameObjectInLayerMask(other.gameObject, enemiesLayer))
         {
             AIEnemy aIEnemy = other.GetComponent<AIEnemy>();
             currentMineTargets.Add(aIEnemy);
@@ -17,7 +19,7 @@ public class MineTargets : MonoBehaviour {
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == 8)
+        if (Helpers.GameObjectInLayerMask(other.gameObject, enemiesLayer))
         {
             AIEnemy aIEnemy = other.GetComponent<AIEnemy>();
             currentMineTargets.Remove(aIEnemy);

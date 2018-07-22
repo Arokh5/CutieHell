@@ -11,7 +11,7 @@ public class FirstWaveTrigger : MonoBehaviour
     #region MonoBehaviour Methods
     private void OnTriggerEnter(Collider other)
     {
-        if (((1 << other.gameObject.layer) & triggerLayerMask) != 0)
+        if (Helpers.GameObjectInLayerMask(other.gameObject, triggerLayerMask))
         {
             gameObject.SetActive(false);
             GameManager.instance.StartNextRound();

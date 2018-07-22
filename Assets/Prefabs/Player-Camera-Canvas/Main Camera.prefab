@@ -38,8 +38,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1558515104831888}
-  m_LocalRotation: {x: -0.558654, y: 0.13778256, z: -0.0947496, w: -0.8123696}
-  m_LocalPosition: {x: 14.497, y: 95.92958, z: -106.67102}
+  m_LocalRotation: {x: 0.54197717, y: -0.09761218, z: 0.07110607, w: -0.831671}
+  m_LocalPosition: {x: 0.8739662, y: 82.48785, z: 84.304}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -94,7 +94,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1558515104831888}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
   m_Name: 
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1558515104831888}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
   m_Name: 
@@ -141,10 +141,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c015a187724cb2b4186a6c255309225f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  viewPosCheckLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
   timeSinceLastAction: 0
   slowAction: 0
   fastAction: 0
   y: 0
+  aR: 0
+  aF: 0
+  aU: 0
+  zX: 0
+  zY: 0
+  zZ: 0
   distance: 0
   cameraX: 0
   cameraY: 0
@@ -156,9 +165,9 @@ MonoBehaviour:
   t_cameraY: 0
   t_fov: 0
   lerpTowardsCanonTargetDecal: 40
-  fogDistance: 15
-  yFogMin: 50
-  yFogMax: 85
+  strongAttackDistance: 15
+  yStrongAttackMin: 50
+  yStrongAttackMax: 85
 --- !u!124 &124509821206504046
 Behaviour:
   m_ObjectHideFlags: 1

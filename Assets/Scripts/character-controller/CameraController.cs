@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour {
 
+    [SerializeField]
+    private LayerMask viewPosCheckLayerMask;
+
     private Transform player;
     private Player playerScript;
     private CapsuleCollider playerCapsuleCollider;
@@ -48,10 +51,10 @@ public class CameraController : MonoBehaviour {
     /*Canon camera values*/
     public float lerpTowardsCanonTargetDecal; 
 
-    [Header("Fog setup")]
-    public float fogDistance;
-    public float yFogMin;
-    public float yFogMax;
+    [Header("Strong Attack setup")]
+    public float strongAttackDistance;
+    public float yStrongAttackMin;
+    public float yStrongAttackMax;
 
     private void Awake()
     {
@@ -168,12 +171,12 @@ public class CameraController : MonoBehaviour {
                     break;
                 case Player.CameraState.STRONG_ATTACK:
                     {
-                        y = ClampAngle(y, yFogMin, yFogMax);                        
+                        y = ClampAngle(y, yStrongAttackMin, yStrongAttackMax);                        
 
                         Quaternion rotation = Quaternion.Euler(y, x, 0);
-                        float noCollisionDistance = fogDistance;
+                        float noCollisionDistance = strongAttackDistance;
 
-                        for (float zOffset = fogDistance; zOffset >= 0.5f; zOffset -= 0.025f)
+                        for (float zOffset = strongAttackDistance; zOffset >= 0.5f; zOffset -= 0.025f)
                         {
                             noCollisionDistance = zOffset;
                             Vector3 tempPos = rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position;
@@ -327,7 +330,7 @@ public class CameraController : MonoBehaviour {
 
         if (Physics.Raycast(checkPos, player.position + (Vector3.up * deltaPlayerHeight) - checkPos, out hit)) 
         {
-            if (hit.transform.gameObject.layer == 9) 
+            if (Helpers.GameObjectInLayerMask(hit.transform.gameObject, viewPosCheckLayerMask))
             {
                 return false;
             }
@@ -338,8 +341,8 @@ public class CameraController : MonoBehaviour {
     private bool ReverseViewingPosCheck(Vector3 checkPos, float deltaPlayerHeight, float offset) {
         RaycastHit hit;
         if (Physics.Raycast(player.position + (Vector3.up * deltaPlayerHeight), checkPos - player.position, out hit, offset)) 
-        {   
-            if (hit.transform.gameObject.layer == 9) 
+        {
+            if (Helpers.GameObjectInLayerMask(hit.transform.gameObject, viewPosCheckLayerMask))
             {
                 return false;
             }
