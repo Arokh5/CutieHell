@@ -107,8 +107,18 @@ public class TransitionUI : MonoBehaviour {
                     }
                     // desinicializar
                     break;
+            }                
+        }
+        else
+        {
+            if(queueImages.Count !=0 && queueNames.Count != 0)
+            {
+                elementIcon.sprite = (Sprite) queueImages.Dequeue();
+                elementText.text = (string)queueNames.Dequeue();
+                isTransitionOn = true;
+                transitionState = TransitionState.TRANSITION_START;
+                elementBackground.transform.position = transforms[0].position;           
             }
-                
         }
 	}
 	
@@ -126,7 +136,6 @@ public class TransitionUI : MonoBehaviour {
             transitionState = TransitionState.TRANSITION_START;
             elementIcon.sprite = image;
             elementText.text = name;
-            elementBackground.transform.position = transforms[0].position;
         }
     }
 	#endregion
