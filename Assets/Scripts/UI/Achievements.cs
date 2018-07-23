@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public enum AchievementType { CONSECUTIVEKILLING}
+public enum AchievementType { CONSECUTIVEKILLING, CONSECUTIVEHITTING}
 public class Achievements : Combo {
 
     public static Achievements instance;
@@ -9,8 +9,9 @@ public class Achievements : Combo {
     #region Attributes
     [SerializeField]
     private KillingCountAchievement[] killingCountAchievements;
+    [SerializeField]
+    private KillingCountAchievement[] hittingCountAchievements;
     #endregion
-
     #region MonoBehaviour methods
 
     #endregion
@@ -29,10 +30,8 @@ public class Achievements : Combo {
     }
 
     // Update is called once per frame
-
-
     #region Public methods
-
+    
     public void IncreaseCurrentCountKillingType(int addToCount, AttackType attackType)
     {
        for (int i = 0; i < killingCountAchievements.Length; i++)
@@ -40,6 +39,20 @@ public class Achievements : Combo {
             if(killingCountAchievements[i].GetAttackType() == attackType)
             {
                 killingCountAchievements[i].IncreaseCurrentCount(addToCount);
+                return;
+            }
+        }
+    }
+
+    //We use same killingCountAchievements list
+    public void IncreaseCurrentCountHitType(int addToCount, AttackType attackType)
+    {
+        for (int i = 0; i < hittingCountAchievements.Length; i++)
+        {
+            if (hittingCountAchievements[i].GetAttackType() == attackType)
+            {
+                hittingCountAchievements[i].IncreaseCurrentCount(addToCount);
+                return;
             }
         }
     }

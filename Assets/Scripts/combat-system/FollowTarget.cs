@@ -100,6 +100,7 @@ public class FollowTarget : PooledParticleSystem
 
         this.hitOffset = hitOffset;
         ++player.basicAttacksCount;
+        player.SetIsBoomerangOn(true);
     }
 
     #endregion
@@ -145,6 +146,7 @@ public class FollowTarget : PooledParticleSystem
             {
                 --player.basicAttacksCount;
                 ReturnToPool();
+                player.SetIsBoomerangOn(false);
             }
         }
     }

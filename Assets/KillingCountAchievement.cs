@@ -7,6 +7,8 @@ public class KillingCountAchievement : Combo {
     private AttackType attackType;
     [SerializeField]
     private Sprite achievementIcon;
+
+    private Player player;
 	#endregion
 	
 	#region MonoBehaviour methods
@@ -16,14 +18,33 @@ public class KillingCountAchievement : Combo {
 	// Use this for initialization
 	void Start () 
 	{
-		
-	}
+        player = GameManager.instance.GetPlayer1();
+    }
 
     // Update is called once per frame
     void Update()
     {
         ReviewConditions();
-        ResetCount();
+        if (attackType != AttackType.METEORITE && attackType != AttackType.WEAK)
+        {
+            ResetCount();
+        }      
+        else
+        {
+            if(attackType == AttackType.WEAK)
+            {
+                if(currentCount > 0 && !player.GetIsBoomerangOn())
+                {
+                    ResetCount();
+                }
+            }else if(attackType == AttackType.METEORITE)
+            {
+                if (currentCount > 0 && !player.GetIsMeteoritesOn())
+                {
+                    ResetCount();
+                }
+            }
+        }
     }
 
     #region Public methods
@@ -31,6 +52,7 @@ public class KillingCountAchievement : Combo {
     {
         StatsManager.instance.IncreaseGlobalPoints(reward);
         TransitionUI.instance.AskForTransition(comboName, achievementIcon);
+        ResetCount();
     }
 
     public AttackType GetAttackType()

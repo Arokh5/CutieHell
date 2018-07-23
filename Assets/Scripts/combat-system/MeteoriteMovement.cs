@@ -13,6 +13,13 @@ public class MeteoriteMovement : MonoBehaviour {
     [SerializeField]
     private TimedPooledParticleSystem pool;
 
+    private Player player;
+
+    private void Start()
+    {
+        player = GameManager.instance.GetPlayer1();
+    }
+
     void Update () {
         this.transform.Translate(Vector3.forward * speed * Time.deltaTime);
 	}

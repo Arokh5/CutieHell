@@ -130,6 +130,7 @@ public class Player : MonoBehaviour, IDamageable {
     public Vector3 weakAttackTargetHitOffset;
     [HideInInspector]
     public Transform weakAttackTargetTransform;
+    private bool isBoomerangOn = false;
 
     [Header("Strong Attack")]
     public float strongAttackStateCooldown;
@@ -170,6 +171,7 @@ public class Player : MonoBehaviour, IDamageable {
     public bool comeBackFromMeteoriteAttack;
     [HideInInspector]
     public Vector3 lastMeteoriteAttackDestination;
+    private bool isMeteoritesOn = false;
 
 
     [Header("Footsteps")]
@@ -471,6 +473,26 @@ public class Player : MonoBehaviour, IDamageable {
     public void OnRoundOver()
     {
         TransitionToState(stoppedState);
+    }
+
+    public void SetIsMeteoritesOn(bool meteorites)
+    {
+        isMeteoritesOn = meteorites;
+    }
+
+    public void SetIsBoomerangOn(bool boomerang)
+    {
+        isBoomerangOn = boomerang;
+    }
+
+    public bool GetIsBoomerangOn()
+    {
+        return isBoomerangOn;
+    }
+
+    public bool GetIsMeteoritesOn()
+    {
+        return isMeteoritesOn;
     }
     #endregion
 
