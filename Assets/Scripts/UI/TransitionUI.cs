@@ -60,6 +60,7 @@ public class TransitionUI : MonoBehaviour {
             switch(transitionState)
             {
                 case (TransitionState.TRANSITION_START):
+                    elementBackground.transform.position = transforms[0].position;
                     elapsedTime += Time.deltaTime * times[0];
                     elapsedColor = Mathf.Lerp(elementBackground.color.a, colors[0].a, elapsedTime);
 
@@ -104,6 +105,11 @@ public class TransitionUI : MonoBehaviour {
                     {
                         isTransitionOn = false;
                         elapsedTime = 0;
+
+                        //In case these didn't get to be full transparent
+                        elementBackground.color = new Color(elementBackground.color.r, elementBackground.color.g, elementBackground.color.b, colors[2].a);
+                        elementIcon.color = new Color(elementIcon.color.r, elementIcon.color.g, elementIcon.color.b, colors[2].a);
+                        elementText.color = new Color(elementText.color.r, elementText.color.g, elementText.color.b, colors[2].a);
                     }
                     // desinicializar
                     break;
@@ -117,7 +123,6 @@ public class TransitionUI : MonoBehaviour {
                 elementText.text = (string)queueNames.Dequeue();
                 isTransitionOn = true;
                 transitionState = TransitionState.TRANSITION_START;
-                elementBackground.transform.position = transforms[0].position;           
             }
         }
 	}
