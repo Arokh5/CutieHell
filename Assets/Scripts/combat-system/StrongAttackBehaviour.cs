@@ -49,7 +49,7 @@ public class StrongAttackBehaviour : PooledParticleSystem
         foreach (AIEnemy aiEnemy in enemiesList.currentStrongAttackTargets)
         {
             aiEnemy.MarkAsTarget(false);
-            aiEnemy.TakeDamage(damage, AttackType.STRONG);
+            aiEnemy.TakeDamage(damage, AttackType.CONE);
             comboCount++;
         }
 
