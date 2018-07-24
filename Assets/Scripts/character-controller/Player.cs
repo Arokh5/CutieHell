@@ -172,6 +172,9 @@ public class Player : MonoBehaviour, IDamageable {
     [HideInInspector]
     public Vector3 lastMeteoriteAttackDestination;
     private bool isMeteoritesOn = false;
+    public Transform[] meteoritesPlayerPosition;
+    public Transform[] meteoritesReturnPlayerPosition;
+    public int currentZonePlaying = 0;
 
 
     [Header("Footsteps")]

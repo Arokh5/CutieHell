@@ -26,12 +26,12 @@ public class CameraController : MonoBehaviour {
     public bool slowAction, fastAction;
 
     private int collisionLayers;
-    private float x;
+    [HideInInspector]
+    public float x;
     [HideInInspector]
     public float y;
 
-    public float aR, aF, aU,zX,zY,zZ;
-
+    public float aR, aF, aU,zX,zY,zZ; 
 
     /* Player camera values */
     public float distance;
@@ -236,7 +236,8 @@ public class CameraController : MonoBehaviour {
                     }
                 case Player.CameraState.METEORITEAIM:
                     {
-                        y = ClampAngle(y, 40, 70);
+                        y = ClampAngle(y, 50, 75);
+                        x = ClampAngle(x, -45, 45);
                         Quaternion rotation = Quaternion.Euler(y, x, 0);
 
                         Vector3 position = rotation * new Vector3(zX, zY, -zZ) + player.position;

@@ -14,44 +14,44 @@ public class MeteoriteAim : StateAction
 
     public override void Act(Player player)
     {
-        Vector3 accelerationVector = Vector3.zero;
-        Vector3 verticalAcceleration = player.transform.forward;
-        Vector3 horizontalAcceleration = player.transform.right;
+        //Vector3 accelerationVector = Vector3.zero;
+        //Vector3 verticalAcceleration = player.transform.forward;
+        //Vector3 horizontalAcceleration = player.transform.right;
 
-        accelerationVector += verticalAcceleration * -InputManager.instance.GetLeftStickVerticalValue();
-        accelerationVector += horizontalAcceleration * InputManager.instance.GetLeftStickHorizontalValue();
+        //accelerationVector += verticalAcceleration * -InputManager.instance.GetLeftStickVerticalValue();
+        //accelerationVector += horizontalAcceleration * InputManager.instance.GetLeftStickHorizontalValue();
 
-        float accelerationMagnitude = accelerationVector.magnitude;
-        if (accelerationMagnitude > 0.1f)
-        {
-            if (accelerationMagnitude > 1.0f)
-            {
-                accelerationVector.Normalize();
-                accelerationMagnitude = 1.0f;
-            }
-            Vector3 playerPos = player.rb.position;
-            player.mainCameraController.timeSinceLastAction = 0.0f;
-            if (accelerationMagnitude != 0.0f)
-            {
-                float dot = Vector3.Dot(accelerationVector / accelerationMagnitude, player.currentSpeed);
-                if (dot > 0)
-                    player.currentSpeed = (accelerationVector / accelerationMagnitude) * dot;
-                else
-                    player.currentSpeed = Vector3.zero;
-            }
-            else
-                player.currentSpeed = Vector3.zero;
+        //float accelerationMagnitude = accelerationVector.magnitude;
+        //if (accelerationMagnitude > 0.1f)
+        //{
+        //    if (accelerationMagnitude > 1.0f)
+        //    {
+        //        accelerationVector.Normalize();
+        //        accelerationMagnitude = 1.0f;
+        //    }
+        //    Vector3 playerPos = player.rb.position;
+        //    player.mainCameraController.timeSinceLastAction = 0.0f;
+        //    if (accelerationMagnitude != 0.0f)
+        //    {
+        //        float dot = Vector3.Dot(accelerationVector / accelerationMagnitude, player.currentSpeed);
+        //        if (dot > 0)
+        //            player.currentSpeed = (accelerationVector / accelerationMagnitude) * dot;
+        //        else
+        //            player.currentSpeed = Vector3.zero;
+        //    }
+        //    else
+        //        player.currentSpeed = Vector3.zero;
 
-            /* Calculate currentSpeed */
-            player.currentSpeed += acceleration * accelerationVector * Time.deltaTime;
-            if (player.currentSpeed.sqrMagnitude > maxSpeed * maxSpeed)
-                player.currentSpeed = player.currentSpeed.normalized * maxSpeed;
+        //    /* Calculate currentSpeed */
+        //    player.currentSpeed += acceleration * accelerationVector * Time.deltaTime;
+        //    if (player.currentSpeed.sqrMagnitude > maxSpeed * maxSpeed)
+        //        player.currentSpeed = player.currentSpeed.normalized * maxSpeed;
 
-            /* Calculate new position */
-            playerPos += player.currentSpeed * Time.deltaTime;
+        //    /* Calculate new position */
+        //    playerPos += player.currentSpeed * Time.deltaTime;
 
-            player.rb.position = playerPos;
-        }
+        //    player.rb.position = playerPos;
+        //}
         RaycastHit hit;
         int layerMask = 1 << 17;
         if (Physics.Raycast(player.mainCamera.transform.position, player.mainCamera.transform.forward, out hit, Mathf.Infinity, layerMask))
@@ -68,13 +68,15 @@ public class MeteoriteAim : StateAction
         {
             ParticlesManager.instance.LaunchParticleSystem(meteoritePrefab, player.lastMeteoriteAttackDestination, meteoritePrefab.transform.rotation);
             player.comeBackFromMeteoriteAttack = true;
-            player.transform.position = player.initialPos;
+            player.transform.position = player.meteoritesReturnPlayerPosition[player.currentZonePlaying].position;
             player.timeSinceLastMeteoriteAttack = 0.0f;
+            player.mainCameraController.y = 0.0f;
         }
         else if (InputManager.instance.GetOButtonDown())
         {
             player.comeBackFromMeteoriteAttack = true;
-            player.transform.position = player.initialPos;
+            player.transform.position = player.meteoritesReturnPlayerPosition[player.currentZonePlaying].position;
+            player.mainCameraController.y = 0.0f;
         }
         
     }

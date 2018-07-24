@@ -11,5 +11,6 @@ public class TeleportExitAction : StateAction
         player.SetRenderersVisibility(true);
         player.cameraState = Player.CameraState.MOVE;
         player.timeSinceLastTeleport = 0.0f;
+        player.mainCameraController.y = 0.0f;
     }
 }
