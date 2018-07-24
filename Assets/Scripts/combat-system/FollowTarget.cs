@@ -10,7 +10,7 @@ public class FollowTarget : PooledParticleSystem
     [SerializeField]
     private float lifeTime;
     [SerializeField]
-    private int damage;
+    private float damage;
     [SerializeField]
     private AudioClip explosionSfx;
 
