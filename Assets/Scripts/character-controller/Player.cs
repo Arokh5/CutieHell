@@ -174,6 +174,7 @@ public class Player : MonoBehaviour, IDamageable {
     private bool isMeteoritesOn = false;
     public Transform[] meteoritesPlayerPosition;
     public Transform[] meteoritesReturnPlayerPosition;
+    public AIZoneController[] meteoriteZones;
     public int currentZonePlaying = 0;
 
 

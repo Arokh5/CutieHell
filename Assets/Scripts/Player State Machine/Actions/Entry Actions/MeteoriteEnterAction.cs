@@ -16,5 +16,6 @@ public class MeteoriteEnterAction : StateAction
         player.mainCameraController.y = 61;
         player.transform.position = player.meteoritesPlayerPosition[player.currentZonePlaying].position;
         player.transform.rotation = Quaternion.LookRotation(Vector3.forward);
+        player.SetZoneController(player.meteoriteZones[player.currentZonePlaying]);
     }
 }
