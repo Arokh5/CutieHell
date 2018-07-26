@@ -177,19 +177,13 @@ public class AIZoneController : MonoBehaviour
         if (!cuteEffects.Contains(cuteEffect))
         {
             cuteEffects.Add(cuteEffect);
-            textureChangerSource.AddTextureChanger(cuteEffect);
         }
     }
 
     // Called by CuteEffects to unregister
     public bool RemoveCuteEffect(CuteEffect cuteEffect)
     {
-        if (cuteEffects.Remove(cuteEffect))
-        {
-            textureChangerSource.RemoveTextureChanger(cuteEffect);
-            return true;
-        }
-        return false;
+        return cuteEffects.Remove(cuteEffect);
     }
 
     // Called by Monument to pass information to CuteEffects
