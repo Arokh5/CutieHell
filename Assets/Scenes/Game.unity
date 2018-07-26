@@ -5933,10 +5933,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingRenderer: {fileID: 638367618}
   alternateBuildingRenderer: {fileID: 1298867449}
-  currentEvilRadius: 0
-  blendStartRadius: 0.8
-  maxEvilRadius: 35
-  minEvilRadius: 5
+  currentEvilRadius: 25
+  blendStartRadius: 0.9
+  maxEvilRadius: 25
+  minEvilRadius: 2
   convertibles:
   - {fileID: 1133434161}
   - {fileID: 371490124}
@@ -7975,10 +7975,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingRenderer: {fileID: 1806240187}
   alternateBuildingRenderer: {fileID: 1139987399}
-  currentEvilRadius: 0
-  blendStartRadius: 0.8
-  maxEvilRadius: 35
-  minEvilRadius: 5
+  currentEvilRadius: 41
+  blendStartRadius: 0.9
+  maxEvilRadius: 41
+  minEvilRadius: 12
   convertibles:
   - {fileID: 402463523}
   - {fileID: 1259160915}
@@ -36890,9 +36890,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 2036540554}
-  - component: {fileID: 2036540556}
   - component: {fileID: 2036540555}
   - component: {fileID: 2036540558}
+  - component: {fileID: 2036540556}
   - component: {fileID: 2036540557}
   m_Layer: 16
   m_Name: Monument_Z1
@@ -36908,7 +36908,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2036540553}
   m_LocalRotation: {x: -0, y: -0.23660553, z: -0, w: 0.97160584}
-  m_LocalPosition: {x: 8.3, y: -0.04, z: -14.57}
+  m_LocalPosition: {x: 8.3, y: 0.05, z: -14.57}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1989907136}
@@ -36951,7 +36951,7 @@ CapsuleCollider:
   m_Radius: 1
   m_Height: 5
   m_Direction: 1
-  m_Center: {x: 0, y: 1.01, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!135 &2036540557
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -36977,10 +36977,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingRenderer: {fileID: 1092714544}
   alternateBuildingRenderer: {fileID: 653981887}
-  currentEvilRadius: 0
-  blendStartRadius: 0.8
-  maxEvilRadius: 35
-  minEvilRadius: 5
+  currentEvilRadius: 50
+  blendStartRadius: 0.9
+  maxEvilRadius: 50
+  minEvilRadius: 20
   convertibles: []
   underAttackStateDuration: 1
   conquerEffectDuration: 2.5
@@ -37817,15 +37817,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4220184436000442, guid: a10d882a5f13c83439764270668b43ac, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.28
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4220184436000442, guid: a10d882a5f13c83439764270668b43ac, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.06
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4220184436000442, guid: a10d882a5f13c83439764270668b43ac, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0.03
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4220184436000442, guid: a10d882a5f13c83439764270668b43ac, type: 2}
       propertyPath: m_LocalRotation.x
@@ -37856,6 +37856,10 @@ Prefab:
         type: 2}
       propertyPath: m_Lightmapping
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1934132388359858, guid: a10d882a5f13c83439764270668b43ac, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a10d882a5f13c83439764270668b43ac, type: 2}

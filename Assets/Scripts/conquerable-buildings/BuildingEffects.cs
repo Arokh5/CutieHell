@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildingEffects : MonoBehaviour, ITextureChanger
@@ -31,17 +30,12 @@ public class BuildingEffects : MonoBehaviour, ITextureChanger
     private List<Convertible> convertibles;
 
     [Header("Effects timing")]
-    [Tooltip("The duration (in seconds) for which the conquerable object is considered to be \"under attack\" after the last actual attack happened.")]
-    [SerializeField]
-    private float underAttackStateDuration = 1;
     [Tooltip("The duration (in seconds) that the dark to cute conversion takes.")]
     [SerializeField]
     private float conquerEffectDuration = 1;
 
-    private float underAttackElapsedTime = 0;
     private float conquerEffectElapsedTime = 0;
 
-    private bool underAttack = false;
     private bool conquering = false;
     private bool conquered = false;
     #endregion
@@ -67,16 +61,6 @@ public class BuildingEffects : MonoBehaviour, ITextureChanger
 
     private void Update()
     {
-        if (underAttack)
-        {
-            underAttackElapsedTime += Time.deltaTime;
-            if (underAttackElapsedTime >= underAttackStateDuration)
-            {
-                SetUnderAttack(false);
-                underAttackElapsedTime = 0;
-            }
-        }
-
         if (conquering)
         {
             conquerEffectElapsedTime += Time.deltaTime;
@@ -86,6 +70,8 @@ public class BuildingEffects : MonoBehaviour, ITextureChanger
             }
             else
             {
+                conquerEffectElapsedTime = conquerEffectDuration;
+                ConquerEffect();
                 conquering = false;
                 conquered = true;
                 attachedBuilding.BuildingConverted();
@@ -94,12 +80,35 @@ public class BuildingEffects : MonoBehaviour, ITextureChanger
         }
     }
 
+    private void OnValidate()
+    {
+        if (maxEvilRadius < 0)
+            maxEvilRadius = 0;
+
+        if (minEvilRadius < 0)
+            minEvilRadius = 0;
+
+        if (minEvilRadius > maxEvilRadius)
+            minEvilRadius = maxEvilRadius;
+
+        if (blendStartRadius * maxEvilRadius < minEvilRadius)
+            blendStartRadius = minEvilRadius / maxEvilRadius;
+
+        if (!conquering)
+            currentEvilRadius = maxEvilRadius;
+    }
+
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = new Color(0, 1, 0, 0.75f);
+        // Min radius
+        Gizmos.color = new Color(0, 0, 0, 1.0f);
+        Gizmos.DrawWireSphere(transform.position, minEvilRadius);
+        // Blend start radius
+        Gizmos.color = new Color(0.55f, 0.27f, 0.07f, 1.0f);
+        Gizmos.DrawWireSphere(transform.position, blendStartRadius * maxEvilRadius);
+        // Max radius (cute texture start)
+        Gizmos.color = new Color(0, 1, 0, 1.0f);
         Gizmos.DrawWireSphere(transform.position, maxEvilRadius);
-        Gizmos.color = new Color(0, 1, 0, 0.25f);
-        Gizmos.DrawWireSphere(transform.position, blendStartRadius);
     }
     #endregion
 
@@ -120,37 +129,12 @@ public class BuildingEffects : MonoBehaviour, ITextureChanger
     public float GetNormalizedBlendStartRadius()
     {
         return blendStartRadius;
-        if (conquered)
-            return blendStartRadius / maxEvilRadius;
-        else if (conquering)
-            return (conquerEffectElapsedTime / conquerEffectDuration) * (blendStartRadius / maxEvilRadius);
-        else
-            return 0.0f;
     }
 
     // ITextureChanger
     public float GetEffectMaxRadius()
     {
         return currentEvilRadius;
-    }
-
-    public void SetUnderAttack(bool underAttackState)
-    {
-        if (underAttackState)
-            underAttackElapsedTime = 0;
-
-        if (underAttack != underAttackState)
-        {
-            if (underAttackState)
-            {
-                //buildingRenderer.material.SetFloat("_UnderAttack", 1);
-            }
-            else
-            {
-                //buildingRenderer.material.SetFloat("_UnderAttack", 0);
-            }
-        }
-        underAttack = underAttackState;
     }
 
     public void SetBuildingConquerProgress(float normalizedConquerProgress)
@@ -168,14 +152,16 @@ public class BuildingEffects : MonoBehaviour, ITextureChanger
         float progress = conquerEffectElapsedTime / conquerEffectDuration;
         currentEvilRadius = (1 - progress) * minEvilRadius;
 
-        if (progress < 0.5f)
+        float tipingPoint = 0.5f;
+
+        if (progress < tipingPoint)
         {
             buildingRenderer.transform.localScale = (1 - 2 * progress) * Vector3.one;
         }
         else
         {
             // Rescale the progress to fall in the range [0,1]
-            progress = (progress - 0.6f) / (1 - 0.6f);
+            progress = (progress - tipingPoint) / (1 - tipingPoint);
             alternateBuildingRenderer.transform.localScale = progress * Vector3.one;
         }
 
