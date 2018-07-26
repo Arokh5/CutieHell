@@ -28,14 +28,18 @@ public class BuildingEffects : MonoBehaviour, ITextureChanger
     private float minEvilRadius = 5.0f;
     [SerializeField]
     private List<Convertible> convertibles;
+    [Tooltip("This list will be automatically filled with all EvilEffects that are children of this GameObject")]
+    [ShowOnly]
+    public List<EvilEffect> evilEffects = new List<EvilEffect>();
 
     [Header("Effects timing")]
     [Tooltip("The duration (in seconds) that the dark to cute conversion takes.")]
     [SerializeField]
     private float conquerEffectDuration = 1;
 
-    private float conquerEffectElapsedTime = 0;
+    
 
+    private float conquerEffectElapsedTime = 0;
     private bool conquering = false;
     private bool conquered = false;
     #endregion
@@ -50,6 +54,8 @@ public class BuildingEffects : MonoBehaviour, ITextureChanger
         UnityEngine.Assertions.Assert.IsNotNull(alternateBuildingRenderer, "ERROR: Alternate Building Renderer not assigned for BuildingEffects script in GameObject " + gameObject.name);
         buildingRenderer.gameObject.SetActive(true);
         alternateBuildingRenderer.gameObject.SetActive(false);
+
+        GetComponentsInChildren(true, evilEffects);
     }
 
     private void Start()
@@ -142,6 +148,10 @@ public class BuildingEffects : MonoBehaviour, ITextureChanger
         //buildingRenderer.material.SetFloat("_ConquerFactor", conquerFactor);
         normalizedConquerProgress = Mathf.Clamp01(normalizedConquerProgress);
         currentEvilRadius = minEvilRadius + (1 - normalizedConquerProgress) * (maxEvilRadius - minEvilRadius);
+        foreach (EvilEffect evilEffect in evilEffects)
+        {
+            evilEffect.SetNormalizedMonumentDamage(normalizedConquerProgress);
+        }
     }
     #endregion
 

@@ -87,7 +87,11 @@ public class AIZoneController : MonoBehaviour
         currentZoneTarget = monument;
 
         foreach (BuildingEffects effect in buildingEffects)
+        {
             textureChangerSource.AddTextureChanger(effect);
+            foreach (EvilEffect evilEffect in effect.evilEffects)
+                textureChangerSource.AddTextureChanger(evilEffect);
+        }
     }
     #endregion
 
