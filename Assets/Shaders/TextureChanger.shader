@@ -28,6 +28,7 @@
 
 		// The next 3 variables are assign from the TextureChangerSource C# script
 		int _ActiveElements;
+		// w takes the effectMaxRadius
 		float4 _Elements[128];
 		float _NormalizedBlendStartRadii[128];
 
@@ -63,17 +64,17 @@
 		};
 
 		void surf (Input IN, inout SurfaceOutputStandard o) {
-			// Albedo comes from a texture tinted by color
 			float finalLerpFactor = 1;
 			bool inEffectRadius = false;
 
 			for (int i = 0; i < _ActiveElements; ++i)
 			{
-				float distanceToEnemy = distance(IN.worldPos.xyz, _Elements[i].xyz);
-				if (distanceToEnemy < _Elements[i].w)
+				float maxEvilRadius = _Elements[i].w;
+				float distanceToAffector = distance(IN.worldPos.xyz, _Elements[i].xyz);
+				if (distanceToAffector < maxEvilRadius)
 				{
 					inEffectRadius = true;
-					float inPct = distanceToEnemy / _Elements[i].w;
+					float inPct = distanceToAffector / maxEvilRadius;
 					float blendRadius = _NormalizedBlendStartRadii[i];
 					float lerpFactor = (inPct - blendRadius) / (1 - blendRadius);
 					if (lerpFactor < finalLerpFactor)
@@ -93,22 +94,28 @@
 			{
 				if (finalLerpFactor <= 0)
 				{
-					color = tex2D(_AlternateTex, IN.uv_AlternateTex) * _Color;
+					/*color = tex2D(_AlternateTex, IN.uv_AlternateTex) * _Color;
 					normal = tex2D(_AlternateNormalMap, IN.uv_AlternateNormalMap);
-					roughness = tex2D(_AlternateRoughnessMap, IN.uv_AlternateRoughnessMap);
+					roughness = tex2D(_AlternateRoughnessMap, IN.uv_AlternateRoughnessMap);*/
+					color = tex2D(_MainTex, IN.uv_MainTex) * _Color;
+					normal = tex2D(_NormalMap, IN.uv_NormalMap);
+					roughness = tex2D(_RoughnessMap, IN.uv_RoughnessMap);
 				}
 				else
 				{
-					color = lerp(tex2D(_AlternateTex, IN.uv_AlternateTex), tex2D(_MainTex, IN.uv_MainTex), finalLerpFactor) * _Color;
+					/*color = lerp(tex2D(_AlternateTex, IN.uv_AlternateTex), tex2D(_MainTex, IN.uv_MainTex), finalLerpFactor) * _Color;
 					normal = lerp(tex2D(_AlternateNormalMap, IN.uv_AlternateNormalMap), tex2D(_NormalMap, IN.uv_NormalMap), finalLerpFactor);
-					roughness = lerp(tex2D(_AlternateRoughnessMap, IN.uv_AlternateRoughnessMap), tex2D(_RoughnessMap, IN.uv_RoughnessMap), finalLerpFactor);
+					roughness = lerp(tex2D(_AlternateRoughnessMap, IN.uv_AlternateRoughnessMap), tex2D(_RoughnessMap, IN.uv_RoughnessMap), finalLerpFactor);*/
+					color = lerp(tex2D(_MainTex, IN.uv_MainTex), tex2D(_AlternateTex, IN.uv_AlternateTex), finalLerpFactor) * _Color;
+					normal = lerp(tex2D(_NormalMap, IN.uv_NormalMap), tex2D(_AlternateNormalMap, IN.uv_AlternateNormalMap), finalLerpFactor);
+					roughness = lerp(tex2D(_RoughnessMap, IN.uv_RoughnessMap), tex2D(_AlternateRoughnessMap, IN.uv_AlternateRoughnessMap), finalLerpFactor);
 				}
 			}
 			else
 			{
-				color = tex2D(_MainTex, IN.uv_MainTex) * _Color;
-				normal = tex2D(_NormalMap, IN.uv_NormalMap);
-				roughness = tex2D(_RoughnessMap, IN.uv_RoughnessMap);
+				color = tex2D(_AlternateTex, IN.uv_AlternateTex) * _Color;
+				normal = tex2D(_AlternateNormalMap, IN.uv_AlternateNormalMap);
+				roughness = tex2D(_AlternateRoughnessMap, IN.uv_AlternateRoughnessMap);
 			}
 
 			o.Albedo = color.rgb;

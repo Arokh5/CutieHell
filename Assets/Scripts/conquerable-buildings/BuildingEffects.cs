@@ -14,13 +14,19 @@ public class BuildingEffects : MonoBehaviour, ITextureChanger
     private GameObject alternateBuildingRenderer;
 
     [Header("Area of Effect")]
-    public float effectOnMapRadius = 0.0f;
-    [Tooltip("The max radius within which the texture will be completely changed while the building is being damaged.")]
+    [ShowOnly]
     [SerializeField]
-    private float maxFullEffectRadius = 5.0f;
-    [Tooltip("The max radius within which the cute and evil textures will be blended together once the building is conquered.")]
+    private float currentEvilRadius = 0.0f;
+    [Tooltip("The normalized radius from which the Main and Alternate textures are blended together.")]
     [SerializeField]
-    private float maxBlendedRadius = 35.0f;
+    [Range(0.0f, 1.0f)]
+    private float blendStartRadius = 0.8f;
+    [Tooltip("The max radius where the Main texture is shown (some of the outer-most section might be blended).")]
+    [SerializeField]
+    private float maxEvilRadius = 35.0f;
+    [Tooltip("the min radius where the Main texture is shown right before the Monument is conquered.")]
+    [SerializeField]
+    private float minEvilRadius = 5.0f;
     [SerializeField]
     private List<Convertible> convertibles;
 
@@ -41,13 +47,6 @@ public class BuildingEffects : MonoBehaviour, ITextureChanger
     #endregion
 
     #region MonoBehaviour Methods
-    private void Reset()
-    {
-        alternateBuildingRenderer.transform.localScale = Vector3.zero;
-        effectOnMapRadius = 0.0f;
-        conquered = false;
-    }
-
     private void Awake()
     {
         attachedBuilding = GetComponent<Building>();
@@ -57,6 +56,13 @@ public class BuildingEffects : MonoBehaviour, ITextureChanger
         UnityEngine.Assertions.Assert.IsNotNull(alternateBuildingRenderer, "ERROR: Alternate Building Renderer not assigned for BuildingEffects script in GameObject " + gameObject.name);
         buildingRenderer.gameObject.SetActive(true);
         alternateBuildingRenderer.gameObject.SetActive(false);
+    }
+
+    private void Start()
+    {
+        alternateBuildingRenderer.transform.localScale = Vector3.zero;
+        currentEvilRadius = maxEvilRadius;
+        conquered = false;
     }
 
     private void Update()
@@ -91,9 +97,9 @@ public class BuildingEffects : MonoBehaviour, ITextureChanger
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = new Color(0, 1, 0, 0.75f);
-        Gizmos.DrawWireSphere(transform.position, maxBlendedRadius);
+        Gizmos.DrawWireSphere(transform.position, maxEvilRadius);
         Gizmos.color = new Color(0, 1, 0, 0.25f);
-        Gizmos.DrawWireSphere(transform.position, maxFullEffectRadius);
+        Gizmos.DrawWireSphere(transform.position, blendStartRadius);
     }
     #endregion
 
@@ -113,10 +119,11 @@ public class BuildingEffects : MonoBehaviour, ITextureChanger
     // ITextureChanger
     public float GetNormalizedBlendStartRadius()
     {
+        return blendStartRadius;
         if (conquered)
-            return maxFullEffectRadius / maxBlendedRadius;
+            return blendStartRadius / maxEvilRadius;
         else if (conquering)
-            return (conquerEffectElapsedTime / conquerEffectDuration) * (maxFullEffectRadius / maxBlendedRadius);
+            return (conquerEffectElapsedTime / conquerEffectDuration) * (blendStartRadius / maxEvilRadius);
         else
             return 0.0f;
     }
@@ -124,7 +131,7 @@ public class BuildingEffects : MonoBehaviour, ITextureChanger
     // ITextureChanger
     public float GetEffectMaxRadius()
     {
-        return effectOnMapRadius;
+        return currentEvilRadius;
     }
 
     public void SetUnderAttack(bool underAttackState)
@@ -146,10 +153,11 @@ public class BuildingEffects : MonoBehaviour, ITextureChanger
         underAttack = underAttackState;
     }
 
-    public void AdjustMaterials(float conquerFactor)
+    public void SetBuildingConquerProgress(float normalizedConquerProgress)
     {
         //buildingRenderer.material.SetFloat("_ConquerFactor", conquerFactor);
-        effectOnMapRadius = conquerFactor * maxFullEffectRadius;
+        normalizedConquerProgress = Mathf.Clamp01(normalizedConquerProgress);
+        currentEvilRadius = minEvilRadius + (1 - normalizedConquerProgress) * (maxEvilRadius - minEvilRadius);
     }
     #endregion
 
@@ -158,7 +166,7 @@ public class BuildingEffects : MonoBehaviour, ITextureChanger
     {
         
         float progress = conquerEffectElapsedTime / conquerEffectDuration;
-        effectOnMapRadius = maxFullEffectRadius + progress * (maxBlendedRadius - maxFullEffectRadius);
+        currentEvilRadius = (1 - progress) * minEvilRadius;
 
         if (progress < 0.5f)
         {
@@ -175,7 +183,7 @@ public class BuildingEffects : MonoBehaviour, ITextureChanger
 
         foreach (Convertible convertible in convertibles)
         {
-            if (!convertible.IsConverting() && !convertible.IsConverted() && Vector3.Distance(transform.position, convertible.transform.position) < effectOnMapRadius)
+            if (!convertible.IsConverting() && !convertible.IsConverted() && Vector3.Distance(transform.position, convertible.transform.position) < currentEvilRadius)
             {
                 convertible.Convert();
             }
