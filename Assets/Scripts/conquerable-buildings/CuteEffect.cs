@@ -1,17 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class CuteEffect : MonoBehaviour, ITextureChanger
+public class CuteEffect : MonoBehaviour
 {
     #region Fields
     [SerializeField]
-    [Tooltip("The absolute radius at which the blending of textures ends")]
-    private float effectMaxBlendedRadius = 5.0f;
+    [Tooltip("The maximum radius to which the model changing effect spreads over time (any PropModelChanger outside of the radius is converted at the end of the effect)")]
+    private float effectRadius = 5.0f;
     [SerializeField]
-    [Tooltip("Normalized value that represent the percentage of the effectRadius from which a blend towards 0 starts")]
-    [Range(0.0f, 1.0f)]
-    private float effectStartBlendRadius = 0.9f;
-    [SerializeField]
+    [Tooltip("The time (in seconds) that the model changing effect takes to go from the center to the effectRadius")]
     private float effectTime = 1.0f;
     [SerializeField]
     [Tooltip("Normalized value that represent the amount of damage that the Zone's Monument must have received for this CuteEffects to trigger")]
@@ -21,18 +18,15 @@ public class CuteEffect : MonoBehaviour, ITextureChanger
     [Tooltip("The time (in seconds) that will be waited before triggering the effect AFTER the monument has reached monumentDamage")]
     private float delay;
     [SerializeField]
-    AIZoneController zoneController;
-    [SerializeField]
-    List<PropModelChanger> modelChangers;
-    [ShowOnly]
-    [SerializeField]
+    private List<PropModelChanger> modelChangers;
+
+    private AIZoneController zoneController;
     private bool runningEffect = false;
     private bool finished = false;
-
     private float delayElapsedTime = 0.0f;
     private float elapsedTime = 0.0f;
     private float currentMaxEffectRadius;
-    List<PropModelChanger> toRemove = new List<PropModelChanger>();
+    private List<PropModelChanger> toRemove = new List<PropModelChanger>();
     #endregion
 
     #region MonoBehaviour Methods
@@ -72,15 +66,13 @@ public class CuteEffect : MonoBehaviour, ITextureChanger
     private void OnValidate()
     {
         if (finished)
-            currentMaxEffectRadius = effectMaxBlendedRadius;
+            currentMaxEffectRadius = effectRadius;
     }
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = new Color(0, 1, 0, 0.75f);
-        Gizmos.DrawWireSphere(transform.position, effectMaxBlendedRadius);
-        Gizmos.color = new Color(0, 1, 0, 0.25f);
-        Gizmos.DrawWireSphere(transform.position, effectMaxBlendedRadius * effectStartBlendRadius);
+        Gizmos.DrawWireSphere(transform.position, effectRadius);
     }
     #endregion
 
@@ -99,18 +91,6 @@ public class CuteEffect : MonoBehaviour, ITextureChanger
         if (normalizedDamage >= monumentDamage)
             StartEffect();
     }
-
-    // ITextureChanger
-    public float GetNormalizedBlendStartRadius()
-    {
-        return effectStartBlendRadius;
-    }
-
-    // ITextureChanger
-    public float GetEffectMaxRadius()
-    {
-        return currentMaxEffectRadius;
-    }
     #endregion
 
     #region Private Methods
@@ -127,7 +107,7 @@ public class CuteEffect : MonoBehaviour, ITextureChanger
         if (u > 1)
             u = 1;
 
-        currentMaxEffectRadius = u * effectMaxBlendedRadius;
+        currentMaxEffectRadius = u * effectRadius;
 
         foreach (PropModelChanger modelChanger in modelChangers)
         {
@@ -151,6 +131,8 @@ public class CuteEffect : MonoBehaviour, ITextureChanger
         foreach (PropModelChanger modelChanger in modelChangers)
             modelChanger.Convert();
         modelChangers.Clear();
+
+        zoneController.RemoveCuteEffect(this);
 
         runningEffect = false;
         finished = true;

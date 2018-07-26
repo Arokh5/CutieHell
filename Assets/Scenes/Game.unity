@@ -762,6 +762,54 @@ Transform:
   m_PrefabParentObject: {fileID: 4300514353033636, guid: 61473a3df3f54f645972f727debde0c9,
     type: 2}
   m_PrefabInternal: {fileID: 26514556}
+--- !u!1 &31169115
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 31169116}
+  - component: {fileID: 31169117}
+  m_Layer: 16
+  m_Name: EvilEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &31169116
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 31169115}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -14.3, y: 0, z: 27.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 433428439}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &31169117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 31169115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b483a655b2424114b82812326f82296e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentEvilRadius: 21.5
+  blendStartRadius: 0.9
+  maxEffect:
+    evilRadius: 21.5
+    normalizedDamage: 0
+  minEffect:
+    evilRadius: 0
+    normalizedDamage: 0.1
 --- !u!4 &32622804 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4641484087350230, guid: d2475185a7b983f4aa95777f3513daf7,
@@ -1986,6 +2034,54 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1058218714}
   m_Script: {fileID: 11500000, guid: a8ebfa65ff831574c9782ac4d1305ecb, type: 3}
+--- !u!1 &104409461
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 104409462}
+  - component: {fileID: 104409463}
+  m_Layer: 16
+  m_Name: EvilEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &104409462
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 104409461}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 14.8, y: 0, z: -9.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 273357511}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &104409463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 104409461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b483a655b2424114b82812326f82296e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentEvilRadius: 10
+  blendStartRadius: 0.9
+  maxEffect:
+    evilRadius: 10
+    normalizedDamage: 0
+  minEffect:
+    evilRadius: 0
+    normalizedDamage: 0.1
 --- !u!4 &106428372 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4107662294762830, guid: 4dd411abb7bf7db42861402cd09c33b6,
@@ -2640,54 +2736,6 @@ Transform:
   m_Father: {fileID: 1332926455}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &138104733
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 138104734}
-  - component: {fileID: 138104735}
-  m_Layer: 0
-  m_Name: CuteEffect_1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &138104734
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 138104733}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.9, y: 0, z: 7.3}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 184308219}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &138104735
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 138104733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62a75716f95bb474e85439824f877b46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  effectMaxBlendedRadius: 23
-  effectStartBlendRadius: 0.8
-  effectTime: 0
-  monumentDamage: 0
-  delay: 0
-  zoneController: {fileID: 0}
-  modelChangers: []
-  runningEffect: 0
 --- !u!1001 &141320467
 Prefab:
   m_ObjectHideFlags: 0
@@ -3840,8 +3888,6 @@ Transform:
   m_LocalPosition: {x: -1.6, y: -5.9, z: 8.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1161521020}
-  - {fileID: 138104734}
   - {fileID: 1999935922}
   - {fileID: 801595202}
   - {fileID: 1352373000}
@@ -5967,6 +6013,7 @@ Transform:
   m_Children:
   - {fileID: 2082176985}
   - {fileID: 1502095869}
+  - {fileID: 104409462}
   m_Father: {fileID: 492266145}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5983,9 +6030,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingRenderer: {fileID: 638367618}
   alternateBuildingRenderer: {fileID: 1298867449}
-  effectOnMapRadius: 0
-  maxFullEffectRadius: 5
-  maxBlendedRadius: 20
+  currentEvilRadius: 25
+  blendStartRadius: 0.9
+  maxEvilRadius: 25
+  minEvilRadius: 9
   convertibles:
   - {fileID: 1133434161}
   - {fileID: 371490124}
@@ -5999,7 +6047,7 @@ MonoBehaviour:
   - {fileID: 2113363890}
   - {fileID: 387956731}
   - {fileID: 973751187}
-  underAttackStateDuration: 1
+  evilEffects: []
   conquerEffectDuration: 2.5
 --- !u!114 &273357513
 MonoBehaviour:
@@ -6619,7 +6667,6 @@ Transform:
   m_LocalPosition: {x: 1.3999996, y: 0, z: 0.70000076}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 840952886}
   - {fileID: 1757587480}
   - {fileID: 476666961}
   - {fileID: 996322255}
@@ -6745,7 +6792,6 @@ Transform:
   m_LocalPosition: {x: -0.7, y: -0.9, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1496746501}
   - {fileID: 1471802378}
   - {fileID: 1874108530}
   m_Father: {fileID: 1488729348}
@@ -8010,6 +8056,8 @@ Transform:
   m_Children:
   - {fileID: 1840425482}
   - {fileID: 1340365371}
+  - {fileID: 31169116}
+  - {fileID: 1975096652}
   m_Father: {fileID: 1083314263}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8026,9 +8074,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingRenderer: {fileID: 1806240187}
   alternateBuildingRenderer: {fileID: 1139987399}
-  effectOnMapRadius: 0
-  maxFullEffectRadius: 10
-  maxBlendedRadius: 20
+  currentEvilRadius: 41
+  blendStartRadius: 0.9
+  maxEvilRadius: 41
+  minEvilRadius: 12
   convertibles:
   - {fileID: 402463523}
   - {fileID: 1259160915}
@@ -8038,7 +8087,7 @@ MonoBehaviour:
   - {fileID: 621081324}
   - {fileID: 436091909}
   - {fileID: 257000304}
-  underAttackStateDuration: 1
+  evilEffects: []
   conquerEffectDuration: 2.5
 --- !u!114 &433428441
 MonoBehaviour:
@@ -9369,7 +9418,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 317718153}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &476666962
 MonoBehaviour:
@@ -10783,6 +10832,54 @@ Transform:
   m_PrefabParentObject: {fileID: 4156568311302006, guid: 4f703643e18cab548aac6ad64b02cca4,
     type: 2}
   m_PrefabInternal: {fileID: 581975490}
+--- !u!1 &583694367
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 583694368}
+  - component: {fileID: 583694369}
+  m_Layer: 16
+  m_Name: EvilEffect (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &583694368
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 583694367}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.9, y: -0.0000007636845, z: 18.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2036540554}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &583694369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 583694367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b483a655b2424114b82812326f82296e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentEvilRadius: 30
+  blendStartRadius: 0.9
+  maxEffect:
+    evilRadius: 30
+    normalizedDamage: 0
+  minEffect:
+    evilRadius: 0
+    normalizedDamage: 0.2
 --- !u!1001 &588341223
 Prefab:
   m_ObjectHideFlags: 0
@@ -12990,54 +13087,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4419952824687582, guid: 6bd47caee90ce004ab8ccf0447aaf0b6,
     type: 2}
   m_PrefabInternal: {fileID: 1204433350}
---- !u!1 &706088176
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 706088177}
-  - component: {fileID: 706088178}
-  m_Layer: 0
-  m_Name: CuteEffect_1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &706088177
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 706088176}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.6, y: 0, z: 3.4}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1362375272}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &706088178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 706088176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62a75716f95bb474e85439824f877b46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  effectMaxBlendedRadius: 22
-  effectStartBlendRadius: 0.7
-  effectTime: 2.5
-  monumentDamage: 1
-  delay: 2.5
-  zoneController: {fileID: 1083314264}
-  modelChangers: []
-  runningEffect: 0
 --- !u!4 &707458723
 Transform:
   m_ObjectHideFlags: 0
@@ -14261,7 +14310,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 184308219}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &804468629
 GameObject:
@@ -15344,54 +15393,6 @@ Transform:
   m_Father: {fileID: 1802087114}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &840952885
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 840952886}
-  - component: {fileID: 840952887}
-  m_Layer: 0
-  m_Name: CuteEffect_0
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &840952886
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 840952885}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 317718153}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &840952887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 840952885}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62a75716f95bb474e85439824f877b46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  effectMaxBlendedRadius: 28
-  effectStartBlendRadius: 0.8
-  effectTime: 0
-  monumentDamage: 0
-  delay: 0
-  zoneController: {fileID: 0}
-  modelChangers: []
-  runningEffect: 0
 --- !u!1001 &843708595
 Prefab:
   m_ObjectHideFlags: 0
@@ -17570,54 +17571,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4844857509760792, guid: c142f0327f710134aa346d3cf0c6fd4e,
     type: 2}
   m_PrefabInternal: {fileID: 453460020}
---- !u!1 &998645814
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 998645815}
-  - component: {fileID: 998645816}
-  m_Layer: 0
-  m_Name: CuteEffect_0
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &998645815
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 998645814}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.6, y: 0, z: -2.2}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1362375272}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &998645816
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 998645814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62a75716f95bb474e85439824f877b46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  effectMaxBlendedRadius: 22
-  effectStartBlendRadius: 0.7
-  effectTime: 2.5
-  monumentDamage: 1
-  delay: 2.5
-  zoneController: {fileID: 1083314264}
-  modelChangers: []
-  runningEffect: 0
 --- !u!4 &999963061 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4107662294762830, guid: 4dd411abb7bf7db42861402cd09c33b6,
@@ -19046,7 +18999,6 @@ Transform:
   - {fileID: 1802087114}
   - {fileID: 2138487466}
   - {fileID: 433428439}
-  - {fileID: 1362375272}
   - {fileID: 1664606504}
   - {fileID: 1604725160}
   - {fileID: 1530914071}
@@ -21174,54 +21126,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1159626573}
   m_Script: {fileID: 11500000, guid: d552f61e7fedf8b4ba4d8eed58d2f2e7, type: 3}
---- !u!1 &1161521019
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1161521020}
-  - component: {fileID: 1161521021}
-  m_Layer: 0
-  m_Name: CuteEffect_0
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1161521020
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1161521019}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8, y: 0, z: -16}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 184308219}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1161521021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1161521019}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62a75716f95bb474e85439824f877b46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  effectMaxBlendedRadius: 25
-  effectStartBlendRadius: 0.8
-  effectTime: 0
-  monumentDamage: 0
-  delay: 0
-  zoneController: {fileID: 0}
-  modelChangers: []
-  runningEffect: 0
 --- !u!1001 &1169735331
 Prefab:
   m_ObjectHideFlags: 0
@@ -24574,39 +24478,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f60ec507ca529254390c87694d2d9fe8, type: 3}
   m_IsPrefabParent: 0
---- !u!1 &1362375271
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1362375272}
-  m_Layer: 0
-  m_Name: CuteEffects
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1362375272
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1362375271}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1845955697}
-  - {fileID: 1578762030}
-  - {fileID: 998645815}
-  - {fileID: 706088177}
-  - {fileID: 1841859120}
-  m_Father: {fileID: 1083314263}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1364457399
 Prefab:
   m_ObjectHideFlags: 0
@@ -27232,7 +27103,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 329700641}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1471802379
 MonoBehaviour:
@@ -27555,54 +27426,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4156568311302006, guid: 4f703643e18cab548aac6ad64b02cca4,
     type: 2}
   m_PrefabInternal: {fileID: 1118518068}
---- !u!1 &1496746500
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1496746501}
-  - component: {fileID: 1496746502}
-  m_Layer: 0
-  m_Name: CuteEffect_0
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1496746501
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1496746500}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.1, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 329700641}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1496746502
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1496746500}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62a75716f95bb474e85439824f877b46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  effectMaxBlendedRadius: 12
-  effectStartBlendRadius: 0.8
-  effectTime: 0
-  monumentDamage: 0
-  delay: 0
-  zoneController: {fileID: 0}
-  modelChangers: []
-  runningEffect: 0
 --- !u!1001 &1497723633
 Prefab:
   m_ObjectHideFlags: 0
@@ -28131,7 +27954,7 @@ Transform:
   - {fileID: 160419092}
   - {fileID: 1494749702}
   m_Father: {fileID: 1083314263}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1533036359
 Prefab:
@@ -28855,54 +28678,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4666626359622096, guid: aa22049df5d529442a79f3075a4d9664,
     type: 2}
   m_PrefabInternal: {fileID: 787571663}
---- !u!1 &1578762029
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1578762030}
-  - component: {fileID: 1578762031}
-  m_Layer: 0
-  m_Name: CuteEffect_0 (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1578762030
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1578762029}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.6, y: 0, z: -8}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1362375272}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1578762031
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1578762029}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62a75716f95bb474e85439824f877b46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  effectMaxBlendedRadius: 22
-  effectStartBlendRadius: 0.7
-  effectTime: 1.5
-  monumentDamage: 1
-  delay: 1.5
-  zoneController: {fileID: 1083314264}
-  modelChangers: []
-  runningEffect: 0
 --- !u!1001 &1580144055
 Prefab:
   m_ObjectHideFlags: 0
@@ -29468,7 +29243,7 @@ Transform:
   - {fileID: 726464368}
   - {fileID: 1520892156}
   m_Father: {fileID: 1083314263}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1604843029
 Prefab:
@@ -30320,7 +30095,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1083314263}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1669548772
 Prefab:
@@ -31890,7 +31665,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 317718153}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1757587481
 MonoBehaviour:
@@ -31991,6 +31766,54 @@ Transform:
   m_PrefabParentObject: {fileID: 4247761486355520, guid: c3155a75e7ec8384cb80f445174b9de5,
     type: 2}
   m_PrefabInternal: {fileID: 1758769406}
+--- !u!1 &1759088621
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1759088622}
+  - component: {fileID: 1759088623}
+  m_Layer: 16
+  m_Name: EvilEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1759088622
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1759088621}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -16.4, y: 0, z: 25.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2036540554}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1759088623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1759088621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b483a655b2424114b82812326f82296e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentEvilRadius: 30
+  blendStartRadius: 0.9
+  maxEffect:
+    evilRadius: 30
+    normalizedDamage: 0
+  minEffect:
+    evilRadius: 0
+    normalizedDamage: 0.1
 --- !u!1001 &1759682910
 Prefab:
   m_ObjectHideFlags: 0
@@ -33276,107 +33099,11 @@ Transform:
   m_PrefabParentObject: {fileID: 4220184436000442, guid: a10d882a5f13c83439764270668b43ac,
     type: 2}
   m_PrefabInternal: {fileID: 1132723939}
---- !u!1 &1841859119
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1841859120}
-  - component: {fileID: 1841859121}
-  m_Layer: 0
-  m_Name: CuteEffect_2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1841859120
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1841859119}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 18.8, y: 0, z: -0.1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1362375272}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1841859121
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1841859119}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62a75716f95bb474e85439824f877b46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  effectMaxBlendedRadius: 22
-  effectStartBlendRadius: 0.7
-  effectTime: 2.5
-  monumentDamage: 1
-  delay: 2.5
-  zoneController: {fileID: 1083314264}
-  modelChangers: []
-  runningEffect: 0
 --- !u!4 &1842585275 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4105619081571422, guid: f2ba29b6c8eb8a54e840cb4edf288d96,
     type: 2}
   m_PrefabInternal: {fileID: 875825942}
---- !u!1 &1845955696
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1845955697}
-  - component: {fileID: 1845955698}
-  m_Layer: 0
-  m_Name: CuteEffect_0 (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1845955697
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1845955696}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1, y: 0, z: -8.9}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1362375272}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1845955698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1845955696}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62a75716f95bb474e85439824f877b46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  effectMaxBlendedRadius: 22
-  effectStartBlendRadius: 0.7
-  effectTime: 1.5
-  monumentDamage: 1
-  delay: 1.5
-  zoneController: {fileID: 1083314264}
-  modelChangers: []
-  runningEffect: 0
 --- !u!1001 &1847213663
 Prefab:
   m_ObjectHideFlags: 0
@@ -36337,6 +36064,54 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: caca1dac2152c464594348a4deb8bb3e, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1975096651
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1975096652}
+  - component: {fileID: 1975096653}
+  m_Layer: 16
+  m_Name: EvilEffect (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1975096652
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1975096651}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.5, y: -0.00000059604645, z: 31.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 433428439}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1975096653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1975096651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b483a655b2424114b82812326f82296e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentEvilRadius: 21.5
+  blendStartRadius: 0.9
+  maxEffect:
+    evilRadius: 21.5
+    normalizedDamage: 0
+  minEffect:
+    evilRadius: 0
+    normalizedDamage: 0.1
 --- !u!1001 &1979045037
 Prefab:
   m_ObjectHideFlags: 0
@@ -36557,7 +36332,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 184308219}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2004890779
 Prefab:
@@ -37358,9 +37133,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 2036540554}
-  - component: {fileID: 2036540556}
   - component: {fileID: 2036540555}
   - component: {fileID: 2036540558}
+  - component: {fileID: 2036540556}
   - component: {fileID: 2036540557}
   m_Layer: 16
   m_Name: Monument_Z1
@@ -37376,11 +37151,13 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2036540553}
   m_LocalRotation: {x: -0, y: -0.23660553, z: -0, w: 0.97160584}
-  m_LocalPosition: {x: 8.3, y: -0.04, z: -14.57}
+  m_LocalPosition: {x: 8.3, y: 0.05, z: -14.57}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1989907136}
   - {fileID: 828105178}
+  - {fileID: 1759088622}
+  - {fileID: 583694368}
   m_Father: {fileID: 1955635917}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: -27.373001, z: 0}
@@ -37419,7 +37196,7 @@ CapsuleCollider:
   m_Radius: 1
   m_Height: 5
   m_Direction: 1
-  m_Center: {x: 0, y: 1.01, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!135 &2036540557
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -37445,11 +37222,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingRenderer: {fileID: 1092714544}
   alternateBuildingRenderer: {fileID: 653981887}
-  effectOnMapRadius: 0
-  maxFullEffectRadius: 5
-  maxBlendedRadius: 50
+  currentEvilRadius: 50
+  blendStartRadius: 0.9
+  maxEvilRadius: 50
+  minEvilRadius: 20
   convertibles: []
-  underAttackStateDuration: 1
+  evilEffects: []
   conquerEffectDuration: 2.5
 --- !u!1001 &2039016320
 Prefab:
@@ -38284,15 +38062,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4220184436000442, guid: a10d882a5f13c83439764270668b43ac, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.28
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4220184436000442, guid: a10d882a5f13c83439764270668b43ac, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.06
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4220184436000442, guid: a10d882a5f13c83439764270668b43ac, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0.03
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4220184436000442, guid: a10d882a5f13c83439764270668b43ac, type: 2}
       propertyPath: m_LocalRotation.x
@@ -38323,6 +38101,10 @@ Prefab:
         type: 2}
       propertyPath: m_Lightmapping
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1934132388359858, guid: a10d882a5f13c83439764270668b43ac, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a10d882a5f13c83439764270668b43ac, type: 2}

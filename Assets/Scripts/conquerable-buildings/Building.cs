@@ -87,8 +87,7 @@ public abstract class Building : MonoBehaviour, IDamageable
         // Reset the underAttackElapsedTime timer
         if (buildingEffects)
         {
-            buildingEffects.SetUnderAttack(true);
-            buildingEffects.AdjustMaterials((baseHealth - currentHealth) / (float)baseHealth);
+            buildingEffects.SetBuildingConquerProgress((baseHealth - currentHealth) / (float)baseHealth);
         }
 
         if (currentHealth == 0)

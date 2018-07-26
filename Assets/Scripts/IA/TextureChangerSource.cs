@@ -5,7 +5,8 @@ using UnityEngine;
 public class TextureChangerSource : MonoBehaviour
 {
     #region Fields
-    private List<ITextureChanger> textureChangers;
+    [HideInInspector]
+    public List<ITextureChanger> textureChangers;
     private int maxElements = 128;  // IMPORTANT: This number must be reflected in the TextureChanger.shader file
     private Vector4[] elements;
     private float[] normalizedBlendStartRadii;
