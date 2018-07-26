@@ -10,6 +10,7 @@ public enum AttackType
 {
     NONE,
     ENEMY,
+    CUTE_AREA,
     WEAK,
     STRONG,
     MINE,
