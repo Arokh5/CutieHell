@@ -86,6 +86,9 @@ public class BuildingEffects : MonoBehaviour, ITextureChanger
         }
     }
 
+#if UNITY_EDITOR
+    private TextureChangerSource tcs = null;
+#endif
     private void OnValidate()
     {
         if (maxEvilRadius < 0)
@@ -102,6 +105,16 @@ public class BuildingEffects : MonoBehaviour, ITextureChanger
 
         if (!conquering)
             currentEvilRadius = maxEvilRadius;
+
+#if UNITY_EDITOR
+        if (!Application.isPlaying)
+        {
+            if (tcs == null)
+                tcs = FindObjectOfType<TextureChangerSource>();
+
+            tcs.ITextureChangerUpdate();
+        }
+#endif
     }
 
     private void OnDrawGizmosSelected()

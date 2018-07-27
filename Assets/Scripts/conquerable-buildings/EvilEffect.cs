@@ -36,6 +36,10 @@ public class EvilEffect : MonoBehaviour, ITextureChanger
         currentEvilRadius = maxEffect.evilRadius;
     }
 
+#if UNITY_EDITOR
+    private TextureChangerSource tcs = null;
+#endif
+
     private void OnValidate()
     {
         if (maxEffect.evilRadius < 0)
@@ -54,6 +58,16 @@ public class EvilEffect : MonoBehaviour, ITextureChanger
             blendStartRadius = minEffect.evilRadius / maxEffect.evilRadius;
 
         SetNormalizedMonumentDamage(normalizedDamage);
+
+        #if UNITY_EDITOR
+        if (!Application.isPlaying)
+        {
+            if (tcs == null)
+                tcs = FindObjectOfType<TextureChangerSource>();
+
+            tcs.ITextureChangerUpdate();
+        }
+        #endif
     }
 
     private void OnDrawGizmosSelected()
