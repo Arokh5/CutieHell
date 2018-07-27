@@ -28,6 +28,8 @@ public class Player : MonoBehaviour, IDamageable {
     private AIZoneController currentZoneController;
     [SerializeField]
     private float knockbackForce = 25.0f;
+    [SerializeField]
+    private ParticleSystem knockbackVFX;
     private float knockbackCurrentForce;
     private Vector3 knockbackDirection;
     private bool knockbackActive = false;
@@ -307,6 +309,7 @@ public class Player : MonoBehaviour, IDamageable {
         else
         {
             knockbackActive = true;
+            ParticlesManager.instance.LaunchParticleSystem(knockbackVFX, this.transform.position + Vector3.up * 1.55f, knockbackVFX.transform.rotation);
             knockbackCurrentForce = knockbackForce;
             this.knockbackDirection = knockbackDirection;
         }
