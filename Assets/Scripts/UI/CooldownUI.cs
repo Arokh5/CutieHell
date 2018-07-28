@@ -54,8 +54,6 @@ public class CooldownUI : MonoBehaviour {
         }
         else
         {
-            if (!gameObject.activeSelf)
-                gameObject.SetActive(true);
             foreground.fillAmount = time / maxCooldown;
 
             // Avoid construction of String when not necessary

@@ -20,7 +20,7 @@ public class StrongAttack : StateAction
         switch (player.teleportState)
         {
             case Player.TeleportStates.OUT:
-                if (player.timeSinceLastStrongAttack >= timeToGoOut)
+                if (player.strongAttackTimer >= timeToGoOut)
                 {
                     player.canMove = true;
                     player.strongAttackCollider.enabled = true;
@@ -33,7 +33,7 @@ public class StrongAttack : StateAction
                 if (InputManager.instance.GetOButtonDown())
                 {
                     player.teleportState = Player.TeleportStates.IN;
-                    player.timeSinceLastStrongAttack = 0.0f;
+                    player.strongAttackTimer = 0.0f;
                     ParticlesManager.instance.LaunchParticleSystem(strongAttackVFX, player.transform.position, strongAttackVFX.transform.rotation);
                     player.strongAttackCollider.enabled = false;
                     player.strongAttackCollider.gameObject.SetActive(false);
@@ -43,14 +43,14 @@ public class StrongAttack : StateAction
                 break;
             case Player.TeleportStates.IN:
 
-                if (player.timeSinceLastStrongAttack >= timeToGoIn)
+                if (player.strongAttackTimer >= timeToGoIn)
                 {
                     BulletTime.instance.DoSlowmotion(0.01f, 0.35f);
                     CameraShaker.Instance.ShakeOnce(0.8f, 15.5f, 0.1f, 0.7f);
                     player.cameraState = Player.CameraState.MOVE;
                     player.SetRenderersVisibility(true);
                     player.mainCameraController.y = 10.0f;
-                    player.timeSinceLastStrongAttack = 0.0f;
+                    player.strongAttackTimer = 0.0f;
                     player.teleported = true;
                     player.teleportState = Player.TeleportStates.DELAY;
                     HurtEnemies(player, damage);
@@ -58,7 +58,7 @@ public class StrongAttack : StateAction
                 }
                 break;
             case Player.TeleportStates.DELAY:
-                if (player.timeSinceLastStrongAttack >= delay)
+                if (player.strongAttackTimer >= delay)
                 {
                     player.comeBackFromStrongAttack = true;
                 }   
