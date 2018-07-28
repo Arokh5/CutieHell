@@ -5,12 +5,17 @@ public class PlaceMine : StateAction
 {
     public override void Act(Player player)
     {
-        if (player.mineAttackCooldown.timeSinceLastAction > player.mineAttackCooldown.cooldownTime
-            //&& player.availableMinesNumber > 0
-            && InputManager.instance.GetXButtonDown())
+        if (InputManager.instance.GetXButtonDown())
         {
-            player.mineAttackCooldown.timeSinceLastAction = 0.0f;
-            player.InstantiateMine();
+            if (player.mineAttackCooldown.timeSinceLastAction > player.mineAttackCooldown.cooldownTime
+                //&& player.availableMinesNumber > 0
+                )
+            {
+                player.mineAttackCooldown.timeSinceLastAction = 0.0f;
+                player.InstantiateMine();
+            }
+            else
+                player.mineAttackCooldown.cooldownUI.Flash();
         }
 
         //UpdateMineTimer(player);

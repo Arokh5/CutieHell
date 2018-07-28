@@ -9,6 +9,17 @@ public class CooldownUI : MonoBehaviour {
     private int fontSize;
     [SerializeField]
     private Sprite sprite;
+    [SerializeField]
+    private float defaultFlashDuration = 0.2f;
+    [SerializeField]
+    private float flashScale = 2.0f;
+
+    private RectTransform rectTransform;
+    private float initialScale;
+    private float currentScale;
+    private float flashDuration;
+    private float flashElapsedTime;
+    private bool flashing = false;
 
     [Header("Prefab setup")]
     [SerializeField]
@@ -29,7 +40,26 @@ public class CooldownUI : MonoBehaviour {
         UnityEngine.Assertions.Assert.IsNotNull(numberText, "ERROR: Number Text (Text) not assigned for CooldownUI script in GameObject " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(sprite, "ERROR: Sprite (Sprite) not assigned for CooldownUI script in GameObject " + gameObject.name);
 
+        rectTransform = GetComponent<RectTransform>();
+        UnityEngine.Assertions.Assert.IsNotNull(rectTransform, "ERROR: A RectTransform could not be found by CooldownUI script in GameObject " + gameObject.name);
+        if (rectTransform.localScale.x != rectTransform.localScale.y
+            || rectTransform.localScale.x != rectTransform.localScale.z
+            || rectTransform.localScale.y != rectTransform.localScale.z)
+        {
+            Debug.Log("INFO: The RectTransform's local scale in GameObject " + gameObject.name + " is not uniform. Scale will be readjusted based on the x component.");
+            rectTransform.localScale = rectTransform.localScale.x * Vector3.one;
+        }
+        initialScale = rectTransform.localScale.x;
+
         CooldownOver();
+    }
+
+    private void Update()
+    {
+        if (flashing)
+        {
+            FlashAnimation();
+        }
     }
 
     private void OnValidate()
@@ -66,6 +96,18 @@ public class CooldownUI : MonoBehaviour {
             }
         }
     }
+
+    public void Flash()
+    {
+        Flash(defaultFlashDuration);
+    }
+
+    public void Flash(float flashDuration)
+    {
+        this.flashDuration = flashDuration;
+        flashing = true;
+        flashElapsedTime = 0;
+    }
     #endregion
 
     #region Private Methods
@@ -73,6 +115,20 @@ public class CooldownUI : MonoBehaviour {
     {
         numberText.text = "";
         foreground.fillAmount = 1;
+    }
+
+    private void FlashAnimation()
+    {
+        flashElapsedTime += Time.deltaTime;
+        float u = flashElapsedTime / flashDuration;
+        if (u >= 1)
+        {
+            u = 1;
+            flashing = false;
+        }
+
+        currentScale = (1 - u) * flashScale + u * 1.0f;
+        rectTransform.localScale = currentScale * Vector3.one;
     }
     #endregion
 }

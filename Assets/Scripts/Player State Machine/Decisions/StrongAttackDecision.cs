@@ -7,7 +7,13 @@ public class StrongAttackDecision : Decision
 {
     public override bool Decide(Player player)
     {
-        return player.strongAttackCooldown.timeSinceLastAction >= player.strongAttackCooldown.cooldownTime
-           && InputManager.instance.GetOButtonDown();
+        if (InputManager.instance.GetOButtonDown())
+        {
+            if (player.strongAttackCooldown.timeSinceLastAction >= player.strongAttackCooldown.cooldownTime)
+                return true;
+            else
+                player.strongAttackCooldown.cooldownUI.Flash();
+        }
+        return false;
     }
 }
