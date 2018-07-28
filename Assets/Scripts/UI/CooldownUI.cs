@@ -127,7 +127,7 @@ public class CooldownUI : MonoBehaviour {
             flashing = false;
         }
 
-        currentScale = (1 - u) * flashScale + u * 1.0f;
+        currentScale = (1 - u) * flashScale + u * initialScale;
         rectTransform.localScale = currentScale * Vector3.one;
     }
     #endregion
