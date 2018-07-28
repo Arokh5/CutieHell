@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class StrongAttackExplosionDetection : MonoBehaviour {
-
+public class ConeAttackDetection : MonoBehaviour
+{
     #region Fields
     public LayerMask layerMask;
     //[HideInInspector]
-    public List<AIEnemy> currentStrongAttackTargets = new List<AIEnemy>();
+    public List<AIEnemy> attackTargets = new List<AIEnemy>();
     #endregion
 
     #region MonoBehaviour Methods
@@ -16,7 +17,7 @@ public class StrongAttackExplosionDetection : MonoBehaviour {
         {
             AIEnemy aIEnemy = other.GetComponent<AIEnemy>();
             aIEnemy.MarkAsTarget(true);
-            currentStrongAttackTargets.Add(aIEnemy);
+            attackTargets.Add(aIEnemy);
         }
     }
 
@@ -26,7 +27,7 @@ public class StrongAttackExplosionDetection : MonoBehaviour {
         {
             AIEnemy aIEnemy = other.GetComponent<AIEnemy>();
             aIEnemy.MarkAsTarget(false);
-            currentStrongAttackTargets.Remove(aIEnemy);
+            attackTargets.Remove(aIEnemy);
         }
     }
     #endregion

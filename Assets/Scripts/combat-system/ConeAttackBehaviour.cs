@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class StrongAttackBehaviour : PooledParticleSystem
+public class ConeAttackBehaviour : PooledParticleSystem
 {
     #region Fields
     public LayerMask layerMask;
     public int damage;
-    public StrongAttackExplosionDetection enemiesList;
+    public ConeAttackDetection enemiesDetector;
     public int enemiesToCombo;
     public int evilComboReward;
     public float hurtEnemiesDelay;
@@ -18,15 +16,16 @@ public class StrongAttackBehaviour : PooledParticleSystem
     #endregion
 
     #region MonoBehaviour Methods
-	private void Update () {
+    private void Update()
+    {
         timer -= Time.deltaTime;
         timerToDisable -= Time.deltaTime;
-        if(timer <= 0.0f)
+        if (timer <= 0.0f)
         {
             HurtEnemies();
             timer = 1000.0f;
         }
-        if(timerToDisable <= 0.0f)
+        if (timerToDisable <= 0.0f)
         {
             ReturnToPool();
         }
@@ -36,7 +35,7 @@ public class StrongAttackBehaviour : PooledParticleSystem
     #region Public Methods
     public override void Restart()
     {
-        enemiesList.currentStrongAttackTargets.Clear();
+        enemiesDetector.attackTargets.Clear();
         timer = hurtEnemiesDelay;
         timerToDisable = returnToPoolDelay;
         comboCount = 0;
@@ -46,7 +45,7 @@ public class StrongAttackBehaviour : PooledParticleSystem
     #region Private Methods
     private void HurtEnemies()
     {
-        foreach (AIEnemy aiEnemy in enemiesList.currentStrongAttackTargets)
+        foreach (AIEnemy aiEnemy in enemiesDetector.attackTargets)
         {
             aiEnemy.MarkAsTarget(false);
             aiEnemy.TakeDamage(damage, AttackType.CONE);
@@ -54,8 +53,7 @@ public class StrongAttackBehaviour : PooledParticleSystem
         }
 
         CheckIfCombo();
-        enemiesList.currentStrongAttackTargets.Clear();
-        GameManager.instance.GetPlayer1().timeSinceLastStrongAttack = 0f;
+        enemiesDetector.attackTargets.Clear();
     }
 
     private void CheckIfCombo()
