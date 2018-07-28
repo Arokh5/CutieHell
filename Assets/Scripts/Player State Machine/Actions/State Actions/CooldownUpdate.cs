@@ -8,7 +8,7 @@ public class CooldownUpdate : StateAction
         for (int i = 0; i < player.cooldownInfos.Length; ++i)
         {
             Player.CooldownInfo cooldownInfo = player.cooldownInfos[i];
-            if (cooldownInfo.timeSinceLastAction < cooldownInfo.cooldownTime)
+            if (cooldownInfo.timeSinceLastAction <= cooldownInfo.cooldownTime)
             {
                 cooldownInfo.timeSinceLastAction += Time.deltaTime;
 

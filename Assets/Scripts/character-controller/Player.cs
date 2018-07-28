@@ -172,6 +172,9 @@ public class Player : MonoBehaviour, IDamageable
     [HideInInspector]
     public float timeSinceLastMine;
     public ActivateMineExplosion[] mines;
+    [ShowOnly]
+    [SerializeField]
+    private int minesCount = 0;
 
     [Header("Meteorite Attack")]
     public CooldownInfo meteoriteAttackCooldown;
@@ -257,6 +260,8 @@ public class Player : MonoBehaviour, IDamageable
         UIManager.instance.SetPlayerHealth(1.0f);
         availableMinesNumber = maxMinesNumber;
         timeSinceLastMine = 0.0f;
+
+
 
         currentState.EnterState(this);
 
@@ -346,6 +351,7 @@ public class Player : MonoBehaviour, IDamageable
             if (mines[i] == null)
             {
                 mines[i] = ParticlesManager.instance.LaunchParticleSystem(minePrefab, this.transform.position, minePrefab.transform.rotation).GetComponent<ActivateMineExplosion>();
+                ++minesCount;
                 return;
             }
         }
@@ -362,9 +368,16 @@ public class Player : MonoBehaviour, IDamageable
             if(mines[i] == mineToRemove)
             {
                 mines[i] = null;
+                --minesCount;
+                break;
             }
         }
         SortMines();
+    }
+
+    public int getMinesCount()
+    {
+        return minesCount;
     }
 
     public void SetCurrentHealth(float normalizedHealth)
