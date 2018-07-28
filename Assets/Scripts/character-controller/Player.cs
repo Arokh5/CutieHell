@@ -263,6 +263,10 @@ public class Player : MonoBehaviour, IDamageable
         availableMinesNumber = maxMinesNumber;
         timeSinceLastMine = 0.0f;
 
+        strongAttackCooldown.timeSinceLastAction = strongAttackCooldown.cooldownTime;
+        coneAttackCooldown.timeSinceLastAction = coneAttackCooldown.cooldownTime;
+        meteoriteAttackCooldown.timeSinceLastAction = meteoriteAttackCooldown.cooldownTime;
+        mineAttackCooldown.timeSinceLastAction = mineAttackCooldown.cooldownTime;
         mineCounterUI.SetCurrentCount(0);
         mineCounterUI.SetTotalCount(maxMinesNumber);
 
@@ -294,11 +298,6 @@ public class Player : MonoBehaviour, IDamageable
         timeSinceLastMonumentChecking += Time.deltaTime;
         timeSinceLastAttack += Time.deltaTime;
         strongAttackTimer += Time.deltaTime;
-
-        //strongAttackCooldown.timeSinceLastAction += Time.deltaTime;
-        //coneAttackCooldown.timeSinceLastAction += Time.deltaTime;
-        //meteoriteAttackCooldown.timeSinceLastAction += Time.deltaTime;
-        //mineAttackCooldown.timeSinceLastAction += Time.deltaTime;
 
         if (knockbackActive)
         {

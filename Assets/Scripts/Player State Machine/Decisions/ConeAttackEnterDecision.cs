@@ -7,7 +7,7 @@ public class ConeAttackEnterDecision : Decision
     {
         if (InputManager.instance.GetSquareButtonDown())
         {
-            if (player.coneAttackCooldown.timeSinceLastAction > player.coneAttackCooldown.cooldownTime)
+            if (player.coneAttackCooldown.timeSinceLastAction >= player.coneAttackCooldown.cooldownTime)
                 return true;
             else
                 player.coneAttackCooldown.cooldownUI.Flash();

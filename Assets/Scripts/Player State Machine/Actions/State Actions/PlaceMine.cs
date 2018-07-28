@@ -7,7 +7,7 @@ public class PlaceMine : StateAction
     {
         if (InputManager.instance.GetXButtonDown())
         {
-            if (player.mineAttackCooldown.timeSinceLastAction > player.mineAttackCooldown.cooldownTime
+            if (player.mineAttackCooldown.timeSinceLastAction >= player.mineAttackCooldown.cooldownTime
                 //&& player.availableMinesNumber > 0
                 )
             {

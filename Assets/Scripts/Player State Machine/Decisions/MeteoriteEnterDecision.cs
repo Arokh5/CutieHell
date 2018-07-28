@@ -9,7 +9,7 @@ public class MeteoriteEnterDecision : Decision
     {
         if (InputManager.instance.GetTriangleButtonDown())
         {
-            if (player.meteoriteAttackCooldown.timeSinceLastAction > player.meteoriteAttackCooldown.cooldownTime)
+            if (player.meteoriteAttackCooldown.timeSinceLastAction >= player.meteoriteAttackCooldown.cooldownTime)
                 return true;
             else
                 player.meteoriteAttackCooldown.cooldownUI.Flash();
