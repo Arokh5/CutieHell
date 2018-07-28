@@ -12,7 +12,6 @@ public class StrongAttackEnter : StateAction
         player.AddEvilPoints(0);
         player.canMove = false;
         player.comeBackFromStrongAttack = false;
-        player.strongAttackCooldown.timeSinceLastAction = 0.0f;
         player.strongAttackTimer = 0.0f;
         player.SetRenderersVisibility(false);
         player.teleported = false;

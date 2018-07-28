@@ -53,6 +53,7 @@ public class StrongAttack : StateAction
                     player.strongAttackTimer = 0.0f;
                     player.teleported = true;
                     player.teleportState = Player.TeleportStates.DELAY;
+                    player.strongAttackCooldown.timeSinceLastAction = 0.0f;
                     HurtEnemies(player, damage);
                     SoundManager.instance.PlaySfxClip(landingSfx);
                 }

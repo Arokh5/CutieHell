@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour, IDamageable
 {
     [System.Serializable]
-    public struct CooldownInfo
+    public class CooldownInfo
     {
         public float cooldownTime;
         public CooldownUI cooldownUI;
@@ -292,10 +292,10 @@ public class Player : MonoBehaviour, IDamageable
         timeSinceLastAttack += Time.deltaTime;
         strongAttackTimer += Time.deltaTime;
 
-        strongAttackCooldown.timeSinceLastAction += Time.deltaTime;
-        coneAttackCooldown.timeSinceLastAction += Time.deltaTime;
-        meteoriteAttackCooldown.timeSinceLastAction += Time.deltaTime;
-        mineAttackCooldown.timeSinceLastAction += Time.deltaTime;
+        //strongAttackCooldown.timeSinceLastAction += Time.deltaTime;
+        //coneAttackCooldown.timeSinceLastAction += Time.deltaTime;
+        //meteoriteAttackCooldown.timeSinceLastAction += Time.deltaTime;
+        //mineAttackCooldown.timeSinceLastAction += Time.deltaTime;
 
         if (knockbackActive)
         {

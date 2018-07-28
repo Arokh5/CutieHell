@@ -50,11 +50,12 @@ public class CooldownUI : MonoBehaviour {
     {
         if (time <= 0)
         {
+            currentNumber = 0;
             CooldownOver();
         }
         else
         {
-            foreground.fillAmount = time / maxCooldown;
+            foreground.fillAmount = (maxCooldown - time) / maxCooldown;
 
             // Avoid construction of String when not necessary
             int newNumber = Mathf.CeilToInt(time);
