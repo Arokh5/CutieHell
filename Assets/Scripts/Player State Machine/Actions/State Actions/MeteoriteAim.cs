@@ -69,7 +69,7 @@ public class MeteoriteAim : StateAction
             ParticlesManager.instance.LaunchParticleSystem(meteoritePrefab, player.lastMeteoriteAttackDestination, meteoritePrefab.transform.rotation);
             player.comeBackFromMeteoriteAttack = true;
             player.transform.position = player.meteoritesReturnPlayerPosition[player.currentZonePlaying].position;
-            player.timeSinceLastMeteoriteAttack = 0.0f;
+            player.meteoriteAttackCooldown.timeSinceLastAction = 0.0f;
             player.mainCameraController.y = 0.0f;
         }
         else if (InputManager.instance.GetOButtonDown())

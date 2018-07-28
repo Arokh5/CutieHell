@@ -1,9 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Player : MonoBehaviour, IDamageable {
+public class Player : MonoBehaviour, IDamageable
+{
+    [System.Serializable]
+    public class CooldownInfo
+    {
+        public float cooldownTime;
+        public CooldownUI cooldownUI;
+        [ShowOnly]
+        public float timeSinceLastAction;
+    }
 
     #region Fields
     [Header("Movement Variabes")]
@@ -72,7 +80,6 @@ public class Player : MonoBehaviour, IDamageable {
     
     private bool isAutoRecoveringEvil = false;
     private float lastAutoEvilRecovering = 0;
-    
 
     [HideInInspector]
     public Rigidbody rb;
@@ -95,6 +102,9 @@ public class Player : MonoBehaviour, IDamageable {
     [SerializeField]
     public Transform bulletSpawnPoint;
     public ParticleSystem shootBirth;
+
+    [HideInInspector]
+    public CooldownInfo[] cooldownInfos;
 
     private float timeSinceLastMonumentChecking = 0f;
     private float checkingMonumentRepetitionTime = 1f;
@@ -135,10 +145,10 @@ public class Player : MonoBehaviour, IDamageable {
     private bool isBoomerangOn = false;
 
     [Header("Strong Attack")]
-    public float strongAttackStateCooldown;
+    public CooldownInfo strongAttackCooldown;
     public SphereCollider strongAttackCollider;
     [HideInInspector]
-    public float timeSinceLastStrongAttack;
+    public float strongAttackTimer;
     [HideInInspector]
     public List<AIEnemy> currentStrongAttackTargets = new List<AIEnemy>();
     [HideInInspector]
@@ -147,14 +157,14 @@ public class Player : MonoBehaviour, IDamageable {
     public bool comeBackFromStrongAttack;
 
     [Header("Cone Attack")]
+    public CooldownInfo coneAttackCooldown;
     public ParticleSystem coneAttackVFX;
     public float coneAttackEvilCost;
     [HideInInspector]
     public bool comeBackFromConeAttack;
-    [HideInInspector]
-    public float timeSinceLastConeAttack = 0;
 
     [Header("Mine Attack")]
+    public CooldownInfo mineAttackCooldown;
     public ParticleSystem minePrefab;
     public int maxMinesNumber;
     public int availableMinesNumber;
@@ -162,13 +172,16 @@ public class Player : MonoBehaviour, IDamageable {
     [HideInInspector]
     public float timeSinceLastMine;
     public ActivateMineExplosion[] mines;
+    [ShowOnly]
+    [SerializeField]
+    private int minesCount = 0;
+    [SerializeField]
+    private MineCounterUI mineCounterUI;
 
     [Header("Meteorite Attack")]
+    public CooldownInfo meteoriteAttackCooldown;
     public GameObject meteoriteDestinationMarker;
     public Vector3 initialPos;
-    public float meteoriteCooldown;
-    [HideInInspector]
-    public float timeSinceLastMeteoriteAttack;
     [HideInInspector]
     public bool comeBackFromMeteoriteAttack;
     [HideInInspector]
@@ -231,6 +244,8 @@ public class Player : MonoBehaviour, IDamageable {
 
         evilLevel = maxEvilLevel;
         currentState = defaultState;
+
+        cooldownInfos = new CooldownInfo[] { strongAttackCooldown, coneAttackCooldown, mineAttackCooldown, meteoriteAttackCooldown };
     }
 
     private void Start () 
@@ -240,7 +255,6 @@ public class Player : MonoBehaviour, IDamageable {
         footSteps.SetActive(false);
 
         timeSinceLastAttack = 1000.0f;
-        timeSinceLastStrongAttack = 1000.0f;
         timeSinceLastTeleport = 0.0f;
         teleported = false;
         currentHealth = baseHealth;
@@ -248,6 +262,13 @@ public class Player : MonoBehaviour, IDamageable {
         UIManager.instance.SetPlayerHealth(1.0f);
         availableMinesNumber = maxMinesNumber;
         timeSinceLastMine = 0.0f;
+
+        strongAttackCooldown.timeSinceLastAction = strongAttackCooldown.cooldownTime;
+        coneAttackCooldown.timeSinceLastAction = coneAttackCooldown.cooldownTime;
+        meteoriteAttackCooldown.timeSinceLastAction = meteoriteAttackCooldown.cooldownTime;
+        mineAttackCooldown.timeSinceLastAction = mineAttackCooldown.cooldownTime;
+        mineCounterUI.SetCurrentCount(0);
+        mineCounterUI.SetTotalCount(maxMinesNumber);
 
         currentState.EnterState(this);
 
@@ -274,10 +295,9 @@ public class Player : MonoBehaviour, IDamageable {
             timeSinceLastMonumentChecking -= checkingMonumentRepetitionTime;
         }
 
-        timeSinceLastAttack += Time.deltaTime;
-        timeSinceLastStrongAttack += Time.deltaTime;
         timeSinceLastMonumentChecking += Time.deltaTime;
-        timeSinceLastMeteoriteAttack += Time.deltaTime;
+        timeSinceLastAttack += Time.deltaTime;
+        strongAttackTimer += Time.deltaTime;
 
         if (knockbackActive)
         {
@@ -333,6 +353,8 @@ public class Player : MonoBehaviour, IDamageable {
             if (mines[i] == null)
             {
                 mines[i] = ParticlesManager.instance.LaunchParticleSystem(minePrefab, this.transform.position, minePrefab.transform.rotation).GetComponent<ActivateMineExplosion>();
+                ++minesCount;
+                mineCounterUI.SetCurrentCount(minesCount);
                 return;
             }
         }
@@ -349,9 +371,17 @@ public class Player : MonoBehaviour, IDamageable {
             if(mines[i] == mineToRemove)
             {
                 mines[i] = null;
+                --minesCount;
+                mineCounterUI.SetCurrentCount(minesCount);
+                break;
             }
         }
         SortMines();
+    }
+
+    public int getMinesCount()
+    {
+        return minesCount;
     }
 
     public void SetCurrentHealth(float normalizedHealth)
