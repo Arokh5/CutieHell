@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4321120629276748}
   - component: {fileID: 64397463648897976}
   - component: {fileID: 54213585991076434}
-  - component: {fileID: 114802558456121540}
+  - component: {fileID: 114900176478328916}
   m_Layer: 0
   m_Name: SelectorProjector
   m_TagString: Untagged
@@ -176,7 +176,7 @@ GameObject:
   - component: {fileID: 4246932453699448}
   - component: {fileID: 198821035992068780}
   - component: {fileID: 199358983319646302}
-  - component: {fileID: 114377829179769594}
+  - component: {fileID: 114144487231063136}
   m_Layer: 0
   m_Name: ConeAttackVFX
   m_TagString: Untagged
@@ -383,6 +383,26 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 4c1e3ed1ce20566498b48c17f30bd55f, type: 3}
+--- !u!114 &114144487231063136
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1803441037194954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34758f45e6a75464c97d5a784111427d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  damage: 10
+  enemiesDetector: {fileID: 114900176478328916}
+  enemiesToCombo: 5
+  evilComboReward: 5
+  hurtEnemiesDelay: 0
+  returnToPoolDelay: 2.8
 --- !u!114 &114161029892259270
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -394,26 +414,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d2f4ebf86154f244b40414e872e0a6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114377829179769594
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1803441037194954}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1b38339986534f4fbdce409d510a60a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 256
-  damage: 10
-  enemiesList: {fileID: 114802558456121540}
-  enemiesToCombo: 5
-  evilComboReward: 5
-  hurtEnemiesDelay: 0
-  returnToPoolDelay: 2.8
 --- !u!114 &114710396821233264
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -437,7 +437,7 @@ MonoBehaviour:
   timeToDeactivate: 1.44
   timeToFadeIn: 0.1
   timeToFadeOut: 0.4
---- !u!114 &114802558456121540
+--- !u!114 &114900176478328916
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -445,13 +445,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1055731894372542}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a39a04508287a6544b2d25b60ae8469f, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b4620fd20127da4a917b4b25ea18b81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   layerMask:
     serializedVersion: 2
     m_Bits: 256
-  currentStrongAttackTargets: []
+  attackTargets: []
 --- !u!119 &119612115406295728
 Projector:
   m_ObjectHideFlags: 1
