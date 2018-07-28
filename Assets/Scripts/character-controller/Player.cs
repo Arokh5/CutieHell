@@ -175,6 +175,8 @@ public class Player : MonoBehaviour, IDamageable
     [ShowOnly]
     [SerializeField]
     private int minesCount = 0;
+    [SerializeField]
+    private MineCounterUI mineCounterUI;
 
     [Header("Meteorite Attack")]
     public CooldownInfo meteoriteAttackCooldown;
@@ -261,7 +263,8 @@ public class Player : MonoBehaviour, IDamageable
         availableMinesNumber = maxMinesNumber;
         timeSinceLastMine = 0.0f;
 
-
+        mineCounterUI.SetCurrentCount(0);
+        mineCounterUI.SetTotalCount(maxMinesNumber);
 
         currentState.EnterState(this);
 
@@ -352,6 +355,7 @@ public class Player : MonoBehaviour, IDamageable
             {
                 mines[i] = ParticlesManager.instance.LaunchParticleSystem(minePrefab, this.transform.position, minePrefab.transform.rotation).GetComponent<ActivateMineExplosion>();
                 ++minesCount;
+                mineCounterUI.SetCurrentCount(minesCount);
                 return;
             }
         }
@@ -369,6 +373,7 @@ public class Player : MonoBehaviour, IDamageable
             {
                 mines[i] = null;
                 --minesCount;
+                mineCounterUI.SetCurrentCount(minesCount);
                 break;
             }
         }
