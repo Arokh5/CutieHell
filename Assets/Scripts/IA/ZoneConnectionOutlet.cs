@@ -8,6 +8,10 @@ public class ZoneConnectionOutlet : MonoBehaviour
     #region Fields
     private ZoneConnection zoneConnection;
     public AIZoneController outletZoneController;
+    [Tooltip("Set to true to not change the zoneController of Enemies when they exit through this outlet")]
+    public bool ignoreEnemies;
+    [Tooltip("Set to true to not change the zoneController of the Player when it exit through this outlet")]
+    public bool ignorePlayer;
     #endregion
 
     #region MonoBehaviour Methods
@@ -21,7 +25,10 @@ public class ZoneConnectionOutlet : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        AIEnemy enemy = other.GetComponent<AIEnemy>();
+        AIEnemy enemy = null;
+        if (!ignoreEnemies)
+            enemy = other.GetComponent<AIEnemy>();
+
         if (enemy && !zoneConnection.ContainsEnemy(enemy))
         {
             // If the zoneConnection doesn't contain the enemy, that means that the Enemy is exiting the conection through this outlet
@@ -29,7 +36,10 @@ public class ZoneConnectionOutlet : MonoBehaviour
         }
         else
         {
-            Player player = other.GetComponentInParent<Player>();
+            Player player = null;
+            if (!ignorePlayer)
+                player = other.GetComponentInParent<Player>();
+
             if (player && !zoneConnection.ContainsPlayer())
             {
                 player.SetZoneController(outletZoneController, -transform.forward);
