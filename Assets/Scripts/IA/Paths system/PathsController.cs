@@ -34,6 +34,9 @@ public class PathsController : MonoBehaviour
             path.Add(currentNode);
         else
         {
+            if (Vector3.Distance(startingPos, currentNode.transform.position) > currentNode.radius)
+                path.Add(currentNode);
+
             PathNode previousNode = null;
             while (!currentNode.IsEndOfPath())
             {
@@ -41,7 +44,6 @@ public class PathsController : MonoBehaviour
                 path.Add(nextNode);
                 previousNode = currentNode;
                 currentNode = nextNode;
-                
             }
         }
 
