@@ -104,6 +104,19 @@ public class AIZoneController : MonoBehaviour
         return zoneID;
     }
 
+    public void UpdateZoneTarget()
+    {
+        if (isConquered)
+        {
+            Monument newTarget = scenarioController.GetAlternateTarget(this);
+            if (!hasMonument)
+                monument = newTarget;
+
+            currentZoneTarget = newTarget;
+            OnTargetBuildingChanged();
+        }
+    }
+
     // Called by Monument when it gets conquered.
     public void OnMonumentTaken()
     {

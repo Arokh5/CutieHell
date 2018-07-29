@@ -1,17 +1,14 @@
 ﻿using UnityEngine;
 
-public class PathsChanger : MonoBehaviour, IZoneTakenListener
+public class ZoneTargetUpdater : MonoBehaviour, IZoneTakenListener
 {
     #region Fields
     [SerializeField]
     [Tooltip("The AIZoneController to listen to")]
     private AIZoneController referenceZone;
     [SerializeField]
-    [Tooltip("The AIZoneController whose AIPaths will be replaced when the Reference Zone is taken")]
+    [Tooltip("The AIZoneController whose zoneTarget will be updated when the Reference Zone is taken")]
     private AIZoneController targetZone;
-    [SerializeField]
-    [Tooltip("The new AIPaths that will be assigned to the Target Zone when the Reference Zone is taken")]
-    private PathsController paths;
     #endregion
 
     #region MonoBehaviour Methods
@@ -19,7 +16,6 @@ public class PathsChanger : MonoBehaviour, IZoneTakenListener
     {
         UnityEngine.Assertions.Assert.IsNotNull(referenceZone, "ERROR: Reference Zone (AIZoneController) not assigned for PathsChanger script in GameObject " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(targetZone, "ERROR: Target Zone (AIZoneController) not assigned for PathsChanger script in GameObject " + gameObject.name);
-        UnityEngine.Assertions.Assert.IsNotNull(paths, "ERROR: Paths (PathsController) not assigned for PathsChanger script in GameObject " + gameObject.name);
     }
 
     private void Start()
@@ -37,14 +33,14 @@ public class PathsChanger : MonoBehaviour, IZoneTakenListener
     // IZoneTakenListener
     public void OnZoneTaken()
     {
-        ApplyPaths();
+        UpdateZoneTarget();
     }
     #endregion
 
     #region Private Methods
-    private void ApplyPaths()
+    private void UpdateZoneTarget()
     {
-        targetZone.SetPathsController(paths);
+        targetZone.UpdateZoneTarget();
     }
     #endregion
 }
