@@ -40,6 +40,8 @@ public class AIZoneController : MonoBehaviour
     public TeleportTarget playerExpelTarget;
     public List<BuildingEffects> buildingEffects;
 
+    private List<IZoneTakenListener> zoneTakenListeners = new List<IZoneTakenListener>();
+
     [ShowOnly]
     [SerializeField]
     private List<CuteEffect> cuteEffects = new List<CuteEffect>();
@@ -102,7 +104,20 @@ public class AIZoneController : MonoBehaviour
         return zoneID;
     }
 
-    // Called by Monument when it gets conquered. The method is meant to open the door
+    public void UpdateZoneTarget()
+    {
+        if (isConquered)
+        {
+            Monument newTarget = scenarioController.GetAlternateTarget(this);
+            if (!hasMonument)
+                monument = newTarget;
+
+            currentZoneTarget = newTarget;
+            OnTargetBuildingChanged();
+        }
+    }
+
+    // Called by Monument when it gets conquered.
     public void OnMonumentTaken()
     {
         monumentTaken = true;
@@ -128,6 +143,9 @@ public class AIZoneController : MonoBehaviour
 
         if (playerExpelTarget != null)
             GameManager.instance.GetPlayer1().ExpelFromZone(this, playerExpelTarget);
+
+        foreach (IZoneTakenListener listener in zoneTakenListeners)
+            listener.OnZoneTaken();
 
         UIManager.instance.indicatorsController.MonumentConquered(iconIndex);
         UIManager.instance.markersController.MonumentConquered(iconIndex);
@@ -197,6 +215,28 @@ public class AIZoneController : MonoBehaviour
         {
             cuteEffect.InformMonumentDamage(normalizedDamage);
         }
+    }
+
+    // Called by PathsChanger to modify the Zone's Paths
+    public void SetPathsController(PathsController newController)
+    {
+        if (newController)
+            pathsController = newController;
+    }
+
+    // Called by IZoneTakenListeners to register
+    public void AddIZoneTakenListener(IZoneTakenListener listener)
+    {
+        if (!zoneTakenListeners.Contains(listener))
+        {
+            zoneTakenListeners.Add(listener);
+        }
+    }
+
+    // Called by IZoneTakenListeners to unregister
+    public bool RemoveIZoneTakenListener(IZoneTakenListener listener)
+    {
+        return zoneTakenListeners.Remove(listener);
     }
 
     public bool HasEnemies()
