@@ -102,7 +102,7 @@ public class AIZoneController : MonoBehaviour
         return zoneID;
     }
 
-    // Called by Monument when it gets conquered. The method is meant to open the door
+    // Called by Monument when it gets conquered.
     public void OnMonumentTaken()
     {
         monumentTaken = true;
@@ -197,6 +197,13 @@ public class AIZoneController : MonoBehaviour
         {
             cuteEffect.InformMonumentDamage(normalizedDamage);
         }
+    }
+
+    // Called by PathsChanger to modify the Zone's Paths
+    public void SetPathsController(PathsController newController)
+    {
+        if (newController)
+            pathsController = newController;
     }
 
     public bool HasEnemies()
