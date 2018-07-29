@@ -22,6 +22,16 @@ public class PathsChanger : MonoBehaviour, IZoneTakenListener
         UnityEngine.Assertions.Assert.IsNotNull(paths, "ERROR: Paths (PathsController) not assigned for PathsChanger script in GameObject " + gameObject.name);
 
     }
+
+    private void Start()
+    {
+        referenceZone.AddIZoneTakenListener(this);
+    }
+
+    private void OnDestroy()
+    {
+        referenceZone.RemoveIZoneTakenListener(this);
+    }
     #endregion
 
     #region Public Methods

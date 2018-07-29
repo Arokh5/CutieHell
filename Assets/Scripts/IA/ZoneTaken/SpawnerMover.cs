@@ -21,6 +21,16 @@ public class SpawnerMover : MonoBehaviour, IZoneTakenListener
         UnityEngine.Assertions.Assert.IsNotNull(spawnerToMove, "ERROR: Spawner To Move (AISpawner) not assigned for SpawnerMover script in GameObject " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(targetTransform, "ERROR: Target Transform (Transform) not assigned for SpawnerMover script in GameObject " + gameObject.name);
     }
+
+    private void Start()
+    {
+        referenceZone.AddIZoneTakenListener(this);
+    }
+
+    private void OnDestroy()
+    {
+        referenceZone.RemoveIZoneTakenListener(this);
+    }
     #endregion
 
     #region Public Methods
