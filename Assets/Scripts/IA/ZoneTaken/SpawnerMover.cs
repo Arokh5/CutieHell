@@ -12,6 +12,9 @@ public class SpawnerMover : MonoBehaviour, IZoneTakenListener
     [SerializeField]
     [Tooltip("The Transform that will be applied to the Spawner To Move when the Reference Zone is taken")]
     private Transform targetTransform;
+    [SerializeField]
+    [Tooltip("The AIZoneController to assign to the Spawner To Move after moving it. If left as null, no AIZoneController change takes place")]
+    private AIZoneController newZoneController;
     #endregion
 
     #region MonoBehaviour Methods
@@ -37,7 +40,7 @@ public class SpawnerMover : MonoBehaviour, IZoneTakenListener
     // IZoneTakenListener
     public void OnZoneTaken()
     {
-        throw new System.NotImplementedException();
+        MoveSpawner();
     }
     #endregion
 
@@ -45,6 +48,8 @@ public class SpawnerMover : MonoBehaviour, IZoneTakenListener
     private void MoveSpawner()
     {
         spawnerToMove.transform.position = targetTransform.position;
+        if (newZoneController)
+            spawnerToMove.SetZoneController(newZoneController);
     }
     #endregion
 }

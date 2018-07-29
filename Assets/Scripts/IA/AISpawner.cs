@@ -119,6 +119,13 @@ public class AISpawner : MonoBehaviour {
     {
         activeSpawnInfos.Clear();
     }
+
+    // Called by SpawnerMover to reassign a new Controller after moving the Spawner
+    public void SetZoneController(AIZoneController newController)
+    {
+        if (newController)
+            zoneController = newController;
+    }
     #endregion
 
     #region Private methods
