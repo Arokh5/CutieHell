@@ -10,7 +10,7 @@ public class ConeAttackEnterAction : StateAction
         player.AddEvilPoints(-player.coneAttackEvilCost);
         player.comeBackFromConeAttack = false;
         player.coneAttackCooldown.timeSinceLastAction = 0.0f;
-        player.canMove = false;
+        //player.canMove = false;
         player.animator.SetTrigger("ConeAttack");
     }
 }
