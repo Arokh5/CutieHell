@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EZCameraShake;
 
 public class ConeAttackAnimator : StateMachineBehaviour {
 
@@ -22,7 +23,8 @@ public class ConeAttackAnimator : StateMachineBehaviour {
             BulletTime.instance.DoSlowmotion(0.65f, 0.25f);
             flag = true;
             CheckPlayer(animator);
-            ParticlesManager.instance.LaunchParticleSystem(player.coneAttackVFX, player.transform.position + Vector3.up, player.transform.rotation * player.coneAttackVFX.transform.rotation);
+            ParticlesManager.instance.LaunchParticleSystem(player.coneAttackVFX, player.transform.position + Vector3.up + player.transform.forward * 1.5f, player.transform.rotation * player.coneAttackVFX.transform.rotation);
+            CameraShaker.Instance.ShakeOnce(0.2f, 15.5f, 0.1f, 0.5f);
         }
     }
 

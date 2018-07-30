@@ -46,9 +46,14 @@ public class ConeAttackBehaviour : PooledParticleSystem
     #region Private Methods
     private void HurtEnemies()
     {
+        if(enemiesDetector.attackTargets.Count > 0)
+        {
+            BulletTime.instance.DoSlowmotion(0.01f,0.1f,0.05f);
+        }
         foreach (AIEnemy aiEnemy in enemiesDetector.attackTargets)
         {
             aiEnemy.MarkAsTarget(false);
+            aiEnemy.SetKnockback(this.transform.position,6.0f);
             aiEnemy.TakeDamage(damage, AttackType.CONE);
             comboCount++;
         }
