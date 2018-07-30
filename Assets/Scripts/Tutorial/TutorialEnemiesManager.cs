@@ -53,7 +53,7 @@ public class TutorialEnemiesManager
     {
         foreach (AIEnemy enemy in enemies)
         {
-            enemy.agent.enabled = false;
+            enemy.SetAgentEnable(false);
         }
     }
 
@@ -61,7 +61,7 @@ public class TutorialEnemiesManager
     {
         foreach (AIEnemy enemy in enemies)
         {
-            enemy.agent.enabled = true;
+            enemy.SetAgentEnable(true);
         }
     }
     #endregion

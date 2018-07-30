@@ -22,8 +22,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private PathNode currentNode;
     private int currentNodeIndex = -1;
 
-    [HideInInspector]
-    public NavMeshAgent agent;
+    private NavMeshAgent agent;
     [HideInInspector]
     public float initialSpeed;
     public float speedOnSlow;
@@ -198,6 +197,20 @@ public class AIEnemy : MonoBehaviour, IDamageable
     #endregion
 
     #region Public Methods
+    public void SetAgentEnable(bool enabled)
+    {
+        agent.enabled = enabled;
+    }
+
+    public void ResetSpeed()
+    {
+        agent.speed = initialSpeed;
+    }
+
+    public void SetSpeed(float newSpeed)
+    {
+        agent.speed = (newSpeed > 0 ? newSpeed : 0);
+    }
 
     public void SetKnockback(Vector3 originForce, float forceMultiplier = 1.0f)
     {
@@ -234,7 +247,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         timeOnSlow = 0.0f;
         currentHealth = baseHealth;
         enemyCollider.enabled = true;
-        agent.enabled = true;
+        SetAgentEnable(true);
         isTargetable = true;
         isTarget = false;
         GetComponent<EnemyCanvasController>().SetHealthBar();
@@ -301,7 +314,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         if (currentHealth <= 0)
         {
             currentHealth = 0;
-            agent.enabled = false;
+            SetAgentEnable(false);
             SetIsTargetable(false);
             killingHit = attacktype;
             Achievements.instance.IncreaseCurrentCountKillingType(1, killingHit);
@@ -400,16 +413,16 @@ public class AIEnemy : MonoBehaviour, IDamageable
         if (timeOnSlow > 0.0f)
         {
             timeOnSlow -= Time.deltaTime;
-            agent.speed = speedOnSlow;
+            SetSpeed(speedOnSlow);
         }
         else
         {
-            agent.speed = initialSpeed;
+            ResetSpeed();
         }
         if(timeOnStun > 0.0f)
         {
             timeOnStun -= Time.deltaTime;
-            agent.speed = 0.0f;
+            SetSpeed(0.0f);
             animator.SetBool("Stunned", true);
         }
         else
