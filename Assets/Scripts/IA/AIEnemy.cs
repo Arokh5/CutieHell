@@ -15,12 +15,17 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private Player playerTarget;
     private IDamageable currentTarget;
     private Building currentTargetBuilding;
+
+    [Header("Motion")]
     public bool ignorePath = false;
     [SerializeField]
     private List<PathNode> currentPath;
     [SerializeField]
     private PathNode currentNode;
     private int currentNodeIndex = -1;
+    public float highSpeedMultiplier = 2.0f;
+    [ShowOnly]
+    public bool inHighSpeedZone;
 
     private NavMeshAgent agent;
     [HideInInspector]
@@ -204,12 +209,21 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
     public void ResetSpeed()
     {
-        agent.speed = initialSpeed;
+        SetSpeed(initialSpeed);
     }
 
     public void SetSpeed(float newSpeed)
     {
-        agent.speed = (newSpeed > 0 ? newSpeed : 0);
+        if (newSpeed <= 0)
+            agent.speed = 0;
+        else
+            agent.speed = newSpeed * (inHighSpeedZone ? highSpeedMultiplier : 1);
+    }
+
+    public void SetInHighSpeedZone(bool inHighSpeedZone)
+    {
+        this.inHighSpeedZone = inHighSpeedZone;
+        SetSpeed(agent.speed);
     }
 
     public void SetKnockback(Vector3 originForce, float forceMultiplier = 1.0f)
