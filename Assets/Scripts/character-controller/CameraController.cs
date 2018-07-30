@@ -12,7 +12,7 @@ public class CameraController : MonoBehaviour {
     private Player playerScript;
     private CapsuleCollider playerCapsuleCollider;
 
-    private const float xSpeed = 2.5f;
+    private const float xSpeed = 4.20f;
     private const float ySpeed = 1.2f;
     private const float yMinLimit = -20f;
     private const float yMaxLimit = 40f;

@@ -30,6 +30,8 @@ public class FollowTarget : PooledParticleSystem
     private float maxDistance = 12f;
     [SerializeField]
     private float goWayFinalWaitTime = 0.5f;
+    [SerializeField]
+    private ParticleSystem impulseMotionVFX;
 
     [Header("Ground avoidance")]
     [SerializeField]
@@ -120,6 +122,7 @@ public class FollowTarget : PooledParticleSystem
                 else
                 {
                     attackState = AttackStates.Stay;
+                    ParticlesManager.instance.LaunchParticleSystem(impulseMotionVFX, this.transform.position, Quaternion.LookRotation(player.transform.position - this.transform.position));
                 }
                 break;
 
@@ -127,6 +130,7 @@ public class FollowTarget : PooledParticleSystem
                 time += Time.deltaTime;
                 if (time >= goWayFinalWaitTime)
                 {
+                    
                     attackState = AttackStates.ReturnWay;
                 }
                 break;
