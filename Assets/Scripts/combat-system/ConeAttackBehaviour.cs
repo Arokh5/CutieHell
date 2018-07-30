@@ -9,23 +9,24 @@ public class ConeAttackBehaviour : PooledParticleSystem
     public int enemiesToCombo;
     public int evilComboReward;
     public float hurtEnemiesDelay;
-    public float returnToPoolDelay;
+    public float timeToDistable;
     private int comboCount;
     private float timer;
-    private float timerToDisable;
+    private float timeToReturnToPool;
+
     #endregion
 
     #region MonoBehaviour Methods
     private void Update()
     {
         timer -= Time.deltaTime;
-        timerToDisable -= Time.deltaTime;
+        timeToReturnToPool -= Time.deltaTime;
         if (timer <= 0.0f)
         {
             HurtEnemies();
             timer = 1000.0f;
         }
-        if (timerToDisable <= 0.0f)
+        if(timeToReturnToPool <= 0.0f)
         {
             ReturnToPool();
         }
@@ -37,7 +38,7 @@ public class ConeAttackBehaviour : PooledParticleSystem
     {
         enemiesDetector.attackTargets.Clear();
         timer = hurtEnemiesDelay;
-        timerToDisable = returnToPoolDelay;
+        timeToReturnToPool = timeToDistable;
         comboCount = 0;
     }
     #endregion
