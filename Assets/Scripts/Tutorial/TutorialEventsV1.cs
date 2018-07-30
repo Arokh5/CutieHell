@@ -198,7 +198,7 @@ public class TutorialEventsV1 : TutorialEvents
     {
         AIEnemy slime = SpawnEnemy(tutorialSpawner, EnemyType.BASIC);
         tutorialEnemiesManager.AddEnemy(slime);
-        slime.agent.enabled = false;
+        slime.SetAgentEnable(false);
         SetEnemyLabelInfo(0);
         damageLimiterTutZone.normalizedMaxDamage = 0.2f;
     }
@@ -214,7 +214,7 @@ public class TutorialEventsV1 : TutorialEvents
     {
         AIEnemy bear = SpawnEnemy(tutorialSpawner2, EnemyType.RANGE);
         tutorialEnemiesManager.AddEnemy(bear);
-        bear.agent.enabled = false;
+        bear.SetAgentEnable(false);
         SetEnemyLabelInfo(1);
         damageLimiterTutZone.normalizedMaxDamage = 0.5f;
     }
@@ -230,7 +230,7 @@ public class TutorialEventsV1 : TutorialEvents
     {
         firstConqueror = SpawnEnemy(tutorialSpawner, EnemyType.CONQUEROR);
         // Not added to the tutorialenemiesManager because the conqueror will conquer and remain in ZoneD
-        firstConqueror.agent.enabled = false;
+        firstConqueror.SetAgentEnable(false);
         SetEnemyLabelInfo(2);
         damageLimiterTutZone.normalizedMaxDamage = 1.1f;
     }
@@ -238,7 +238,7 @@ public class TutorialEventsV1 : TutorialEvents
     // 06
     private void ConquerorAttack()
     {
-        firstConqueror.agent.enabled = true;
+        firstConqueror.SetAgentEnable(true);
     }
 
     // 07

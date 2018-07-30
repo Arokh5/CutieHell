@@ -15,15 +15,19 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private Player playerTarget;
     private IDamageable currentTarget;
     private Building currentTargetBuilding;
+
+    [Header("Motion")]
     public bool ignorePath = false;
     [SerializeField]
     private List<PathNode> currentPath;
     [SerializeField]
     private PathNode currentNode;
     private int currentNodeIndex = -1;
+    public float highSpeedMultiplier = 2.0f;
+    [ShowOnly]
+    public bool inHighSpeedZone;
 
-    [HideInInspector]
-    public NavMeshAgent agent;
+    private NavMeshAgent agent;
     [HideInInspector]
     public float initialSpeed;
     public float speedOnSlow;
@@ -198,6 +202,29 @@ public class AIEnemy : MonoBehaviour, IDamageable
     #endregion
 
     #region Public Methods
+    public void SetAgentEnable(bool enabled)
+    {
+        agent.enabled = enabled;
+    }
+
+    public void ResetSpeed()
+    {
+        SetSpeed(initialSpeed);
+    }
+
+    public void SetSpeed(float newSpeed)
+    {
+        if (newSpeed <= 0)
+            agent.speed = 0;
+        else
+            agent.speed = newSpeed * (inHighSpeedZone ? highSpeedMultiplier : 1);
+    }
+
+    public void SetInHighSpeedZone(bool inHighSpeedZone)
+    {
+        this.inHighSpeedZone = inHighSpeedZone;
+        SetSpeed(agent.speed);
+    }
 
     public void SetKnockback(Vector3 originForce, float forceMultiplier = 1.0f)
     {
@@ -234,7 +261,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         timeOnSlow = 0.0f;
         currentHealth = baseHealth;
         enemyCollider.enabled = true;
-        agent.enabled = true;
+        SetAgentEnable(true);
         isTargetable = true;
         isTarget = false;
         GetComponent<EnemyCanvasController>().SetHealthBar();
@@ -301,7 +328,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         if (currentHealth <= 0)
         {
             currentHealth = 0;
-            agent.enabled = false;
+            SetAgentEnable(false);
             SetIsTargetable(false);
             killingHit = attacktype;
             Achievements.instance.IncreaseCurrentCountKillingType(1, killingHit);
@@ -400,16 +427,16 @@ public class AIEnemy : MonoBehaviour, IDamageable
         if (timeOnSlow > 0.0f)
         {
             timeOnSlow -= Time.deltaTime;
-            agent.speed = speedOnSlow;
+            SetSpeed(speedOnSlow);
         }
         else
         {
-            agent.speed = initialSpeed;
+            ResetSpeed();
         }
         if(timeOnStun > 0.0f)
         {
             timeOnStun -= Time.deltaTime;
-            agent.speed = 0.0f;
+            SetSpeed(0.0f);
             animator.SetBool("Stunned", true);
         }
         else
