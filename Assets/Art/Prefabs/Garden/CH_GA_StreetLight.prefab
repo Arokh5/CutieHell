@@ -30,7 +30,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1187858233068432
 GameObject:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -159,7 +159,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4679791582279430}
-  - component: {fileID: 114212518496292594}
+  - component: {fileID: 114344372978882242}
   m_Layer: 0
   m_Name: CH_GA_StreetLight
   m_TagString: Untagged
@@ -213,12 +213,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1187858233068432}
-  m_LocalRotation: {x: -0, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.057397842, y: 3.1188865, z: 0.005657673}
+  m_LocalRotation: {x: -0, y: -0, z: -2.3283064e-10, w: 1}
+  m_LocalPosition: {x: -0.05739761, y: 3.1188881, z: 0.0056576356}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4863355588187416}
-  m_RootOrder: 0
+  m_Father: {fileID: 4679791582279430}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4622967455582230
 Transform:
@@ -242,16 +242,17 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1952519385354690}
-  m_LocalRotation: {x: 0.012261644, y: 0.93368685, z: -0.016677618, w: -0.3574918}
-  m_LocalPosition: {x: -10.57, y: 0.030002594, z: 8.89}
+  m_LocalRotation: {x: 0.013396319, y: 0.13228124, z: 0.015780615, w: 0.99099606}
+  m_LocalPosition: {x: 14.697353, y: -0.021015167, z: -4.647217}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4863355588187416}
   - {fileID: 4622967455582230}
   - {fileID: 4468100480624374}
+  - {fileID: 4474085907552654}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 1.2820001, y: 221.924, z: 1.996}
+  m_LocalEulerAnglesHint: {x: 1.2820001, y: 375.228, z: 1.996}
 --- !u!4 &4828926226394996
 Transform:
   m_ObjectHideFlags: 1
@@ -287,8 +288,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4474085907552654}
+  m_Children: []
   m_Father: {fileID: 4679791582279430}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -520,8 +520,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.799945, y: 3.7594376, z: 0.79994506}
-  m_Center: {x: -0.0000006109476, y: 1.872829, z: -0.00000011920929}
+  m_Size: {x: 1.41, y: 3.7594376, z: 1.34}
+  m_Center: {x: 0.32, y: 1.872829, z: 0.21}
 --- !u!65 &65492666754373180
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -703,21 +703,6 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114212518496292594
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1952519385354690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d552f61e7fedf8b4ba4d8eed58d2f2e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  originalProp: {fileID: 23264280786812238}
-  alternateProp: {fileID: 23143822062913140}
-  propCollapseDuration: 0.25
-  alternatePropGrowDuration: 0.75
 --- !u!114 &114337835363010880
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -732,6 +717,21 @@ MonoBehaviour:
   clip: {fileID: 8300000, guid: fa6c9a10b68bf8843854476461dccd47, type: 3}
   loopAudio: 1
   soundMaxDistance: 8
+--- !u!114 &114344372978882242
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1952519385354690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d552f61e7fedf8b4ba4d8eed58d2f2e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  originalProp: {fileID: 23264280786812238}
+  alternateProp: {fileID: 23143822062913140}
+  propCollapseDuration: 0.25
+  alternatePropGrowDuration: 0.75
 --- !u!114 &114504402555514008
 MonoBehaviour:
   m_ObjectHideFlags: 1
