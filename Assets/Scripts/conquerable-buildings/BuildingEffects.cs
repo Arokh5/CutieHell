@@ -37,11 +37,11 @@ public class BuildingEffects : MonoBehaviour, ITextureChanger
     [SerializeField]
     private float conquerEffectDuration = 1;
 
-    
 
     private float conquerEffectElapsedTime = 0;
     private bool conquering = false;
     private bool conquered = false;
+    private bool convertionsTriggered = false;
     #endregion
 
     #region MonoBehaviour Methods
@@ -171,7 +171,6 @@ public class BuildingEffects : MonoBehaviour, ITextureChanger
     #region Private Methods
     private void ConquerEffect()
     {
-        
         float progress = conquerEffectElapsedTime / conquerEffectDuration;
         currentEvilRadius = (1 - progress) * minEvilRadius;
 
@@ -183,19 +182,20 @@ public class BuildingEffects : MonoBehaviour, ITextureChanger
         }
         else
         {
+            TriggerConvertions();
             // Rescale the progress to fall in the range [0,1]
             progress = (progress - tipingPoint) / (1 - tipingPoint);
             alternateBuildingRenderer.transform.localScale = progress * Vector3.one;
         }
+    }
 
-        // Now we attempt to convert convertible props
-
-        foreach (Convertible convertible in convertibles)
+    private void TriggerConvertions()
+    {
+        if (!convertionsTriggered)
         {
-            if (!convertible.IsConverting() && !convertible.IsConverted() && Vector3.Distance(transform.position, convertible.transform.position) < currentEvilRadius)
-            {
+            convertionsTriggered = true;
+            foreach (Convertible convertible in convertibles)
                 convertible.Convert();
-            }
         }
     }
     #endregion
