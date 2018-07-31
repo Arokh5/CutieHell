@@ -176,17 +176,6 @@ public class CameraController : MonoBehaviour {
                         Quaternion rotation = Quaternion.Euler(y, x, 0);
                         float noCollisionDistance = strongAttackDistance;
 
-                        for (float zOffset = strongAttackDistance; zOffset >= 0.5f; zOffset -= 0.025f)
-                        {
-                            noCollisionDistance = zOffset;
-                            Vector3 tempPos = rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position;
-
-                            if (DoubleViewingPosCheck(tempPos, zOffset))
-                            {
-                                break;
-                            }
-                        }
-
                         if (timeOnTransition < transitionTime)
                         {
                             Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, fov, 0.1f);
