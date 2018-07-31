@@ -117,8 +117,6 @@ public class CameraController : MonoBehaviour {
                     break;
                 case Player.CameraState.MOVE:
                     {
-
-                        //if (this.transform.parent != null) this.transform.parent = null;
                         y = ClampAngle(y, yMinLimit, yMaxLimit);
                         Quaternion rotation = Quaternion.Euler(y, x, 0);
                         float noCollisionDistance = distance;
@@ -318,7 +316,7 @@ public class CameraController : MonoBehaviour {
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(checkPos, player.position + (Vector3.up * deltaPlayerHeight) - checkPos, out hit)) 
+        if (Physics.Raycast(checkPos, player.position + (Vector3.up * deltaPlayerHeight) - checkPos, out hit, viewPosCheckLayerMask)) 
         {
             if (Helpers.GameObjectInLayerMask(hit.transform.gameObject, viewPosCheckLayerMask))
             {
@@ -330,8 +328,9 @@ public class CameraController : MonoBehaviour {
 
     private bool ReverseViewingPosCheck(Vector3 checkPos, float deltaPlayerHeight, float offset) {
         RaycastHit hit;
-        if (Physics.Raycast(player.position + (Vector3.up * deltaPlayerHeight), checkPos - player.position, out hit, offset)) 
+        if (Physics.Raycast(player.position + (Vector3.up * deltaPlayerHeight), checkPos - player.position - (Vector3.up * deltaPlayerHeight), out hit, offset, viewPosCheckLayerMask)) 
         {
+
             if (Helpers.GameObjectInLayerMask(hit.transform.gameObject, viewPosCheckLayerMask))
             {
                 return false;
