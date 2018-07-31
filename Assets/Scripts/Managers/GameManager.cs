@@ -159,7 +159,7 @@ public class GameManager : MonoBehaviour
     {
         if (gameState == GameStates.InGame)
         {
-            crosshair.SetActive(false);
+            //crosshair.SetActive(false);
 
             //Debug.Log("TODO: Still same code in OnRoundEnd");
             roundScore.gameObject.SetActive(true);
@@ -177,7 +177,7 @@ public class GameManager : MonoBehaviour
         if (gameState == GameStates.InGame)
         {
             player.OnRoundOver();
-            crosshair.SetActive(false);
+            //crosshair.SetActive(false);
             gameOverPanel.SetActive(true);
             gameOverPanel.SetActive(true);
             UIManager.instance.ChangeRoundEndText("YOU LOSE!");
@@ -191,7 +191,7 @@ public class GameManager : MonoBehaviour
         if (gameState == GameStates.InGame)
         {
             Time.timeScale = 0.0f;
-            crosshair.SetActive(false);
+            //crosshair.SetActive(false);
 
             if (tutorialController.IsRunning())
                 tutorialPauseMenuController.gameObject.SetActive(true);
@@ -215,7 +215,7 @@ public class GameManager : MonoBehaviour
             else
             {
                 pauseMenuController.gameObject.SetActive(false);
-                crosshair.SetActive(true);
+                //crosshair.SetActive(true);
             }
 
             Time.timeScale = 1.0f;
@@ -230,7 +230,7 @@ public class GameManager : MonoBehaviour
     {
         if (gameState == GameStates.OnGamePaused)
         {
-            crosshair.SetActive(true);
+            //crosshair.SetActive(true);
             tutorialPauseMenuController.gameObject.SetActive(false);
             tutorialController.RequestEndTutorial();
 
@@ -251,7 +251,7 @@ public class GameManager : MonoBehaviour
     {
         if (InputManager.instance.GetXButtonDown())
         {
-            crosshair.SetActive(true);
+            //crosshair.SetActive(true);
             gameOverPanel.SetActive(false);
             StatsManager.instance.ResetKillCounts();
             StatsManager.instance.ResetBadComboCount();
@@ -281,11 +281,6 @@ public class GameManager : MonoBehaviour
         gameIsPaused = false;
         gameState = GameStates.InGame;
         SceneManager.LoadScene("Game", LoadSceneMode.Single);
-    }
-
-    public void SetCrosshairActivate(bool activate)
-    {
-        crosshair.SetActive(activate);
     }
 
     public void StartNextRound()
