@@ -13,6 +13,9 @@ public class RainbowBridge : MonoBehaviour, IZoneTakenListener
     [SerializeField]
     [Tooltip("The Obstacle that must be turned off when the Reference Zone is taken")]
     private NavMeshObstacle navObstacle;
+    [SerializeField]
+    [Tooltip("The Obstacle that must be turned off when the Reference Zone is taken")]
+    private Collider[] playerBlockages;
     #endregion
 
     #region MonoBehaviour Methods
@@ -46,12 +49,16 @@ public class RainbowBridge : MonoBehaviour, IZoneTakenListener
     {
         bridge.SetActive(true);
         navObstacle.gameObject.SetActive(false);
+        foreach (Collider blockage in playerBlockages)
+            blockage.gameObject.SetActive(true);
     }
 
     public void Close()
     {
         bridge.SetActive(false);
         navObstacle.gameObject.SetActive(true);
+        foreach (Collider blockage in playerBlockages)
+            blockage.gameObject.SetActive(false);
     }
     #endregion
 }
