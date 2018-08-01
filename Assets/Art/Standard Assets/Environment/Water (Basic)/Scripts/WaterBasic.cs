@@ -6,14 +6,22 @@ namespace UnityStandardAssets.Water
     [ExecuteInEditMode]
     public class WaterBasic : MonoBehaviour
     {
+        #region Fields
+        private Renderer r;
+        private Material mat;
+        #endregion
+
+        #region MonoBehaviour Methods
         void Update()
         {
-            Renderer r = GetComponent<Renderer>();
+            if (!r)
+                r = GetComponent<Renderer>();
             if (!r)
             {
                 return;
             }
-            Material mat = r.sharedMaterial;
+            if (!mat)
+                mat = r.sharedMaterial;
             if (!mat)
             {
                 return;
@@ -28,5 +36,6 @@ namespace UnityStandardAssets.Water
                 Mathf.Repeat(offset4.z, 1.0f), Mathf.Repeat(offset4.w, 1.0f));
             mat.SetVector("_WaveOffset", offsetClamped);
         }
+        #endregion
     }
 }
