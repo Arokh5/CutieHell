@@ -24,6 +24,8 @@ public class RainbowBridge : MonoBehaviour, IZoneTakenListener
         UnityEngine.Assertions.Assert.IsNotNull(referenceZone, "ERROR: Reference Zone (AIZoneController) not assigned for RainbowBridge script in GameObject " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(bridge, "ERROR: Bridge (GameObject) not assigned for RainbowBridge script in GameObject " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(navObstacle, "ERROR: Nav Obstacle (NavMeshObstacle) not assigned for RainbowBridge script in GameObject " + gameObject.name);
+        Collider bridgeCollider = bridge.GetComponent<Collider>();
+        bridgeCollider.enabled = false;
     }
 
     private void Start()
