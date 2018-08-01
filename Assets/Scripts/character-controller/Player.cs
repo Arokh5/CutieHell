@@ -34,13 +34,15 @@ public class Player : MonoBehaviour, IDamageable
     [ShowOnly]
     [SerializeField]
     private AIZoneController currentZoneController;
-    [SerializeField]
-    private float knockbackForce = 25.0f;
+    public float knockbackForce = 25.0f;
     [SerializeField]
     private ParticleSystem knockbackVFX;
-    private float knockbackCurrentForce;
-    private Vector3 knockbackDirection;
-    private bool knockbackActive = false;
+    [HideInInspector]
+    public float knockbackCurrentForce;
+    [HideInInspector]
+    public Vector3 knockbackDirection;
+    [HideInInspector]
+    public bool knockbackActive = false;
 
     [Header("Health")]
     [SerializeField]
@@ -299,12 +301,7 @@ public class Player : MonoBehaviour, IDamageable
         timeSinceLastAttack += Time.deltaTime;
         strongAttackTimer += Time.deltaTime;
 
-        if (knockbackActive)
-        {
-            Knockback();
-        }
-
-        if (lastTransitionTime != Time.time && !knockbackActive)
+        if (lastTransitionTime != Time.time )
         {
             currentState.UpdateState(this);
         }
@@ -331,7 +328,7 @@ public class Player : MonoBehaviour, IDamageable
             knockbackActive = true;
             ParticlesManager.instance.LaunchParticleSystem(knockbackVFX, this.transform.position + Vector3.up * 1.55f, knockbackVFX.transform.rotation);
             knockbackCurrentForce = knockbackForce;
-            this.knockbackDirection = knockbackDirection;
+            this.knockbackDirection = knockbackDirection.normalized;
         }
     }
 
@@ -534,20 +531,6 @@ public class Player : MonoBehaviour, IDamageable
     #endregion
 
     #region Private Methods
-
-    private void Knockback()
-    {
-        if (knockbackActive)
-        {
-            knockbackCurrentForce = Mathf.Lerp(knockbackCurrentForce, 0.0f, 0.5f);
-            rb.position += knockbackDirection * knockbackForce * Time.deltaTime;
-            if (knockbackCurrentForce < 0.2f)
-            {
-                knockbackActive = false;
-            }
-        }
-    }
-
     private void SortMines()
     {
         for(int i = 0; i < maxMinesNumber - 1; i++)
