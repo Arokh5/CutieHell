@@ -12,6 +12,8 @@ public class ZoneConnectionOutlet : MonoBehaviour
     public bool ignoreEnemies;
     [Tooltip("Set to true to not change the zoneController of the Player when it exit through this outlet")]
     public bool ignorePlayer;
+
+    private const float knockbackTargetDistance = 4.0f;
     #endregion
 
     #region MonoBehaviour Methods
@@ -42,7 +44,8 @@ public class ZoneConnectionOutlet : MonoBehaviour
 
             if (player && !zoneConnection.ContainsPlayer())
             {
-                player.SetZoneController(outletZoneController, -transform.forward);
+                Vector3 targetPos = transform.position - knockbackTargetDistance * transform.forward;
+                player.SetZoneController(outletZoneController, targetPos - player.transform.position);
             }
         }
     }
