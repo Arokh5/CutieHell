@@ -23,7 +23,8 @@ public class ConeAttackAnimator : StateMachineBehaviour {
             BulletTime.instance.DoSlowmotion(0.65f, 0.25f);
             flag = true;
             CheckPlayer(animator);
-            ParticlesManager.instance.LaunchParticleSystem(player.coneAttackVFX, player.transform.position + Vector3.up + player.transform.forward * 0.65f, player.transform.rotation * player.coneAttackVFX.transform.rotation);
+            ParticleSystem o = ParticlesManager.instance.LaunchParticleSystem(player.coneAttackVFX, player.transform.position + Vector3.up + player.transform.forward * 0.65f, player.transform.rotation * player.coneAttackVFX.transform.rotation);
+            o.transform.SetParent(animator.gameObject.transform);
             CameraShaker.Instance.ShakeOnce(0.2f, 15.5f, 0.1f, 0.5f);
         }
     }

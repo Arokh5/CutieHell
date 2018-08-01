@@ -42,6 +42,9 @@ public class CameraController : MonoBehaviour {
     public float focusY;
     public float fov;
 
+    //private float initialDistance;
+    [HideInInspector]
+    public Vector3 cameraPositionOnConeAttack;
 
     /* Turret camera values */
     public float t_distance;
@@ -135,7 +138,7 @@ public class CameraController : MonoBehaviour {
                         {
                             Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, fov, 0.1f);
                             timeOnTransition += Time.deltaTime;
-                            this.transform.position = Vector3.Lerp(this.transform.position, rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position, timeOnTransition / 2f);
+                            this.transform.position = Vector3.Lerp(this.transform.position, rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position, timeOnTransition);
                         }
                         else
                         {
@@ -282,7 +285,50 @@ public class CameraController : MonoBehaviour {
                         this.transform.LookAt(player.transform.position + rotation * Vector3.up * aU + rotation * Vector3.right * aR + rotation * Vector3.forward * aF);
                     }           
                     break;
-                default:
+                case Player.CameraState.CONEATTACK:
+                    { 
+                    y = ClampAngle(y, 15, 20);
+                    Quaternion rotation = Quaternion.Euler(y, x, 0);
+                    float noCollisionDistance = distance + 6;
+
+                    for (float zOffset = distance + 6; zOffset >= 0.5f; zOffset -= 0.025f)
+                    {
+                        noCollisionDistance = zOffset;
+                        Vector3 tempPos = rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position;
+
+                        if (DoubleViewingPosCheck(tempPos, zOffset))
+                        {
+                            break;
+                        }
+                    }
+
+                    timeOnTransition += Time.deltaTime;
+                    this.transform.position = Vector3.Lerp(this.transform.position, rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position, 0.15f);
+
+                    if (timeSinceLastAction < 0.5f)
+                    {
+                        timeSinceLastAction += Time.deltaTime;
+                        if (fastAction)
+                        {
+                            SetPlayerDirection(rotation.eulerAngles.y, 0.7f);
+                        }
+                        else if (slowAction)
+                        {
+                            SetPlayerDirection(rotation.eulerAngles.y, 0.2f);
+                        }
+                        else
+                        {
+                            SetPlayerDirection(rotation.eulerAngles.y);//, playerScript.rb.velocity.magnitude / 10.0f);
+                        }
+                    }
+                    else
+                    {
+                        fastAction = slowAction = false;
+                    }
+                    this.transform.LookAt(player.transform.position + rotation * Vector3.up * focusY + rotation * Vector3.right * focusX + rotation * Vector3.forward * focusDistance);
+            }
+                    break;
+            default:
 
                     break;
             }

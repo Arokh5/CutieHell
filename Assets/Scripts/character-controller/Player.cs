@@ -202,7 +202,7 @@ public class Player : MonoBehaviour, IDamageable
 
     #endregion
 
-    public enum CameraState { STILL, MOVE, STRONG_ATTACK, TRANSITION, ZOOMOUT, ZOOMIN, METEORITEAIM}
+    public enum CameraState { STILL, MOVE, STRONG_ATTACK, TRANSITION, ZOOMOUT, ZOOMIN, METEORITEAIM, CONEATTACK}
     public enum TeleportStates { OUT, TRAVEL, IN, DELAY}
     
 
