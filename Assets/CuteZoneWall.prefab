@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4596220055838696}
   - component: {fileID: 198010022080472534}
   - component: {fileID: 199828152898892582}
+  - component: {fileID: 65417316681420488}
   m_Layer: 0
   m_Name: CuteZoneWall
   m_TagString: Untagged
@@ -82,7 +83,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1544520193660258}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -26.1, y: 34.31, z: 63.1}
+  m_LocalPosition: {x: -10.9110365, y: 33.028984, z: 42.028675}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4284225202857614}
@@ -103,6 +104,18 @@ Transform:
   m_Father: {fileID: 4596220055838696}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &65417316681420488
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1544520193660258}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.7, y: 5, z: 1}
+  m_Center: {x: 0, y: 2.5, z: 0}
 --- !u!198 &198010022080472534
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -163,7 +176,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1330125344
+  randomSeed: -1368818105
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3524,7 +3537,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -798076719
+  randomSeed: 902366746
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3922,7 +3935,7 @@ ParticleSystem:
     randomizeRotationDirection: 0
     maxNumParticles: 1000
     size3D: 1
-    rotation3D: 1
+    rotation3D: 0
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
@@ -6885,7 +6898,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1949927922
+  randomSeed: -1119605371
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -10237,7 +10250,7 @@ ParticleSystemRenderer:
   m_LengthScale: 2
   m_SortingFudge: 0
   m_NormalDirection: 1
-  m_RenderAlignment: 1
+  m_RenderAlignment: 2
   m_Pivot: {x: 0, y: 0, z: 0}
   m_UseCustomVertexStreams: 0
   m_VertexStreams: 00010304

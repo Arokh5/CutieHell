@@ -1,22 +1,39 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PropModelChanger : Convertible
 {
+    #region Fields
     [Header("Elements setup")]
 
     [SerializeField]
     private MeshRenderer originalProp;
     [SerializeField]
     private MeshRenderer alternateProp;
-
+    
+    [Header("Timing")]
     [Tooltip("The time (in seconds) it takes to collapse the original prop model's vertices towards the pivot")]
     public float propCollapseDuration = 0.25f;
     [Tooltip("The time (in seconds) it takes to move the alternate prop model's vertices from the pivot to their original position")]
     public float alternatePropGrowDuration = 0.75f;
 
+    [Header("Scaling axes")]
+    public bool scaleX = true;
+    public bool scaleY = true;
+    public bool scaleZ = true;
+
     private float convertionElapsedTime;
+    #endregion
+
+    #region MonoBehaviour Methods
+    private void OnValidate()
+    {
+        if (!scaleX && !scaleY && !scaleZ)
+        {
+            scaleX = true;
+            scaleY = true;
+            scaleZ = true;
+        }
+    }
 
     private void Awake()
     {
@@ -35,13 +52,13 @@ public class PropModelChanger : Convertible
             if (convertionElapsedTime < propCollapseDuration)
             {
                 float shrinkFactor = 1 - convertionElapsedTime / propCollapseDuration;
-                originalProp.transform.localScale = shrinkFactor * Vector3.one;
+                originalProp.transform.localScale = GetScale(shrinkFactor);
             }
             else if (convertionElapsedTime < propCollapseDuration + alternatePropGrowDuration)
             {
                 originalProp.transform.localScale = Vector3.zero;
                 float growFactor = (convertionElapsedTime - propCollapseDuration) / alternatePropGrowDuration;
-                alternateProp.transform.localScale = growFactor * Vector3.one;
+                alternateProp.transform.localScale = GetScale(growFactor);
             }
             else
             {
@@ -57,13 +74,13 @@ public class PropModelChanger : Convertible
             if (convertionElapsedTime < alternatePropGrowDuration)
             {
                 float shrinkFactor = 1 - convertionElapsedTime / alternatePropGrowDuration;
-                alternateProp.transform.localScale = shrinkFactor * Vector3.one;
+                alternateProp.transform.localScale = GetScale(shrinkFactor);
             }
             else if (convertionElapsedTime < alternatePropGrowDuration + propCollapseDuration)
             {
                 alternateProp.transform.localScale = Vector3.zero;
                 float growFactor = (convertionElapsedTime - alternatePropGrowDuration) / propCollapseDuration;
-                originalProp.transform.localScale = growFactor * Vector3.one;
+                originalProp.transform.localScale = GetScale(growFactor);
             }
             else
             {
@@ -80,7 +97,9 @@ public class PropModelChanger : Convertible
             convertionElapsedTime += Time.deltaTime;
         }
     }
+    #endregion
 
+    #region Public Methods
     public override void Convert()
     {
         if (!isConverted)
@@ -92,5 +111,12 @@ public class PropModelChanger : Convertible
         if (isConverted)
             unconverting = true;
     }
+    #endregion
 
+    #region Private Methods
+    private Vector3 GetScale(float factor)
+    {
+        return new Vector3(scaleX ? factor : 1, scaleY ? factor : 1, scaleZ ? factor : 1);
+    }
+    #endregion
 }

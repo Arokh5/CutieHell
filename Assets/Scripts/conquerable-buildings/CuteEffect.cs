@@ -5,12 +5,6 @@ public class CuteEffect : MonoBehaviour
 {
     #region Fields
     [SerializeField]
-    [Tooltip("The maximum radius to which the model changing effect spreads over time (any PropModelChanger outside of the radius is converted at the end of the effect)")]
-    private float effectRadius = 5.0f;
-    [SerializeField]
-    [Tooltip("The time (in seconds) that the model changing effect takes to go from the center to the effectRadius")]
-    private float effectTime = 1.0f;
-    [SerializeField]
     [Tooltip("Normalized value that represent the amount of damage that the Zone's Monument must have received for this CuteEffects to trigger")]
     [Range(0.0f, 1.0f)]
     private float monumentDamage;
@@ -18,15 +12,12 @@ public class CuteEffect : MonoBehaviour
     [Tooltip("The time (in seconds) that will be waited before triggering the effect AFTER the monument has reached monumentDamage")]
     private float delay;
     [SerializeField]
-    private List<PropModelChanger> modelChangers;
+    private List<Convertible> convertibles;
 
     private AIZoneController zoneController;
     private bool runningEffect = false;
     private bool finished = false;
     private float delayElapsedTime = 0.0f;
-    private float elapsedTime = 0.0f;
-    private float currentMaxEffectRadius;
-    private List<PropModelChanger> toRemove = new List<PropModelChanger>();
     #endregion
 
     #region MonoBehaviour Methods
@@ -51,7 +42,7 @@ public class CuteEffect : MonoBehaviour
         if (!finished && runningEffect)
         {
             if (delayElapsedTime >= delay)
-                UpdateEffect();
+                PerformEffect();
             else
                 delayElapsedTime += Time.deltaTime;
         }
@@ -61,18 +52,6 @@ public class CuteEffect : MonoBehaviour
     {
         if (!finished)
             zoneController.RemoveCuteEffect(this);
-    }
-
-    private void OnValidate()
-    {
-        if (finished)
-            currentMaxEffectRadius = effectRadius;
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = new Color(0, 1, 0, 0.75f);
-        Gizmos.DrawWireSphere(transform.position, effectRadius);
     }
     #endregion
 
@@ -99,45 +78,21 @@ public class CuteEffect : MonoBehaviour
         runningEffect = true;
     }
 
-    private void UpdateEffect()
+    private void PerformEffect()
     {
-        elapsedTime += Time.deltaTime;
+        foreach (Convertible convertible in convertibles)
+            convertible.Convert();
 
-        float u = elapsedTime / effectTime;
-        if (u > 1)
-            u = 1;
-
-        currentMaxEffectRadius = u * effectRadius;
-
-        foreach (PropModelChanger modelChanger in modelChangers)
-        {
-            Vector3 modelChangerToThis = transform.position - modelChanger.transform.position;
-            if (currentMaxEffectRadius * currentMaxEffectRadius > modelChangerToThis.sqrMagnitude)
-            {
-                modelChanger.Convert();
-                toRemove.Add(modelChanger);
-            }
-        }
-
-        foreach (PropModelChanger modelChanger in toRemove)
-            modelChangers.Remove(modelChanger);
-
-        if (u == 1)
-            FinishEffect();
+        FinishEffect();
     }
 
     private void FinishEffect()
     {
-        foreach (PropModelChanger modelChanger in modelChangers)
-            modelChanger.Convert();
-        modelChangers.Clear();
-
         zoneController.RemoveCuteEffect(this);
 
         runningEffect = false;
         finished = true;
         enabled = false;
     }
-
     #endregion
 }
