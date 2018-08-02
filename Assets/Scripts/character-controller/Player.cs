@@ -29,6 +29,14 @@ public class Player : MonoBehaviour, IDamageable
     [HideInInspector]
     public Vector3 lastValidPosition;
 
+    [Header("Dash")]
+    public float dashDistance = 10.0f;
+    public float dashDuration = 0.25f;
+    [HideInInspector]
+    public Vector3 dashDirection;
+    [HideInInspector]
+    public float dashElapsedTime = 0.0f;
+
     [Header("Zone change")]
     public AIZoneController startingZone;
     [ShowOnly]

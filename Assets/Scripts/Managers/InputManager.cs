@@ -12,6 +12,7 @@ public class InputManager : MonoBehaviour {
     public static InputManager instance;
     private ButtonState[] buttonStates;
     private int axisAsButtonsCount;
+    public const float joystickThreshold = 0.1f;
 
     #endregion
 
@@ -156,12 +157,12 @@ public class InputManager : MonoBehaviour {
 
     public bool GetLeftStickRight()
     {
-        return Input.GetAxis("PS4_L_Horizontal") > 0.1;
+        return Input.GetAxis("PS4_L_Horizontal") > joystickThreshold;
     }
 
     public bool GetLeftStickLeft()
     {
-        return Input.GetAxis("PS4_L_Horizontal") < -0.1;
+        return Input.GetAxis("PS4_L_Horizontal") < -joystickThreshold;
     }
 
     public float GetLeftStickHorizontalValue()
@@ -181,12 +182,12 @@ public class InputManager : MonoBehaviour {
 
     public bool GetLeftStickUp()
     {
-        return Input.GetAxis("PS4_L_Vertical") < -0.1;
+        return Input.GetAxis("PS4_L_Vertical") < -joystickThreshold;
     }
 
     public bool GetLeftStickDown()
     {
-        return Input.GetAxis("PS4_L_Vertical") > 0.1;
+        return Input.GetAxis("PS4_L_Vertical") > joystickThreshold;
     }
 
     public float GetLeftStickVerticalValue()
@@ -223,12 +224,12 @@ public class InputManager : MonoBehaviour {
 
     public bool GetRightStickRight()
     {
-        return Input.GetAxis("PS4_R_Horizontal") > 0.1;
+        return Input.GetAxis("PS4_R_Horizontal") > joystickThreshold;
     }
 
     public bool GetRightStickLeft()
     {
-        return Input.GetAxis("PS4_R_Horizontal") < -0.1;
+        return Input.GetAxis("PS4_R_Horizontal") < -joystickThreshold;
     }
 
     public float GetRightStickHorizontalValue()
@@ -243,12 +244,12 @@ public class InputManager : MonoBehaviour {
 
     public bool GetRightStickUp()
     {
-        return Input.GetAxis("PS4_R_Vertical") < -0.1;
+        return Input.GetAxis("PS4_R_Vertical") < -joystickThreshold;
     }
 
     public bool GetRightStickDown()
     {
-        return Input.GetAxis("PS4_R_Vertical") > 0.1;
+        return Input.GetAxis("PS4_R_Vertical") > joystickThreshold;
     }
 
     public float GetRightStickVerticalValue()
@@ -285,7 +286,7 @@ public class InputManager : MonoBehaviour {
 
     public bool GetR2Button()
     {
-        return Input.GetAxis("PS4_R2") > 0.1;
+        return Input.GetAxis("PS4_R2") > joystickThreshold;
     }
 
     public bool GetR2ButtonUp()
@@ -305,7 +306,7 @@ public class InputManager : MonoBehaviour {
 
     public bool GetL2Button()
     {
-        return Input.GetAxis("PS4_L2") > 0.1;
+        return Input.GetAxis("PS4_L2") > joystickThreshold;
     }
 
     public bool GetL2ButtonUp()
