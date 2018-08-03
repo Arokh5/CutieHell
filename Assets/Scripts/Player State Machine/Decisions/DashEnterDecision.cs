@@ -26,7 +26,7 @@ public class DashEnterDecision : Decision
             }
             else
             {
-                direction = player.transform.forward;
+                direction = player.mainCameraController.transform.forward;
             }
 
             direction.y = 0.0f;
