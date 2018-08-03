@@ -17,7 +17,7 @@ public class CameraController : MonoBehaviour {
     private const float yMinLimit = -20f;
     private const float yMaxLimit = 40f;
     private const float lerpSpeed = 0.1f;
-    private const float transitionTime = 0.55f;
+    private const float transitionTime = 0.32f;
     private float timeOnTransition = 10.0f;
     private Player.CameraState lastState;
     [HideInInspector]
@@ -326,10 +326,53 @@ public class CameraController : MonoBehaviour {
                         fastAction = slowAction = false;
                     }
                     this.transform.LookAt(player.transform.position + rotation * Vector3.up * focusY + rotation * Vector3.right * focusX + rotation * Vector3.forward * focusDistance);
-            }
+                }
                     break;
-            default:
+                case Player.CameraState.DASH:
+                    { 
+                    y = ClampAngle(y, 20, 22);
+                    Quaternion rotation = Quaternion.Euler(y, x, 0);
+                    float noCollisionDistance = distance + 4;
 
+                    for (float zOffset = distance + 6; zOffset >= 0.5f; zOffset -= 0.025f)
+                    {
+                        noCollisionDistance = zOffset;
+                        Vector3 tempPos = rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position;
+
+                        if (DoubleViewingPosCheck(tempPos, zOffset))
+                        {
+                            break;
+                        }
+                    }
+
+                    timeOnTransition += Time.deltaTime;
+                    this.transform.position = Vector3.Lerp(this.transform.position, rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position, 0.25f);
+
+                    if (timeSinceLastAction < 0.5f)
+                    {
+                        timeSinceLastAction += Time.deltaTime;
+                        if (fastAction)
+                        {
+                            SetPlayerDirection(rotation.eulerAngles.y, 0.7f);
+                        }
+                        else if (slowAction)
+                        {
+                            SetPlayerDirection(rotation.eulerAngles.y, 0.2f);
+                        }
+                        else
+                        {
+                            SetPlayerDirection(rotation.eulerAngles.y);//, playerScript.rb.velocity.magnitude / 10.0f);
+                        }
+                    }
+                    else
+                    {
+                        fastAction = slowAction = false;
+                    }
+                    this.transform.LookAt(player.transform.position + rotation * Vector3.up * focusY + rotation * Vector3.right * focusX + rotation * Vector3.forward * focusDistance);
+                }
+                break;
+
+                default:
                     break;
             }
             lastState = playerScript.cameraState;
