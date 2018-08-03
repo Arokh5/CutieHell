@@ -1930,26 +1930,23 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: -117
       objectReference: {fileID: 0}
-    - target: {fileID: 1569757242514638, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+    - target: {fileID: 0}
       propertyPath: m_Name
       value: ZoneC outlet
       objectReference: {fileID: 0}
-    - target: {fileID: 1169176646731004, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+    - target: {fileID: 0}
       propertyPath: m_Name
       value: ZoneLeft outlet
       objectReference: {fileID: 0}
-    - target: {fileID: 114187949389061736, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: outletZoneController
       value: 
       objectReference: {fileID: 492266146}
-    - target: {fileID: 114731375607432020, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: outletZoneController
       value: 
       objectReference: {fileID: 240280534}
-    - target: {fileID: 114731375607432020, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: ignoreEnemies
       value: 1
       objectReference: {fileID: 0}
@@ -1963,6 +1960,29 @@ Prefab:
       propertyPath: cuteWall
       value: 
       objectReference: {fileID: 2004306369}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: forwardOutlet.zoneController
+      value: 
+      objectReference: {fileID: 240280534}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: forwardOutlet.ignoreEnemies
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: backwardOutlet.zoneController
+      value: 
+      objectReference: {fileID: 492266146}
+    - target: {fileID: 0}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
   m_IsPrefabParent: 0
@@ -3201,21 +3221,19 @@ Prefab:
       propertyPath: m_Name
       value: ZoneB-ZoneC (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 1569757242514638, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+    - target: {fileID: 0}
       propertyPath: m_Name
       value: ZoneB outlet
       objectReference: {fileID: 0}
-    - target: {fileID: 1169176646731004, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+    - target: {fileID: 0}
       propertyPath: m_Name
       value: ZoneC outlet
       objectReference: {fileID: 0}
-    - target: {fileID: 114731375607432020, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: outletZoneController
       value: 
       objectReference: {fileID: 492266146}
-    - target: {fileID: 114187949389061736, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: outletZoneController
       value: 
       objectReference: {fileID: 1083314264}
@@ -3223,8 +3241,7 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: -6
       objectReference: {fileID: 0}
-    - target: {fileID: 114731375607432020, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: ignoreEnemies
       value: 1
       objectReference: {fileID: 0}
@@ -3238,6 +3255,29 @@ Prefab:
       propertyPath: cuteWall
       value: 
       objectReference: {fileID: 1014876223}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: backwardOutlet.zoneController
+      value: 
+      objectReference: {fileID: 1083314264}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: forwardOutlet.ignoreEnemies
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: forwardOutlet.zoneController
+      value: 
+      objectReference: {fileID: 492266146}
+    - target: {fileID: 0}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
   m_IsPrefabParent: 0
@@ -8325,19 +8365,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0.041745856
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_LocalRotation.y
-      value: -0.49231088
+      value: -0.49287924
       objectReference: {fileID: 0}
     - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0.02364741
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.86909616
+      value: 0.8700977
       objectReference: {fileID: 0}
     - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_RootOrder
@@ -8347,27 +8387,25 @@ Prefab:
       propertyPath: m_Name
       value: ZoneB-ZoneLeft
       objectReference: {fileID: 0}
-    - target: {fileID: 1569757242514638, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+    - target: {fileID: 0}
       propertyPath: m_Name
       value: ZoneB outlet
       objectReference: {fileID: 0}
-    - target: {fileID: 1169176646731004, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+    - target: {fileID: 0}
       propertyPath: m_Name
       value: ZoneLeft outlet
       objectReference: {fileID: 0}
-    - target: {fileID: 114187949389061736, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: outletZoneController
       value: 
       objectReference: {fileID: 1083314264}
-    - target: {fileID: 114731375607432020, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: outletZoneController
       value: 
       objectReference: {fileID: 240280534}
     - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -59.06
       objectReference: {fileID: 0}
     - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_LocalScale.x
@@ -8377,11 +8415,25 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114731375607432020, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: ignoreEnemies
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: forwardOutlet.zoneController
+      value: 
+      objectReference: {fileID: 240280534}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: forwardOutlet.ignoreEnemies
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: backwardOutlet.zoneController
+      value: 
+      objectReference: {fileID: 1083314264}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
   m_IsPrefabParent: 0
@@ -9784,13 +9836,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114187949389061736, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: outletZoneController
       value: 
       objectReference: {fileID: 1955635918}
-    - target: {fileID: 114731375607432020, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: outletZoneController
       value: 
       objectReference: {fileID: 1083314264}
@@ -9802,8 +9852,7 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: -10
       objectReference: {fileID: 0}
-    - target: {fileID: 114731375607432020, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: ignoreEnemies
       value: 1
       objectReference: {fileID: 0}
@@ -9817,6 +9866,21 @@ Prefab:
       propertyPath: cuteWall
       value: 
       objectReference: {fileID: 1996192081}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: forwardOutlet.zoneController
+      value: 
+      objectReference: {fileID: 1083314264}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: forwardOutlet.ignoreEnemies
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: backwardOutlet.zoneController
+      value: 
+      objectReference: {fileID: 1955635918}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
   m_IsPrefabParent: 0
@@ -10117,7 +10181,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 460162197}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f766371a38eee3f4897540cef5b2744e, type: 3}
   m_Name: 
@@ -11569,7 +11633,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4596220055838696, guid: 34c12c172ac88b940a66babe7432a08a, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1544520193660258, guid: 34c12c172ac88b940a66babe7432a08a, type: 2}
       propertyPath: m_Name
@@ -14215,7 +14279,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4596220055838696, guid: 34c12c172ac88b940a66babe7432a08a, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1544520193660258, guid: 34c12c172ac88b940a66babe7432a08a, type: 2}
       propertyPath: m_Name
@@ -14421,7 +14485,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4596220055838696, guid: 34c12c172ac88b940a66babe7432a08a, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1544520193660258, guid: 34c12c172ac88b940a66babe7432a08a, type: 2}
       propertyPath: m_Name
@@ -16845,19 +16909,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0.02749967
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.18043879
+      value: 0.18057922
       objectReference: {fileID: 0}
     - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0.0021871354
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.9831993
+      value: 0.9835605
       objectReference: {fileID: 0}
     - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_RootOrder
@@ -16867,27 +16931,25 @@ Prefab:
       propertyPath: m_Name
       value: ZoneB-ZoneRight
       objectReference: {fileID: 0}
-    - target: {fileID: 1569757242514638, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+    - target: {fileID: 0}
       propertyPath: m_Name
       value: ZoneB outlet
       objectReference: {fileID: 0}
-    - target: {fileID: 1169176646731004, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+    - target: {fileID: 0}
       propertyPath: m_Name
       value: ZoneRight outlet
       objectReference: {fileID: 0}
-    - target: {fileID: 114187949389061736, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: outletZoneController
       value: 
       objectReference: {fileID: 1083314264}
-    - target: {fileID: 114731375607432020, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: outletZoneController
       value: 
       objectReference: {fileID: 75960127}
     - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 20.807001
       objectReference: {fileID: 0}
     - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_LocalScale.x
@@ -16901,10 +16963,28 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114731375607432020, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: ignoreEnemies
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: forwardOutlet.zoneController
+      value: 
+      objectReference: {fileID: 75960127}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: forwardOutlet.ignoreEnemies
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: backwardOutlet.zoneController
+      value: 
+      objectReference: {fileID: 1083314264}
+    - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
@@ -20891,31 +20971,29 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0.012450445
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_LocalRotation.y
-      value: -0.36993968
+      value: -0.370144
       objectReference: {fileID: 0}
     - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0.037598956
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.9282112
+      value: 0.9289744
       objectReference: {fileID: 0}
     - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114187949389061736, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: outletZoneController
       value: 
       objectReference: {fileID: 1955635918}
-    - target: {fileID: 114731375607432020, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: outletZoneController
       value: 
       objectReference: {fileID: 240280534}
@@ -20925,7 +21003,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -43.449
       objectReference: {fileID: 0}
     - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_LocalScale.x
@@ -20935,14 +21013,32 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1169176646731004, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+    - target: {fileID: 0}
       propertyPath: m_Name
       value: ZoneLeft outlet
       objectReference: {fileID: 0}
-    - target: {fileID: 114731375607432020, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: ignoreEnemies
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: forwardOutlet.zoneController
+      value: 
+      objectReference: {fileID: 240280534}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: forwardOutlet.ignoreEnemies
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: backwardOutlet.zoneController
+      value: 
+      objectReference: {fileID: 1955635918}
+    - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
@@ -22474,31 +22570,29 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0.015679087
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.193407
+      value: 0.19349813
       objectReference: {fileID: 0}
     - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0.0015264902
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.98099214
+      value: 0.9811006
       objectReference: {fileID: 0}
     - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114187949389061736, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: outletZoneController
       value: 
       objectReference: {fileID: 1955635918}
-    - target: {fileID: 114731375607432020, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: outletZoneController
       value: 
       objectReference: {fileID: 75960127}
@@ -22508,7 +22602,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 22.314001
       objectReference: {fileID: 0}
     - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
       propertyPath: m_LocalScale.x
@@ -22522,14 +22616,32 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1169176646731004, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+    - target: {fileID: 0}
       propertyPath: m_Name
       value: ZoneRight outlet
       objectReference: {fileID: 0}
-    - target: {fileID: 114731375607432020, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: ignoreEnemies
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: forwardOutlet.zoneController
+      value: 
+      objectReference: {fileID: 75960127}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: forwardOutlet.ignoreEnemies
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: backwardOutlet.zoneController
+      value: 
+      objectReference: {fileID: 1955635918}
+    - target: {fileID: 4290080672910444, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
@@ -23217,7 +23329,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4596220055838696, guid: 34c12c172ac88b940a66babe7432a08a, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1544520193660258, guid: 34c12c172ac88b940a66babe7432a08a, type: 2}
       propertyPath: m_Name
@@ -28082,21 +28194,19 @@ Prefab:
       propertyPath: m_Name
       value: ZoneC-ZoneD
       objectReference: {fileID: 0}
-    - target: {fileID: 1569757242514638, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+    - target: {fileID: 0}
       propertyPath: m_Name
       value: ZoneC outlet
       objectReference: {fileID: 0}
-    - target: {fileID: 1169176646731004, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+    - target: {fileID: 0}
       propertyPath: m_Name
       value: ZoneD outlet
       objectReference: {fileID: 0}
-    - target: {fileID: 114187949389061736, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: outletZoneController
       value: 
       objectReference: {fileID: 492266146}
-    - target: {fileID: 114731375607432020, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: outletZoneController
       value: 
       objectReference: {fileID: 1488729347}
@@ -28104,8 +28214,7 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: -3.3
       objectReference: {fileID: 0}
-    - target: {fileID: 114731375607432020, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: ignoreEnemies
       value: 1
       objectReference: {fileID: 0}
@@ -28119,6 +28228,29 @@ Prefab:
       propertyPath: cuteWall
       value: 
       objectReference: {fileID: 1517300131}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: forwardOutlet.zoneController
+      value: 
+      objectReference: {fileID: 1488729347}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: forwardOutlet.ignoreEnemies
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: backwardOutlet.zoneController
+      value: 
+      objectReference: {fileID: 492266146}
+    - target: {fileID: 0}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
   m_IsPrefabParent: 0
@@ -30300,21 +30432,19 @@ Prefab:
       propertyPath: m_Name
       value: ZoneB-ZoneC (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 1569757242514638, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+    - target: {fileID: 0}
       propertyPath: m_Name
       value: ZoneB outlet
       objectReference: {fileID: 0}
-    - target: {fileID: 1169176646731004, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+    - target: {fileID: 0}
       propertyPath: m_Name
       value: ZoneC outlet
       objectReference: {fileID: 0}
-    - target: {fileID: 114187949389061736, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: outletZoneController
       value: 
       objectReference: {fileID: 1083314264}
-    - target: {fileID: 114731375607432020, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: outletZoneController
       value: 
       objectReference: {fileID: 492266146}
@@ -30322,8 +30452,7 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: -10
       objectReference: {fileID: 0}
-    - target: {fileID: 114731375607432020, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: ignoreEnemies
       value: 1
       objectReference: {fileID: 0}
@@ -30337,6 +30466,29 @@ Prefab:
       propertyPath: referenceZone
       value: 
       objectReference: {fileID: 492266146}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: forwardOutlet.zoneController
+      value: 
+      objectReference: {fileID: 492266146}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: forwardOutlet.ignoreEnemies
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: backwardOutlet.zoneController
+      value: 
+      objectReference: {fileID: 1083314264}
+    - target: {fileID: 0}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
   m_IsPrefabParent: 0
@@ -32646,26 +32798,23 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 103
       objectReference: {fileID: 0}
-    - target: {fileID: 1569757242514638, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+    - target: {fileID: 0}
       propertyPath: m_Name
       value: ZoneC outlet
       objectReference: {fileID: 0}
-    - target: {fileID: 1169176646731004, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
+    - target: {fileID: 0}
       propertyPath: m_Name
       value: ZoneRight outlet
       objectReference: {fileID: 0}
-    - target: {fileID: 114187949389061736, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: outletZoneController
       value: 
       objectReference: {fileID: 492266146}
-    - target: {fileID: 114731375607432020, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: outletZoneController
       value: 
       objectReference: {fileID: 75960127}
-    - target: {fileID: 114731375607432020, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: ignoreEnemies
       value: 1
       objectReference: {fileID: 0}
@@ -32679,6 +32828,29 @@ Prefab:
       propertyPath: cuteWall
       value: 
       objectReference: {fileID: 1879509582}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: forwardOutlet.zoneController
+      value: 
+      objectReference: {fileID: 75960127}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: forwardOutlet.ignoreEnemies
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: backwardOutlet.zoneController
+      value: 
+      objectReference: {fileID: 492266146}
+    - target: {fileID: 0}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
   m_IsPrefabParent: 0
@@ -35618,7 +35790,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4596220055838696, guid: 34c12c172ac88b940a66babe7432a08a, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1544520193660258, guid: 34c12c172ac88b940a66babe7432a08a, type: 2}
       propertyPath: m_Name
@@ -36088,7 +36260,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4596220055838696, guid: 34c12c172ac88b940a66babe7432a08a, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1544520193660258, guid: 34c12c172ac88b940a66babe7432a08a, type: 2}
       propertyPath: m_Name
@@ -37501,13 +37673,11 @@ Prefab:
       propertyPath: m_Name
       value: ZoneA-ZoneB (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 114187949389061736, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: outletZoneController
       value: 
       objectReference: {fileID: 1955635918}
-    - target: {fileID: 114731375607432020, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: outletZoneController
       value: 
       objectReference: {fileID: 1083314264}
@@ -37515,8 +37685,7 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 21
       objectReference: {fileID: 0}
-    - target: {fileID: 114731375607432020, guid: 8da33558e6f876e44909fdbd59e87bc4,
-        type: 2}
+    - target: {fileID: 0}
       propertyPath: ignoreEnemies
       value: 1
       objectReference: {fileID: 0}
@@ -37530,6 +37699,29 @@ Prefab:
       propertyPath: referenceZone
       value: 
       objectReference: {fileID: 1083314264}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: forwardOutlet.zoneController
+      value: 
+      objectReference: {fileID: 1083314264}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: forwardOutlet.ignoreEnemies
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114239896705715826, guid: 8da33558e6f876e44909fdbd59e87bc4,
+        type: 2}
+      propertyPath: backwardOutlet.zoneController
+      value: 
+      objectReference: {fileID: 1955635918}
+    - target: {fileID: 0}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8da33558e6f876e44909fdbd59e87bc4, type: 2}
   m_IsPrefabParent: 0
@@ -37708,7 +37900,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4596220055838696, guid: 34c12c172ac88b940a66babe7432a08a, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198537412003031188, guid: 34c12c172ac88b940a66babe7432a08a,
         type: 2}
