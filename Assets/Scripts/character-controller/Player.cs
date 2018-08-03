@@ -36,6 +36,8 @@ public class Player : MonoBehaviour, IDamageable
     public Vector3 dashDirection;
     [HideInInspector]
     public float dashElapsedTime = 0.0f;
+    [HideInInspector]
+    public float dashRemainingDistance;
 
     [Header("Zone change")]
     public AIZoneController startingZone;

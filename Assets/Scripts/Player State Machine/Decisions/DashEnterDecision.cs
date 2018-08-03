@@ -3,6 +3,8 @@
 [CreateAssetMenu(menuName = "Player State Machine/Decisions/DashEnterDecision")]
 public class DashEnterDecision : Decision
 {
+    public LayerMask dashLimitLayerMask;
+
     public override bool Decide(Player player)
     {
         if (InputManager.instance.GetL2ButtonDown())
@@ -26,6 +28,14 @@ public class DashEnterDecision : Decision
 
             player.dashDirection = direction;
             player.dashElapsedTime = 0.0f;
+
+            // Calculate limit distance
+            float upwardsOffset = 1.0f;
+            RaycastHit hit;
+            if (Physics.Raycast(player.transform.position + upwardsOffset * Vector3.up, player.dashDirection, out hit, player.dashDistance, dashLimitLayerMask))
+                player.dashRemainingDistance = hit.distance;
+            else
+                player.dashRemainingDistance = player.dashDistance;
             return true;
         }
         return false;
