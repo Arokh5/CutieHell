@@ -3605,9 +3605,14 @@ MonoBehaviour:
   canMove: 0
   currentSpeed: {x: 0, y: 0, z: 0}
   lastValidPosition: {x: 0, y: 0, z: 0}
+  dashDistance: 7
+  dashDuration: 0.25
+  dashDirection: {x: 0, y: 0, z: 0}
+  dashElapsedTime: 0
+  dashRemainingDistance: 0
   startingZone: {fileID: 0}
   currentZoneController: {fileID: 0}
-  knockbackForce: 20
+  knockbackForce: 40
   knockbackVFX: {fileID: 198998583199982692, guid: 26b6ace224f08eb49a95144a86756752,
     type: 2}
   knockbackCurrentForce: 0

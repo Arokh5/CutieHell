@@ -7,7 +7,7 @@ public class DashEnterDecision : Decision
 
     public override bool Decide(Player player)
     {
-        if (InputManager.instance.GetL2ButtonDown())
+        if (!player.knockbackActive && InputManager.instance.GetL2ButtonDown())
         {
             Vector3 direction = player.transform.forward;
 

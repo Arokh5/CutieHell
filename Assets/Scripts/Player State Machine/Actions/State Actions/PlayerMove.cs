@@ -97,9 +97,9 @@ public class PlayerMove : StateAction
 
     private void Knockback(Player player, ref Vector3 playerPos)
     {
-        player.knockbackCurrentForce = Mathf.Lerp(player.knockbackCurrentForce, 0.0f, 0.5f);
-        playerPos += player.knockbackDirection * player.knockbackForce * Time.deltaTime;
-        if (player.knockbackCurrentForce < 0.2f)
+        player.knockbackCurrentForce = Mathf.Lerp(player.knockbackCurrentForce, 0.0f, 0.4f);
+        playerPos += player.knockbackDirection * player.knockbackCurrentForce * Time.deltaTime;
+        if (player.knockbackCurrentForce < 0.1f * player.knockbackForce)
         {
             player.knockbackActive = false;
         }
