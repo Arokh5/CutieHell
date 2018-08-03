@@ -17,7 +17,7 @@ public class CameraController : MonoBehaviour {
     private const float yMinLimit = -20f;
     private const float yMaxLimit = 40f;
     private const float lerpSpeed = 0.1f;
-    private const float transitionTime = 0.32f;
+    private const float transitionTime = 0.36f;
     private float timeOnTransition = 10.0f;
     private Player.CameraState lastState;
     [HideInInspector]

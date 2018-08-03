@@ -5,9 +5,13 @@ public class DashEnterAction : StateAction
 {
     public float limitCheckUpwardsOffset = 0.2f;
     public LayerMask dashLimitLayerMask;
+    [SerializeField]
+    private ParticleSystem dashVFX;
 
     public override void Act(Player player)
     {
+        ParticleSystem ps = ParticlesManager.instance.LaunchParticleSystem(dashVFX, player.transform.position, dashVFX.transform.rotation);
+        ps.transform.SetParent(player.transform);
         float threshold = InputManager.joystickThreshold;
         float verticalValue = -InputManager.instance.GetLeftStickVerticalValue();
         if (verticalValue > -threshold && verticalValue < threshold)
