@@ -47,15 +47,23 @@ public class Player : MonoBehaviour, IDamageable
     [Header("Health")]
     [SerializeField]
     private float baseHealth = 200.0f;
+    [Tooltip("The time (in seconds) that must pass after recieving an attack before auto-healing starts.")]
     public float autoHealDelay = 2.0f;
+    [Tooltip("The time (in seconds) it takes for the full health to be recover by auto-healing (IF the player is still alive).")]
     public float fullAutoHealDuration = 2.0f;
+    [Tooltip("The time (in seconds) it takes for the full health to be recover by post-death healing.")]
     public float recoveryDuration = 5.0f;
+    [Tooltip("The time (in seconds) that is reduced from the recoveryDuration per button mash.")]
     public float timeSavedPerClick = 0.5f;
+    [Tooltip("The delay (in seconds) after fully recovering health (post-death) and before control returns to the player.")]
+    public float postRecoveryDelay = 0.5f;
     [ShowOnly]
     public bool isTargetable = true;
 
     [HideInInspector]
-    public float elapsedRecoveryTime = 0.0f;
+    public float elapsedRecoveryTime;
+    [HideInInspector]
+    public float elapsedDelayTime;
     [HideInInspector]
     public bool isGrounded = false;
     [HideInInspector]
