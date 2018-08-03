@@ -7,16 +7,29 @@ public class Dash : StateAction
 
     public override void Act(Player player)
     {
-        Vector3 playerPos = player.rb.position;
+        if (player.dashRemainingDistance > 0)
+        {
+            Vector3 playerPos = player.rb.position;
 
-        float speed = player.dashDistance / player.dashDuration;
+            float speed = player.dashDistance / player.dashDuration;
 
-        float u = player.dashElapsedTime / player.dashDuration;
-        float easedSpeed = speed * (1 - u) * 2;
+            float progress = player.dashElapsedTime / player.dashDuration;
+            float easedSpeed = speed * (1 - progress) * 2;
 
-        playerPos += player.dashDirection * easedSpeed * Time.deltaTime;
-        CheckGround(player, ref playerPos);
-        player.rb.position = playerPos;
+            Vector3 motion = player.dashDirection * easedSpeed * Time.deltaTime;
+            float distanceToMove = motion.magnitude;
+            player.dashRemainingDistance -= distanceToMove;
+
+            if (player.dashRemainingDistance < 0.0f)
+            {
+                // Note that dashRemainingDistance is negative, thereby reducing the original length
+                motion *= (distanceToMove + player.dashRemainingDistance) / distanceToMove;
+            }
+
+            playerPos += motion;
+            CheckGround(player, ref playerPos);
+            player.rb.position = playerPos;
+        }
 
         player.dashElapsedTime += Time.deltaTime;
     }
