@@ -6927,7 +6927,6 @@ GameObject:
   - component: {fileID: 273357511}
   - component: {fileID: 273357513}
   - component: {fileID: 273357512}
-  - component: {fileID: 273357515}
   - component: {fileID: 273357516}
   - component: {fileID: 273357514}
   m_Layer: 16
@@ -7024,18 +7023,6 @@ MonoBehaviour:
   - {fileID: 1205835007}
   - {fileID: 624068370}
   - {fileID: 1175802461}
---- !u!135 &273357515
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 273357510}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!208 &273357516
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -13656,6 +13643,18 @@ Transform:
   m_PrefabParentObject: {fileID: 4095552816652730, guid: f6de2a137f48bf84dadee5a7b15b62b3,
     type: 2}
   m_PrefabInternal: {fileID: 2121559679}
+--- !u!135 &638367620
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 638367618}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &643187480
 GameObject:
   m_ObjectHideFlags: 0
@@ -45909,6 +45908,10 @@ Prefab:
     - target: {fileID: 4057066575712884, guid: f6de2a137f48bf84dadee5a7b15b62b3, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -8.459001
+      objectReference: {fileID: 0}
+    - target: {fileID: 1131929977109026, guid: f6de2a137f48bf84dadee5a7b15b62b3, type: 2}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f6de2a137f48bf84dadee5a7b15b62b3, type: 2}
