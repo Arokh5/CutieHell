@@ -57,13 +57,14 @@ public class MonumentsHealthBar : MonoBehaviour
 
     public void RefillHealthBar(bool animate = true)
     {
+        currentFill = 1.0f;
         if (animate)
         {
             animateRefill = true;
             refillElapsedTime = 0.0f;
         }
         else
-            healthImage.fillAmount = 1.0f;
+            healthImage.fillAmount = currentFill;
     }
     #endregion
 
@@ -74,7 +75,7 @@ public class MonumentsHealthBar : MonoBehaviour
 
         float progress = refillElapsedTime / refillAnimationDuration;
         progress = Mathf.Clamp01(progress);
-        healthImage.fillAmount = progress;
+        healthImage.fillAmount = progress * currentFill;
 
         if (refillElapsedTime >= refillAnimationDuration)
             animateRefill = false;

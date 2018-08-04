@@ -14,6 +14,12 @@ public class Monument : Building
     [SerializeField]
     private float lowHealthScreen;
     [Space]
+    [Header("Health bar")]
+    public bool isFirstEnemyTarget = false;
+    [SerializeField]
+    private string healthBarTitle = "UNNAMED";
+    [SerializeField]
+    private MonumentsHealthBar healthBar;
     [SerializeField]
     private MonumentIndicator monumentIndicator;
     [SerializeField]
@@ -21,6 +27,19 @@ public class Monument : Building
     #endregion
 
     #region MonoBehaviour Methods
+    private new void Awake()
+    {
+        base.Awake();
+        UnityEngine.Assertions.Assert.IsNotNull(healthBar, "ERROR: Health Bar (MonumentsHealthBar) not assigned for Monument in gameObject '" + gameObject.name + "'");
+    }
+
+    private new void Start()
+    {
+        base.Start();
+        if (isFirstEnemyTarget)
+            SetUpHealthBar();    
+    }
+
     private new void Update()
     {
         base.Update();
@@ -33,27 +52,40 @@ public class Monument : Building
     public override void TakeDamage(float damage, AttackType attacktype)
     {
         base.TakeDamage(damage, attacktype);
+        if (!IsDead())
+            healthBar.SetHealthBarFill(currentHealth / baseHealth);
+
         float normalizedDamage = (baseHealth - currentHealth) / baseHealth;
         monumentIndicator.SetFill(1.0f - normalizedDamage);
         zoneController.InformMonumentDamage(normalizedDamage);
     }
-    
+
+    public void SetUpHealthBar()
+    {
+        healthBar.SetHealthBarTitle(healthBarTitle);
+        healthBar.RefillHealthBar();
+    }
+
     public void OnEnemiesComing()
     {
         if (currentHealth > 0)
             monumentIndicator.RequestOpen();
     }
 
-    public override void BuildingConverted()
-    {
-        zoneController.OnMonumentTaken();
-    }
-
     public override void BuildingKilled()
     {
+        healthBar.SetHealthBarFill(0.0f);
+
         if (protectedMonument)
             protectedMonument.monumentIndicator.RequestOpen();
         monumentIndicator.DeactivateIconConquered();
+    }
+
+    public override void BuildingConverted()
+    {
+        zoneController.OnMonumentTaken();
+        if (protectedMonument)
+            protectedMonument.SetUpHealthBar();
     }
     #endregion
 
