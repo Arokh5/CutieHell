@@ -29,6 +29,16 @@ public class Player : MonoBehaviour, IDamageable
     [HideInInspector]
     public Vector3 lastValidPosition;
 
+    [Header("Dash")]
+    public float dashDistance = 10.0f;
+    public float dashDuration = 0.25f;
+    [HideInInspector]
+    public Vector3 dashDirection;
+    [HideInInspector]
+    public float dashElapsedTime = 0.0f;
+    [HideInInspector]
+    public float dashRemainingDistance;
+
     [Header("Zone change")]
     public AIZoneController startingZone;
     [ShowOnly]
@@ -210,7 +220,7 @@ public class Player : MonoBehaviour, IDamageable
 
     #endregion
 
-    public enum CameraState { STILL, MOVE, STRONG_ATTACK, TRANSITION, ZOOMOUT, ZOOMIN, METEORITEAIM, CONEATTACK}
+    public enum CameraState { STILL, MOVE, STRONG_ATTACK, TRANSITION, ZOOMOUT, ZOOMIN, METEORITEAIM, CONEATTACK, DASH}
     public enum TeleportStates { OUT, TRAVEL, IN, DELAY}
     
 

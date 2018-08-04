@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1418da0e4d857ce4fb2339e94e78f9a8, type: 3}
+  m_Name: DashState
+  m_EditorClassIdentifier: 
+  onEnterActions:
+  - {fileID: 11400000, guid: 608734f545ac9cf458fa22223c9cda6e, type: 2}
+  - {fileID: 11400000, guid: fc8aca80018c2ba488571dec7ad2867b, type: 2}
+  onExitActions: []
+  stateActions:
+  - {fileID: 11400000, guid: c5f9ed51d80a45849934070288c338c7, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: 60dc860cfc1548449b119a8dbfd348bd, type: 2}
+    targetState: {fileID: 11400000, guid: 7876ea8555f7f6c4cb97c6dd742b336b, type: 2}
