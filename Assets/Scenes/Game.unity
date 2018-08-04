@@ -1830,6 +1830,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ea64b03fd47dae043a3d7cf8c919a7b7, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &78048023 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114617773147571074, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+    type: 2}
+  m_PrefabInternal: {fileID: 78048022}
+  m_Script: {fileID: 11500000, guid: ff572c67d2270df4286231da1036682b, type: 3}
 --- !u!1 &79834532
 GameObject:
   m_ObjectHideFlags: 0
@@ -6936,7 +6942,8 @@ MonoBehaviour:
   lifeLossPerSecond: 100
   almostConqueredScreenOverlay: {fileID: 1995116973}
   lowHealthScreen: 0.2
-  monumentIndicator: {fileID: 848834310}
+  isFirstEnemyTarget: 1
+  healthBarTitle: Fountain
   protectedMonument: {fileID: 433428441}
 --- !u!114 &273357514
 MonoBehaviour:
@@ -7112,11 +7119,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4107662294762830, guid: 4dd411abb7bf7db42861402cd09c33b6,
     type: 2}
   m_PrefabInternal: {fileID: 1063474601}
---- !u!1 &290121874 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1009187724269206, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-    type: 2}
-  m_PrefabInternal: {fileID: 78048022}
 --- !u!4 &291079784 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4489448519518014, guid: 0c6ad375ad2d2444b837c461ff684fb2,
@@ -9312,7 +9314,8 @@ MonoBehaviour:
   lifeLossPerSecond: 100
   almostConqueredScreenOverlay: {fileID: 1995116973}
   lowHealthScreen: 0.2
-  monumentIndicator: {fileID: 1964483283}
+  isFirstEnemyTarget: 0
+  healthBarTitle: Mausoleum
   protectedMonument: {fileID: 2036540555}
 --- !u!65 &433428442
 BoxCollider:
@@ -17896,12 +17899,6 @@ Prefab:
     - {fileID: 33425430846885108, guid: 7bd435785c8f0464bb618bda4dad48d8, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 7bd435785c8f0464bb618bda4dad48d8, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &848834310 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114017703950758042, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-    type: 2}
-  m_PrefabInternal: {fileID: 78048022}
-  m_Script: {fileID: 11500000, guid: 08c1333ba5f1b9a479d518e2d1d85fd4, type: 3}
 --- !u!1001 &855662113
 Prefab:
   m_ObjectHideFlags: 0
@@ -19199,11 +19196,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.93, y: 3.13, z: 0.79}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &919854913 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1834310213386372, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-    type: 2}
-  m_PrefabInternal: {fileID: 78048022}
 --- !u!1001 &921436726
 Prefab:
   m_ObjectHideFlags: 0
@@ -19783,12 +19775,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4107662294762830, guid: 4dd411abb7bf7db42861402cd09c33b6,
     type: 2}
   m_PrefabInternal: {fileID: 967722438}
---- !u!114 &968550908 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114762222737200046, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-    type: 2}
-  m_PrefabInternal: {fileID: 78048022}
-  m_Script: {fileID: 11500000, guid: d2af2291fc73c5a4098f878b55841d9a, type: 3}
 --- !u!1001 &973751185
 Prefab:
   m_ObjectHideFlags: 0
@@ -38154,7 +38140,7 @@ Prefab:
         type: 2}
       propertyPath: indicatorsController
       value: 
-      objectReference: {fileID: 968550908}
+      objectReference: {fileID: 0}
     - target: {fileID: 114837128050638308, guid: 072f0e8cd7d5fa546bfb04a41af9fa42,
         type: 2}
       propertyPath: markersController
@@ -38230,6 +38216,11 @@ Prefab:
       propertyPath: buttonMashPrompt
       value: 
       objectReference: {fileID: 1384274909}
+    - target: {fileID: 114837128050638308, guid: 072f0e8cd7d5fa546bfb04a41af9fa42,
+        type: 2}
+      propertyPath: monumentsHealthBar
+      value: 
+      objectReference: {fileID: 78048023}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 072f0e8cd7d5fa546bfb04a41af9fa42, type: 2}
   m_IsPrefabParent: 0
@@ -40063,12 +40054,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4460576859604056, guid: 0999a2f98dc7a694f909b0c5f9f34a1d,
     type: 2}
   m_PrefabInternal: {fileID: 1902657238}
---- !u!114 &1903414321 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114697539579646732, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-    type: 2}
-  m_PrefabInternal: {fileID: 78048022}
-  m_Script: {fileID: 11500000, guid: 08c1333ba5f1b9a479d518e2d1d85fd4, type: 3}
 --- !u!1 &1905392038
 GameObject:
   m_ObjectHideFlags: 0
@@ -41332,12 +41317,6 @@ Prefab:
     - {fileID: 33963627938075296, guid: 237dd4baa0e06d644b2b7a80cad3ae3e, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 237dd4baa0e06d644b2b7a80cad3ae3e, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &1964483283 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114406020603326828, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-    type: 2}
-  m_PrefabInternal: {fileID: 78048022}
-  m_Script: {fileID: 11500000, guid: 08c1333ba5f1b9a479d518e2d1d85fd4, type: 3}
 --- !u!1 &1966485593
 GameObject:
   m_ObjectHideFlags: 0
@@ -43133,7 +43112,8 @@ MonoBehaviour:
   lifeLossPerSecond: 100
   almostConqueredScreenOverlay: {fileID: 1995116973}
   lowHealthScreen: 0.2
-  monumentIndicator: {fileID: 1903414321}
+  isFirstEnemyTarget: 0
+  healthBarTitle: Statue
   protectedMonument: {fileID: 0}
 --- !u!136 &2036540556
 CapsuleCollider:
@@ -43365,17 +43345,17 @@ Prefab:
         type: 2}
       propertyPath: normalGameUI.Array.data[2]
       value: 
-      objectReference: {fileID: 290121874}
+      objectReference: {fileID: 0}
     - target: {fileID: 114057242388600254, guid: 700b87466641795459dafd993279bac5,
         type: 2}
       propertyPath: normalGameUI.Array.data[3]
       value: 
-      objectReference: {fileID: 2119665683}
+      objectReference: {fileID: 0}
     - target: {fileID: 114057242388600254, guid: 700b87466641795459dafd993279bac5,
         type: 2}
       propertyPath: normalGameUI.Array.data[4]
       value: 
-      objectReference: {fileID: 919854913}
+      objectReference: {fileID: 0}
     - target: {fileID: 114057242388600254, guid: 700b87466641795459dafd993279bac5,
         type: 2}
       propertyPath: normalGameUI.Array.data[5]
@@ -43430,7 +43410,7 @@ Prefab:
         type: 2}
       propertyPath: fountainBanner
       value: 
-      objectReference: {fileID: 919854913}
+      objectReference: {fileID: 0}
     - target: {fileID: 114057242388600254, guid: 700b87466641795459dafd993279bac5,
         type: 2}
       propertyPath: infoPathMausoleum
@@ -43445,7 +43425,7 @@ Prefab:
         type: 2}
       propertyPath: mausoleumBanner
       value: 
-      objectReference: {fileID: 2119665683}
+      objectReference: {fileID: 0}
     - target: {fileID: 114057242388600254, guid: 700b87466641795459dafd993279bac5,
         type: 2}
       propertyPath: infoPathStatue
@@ -43460,7 +43440,7 @@ Prefab:
         type: 2}
       propertyPath: statueBanner
       value: 
-      objectReference: {fileID: 290121874}
+      objectReference: {fileID: 0}
     - target: {fileID: 114057242388600254, guid: 700b87466641795459dafd993279bac5,
         type: 2}
       propertyPath: infoShieldIcon
@@ -45092,11 +45072,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 2113363888}
   m_Script: {fileID: 11500000, guid: d552f61e7fedf8b4ba4d8eed58d2f2e7, type: 3}
---- !u!1 &2119665683 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1547434588970550, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-    type: 2}
-  m_PrefabInternal: {fileID: 78048022}
 --- !u!1001 &2121559679
 Prefab:
   m_ObjectHideFlags: 0
