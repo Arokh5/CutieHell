@@ -21,8 +21,6 @@ public class Monument : Building
     [SerializeField]
     private MonumentsHealthBar healthBar;
     [SerializeField]
-    private MonumentIndicator monumentIndicator;
-    [SerializeField]
     private Monument protectedMonument;
     #endregion
 
@@ -56,7 +54,6 @@ public class Monument : Building
             healthBar.SetHealthBarFill(currentHealth / baseHealth);
 
         float normalizedDamage = (baseHealth - currentHealth) / baseHealth;
-        monumentIndicator.SetFill(1.0f - normalizedDamage);
         zoneController.InformMonumentDamage(normalizedDamage);
     }
 
@@ -66,19 +63,9 @@ public class Monument : Building
         healthBar.RefillHealthBar();
     }
 
-    public void OnEnemiesComing()
-    {
-        if (currentHealth > 0)
-            monumentIndicator.RequestOpen();
-    }
-
     public override void BuildingKilled()
     {
         healthBar.SetHealthBarFill(0.0f);
-
-        if (protectedMonument)
-            protectedMonument.monumentIndicator.RequestOpen();
-        monumentIndicator.DeactivateIconConquered();
     }
 
     public override void BuildingConverted()
@@ -100,19 +87,13 @@ public class Monument : Building
                 if (showAlmostConqueredScreenTintTexture > 1)
                 {
                     shouldShowScreenOverlay = true;
-                    monumentIndicator.ActivateIconConquered();
                 }
                 if (showAlmostConqueredScreenTintTexture > 2)
                 {
                     showAlmostConqueredScreenTintTexture = 0;
-                    monumentIndicator.DeactivateIconConquered();
                 }
                 showAlmostConqueredScreenTintTexture += Time.deltaTime;
             }
-        }
-        else
-        {
-            monumentIndicator.DeactivateIconConquered();
         }
 
         if (shouldShowScreenOverlay != showingScreenOverlay)

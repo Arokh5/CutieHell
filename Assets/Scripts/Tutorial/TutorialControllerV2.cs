@@ -87,7 +87,7 @@ public class TutorialControllerV2 : TutorialController
         {
             gamePaused = false;
             TutorialPause();
-            crosshair.SetActive(false);
+            //crosshair.SetActive(false);
         }
     }
     #endregion

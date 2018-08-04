@@ -11,7 +11,6 @@ public class UIManager : MonoBehaviour
     public enum ComboTypes { None, StrongCombo, BadCombo };
     public ComboTypes activeCombo;
 
-    public IndicatorsController indicatorsController;
     public MarkersController markersController;
     public RoundInfoController roundInfoController;
 

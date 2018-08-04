@@ -147,7 +147,6 @@ public class AIZoneController : MonoBehaviour
         foreach (IZoneTakenListener listener in zoneTakenListeners)
             listener.OnZoneTaken();
 
-        UIManager.instance.indicatorsController.MonumentConquered(iconIndex);
         UIManager.instance.markersController.MonumentConquered(iconIndex);
     }
 
