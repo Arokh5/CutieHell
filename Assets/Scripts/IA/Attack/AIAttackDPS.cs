@@ -8,6 +8,9 @@ public class AIAttackDPS : AIAttackLogic {
     public float attackRange;
     public float dps;
     private Animator animator;
+    [SerializeField]
+    private Transform modelPosition;
+    private IDamageable target;
     #endregion
 
     #region MonoBehaviour Methods
@@ -18,13 +21,36 @@ public class AIAttackDPS : AIAttackLogic {
     #endregion
 
     #region Public Methods
-    public override void AttemptAttack(IDamageable target, Vector3 navigationTarget)
+    public override void AttemptAttack(IDamageable _target, Vector3 navigationTarget)
     {
-        if (IsInAttackRange(navigationTarget))
+        if (IsInAttackRange(navigationTarget) && !animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && !animator.GetBool("Attack"))
         {
-            animator.SetTrigger("Attack");
-            this.transform.LookAt(target.transform.position);
-            Attack(target);
+            target = _target;
+            this.transform.LookAt(_target.transform.position);
+            animator.SetBool("Attack",true);
+        }
+        if(animator.GetBool("Attack") && !IsInAttackRange(navigationTarget))
+        {
+            animator.SetBool("Attack", false);
+        }
+        if (animator.GetBool("Attack"))
+        {
+            animator.SetFloat("Speed", 5.0f);
+        }
+        else
+        {
+            animator.SetFloat("Speed", 1.0f);
+        }
+    }
+
+    public void HitAttack()
+    {
+        if (!target.IsDead())
+        {
+            if (Vector3.Distance(modelPosition.position, target.transform.position + Vector3.up) < 2.1f)
+            {
+                Attack(target);
+            }
         }
     }
 
@@ -37,7 +63,7 @@ public class AIAttackDPS : AIAttackLogic {
     #region Private Methods
     private void Attack(IDamageable target)
     {
-        target.TakeDamage(dps * Time.deltaTime, AttackType.ENEMY);
+        target.TakeDamage(dps, AttackType.ENEMY);
     }
     #endregion
 }
