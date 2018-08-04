@@ -1888,6 +1888,7 @@ GameObject:
   - component: {fileID: 223888574274004258}
   - component: {fileID: 114839197893257026}
   - component: {fileID: 114447374142236284}
+  - component: {fileID: 114915564535587370}
   m_Layer: 5
   m_Name: UICanvas
   m_TagString: Untagged
@@ -8115,6 +8116,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedButton: {fileID: 1927782204063026}
+--- !u!114 &114915564535587370
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1467483190669762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 672f6cda9bcbae842825eadff182dca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeCombo: 0
+  monumentsHealthBar: {fileID: 114617773147571074}
+  markersController: {fileID: 114573267599407510}
+  roundInfoController: {fileID: 114401388452479652}
+  strongCombo: {fileID: 114721672240144128}
+  badCombo: {fileID: 114469596431516316}
+  playerHealthBar: {fileID: 114775418263452944}
+  buttonMashPrompt: {fileID: 1317930531419508}
+  strongComboScaleVelocity: 0.5
+  fadeOutStrongComboVelocity: 0.5
+  badComboScaleVelocity: 0.75
+  fadeOutBadComboVelocity: 1
+  basicEnemies: {fileID: 114898579314221012}
+  rangeEnemies: {fileID: 114517631015208300}
+  conquerorEnemies: {fileID: 114920106971672552}
+  roundEndText: {fileID: 114999972261125318}
+  endBtnText: {fileID: 114757497399306518}
+  slimeDead: {fileID: 1885848072278168}
+  bearDead: {fileID: 1983184513634302}
+  conquerorDead: {fileID: 1583651261417160}
+  coinSfx: {fileID: 8300000, guid: acedc7904f9bc2a43979a07e8a500f4c, type: 3}
+  stampSfx: {fileID: 0}
 --- !u!114 &114919054845182852
 MonoBehaviour:
   m_ObjectHideFlags: 1
