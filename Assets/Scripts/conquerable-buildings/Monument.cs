@@ -19,21 +19,16 @@ public class Monument : Building
     [SerializeField]
     private string healthBarTitle = "UNNAMED";
     [SerializeField]
-    private MonumentsHealthBar healthBar;
-    [SerializeField]
     private Monument protectedMonument;
+
+    private MonumentsHealthBar healthBar;
     #endregion
 
     #region MonoBehaviour Methods
-    private new void Awake()
-    {
-        base.Awake();
-        UnityEngine.Assertions.Assert.IsNotNull(healthBar, "ERROR: Health Bar (MonumentsHealthBar) not assigned for Monument in gameObject '" + gameObject.name + "'");
-    }
-
     private new void Start()
     {
         base.Start();
+        healthBar = UIManager.instance.monumentsHealthBar;
         if (isFirstEnemyTarget)
             SetUpHealthBar();    
     }
