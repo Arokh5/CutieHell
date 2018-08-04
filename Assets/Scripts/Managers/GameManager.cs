@@ -286,7 +286,6 @@ public class GameManager : MonoBehaviour
     public void StartNextRound()
     {
         aiSpawnController.StartNextRound();
-        UIManager.instance.indicatorsController.OnNewRoundStarted();
         player.OnRoundStarted();
     }
     #endregion

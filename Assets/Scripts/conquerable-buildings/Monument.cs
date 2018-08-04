@@ -14,13 +14,25 @@ public class Monument : Building
     [SerializeField]
     private float lowHealthScreen;
     [Space]
+    [Header("Health bar")]
+    public bool isFirstEnemyTarget = false;
     [SerializeField]
-    private MonumentIndicator monumentIndicator;
+    private string healthBarTitle = "UNNAMED";
     [SerializeField]
     private Monument protectedMonument;
+
+    private MonumentsHealthBar healthBar;
     #endregion
 
     #region MonoBehaviour Methods
+    private new void Start()
+    {
+        base.Start();
+        healthBar = UIManager.instance.monumentsHealthBar;
+        if (isFirstEnemyTarget)
+            SetUpHealthBar();    
+    }
+
     private new void Update()
     {
         base.Update();
@@ -33,27 +45,29 @@ public class Monument : Building
     public override void TakeDamage(float damage, AttackType attacktype)
     {
         base.TakeDamage(damage, attacktype);
+        if (!IsDead())
+            healthBar.SetHealthBarFill(currentHealth / baseHealth);
+
         float normalizedDamage = (baseHealth - currentHealth) / baseHealth;
-        monumentIndicator.SetFill(1.0f - normalizedDamage);
         zoneController.InformMonumentDamage(normalizedDamage);
     }
-    
-    public void OnEnemiesComing()
+
+    public void SetUpHealthBar()
     {
-        if (currentHealth > 0)
-            monumentIndicator.RequestOpen();
+        healthBar.SetHealthBarTitle(healthBarTitle);
+        healthBar.RefillHealthBar();
+    }
+
+    public override void BuildingKilled()
+    {
+        healthBar.SetHealthBarFill(0.0f);
     }
 
     public override void BuildingConverted()
     {
         zoneController.OnMonumentTaken();
-    }
-
-    public override void BuildingKilled()
-    {
         if (protectedMonument)
-            protectedMonument.monumentIndicator.RequestOpen();
-        monumentIndicator.DeactivateIconConquered();
+            protectedMonument.SetUpHealthBar();
     }
     #endregion
 
@@ -68,19 +82,13 @@ public class Monument : Building
                 if (showAlmostConqueredScreenTintTexture > 1)
                 {
                     shouldShowScreenOverlay = true;
-                    monumentIndicator.ActivateIconConquered();
                 }
                 if (showAlmostConqueredScreenTintTexture > 2)
                 {
                     showAlmostConqueredScreenTintTexture = 0;
-                    monumentIndicator.DeactivateIconConquered();
                 }
                 showAlmostConqueredScreenTintTexture += Time.deltaTime;
             }
-        }
-        else
-        {
-            monumentIndicator.DeactivateIconConquered();
         }
 
         if (shouldShowScreenOverlay != showingScreenOverlay)

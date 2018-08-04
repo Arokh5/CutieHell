@@ -32,13 +32,18 @@ public abstract class Building : MonoBehaviour, IDamageable
 
     #region MonoBehaviour Methods
     // Use this for initialization
-    private void Awake()
+    protected void Awake()
     {
         buildingEffects = GetComponent<BuildingEffects>();
         if (!buildingEffects)
             Debug.LogWarning("WARNING: A BuildingEffects Component could not be found by Building in GameObject " + gameObject.name + ". No effects will be used.");
 
         currentHealth = baseHealth;
+    }
+
+    protected void Start()
+    {
+        // Intentionally left blank to allow child classes to call base.Start() and lately add code here.
     }
 
     // Update is called once per frame
