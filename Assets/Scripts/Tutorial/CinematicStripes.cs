@@ -40,7 +40,6 @@ public class CinematicStripes : MonoBehaviour
 
     private void Start()
     {
-        currentHeight = 0.0f;
         SetHeights(currentHeight);
     }
 
