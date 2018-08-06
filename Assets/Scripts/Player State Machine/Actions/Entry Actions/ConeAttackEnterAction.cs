@@ -7,7 +7,6 @@ public class ConeAttackEnterAction : StateAction
 {
     public override void Act(Player player)
     {
-        player.AddEvilPoints(-player.coneAttackEvilCost);
         player.comeBackFromConeAttack = false;
         player.coneAttackCooldown.timeSinceLastAction = 0.0f;
         player.mainCameraController.timeSinceLastAction = 0.0f;

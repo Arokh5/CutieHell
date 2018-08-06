@@ -146,24 +146,6 @@ public class StatsManager : MonoBehaviour
         globalPoints = 0;
     }
 
-    // Called by Player when gaining EP (Evil Points)
-    public void RegisterEPGained(int epGained)
-    {
-        Debug.LogError("NOT IMPLEMENTED: StatsManager::RegisterEPGained");
-    }
-
-    // Called by Player when gaining EP but losing it due to having reached the max EP (Evil Points)
-    public void RegisterEPLost(int epLost)
-    {
-        Debug.LogError("NOT IMPLEMENTED: StatsManager::RegisterEPLost");
-    }
-
-    // Called by Player when using EP (Evil Points)
-    public void RegisterEPUsed(int epUsed)
-    {
-        Debug.LogError("NOT IMPLEMENTED: StatsManager::RegisterEPUsed");
-    }
-
     public int GetGlobalPoints()
     {
         return globalPoints;
