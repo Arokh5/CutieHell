@@ -254,7 +254,6 @@ public class GameManager : MonoBehaviour
             //crosshair.SetActive(true);
             gameOverPanel.SetActive(false);
             StatsManager.instance.ResetKillCounts();
-            StatsManager.instance.ResetBadComboCount();
             StatsManager.instance.ResetGlobalPoins();
             StatsManager.instance.GetMaxCombo().ResetCount();
             StatsManager.instance.GetTimeCombo().ResetCount();
