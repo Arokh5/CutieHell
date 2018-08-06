@@ -17,6 +17,7 @@ public class EnemyRangeAttack : MonoBehaviour {
     private float motionDistance;
     private float lifeTime;
     private float elapsedTime;
+    private bool attackCheck;
     #endregion
 
     #region MonoBehaviour Methods
@@ -24,6 +25,11 @@ public class EnemyRangeAttack : MonoBehaviour {
 	    if (target != null)
         {
             Move();
+            if (elapsedTime >= lifeTime && !attackCheck)
+            {
+                attackCheck = true;
+                Attack();
+            }
             if (elapsedTime >= lifeTime * 2.0f)
             {
                 target = null;
@@ -34,9 +40,7 @@ public class EnemyRangeAttack : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        target = other.GetComponentInParent<Player>();
-        if (target != null)
-            Attack();   
+        Attack();
     }
     #endregion
 
@@ -46,6 +50,7 @@ public class EnemyRangeAttack : MonoBehaviour {
         elapsedTime = 0;
         this.target = target;
         this.damage = damage;
+        attackCheck = false;
         transform.LookAt(target.transform);
         initialPosition = transform.position;
         fullMotion = target.transform.position - initialPosition;

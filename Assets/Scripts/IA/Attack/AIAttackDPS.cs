@@ -45,6 +45,7 @@ public class AIAttackDPS : AIAttackLogic {
 
     public void HitAttack()
     {
+
         if (!target.IsDead())
         {
             if (Vector3.Distance(modelPosition.position, target.transform.position + Vector3.up) < 2.1f)
