@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class InputManager : MonoBehaviour {
 
@@ -90,6 +88,111 @@ public class InputManager : MonoBehaviour {
     #endregion
 
     #region Public Methods
+    public bool GetButtonDown(ControllerButton button)
+    {
+        switch (button)
+        {
+            case ControllerButton.X:
+                return GetXButtonDown();
+            case ControllerButton.SQUARE:
+                return GetSquareButtonDown();
+            case ControllerButton.TRIANGLE:
+                return GetTriangleButtonDown();
+            case ControllerButton.CIRCLE:
+                return GetOButtonDown();
+            case ControllerButton.L1:
+                return GetL1ButtonDown();
+            case ControllerButton.L2:
+                return GetL2ButtonDown();
+            case ControllerButton.R1:
+                return GetR1ButtonDown();
+            case ControllerButton.R2:
+                return GetR2ButtonDown();
+            case ControllerButton.LS:
+                return GetLeftStickButtonDown();
+            case ControllerButton.RS:
+                return GetRightStickButtonDown();
+            case ControllerButton.SHARE:
+                return GetPS4ShareDown();
+            case ControllerButton.OPTIONS:
+                return GetPS4OptionsDown();
+            case ControllerButton.PS:
+                return GetPS4PSDown();
+        }
+        Debug.LogError("ERROR: InputManager::GetButtonDown called with an unknown ControllerButton");
+        return false;
+    }
+
+    public bool GetButton(ControllerButton button)
+    {
+        switch (button)
+        {
+            case ControllerButton.X:
+                return GetXButton();
+            case ControllerButton.SQUARE:
+                return GetSquareButton();
+            case ControllerButton.TRIANGLE:
+                return GetTriangleButton();
+            case ControllerButton.CIRCLE:
+                return GetOButton();
+            case ControllerButton.L1:
+                return GetL1Button();
+            case ControllerButton.L2:
+                return GetL2Button();
+            case ControllerButton.R1:
+                return GetR1Button();
+            case ControllerButton.R2:
+                return GetR2Button();
+            case ControllerButton.LS:
+                return GetLeftStickButton();
+            case ControllerButton.RS:
+                return GetRightStickButton();
+            case ControllerButton.SHARE:
+                return GetPS4Share();
+            case ControllerButton.OPTIONS:
+                return GetPS4Options();
+            case ControllerButton.PS:
+                return GetPS4PS();
+        }
+        Debug.LogError("ERROR: InputManager::GetButton called with an unknown ControllerButton");
+        return false;
+    }
+
+    public bool GetButtonUp(ControllerButton button)
+    {
+        switch (button)
+        {
+            case ControllerButton.X:
+                return GetXButtonUp();
+            case ControllerButton.SQUARE:
+                return GetSquareButtonUp();
+            case ControllerButton.TRIANGLE:
+                return GetTriangleButtonUp();
+            case ControllerButton.CIRCLE:
+                return GetOButtonUp();
+            case ControllerButton.L1:
+                return GetL1ButtonUp();
+            case ControllerButton.L2:
+                return GetL2ButtonUp();
+            case ControllerButton.R1:
+                return GetR1ButtonUp();
+            case ControllerButton.R2:
+                return GetR2ButtonUp();
+            case ControllerButton.LS:
+                return GetLeftStickButtonUp();
+            case ControllerButton.RS:
+                return GetRightStickButtonUp();
+            case ControllerButton.SHARE:
+                return GetPS4ShareUp();
+            case ControllerButton.OPTIONS:
+                return GetPS4OptionsUp();
+            case ControllerButton.PS:
+                return GetPS4PSUp();
+        }
+        Debug.LogError("ERROR: InputManager::GetButtonUp called with an unknown ControllerButton");
+        return false;
+    }
+
 
     /* Buttons */
 
