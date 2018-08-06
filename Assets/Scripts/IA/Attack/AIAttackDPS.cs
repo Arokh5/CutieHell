@@ -48,7 +48,14 @@ public class AIAttackDPS : AIAttackLogic {
 
         if (!target.IsDead())
         {
-            if (Vector3.Distance(modelPosition.position, target.transform.position + Vector3.up) < 2.1f)
+            if(target.transform.gameObject == GameManager.instance.GetPlayer1().gameObject)
+            {
+                if (Vector3.Distance(modelPosition.position, target.transform.position + Vector3.up) < 2.1f)
+                {
+                    Attack(target);
+                }
+            }
+            else
             {
                 Attack(target);
             }
