@@ -4,6 +4,9 @@ public class AttackChainsManager : MonoBehaviour
 {
     #region Fields
     public static AttackChainsManager instance;
+
+    [SerializeField]
+    private AttackChain[] attackChains;
     #endregion
 
     #region MonoBehaviour Methods
