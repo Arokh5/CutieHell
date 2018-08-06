@@ -6,7 +6,7 @@ AttackChainManager
 //  Called as an attack's State EnterAction. Test the currentFollowUp of active chains and either advances the chain (if the attack param fits the followUp) or stops any active chains. If there are no active chains, attempts to initiate a new set of possible chains.
 - void ReportAttack(AttackType attack);
 // Called by the ComboDecision. This method returns true if a chain can be followed up by (param)attack AND set up the next chain state. (Timing is evaluated in this method). Early exit to false if there are no active chains. If there are chains but the input is not a followUp, all chains are deactivated. Does NOT modify the currentFollowUp of the active AttackChains.
-- bool AttemptChain(AttackType attack);
+- bool TestChain(AttackType attack);
 // Called in the ComboState OnEnterState method to set up the combo state
 - IState GetNextChainState();
 
