@@ -43,13 +43,11 @@ AttackInfo:
 - public bool getKeyDown(); (Implemented as a switch).
 
 
-About the ComboDecision:
-This decision must check for inputs that correspond with AttackTypes that support combos. If an input is found, then AttempyChain is called with said attack. If the aforementioned linking is build as some sort of array, then this Decision would be applicable unmodified by customizing said linking.
+About the AttackChainDecision
+This decision must check for inputs that correspond with AttackTypes that support combos. If an input is found, then ReportAttackAttempt is called with said attack. (If the aforementioned linking is build as some sort of array, then this Decision would be applicable unmodified by customizing said linking)
 
-About the InformAttackChain EnterAction:
-- Must have a public AttackType parameter for reusability.
-- This EnterAction will call AttackChainManager::ReportAttack.
+NO EnterAction will be required. The AttackChainDecision calls ReportAttackAttempt. This method will discard chains that cannot chain said attack and the specific timing of the attempt, OR it will start new chains that start with said attack.
 
 
 Implementation notes:
-- All States that correspond with chainable habilities must be added the InformAttackChain EnterAction and ALSO the pair of ComboDecision and ComboState.
+- All States that correspond with chainable abilities must be added the InformAttackChain EnterAction and ALSO the pair of ComboDecision and ComboState.

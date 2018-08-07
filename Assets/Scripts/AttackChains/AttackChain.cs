@@ -9,15 +9,46 @@ public class AttackChain
     public AttackType startAttack;
     public FollowUpAttack[] followUps;
 
+    [HideInInspector]
+    public float elapsedTime;
     private int followUpIndex = -1;
     #endregion
 
     #region Public Methods
+    public bool VerifyValidity()
+    {
+        bool isValid = true;
+
+        if (AttackInfosManager.instance.GetAttackInfo(startAttack) == null)
+        {
+            Debug.LogError("ERROR: In the AttackChain called '" + name + "', the Start Attack doesn't correspond to any AttackInfo defined in the AttackInfosManager!");
+        }
+        if (followUps.Length == 0)
+        {
+            Debug.LogError("ERROR: The AttackChain called '" + name + "' has no FollowUpAttacks!");
+            isValid = false;
+        }
+        else
+        {
+            for (int i = 0; i < followUps.Length; ++i)
+            {
+                if (AttackInfosManager.instance.GetAttackInfo(followUps[i].attack) == null)
+                {
+                    Debug.LogError("ERROR: In the AttackChain called '" + name + "', the FollowUpAttack in index " + i + " has a type that doesn't correspond to any AttackInfo defined in the AttackInfosManager!");
+                    isValid = false;
+                }
+            }
+        }
+
+        return isValid;
+    }
+
     public bool StartChain(AttackType attack)
     {
         bool success = false;
         if (followUps.Length != 0 && startAttack == attack)
         {
+            elapsedTime = 0.0f;
             followUpIndex = 0;
             success = true;
         }
@@ -33,7 +64,8 @@ public class AttackChain
         FollowUpAttack currentFollowUp = GetCurrentFollowUpAttack();
         if (currentFollowUp != null)
         {
-            return currentFollowUp.attack == attack;
+            return currentFollowUp.attack == attack
+                && currentFollowUp.IsInTimeFrame(elapsedTime);
         }
         return false;
     }
@@ -51,6 +83,7 @@ public class AttackChain
         {
             if (followUpIndex + 1 < followUps.Length)
             {
+                elapsedTime = 0.0f;
                 ++followUpIndex;
                 success = true;
             }
@@ -65,7 +98,28 @@ public class AttackChain
 
     public void ResetChain()
     {
+        elapsedTime = -1.0f;
         followUpIndex = -1;
+    }
+
+    public bool IsInTimeFrame()
+    {
+        FollowUpAttack followUp = GetCurrentFollowUpAttack();
+        if (followUp != null)
+        {
+            return followUp.IsInTimeFrame(elapsedTime);
+        }
+        return false;
+    }
+
+    public bool HasExpired()
+    {
+        FollowUpAttack followUp = GetCurrentFollowUpAttack();
+        if (followUp != null)
+        {
+            return elapsedTime > followUp.timing.end;
+        }
+        return false;
     }
 
     public State GetFollowUpState()
