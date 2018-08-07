@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 4549857527293936}
   - component: {fileID: 198505256625187308}
   - component: {fileID: 199563650355846966}
+  - component: {fileID: 114055447675596074}
   m_Layer: 0
   m_Name: HeartExplosion
   m_TagString: Untagged
@@ -196,6 +197,18 @@ Transform:
   m_Father: {fileID: 4549857527293936}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114055447675596074
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1678494587543290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb21fc7b641e3544fae69356650e080d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToReturnToPool: 0.9
 --- !u!198 &198301364855919920
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -206,7 +219,7 @@ ParticleSystem:
   lengthInSec: 1
   simulationSpeed: 1
   stopAction: 0
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -3618,7 +3631,7 @@ ParticleSystem:
   lengthInSec: 1
   simulationSpeed: 1
   stopAction: 0
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -7030,7 +7043,7 @@ ParticleSystem:
   lengthInSec: 1
   simulationSpeed: 1
   stopAction: 0
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -13803,7 +13816,7 @@ ParticleSystem:
   lengthInSec: 1
   simulationSpeed: 1
   stopAction: 0
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -17215,7 +17228,7 @@ ParticleSystem:
   lengthInSec: 1
   simulationSpeed: 1
   stopAction: 0
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0

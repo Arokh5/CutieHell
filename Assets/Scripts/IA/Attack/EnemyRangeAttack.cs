@@ -10,14 +10,15 @@ public class EnemyRangeAttack : MonoBehaviour {
     public EnemyType enemyType;
     [Tooltip("Speed is expressed in meters per second")]
     public float speed;
-    public float maxHitDistance = 1.0f;
+    private float maxHitDistance;
+    [SerializeField]
+    private ParticleSystem heartExplosionVFX;
 
     private Vector3 initialPosition;
     private Vector3 fullMotion;
     private float motionDistance;
     private float lifeTime;
     private float elapsedTime;
-    private bool attackCheck;
     #endregion
 
     #region MonoBehaviour Methods
@@ -25,9 +26,8 @@ public class EnemyRangeAttack : MonoBehaviour {
 	    if (target != null)
         {
             Move();
-            if (elapsedTime >= lifeTime && !attackCheck)
+            if (elapsedTime >= lifeTime * 0.6f)
             {
-                attackCheck = true;
                 Attack();
             }
             if (elapsedTime >= lifeTime * 2.0f)
@@ -50,7 +50,10 @@ public class EnemyRangeAttack : MonoBehaviour {
         elapsedTime = 0;
         this.target = target;
         this.damage = damage;
-        attackCheck = false;
+        if(target.transform.gameObject == GameManager.instance.GetPlayer1().gameObject)
+            maxHitDistance = 1.0f;
+        else
+            maxHitDistance = 2.5f;
         transform.LookAt(target.transform);
         initialPosition = transform.position;
         fullMotion = target.transform.position - initialPosition;
@@ -81,7 +84,7 @@ public class EnemyRangeAttack : MonoBehaviour {
         {
             target.TakeDamage(damage, AttackType.ENEMY);
             target = null;
-            //Instanciar Hit vfx aquí
+            ParticlesManager.instance.LaunchParticleSystem(heartExplosionVFX, this.transform.position, heartExplosionVFX.transform.rotation);
             AttacksPool.instance.ReturnAttackObject(enemyType, gameObject);
         }
     }
