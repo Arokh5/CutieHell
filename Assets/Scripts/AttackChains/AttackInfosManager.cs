@@ -47,6 +47,16 @@ public class AttackInfosManager : MonoBehaviour
         }
         return null;
     }
+
+    public Sprite GetSprite(AttackType attack)
+    {
+        foreach (AttackInfo info in attackInfos)
+        {
+            if (info.type == attack)
+                return info.buttonSprite;
+        }
+        return null;
+    }
     #endregion
 
     #region Private Methods

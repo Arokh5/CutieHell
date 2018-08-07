@@ -12,8 +12,11 @@ public class AttackChainsManager : MonoBehaviour
     [ShowOnly]
     [SerializeField]
     private List<AttackChain> activeChains = new List<AttackChain>();
-    private List<AttackChain> chainsToRemove = new List<AttackChain>();
     private State nextChainState = null;
+
+    private List<AttackChain> chainsToRemove = new List<AttackChain>();
+    private List<Sprite> spritesToDisplay = new List<Sprite>();
+
     #endregion
 
     #region MonoBehaviour Methods
@@ -112,7 +115,18 @@ public class AttackChainsManager : MonoBehaviour
 
     private void UpdateUI()
     {
+        spritesToDisplay.Clear();
+        foreach (AttackChain chain in activeChains)
+        {
+            if(chain.IsInTimeFrame())
+            {
+                Sprite spriteToAdd = AttackInfosManager.instance.GetSprite(chain.GetFollowUpAttack());
+                if (spriteToAdd)
+                    spritesToDisplay.Add(spriteToAdd);
+            }
+        }
 
+        AttackChainsUI.instance.UpdateDisplay(spritesToDisplay);
     }
 
     private bool VerifyActiveChains()

@@ -129,6 +129,14 @@ public class AttackChain
         else
             return null;
     }
+
+    public AttackType GetFollowUpAttack()
+    {
+        if (followUpIndex != -1)
+            return followUps[followUpIndex].attack;
+        else
+            return AttackType.NONE;
+    }
     #endregion
 
     #region Private Methods

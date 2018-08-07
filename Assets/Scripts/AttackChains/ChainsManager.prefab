@@ -55,7 +55,10 @@ MonoBehaviour:
   attackInfos:
   - type: 6
     button: 1
-    buttonSprite: {fileID: 0}
+    buttonSprite: {fileID: 21300006, guid: 67a41b80ed05c85498bf0235cd8d1453, type: 3}
+  - type: 4
+    button: 3
+    buttonSprite: {fileID: 21300000, guid: 67a41b80ed05c85498bf0235cd8d1453, type: 3}
   allButtons: 
   allAttacks: 
 --- !u!114 &114671199812258082
@@ -74,6 +77,15 @@ MonoBehaviour:
     startAttack: 6
     followUps:
     - attack: 6
+      relatedState: {fileID: 11400000, guid: bc27f2e4153e5d84d86064ce5afcb983, type: 2}
+      timing:
+        start: 0.5
+        end: 1
+    elapsedTime: 0
+  - name: Slash test
+    startAttack: 6
+    followUps:
+    - attack: 4
       relatedState: {fileID: 11400000, guid: bc27f2e4153e5d84d86064ce5afcb983, type: 2}
       timing:
         start: 0.5
