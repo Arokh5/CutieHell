@@ -7,6 +7,10 @@ public class AttackInfosManager : MonoBehaviour
     public static AttackInfosManager instance;
 
     public AttackInfo[] attackInfos;
+    [HideInInspector]
+    public List<ControllerButton> allButtons;
+    [HideInInspector]
+    public List<AttackType> allAttacks;
     #endregion
 
     #region MonoBehaviour Methods
@@ -18,6 +22,8 @@ public class AttackInfosManager : MonoBehaviour
             Destroy(this);
 
         VerifyAttackInfos();
+        PrepareButtonsList();
+        PrepareAttackList();
     }
     #endregion
 
@@ -40,22 +46,6 @@ public class AttackInfosManager : MonoBehaviour
                 return info;
         }
         return null;
-    }
-
-    public void GetAllInfosButtons(List<ControllerButton> results)
-    {
-        foreach (AttackInfo info in attackInfos)
-        {
-            results.Add(info.button);
-        }
-    }
-
-    public void GetAllInfosAttacks(List<AttackType> results)
-    {
-        foreach (AttackInfo info in attackInfos)
-        {
-            results.Add(info.type);
-        }
     }
     #endregion
 
@@ -87,6 +77,24 @@ public class AttackInfosManager : MonoBehaviour
         }
 
         return isValid;
+    }
+
+    private void PrepareButtonsList()
+    {
+        allButtons = new List<ControllerButton>();
+        foreach (AttackInfo info in attackInfos)
+        {
+            allButtons.Add(info.button);
+        }
+    }
+
+    private void PrepareAttackList()
+    {
+        allAttacks = new List<AttackType>();
+        foreach (AttackInfo info in attackInfos)
+        {
+            allAttacks.Add(info.type);
+        }
     }
     #endregion
 }

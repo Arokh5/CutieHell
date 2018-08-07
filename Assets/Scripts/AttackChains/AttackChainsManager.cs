@@ -13,6 +13,7 @@ public class AttackChainsManager : MonoBehaviour
     [SerializeField]
     private List<AttackChain> activeChains = new List<AttackChain>();
     private List<AttackChain> chainsToRemove = new List<AttackChain>();
+    private State nextChainState = null;
     #endregion
 
     #region MonoBehaviour Methods
@@ -51,41 +52,46 @@ public class AttackChainsManager : MonoBehaviour
     #endregion
 
     #region Public Methods
-    public bool ReportAttackAttempt(AttackType attack)
+    public bool ReportStartChainAttempt(AttackType attack)
     {
-        if (HasActiveChains())
+        activeChains.Clear();
+        foreach (AttackChain chain in attackChains)
         {
-            foreach (AttackChain chain in activeChains)
+            if (chain.StartChain(attack))
+                activeChains.Add(chain);
+        }
+        return HasActiveChains();
+    }
+
+    public bool ReportFollowUpAttempt(AttackType attack)
+    {
+        nextChainState = null;
+        foreach (AttackChain chain in activeChains)
+        {
+            if (chain.CanChain(attack))
             {
-                if (chain.CanChain(attack))
-                {
-                    if (!chain.AdvanceChain())
-                    {
-                        chainsToRemove.Add(chain);
-                    }
-                }
-                else
+                if (nextChainState == null)
+                    nextChainState = chain.GetFollowUpState();
+
+                if (!chain.AdvanceChain())
                 {
                     chainsToRemove.Add(chain);
                 }
             }
-
-            foreach (AttackChain chain in chainsToRemove)
+            else
             {
-                activeChains.Remove(chain);
+                chain.ResetChain();
+                chainsToRemove.Add(chain);
             }
-            chainsToRemove.Clear();
         }
-        else
+
+        foreach (AttackChain chain in chainsToRemove)
         {
-            foreach (AttackChain chain in attackChains)
-            {
-                if (chain.StartChain(attack))
-                    activeChains.Add(chain);
-            }
+            activeChains.Remove(chain);
         }
+        chainsToRemove.Clear();
 
-        return HasActiveChains();
+        return nextChainState != null;
     }
 
     /// <summary>
@@ -94,11 +100,7 @@ public class AttackChainsManager : MonoBehaviour
     /// <returns></returns>
     public State GetNextChainState()
     {
-        if (HasActiveChains())
-        {
-            return activeChains[0].GetFollowUpState();
-        }
-        return null;
+        return nextChainState;
     }
     #endregion
 

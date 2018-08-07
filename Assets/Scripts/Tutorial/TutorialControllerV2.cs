@@ -31,8 +31,6 @@ public class TutorialControllerV2 : TutorialController
     [SerializeField]
     private Player player;
     [SerializeField]
-    private State playerDefaultState;
-    [SerializeField]
     private State[] tutorialStates;
 
     private PlayableDirector director;
@@ -183,7 +181,7 @@ public class TutorialControllerV2 : TutorialController
     {
         endMessage.SetActive(false);
         stripes.HideAnimated();
-        player.TransitionToState(playerDefaultState);
+        player.OnRoundStarted(); // This methods puts the player back on its default state
         tutorialEvents.OnTutorialEnded();
     }
 

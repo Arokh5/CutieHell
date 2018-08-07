@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[CreateAssetMenu (menuName ="Player State Machine/States/ChainState")]
 public class AttackChainState : State
 {
     #region Fields

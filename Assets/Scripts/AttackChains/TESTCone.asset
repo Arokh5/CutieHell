@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1418da0e4d857ce4fb2339e94e78f9a8, type: 3}
+  m_Name: TESTCone
+  m_EditorClassIdentifier: 
+  onEnterActions:
+  - {fileID: 11400000, guid: 9a93bdccde02b244093c3be38b8e68bd, type: 2}
+  - {fileID: 11400000, guid: dbe5f3b13b4d24440b78460ef011ac74, type: 2}
+  - {fileID: 11400000, guid: 22eaa0be55ef7e64585f098b11555503, type: 2}
+  onExitActions:
+  - {fileID: 11400000, guid: 43fc2786edb1bad478302020612bf37f, type: 2}
+  stateActions:
+  - {fileID: 11400000, guid: e1fcd3a652925644c970a9acb114769a, type: 2}
+  - {fileID: 11400000, guid: 0bb159b18d9718041bbe10ebcfc6b56f, type: 2}
+  - {fileID: 11400000, guid: 925025951050452438c5909141243cd7, type: 2}
+  - {fileID: 11400000, guid: 0114d4abe69aa214eafa844b779ee729, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: 5be50d59e7308304fb954a6abddffc94, type: 2}
+    targetState: {fileID: 11400000, guid: bbf892ded21ef34429c55dd6f296fe80, type: 2}
+  - decision: {fileID: 11400000, guid: d0e97e8597cdafd4f82bb11a9adf958e, type: 2}
+    targetState: {fileID: 11400000, guid: e5eba77d169de184c8789db8efc6f62f, type: 2}

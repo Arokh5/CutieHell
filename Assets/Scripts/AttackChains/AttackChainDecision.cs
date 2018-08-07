@@ -1,22 +1,17 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
+[CreateAssetMenu(menuName = "Player State Machine/Decisions/AttackChainDecision")]
 public class AttackChainDecision : Decision
 {
-    private List<ControllerButton> chainButtons = null;
     public override bool Decide(Player player)
     {
-        if (chainButtons == null)
-        {
-            chainButtons = new List<ControllerButton>();
-            AttackInfosManager.instance.GetAllInfosButtons(chainButtons);
-        }
-
-        foreach (ControllerButton button in chainButtons)
+        foreach (ControllerButton button in AttackInfosManager.instance.allButtons)
         {
             if (InputManager.instance.GetButtonDown(button))
             {
                 AttackInfo info = AttackInfosManager.instance.GetAttackInfo(button);
-                return AttackChainsManager.instance.ReportAttackAttempt(info.type);
+                return AttackChainsManager.instance.ReportFollowUpAttempt(info.type);
             }
         }
         return false;

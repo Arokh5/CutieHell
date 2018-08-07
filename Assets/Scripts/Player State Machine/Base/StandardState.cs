@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu (menuName ="Player State Machine/State")]
+[CreateAssetMenu (menuName ="Player State Machine/States/StandardState")]
 public class StandardState : State
 {
     #region Fields

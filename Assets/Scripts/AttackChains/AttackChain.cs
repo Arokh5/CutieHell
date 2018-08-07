@@ -9,7 +9,7 @@ public class AttackChain
     public AttackType startAttack;
     public FollowUpAttack[] followUps;
 
-    [HideInInspector]
+    [ShowOnly]
     public float elapsedTime;
     private int followUpIndex = -1;
     #endregion
