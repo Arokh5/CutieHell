@@ -10,7 +10,9 @@ public class EnemyRangeAttack : MonoBehaviour {
     public EnemyType enemyType;
     [Tooltip("Speed is expressed in meters per second")]
     public float speed;
-    public float maxHitDistance = 1.0f;
+    private float maxHitDistance;
+    [SerializeField]
+    private ParticleSystem heartExplosionVFX;
 
     private Vector3 initialPosition;
     private Vector3 fullMotion;
@@ -20,23 +22,25 @@ public class EnemyRangeAttack : MonoBehaviour {
     #endregion
 
     #region MonoBehaviour Methods
-    // Update is called once per frame
     private void Update () {
 	    if (target != null)
         {
             Move();
-            if (elapsedTime >= lifeTime)
+            if (elapsedTime >= lifeTime * 0.6f)
             {
                 Attack();
+            }
+            if (elapsedTime >= lifeTime * 2.0f)
+            {
+                target = null;
+                AttacksPool.instance.ReturnAttackObject(enemyType, gameObject);
             }
         }
 	}
 
     private void OnTriggerEnter(Collider other)
     {
-        target = other.GetComponentInParent<Player>();
-        if (target != null)
-            Attack();   
+        Attack();
     }
     #endregion
 
@@ -46,10 +50,14 @@ public class EnemyRangeAttack : MonoBehaviour {
         elapsedTime = 0;
         this.target = target;
         this.damage = damage;
+        if(target.transform.gameObject == GameManager.instance.GetPlayer1().gameObject)
+            maxHitDistance = 1.0f;
+        else
+            maxHitDistance = 2.5f;
         transform.LookAt(target.transform);
         initialPosition = transform.position;
         fullMotion = target.transform.position - initialPosition;
-        fullMotion.y = 0;
+        fullMotion.y += 1.5f;
         motionDistance = fullMotion.magnitude;
         lifeTime = motionDistance / speed;
     }
@@ -61,7 +69,7 @@ public class EnemyRangeAttack : MonoBehaviour {
         float progress = elapsedTime / lifeTime;
         Vector3 currentPosition = transform.position;
         Vector3 nextPosition = initialPosition + fullMotion * progress;
-        nextPosition.y += motionDistance * (-0.25f * ((2 * (progress - 0.5f)) * (2 * (progress - 0.5f))) + 0.25f);
+        nextPosition.y += motionDistance * (-0.25f * ((2f * (progress - 0.5f)) * (2f * (progress - 0.5f))) + 0.25f) / 3.25f;
         transform.LookAt(currentPosition + (nextPosition - currentPosition) * 100);
         transform.position = nextPosition;
 
@@ -73,10 +81,12 @@ public class EnemyRangeAttack : MonoBehaviour {
         Vector3 bulletToTarget = target.transform.position - transform.position;
         bulletToTarget.y = 0;
         if (bulletToTarget.magnitude < maxHitDistance)
+        {
             target.TakeDamage(damage, AttackType.ENEMY);
-
-        target = null;
-        AttacksPool.instance.ReturnAttackObject(enemyType, gameObject);
+            target = null;
+            ParticlesManager.instance.LaunchParticleSystem(heartExplosionVFX, this.transform.position, heartExplosionVFX.transform.rotation);
+            AttacksPool.instance.ReturnAttackObject(enemyType, gameObject);
+        }
     }
     #endregion
 }

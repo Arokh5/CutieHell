@@ -8,21 +8,10 @@ public class UIManager : MonoBehaviour
     #region Fields
 
     public static UIManager instance;
-    public enum ComboTypes { None, StrongCombo, BadCombo };
-    public ComboTypes activeCombo;
 
     public MonumentsHealthBar monumentsHealthBar;
     public MarkersController markersController;
     public RoundInfoController roundInfoController;
-
-    [SerializeField]
-    private Text strongCombo;
-    private Vector3 strongComboOriginalScale;
-    private Color strongComboOriginalColor;
-    [SerializeField]
-    private Text badCombo;
-    private Vector3 badComboOriginalScale;
-    private Color badComboOriginalColor;
 
     [Header("Player Health")]
     [Space]
@@ -30,21 +19,6 @@ public class UIManager : MonoBehaviour
     private HealthBar playerHealthBar;
     [SerializeField]
     private GameObject buttonMashPrompt;
-        
-    private float strongComboscaleModifier;
-    private float strongComboColorModifier;
-    [Header("Combos")]
-    [SerializeField]
-    private float strongComboScaleVelocity;
-    [SerializeField]
-    private float fadeOutStrongComboVelocity;
-
-    private float badComboscaleModifier;
-    private float badComboColorModifier;
-    [SerializeField]
-    private float badComboScaleVelocity;
-    [SerializeField]
-    private float fadeOutBadComboVelocity;
 
     [Header("Round End")]
     [SerializeField]
@@ -92,26 +66,8 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        activeCombo = ComboTypes.None;
-        strongComboOriginalScale = strongCombo.transform.localScale;
-        strongComboOriginalColor = strongCombo.color;
-        badComboOriginalScale = badCombo.transform.localScale;
-        badComboOriginalColor = badCombo.color;
-        strongComboscaleModifier = 0f;
-        strongComboColorModifier = 0f;
-        badComboscaleModifier = 0f;
-        badComboColorModifier = 0f;
         SetPlayerHealthButtonMashVisibility(false);
     }
-
-    private void Update()
-    {
-        if (activeCombo != ComboTypes.None)
-        {
-            ComboFx();
-        }
-    }
-
     #endregion
 
     #region Public Methods
@@ -139,22 +95,6 @@ public class UIManager : MonoBehaviour
     public void ZoneConnectionOpened(int zoneConnectionID)
     {
         Debug.LogError("NOT IMPLEMENTED:UIManager::ZoneConnectionOpened");
-    }
-
-    public void ShowComboText(ComboTypes comboType)
-    {
-        switch (comboType)
-        {
-            case ComboTypes.StrongCombo:
-                strongCombo.gameObject.SetActive(true);
-                activeCombo = ComboTypes.StrongCombo;
-                break;
-
-            case ComboTypes.BadCombo:
-                badCombo.gameObject.SetActive(true);
-                activeCombo = ComboTypes.BadCombo;
-                break;
-        }
     }
 
     public void IncreaseEnemiesTimeCount()
@@ -188,60 +128,5 @@ public class UIManager : MonoBehaviour
     {
         conquerorEnemiesTimeCount += Time.deltaTime;
     }
-
-    private void ComboFx()
-    {
-        switch (activeCombo)
-        {
-            case ComboTypes.StrongCombo:
-                if (strongCombo.transform.localScale.x < 0.40f)
-                {
-                    strongComboscaleModifier += Time.deltaTime;
-                    strongCombo.transform.localScale = new Vector3(strongCombo.transform.localScale.x + strongComboscaleModifier * strongComboScaleVelocity, strongCombo.transform.localScale.y + strongComboscaleModifier * strongComboScaleVelocity, strongCombo.transform.localScale.z);
-                }
-                else
-                {
-                    strongComboColorModifier += Time.deltaTime;
-                    strongCombo.color = new Color(strongComboOriginalColor.r, strongComboOriginalColor.g, strongComboOriginalColor.b, strongComboOriginalColor.a - strongComboColorModifier * fadeOutStrongComboVelocity);
-                    
-                    if (strongCombo.color.a <= 0)
-                    {
-                        strongCombo.transform.localScale = strongComboOriginalScale;
-                        strongCombo.color = strongComboOriginalColor;
-                        strongComboscaleModifier = 0f;
-                        strongComboColorModifier = 0f;
-                        activeCombo = ComboTypes.None;
-                        strongCombo.gameObject.SetActive(false);
-                    }
-                }
-
-                break;
-
-            case ComboTypes.BadCombo:
-                if (badCombo.transform.localScale.x < 0.25f)
-                {
-                    badComboscaleModifier += Time.deltaTime;
-                    badCombo.transform.localScale = new Vector3(badCombo.transform.localScale.x + badComboscaleModifier * badComboScaleVelocity, badCombo.transform.localScale.y + badComboscaleModifier * badComboScaleVelocity, badCombo.transform.localScale.z);
-                }
-                else
-                {
-                    badComboColorModifier += Time.deltaTime;
-                    badCombo.color = new Color(badComboOriginalColor.r, badComboOriginalColor.g, badComboOriginalColor.b, badComboOriginalColor.a - badComboColorModifier * fadeOutBadComboVelocity);
-
-                    if (badCombo.color.a <= 0)
-                    {
-                        badCombo.transform.localScale = badComboOriginalScale;
-                        badCombo.color = badComboOriginalColor;
-                        badComboscaleModifier = 0f;
-                        badComboColorModifier = 0f;
-                        activeCombo = ComboTypes.None;
-                        badCombo.gameObject.SetActive(false);
-                    }
-                }
-
-                break;
-        }
-    }
-
     #endregion
 }

@@ -57,20 +57,7 @@ public class ConeAttackBehaviour : PooledParticleSystem
             aiEnemy.TakeDamage(damage, AttackType.CONE);
             comboCount++;
         }
-
-        CheckIfCombo();
         enemiesDetector.attackTargets.Clear();
-    }
-
-    private void CheckIfCombo()
-    {
-        if (comboCount >= enemiesToCombo)
-        {
-            GameManager.instance.GetPlayer1().AddEvilPoints(evilComboReward);
-            UIManager.instance.ShowComboText(UIManager.ComboTypes.StrongCombo);
-        }
-
-        comboCount = 0;
     }
     #endregion
 }

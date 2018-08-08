@@ -71,7 +71,6 @@ public class FollowTarget : PooledParticleSystem
             AIEnemy enemyHit = other.GetComponent<AIEnemy>();
             if (enemyHit)
             {
-                StatsManager.instance.RegisterWeakAttackHit();
                 enemyHit.TakeDamage(damage, attackType);
                 enemyHit.SetKnockback(this.transform.position);
                 SoundManager.instance.PlaySfxClip(explosionSfx);

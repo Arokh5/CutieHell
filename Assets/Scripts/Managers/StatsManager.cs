@@ -9,13 +9,6 @@ public class StatsManager : MonoBehaviour
 
     public static StatsManager instance;
 
-    [Header("Bad combo")]
-    [SerializeField]
-    private int enemiesToBadCombo;
-    [SerializeField]
-    private int badComboPenalty;
-    private int currentShotMissed;
-
     private int basicEnemiesKilled;
     private int conquerorEnemiesKilled;
     private int rangeEnemiesKilled;
@@ -88,7 +81,6 @@ public class StatsManager : MonoBehaviour
         }
 
         ResetKillCounts();
-        ResetBadComboCount();
         ResetGlobalPoins();
         ResetRoundTime();
     }
@@ -170,27 +162,6 @@ public class StatsManager : MonoBehaviour
     public void RegisterEPUsed(int epUsed)
     {
         Debug.LogError("NOT IMPLEMENTED: StatsManager::RegisterEPUsed");
-    }
-
-    public void RegisterWeakAttackMissed()
-    {
-        ++currentShotMissed;
-        if (currentShotMissed == enemiesToBadCombo)
-        {
-            currentShotMissed = 0;
-            GameManager.instance.GetPlayer1().AddEvilPoints(-badComboPenalty);
-            UIManager.instance.ShowComboText(UIManager.ComboTypes.BadCombo);
-        }
-    }
-
-    public void RegisterWeakAttackHit()
-    {
-        currentShotMissed = 0;
-    }
-
-    public void ResetBadComboCount()
-    {
-        currentShotMissed = 0;
     }
 
     public int GetGlobalPoints()
