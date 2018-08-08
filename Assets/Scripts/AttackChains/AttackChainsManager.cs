@@ -74,20 +74,23 @@ public class AttackChainsManager : MonoBehaviour
         nextChainState = null;
         foreach (AttackChain chain in activeChains)
         {
-            if (chain.CanChain(attack))
+            if (chain.elapsedTime > 0)
             {
-                if (nextChainState == null)
-                    nextChainState = chain.GetFollowUpState();
-
-                if (!chain.AdvanceChain())
+                if (chain.CanChain(attack))
                 {
+                    if (nextChainState == null)
+                        nextChainState = chain.GetFollowUpState();
+
+                    if (!chain.AdvanceChain())
+                    {
+                        chainsToRemove.Add(chain);
+                    }
+                }
+                else
+                {
+                    chain.ResetChain();
                     chainsToRemove.Add(chain);
                 }
-            }
-            else
-            {
-                chain.ResetChain();
-                chainsToRemove.Add(chain);
             }
         }
 

@@ -1,17 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using EZCameraShake;
 
-[CreateAssetMenu(menuName = "Player State Machine/Actions/StrongAttack")]
-public class StrongAttack : StateAction
+[CreateAssetMenu(menuName = "Player State Machine/Actions/StrongAttackFollowUp")]
+public class StrongAttackFollowUp : StateAction
 {
     public int damage;
     public ParticleSystem strongAttackVFX;
-    public float timeToGoOut, timeToGoIn, delay;
+    public float timeToGoIn, delay;
 
-    [SerializeField]
-    private AudioClip takeOffSfx;
     [SerializeField]
     private AudioClip landingSfx;
 
@@ -19,35 +15,12 @@ public class StrongAttack : StateAction
     {
         switch (player.teleportState)
         {
-            case Player.TeleportStates.OUT:
-                if (player.strongAttackTimer >= timeToGoOut)
-                {
-                    player.canMove = true;
-                    player.strongAttackCollider.Activate();
-                    player.teleportState = Player.TeleportStates.TRAVEL;
-                    SoundManager.instance.PlaySfxClip(takeOffSfx);
-                }
-                break;
-            case Player.TeleportStates.TRAVEL:
-                if (InputManager.instance.GetOButtonDown())
-                {
-                    player.teleportState = Player.TeleportStates.IN;
-                    player.strongAttackTimer = 0.0f;
-                    ParticlesManager.instance.LaunchParticleSystem(strongAttackVFX, player.transform.position, strongAttackVFX.transform.rotation);
-                    player.strongAttackCollider.Deactivate();
-                    player.canMove = false;
-                    player.animator.Rebind();
-                    AttackChainsManager.instance.ReportStartChainAttempt(AttackType.STRONG);
-                }
-                break;
             case Player.TeleportStates.IN:
-
-                if (player.strongAttackTimer >= timeToGoIn)
                 {
+                    ParticlesManager.instance.LaunchParticleSystem(strongAttackVFX, player.transform.position, strongAttackVFX.transform.rotation);
                     BulletTime.instance.DoSlowmotion(0.01f, 0.35f);
                     CameraShaker.Instance.ShakeOnce(0.8f, 15.5f, 0.1f, 0.7f);
                     player.cameraState = Player.CameraState.MOVE;
-                    player.SetRenderersVisibility(true);
                     player.mainCameraController.y = 10.0f;
                     player.strongAttackTimer = 0.0f;
                     player.teleported = true;
@@ -61,7 +34,7 @@ public class StrongAttack : StateAction
                 if (player.strongAttackTimer >= delay)
                 {
                     player.comeBackFromStrongAttack = true;
-                }   
+                }
                 break;
             default:
                 break;

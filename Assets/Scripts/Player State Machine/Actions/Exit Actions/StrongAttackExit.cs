@@ -10,8 +10,7 @@ public class StrongAttackExit : StateAction
         player.strongAttackTimer = 0.0f;
         player.SetIsAutoRecoveringEvil(true);
         player.SetRenderersVisibility(true);
-        player.strongAttackCollider.enabled = false;
-        player.strongAttackCollider.gameObject.SetActive(false);
+        player.strongAttackCollider.Deactivate();
         player.cameraState = Player.CameraState.MOVE;
         player.canMove = true;
 
