@@ -101,6 +101,7 @@ public class UIManager : MonoBehaviour
         strongComboColorModifier = 0f;
         badComboscaleModifier = 0f;
         badComboColorModifier = 0f;
+        SetPlayerHealthButtonMashVisibility(false);
     }
 
     private void Update()

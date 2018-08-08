@@ -9,8 +9,6 @@ public class AttackChainsManager : MonoBehaviour
     [SerializeField]
     private AttackChain[] attackChains;
 
-    [ShowOnly]
-    [SerializeField]
     private List<AttackChain> activeChains = new List<AttackChain>();
     private State nextChainState = null;
 

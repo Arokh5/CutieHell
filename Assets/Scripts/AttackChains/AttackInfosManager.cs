@@ -6,6 +6,7 @@ public class AttackInfosManager : MonoBehaviour
     #region Fields
     public static AttackInfosManager instance;
 
+    [Tooltip("All attacks that may start, follow or interrupt a chain should be listed here.")]
     public AttackInfo[] attackInfos;
     [HideInInspector]
     public List<ControllerButton> allButtons;
