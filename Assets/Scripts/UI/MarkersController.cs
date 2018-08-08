@@ -10,6 +10,12 @@ public class MarkersController : MonoBehaviour
     #endregion
 
     #region Public Methods
+    public void MonumentTargetted(int index)
+    {
+        if (index >= 0 && index < monumentIndicators.Length)
+            monumentIndicators[index].MonumentTargetted();
+    }
+
     public void MonumentConquered(int index)
     {
         if (index >= 0 && index < monumentIndicators.Length)

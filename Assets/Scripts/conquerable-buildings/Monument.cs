@@ -30,7 +30,10 @@ public class Monument : Building
         base.Start();
         healthBar = UIManager.instance.monumentsHealthBar;
         if (isFirstEnemyTarget)
-            SetUpHealthBar();    
+        {
+            SetUpHealthBar();
+            UIManager.instance.markersController.MonumentTargetted(zoneController.iconIndex);
+        }
     }
 
     private new void Update()
@@ -67,7 +70,11 @@ public class Monument : Building
     {
         zoneController.OnMonumentTaken();
         if (protectedMonument)
+        {
             protectedMonument.SetUpHealthBar();
+            int protectedMonumentIndex = protectedMonument.zoneController.iconIndex;
+            UIManager.instance.markersController.MonumentTargetted(protectedMonumentIndex);
+        }
     }
     #endregion
 

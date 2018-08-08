@@ -18,6 +18,11 @@ public class ObjectiveMarker : MonoBehaviour
     private bool arrowEnableState = true;
     private RectTransform iconTransform;
 
+    private void Awake()
+    {
+        gameObject.SetActive(false);
+    }
+
     void Start()
     {
         horizontalOffset = mainCamera.pixelWidth * horizontalOffsetPercentage;
@@ -117,6 +122,11 @@ public class ObjectiveMarker : MonoBehaviour
             arrow.gameObject.SetActive(currentArrowEnableState);
             arrowEnableState = currentArrowEnableState;
         }
+    }
+
+    public void MonumentTargetted()
+    {
+        gameObject.SetActive(true);
     }
 
     public void MonumentTaken()
