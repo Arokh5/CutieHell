@@ -11,6 +11,8 @@ public class InputManager : MonoBehaviour {
     private ButtonState[] buttonStates;
     private int axisAsButtonsCount;
     public const float joystickThreshold = 0.1f;
+    public bool isXbox;
+    public bool isPS4;
 
     #endregion
 
@@ -26,10 +28,14 @@ public class InputManager : MonoBehaviour {
         }
         else
             Destroy(this);
+
+        CheckDevice();
+
     }
 
     private void Update()
     {
+        CheckDevice();
         for (int i = 0; i < axisAsButtonsCount; ++i)
         {
             bool currentlyPressed = false;
@@ -198,62 +204,157 @@ public class InputManager : MonoBehaviour {
 
     public bool GetXButtonDown()
     {
-        return Input.GetButtonDown("PS4_X");
+        if (isXbox)
+        {
+            return Input.GetButtonDown("PS4_Square");
+        }
+        else
+        {
+            return Input.GetButtonDown("PS4_X");
+        }
     }
 
     public bool GetOButtonDown()
     {
-        return Input.GetButtonDown("PS4_O");
+        if (isXbox)
+        {
+            return Input.GetButtonDown("PS4_X");
+        }
+        else
+        {
+            return Input.GetButtonDown("PS4_O");
+        }
+
     }
 
     public bool GetTriangleButtonDown()
     {
-        return Input.GetButtonDown("PS4_Triangle");
+        if (isXbox)
+        {
+            return Input.GetButtonDown("PS4_Triangle");
+        }
+        else
+        {
+            return Input.GetButtonDown("PS4_Triangle");
+        }
+
     }
 
     public bool GetSquareButtonDown()
     {
-        return Input.GetButtonDown("PS4_Square");
+        if (isXbox)
+        {
+            return Input.GetButtonDown("PS4_O");
+        }
+        else
+        {
+            return Input.GetButtonDown("PS4_Square");
+        }
+
     }
 
     public bool GetXButton()
     {
-        return Input.GetButton("PS4_X");
+        if (isXbox)
+        {
+            return Input.GetButton("PS4_Square");
+        }
+        else
+        {
+            return Input.GetButton("PS4_X");
+        }
+
     }
 
     public bool GetOButton()
     {
-        return Input.GetButton("PS4_O");
+        if (isXbox)
+        {
+            return Input.GetButton("PS4_X");
+        }
+        else
+        {
+            return Input.GetButton("PS4_O");
+        }
+
     }
 
     public bool GetTriangleButton()
     {
-        return Input.GetButton("PS4_Triangle");
+        if (isXbox)
+        {
+            return Input.GetButton("PS4_Triangle");
+        }
+        else
+        {
+            return Input.GetButton("PS4_Triangle");
+        }
+
     }
 
     public bool GetSquareButton()
     {
-        return Input.GetButton("PS4_Square");
+        if (isXbox)
+        {
+            return Input.GetButton("PS4_O");
+        }
+        else
+        {
+            return Input.GetButton("PS4_Square");
+        }
+
     }
 
     public bool GetXButtonUp()
     {
-        return Input.GetButtonUp("PS4_X");
+        if (isXbox)
+        {
+            return Input.GetButtonUp("PS4_Square");
+        }
+        else
+        {
+            return Input.GetButtonUp("PS4_X");
+        }
+
     }
 
     public bool GetOButtonUp()
     {
-        return Input.GetButtonUp("PS4_O");
+        if (isXbox)
+        {
+            return Input.GetButtonUp("PS4_X");
+        }
+        else
+        {
+            return Input.GetButtonUp("PS4_O");
+        }
+
     }
 
     public bool GetTriangleButtonUp()
     {
-        return Input.GetButtonUp("PS4_Triangle");
+        if (isXbox)
+        {
+            return Input.GetButtonUp("PS4_Triangle");
+        }
+        else
+        {
+            return Input.GetButtonUp("PS4_Triangle");
+        }
+
     }
 
     public bool GetSquareButtonUp()
     {
-        return Input.GetButtonUp("PS4_Square");
+        if (isXbox)
+        {
+            return Input.GetButtonUp("PS4_O");
+        }
+        else
+        {
+            return Input.GetButtonUp("PS4_Square");
+        }
+
     }
 
     /* Left Stick */
@@ -327,42 +428,98 @@ public class InputManager : MonoBehaviour {
 
     public bool GetRightStickRight()
     {
-        return Input.GetAxis("PS4_R_Horizontal") > joystickThreshold;
+        if (isXbox)
+        {
+            return Input.GetAxis("PS4_L2") > joystickThreshold;
+        }
+        else
+        {
+            return Input.GetAxis("PS4_R_Horizontal") > joystickThreshold;
+        }
     }
 
     public bool GetRightStickLeft()
     {
-        return Input.GetAxis("PS4_R_Horizontal") < -joystickThreshold;
+        if (isXbox)
+        {
+            return Input.GetAxis("PS4_L2") < -joystickThreshold;
+        }
+        else
+        {
+            return Input.GetAxis("PS4_R_Horizontal") < -joystickThreshold;
+        }
     }
 
     public float GetRightStickHorizontalValue()
     {
-        return Input.GetAxis("PS4_R_Horizontal");
+        if (isXbox)
+        {
+            return Input.GetAxis("PS4_L2");
+        }
+        else
+        {
+            return Input.GetAxis("PS4_R_Horizontal");
+        }
     }
 
     public float GetRightStickHorizontalSqrValue()
     {
-        return Input.GetAxis("PS4_R_Horizontal") * Input.GetAxis("PS4_R_Horizontal") * Mathf.Sign(Input.GetAxis("PS4_R_Horizontal"));
+        if (isXbox)
+        {
+            return Input.GetAxis("PS4_L2") * Input.GetAxis("PS4_L2") * Mathf.Sign(Input.GetAxis("PS4_L2"));
+        }
+        else
+        {
+            return Input.GetAxis("PS4_R_Horizontal") * Input.GetAxis("PS4_R_Horizontal") * Mathf.Sign(Input.GetAxis("PS4_R_Horizontal"));
+        }
     }
 
     public bool GetRightStickUp()
     {
-        return Input.GetAxis("PS4_R_Vertical") < -joystickThreshold;
+        if (isXbox)
+        {
+            return Input.GetAxis("PS4_R2") < -joystickThreshold;
+        }
+        else
+        {
+            return Input.GetAxis("PS4_R_Vertical") < -joystickThreshold;
+        }
     }
 
     public bool GetRightStickDown()
     {
-        return Input.GetAxis("PS4_R_Vertical") > joystickThreshold;
+        if (isXbox)
+        {
+            return Input.GetAxis("PS4_R2") > joystickThreshold;
+        }
+        else
+        {
+            return Input.GetAxis("PS4_R_Vertical") > joystickThreshold;
+        }
     }
 
     public float GetRightStickVerticalValue()
     {
-        return Input.GetAxis("PS4_R_Vertical");
+        if (isXbox)
+        {
+            return Input.GetAxis("PS4_R2");
+        }
+        else
+        {
+            return Input.GetAxis("PS4_R_Vertical");
+        }
     }
 
     public float GetRightStickVerticalSqrValue()
     {
-        return Input.GetAxis("PS4_R_Vertical") * Input.GetAxis("PS4_R_Vertical") * Mathf.Sign(Input.GetAxis("PS4_R_Vertical"));
+        if (isXbox)
+        {
+            return Input.GetAxis("PS4_R2") * Input.GetAxis("PS4_R2") * Mathf.Sign(Input.GetAxis("PS4_R2"));
+        }
+        else
+        {
+            return Input.GetAxis("PS4_R_Vertical") * Input.GetAxis("PS4_R_Vertical") * Mathf.Sign(Input.GetAxis("PS4_R_Vertical"));
+        }
     }
 
     public bool GetRightStickButtonDown()
@@ -389,7 +546,14 @@ public class InputManager : MonoBehaviour {
 
     public bool GetR2Button()
     {
-        return Input.GetAxis("PS4_R2") > joystickThreshold;
+        if (isXbox)
+        {
+            return Input.GetAxis("XBOX_RT") > joystickThreshold;
+        }
+        else
+        {
+            return Input.GetAxis("PS4_R2") > joystickThreshold;
+        }
     }
 
     public bool GetR2ButtonUp()
@@ -409,7 +573,14 @@ public class InputManager : MonoBehaviour {
 
     public bool GetL2Button()
     {
-        return Input.GetAxis("PS4_L2") > joystickThreshold;
+        if (isXbox)
+        {
+            return Input.GetAxis("XBOX_LT") > joystickThreshold;
+        }
+        else
+        {
+            return Input.GetAxis("PS4_L2") > joystickThreshold;
+        }
     }
 
     public bool GetL2ButtonUp()
@@ -461,7 +632,14 @@ public class InputManager : MonoBehaviour {
 
     public bool GetPadUp()
     {
-        return Input.GetAxis("PS4_D_Y") == 1;
+        if (isXbox)
+        {
+            return Input.GetAxis("XBOX_Pad_Vertical") == 1;
+        }
+        else
+        {
+            return Input.GetAxis("PS4_D_Y") == 1;
+        }
     }
 
     public bool GetPadDownDown()
@@ -471,24 +649,52 @@ public class InputManager : MonoBehaviour {
 
     public bool GetPadDown()
     {
-        return Input.GetAxis("PS4_D_Y") == -1;
+        if (isXbox)
+        {
+            return Input.GetAxis("XBOX_Pad_Vertical") == -1;
+        }
+        else
+        {
+            return Input.GetAxis("PS4_D_Y") == -1;
+        }
     }
 
     public bool GetPadRight()
     {
-        return Input.GetAxis("PS4_D_X") == 1;
+        if (isXbox)
+        {
+            return Input.GetAxis("XBOX_Pad_Horizontal") == 1;
+        }
+        else
+        {
+            return Input.GetAxis("PS4_D_X") == 1;
+        }
     }
 
     public bool GetPadLeft()
     {
-        return Input.GetAxis("PS4_D_X") == -1;
+        if (isXbox)
+        {
+            return Input.GetAxis("XBOX_Pad_Horizontal") == -1;
+        }
+        else
+        {
+            return Input.GetAxis("PS4_D_X") == -1;
+        }
     }
 
     /* PS4 buttons */
 
     public bool GetPS4OptionsDown()
     {
-        return Input.GetButtonDown("PS4_Options");
+        if (isXbox)
+        {
+            return Input.GetButtonDown("XBOX_Start");
+        }
+        else
+        {
+            return Input.GetButtonDown("PS4_Options");
+        }
     }
 
     public bool GetPS4ShareDown()
@@ -544,6 +750,26 @@ public class InputManager : MonoBehaviour {
     public bool GetPS4PSUp()
     {
         return Input.GetButtonUp("PS4_PS");
+    }
+
+    private void CheckDevice()
+    {
+        isXbox = false;
+        isPS4 = false;
+        string[] joystickNames = Input.GetJoystickNames();
+        for (int i = 0; i < joystickNames.Length; i++)
+        {
+            if (joystickNames[i].Contains("360") || joystickNames[i].Contains("XBOX") || joystickNames[i].Contains("Xbox"))
+            {
+                isXbox = true;
+                return;
+            }
+            else if (joystickNames[i].Contains("Wireless Controller"))
+            {
+                isPS4 = true;
+                return;
+            }
+        }
     }
 
     #endregion
