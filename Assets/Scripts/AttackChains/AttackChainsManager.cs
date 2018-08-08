@@ -26,7 +26,10 @@ public class AttackChainsManager : MonoBehaviour
             instance = this;
         else if (instance != this)
             Destroy(this);
+    }
 
+    private void Start()
+    {
         VerifyActiveChains();
     }
 
