@@ -11,6 +11,8 @@ public class AIAttackDPS : AIAttackLogic {
     [SerializeField]
     private Transform modelPosition;
     private IDamageable target;
+    [SerializeField]
+    private ParticleSystem enemyHitVFX;
     #endregion
 
     #region MonoBehaviour Methods
@@ -50,14 +52,16 @@ public class AIAttackDPS : AIAttackLogic {
         {
             if(target.transform.gameObject == GameManager.instance.GetPlayer1().gameObject)
             {
-                if (Vector3.Distance(modelPosition.position, target.transform.position + Vector3.up) < 2.1f)
+                if (Vector3.Distance(modelPosition.position, target.transform.position + Vector3.up) < 1.5f)
                 {
                     Attack(target);
+                    ParticlesManager.instance.LaunchParticleSystem(enemyHitVFX, modelPosition.position - modelPosition.transform.right * 0.2f, enemyHitVFX.transform.rotation);
                 }
             }
             else
             {
                 Attack(target);
+                ParticlesManager.instance.LaunchParticleSystem(enemyHitVFX, modelPosition.position - modelPosition.transform.right * 0.2f, enemyHitVFX.transform.rotation);
             }
         }
     }

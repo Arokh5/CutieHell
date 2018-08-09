@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 114065911579042496}
   - component: {fileID: 114327510471244382}
   - component: {fileID: 114402565021805656}
+  - component: {fileID: 114806932963551796}
   m_Layer: 0
   m_Name: GameManager 2
   m_TagString: Untagged
@@ -84,6 +85,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e796f52dfb0a47408b3deaad32859c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isXbox: 0
+  isPS4: 0
+  errorMessage: {fileID: 0}
+  stopGameIfNoController: 1
 --- !u!114 &114327510471244382
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -95,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8f1269efa60b0449a042ce49db70d0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skipTutorial: 0
+  skipTutorial: 1
   tutorialController: {fileID: 0}
   screenFadeController: {fileID: 0}
   aiSpawnController: {fileID: 0}
@@ -133,13 +138,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a14d2ce0f595b6343a3cf892968c1d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesToBadCombo: 5
-  badComboPenalty: 5
   roundTimeReward: 100
   roundMaxTime: 60
   maxCombo: {fileID: 0}
   timeCombo: {fileID: 0}
   receivedDamageCombo: {fileID: 0}
+--- !u!114 &114806932963551796
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1639395492040046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41a332a233a9a234c82a336863a7cdd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slowdownFactor: 0.05
+  slowdownLength: 0.5
+  slowdownIncreaseTime: 0.5
 --- !u!135 &135324134088388578
 SphereCollider:
   m_ObjectHideFlags: 1

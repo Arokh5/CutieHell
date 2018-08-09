@@ -13,6 +13,9 @@ public class InputManager : MonoBehaviour {
     public const float joystickThreshold = 0.1f;
     public bool isXbox;
     public bool isPS4;
+    [SerializeField]
+    private GameObject errorMessage;
+    public bool stopGameIfNoController;
 
     #endregion
 
@@ -762,14 +765,22 @@ public class InputManager : MonoBehaviour {
             if (joystickNames[i].Contains("360") || joystickNames[i].Contains("XBOX") || joystickNames[i].Contains("Xbox"))
             {
                 isXbox = true;
+                if(errorMessage.activeSelf) errorMessage.SetActive(false);
                 return;
             }
             else if (joystickNames[i].Contains("Wireless Controller"))
             {
                 isPS4 = true;
+                if (errorMessage.activeSelf) errorMessage.SetActive(false);
                 return;
             }
         }
+        if (stopGameIfNoController)
+        {
+            if(GameManager.instance != null) GameManager.instance.OnGamePaused();
+            errorMessage.SetActive(true);
+        }
+
     }
 
     #endregion

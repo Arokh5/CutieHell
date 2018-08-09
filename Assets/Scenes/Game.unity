@@ -12497,25 +12497,6 @@ GameObject:
   m_PrefabParentObject: {fileID: 1184764017968070, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
     type: 2}
   m_PrefabInternal: {fileID: 823969472}
---- !u!1 &600330493 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1639395492040046, guid: aa7289eb32dc80043a9fe97e38c6cbff,
-    type: 2}
-  m_PrefabInternal: {fileID: 1438943455}
---- !u!114 &600330498
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 600330493}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41a332a233a9a234c82a336863a7cdd3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slowdownFactor: 0.05
-  slowdownLength: 0.5
-  slowdownIncreaseTime: 0.5
 --- !u!1001 &601690457
 Prefab:
   m_ObjectHideFlags: 0
@@ -17023,16 +17004,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114035595282849316, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-        type: 2}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 739791453}
-    - target: {fileID: 114035595282849316, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-        type: 2}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 230846840}
     - target: {fileID: 114514683238999866, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: target
@@ -17053,9 +17024,24 @@ Prefab:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 230846840}
+    - target: {fileID: 114035595282849316, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+        type: 2}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 739791453}
+    - target: {fileID: 114035595282849316, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+        type: 2}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 230846840}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ea64b03fd47dae043a3d7cf8c919a7b7, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &823969473 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1086782575551036, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+    type: 2}
+  m_PrefabInternal: {fileID: 823969472}
 --- !u!4 &824134209 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4300514353033636, guid: 61473a3df3f54f645972f727debde0c9,
@@ -30180,21 +30166,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114402565021805656, guid: aa7289eb32dc80043a9fe97e38c6cbff,
+    - target: {fileID: 114065911579042496, guid: aa7289eb32dc80043a9fe97e38c6cbff,
         type: 2}
-      propertyPath: maxCombo
+      propertyPath: errorMessage
       value: 
-      objectReference: {fileID: 425164831}
-    - target: {fileID: 114402565021805656, guid: aa7289eb32dc80043a9fe97e38c6cbff,
-        type: 2}
-      propertyPath: timeCombo
-      value: 
-      objectReference: {fileID: 425164830}
-    - target: {fileID: 114402565021805656, guid: aa7289eb32dc80043a9fe97e38c6cbff,
-        type: 2}
-      propertyPath: receivedDamageCombo
-      value: 
-      objectReference: {fileID: 425164829}
+      objectReference: {fileID: 823969473}
     - target: {fileID: 114327510471244382, guid: aa7289eb32dc80043a9fe97e38c6cbff,
         type: 2}
       propertyPath: tutorialController
@@ -30232,11 +30208,6 @@ Prefab:
       objectReference: {fileID: 731348623}
     - target: {fileID: 114327510471244382, guid: aa7289eb32dc80043a9fe97e38c6cbff,
         type: 2}
-      propertyPath: crosshair
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114327510471244382, guid: aa7289eb32dc80043a9fe97e38c6cbff,
-        type: 2}
       propertyPath: gameOverPanel
       value: 
       objectReference: {fileID: 1566213060}
@@ -30245,14 +30216,24 @@ Prefab:
       propertyPath: roundScore
       value: 
       objectReference: {fileID: 102332480}
+    - target: {fileID: 114402565021805656, guid: aa7289eb32dc80043a9fe97e38c6cbff,
+        type: 2}
+      propertyPath: maxCombo
+      value: 
+      objectReference: {fileID: 425164831}
+    - target: {fileID: 114402565021805656, guid: aa7289eb32dc80043a9fe97e38c6cbff,
+        type: 2}
+      propertyPath: timeCombo
+      value: 
+      objectReference: {fileID: 425164830}
+    - target: {fileID: 114402565021805656, guid: aa7289eb32dc80043a9fe97e38c6cbff,
+        type: 2}
+      propertyPath: receivedDamageCombo
+      value: 
+      objectReference: {fileID: 425164829}
     - target: {fileID: 1639395492040046, guid: aa7289eb32dc80043a9fe97e38c6cbff, type: 2}
       propertyPath: m_Name
       value: GameManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 114327510471244382, guid: aa7289eb32dc80043a9fe97e38c6cbff,
-        type: 2}
-      propertyPath: skipTutorial
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aa7289eb32dc80043a9fe97e38c6cbff, type: 2}
@@ -33432,9 +33413,8 @@ Transform:
   - {fileID: 715371304}
   - {fileID: 2065985907}
   - {fileID: 203853233}
-  - {fileID: 1468196501}
-  - {fileID: 428336272}
   - {fileID: 1419543654}
+  - {fileID: 428336272}
   - {fileID: 1185902855}
   - {fileID: 2093372274}
   - {fileID: 1133372225}
@@ -33447,6 +33427,7 @@ Transform:
   - {fileID: 843708596}
   - {fileID: 1360179020}
   - {fileID: 886095689}
+  - {fileID: 1468196501}
   - {fileID: 1495502160}
   - {fileID: 2023675999}
   - {fileID: 983979985}
@@ -33457,10 +33438,10 @@ Transform:
   - {fileID: 349918341}
   - {fileID: 994333527}
   - {fileID: 734410092}
-  - {fileID: 1705709339}
+  - {fileID: 1303316422}
   - {fileID: 302291802}
   - {fileID: 434006808}
-  - {fileID: 1303316422}
+  - {fileID: 1705709339}
   - {fileID: 692925243}
   - {fileID: 1706404464}
   - {fileID: 1577975339}
