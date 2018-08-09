@@ -30,6 +30,7 @@ public class Player : MonoBehaviour, IDamageable
     public Vector3 lastValidPosition;
 
     [Header("Dash")]
+    public CooldownInfo dashCooldown;
     public float dashDistance = 10.0f;
     public float dashDuration = 0.25f;
     [HideInInspector]
@@ -263,7 +264,7 @@ public class Player : MonoBehaviour, IDamageable
         evilLevel = maxEvilLevel;
         currentState = defaultState;
 
-        cooldownInfos = new CooldownInfo[] { strongAttackCooldown, coneAttackCooldown, mineAttackCooldown, meteoriteAttackCooldown };
+        cooldownInfos = new CooldownInfo[] { dashCooldown, coneAttackCooldown, strongAttackCooldown, meteoriteAttackCooldown, mineAttackCooldown };
     }
 
     private void Start () 
