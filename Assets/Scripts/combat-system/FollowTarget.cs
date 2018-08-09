@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using EZCameraShake;
 
 public class FollowTarget : PooledParticleSystem
 {
@@ -129,7 +130,7 @@ public class FollowTarget : PooledParticleSystem
                 time += Time.deltaTime;
                 if (time >= goWayFinalWaitTime)
                 {
-                    
+                    CameraShaker.Instance.ShakeOnce(0.2f, 3.5f, 0.1f, 0.3f);
                     attackState = AttackStates.ReturnWay;
                 }
                 break;
