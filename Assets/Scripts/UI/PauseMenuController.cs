@@ -7,17 +7,17 @@ public class PauseMenuController : MonoBehaviour {
     #region Fields
     public bool isTutorialPauseMenu = false;
     [SerializeField]
-    private MenuButton[] pauseButtons = new MenuButton[3];
+    private MenuButton[] pauseButtons = new MenuButton[4];
     private int pauseIndex = 0;
     [SerializeField]
     private GameObject optionsScreen;
-    private bool inOptionsScreen = false;
+    private bool controlsScreenActive = false;
     #endregion
 
     #region Public Methods
     public void HandlePause()
     {
-        if (!inOptionsScreen)
+        if (!controlsScreenActive)
         {
             HandleSelection();
             HandleConfirm();
@@ -72,18 +72,22 @@ public class PauseMenuController : MonoBehaviour {
             switch (pauseIndex)
             {
                 case 0:
+                    Resume();
+                    break;
+
+                case 1:
                     if (isTutorialPauseMenu)
                         GameManager.instance.SkipTutorial();
                     else
                         GameManager.instance.RestartGame();
                     break;
 
-                case 1:
+                case 2:
                     optionsScreen.SetActive(true);
-                    inOptionsScreen = true;
+                    controlsScreenActive = true;
                     break;
 
-                case 2:
+                case 3:
                     Time.timeScale = 1.0f;
                     GameManager.instance.gameState = GameManager.GameStates.OnGameEnd;
                     break;
@@ -92,8 +96,16 @@ public class PauseMenuController : MonoBehaviour {
 
         if (InputManager.instance.GetPS4OptionsDown())
         {
-            GameManager.instance.ResumeGamePaused();
+            Resume();
         }
+    }
+
+    private void Resume()
+    {
+        GameManager.instance.ResumeGamePaused();
+        pauseButtons[pauseIndex].UnselectButton();
+        pauseIndex = 0;
+        pauseButtons[pauseIndex].SelectButton();
     }
 
     private void GoBack()
@@ -101,7 +113,7 @@ public class PauseMenuController : MonoBehaviour {
         if (InputManager.instance.GetOButtonDown())
         {
             optionsScreen.SetActive(false);
-            inOptionsScreen = false;
+            controlsScreenActive = false;
         }
     }
     #endregion
