@@ -66,6 +66,7 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        SetPlayerHealthButtonMashVisibility(false);
     }
     #endregion
 

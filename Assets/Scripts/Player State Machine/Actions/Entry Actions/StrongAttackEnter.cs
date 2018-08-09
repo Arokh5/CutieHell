@@ -15,8 +15,6 @@ public class StrongAttackEnter : StateAction
         player.strongAttackTimer = 0.0f;
         player.SetRenderersVisibility(false);
         player.teleported = false;
-        player.timeSinceLastTeleport = 0.0f;
-        player.initialPositionOnStrongAttack = player.transform;
         player.cameraState = Player.CameraState.STRONG_ATTACK;
         player.teleportState = Player.TeleportStates.OUT;
         player.SetIsAutoRecoveringEvil(false);

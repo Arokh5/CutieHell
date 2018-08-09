@@ -1,0 +1,53 @@
+General idea:
+A Manager will be implemented which will hold an array of all possible attack chains and their configurations (attacks to be chained and timings to successfully proceed in the chain). In any state, a custom-made Decision will establish if the currently pressed button continues a chain or not. If so, a transition to the chain's corresponding state is launched. When any attack State is entered, the Manager is informed of the AttackType of said attack. This is done either to advance the current AttackChains to their next state (if the attack fits a chain), to reset all active chains (if the attack doesn't fit any chains) OR to start new chains if no chains were active. When in any attack State, an extra decision will be taken before any other: A check for Input that fits with active chains. If this occurs, a transition to a special ComboState (custimized by the Manager to be any state acording to the AttackChains) will be triggered. The Combo will be just a wrapper for any state that corresponds to a certain AttackChain FollowUpAttack as configured in the Manager. This process skips the cooldown wall that common decisions have. Care must be taken that follow up decisions should not contain an Enter of Exit action that activates the cooldown of the attack in question.
+
+AttackChainManager
+- AttackChain[] attackChains;
+//  Called as an attack's State EnterAction. Test the currentFollowUp of active chains and either advances the chain (if the attack param fits the followUp) or stops any active chains. If there are no active chains, attempts to initiate a new set of possible chains.
+- void ReportAttack(AttackType attack);
+// Called by the ComboDecision. This method returns true if a chain can be followed up by (param)attack AND set up the next chain state. (Timing is evaluated in this method). Early exit to false if there are no active chains. If there are chains but the input is not a followUp, all chains are deactivated. Does NOT modify the currentFollowUp of the active AttackChains.
+- bool TestChain(AttackType attack);
+// Called in the ComboState OnEnterState method to set up the combo state
+- IState GetNextChainState();
+
+AttackChain
+- String name;
+- AttackType startAttack;
+- FollowUpAttack[] followUps;
+- [Hide] FollowUpAttack currentFollowUp;
+
+FollowUpAttack
+- AttackType attack;
+- TimingInfo timing;
+- State relatedState;
+
+TimingInfo:
+- float start;
+- float end;
+
+About State class:
+- A base abstract class State:ScriptableObject will be used to allow a new implementation of ComboState which is customized in runTime to apply a different State as set up by the AttackChainManager.
+
+ComboState:
+A new implementation of state that obtains an actual (private)StandardState from the AttackChainManager and implements its public methods by calling the StandardState's corresponding methods.
+
+Linking AttackType with Sprites and InputMethods WILL BE REQUIRED.
+- ¿Have an enum and a switch over the enum calling the different InputManager.GetButtonDown methods?
+
+enum KeyType {SQUARE, CIRCLE, TRIANGLE, ...}
+
+AttackInfo:
+- AttackType type;
+- KeyType key;
+- Sprite keySprite;
+- public bool getKeyDown(); (Implemented as a switch).
+
+
+About the AttackChainDecision
+This decision must check for inputs that correspond with AttackTypes that support combos. If an input is found, then ReportAttackAttempt is called with said attack. (If the aforementioned linking is build as some sort of array, then this Decision would be applicable unmodified by customizing said linking)
+
+NO EnterAction will be required. The AttackChainDecision calls ReportAttackAttempt. This method will discard chains that cannot chain said attack and the specific timing of the attempt, OR it will start new chains that start with said attack.
+
+
+Implementation notes:
+- All States that correspond with chainable abilities must be added the InformAttackChain EnterAction and ALSO the pair of ComboDecision and ComboState.

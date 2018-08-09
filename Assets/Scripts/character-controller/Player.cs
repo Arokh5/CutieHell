@@ -166,13 +166,11 @@ public class Player : MonoBehaviour, IDamageable
 
     [Header("Strong Attack")]
     public CooldownInfo strongAttackCooldown;
-    public SphereCollider strongAttackCollider;
+    public StrongAttackDetection strongAttackCollider;
     [HideInInspector]
     public float strongAttackTimer;
     [HideInInspector]
     public List<AIEnemy> currentStrongAttackTargets = new List<AIEnemy>();
-    [HideInInspector]
-    public Transform initialPositionOnStrongAttack;
     [HideInInspector]
     public bool comeBackFromStrongAttack;
 
@@ -495,7 +493,6 @@ public class Player : MonoBehaviour, IDamageable
         {
             colliders[i].enabled = isActive;
         }
-        strongAttackCollider.enabled = true;
     }
 
     public void InstantiateAttack(ParticleSystem attackPrefab, Transform enemy, Vector3 hitOffset)
