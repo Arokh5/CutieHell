@@ -13068,7 +13068,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1645816e0be8aec4da36706802d0c524, type: 3}
 --- !u!114 &625017280 stripped
 MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114136031187378154, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+  m_PrefabParentObject: {fileID: 114486745941528994, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
     type: 2}
   m_PrefabInternal: {fileID: 823969472}
   m_Script: {fileID: 11500000, guid: 1645816e0be8aec4da36706802d0c524, type: 3}
@@ -17098,12 +17098,12 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114251216045031656, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+    - target: {fileID: 114035595282849316, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: target
       value: 
-      objectReference: {fileID: 1664606504}
-    - target: {fileID: 114251216045031656, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+      objectReference: {fileID: 739791453}
+    - target: {fileID: 114035595282849316, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: mainCamera
       value: 
@@ -17118,12 +17118,12 @@ Prefab:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 230846840}
-    - target: {fileID: 114035595282849316, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+    - target: {fileID: 114251216045031656, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: target
       value: 
-      objectReference: {fileID: 739791453}
-    - target: {fileID: 114035595282849316, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+      objectReference: {fileID: 1664606504}
+    - target: {fileID: 114251216045031656, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: mainCamera
       value: 
@@ -25625,6 +25625,12 @@ Transform:
   m_PrefabParentObject: {fileID: 4300514353033636, guid: 61473a3df3f54f645972f727debde0c9,
     type: 2}
   m_PrefabInternal: {fileID: 1223427420}
+--- !u!114 &1230239310 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114136031187378154, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+    type: 2}
+  m_PrefabInternal: {fileID: 823969472}
+  m_Script: {fileID: 11500000, guid: 1645816e0be8aec4da36706802d0c524, type: 3}
 --- !u!4 &1233898032
 Transform:
   m_ObjectHideFlags: 0
@@ -29357,17 +29363,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 114672234268194792, guid: 182da881c3eee6548aa68ab299d1e64c,
-        type: 2}
-      propertyPath: reference
-      value: 
-      objectReference: {fileID: 2052622974}
-    - target: {fileID: 114624676859903252, guid: 182da881c3eee6548aa68ab299d1e64c,
-        type: 2}
-      propertyPath: reference
-      value: 
-      objectReference: {fileID: 2052622974}
-    - target: {fileID: 114350427958116988, guid: 182da881c3eee6548aa68ab299d1e64c,
+    - target: {fileID: 114029336207075494, guid: 182da881c3eee6548aa68ab299d1e64c,
         type: 2}
       propertyPath: reference
       value: 
@@ -29377,7 +29373,17 @@ Prefab:
       propertyPath: reference
       value: 
       objectReference: {fileID: 2052622974}
-    - target: {fileID: 114029336207075494, guid: 182da881c3eee6548aa68ab299d1e64c,
+    - target: {fileID: 114350427958116988, guid: 182da881c3eee6548aa68ab299d1e64c,
+        type: 2}
+      propertyPath: reference
+      value: 
+      objectReference: {fileID: 2052622974}
+    - target: {fileID: 114624676859903252, guid: 182da881c3eee6548aa68ab299d1e64c,
+        type: 2}
+      propertyPath: reference
+      value: 
+      objectReference: {fileID: 2052622974}
+    - target: {fileID: 114672234268194792, guid: 182da881c3eee6548aa68ab299d1e64c,
         type: 2}
       propertyPath: reference
       value: 
@@ -29392,6 +29398,11 @@ Prefab:
       propertyPath: teleportTargets.Array.data[1]
       value: 
       objectReference: {fileID: 707458723}
+    - target: {fileID: 114580650670945556, guid: 182da881c3eee6548aa68ab299d1e64c,
+        type: 2}
+      propertyPath: dashCooldown.cooldownUI
+      value: 
+      objectReference: {fileID: 1230239310}
     - target: {fileID: 114580650670945556, guid: 182da881c3eee6548aa68ab299d1e64c,
         type: 2}
       propertyPath: startingZone

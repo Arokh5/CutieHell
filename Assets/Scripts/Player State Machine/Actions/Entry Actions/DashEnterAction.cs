@@ -3,6 +3,7 @@
 [CreateAssetMenu(menuName = "Player State Machine/Actions/DashEnterAction")]
 public class DashEnterAction : StateAction
 {
+    public bool startsCooldown = true;
     public float limitCheckUpwardsOffset = 0.2f;
     public LayerMask dashLimitLayerMask;
     [SerializeField]
@@ -10,6 +11,9 @@ public class DashEnterAction : StateAction
 
     public override void Act(Player player)
     {
+        if (startsCooldown)
+            player.dashCooldown.timeSinceLastAction = 0.0f;
+
         ParticleSystem ps = ParticlesManager.instance.LaunchParticleSystem(dashVFX, player.transform.position, dashVFX.transform.rotation);
         ps.transform.SetParent(player.transform);
         float threshold = InputManager.joystickThreshold;

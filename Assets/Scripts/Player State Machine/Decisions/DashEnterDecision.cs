@@ -3,11 +3,15 @@
 [CreateAssetMenu(menuName = "Player State Machine/Decisions/DashEnterDecision")]
 public class DashEnterDecision : Decision
 {
-    public float limitCheckUpwardsOffset = 0.2f;
-    public LayerMask dashLimitLayerMask;
-
     public override bool Decide(Player player)
     {
-        return !player.knockbackActive && InputManager.instance.GetL2ButtonDown();
+        if (InputManager.instance.GetL2ButtonDown())
+        {
+            if (player.dashCooldown.timeSinceLastAction >= player.dashCooldown.cooldownTime)
+                return true;
+            else
+                player.dashCooldown.cooldownUI.Flash();
+        }
+        return false;
     }
 }
