@@ -15,5 +15,6 @@ public enum AttackType
     STRONG,
     MINE,
     CONE,
-    METEORITE
+    METEORITE,
+    DASH
 }
