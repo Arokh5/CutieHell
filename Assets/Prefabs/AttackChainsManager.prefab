@@ -85,21 +85,49 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackChains:
-  - name: Double Slash
+  - name: Double Slash + Dash
     startAttack: 6
     followUps:
     - attack: 6
       relatedState: {fileID: 11400000, guid: bc27f2e4153e5d84d86064ce5afcb983, type: 2}
       timing:
         start: 0.5
-        end: 1.5
+        end: 1
+    - attack: 8
+      relatedState: {fileID: 11400000, guid: 9e020d34b281ce0489aeae6da59bff33, type: 2}
+      timing:
+        start: 0.5
+        end: 1
     elapsedTime: 0
-  - name: Double Smash
+  - name: Double Smash + Dash
     startAttack: 4
     followUps:
     - attack: 4
       relatedState: {fileID: 11400000, guid: 81f66d3f99bf45242b7717a9bb543db6, type: 2}
       timing:
         start: 0.5
-        end: 1.5
+        end: 1
+    - attack: 8
+      relatedState: {fileID: 11400000, guid: 9e020d34b281ce0489aeae6da59bff33, type: 2}
+      timing:
+        start: 0.5
+        end: 1
+    elapsedTime: 0
+  - name: Slash + Dash
+    startAttack: 6
+    followUps:
+    - attack: 8
+      relatedState: {fileID: 11400000, guid: 9e020d34b281ce0489aeae6da59bff33, type: 2}
+      timing:
+        start: 0.5
+        end: 1
+    elapsedTime: 0
+  - name: Smash + Dash
+    startAttack: 4
+    followUps:
+    - attack: 8
+      relatedState: {fileID: 11400000, guid: 9e020d34b281ce0489aeae6da59bff33, type: 2}
+      timing:
+        start: 0.5
+        end: 1
     elapsedTime: 0
