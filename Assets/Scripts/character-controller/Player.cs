@@ -149,6 +149,7 @@ public class Player : MonoBehaviour, IDamageable
     [HideInInspector]
     public CameraController mainCameraController;
     private float lastTransitionTime = -1.0f;
+    private float lastPauseTime = -1.0f;
 
     [Header("Basic Attacks")]
     [HideInInspector]
@@ -282,10 +283,12 @@ public class Player : MonoBehaviour, IDamageable
         availableMinesNumber = maxMinesNumber;
         timeSinceLastMine = 0.0f;
 
-        strongAttackCooldown.timeSinceLastAction = strongAttackCooldown.cooldownTime;
+        dashCooldown.timeSinceLastAction = dashCooldown.cooldownTime;
         coneAttackCooldown.timeSinceLastAction = coneAttackCooldown.cooldownTime;
+        strongAttackCooldown.timeSinceLastAction = strongAttackCooldown.cooldownTime;
         meteoriteAttackCooldown.timeSinceLastAction = meteoriteAttackCooldown.cooldownTime;
         mineAttackCooldown.timeSinceLastAction = mineAttackCooldown.cooldownTime;
+
         mineCounterUI.SetCurrentCount(0);
         mineCounterUI.SetTotalCount(maxMinesNumber);
 
@@ -301,6 +304,7 @@ public class Player : MonoBehaviour, IDamageable
         if (GameManager.instance.gameIsPaused)
         {
             loopAudioSource.Stop();
+            lastPauseTime = Time.time;
             return;
         }
         else
@@ -318,7 +322,7 @@ public class Player : MonoBehaviour, IDamageable
         timeSinceLastAttack += Time.deltaTime;
         strongAttackTimer += Time.deltaTime;
 
-        if (lastTransitionTime != Time.time )
+        if (lastTransitionTime != Time.time && lastPauseTime != Time.time)
         {
             currentState.UpdateState(this);
         }
