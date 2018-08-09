@@ -72,7 +72,7 @@ public class FollowTarget : PooledParticleSystem
             if (enemyHit)
             {
                 enemyHit.TakeDamage(damage, attackType);
-                enemyHit.SetKnockback(this.transform.position);
+                //enemyHit.SetKnockback(this.transform.position);
                 SoundManager.instance.PlaySfxClip(explosionSfx);
             }
         }
