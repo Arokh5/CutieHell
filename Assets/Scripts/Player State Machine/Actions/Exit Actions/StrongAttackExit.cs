@@ -8,7 +8,6 @@ public class StrongAttackExit : StateAction
     public override void Act(Player player)
     {
         player.strongAttackTimer = 0.0f;
-        player.SetIsAutoRecoveringEvil(true);
         player.SetRenderersVisibility(true);
         player.strongAttackCollider.Deactivate();
         player.cameraState = Player.CameraState.MOVE;

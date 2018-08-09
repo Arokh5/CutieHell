@@ -65,7 +65,6 @@ public class DebugManager : MonoBehaviour {
     private bool showGrid = false;
     private bool followPlayer = true;
     private bool showDebugWindow = false;
-    private bool infiniteEvil = false;
     private bool immortalStructures;
     private float playerInitialSpeed;
 
@@ -104,11 +103,6 @@ public class DebugManager : MonoBehaviour {
 	void Update () {
         ProcessInput();
         ActivateDebug();
-
-        if (infiniteEvil)
-        {
-            playerScript.AddEvilPoints(playerScript.GetMaxEvilLevel());
-        }
     }
 
     private void ShowOneWindow(ref bool handler)
@@ -177,21 +171,7 @@ public class DebugManager : MonoBehaviour {
 
     private void PlayerDebug()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            playerScript.AddEvilPoints(playerScript.GetMaxEvilLevel());
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            playerScript.AddEvilPoints(-playerScript.GetEvilLevel());
-        }
-
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            infiniteEvil = !infiniteEvil;
-        }
-
+       
         if (Input.GetKeyDown(KeyCode.S))
         {
             playerDefaultMoveAction.maxSpeed += 2.5f;
@@ -202,12 +182,6 @@ public class DebugManager : MonoBehaviour {
             playerDefaultMoveAction.maxSpeed -= 2.5f;
             if (playerDefaultMoveAction.maxSpeed <= 0.0f)
                 playerDefaultMoveAction.maxSpeed = 0.0f;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            infiniteEvil = false;
-            playerDefaultMoveAction.maxSpeed = playerInitialSpeed;
         }
 
         if (Input.GetKeyDown(KeyCode.Z))

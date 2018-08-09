@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-
 public class Player : MonoBehaviour, IDamageable
 {
     [System.Serializable]
@@ -87,21 +86,6 @@ public class Player : MonoBehaviour, IDamageable
     public float healthToReduce = 100;
     public bool hit;
 
-    [Header("Evilness")]
-    [SerializeField]
-    EvilManaController evilManaController;
-    [SerializeField]
-    private float maxEvilLevel;
-    public float evilLevel;
-    [SerializeField][Range(0,1)]
-    private float autoEvilRecoveringTime;
-    [SerializeField]
-    [Range(0, 0.5f)]
-    private float autoEvilRecoveringValue;
-    
-    private bool isAutoRecoveringEvil = false;
-    private float lastAutoEvilRecovering = 0;
-
     [HideInInspector]
     public Rigidbody rb;
     [HideInInspector]
@@ -179,7 +163,6 @@ public class Player : MonoBehaviour, IDamageable
     [Header("Cone Attack")]
     public CooldownInfo coneAttackCooldown;
     public ParticleSystem coneAttackVFX;
-    public float coneAttackEvilCost;
     [HideInInspector]
     public bool comeBackFromConeAttack;
 
@@ -262,7 +245,6 @@ public class Player : MonoBehaviour, IDamageable
         comeBackFromStrongAttack = false;
         comeBackFromConeAttack = false;
 
-        evilLevel = maxEvilLevel;
         currentState = defaultState;
 
         cooldownInfos = new CooldownInfo[] { dashCooldown, coneAttackCooldown, strongAttackCooldown, meteoriteAttackCooldown, mineAttackCooldown };
@@ -270,8 +252,6 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Start () 
     {
-        isAutoRecoveringEvil = true;
-
         footSteps.SetActive(false);
 
         timeSinceLastAttack = 1000.0f;
@@ -306,10 +286,6 @@ public class Player : MonoBehaviour, IDamageable
             loopAudioSource.Stop();
             lastPauseTime = Time.time;
             return;
-        }
-        else
-        {
-            EvilAutoRecovering();
         }
 
         if ( timeSinceLastMonumentChecking >= checkingMonumentRepetitionTime)
@@ -455,34 +431,6 @@ public class Player : MonoBehaviour, IDamageable
         lastTransitionTime = Time.time;
     }
 
-    public float GetMaxEvilLevel()
-    {
-        return maxEvilLevel;
-    }
-
-    public float GetEvilLevel()
-    {
-        return evilLevel;
-    }
-
-    public void AddEvilPoints(float value)
-    {
-        if (value < 0 || (isAutoRecoveringEvil && evilLevel < maxEvilLevel))
-        {
-            evilLevel += value;
-
-            if (evilLevel < 0)
-            {
-                evilLevel = 0;
-            }
-            else if (evilLevel > maxEvilLevel)
-            {
-                evilLevel = maxEvilLevel;
-            }
-            evilManaController.ModifyEvil(evilLevel);
-        }
-    }
-
     public void SetRenderersVisibility(bool visible)
     {
         for(int i = 0; i < renderers.Length; i++)
@@ -507,16 +455,6 @@ public class Player : MonoBehaviour, IDamageable
         ParticleSystem attack = ParticlesManager.instance.LaunchParticleSystem(attackPrefab, spawningPos, transform.rotation);
         FollowTarget attackClone = attack.GetComponent<FollowTarget>();
         attackClone.Fire(enemy, hitOffset);
-    }
-
-    public bool GetIsAutoRecoveringEvil()
-    {
-        return isAutoRecoveringEvil;
-    }
-
-    public void SetIsAutoRecoveringEvil(bool isRecovering)
-    {
-        isAutoRecoveringEvil = isRecovering;
     }
 
     public void OnRoundStarted()
@@ -567,17 +505,6 @@ public class Player : MonoBehaviour, IDamageable
     private void ReEnable()
     {
         enabled = true;
-    }
-
-    private void EvilAutoRecovering()
-    {
-        lastAutoEvilRecovering += Time.deltaTime;
-
-        if(lastAutoEvilRecovering >= autoEvilRecoveringTime)
-        {
-            AddEvilPoints(autoEvilRecoveringValue);
-            lastAutoEvilRecovering = 0;
-        }
     }
 
     private void UpdateNearestMonument()

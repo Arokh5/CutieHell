@@ -10,7 +10,6 @@ public class ConeAttackEnterAction : StateAction
 
     public override void Act(Player player)
     {
-        player.AddEvilPoints(-player.coneAttackEvilCost);
         player.comeBackFromConeAttack = false;
 
         if (startsCooldown)

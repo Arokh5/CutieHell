@@ -7,7 +7,6 @@ public class ConeAttackBehaviour : PooledParticleSystem
     public int damage;
     public ConeAttackDetection enemiesDetector;
     public int enemiesToCombo;
-    public int evilComboReward;
     public float hurtEnemiesDelay;
     public float timeToDistable;
     private int comboCount;

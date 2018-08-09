@@ -70,7 +70,6 @@ public class AIEnemy : MonoBehaviour, IDamageable
     [Header("Health information")]
     [Tooltip("The initial amount of hit points for the conquerable building.")]
     public float baseHealth;
-    public int evilKillReward;
     [SerializeField]
     private ParticleSystem getHitVFX;
     [SerializeField]
