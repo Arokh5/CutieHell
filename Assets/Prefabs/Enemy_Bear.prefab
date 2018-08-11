@@ -1148,13 +1148,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 1
   spawnController: {fileID: 0}
+  zoneController: {fileID: 0}
   ignorePath: 0
+  useSoftenedNavigation: 1
   currentPath: []
   currentNode: {fileID: 0}
   highSpeedMultiplier: 2
   inHighSpeedZone: 0
   initialSpeed: 0
   speedOnSlow: 0.5
+  navMotionTarget: {x: Infinity, y: Infinity, z: Infinity}
+  inNavNode: 0
+  navAttackTarget: {fileID: 0}
   canAttackPlayer: 1
   detectionRadius: 5
   escapeRadius: 10
@@ -1165,7 +1170,6 @@ MonoBehaviour:
   timeSinceLastAttackRecived: 0
   knockbackForce: 15
   baseHealth: 15
-  evilKillReward: 10
   getHitVFX: {fileID: 198944252932203134, guid: 2b5dad98c6fb37d4fb643b69e96bac3e,
     type: 2}
   deathVFX: {fileID: 198975771329515660, guid: ab7d3ffbb16031741a985c5bd17a7a2b, type: 2}

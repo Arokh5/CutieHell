@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -37,10 +36,13 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private float originalStoppingDistance;
 
     [SerializeField]
+    [ShowOnly]
     private Vector3 navMotionTarget = Vector3.positiveInfinity;
     [SerializeField]
+    [ShowOnly]
     private bool inNavNode = false;
     [SerializeField]
+    [ShowOnly]
     private Transform navAttackTarget = null;
     private Renderer mRenderer;
     private Animator animator;
