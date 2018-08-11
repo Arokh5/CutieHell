@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,6 +9,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
     [HideInInspector]
     public AISpawnController spawnController;
+    [ShowOnly]
+    [SerializeField]
     private AIZoneController zoneController;
 
     private Player playerTarget;
@@ -18,6 +19,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
     [Header("Motion")]
     public bool ignorePath = false;
+    public bool useSoftenedNavigation = true;
     [SerializeField]
     private List<PathNode> currentPath;
     [SerializeField]
@@ -33,6 +35,15 @@ public class AIEnemy : MonoBehaviour, IDamageable
     public float speedOnSlow;
     private float originalStoppingDistance;
 
+    [SerializeField]
+    [ShowOnly]
+    private Vector3 navMotionTarget = Vector3.positiveInfinity;
+    [SerializeField]
+    [ShowOnly]
+    private bool inNavNode = false;
+    [SerializeField]
+    [ShowOnly]
+    private Transform navAttackTarget = null;
     private Renderer mRenderer;
     private Animator animator;
 
@@ -85,6 +96,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     public GameObject stunVFX;
 
     protected float currentHealth;
+    private EnemyCanvasController canvasController;
 
     [Header("Damage Testing")]
     public float healthToReduce = 100;
@@ -119,6 +131,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         timeOnStun = 0.0f;
         timeOnSlow = 0.0f;
         stunVFX.SetActive(false);
+        canvasController = GetComponent<EnemyCanvasController>();
     }
 
     private void Update()
@@ -135,8 +148,18 @@ public class AIEnemy : MonoBehaviour, IDamageable
                 /* First case is when going for the Monument, second is for a player target */
                 if (currentNode == null || hasPlayerAsTarget)
                 {
-                    agent.stoppingDistance = hasPlayerAsTarget? minDistance : originalStoppingDistance;
-                    agent.SetDestination(currentTarget.transform.position);
+                    if (hasPlayerAsTarget)
+                    {
+                        // Player target
+                        agent.stoppingDistance = minDistance;
+                        agent.SetDestination(currentTarget.transform.position);
+                    }
+                    else
+                    {
+                        // Monument target
+                        agent.stoppingDistance = originalStoppingDistance;
+                        agent.SetDestination(navAttackTarget.position);
+                    }
                     attackLogic.AttemptAttack(currentTarget, agent.destination);
 
                     if (enemyType == EnemyType.RANGE && attackLogic.IsInAttackRange(agent.destination))
@@ -146,20 +169,9 @@ public class AIEnemy : MonoBehaviour, IDamageable
                 }
                 else
                 {
-                    agent.SetDestination(currentNode.transform.position);
-                    if ((transform.position - currentNode.transform.position).sqrMagnitude < currentNode.radius * currentNode.radius)
-                    {
-                        if (currentNodeIndex < currentPath.Count - 1)
-                        {
-                            ++currentNodeIndex;
-                            currentNode = currentPath[currentNodeIndex];
-                        }
-                        else
-                        {
-                            currentNodeIndex = -1;
-                            currentNode = null;
-                        }
-                    }
+                    // PathNode target
+                    agent.SetDestination(navMotionTarget);
+                    AdvanceInNodePath();
                 }
 
                 if (enemyType == EnemyType.RANGE && !attackLogic.IsInAttackRange(agent.destination))
@@ -171,7 +183,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
         if (isTarget)
         {
-            GetComponent<EnemyCanvasController>().EnableHealthBar(false);
+            canvasController.EnableHealthBar(false);
         }
 
         // Testing
@@ -256,6 +268,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
     public void Restart()
     {
+        navAttackTarget = null;
         timeOnStun = 0.0f;
         timeOnSlow = 0.0f;
         currentHealth = baseHealth;
@@ -263,7 +276,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         SetAgentEnable(true);
         isTargetable = true;
         isTarget = false;
-        GetComponent<EnemyCanvasController>().SetHealthBar();
+        canvasController.SetHealthBar();
         active = true;
         AdjustMaterials();
     }
@@ -291,6 +304,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
             zoneController.RemoveEnemy(this);
         }
         zoneController = newZoneController;
+        navAttackTarget = null;
+
         if (!ignorePath)
             UpdateNodePath();
         UpdateTarget();
@@ -301,6 +316,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     {
         if (currentTargetBuilding != target)
         {
+            navAttackTarget = null;
             currentTargetBuilding = target;
         }
     }
@@ -339,8 +355,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
         {
             animator.SetTrigger("GetHit");
         }
-        GetComponent<EnemyCanvasController>().EnableHealthBar(true);
-        GetComponent<EnemyCanvasController>().SetHealthBar();
+        canvasController.EnableHealthBar(true);
+        canvasController.SetHealthBar();
         AdjustMaterials();
     }
 
@@ -348,7 +364,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     public void UpdateTarget()
     {
         UnityEngine.Assertions.Assert.IsNotNull(zoneController, "Error: zoneController is null for AIEnemy in GameObject '" + gameObject.name + "'!");
-        currentTargetBuilding = zoneController.GetTargetBuilding(transform);
+        currentTargetBuilding = zoneController.GetTargetBuilding();
     }
 
     public bool MarkAsTarget(bool isTarget)
@@ -471,6 +487,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         {
             currentNodeIndex = 0;
             currentNode = currentPath[0];
+            navMotionTarget = currentNode.transform.position;
         }
         else
         {
@@ -503,6 +520,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
                 {
                     hasPlayerAsTarget = true;
                     currentTarget = player;
+                    navAttackTarget = null;
                 }
                 else
                 {
@@ -514,6 +532,74 @@ public class AIEnemy : MonoBehaviour, IDamageable
         {
             currentTarget = currentTargetBuilding;
         }
+
+        if (navAttackTarget == null && currentNode == null && currentTarget == currentTargetBuilding)
+        {
+            navAttackTarget = currentTargetBuilding.GetNavTarget(transform);
+        }
+    }
+
+    private void AdvanceInNodePath()
+    {
+        if (!inNavNode)
+        {
+            // Normal case where the AIEnemy is going towards the PathNode
+            if ((transform.position - currentNode.transform.position).sqrMagnitude < currentNode.radius * currentNode.radius)
+            {
+                // Arrived at PathNode
+                if (currentNodeIndex < currentPath.Count - 1)
+                {
+                    // There's a further PathNode
+
+                    if (useSoftenedNavigation)
+                    {
+                        /*  We soften the rotation by assigning an extra NavDestination at the intersection
+                         *  between the line from the currentNode to the nextNode and the currentNode's radius
+                         */
+                        inNavNode = true;
+                        PathNode nextNode = currentPath[currentNodeIndex + 1];
+
+                        Vector3 currentToNext = nextNode.transform.position - currentNode.transform.position;
+                        currentToNext.Normalize();
+                        currentToNext *= currentNode.radius;
+                        Vector3 targetPos = currentNode.transform.position + currentToNext;
+                        // To avoid issues with the stopping distance, we set the actual target stoppingDistance units further from the AIEnemy
+                        Vector3 enemyToTarget = targetPos - transform.position;
+                        float distanceToTarget = enemyToTarget.magnitude;
+                        enemyToTarget /= distanceToTarget; // Normalization
+                        enemyToTarget *= distanceToTarget + originalStoppingDistance;
+                        // Now we store the actual NavDestination in navMotionTarget;
+                        navMotionTarget = transform.position + enemyToTarget;
+                    }
+                    else
+                    {
+                        ++currentNodeIndex;
+                        currentNode = currentPath[currentNodeIndex];
+                        navMotionTarget = currentNode.transform.position;
+                    }
+
+                }
+                else
+                {
+                    // This was the last PathNode
+                    currentNodeIndex = -1;
+                    currentNode = null;
+                }
+            }
+        }
+        else
+        {
+            // Moving through the softened path. This is never reached if useSoftenedNavigation == false
+            if ((transform.position - currentNode.transform.position).sqrMagnitude > currentNode.radius * currentNode.radius)
+            {
+                // So we exited the PathNode
+                inNavNode = false;
+                ++currentNodeIndex;
+                currentNode = currentPath[currentNodeIndex];
+                navMotionTarget = currentNode.transform.position;
+            }
+        }
+        
     }
     #endregion
 }

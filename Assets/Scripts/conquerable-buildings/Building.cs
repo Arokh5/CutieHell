@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Building : MonoBehaviour, IDamageable
@@ -28,6 +27,13 @@ public abstract class Building : MonoBehaviour, IDamageable
     public bool takeDamage = false; // TEST
     public float lifeLossPerSecond = 0; // TEST
 
+    [Header("NavTargets")]
+    [SerializeField]
+    [Tooltip("One randomly selected Nav Target out of the 'Selection size' closest Nav Targets will be picked when GetNavTarget is called")]
+    private int selectionSize = 3;
+    [SerializeField]
+    private List<Transform> navTargets;
+    
     #endregion
 
     #region MonoBehaviour Methods
@@ -70,6 +76,28 @@ public abstract class Building : MonoBehaviour, IDamageable
     public bool HasFullHealth()
     {
         return currentHealth == baseHealth;
+    }
+
+    public Transform GetNavTarget(Transform reference)
+    {
+        int navTargetsCount = navTargets.Count;
+        if (navTargetsCount > 0)
+        {
+            navTargets.Sort((a, b) =>
+            {
+                float distanceA = (reference.position - a.position).sqrMagnitude;
+                float distanceB = (reference.position - b.position).sqrMagnitude;
+                return distanceA > distanceB ? 1 : (distanceA < distanceB ? -1 : 0);
+            });
+
+            int max = Mathf.Min(selectionSize, navTargets.Count);
+            int randomIndex = Random.Range(0, max);
+            return navTargets[randomIndex];
+        }
+        else
+        {
+            return transform;
+        }
     }
 
     // IDamageable
