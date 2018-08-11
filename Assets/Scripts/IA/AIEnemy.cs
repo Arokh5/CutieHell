@@ -143,6 +143,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         Knockback();
         UpdateSlowSpeed();
         // Motion through NavMeshAgent
+        bool bearShouldMove = false;
         if (currentTarget != null && agent.enabled)
         {
             if (!IsStunned())
@@ -165,9 +166,10 @@ public class AIEnemy : MonoBehaviour, IDamageable
                     }
                     attackLogic.AttemptAttack(currentTarget, agent.destination);
 
-                    if (enemyType == EnemyType.RANGE && attackLogic.IsInAttackRange(agent.destination))
+                    if (enemyType == EnemyType.RANGE)
                     {
-                        animator.SetBool("Move", false);
+                        if (!attackLogic.IsInAttackRange(agent.destination))
+                            bearShouldMove = true;
                     }
                 }
                 else
@@ -177,14 +179,15 @@ public class AIEnemy : MonoBehaviour, IDamageable
                     agent.stoppingDistance = 0.0f;
                     agent.SetDestination(navMotionTarget);
                     AdvanceInNodePath();
-                }
+                    if (enemyType == EnemyType.RANGE)
+                        bearShouldMove = true;
 
-                if (enemyType == EnemyType.RANGE && !attackLogic.IsInAttackRange(agent.destination))
-                {
-                    animator.SetBool("Move", true);
                 }
             }
         }
+
+        if (enemyType == EnemyType.RANGE)
+            animator.SetBool("Move", bearShouldMove);
 
         if (isTarget)
         {
