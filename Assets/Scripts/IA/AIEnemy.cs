@@ -20,6 +20,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
     [Header("Motion")]
     public bool ignorePath = false;
+    public bool useSoftenedNavigation = true;
     [SerializeField]
     private List<PathNode> currentPath;
     [SerializeField]
@@ -36,7 +37,11 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private float originalStoppingDistance;
 
     [SerializeField]
-    private Transform navTarget = null;
+    private Vector3 navMotionTarget = Vector3.positiveInfinity;
+    [SerializeField]
+    private bool inNavNode = false;
+    [SerializeField]
+    private Transform navAttackTarget = null;
     private Renderer mRenderer;
     private Animator animator;
 
@@ -151,7 +156,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
                     {
                         // Monument target
                         agent.stoppingDistance = originalStoppingDistance;
-                        agent.SetDestination(navTarget.position);
+                        agent.SetDestination(navAttackTarget.position);
                     }
                     attackLogic.AttemptAttack(currentTarget, agent.destination);
 
@@ -162,20 +167,9 @@ public class AIEnemy : MonoBehaviour, IDamageable
                 }
                 else
                 {
-                    agent.SetDestination(currentNode.transform.position);
-                    if ((transform.position - currentNode.transform.position).sqrMagnitude < currentNode.radius * currentNode.radius)
-                    {
-                        if (currentNodeIndex < currentPath.Count - 1)
-                        {
-                            ++currentNodeIndex;
-                            currentNode = currentPath[currentNodeIndex];
-                        }
-                        else
-                        {
-                            currentNodeIndex = -1;
-                            currentNode = null;
-                        }
-                    }
+                    // PathNode target
+                    agent.SetDestination(navMotionTarget);
+                    AdvanceInNodePath();
                 }
 
                 if (enemyType == EnemyType.RANGE && !attackLogic.IsInAttackRange(agent.destination))
@@ -272,7 +266,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
     public void Restart()
     {
-        navTarget = null;
+        navAttackTarget = null;
         timeOnStun = 0.0f;
         timeOnSlow = 0.0f;
         currentHealth = baseHealth;
@@ -308,7 +302,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
             zoneController.RemoveEnemy(this);
         }
         zoneController = newZoneController;
-        navTarget = null;
+        navAttackTarget = null;
 
         if (!ignorePath)
             UpdateNodePath();
@@ -320,7 +314,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     {
         if (currentTargetBuilding != target)
         {
-            navTarget = null;
+            navAttackTarget = null;
             currentTargetBuilding = target;
         }
     }
@@ -491,6 +485,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         {
             currentNodeIndex = 0;
             currentNode = currentPath[0];
+            navMotionTarget = currentNode.transform.position;
         }
         else
         {
@@ -523,7 +518,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
                 {
                     hasPlayerAsTarget = true;
                     currentTarget = player;
-                    navTarget = null;
+                    navAttackTarget = null;
                 }
                 else
                 {
@@ -536,10 +531,73 @@ public class AIEnemy : MonoBehaviour, IDamageable
             currentTarget = currentTargetBuilding;
         }
 
-        if (navTarget == null && currentNode == null && currentTarget == currentTargetBuilding)
+        if (navAttackTarget == null && currentNode == null && currentTarget == currentTargetBuilding)
         {
-            navTarget = currentTargetBuilding.GetNavTarget(transform);
+            navAttackTarget = currentTargetBuilding.GetNavTarget(transform);
         }
+    }
+
+    private void AdvanceInNodePath()
+    {
+        if (!inNavNode)
+        {
+            // Normal case where the AIEnemy is going towards the PathNode
+            if ((transform.position - currentNode.transform.position).sqrMagnitude < currentNode.radius * currentNode.radius)
+            {
+                // Arrived at PathNode
+                if (currentNodeIndex < currentPath.Count - 1)
+                {
+                    // There's a further PathNode
+
+                    if (useSoftenedNavigation)
+                    {
+                        /*  We soften the rotation by assigning an extra NavDestination at the intersection
+                         *  between the line from the currentNode to the nextNode and the currentNode's radius
+                         */
+                        inNavNode = true;
+                        PathNode nextNode = currentPath[currentNodeIndex + 1];
+
+                        Vector3 currentToNext = nextNode.transform.position - currentNode.transform.position;
+                        currentToNext.Normalize();
+                        currentToNext *= currentNode.radius;
+                        Vector3 targetPos = currentNode.transform.position + currentToNext;
+                        // To avoid issues with the stopping distance, we set the actual target stoppingDistance units further from the AIEnemy
+                        Vector3 enemyToTarget = targetPos - transform.position;
+                        float distanceToTarget = enemyToTarget.magnitude;
+                        enemyToTarget /= distanceToTarget; // Normalization
+                        enemyToTarget *= distanceToTarget + originalStoppingDistance;
+                        // Now we store the actual NavDestination in navMotionTarget;
+                        navMotionTarget = transform.position + enemyToTarget;
+                    }
+                    else
+                    {
+                        ++currentNodeIndex;
+                        currentNode = currentPath[currentNodeIndex];
+                        navMotionTarget = currentNode.transform.position;
+                    }
+
+                }
+                else
+                {
+                    // This was the last PathNode
+                    currentNodeIndex = -1;
+                    currentNode = null;
+                }
+            }
+        }
+        else
+        {
+            // Moving through the softened path. This is never reached if useSoftenedNavigation == false
+            if ((transform.position - currentNode.transform.position).sqrMagnitude > currentNode.radius * currentNode.radius)
+            {
+                // So we exited the PathNode
+                inNavNode = false;
+                ++currentNodeIndex;
+                currentNode = currentPath[currentNodeIndex];
+                navMotionTarget = currentNode.transform.position;
+            }
+        }
+        
     }
     #endregion
 }
