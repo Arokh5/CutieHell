@@ -44,6 +44,9 @@ public class AIEnemy : MonoBehaviour, IDamageable
     [SerializeField]
     [ShowOnly]
     private Transform navAttackTarget = null;
+    private const float softenedNavigationOvershootDistance = 0.5f;
+
+
     private Renderer mRenderer;
     private Animator animator;
 
@@ -144,10 +147,10 @@ public class AIEnemy : MonoBehaviour, IDamageable
         {
             if (!IsStunned())
             {
-                agent.stoppingDistance = 0.0f;
                 /* First case is when going for the Monument, second is for a player target */
                 if (currentNode == null || hasPlayerAsTarget)
                 {
+                    agent.autoBraking = true;
                     if (hasPlayerAsTarget)
                     {
                         // Player target
@@ -170,6 +173,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
                 else
                 {
                     // PathNode target
+                    agent.autoBraking = false;
+                    agent.stoppingDistance = 0.0f;
                     agent.SetDestination(navMotionTarget);
                     AdvanceInNodePath();
                 }
@@ -561,15 +566,10 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
                         Vector3 currentToNext = nextNode.transform.position - currentNode.transform.position;
                         currentToNext.Normalize();
-                        currentToNext *= currentNode.radius;
+                        // To ensure the targetPos falls outside of the PathNode, we overshoot the targetPos by a small amount
+                        currentToNext *= currentNode.radius + softenedNavigationOvershootDistance;
                         Vector3 targetPos = currentNode.transform.position + currentToNext;
-                        // To avoid issues with the stopping distance, we set the actual target stoppingDistance units further from the AIEnemy
-                        Vector3 enemyToTarget = targetPos - transform.position;
-                        float distanceToTarget = enemyToTarget.magnitude;
-                        enemyToTarget /= distanceToTarget; // Normalization
-                        enemyToTarget *= distanceToTarget + originalStoppingDistance;
-                        // Now we store the actual NavDestination in navMotionTarget;
-                        navMotionTarget = transform.position + enemyToTarget;
+                        navMotionTarget = targetPos;
                     }
                     else
                     {
