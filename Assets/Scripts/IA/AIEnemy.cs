@@ -85,6 +85,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     public GameObject stunVFX;
 
     protected float currentHealth;
+    private EnemyCanvasController canvasController;
 
     [Header("Damage Testing")]
     public float healthToReduce = 100;
@@ -119,6 +120,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         timeOnStun = 0.0f;
         timeOnSlow = 0.0f;
         stunVFX.SetActive(false);
+        canvasController = GetComponent<EnemyCanvasController>();
     }
 
     private void Update()
@@ -171,7 +173,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
         if (isTarget)
         {
-            GetComponent<EnemyCanvasController>().EnableHealthBar(false);
+            canvasController.EnableHealthBar(false);
         }
 
         // Testing
@@ -263,7 +265,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         SetAgentEnable(true);
         isTargetable = true;
         isTarget = false;
-        GetComponent<EnemyCanvasController>().SetHealthBar();
+        canvasController.SetHealthBar();
         active = true;
         AdjustMaterials();
     }
@@ -339,8 +341,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
         {
             animator.SetTrigger("GetHit");
         }
-        GetComponent<EnemyCanvasController>().EnableHealthBar(true);
-        GetComponent<EnemyCanvasController>().SetHealthBar();
+        canvasController.EnableHealthBar(true);
+        canvasController.SetHealthBar();
         AdjustMaterials();
     }
 
