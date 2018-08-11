@@ -10,6 +10,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
     [HideInInspector]
     public AISpawnController spawnController;
+    [ShowOnly]
+    [SerializeField]
     private AIZoneController zoneController;
 
     private Player playerTarget;
@@ -33,6 +35,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
     public float speedOnSlow;
     private float originalStoppingDistance;
 
+    [SerializeField]
+    private Transform navTarget = null;
     private Renderer mRenderer;
     private Animator animator;
 
@@ -137,8 +141,18 @@ public class AIEnemy : MonoBehaviour, IDamageable
                 /* First case is when going for the Monument, second is for a player target */
                 if (currentNode == null || hasPlayerAsTarget)
                 {
-                    agent.stoppingDistance = hasPlayerAsTarget? minDistance : originalStoppingDistance;
-                    agent.SetDestination(currentTarget.transform.position);
+                    if (hasPlayerAsTarget)
+                    {
+                        // Player target
+                        agent.stoppingDistance = minDistance;
+                        agent.SetDestination(currentTarget.transform.position);
+                    }
+                    else
+                    {
+                        // Monument target
+                        agent.stoppingDistance = originalStoppingDistance;
+                        agent.SetDestination(navTarget.position);
+                    }
                     attackLogic.AttemptAttack(currentTarget, agent.destination);
 
                     if (enemyType == EnemyType.RANGE && attackLogic.IsInAttackRange(agent.destination))
@@ -258,6 +272,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
     public void Restart()
     {
+        navTarget = null;
         timeOnStun = 0.0f;
         timeOnSlow = 0.0f;
         currentHealth = baseHealth;
@@ -293,6 +308,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
             zoneController.RemoveEnemy(this);
         }
         zoneController = newZoneController;
+        navTarget = null;
+
         if (!ignorePath)
             UpdateNodePath();
         UpdateTarget();
@@ -303,6 +320,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     {
         if (currentTargetBuilding != target)
         {
+            navTarget = null;
             currentTargetBuilding = target;
         }
     }
@@ -350,7 +368,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     public void UpdateTarget()
     {
         UnityEngine.Assertions.Assert.IsNotNull(zoneController, "Error: zoneController is null for AIEnemy in GameObject '" + gameObject.name + "'!");
-        currentTargetBuilding = zoneController.GetTargetBuilding(transform);
+        currentTargetBuilding = zoneController.GetTargetBuilding();
     }
 
     public bool MarkAsTarget(bool isTarget)
@@ -505,6 +523,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
                 {
                     hasPlayerAsTarget = true;
                     currentTarget = player;
+                    navTarget = null;
                 }
                 else
                 {
@@ -515,6 +534,11 @@ public class AIEnemy : MonoBehaviour, IDamageable
         else
         {
             currentTarget = currentTargetBuilding;
+        }
+
+        if (navTarget == null && currentNode == null && currentTarget == currentTargetBuilding)
+        {
+            navTarget = currentTargetBuilding.GetNavTarget(transform);
         }
     }
     #endregion
