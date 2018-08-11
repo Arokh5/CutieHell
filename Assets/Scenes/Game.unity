@@ -9246,6 +9246,7 @@ GameObject:
   - component: {fileID: 433428441}
   - component: {fileID: 433428440}
   - component: {fileID: 433428442}
+  - component: {fileID: 433428443}
   m_Layer: 16
   m_Name: Monument_Z2
   m_TagString: Monument
@@ -9333,6 +9334,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5.52, y: 5, z: 7.66}
   m_Center: {x: 0, y: 2, z: -0.5}
+--- !u!208 &433428443
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 433428438}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2.65, y: 3.5, z: 3.6}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 3, z: -0.5}
+  m_TimeToStationary: 0.5
 --- !u!1001 &434006807
 Prefab:
   m_ObjectHideFlags: 0
@@ -16483,7 +16499,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.23333333
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: da4e9445e2229034ea4c18247d1bb7a4, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: d7778d6d61feeac44a8f066815bec57c, type: 2}
 --- !u!114 &804468633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16511,7 +16527,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.23333333
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: 48ad1f534cacfc1498cd91c7612322be, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 38af70676b8b1674ea297dc114008394, type: 2}
 --- !u!114 &804468634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16539,7 +16555,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.23333333
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: bed715e3fd939054f84bb48fe0325fd5, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 58d3afbaee0f6104b98dcca6ce9e6861, type: 2}
 --- !u!114 &804468635
 MonoBehaviour:
   m_ObjectHideFlags: 0
