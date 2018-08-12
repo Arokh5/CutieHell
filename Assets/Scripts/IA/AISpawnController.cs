@@ -49,6 +49,7 @@ public class AISpawnController : MonoBehaviour
     private bool validRoundsInfo = true;
     private bool roundRunning = false;
     private bool rushingWave = false;
+    private bool currentWaveFinished = false;
 
     #endregion
 
@@ -164,6 +165,7 @@ public class AISpawnController : MonoBehaviour
         if (HasNextWaveInRound())
         {
             ++currentWaveIndex;
+            currentWaveFinished = false;
             RoundInfo roundInfo = roundInfos[currentRoundIndex];
             WaveInfo waveInfo = roundInfo.waveInfos[currentWaveIndex];
             waveInfo.elapsedTime = 0;
@@ -281,6 +283,11 @@ public class AISpawnController : MonoBehaviour
     {
         return currentWaveIndex;
     }
+
+    public bool GetCurrentWaveFinished()
+    {
+        return currentWaveFinished;
+    }
     #endregion
 
     #region Private Methods
@@ -325,6 +332,7 @@ public class AISpawnController : MonoBehaviour
         {
             waveDelayTime = roundInfos[currentRoundIndex].waveInfos[currentWaveIndex + 1].waveStartDelay;
             waveDelayLeft = waveDelayTime;
+            currentWaveFinished = true;
             UIManager.instance.roundInfoController.SetWaveDelayFill(0);
             UIManager.instance.roundInfoController.SetWaveDelayVisibility(true);
             UIManager.instance.roundInfoController.SetRushPromptVisibility(true);
