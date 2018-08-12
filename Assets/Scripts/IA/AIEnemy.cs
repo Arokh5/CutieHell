@@ -188,8 +188,9 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
         if (enemyType == EnemyType.RANGE)
         {
-            agent.isStopped = !bearShouldMove;
             animator.SetBool("Move", bearShouldMove);
+            if (!IsDead())
+                agent.isStopped = !bearShouldMove;
         }
 
         if (isTarget)
