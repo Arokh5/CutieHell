@@ -18689,28 +18689,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4107662294762830, guid: 4dd411abb7bf7db42861402cd09c33b6,
     type: 2}
   m_PrefabInternal: {fileID: 1492536901}
---- !u!1 &891103313 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1344369355896316, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-    type: 2}
-  m_PrefabInternal: {fileID: 1053447302}
---- !u!114 &891103315
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 891103313}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c38e64997e493d94ab9381ca98b87994, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  comboName: Clean!
-  description: Kill all enemies in a wave before it finishes
-  reward: 1000
-  score: 1
-  achievementIcon: {fileID: 21300004, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
-  timeLimitation: 1
 --- !u!1 &892088711
 GameObject:
   m_ObjectHideFlags: 0
@@ -21446,16 +21424,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114409521286663628, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-        type: 2}
-      propertyPath: times.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114020775222313172, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-        type: 2}
-      propertyPath: killingTimeAchievements.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 224050234008403358, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -21546,12 +21514,12 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114514683238999866, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+    - target: {fileID: 114035595282849316, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: target
       value: 
-      objectReference: {fileID: 1640700313}
-    - target: {fileID: 114514683238999866, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+      objectReference: {fileID: 739791453}
+    - target: {fileID: 114035595282849316, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: mainCamera
       value: 
@@ -21566,79 +21534,17 @@ Prefab:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 230846840}
-    - target: {fileID: 114035595282849316, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+    - target: {fileID: 114514683238999866, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: target
       value: 
-      objectReference: {fileID: 739791453}
-    - target: {fileID: 114035595282849316, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+      objectReference: {fileID: 1640700313}
+    - target: {fileID: 114514683238999866, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 230846840}
-    - target: {fileID: 114490006570048168, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-        type: 2}
-      propertyPath: score
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 114600783682547584, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-        type: 2}
-      propertyPath: score
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 114438418703674552, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-        type: 2}
-      propertyPath: score
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114214692993923504, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-        type: 2}
-      propertyPath: score
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114568535045404620, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-        type: 2}
-      propertyPath: score
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114341246338643482, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-        type: 2}
-      propertyPath: score
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114228674250516502, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-        type: 2}
-      propertyPath: score
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114600783682547584, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-        type: 2}
-      propertyPath: allAttackTypesAreCounted
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114020775222313172, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-        type: 2}
-      propertyPath: killingTimeAchievements.Array.data[0]
-      value: 
-      objectReference: {fileID: 891103315}
-    - target: {fileID: 114409521286663628, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-        type: 2}
-      propertyPath: times.Array.data[0]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114409521286663628, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-        type: 2}
-      propertyPath: times.Array.data[2]
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114409521286663628, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-        type: 2}
-      propertyPath: times.Array.data[1]
-      value: 1.5
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114490006570048168, guid: ea64b03fd47dae043a3d7cf8c919a7b7, type: 2}
-    - {fileID: 114600783682547584, guid: ea64b03fd47dae043a3d7cf8c919a7b7, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ea64b03fd47dae043a3d7cf8c919a7b7, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1054080705
@@ -31560,29 +31466,6 @@ Transform:
   m_Father: {fileID: 1312691487}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1460789171 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1082182527670626, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
-    type: 2}
-  m_PrefabInternal: {fileID: 1053447302}
---- !u!114 &1460789172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1460789171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c38e64997e493d94ab9381ca98b87994, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  comboName: Full toolkit
-  description: Defeat at least one enemy with each attack in your kit in less than
-    15 seconds
-  reward: 3000
-  score: 15
-  achievementIcon: {fileID: 21300000, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
-  timeLimitation: 0
 --- !u!1001 &1462604782
 Prefab:
   m_ObjectHideFlags: 0

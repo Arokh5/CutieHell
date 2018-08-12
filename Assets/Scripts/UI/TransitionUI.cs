@@ -23,6 +23,8 @@ public class TransitionUI : MonoBehaviour {
     private Color[] colors;
     [SerializeField]
     private float[] times;
+    [SerializeField]
+    private AudioClip showUpSound;
     
 
     private bool isTransitionOn = false;
@@ -61,6 +63,7 @@ public class TransitionUI : MonoBehaviour {
             {
                 case (TransitionState.TRANSITION_START):
                     elementBackground.transform.position = transforms[0].position;
+
                     elapsedTime += Time.deltaTime;
 
                     elapsedColor = Mathf.Lerp(elementBackground.color.a, colors[0].a, elapsedTime);

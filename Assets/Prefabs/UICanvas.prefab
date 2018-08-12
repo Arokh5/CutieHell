@@ -433,7 +433,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224796202339331160}
   - component: {fileID: 222697080853271628}
-  - component: {fileID: 114600783682547584}
+  - component: {fileID: 114407403283636520}
   m_Layer: 5
   m_Name: Full toolkit
   m_TagString: Untagged
@@ -1212,7 +1212,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224076398934473982}
   - component: {fileID: 222972680571066106}
-  - component: {fileID: 114490006570048168}
+  - component: {fileID: 114343887075618628}
   m_Layer: 5
   m_Name: Clean!
   m_TagString: Untagged
@@ -3617,6 +3617,8 @@ MonoBehaviour:
   hittingCountAchievements:
   - {fileID: 114568535045404620}
   - {fileID: 114438418703674552}
+  killingTimeAchievements:
+  - {fileID: 114343887075618628}
 --- !u!114 &114029304705015234
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4406,7 +4408,7 @@ MonoBehaviour:
   comboName: You stuck the landing
   description: Killing "score" enemies with a single strong attack
   reward: 1000
-  score: 5
+  score: 10
   attackType: 4
   achievementIcon: {fileID: 21300008, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
 --- !u!114 &114224160877720762
@@ -4456,7 +4458,7 @@ MonoBehaviour:
   comboName: Meteor Shower
   description: Killing "score" enemies with a single meteorite attack
   reward: 2000
-  score: 5
+  score: 10
   attackType: 7
   achievementIcon: {fileID: 21300002, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
 --- !u!114 &114233760587329714
@@ -4992,9 +4994,26 @@ MonoBehaviour:
   comboName: Watch out
   description: Killing "score" enemies with a single mine attack
   reward: 1000
-  score: 5
+  score: 10
   attackType: 5
   achievementIcon: {fileID: 21300006, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
+--- !u!114 &114343887075618628
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1344369355896316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c38e64997e493d94ab9381ca98b87994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comboName: Clean!
+  description: Kill all enemies in a wave before it finishes
+  reward: 1000
+  score: 1
+  achievementIcon: {fileID: 21300004, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
+  timeLimitation: 1
 --- !u!114 &114356376437098228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5400,6 +5419,24 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114407403283636520
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1082182527670626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c38e64997e493d94ab9381ca98b87994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comboName: Full toolkit
+  description: Defeat at least one enemy with each attack in your kit in less than
+    15 seconds
+  reward: 3000
+  score: 15
+  achievementIcon: {fileID: 21300000, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
+  timeLimitation: 0
 --- !u!114 &114409521286663628
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5423,8 +5460,10 @@ MonoBehaviour:
   - {r: 1, g: 1, b: 1, a: 1}
   - {r: 1, g: 1, b: 1, a: 0}
   times:
-  - 0.25
-  - 0.1
+  - 1
+  - 1.5
+  - 0.2
+  showUpSound: {fileID: 0}
 --- !u!114 &114411244192293822
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5526,7 +5565,7 @@ MonoBehaviour:
   comboName: Marksman
   description: Hit "score" enemies with a single boomerang attack
   reward: 2000
-  score: 5
+  score: 1
   attackType: 3
   achievementIcon: {fileID: 21300010, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
 --- !u!114 &114441158373640038
@@ -5896,23 +5935,6 @@ MonoBehaviour:
   background: {fileID: 114668709365886354}
   foreground: {fileID: 114302894672223352}
   numberText: {fileID: 114252966957117092}
---- !u!114 &114490006570048168
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1344369355896316}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bc04175e8c8eed4693fc5e07e069f1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  comboName: Meteor Shower
-  description: Kill all enemies in a wave before it finishes
-  reward: 1000
-  score: 0
-  attackType: 7
-  achievementIcon: {fileID: 21300004, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
 --- !u!114 &114492603137235042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6386,7 +6408,7 @@ MonoBehaviour:
   comboName: Slice'n dice
   description: HIT "score" enemies with a single cone attack
   reward: 2000
-  score: 5
+  score: 10
   attackType: 6
   achievementIcon: {fileID: 21300014, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
 --- !u!114 &114573267599407510
@@ -6449,23 +6471,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: '... your mausoleum ...'
---- !u!114 &114600783682547584
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1082182527670626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bc04175e8c8eed4693fc5e07e069f1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  comboName: Full toolkit
-  description: Defeat at least one enemy with each attack in less than "score" seconds
-  reward: 3000
-  score: 20
-  attackType: 7
-  achievementIcon: {fileID: 21300000, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
 --- !u!114 &114602655102126298
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8141,7 +8146,7 @@ MonoBehaviour:
   bearDead: {fileID: 1983184513634302}
   conquerorDead: {fileID: 1583651261417160}
   coinSfx: {fileID: 8300000, guid: acedc7904f9bc2a43979a07e8a500f4c, type: 3}
-  stampSfx: {fileID: 0}
+  stampSfx: {fileID: 8300000, guid: c0cabce778ad54792bba3a0ca6765417, type: 3}
 --- !u!114 &114916081368233788
 MonoBehaviour:
   m_ObjectHideFlags: 1
