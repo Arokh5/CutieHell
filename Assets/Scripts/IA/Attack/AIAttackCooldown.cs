@@ -47,10 +47,6 @@ public class AIAttackCooldown : AIAttackLogic
                 lastAttackTime = Time.time;
             }
         }
-        else
-        {
-            this.attackTarget = null;
-        }
     }
 
     public override bool IsInAttackRange(Vector3 navigationTarget)
