@@ -1161,15 +1161,15 @@ MonoBehaviour:
   inNavNode: 0
   navAttackTarget: {fileID: 0}
   canAttackPlayer: 1
-  detectionRadius: 5
-  escapeRadius: 10
+  detectionRadius: 7.5
+  escapeRadius: 15
   minDistance: 8
   outlineThickness: 0.05
   attackLogic: {fileID: 114907532822489056}
   lastAttackRecivedDirection: {x: 0, y: 0, z: 0}
   timeSinceLastAttackRecived: 0
   knockbackForce: 15
-  baseHealth: 15
+  baseHealth: 20
   getHitVFX: {fileID: 198944252932203134, guid: 2b5dad98c6fb37d4fb643b69e96bac3e,
     type: 2}
   deathVFX: {fileID: 198975771329515660, guid: ab7d3ffbb16031741a985c5bd17a7a2b, type: 2}
@@ -1308,8 +1308,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 1
   attackRange: 10
-  attackDamage: 20
-  cooldownDuration: 5
+  attackDamage: 15
+  cooldownDuration: 4
   attackSpawnPoint: {fileID: 4340714380816790}
   attackPrefab: {fileID: 114165600176227110, guid: 46ccdfb566002e64eb33999e5f82f669,
     type: 2}
