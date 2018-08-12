@@ -176,6 +176,10 @@ public class AIZoneController : MonoBehaviour
                 scenarioController.OnZoneNotEmpty();
             }
         }
+        else
+        {
+            Debug.LogWarning("WARNING: AIZoneController::AddEnemy called in GameObject '" + gameObject.name + "' with an Enemy already contained in said ZoneController (Enemy: '" + aiEnemy.gameObject.name + "')!");
+        }
     }
 
     // Called by AIEnemy when dying or changing zoneController

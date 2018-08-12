@@ -187,7 +187,10 @@ public class AIEnemy : MonoBehaviour, IDamageable
         }
 
         if (enemyType == EnemyType.RANGE)
+        {
+            agent.isStopped = !bearShouldMove;
             animator.SetBool("Move", bearShouldMove);
+        }
 
         if (isTarget)
         {
@@ -297,7 +300,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     // Called by AISpawner when instantiating an AIEnemy. This method should inform the ZoneController about this AIEnemy's creation
     public void SetZoneController(AIZoneController newZoneController)
     {
-        if (!newZoneController)
+        if (!newZoneController || newZoneController == zoneController)
         {
             return;
         }
