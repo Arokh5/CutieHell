@@ -187,7 +187,10 @@ public class AIEnemy : MonoBehaviour, IDamageable
         }
 
         if (enemyType == EnemyType.RANGE)
+        {
+            agent.isStopped = !bearShouldMove;
             animator.SetBool("Move", bearShouldMove);
+        }
 
         if (isTarget)
         {
