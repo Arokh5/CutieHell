@@ -1,27 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 public class AIAttackConquer : AIAttackLogic {
 
     #region Fields
-    public float attackRange;
+    [SerializeField]
+    private float attackRange;
+    [SerializeField]
     [Tooltip("Time it takes (in seconds) to shrink the base model and grow the flow model.")]
-    public float animationDuration;
+    private float animationDuration;
+    [SerializeField]
     [Tooltip("Time it takes (in seconds) to fully conquest the Building AFTER the flower has fully grown.")]
-    public float conquestDuration;
-    private float dps;
+    private float conquestDuration;
+    [SerializeField]
+    [Tooltip("Time (in seconds) it takes for the Conqueror to be removed from the AIZoneController after the Zone has been conquered.")]
+    private float suicideDelay = 2.5f;
 
+    private float dps;
     private bool inConquest = false;
     private bool converted = false;
-    private float elapsedTime = 0;
-    //[SerializeField]
-    //private Renderer mainModelRenderer;
-    //[SerializeField]
-    //private Renderer alternateModelRenderer;
-    //[SerializeField]
-    //private GameObject postConquestProp;
+    private float elapsedTime = 0.0f;
+    private float suicideTime = 0.0f;
 
     private NavMeshAgent navMeshAgent;
     private AIEnemy aiEnemy;
@@ -32,7 +31,6 @@ public class AIAttackConquer : AIAttackLogic {
     private AudioSource attackSource;
     [SerializeField]
     private AudioClip attackClip;
-
     #endregion
 
     #region MonoBehaviour Methods
@@ -55,14 +53,6 @@ public class AIAttackConquer : AIAttackLogic {
         if (!targetInConquest)
             return;
 
-        if (converted)
-        {
-            targetInConquest.attachedConqueror = aiEnemy;
-            aiEnemy.GetZoneController().RemoveEnemy(aiEnemy);
-            UIManager.instance.roundInfoController.AddToEnemiesCount(-1);
-            enabled = false;
-        }
-
         if (inConquest)
         {
             Attack(targetInConquest);
@@ -75,11 +65,22 @@ public class AIAttackConquer : AIAttackLogic {
                 dps = 0;
             }
         }
+
+        if (converted && aiEnemy.GetZoneController().isConquered)
+        {
+            suicideTime += Time.deltaTime;
+            if (suicideTime > suicideDelay)
+            {
+                targetInConquest.attachedConqueror = aiEnemy;
+                aiEnemy.GetZoneController().RemoveEnemy(aiEnemy);
+                UIManager.instance.roundInfoController.AddToEnemiesCount(-1);
+                enabled = false;
+            }
+        }
     }
     #endregion
 
     #region Public Methods
-
     public override void AttemptAttack(IDamageable attackTarget, Vector3 navigationTarget)
     {
         Building building = attackTarget as Building;
@@ -110,28 +111,12 @@ public class AIAttackConquer : AIAttackLogic {
     {
         inConquest = true;
         attackSource.Play();
-        elapsedTime = 0;
+        elapsedTime = 0.0f;
+        suicideTime = 0.0f;
     }
     #endregion
 
     #region Private Methods
-    //private void AttackAnimation()
-    //{
-    //    float progress = elapsedTime / animationDuration;
-
-    //    if (progress < 0.5f)
-    //    {
-    //        progress *= 2;
-    //        //mainModelRenderer.material.SetFloat("_Size", 1 - progress);
-    //    }
-    //    else
-    //    {
-    //        progress = (progress - 0.5f) * 2;
-    //        alternateModelRenderer.material.SetFloat("_Size", progress);
-    //    }
-
-    //}
-
     private void Attack(Building target)
     {
         if (dps != -1)
