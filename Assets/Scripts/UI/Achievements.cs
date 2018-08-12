@@ -11,6 +11,8 @@ public class Achievements : Combo {
     private KillingCountAchievement[] killingCountAchievements;
     [SerializeField]
     private KillingCountAchievement[] hittingCountAchievements;
+    [SerializeField]
+    private KillingTimeAchievement[] killingTimeAchievements;
     #endregion
     #region MonoBehaviour methods
 
@@ -52,6 +54,18 @@ public class Achievements : Combo {
             if (hittingCountAchievements[i].GetAttackType() == attackType)
             {
                 hittingCountAchievements[i].IncreaseCurrentCount(addToCount);
+                return;
+            }
+        }
+    }
+
+    public void IncreaseCurrentTimeKillingType(TimeLimitation timeType, int addToCount = 1)
+    {
+        for (int i = 0; i < killingTimeAchievements.Length; i++)
+        {
+            if (killingTimeAchievements[i].GetTimeLimitationType() == timeType)
+            {
+                killingTimeAchievements[i].IncreaseCurrentCount(addToCount);
                 return;
             }
         }

@@ -86,7 +86,7 @@ public class ScenarioController : MonoBehaviour
         }
     }
 
-public void OnLastEnemySpawned()
+    public void OnLastEnemySpawned()
     {
         lastSpawnIsOver = true;
     }
@@ -100,6 +100,10 @@ public void OnLastEnemySpawned()
     public void OnZoneEmpty()
     {
         --zonesWithEnemiesCount;
+        if(spawnController.HasNextRound() && spawnController.GetCurrentWaveFinished())
+        {
+            Achievements.instance.IncreaseCurrentTimeKillingType(TimeLimitation.Wave);
+        }
         CheckRoundWon();
     }
 

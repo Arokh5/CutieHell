@@ -424,6 +424,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1082182527670626
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224796202339331160}
+  - component: {fileID: 222697080853271628}
+  - component: {fileID: 114407403283636520}
+  m_Layer: 5
+  m_Name: Full toolkit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1083752770862804
 GameObject:
   m_ObjectHideFlags: 1
@@ -1195,9 +1212,9 @@ GameObject:
   m_Component:
   - component: {fileID: 224076398934473982}
   - component: {fileID: 222972680571066106}
-  - component: {fileID: 114490006570048168}
+  - component: {fileID: 114343887075618628}
   m_Layer: 5
-  m_Name: Meteor Shower
+  m_Name: Clean!
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1231,7 +1248,7 @@ GameObject:
   - component: {fileID: 222605666789485672}
   - component: {fileID: 114568535045404620}
   m_Layer: 5
-  m_Name: "No me pis\xE9is lo fregao!"
+  m_Name: Slice'n dice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1724,6 +1741,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1463108718485034
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224673092970107238}
+  - component: {fileID: 222220241214838922}
+  - component: {fileID: 114228674250516502}
+  m_Layer: 5
+  m_Name: Meteor Shower
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1463436886394502
 GameObject:
   m_ObjectHideFlags: 1
@@ -1787,6 +1821,23 @@ GameObject:
   - component: {fileID: 114915564535587370}
   m_Layer: 5
   m_Name: UICanvas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1469874268876940
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224030354810295626}
+  - component: {fileID: 222364726181687666}
+  - component: {fileID: 114335885007118714}
+  m_Layer: 5
+  m_Name: HollywoodStar_Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2203,7 +2254,7 @@ GameObject:
   - component: {fileID: 222759277991597994}
   - component: {fileID: 114438418703674552}
   m_Layer: 5
-  m_Name: Marksmen
+  m_Name: Marksman
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2738,6 +2789,23 @@ GameObject:
   - component: {fileID: 114965676469507958}
   m_Layer: 5
   m_Name: InfoText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1804789335464006
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224839107678051064}
+  - component: {fileID: 222348780804989064}
+  - component: {fileID: 114522004271602160}
+  m_Layer: 5
+  m_Name: HollywoodStar_Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3545,10 +3613,12 @@ MonoBehaviour:
   killingCountAchievements:
   - {fileID: 114341246338643482}
   - {fileID: 114214692993923504}
-  - {fileID: 114490006570048168}
+  - {fileID: 114228674250516502}
   hittingCountAchievements:
   - {fileID: 114568535045404620}
   - {fileID: 114438418703674552}
+  killingTimeAchievements:
+  - {fileID: 114343887075618628}
 --- !u!114 &114029304705015234
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4335,12 +4405,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bc04175e8c8eed4693fc5e07e069f1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  comboName: Stuck the landing
+  comboName: You stuck the landing
   description: Killing "score" enemies with a single strong attack
   reward: 1000
-  score: 5
-  attackType: 3
-  achievementIcon: {fileID: 21300008, guid: bf7ccb40b9fbad7419bfe8071d375561, type: 3}
+  score: 10
+  attackType: 4
+  achievementIcon: {fileID: 21300008, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
 --- !u!114 &114224160877720762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4374,6 +4444,23 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 
+--- !u!114 &114228674250516502
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1463108718485034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bc04175e8c8eed4693fc5e07e069f1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comboName: Meteor Shower
+  description: Killing "score" enemies with a single meteorite attack
+  reward: 2000
+  score: 10
+  attackType: 7
+  achievementIcon: {fileID: 21300002, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
 --- !u!114 &114233760587329714
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4833,6 +4920,33 @@ MonoBehaviour:
   frequency: 0.7
   amplitude: 0.02
   flashOnAwake: 1
+--- !u!114 &114335885007118714
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1469874268876940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: bf7ccb40b9fbad7419bfe8071d375561, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
 --- !u!114 &114340575617805850
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4880,9 +4994,26 @@ MonoBehaviour:
   comboName: Watch out
   description: Killing "score" enemies with a single mine attack
   reward: 1000
-  score: 5
-  attackType: 4
-  achievementIcon: {fileID: 21300004, guid: bf7ccb40b9fbad7419bfe8071d375561, type: 3}
+  score: 10
+  attackType: 5
+  achievementIcon: {fileID: 21300006, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
+--- !u!114 &114343887075618628
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1344369355896316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c38e64997e493d94ab9381ca98b87994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comboName: Clean!
+  description: Kill all enemies in a wave before it finishes
+  reward: 1000
+  score: 1
+  achievementIcon: {fileID: 21300004, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
+  timeLimitation: 1
 --- !u!114 &114356376437098228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5288,6 +5419,24 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114407403283636520
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1082182527670626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c38e64997e493d94ab9381ca98b87994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comboName: Full toolkit
+  description: Defeat at least one enemy with each attack in your kit in less than
+    15 seconds
+  reward: 3000
+  score: 15
+  achievementIcon: {fileID: 21300000, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
+  timeLimitation: 0
 --- !u!114 &114409521286663628
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5311,8 +5460,10 @@ MonoBehaviour:
   - {r: 1, g: 1, b: 1, a: 1}
   - {r: 1, g: 1, b: 1, a: 0}
   times:
-  - 0.25
-  - 0.1
+  - 1
+  - 1.5
+  - 0.2
+  showUpSound: {fileID: 0}
 --- !u!114 &114411244192293822
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5411,12 +5562,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bc04175e8c8eed4693fc5e07e069f1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  comboName: Marksmen
+  comboName: Marksman
   description: Hit "score" enemies with a single boomerang attack
   reward: 2000
-  score: 5
-  attackType: 2
-  achievementIcon: {fileID: 21300000, guid: bf7ccb40b9fbad7419bfe8071d375561, type: 3}
+  score: 1
+  attackType: 3
+  achievementIcon: {fileID: 21300010, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
 --- !u!114 &114441158373640038
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5784,23 +5935,6 @@ MonoBehaviour:
   background: {fileID: 114668709365886354}
   foreground: {fileID: 114302894672223352}
   numberText: {fileID: 114252966957117092}
---- !u!114 &114490006570048168
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1344369355896316}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bc04175e8c8eed4693fc5e07e069f1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  comboName: Meteor Shower
-  description: Killing "score" enemies with a single meteorite attack
-  reward: 2000
-  score: 5
-  attackType: 6
-  achievementIcon: {fileID: 21300008, guid: bf7ccb40b9fbad7419bfe8071d375561, type: 3}
 --- !u!114 &114492603137235042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6058,6 +6192,33 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Enemies Killed
+--- !u!114 &114522004271602160
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1804789335464006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: bf7ccb40b9fbad7419bfe8071d375561, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
 --- !u!114 &114528859832513932
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6244,12 +6405,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bc04175e8c8eed4693fc5e07e069f1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  comboName: No me pises lo fregao!
+  comboName: Slice'n dice
   description: HIT "score" enemies with a single cone attack
   reward: 2000
-  score: 5
-  attackType: 5
-  achievementIcon: {fileID: 21300002, guid: bf7ccb40b9fbad7419bfe8071d375561, type: 3}
+  score: 10
+  attackType: 6
+  achievementIcon: {fileID: 21300014, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
 --- !u!114 &114573267599407510
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7985,7 +8146,7 @@ MonoBehaviour:
   bearDead: {fileID: 1983184513634302}
   conquerorDead: {fileID: 1583651261417160}
   coinSfx: {fileID: 8300000, guid: acedc7904f9bc2a43979a07e8a500f4c, type: 3}
-  stampSfx: {fileID: 0}
+  stampSfx: {fileID: 8300000, guid: c0cabce778ad54792bba3a0ca6765417, type: 3}
 --- !u!114 &114916081368233788
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8609,6 +8770,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1341046061674104}
+--- !u!222 &222220241214838922
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1463108718485034}
 --- !u!222 &222221572075894952
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -8729,6 +8896,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1328598836144662}
+--- !u!222 &222348780804989064
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1804789335464006}
 --- !u!222 &222354280937844984
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -8747,6 +8920,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1996623288143964}
+--- !u!222 &222364726181687666
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1469874268876940}
 --- !u!222 &222365959601334808
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -9023,6 +9202,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1032731207552358}
+--- !u!222 &222697080853271628
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1082182527670626}
 --- !u!222 &222711692083301676
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -9490,6 +9675,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224030354810295626
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1469874268876940}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224796202339331160}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224032552116197612
 RectTransform:
   m_ObjectHideFlags: 1
@@ -9656,7 +9859,7 @@ RectTransform:
   - {fileID: 224048019622726110}
   - {fileID: 224721297677629502}
   m_Father: {fileID: 224980340696694082}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -9671,15 +9874,15 @@ RectTransform:
   m_GameObject: {fileID: 1344369355896316}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.9999932, y: 0.9999932, z: 0.9999932}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224150131376470980}
   m_Father: {fileID: 224980340696694082}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00012207031, y: -0.000015258789}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224077928576157874
@@ -11233,15 +11436,15 @@ RectTransform:
   m_GameObject: {fileID: 1603182082610378}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.9999932, y: 0.9999932, z: 0.9999932}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224989552532875400}
   m_Father: {fileID: 224980340696694082}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00012207031, y: -0.000015258789}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224475926733243562
@@ -11385,11 +11588,11 @@ RectTransform:
   m_Children:
   - {fileID: 224901634777489664}
   m_Father: {fileID: 224980340696694082}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000091552734, y: -0.000015258789}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224526586767810422
@@ -11867,6 +12070,25 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -30.30005, y: -3.5999997}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224673092970107238
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1463108718485034}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 224839107678051064}
+  m_Father: {fileID: 224980340696694082}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224678286159510178
@@ -12406,6 +12628,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 84}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224796202339331160
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1082182527670626}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 224030354810295626}
+  m_Father: {fileID: 224980340696694082}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224801962055659140
 RectTransform:
   m_ObjectHideFlags: 1
@@ -12573,6 +12814,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -240}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224839107678051064
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1804789335464006}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224673092970107238}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224846219008086800
 RectTransform:
   m_ObjectHideFlags: 1
@@ -12640,7 +12899,7 @@ RectTransform:
   m_GameObject: {fileID: 1352034513707212}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.9999932, y: 0.9999932, z: 0.9999932}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224137089805722296}
   m_Father: {fileID: 224980340696694082}
@@ -12648,7 +12907,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00012207031, y: -0.000015258789}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224868365386737130
@@ -13069,10 +13328,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 224524055479810706}
+  - {fileID: 224469652034687166}
   - {fileID: 224576042119059792}
   - {fileID: 224865250531082846}
-  - {fileID: 224469652034687166}
+  - {fileID: 224524055479810706}
+  - {fileID: 224673092970107238}
+  - {fileID: 224796202339331160}
   - {fileID: 224076398934473982}
   - {fileID: 224075718119615624}
   m_Father: {fileID: 224050234008403358}

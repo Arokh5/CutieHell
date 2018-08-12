@@ -144,8 +144,7 @@ public class GameManager : MonoBehaviour
     {
         if (gameState == GameStates.InGame)
         {
-//            crosshair.SetActive(false);
-
+            //crosshair.SetActive(false);
             roundScore.gameObject.SetActive(true);
             StatsManager.instance.GetMaxCombo().GrantReward();
             StatsManager.instance.GetTimeCombo().GrantReward();

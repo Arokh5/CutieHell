@@ -23,6 +23,8 @@ public class TransitionUI : MonoBehaviour {
     private Color[] colors;
     [SerializeField]
     private float[] times;
+    [SerializeField]
+    private AudioClip showUpSound;
     
 
     private bool isTransitionOn = false;
@@ -60,8 +62,13 @@ public class TransitionUI : MonoBehaviour {
             switch(transitionState)
             {
                 case (TransitionState.TRANSITION_START):
+                    if(elapsedTime == 0)
+                        SoundManager.instance.PlaySfxClip(showUpSound);
+
                     elementBackground.transform.position = transforms[0].position;
-                    elapsedTime += Time.deltaTime * times[0];
+
+                    elapsedTime += Time.deltaTime;
+
                     elapsedColor = Mathf.Lerp(elementBackground.color.a, colors[0].a, elapsedTime);
 
                     elementBackground.transform.localScale = Vector3.Lerp(elementBackground.transform.localScale, transforms[0].localScale, elapsedTime);
@@ -70,14 +77,14 @@ public class TransitionUI : MonoBehaviour {
                     elementIcon.color = new Color(elementIcon.color.r, elementIcon.color.g, elementIcon.color.b, elapsedColor);
                     elementText.color = new Color(elementText.color.r, elementText.color.g, elementText.color.b, elapsedColor);
 
-                    if (elapsedTime >= times[0])
+                    if (elapsedTime >= times[1])
                     {
                         transitionState = TransitionState.TRANSITION_ONGOING;
                         elapsedTime = 0;
                     }
                     break;
                 case (TransitionState.TRANSITION_ONGOING):
-                    elapsedTime += Time.deltaTime * times[1];
+                    elapsedTime += Time.deltaTime;
                     elapsedColor = Mathf.Lerp(elementBackground.color.a, colors[1].a, elapsedTime);
 
                     elementBackground.transform.localScale = Vector3.Lerp(elementBackground.transform.localScale, transforms[1].localScale, elapsedTime);
@@ -87,21 +94,21 @@ public class TransitionUI : MonoBehaviour {
                     elementIcon.color = new Color(elementIcon.color.r, elementIcon.color.g, elementIcon.color.b, elapsedColor);
                     elementText.color = new Color(elementText.color.r, elementText.color.g, elementText.color.b, elapsedColor);
 
-                    if (elapsedTime >= times[0])
+                    if (elapsedTime >= times[1])
                     {
                         transitionState = TransitionState.TRANSITION_FINISH;
                         elapsedTime = 0;
                     }
                     break;
                 case (TransitionState.TRANSITION_FINISH):
-                    elapsedTime += Time.deltaTime * times[1];
+                    elapsedTime += Time.deltaTime;
                     elapsedColor = Mathf.Lerp(elementBackground.color.a, colors[2].a, elapsedTime);
 
                     elementBackground.color = new Color(elementBackground.color.r, elementBackground.color.g, elementBackground.color.b, elapsedColor);
                     elementIcon.color = new Color(elementIcon.color.r, elementIcon.color.g, elementIcon.color.b, elapsedColor);
                     elementText.color = new Color(elementText.color.r, elementText.color.g, elementText.color.b, elapsedColor);
 
-                    if (elapsedTime >= times[1])
+                    if (elapsedTime >= times[2])
                     {
                         isTransitionOn = false;
                         elapsedTime = 0;
