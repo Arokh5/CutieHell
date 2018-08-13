@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class InputManager : MonoBehaviour {
+public class InputManager : Subject {
 
     private enum ButtonState { IDLE, DOWN, PRESSED, UP }
     private enum AxisAsButton { L2, R2, LS_DOWN, LS_UP, PAD_DOWN, PAD_UP }
@@ -764,14 +764,20 @@ public class InputManager : MonoBehaviour {
         {
             if (joystickNames[i].Contains("360") || joystickNames[i].Contains("XBOX") || joystickNames[i].Contains("Xbox"))
             {
+                if (!isXbox)
+                    NotifyAll();
                 isXbox = true;
-                if(errorMessage.activeSelf) errorMessage.SetActive(false);
+                if(errorMessage.activeSelf)
+                    errorMessage.SetActive(false);
                 return;
             }
             else if (joystickNames[i].Contains("Wireless Controller"))
             {
+                if (!isPS4)
+                    NotifyAll();
                 isPS4 = true;
-                if (errorMessage.activeSelf) errorMessage.SetActive(false);
+                if (errorMessage.activeSelf)
+                    errorMessage.SetActive(false);
                 return;
             }
         }

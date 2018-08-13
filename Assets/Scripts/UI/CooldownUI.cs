@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class CooldownUI : MonoBehaviour {
+public class CooldownUI : Observer {
 
     #region Fields
     [Header("Cooldown configuration")]
     [SerializeField]
     private int fontSize;
     [SerializeField]
-    private Sprite sprite;
+    private Sprite spritePS4;
+    [SerializeField]
+    private Sprite spriteXbox;
     [SerializeField]
     private float defaultFlashDuration = 0.2f;
     [SerializeField]
@@ -20,6 +22,7 @@ public class CooldownUI : MonoBehaviour {
     private float flashDuration;
     private float flashElapsedTime;
     private bool flashing = false;
+    private Sprite sprite = null;
 
     [Header("Prefab setup")]
     [SerializeField]
@@ -38,7 +41,8 @@ public class CooldownUI : MonoBehaviour {
         UnityEngine.Assertions.Assert.IsNotNull(background, "ERROR: Background (Image) not assigned for CooldownUI script in GameObject " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(foreground, "ERROR: Foreground (Image) not assigned for CooldownUI script in GameObject " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(numberText, "ERROR: Number Text (Text) not assigned for CooldownUI script in GameObject " + gameObject.name);
-        UnityEngine.Assertions.Assert.IsNotNull(sprite, "ERROR: Sprite (Sprite) not assigned for CooldownUI script in GameObject " + gameObject.name);
+        UnityEngine.Assertions.Assert.IsNotNull(spritePS4, "ERROR: Sprite PS4 (Sprite) not assigned for CooldownUI script in GameObject " + gameObject.name);
+        UnityEngine.Assertions.Assert.IsNotNull(spriteXbox, "ERROR: Sprite XBOX (Sprite) not assigned for CooldownUI script in GameObject " + gameObject.name);
 
         rectTransform = GetComponent<RectTransform>();
         UnityEngine.Assertions.Assert.IsNotNull(rectTransform, "ERROR: A RectTransform could not be found by CooldownUI script in GameObject " + gameObject.name);
@@ -54,12 +58,21 @@ public class CooldownUI : MonoBehaviour {
         CooldownOver();
     }
 
+    private void Start()
+    {
+        InputManager.instance.AddObserver(this);
+        if (InputManager.instance.isPS4)
+            sprite = spritePS4;
+        else
+            sprite = spriteXbox;
+    }
+
     private void Update()
     {
         if (flashing)
         {
             FlashAnimation();
-        }
+        }     
     }
 
     private void OnValidate()
@@ -107,6 +120,15 @@ public class CooldownUI : MonoBehaviour {
         this.flashDuration = flashDuration;
         flashing = true;
         flashElapsedTime = 0;
+    }
+
+    public override void OnNotify()
+    {
+        if (InputManager.instance.isPS4)
+            sprite = spritePS4;
+        else if (InputManager.instance.isXbox)
+            sprite = spriteXbox;
+        OnValidate();
     }
     #endregion
 
