@@ -12,13 +12,10 @@ public class RoundScore : MonoBehaviour {
     private Text beatingTimeCount;
     private Text[] scoresCounts;
 
-    [SerializeField]
-    private Text consecutiveKillingsScore;
-    [SerializeField]
-    private Text receivedDamageScore;
-    [SerializeField]
-    private Text beatingTimeScore;
-    private Text[] scoresStats;
+  
+    private int consecutiveKillingsScore;
+    private int receivedDamageScore;
+    private int beatingTimeScore;
 
     [SerializeField]
     private Text total;
@@ -40,11 +37,6 @@ public class RoundScore : MonoBehaviour {
         scoresCounts[0] = consecutiveKillingsCount;
         scoresCounts[1] = receivedDamageCount;
         scoresCounts[2] = beatingTimeCount;
-
-        scoresStats = new Text[3];
-        scoresStats[0] = consecutiveKillingsScore;
-        scoresStats[1] = receivedDamageScore;
-        scoresStats[2] = beatingTimeScore;
 
         scoresInitialPosition = new Transform[scoresCounts.Length];
 
@@ -82,7 +74,7 @@ public class RoundScore : MonoBehaviour {
         string minutes = Mathf.Floor(beatingTime / 60).ToString("00");
         string seconds = (beatingTime % 60).ToString("00");
 
-        beatingTimeCount.text = minutes + "' " + seconds + "\"";
+        beatingTimeCount.text = minutes + ":" + seconds;
     }
 
     public void SetUpConsecutiveKillingsCount(int consecutiveKillings)
@@ -92,17 +84,17 @@ public class RoundScore : MonoBehaviour {
 
     public void SetUpDamageReceivedScore(int damageReceived)
     {
-        receivedDamageScore.text = damageReceived.ToString();
+        receivedDamageScore = damageReceived;
     }
 
     public void SetUpBeatingTimeScore(int beatingTime)
     {
-        beatingTimeScore.text = beatingTime.ToString();
+        beatingTimeScore = beatingTime;
     }
 
     public void SetUpConsecutiveKillingScore(int consecutiveKillings)
     {
-        consecutiveKillingsScore.text = consecutiveKillings.ToString();
+        consecutiveKillingsScore = consecutiveKillings;
     }
 
     public void SetUpTotalScore(int globalScore)
@@ -115,26 +107,9 @@ public class RoundScore : MonoBehaviour {
     private void DisplayRoundScore()
     {
 
-        if (currentScorePresentation < scoresCounts.Length)
-        {
-            if ((int)scoresCounts[currentScorePresentation].transform.position.magnitude - (int)scoresPosition[currentScorePresentation].position.magnitude < 0)
-            {
-                scoresCounts[currentScorePresentation].transform.position = Vector2.Lerp(scoresCounts[currentScorePresentation].transform.position, scoresPosition[currentScorePresentation].position, 0.3f);
-            }
-            else
-            {
-                Color scoreStatColorOpaque = scoresStats[currentScorePresentation].color;
-                scoreStatColorOpaque.a = 1.0f;
-                scoresStats[currentScorePresentation].color = scoreStatColorOpaque;
+        total.gameObject.SetActive(true);
+        isFullyDisplayed = true;
 
-                currentScorePresentation += 1;
-            }
-        }
-        else
-        {
-            total.gameObject.SetActive(true);
-            isFullyDisplayed = true;
-        }
 
     }
     private void CloseRoundScorePopup()
@@ -144,9 +119,6 @@ public class RoundScore : MonoBehaviour {
             isFullyDisplayed = false;
             currentScorePresentation = 0;
 
-            RestartScoresPosition();
-            RestartScoresTransparency();
-
             total.gameObject.SetActive(false);
             this.gameObject.SetActive(false);
 
@@ -154,24 +126,5 @@ public class RoundScore : MonoBehaviour {
         }
     }
 
-    private void RestartScoresPosition()
-    {
-        for (int i = 0; i < scoresCounts.Length; i++)
-        {
-            scoresCounts[i].transform.position = scoresInitialPosition[i].position;
-        }
-    }
-
-    private void RestartScoresTransparency()
-    {
-        Color scoreStatColorTransparent = scoresStats[0].color;
-        scoreStatColorTransparent.a = 0.0f;
-
-        for(int i = 0; i < scoresStats.Length; i++)
-        {
-            scoresStats[i].color = scoreStatColorTransparent;
-        }
-
-    }
     #endregion
 }
