@@ -1,14 +1,17 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Combo : MonoBehaviour
 {
 
     #region Attributes
     public string comboName;
+    public Sprite comboIcon;
     public string description;
     public int reward;
     public int score;
     protected int currentCount = 0;
+    protected int timesObtained = 0;
     protected bool comboEnabled = false;
     #endregion
 
@@ -49,6 +52,11 @@ public class Combo : MonoBehaviour
     public virtual void GrantReward()
     {
         StatsManager.instance.IncreaseRoundPoints(reward);
+    }
+
+    public int GetTimesObtained()
+    {
+        return timesObtained; 
     }
 
     #endregion

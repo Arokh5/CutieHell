@@ -6,8 +6,6 @@ public class KillingTimeAchievement : Combo
 {
     #region Attributes
     [SerializeField]
-    private Sprite achievementIcon;
-    [SerializeField]
     TimeLimitation timeLimitation;
 
     private Player player;
@@ -33,9 +31,12 @@ public class KillingTimeAchievement : Combo
 
     public override void GrantReward()
     {
+        if(timesObtained == 0)
+            StatsManager.instance.RegisterAchievement(this);
+
+        timesObtained += 1;
         StatsManager.instance.IncreaseRoundPoints(reward);
-        StatsManager.instance.RegisterAchievement(this);
-        TransitionUI.instance.AskForTransition(comboName, achievementIcon);
+        TransitionUI.instance.AskForTransition(comboName, comboIcon);
         ResetCount();
     }
 

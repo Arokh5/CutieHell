@@ -22,17 +22,28 @@ public class RoundScore : MonoBehaviour {
 
     [Header("AchievementStats")]
     [SerializeField]
-    private Transform AchievementsDisplayPosition;
+    private GameObject achievementScorePrefab;
+    [SerializeField]
+    private Transform achievementsDisplayPosition;
+    private bool singleAchievementFullDisplayed =  true;
+    private int currentEvaluatedAchievementIterator = 0;
+    private int playerTotalRoundScoreOnCurrentAchievement;
+    [SerializeField]
+    private int separationOnXaxisBetweenAchievementsIcons;
 
     [Header ("Score")]
     private Text[] scoresCounts;
+    [SerializeField]
+    private Text currentScore; //the score value at the current frame
+    private int currentScoreTarget; //the target value for current score having added the last evaluated score
+    private int currentScoreValue = 0;
     [SerializeField]
     private Text total;
 
 
     private ShowingState showingState;
 
-    private Dictionary<Combo, int> obtainedAchievements = new Dictionary<Combo, int>();
+    private List<Combo> obtainedAchievements = new List<Combo>();
     #endregion
 
     #region MonoBehaviour methods
@@ -46,28 +57,32 @@ public class RoundScore : MonoBehaviour {
         scoresCounts[2] = beatingTimeCount;
 
         showingState = ShowingState.ACHIEVEMENTS;
+        SetUpAchievementsToDisplay();
+        Time.timeScale = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+        currentScore.text = currentScoreValue.ToString();
+
         switch (showingState)
         {
             case ShowingState.ACHIEVEMENTS:
-                Time.timeScale = 0;
-
+                if (obtainedAchievements.Count != 0 && obtainedAchievements != null)
+                    ShowAchievements();
+                else
+                    showingState = ShowingState.STATS;
                 break;
 
             case ShowingState.STATS:
-
                 break;
 
             case ShowingState.COMPLETED:
 
                 CloseRoundScorePopup();
                 break;
-        }     
-        
+        }
     }
     #endregion
 
@@ -112,13 +127,9 @@ public class RoundScore : MonoBehaviour {
 
     public void AddObtainedAchievement(ref Combo achievement)
     {
-        if (obtainedAchievements.ContainsKey(achievement))
+        if (!obtainedAchievements.Contains(achievement))
         {
-            obtainedAchievements[achievement] = obtainedAchievements[achievement] + 1;
-        }
-        else
-        {
-            obtainedAchievements.Add(achievement, 1);
+            obtainedAchievements.Add(achievement);
         }
     }
     #endregion
@@ -138,6 +149,46 @@ public class RoundScore : MonoBehaviour {
 
             Time.timeScale = 1;
         }
+    }
+
+    private void ShowAchievements()
+    {
+        if(singleAchievementFullDisplayed)
+        {
+            singleAchievementFullDisplayed = false;
+            achievementsDisplayPosition.localPosition = new Vector3(achievementsDisplayPosition.localPosition.x + separationOnXaxisBetweenAchievementsIcons, achievementsDisplayPosition.localPosition.y, achievementsDisplayPosition.localPosition.z);
+            
+            GameObject achievementScore = Instantiate(achievementScorePrefab, this.transform);
+            achievementScore.transform.localPosition = achievementsDisplayPosition.localPosition;
+            achievementScore.GetComponent<Image>().sprite = obtainedAchievements[currentEvaluatedAchievementIterator].comboIcon;
+            achievementScore.GetComponentInChildren<Text>().text = "x" + obtainedAchievements[currentEvaluatedAchievementIterator].GetTimesObtained();
+
+            currentScoreTarget += obtainedAchievements[currentEvaluatedAchievementIterator].reward;
+        }
+        else
+        {
+            if(currentScoreValue >= currentScoreTarget)
+            {
+                currentScoreValue = currentScoreTarget;
+                if(currentEvaluatedAchievementIterator < obtainedAchievements.Count-1)
+                {
+                    currentEvaluatedAchievementIterator += 1;
+                }
+                else
+                {
+                    showingState = ShowingState.STATS;
+                }
+                singleAchievementFullDisplayed = true;
+            }else
+            {
+                currentScoreValue += 18;
+            }
+        }
+    }
+
+    private void SetUpAchievementsToDisplay()
+    {
+        achievementsDisplayPosition.localPosition = new Vector3(achievementsDisplayPosition.localPosition.x - (obtainedAchievements.Count * 4), achievementsDisplayPosition.localPosition.y, achievementsDisplayPosition.localPosition.z);
     }
 
     #endregion

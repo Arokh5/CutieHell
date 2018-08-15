@@ -1406,7 +1406,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1395156277256788
 GameObject:
   m_ObjectHideFlags: 1
@@ -1419,6 +1419,21 @@ GameObject:
   - component: {fileID: 114631514323690008}
   m_Layer: 5
   m_Name: InfoText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1395540682958810
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224804531040828350}
+  m_Layer: 5
+  m_Name: SkillStats
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1543,6 +1558,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1419253182209556
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224167968603930518}
+  - component: {fileID: 222380051376776126}
+  - component: {fileID: 114608839520598438}
+  m_Layer: 5
+  m_Name: CurrentScore
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1419495413728896
 GameObject:
   m_ObjectHideFlags: 1
@@ -1639,6 +1671,22 @@ GameObject:
   - component: {fileID: 114832300484239930}
   m_Layer: 5
   m_Name: Background
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1440052867281808
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224053728443512748}
+  - component: {fileID: 222325772225772286}
+  m_Layer: 5
+  m_Name: DisplayPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2794,7 +2842,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1816226927241370
 GameObject:
   m_ObjectHideFlags: 1
@@ -2956,6 +3004,21 @@ GameObject:
   - component: {fileID: 114131752937678018}
   m_Layer: 5
   m_Name: Logo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1844190046189696
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224781665327234524}
+  m_Layer: 5
+  m_Name: AchievementStats
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3178,7 +3241,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1922918377766846
 GameObject:
   m_ObjectHideFlags: 1
@@ -3544,6 +3607,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   comboName: 
+  comboIcon: {fileID: 0}
   description: 
   reward: 0
   score: 0
@@ -4312,11 +4376,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   comboName: You stuck the landing
+  comboIcon: {fileID: 21300008, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
   description: Killing "score" enemies with a single strong attack
   reward: 1000
   score: 10
   attackType: 4
-  achievementIcon: {fileID: 21300008, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
 --- !u!114 &114224160877720762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4362,11 +4426,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   comboName: Meteor Shower
+  comboIcon: {fileID: 21300002, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
   description: Killing "score" enemies with a single meteorite attack
   reward: 2000
   score: 10
   attackType: 7
-  achievementIcon: {fileID: 21300002, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
 --- !u!114 &114233760587329714
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4865,11 +4929,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   comboName: Watch out
+  comboIcon: {fileID: 21300006, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
   description: Killing "score" enemies with a single mine attack
   reward: 1000
   score: 10
   attackType: 5
-  achievementIcon: {fileID: 21300006, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
 --- !u!114 &114343887075618628
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4882,10 +4946,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   comboName: Clean!
+  comboIcon: {fileID: 21300004, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
   description: Kill all enemies in a wave before it finishes
   reward: 1000
   score: 1
-  achievementIcon: {fileID: 21300004, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
   timeLimitation: 1
 --- !u!114 &114356376437098228
 MonoBehaviour:
@@ -5304,11 +5368,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   comboName: Full toolkit
+  comboIcon: {fileID: 21300000, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
   description: Defeat at least one enemy with each attack in your kit in less than
     15 seconds
   reward: 3000
   score: 15
-  achievementIcon: {fileID: 21300000, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
   timeLimitation: 0
 --- !u!114 &114409521286663628
 MonoBehaviour:
@@ -5436,11 +5500,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   comboName: Marksman
+  comboIcon: {fileID: 21300010, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
   description: Hit "score" enemies with a single boomerang attack
   reward: 2000
   score: 1
   attackType: 3
-  achievementIcon: {fileID: 21300010, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
 --- !u!114 &114441158373640038
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6221,11 +6285,12 @@ MonoBehaviour:
   consecutiveKillingsCount: {fileID: 114768236075324884}
   receivedDamageCount: {fileID: 114421926615063984}
   beatingTimeCount: {fileID: 114898611470786000}
+  achievementScorePrefab: {fileID: 1747299851681596, guid: e142d28dc85fcca4b96657ea7f86032f,
+    type: 2}
+  achievementsDisplayPosition: {fileID: 224053728443512748}
+  separationOnXaxisBetweenAchievementsIcons: 7
+  currentScore: {fileID: 114608839520598438}
   total: {fileID: 114399786513429184}
-  scoresPosition:
-  - {fileID: 224590537202813894}
-  - {fileID: 224661884420272514}
-  - {fileID: 224009264927648882}
 --- !u!114 &114567273333978240
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6271,11 +6336,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   comboName: Slice'n dice
+  comboIcon: {fileID: 21300014, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
   description: HIT "score" enemies with a single cone attack
   reward: 2000
   score: 10
   attackType: 6
-  achievementIcon: {fileID: 21300014, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
 --- !u!114 &114573267599407510
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6378,6 +6443,39 @@ MonoBehaviour:
   targetHeight: 180
   topStripe: {fileID: 224341345408374188}
   bottomStripe: {fileID: 224219911295869790}
+--- !u!114 &114608839520598438
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1419253182209556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0.8941177, b: 0.49411768, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 40fcd7f38bae3034e9b5169865efe9c0, type: 3}
+    m_FontSize: 72
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 7
+    m_MaxSize: 72
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 1
+    m_LineSpacing: 1
+  m_Text: 
 --- !u!114 &114617773147571074
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6828,6 +6926,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   comboName: Time Combo
+  comboIcon: {fileID: 0}
   description: Game beating time
   reward: 100
   score: 0
@@ -7397,6 +7496,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   comboName: Received Damage Combo
+  comboIcon: {fileID: 0}
   description: Score based on the damage the monuments suffered
   reward: 10000
   score: 0
@@ -8258,6 +8358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   comboName: Max Combo
+  comboIcon: {fileID: 0}
   description: Max number of consecutive defeated cuties
   reward: 500
   score: 0
@@ -8760,6 +8861,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1995904201438964}
+--- !u!222 &222325772225772286
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1440052867281808}
 --- !u!222 &222326642940439892
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -8820,6 +8927,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1788125332641836}
+--- !u!222 &222380051376776126
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1419253182209556}
 --- !u!222 &222384268778968016
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -9370,11 +9483,11 @@ RectTransform:
   m_GameObject: {fileID: 1812735732321254}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.09999964, y: 0.10000113, z: 0.9999932}
+  m_LocalScale: {x: 0.099999644, y: 0.10000113, z: 1}
   m_Children:
   - {fileID: 224294822979271848}
-  m_Father: {fileID: 224752625657186262}
-  m_RootOrder: 5
+  m_Father: {fileID: 224804531040828350}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -9660,6 +9773,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!224 &224053728443512748
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1440052867281808}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224781665327234524}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -1.5, y: 25.1}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224058116510486530
 RectTransform:
   m_ObjectHideFlags: 1
@@ -10152,6 +10283,24 @@ RectTransform:
   m_AnchoredPosition: {x: -65, y: 50}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0.5}
+--- !u!224 &224167968603930518
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1419253182209556}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.079999715, y: 0.08000091, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224752625657186262}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -30.3, y: -30.400002}
+  m_SizeDelta: {x: 300, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224171026256919744
 RectTransform:
   m_ObjectHideFlags: 1
@@ -11137,7 +11286,7 @@ RectTransform:
   m_Children:
   - {fileID: 224779261210304874}
   m_Father: {fileID: 224752625657186262}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -11631,11 +11780,11 @@ RectTransform:
   m_GameObject: {fileID: 1921770920590642}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.09999965, y: 0.100001134, z: 1}
+  m_LocalScale: {x: 0.09999965, y: 0.10000114, z: 1}
   m_Children:
   - {fileID: 224019632447933762}
-  m_Father: {fileID: 224752625657186262}
-  m_RootOrder: 3
+  m_Father: {fileID: 224804531040828350}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -11877,11 +12026,11 @@ RectTransform:
   m_GameObject: {fileID: 1378749663217420}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.09999964, y: 0.10000113, z: 0.9999932}
+  m_LocalScale: {x: 0.099999644, y: 0.10000113, z: 1}
   m_Children:
   - {fileID: 224410680952861224}
-  m_Father: {fileID: 224752625657186262}
-  m_RootOrder: 4
+  m_Father: {fileID: 224804531040828350}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -12233,16 +12382,16 @@ RectTransform:
   - {fileID: 224248923919576936}
   - {fileID: 224925047855217420}
   - {fileID: 224913490102237218}
-  - {fileID: 224590537202813894}
-  - {fileID: 224661884420272514}
-  - {fileID: 224009264927648882}
+  - {fileID: 224167968603930518}
   - {fileID: 224423807047880770}
+  - {fileID: 224804531040828350}
+  - {fileID: 224781665327234524}
   m_Father: {fileID: 224050234008403358}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -14.999847, y: 5.999939}
+  m_AnchoredPosition: {x: -50, y: 5.999939}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224762383351062958
@@ -12350,6 +12499,25 @@ RectTransform:
   - {fileID: 224098497601463020}
   m_Father: {fileID: 224086137881490794}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224781665327234524
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1844190046189696}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 224053728443512748}
+  m_Father: {fileID: 224752625657186262}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -12464,6 +12632,27 @@ RectTransform:
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 337, y: 125}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224804531040828350
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1395540682958810}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 224590537202813894}
+  - {fileID: 224661884420272514}
+  - {fileID: 224009264927648882}
+  m_Father: {fileID: 224752625657186262}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224807939985839224
 RectTransform:
