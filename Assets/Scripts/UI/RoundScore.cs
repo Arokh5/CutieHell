@@ -16,23 +16,27 @@ public class RoundScore : MonoBehaviour {
     [SerializeField]
     private Text beatingTimeCount;
 
-    private int consecutiveKillingsScore;
-    private int receivedDamageScore;
-    private int beatingTimeScore;
+    private int currentEvaluatedSkillStatIterator = 0;
+
+    private int consecutiveKillingsReward;
+    private int receivedDamageReward;
+    private int beatingTimeReward;
+
+    private Text[] scoresCounts;
+    private int[] scoresScores;
+    private Dictionary<Text, int> skillStatsScores;
 
     [Header("AchievementStats")]
     [SerializeField]
     private GameObject achievementScorePrefab;
     [SerializeField]
     private Transform achievementsDisplayPosition;
-    private bool singleAchievementFullDisplayed =  true;
-    private int currentEvaluatedAchievementIterator = 0;
-    private int playerTotalRoundScoreOnCurrentAchievement;
     [SerializeField]
     private int separationOnXaxisBetweenAchievementsIcons;
 
+    private int currentEvaluatedAchievementIterator = 0;
+
     [Header ("Score")]
-    private Text[] scoresCounts;
     [SerializeField]
     private Text currentScore; //the score value at the current frame
     private int currentScoreTarget; //the target value for current score having added the last evaluated score
@@ -40,6 +44,7 @@ public class RoundScore : MonoBehaviour {
     [SerializeField]
     private Text total;
 
+    private bool singleStatFullDisplayed = true;
 
     private ShowingState showingState;
 
@@ -51,13 +56,10 @@ public class RoundScore : MonoBehaviour {
     // Use this for initialization
     void Start () 
 	{
-        scoresCounts = new Text[3];
-        scoresCounts[0] = consecutiveKillingsCount;
-        scoresCounts[1] = receivedDamageCount;
-        scoresCounts[2] = beatingTimeCount;
+        SetUpSkillStats();
+        SetUpAchievementsToDisplay();
 
         showingState = ShowingState.ACHIEVEMENTS;
-        SetUpAchievementsToDisplay();
         Time.timeScale = 0;
 	}
 	
@@ -76,6 +78,7 @@ public class RoundScore : MonoBehaviour {
                 break;
 
             case ShowingState.STATS:
+                ShowSkillStats();
                 break;
 
             case ShowingState.COMPLETED:
@@ -107,17 +110,17 @@ public class RoundScore : MonoBehaviour {
 
     public void SetUpDamageReceivedScore(int damageReceived)
     {
-        receivedDamageScore = damageReceived;
+        receivedDamageReward = damageReceived;
     }
 
     public void SetUpBeatingTimeScore(int beatingTime)
     {
-        beatingTimeScore = beatingTime;
+        beatingTimeReward = beatingTime;
     }
 
     public void SetUpConsecutiveKillingScore(int consecutiveKillings)
     {
-        consecutiveKillingsScore = consecutiveKillings;
+        consecutiveKillingsReward = consecutiveKillings;
     }
 
     public void SetUpTotalScore(int globalScore)
@@ -151,11 +154,64 @@ public class RoundScore : MonoBehaviour {
         }
     }
 
+    private void ShowSkillStats()
+    {
+        if (singleStatFullDisplayed)
+        {
+            singleStatFullDisplayed = false;
+            scoresCounts[currentEvaluatedSkillStatIterator].transform.parent.gameObject.SetActive(true);
+
+            currentScoreTarget += skillStatsScores[scoresCounts[currentEvaluatedSkillStatIterator]];
+        }
+        else
+        {
+            if (currentScoreValue >= currentScoreTarget)
+            {
+                currentScoreValue = currentScoreTarget;
+                if (currentEvaluatedSkillStatIterator < scoresCounts.Length - 1)
+                {
+                    currentEvaluatedSkillStatIterator += 1;
+                }
+                else
+                {
+                    showingState = ShowingState.COMPLETED;
+                    currentScore.gameObject.SetActive(false);
+                    total.gameObject.SetActive(true);
+                }
+                singleStatFullDisplayed = true;
+            }
+            else
+            {
+                currentScoreValue += 24;
+            }
+        }
+    }
+
+    private void SetUpSkillStats()
+    {
+        scoresCounts = new Text[3];
+        scoresCounts[0] = consecutiveKillingsCount;
+        scoresCounts[1] = receivedDamageCount;
+        scoresCounts[2] = beatingTimeCount;
+
+        scoresScores = new int[3];
+        scoresScores[0] = consecutiveKillingsReward;
+        scoresScores[1] = receivedDamageReward;
+        scoresScores[2] = beatingTimeReward;
+
+        skillStatsScores = new Dictionary<Text, int>();
+
+        for(int i = 0; i < scoresCounts.Length; i++)
+        {
+            skillStatsScores.Add(scoresCounts[i], scoresScores[i]);
+        }
+    }
+
     private void ShowAchievements()
     {
-        if(singleAchievementFullDisplayed)
+        if(singleStatFullDisplayed)
         {
-            singleAchievementFullDisplayed = false;
+            singleStatFullDisplayed = false;
             achievementsDisplayPosition.localPosition = new Vector3(achievementsDisplayPosition.localPosition.x + separationOnXaxisBetweenAchievementsIcons, achievementsDisplayPosition.localPosition.y, achievementsDisplayPosition.localPosition.z);
             
             GameObject achievementScore = Instantiate(achievementScorePrefab, this.transform);
@@ -163,7 +219,7 @@ public class RoundScore : MonoBehaviour {
             achievementScore.GetComponent<Image>().sprite = obtainedAchievements[currentEvaluatedAchievementIterator].comboIcon;
             achievementScore.GetComponentInChildren<Text>().text = "x" + obtainedAchievements[currentEvaluatedAchievementIterator].GetTimesObtained();
 
-            currentScoreTarget += obtainedAchievements[currentEvaluatedAchievementIterator].reward;
+            currentScoreTarget += obtainedAchievements[currentEvaluatedAchievementIterator].reward * obtainedAchievements[currentEvaluatedAchievementIterator].GetTimesObtained();
         }
         else
         {
@@ -178,10 +234,10 @@ public class RoundScore : MonoBehaviour {
                 {
                     showingState = ShowingState.STATS;
                 }
-                singleAchievementFullDisplayed = true;
+                singleStatFullDisplayed = true;
             }else
             {
-                currentScoreValue += 18;
+                currentScoreValue += 24;
             }
         }
     }
