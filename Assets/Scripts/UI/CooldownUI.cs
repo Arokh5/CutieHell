@@ -56,11 +56,11 @@ public class CooldownUI : Observer {
         initialScale = rectTransform.localScale.x;
 
         CooldownOver();
+        InputManager.instance.AddObserver(this);
     }
 
     private void Start()
     {
-        InputManager.instance.AddObserver(this);
         if (InputManager.instance.isPS4)
             sprite = spritePS4;
         else

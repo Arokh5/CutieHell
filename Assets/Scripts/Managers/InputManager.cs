@@ -31,11 +31,12 @@ public class InputManager : Subject {
         }
         else
             Destroy(this);
-
-        CheckDevice();
-
     }
 
+    private void Start()
+    {
+        CheckDevice();
+    }
     private void Update()
     {
         CheckDevice();
@@ -757,16 +758,22 @@ public class InputManager : Subject {
 
     private void CheckDevice()
     {
-        isXbox = false;
-        isPS4 = false;
         string[] joystickNames = Input.GetJoystickNames();
         for (int i = 0; i < joystickNames.Length; i++)
         {
             if (joystickNames[i].Contains("360") || joystickNames[i].Contains("XBOX") || joystickNames[i].Contains("Xbox"))
             {
                 if (!isXbox)
+                {
+                    isXbox = true;
+                    isPS4 = false;
                     NotifyAll();
-                isXbox = true;
+                }
+                else
+                {
+                    isXbox = true;
+                    isPS4 = false;
+                }                
                 if(errorMessage.activeSelf)
                     errorMessage.SetActive(false);
                 return;
@@ -774,8 +781,17 @@ public class InputManager : Subject {
             else if (joystickNames[i].Contains("Wireless Controller"))
             {
                 if (!isPS4)
+                {
+                    isXbox = false;
+                    isPS4 = true;
                     NotifyAll();
-                isPS4 = true;
+                }
+                else
+                {
+                    isXbox = false;
+                    isPS4 = true;
+                }
+
                 if (errorMessage.activeSelf)
                     errorMessage.SetActive(false);
                 return;
