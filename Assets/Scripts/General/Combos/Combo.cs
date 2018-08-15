@@ -48,7 +48,7 @@ public class Combo : MonoBehaviour
 
     public virtual void GrantReward()
     {
-        StatsManager.instance.IncreaseGlobalPoints(reward);
+        StatsManager.instance.IncreaseRoundPoints(reward);
     }
 
     #endregion

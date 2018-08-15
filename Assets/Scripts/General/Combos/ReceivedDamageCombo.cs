@@ -34,7 +34,7 @@ public class ReceivedDamageCombo : Combo
         score = (int)(reward * (roundFinalHealth / roundBaseHealth));
         roundScore.SetUpDamageReceivedCount(100 - (roundFinalHealth / roundBaseHealth) * 100);
         roundScore.SetUpDamageReceivedScore(score);
-        StatsManager.instance.IncreaseGlobalPoints(score);
+        StatsManager.instance.IncreaseRoundPoints(score);
     }
     #endregion
 }

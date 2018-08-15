@@ -33,7 +33,8 @@ public class KillingTimeAchievement : Combo
 
     public override void GrantReward()
     {
-        StatsManager.instance.IncreaseGlobalPoints(reward);
+        StatsManager.instance.IncreaseRoundPoints(reward);
+        StatsManager.instance.RegisterAchievement(this);
         TransitionUI.instance.AskForTransition(comboName, achievementIcon);
         ResetCount();
     }

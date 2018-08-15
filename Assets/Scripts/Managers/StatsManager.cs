@@ -13,9 +13,11 @@ public class StatsManager : MonoBehaviour
     private int conquerorEnemiesKilled;
     private int rangeEnemiesKilled;
 
-    private int globalPoints;
+    private int roundPoints;
 
     [Header("Round time")]
+    [SerializeField]
+    RoundScore roundScore;
     [SerializeField]
     private int roundTimeReward;
     [SerializeField]
@@ -50,9 +52,9 @@ public class StatsManager : MonoBehaviour
         return rangeEnemiesKilled;
     }
 
-    public void IncreaseGlobalPoints(int points)
+    public void IncreaseRoundPoints(int points)
     {
-        this.globalPoints += points;
+        this.roundPoints += points;
     }
 
     public void ResetRoundTime()
@@ -81,7 +83,7 @@ public class StatsManager : MonoBehaviour
         }
 
         ResetKillCounts();
-        ResetGlobalPoins();
+        ResetRoundPoints();
         ResetRoundTime();
     }
 
@@ -123,6 +125,11 @@ public class StatsManager : MonoBehaviour
         UpdateCombosBasedOnKills();
     }
 
+    public void RegisterAchievement(Combo achievement)
+    {
+        roundScore.AddObtainedAchievement(ref achievement);
+    }
+
     public void IncreaseRoundTime()
     {
         roundTime += Time.deltaTime;
@@ -131,7 +138,7 @@ public class StatsManager : MonoBehaviour
 
     public void WinRoundPoints()
     {
-        IncreaseGlobalPoints((int)Mathf.Round(roundMaxTime - roundTime) * roundTimeReward);
+        IncreaseRoundPoints((int)Mathf.Round(roundMaxTime - roundTime) * roundTimeReward);
     }
 
     public void ResetKillCounts()
@@ -141,14 +148,14 @@ public class StatsManager : MonoBehaviour
         conquerorEnemiesKilled = 0;
     }
 
-    public void ResetGlobalPoins()
+    public void ResetRoundPoints()
     {
-        globalPoints = 0;
+        roundPoints = 0;
     }
 
-    public int GetGlobalPoints()
+    public int GetRoundPoints()
     {
-        return globalPoints;
+        return roundPoints;
     }
 
     public Combo GetMaxCombo()

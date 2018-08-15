@@ -149,7 +149,7 @@ public class GameManager : MonoBehaviour
             StatsManager.instance.GetMaxCombo().GrantReward();
             StatsManager.instance.GetTimeCombo().GrantReward();
             StatsManager.instance.GetReceivedDamageCombo().GrantReward();
-            roundScore.SetUpTotalScore(StatsManager.instance.GetGlobalPoints());
+            roundScore.SetUpTotalScore(StatsManager.instance.GetRoundPoints());
             gameState = GameStates.OnRoundEnd;
         }
     }
@@ -165,7 +165,7 @@ public class GameManager : MonoBehaviour
             StatsManager.instance.GetMaxCombo().GrantReward();
             StatsManager.instance.GetTimeCombo().GrantReward();
             StatsManager.instance.GetReceivedDamageCombo().GrantReward();
-            roundScore.SetUpTotalScore(StatsManager.instance.GetGlobalPoints());
+            roundScore.SetUpTotalScore(StatsManager.instance.GetRoundPoints());
 
             gameState = GameStates.OnGameEnd;   
         }
@@ -253,7 +253,7 @@ public class GameManager : MonoBehaviour
             //crosshair.SetActive(true);
             gameOverPanel.SetActive(false);
             StatsManager.instance.ResetKillCounts();
-            StatsManager.instance.ResetGlobalPoins();
+            StatsManager.instance.ResetRoundPoints();
             StatsManager.instance.GetMaxCombo().ResetCount();
             StatsManager.instance.GetTimeCombo().ResetCount();
             StatsManager.instance.GetReceivedDamageCombo().ResetCount();

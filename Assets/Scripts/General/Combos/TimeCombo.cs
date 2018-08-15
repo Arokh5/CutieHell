@@ -32,7 +32,7 @@ public class TimeCombo : Combo {
 
         roundScore.SetUpBeatingTimeCount(beatingTime);
         roundScore.SetUpBeatingTimeScore(score);
-        StatsManager.instance.IncreaseGlobalPoints(score);
+        StatsManager.instance.IncreaseRoundPoints(score);
     }
     #endregion
 }

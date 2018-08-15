@@ -70,7 +70,7 @@ public class MaxCombo : Combo {
         roundScore.SetUpConsecutiveKillingsCount(maxComboRecord);
         roundScore.SetUpConsecutiveKillingScore(score);
 
-        StatsManager.instance.IncreaseGlobalPoints(score);
+        StatsManager.instance.IncreaseRoundPoints(score);
     }
     #endregion
 

@@ -1,31 +1,38 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
+
 using UnityEngine.UI;
 
 public class RoundScore : MonoBehaviour {
 
+    public enum ShowingState { ACHIEVEMENTS, STATS, COMPLETED}
     #region Attributes
+
+    [Header ("SkillStats")]
     [SerializeField]
     private Text consecutiveKillingsCount;
     [SerializeField]
     private Text receivedDamageCount;
     [SerializeField]
     private Text beatingTimeCount;
-    private Text[] scoresCounts;
 
-  
     private int consecutiveKillingsScore;
     private int receivedDamageScore;
     private int beatingTimeScore;
 
+    [Header("AchievementStats")]
+    [SerializeField]
+    private Transform AchievementsDisplayPosition;
+
+    [Header ("Score")]
+    private Text[] scoresCounts;
     [SerializeField]
     private Text total;
 
-    [SerializeField]
-    private Transform[] scoresPosition;
-    private Transform[] scoresInitialPosition;
 
-    private bool isFullyDisplayed = false;
-    private int currentScorePresentation = 0;
+    private ShowingState showingState;
+
+    private Dictionary<Combo, int> obtainedAchievements = new Dictionary<Combo, int>();
     #endregion
 
     #region MonoBehaviour methods
@@ -38,27 +45,28 @@ public class RoundScore : MonoBehaviour {
         scoresCounts[1] = receivedDamageCount;
         scoresCounts[2] = beatingTimeCount;
 
-        scoresInitialPosition = new Transform[scoresCounts.Length];
-
-        for(int i = 0; i < scoresCounts.Length; i++)
-        {
-            scoresInitialPosition[i] = scoresCounts[i].transform;
-        }
+        showingState = ShowingState.ACHIEVEMENTS;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-        if(!isFullyDisplayed)
+        switch (showingState)
         {
-            //Debug.Log("TODO: Substitute timeScale 0 for a pause behaviour");
-            Time.timeScale = 0;
-            DisplayRoundScore();
-        }
-        else
-        {
-            CloseRoundScorePopup();
-        }
+            case ShowingState.ACHIEVEMENTS:
+                Time.timeScale = 0;
+
+                break;
+
+            case ShowingState.STATS:
+
+                break;
+
+            case ShowingState.COMPLETED:
+
+                CloseRoundScorePopup();
+                break;
+        }     
         
     }
     #endregion
@@ -101,24 +109,30 @@ public class RoundScore : MonoBehaviour {
     {
         total.text = globalScore.ToString();
     }
+
+    public void AddObtainedAchievement(ref Combo achievement)
+    {
+        if (obtainedAchievements.ContainsKey(achievement))
+        {
+            obtainedAchievements[achievement] = obtainedAchievements[achievement] + 1;
+        }
+        else
+        {
+            obtainedAchievements.Add(achievement, 1);
+        }
+    }
     #endregion
 
     #region Private methods
     private void DisplayRoundScore()
     {
-
         total.gameObject.SetActive(true);
-        isFullyDisplayed = true;
-
 
     }
     private void CloseRoundScorePopup()
     {
         if(InputManager.instance.GetXButton())
         {
-            isFullyDisplayed = false;
-            currentScorePresentation = 0;
-
             total.gameObject.SetActive(false);
             this.gameObject.SetActive(false);
 
