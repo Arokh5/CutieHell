@@ -33,6 +33,8 @@ public class RoundScore : MonoBehaviour {
     [SerializeField]
     private Transform achievementsDisplayPosition;
     [SerializeField]
+    private AudioClip achievementSfx;
+    [SerializeField]
     private int separationOnXaxisBetweenAchievementsIcons;
 
     private int currentEvaluatedAchievementIterator = 0;
@@ -46,6 +48,8 @@ public class RoundScore : MonoBehaviour {
     private Text total;
     [SerializeField]
     private int scoreCounterSpeed;
+    [SerializeField]
+    private GameObject pressContinue;
 
     private bool singleStatFullDisplayed = true;
 
@@ -158,7 +162,14 @@ public class RoundScore : MonoBehaviour {
         if(InputManager.instance.GetXButton())
         {
             total.gameObject.SetActive(false);
+            pressContinue.gameObject.SetActive(false);
+
+            for(int i = 0; i < scoresCounts.Length; i++)
+            {
+                scoresCounts[i].gameObject.SetActive(false);
+            }
             this.gameObject.SetActive(false);
+
 
             Time.timeScale = 1;
         }
@@ -184,9 +195,11 @@ public class RoundScore : MonoBehaviour {
                 }
                 else
                 {
+                    //All SkillStats are already full displayed
                     showingState = ShowingState.COMPLETED;
                     currentScore.gameObject.SetActive(false);
                     total.gameObject.SetActive(true);
+                    pressContinue.gameObject.SetActive(true);
                 }
                 singleStatFullDisplayed = true;
             }
@@ -199,12 +212,16 @@ public class RoundScore : MonoBehaviour {
 
     private void SetUpSkillStats()
     {
-        scoresCounts = new Text[3];
+        if (scoresCounts == null)
+            scoresCounts = new Text[3];
+
         scoresCounts[0] = consecutiveKillingsCount;
         scoresCounts[1] = receivedDamageCount;
         scoresCounts[2] = beatingTimeCount;
 
-        scoresScores = new int[3];
+        if (scoresScores == null)
+            scoresScores = new int[3];
+
         scoresScores[0] = consecutiveKillingsReward;
         scoresScores[1] = receivedDamageReward;
         scoresScores[2] = beatingTimeReward;
@@ -223,7 +240,8 @@ public class RoundScore : MonoBehaviour {
         {
             singleStatFullDisplayed = false;
             achievementsDisplayPosition.localPosition = new Vector3(achievementsDisplayPosition.localPosition.x + separationOnXaxisBetweenAchievementsIcons, achievementsDisplayPosition.localPosition.y, achievementsDisplayPosition.localPosition.z);
-            
+
+            SoundManager.instance.PlaySfxClip(achievementSfx);
             GameObject achievementScore = Instantiate(achievementScorePrefab, this.transform);
             achievementScore.transform.localPosition = achievementsDisplayPosition.localPosition;
             achievementScore.GetComponent<Image>().sprite = obtainedAchievements[currentEvaluatedAchievementIterator].comboIcon;
