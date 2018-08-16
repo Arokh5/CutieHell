@@ -35,6 +35,8 @@ public class RoundScore : MonoBehaviour {
     [SerializeField]
     private AudioClip achievementSfx;
     [SerializeField]
+    private Transform obtainedAchievementsRoot;
+    [SerializeField]
     private int separationOnXaxisBetweenAchievementsIcons;
 
     private int currentEvaluatedAchievementIterator = 0;
@@ -100,6 +102,8 @@ public class RoundScore : MonoBehaviour {
         SetUpSkillStats();
         SetUpAchievementsToDisplay();
 
+        currentScore.gameObject.SetActive(true);
+
         showingState = ShowingState.ACHIEVEMENTS;
         Time.timeScale = 0;
     }
@@ -142,12 +146,24 @@ public class RoundScore : MonoBehaviour {
         total.text = globalScore.ToString();
     }
 
+    public void ResetSkillScores()
+    {
+        consecutiveKillingsReward = 0;
+        beatingTimeReward = 0;
+        receivedDamageReward = 0;
+    }
+
     public void AddObtainedAchievement(ref Combo achievement)
     {
         if (!obtainedAchievements.Contains(achievement))
         {
             obtainedAchievements.Add(achievement);
         }
+    }
+
+    public void ResetObtainedAchievements()
+    {
+        obtainedAchievements.Clear();
     }
     #endregion
 
@@ -161,15 +177,29 @@ public class RoundScore : MonoBehaviour {
     {
         if(InputManager.instance.GetXButton())
         {
+            //Disable total score and the button showing how to close the popup
             total.gameObject.SetActive(false);
             pressContinue.gameObject.SetActive(false);
 
+            currentEvaluatedAchievementIterator = 0;
+            currentEvaluatedSkillStatIterator = 0;
+
             for(int i = 0; i < scoresCounts.Length; i++)
             {
-                scoresCounts[i].gameObject.SetActive(false);
+                scoresCounts[i].transform.parent.gameObject.SetActive(false);
             }
-            this.gameObject.SetActive(false);
 
+            //Destroy all achievements instantiations
+            foreach (Transform child in obtainedAchievementsRoot)
+            {
+                GameObject.Destroy(child.gameObject);
+            }
+
+            ResetObtainedAchievements();
+            ResetSkillScores();
+
+            //Disables the popup itself
+            this.gameObject.SetActive(false);
 
             Time.timeScale = 1;
         }
@@ -181,6 +211,8 @@ public class RoundScore : MonoBehaviour {
         {
             singleStatFullDisplayed = false;
             scoresCounts[currentEvaluatedSkillStatIterator].transform.parent.gameObject.SetActive(true);
+
+            SoundManager.instance.PlaySfxClip(achievementSfx);
 
             currentScoreTarget += skillStatsScores[scoresCounts[currentEvaluatedSkillStatIterator]];
         }
@@ -243,6 +275,7 @@ public class RoundScore : MonoBehaviour {
 
             SoundManager.instance.PlaySfxClip(achievementSfx);
             GameObject achievementScore = Instantiate(achievementScorePrefab, this.transform);
+            achievementScore.transform.parent = obtainedAchievementsRoot;
             achievementScore.transform.localPosition = achievementsDisplayPosition.localPosition;
             achievementScore.GetComponent<Image>().sprite = obtainedAchievements[currentEvaluatedAchievementIterator].comboIcon;
             achievementScore.GetComponentInChildren<Text>().text = "x" + obtainedAchievements[currentEvaluatedAchievementIterator].GetTimesObtained();
