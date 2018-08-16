@@ -63,6 +63,12 @@ public class MaxCombo : Combo {
         maxComboUITimer.fillAmount = 1;
     }
 
+    public override void ResetCombo()
+    {
+        maxComboRecord = 0;
+        ResetCount();
+    }
+
     public override void GrantReward()
     {
         score = reward * maxComboRecord;

@@ -24,6 +24,12 @@ public class TimeCombo : Combo {
             beatingTime += Time.deltaTime;
 	}
 
+    public override void ResetCombo()
+    {
+        score = 0;
+        beatingTime = 0;
+    }
+
     public override void GrantReward()
     {
         if ((int)(minimumBeatingTime - beatingTime) < 0)

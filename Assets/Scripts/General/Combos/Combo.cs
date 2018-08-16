@@ -44,6 +44,11 @@ public class Combo : MonoBehaviour
         currentCount = 0;
     }
 
+    public virtual void ResetCombo()
+    {
+
+    }
+
     public virtual void ReviewConditions()
     {
 

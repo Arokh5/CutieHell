@@ -259,9 +259,9 @@ public class GameManager : MonoBehaviour
             gameOverPanel.SetActive(false);
             StatsManager.instance.ResetKillCounts();
             StatsManager.instance.ResetRoundPoints();
-            StatsManager.instance.GetMaxCombo().ResetCount();
-            StatsManager.instance.GetTimeCombo().ResetCount();
-            StatsManager.instance.GetReceivedDamageCombo().ResetCount();
+            StatsManager.instance.GetMaxCombo().ResetCombo();
+            StatsManager.instance.GetTimeCombo().ResetCombo();
+            StatsManager.instance.GetReceivedDamageCombo().ResetCombo();
             gameState = GameStates.InGame;
 
             StartNextRound();

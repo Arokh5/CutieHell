@@ -151,6 +151,22 @@ public class RoundScore : MonoBehaviour {
         consecutiveKillingsReward = 0;
         beatingTimeReward = 0;
         receivedDamageReward = 0;
+        consecutiveKillingsCount.text = "0";
+        beatingTimeCount.text = "0";
+        receivedDamageCount.text = "0";
+    }
+
+    public void ResetSkillStatsScores()
+    {
+        skillStatsScores.Clear();
+    }
+
+    public void ResetScoresScores()
+    {
+        for (int i = 0; i < scoresScores.Length; i++)
+        {
+            scoresScores[i] = 0;
+        }
     }
 
     public void AddObtainedAchievement(ref Combo achievement)
@@ -197,6 +213,8 @@ public class RoundScore : MonoBehaviour {
 
             ResetObtainedAchievements();
             ResetSkillScores();
+            ResetSkillStatsScores();
+            ResetScoresScores();
 
             //Disables the popup itself
             this.gameObject.SetActive(false);

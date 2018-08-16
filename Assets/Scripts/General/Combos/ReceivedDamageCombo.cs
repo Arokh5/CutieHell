@@ -29,6 +29,11 @@ public class ReceivedDamageCombo : Combo
         roundFinalHealth += monumentRoundFinalHealth;
     }
 
+    public override void ResetCombo()
+    {
+        score = 0;
+    }
+
     public override void GrantReward()
     {
         score = (int)(reward * (roundFinalHealth / roundBaseHealth));
