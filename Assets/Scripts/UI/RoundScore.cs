@@ -7,7 +7,8 @@ public class RoundScore : MonoBehaviour {
 
     public enum ShowingState { ACHIEVEMENTS, STATS, COMPLETED}
     #region Attributes
-
+    [SerializeField]
+    private AudioClip roundScoreSFX;
     [Header ("SkillStats")]
     [SerializeField]
     private Text consecutiveKillingsCount;
@@ -43,6 +44,8 @@ public class RoundScore : MonoBehaviour {
     private int currentScoreValue = 0;
     [SerializeField]
     private Text total;
+    [SerializeField]
+    private int scoreCounterSpeed;
 
     private bool singleStatFullDisplayed = true;
 
@@ -56,11 +59,7 @@ public class RoundScore : MonoBehaviour {
     // Use this for initialization
     void Start () 
 	{
-        SetUpSkillStats();
-        SetUpAchievementsToDisplay();
-
-        showingState = ShowingState.ACHIEVEMENTS;
-        Time.timeScale = 0;
+      
 	}
 	
 	// Update is called once per frame
@@ -90,6 +89,17 @@ public class RoundScore : MonoBehaviour {
     #endregion
 
     #region Public methods
+
+    public void ShowRoundScore()
+    {
+        SoundManager.instance.PlaySfxClip(roundScoreSFX);
+        SetUpSkillStats();
+        SetUpAchievementsToDisplay();
+
+        showingState = ShowingState.ACHIEVEMENTS;
+        Time.timeScale = 0;
+    }
+
     public void SetUpDamageReceivedCount(float damageReceived)
     {
         receivedDamageCount.text = ( (int) damageReceived).ToString() + "%";
@@ -182,7 +192,7 @@ public class RoundScore : MonoBehaviour {
             }
             else
             {
-                currentScoreValue += 24;
+                currentScoreValue += scoreCounterSpeed;
             }
         }
     }
@@ -237,7 +247,7 @@ public class RoundScore : MonoBehaviour {
                 singleStatFullDisplayed = true;
             }else
             {
-                currentScoreValue += 24;
+                currentScoreValue += scoreCounterSpeed;
             }
         }
     }

@@ -145,11 +145,14 @@ public class GameManager : MonoBehaviour
         if (gameState == GameStates.InGame)
         {
             //crosshair.SetActive(false);
-            roundScore.gameObject.SetActive(true);
+            
             StatsManager.instance.GetMaxCombo().GrantReward();
             StatsManager.instance.GetTimeCombo().GrantReward();
             StatsManager.instance.GetReceivedDamageCombo().GrantReward();
+
+            roundScore.gameObject.SetActive(true);
             roundScore.SetUpTotalScore(StatsManager.instance.GetRoundPoints());
+            roundScore.ShowRoundScore();
             gameState = GameStates.OnRoundEnd;
         }
     }
@@ -161,11 +164,13 @@ public class GameManager : MonoBehaviour
             //crosshair.SetActive(false);
 
             //Debug.Log("TODO: Still same code in OnRoundEnd");
-            roundScore.gameObject.SetActive(true);
             StatsManager.instance.GetMaxCombo().GrantReward();
             StatsManager.instance.GetTimeCombo().GrantReward();
             StatsManager.instance.GetReceivedDamageCombo().GrantReward();
+
+            roundScore.gameObject.SetActive(true);
             roundScore.SetUpTotalScore(StatsManager.instance.GetRoundPoints());
+            roundScore.ShowRoundScore();
 
             gameState = GameStates.OnGameEnd;   
         }
