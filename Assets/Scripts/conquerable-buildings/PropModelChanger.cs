@@ -9,6 +9,10 @@ public class PropModelChanger : Convertible
     private MeshRenderer originalProp;
     [SerializeField]
     private MeshRenderer alternateProp;
+    [SerializeField]
+    private ParticleSystem changeVFX;
+    [SerializeField]
+    private bool brunosChangeMode = false;
     
     [Header("Timing")]
     [Tooltip("The time (in seconds) it takes to collapse the original prop model's vertices towards the pivot")]
@@ -39,13 +43,54 @@ public class PropModelChanger : Convertible
     {
         UnityEngine.Assertions.Assert.IsNotNull(originalProp, "ERROR: original Prop Mesh Renderer has NOT been assigned in PropModelChanger in GameObject called " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(alternateProp, "ERROR: alternate Prop Mesh Renderer has NOT been assigned in PropModelChanger in GameObject called " + gameObject.name);
-        originalProp.transform.localScale = Vector3.one;
-        originalProp.gameObject.SetActive(true);
-        alternateProp.transform.localScale = Vector3.zero;
-        alternateProp.gameObject.SetActive(true);
+        if (brunosChangeMode)
+        {
+            originalProp.transform.localScale = Vector3.one;
+            originalProp.gameObject.SetActive(true);
+            alternateProp.transform.localScale = Vector3.zero;
+            alternateProp.gameObject.SetActive(true);
+        }
+        else
+        {
+            originalProp.gameObject.SetActive(true);
+            alternateProp.gameObject.SetActive(false);
+        }
     }
 
     private void Update()
+    {
+        if (brunosChangeMode)
+        {
+            BrunosChangeMode();
+        }
+        else
+        {
+            DanisChangeMode();
+        }
+    }
+    #endregion
+
+    #region Public Methods
+    public override void Convert()
+    {
+        if (!isConverted)
+            converting = true;
+    }
+
+    public override void Unconvert()
+    {
+        if (isConverted)
+            unconverting = true;
+    }
+    #endregion
+
+    #region Private Methods
+    private Vector3 GetScale(float factor)
+    {
+        return new Vector3(scaleX ? factor : 1, scaleY ? factor : 1, scaleZ ? factor : 1);
+    }
+
+    private void BrunosChangeMode()
     {
         if (converting)
         {
@@ -97,26 +142,20 @@ public class PropModelChanger : Convertible
             convertionElapsedTime += Time.deltaTime;
         }
     }
-    #endregion
 
-    #region Public Methods
-    public override void Convert()
+    private void DanisChangeMode()
     {
-        if (!isConverted)
-            converting = true;
-    }
+        if(converting && originalProp.gameObject.activeSelf)
+        {
+            originalProp.gameObject.SetActive(false);
+            alternateProp.gameObject.SetActive(true);
+            ParticleSystem ps = ParticlesManager.instance.LaunchParticleSystem(changeVFX, this.transform.position, originalProp.transform.rotation);
+            var shape = ps.shape;
+            shape.mesh = alternateProp.GetComponent<MeshFilter>().mesh;
+            converting = false;
+            isConverted = true;
+        }
 
-    public override void Unconvert()
-    {
-        if (isConverted)
-            unconverting = true;
-    }
-    #endregion
-
-    #region Private Methods
-    private Vector3 GetScale(float factor)
-    {
-        return new Vector3(scaleX ? factor : 1, scaleY ? factor : 1, scaleZ ? factor : 1);
     }
     #endregion
 }
