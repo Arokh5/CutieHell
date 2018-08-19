@@ -4303,6 +4303,25 @@ Transform:
   m_Father: {fileID: 1534750552}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &148072730 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1192076914664866, guid: dd42c1099a4efdf49b305ba6b9192af7,
+    type: 2}
+  m_PrefabInternal: {fileID: 1631444242}
+--- !u!114 &148072734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 148072730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d96deab2c4544c347ada2c3c170710a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xboxButtonSprite: {fileID: 21300030, guid: db00f33dbee509744ac848b8efa0fc4b, type: 3}
+  ps4ButtonSprite: {fileID: 21300026, guid: db00f33dbee509744ac848b8efa0fc4b, type: 3}
+  buttonPadImage: {fileID: 758512040}
 --- !u!224 &148292069 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 224255082572199870, guid: dd42c1099a4efdf49b305ba6b9192af7,
@@ -20050,6 +20069,12 @@ Transform:
   m_PrefabParentObject: {fileID: 4111814579276316, guid: 8d2aff2d3d815c44cb203dba858a89b2,
     type: 2}
   m_PrefabInternal: {fileID: 756778942}
+--- !u!114 &758512040 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114197104684155242, guid: dd42c1099a4efdf49b305ba6b9192af7,
+    type: 2}
+  m_PrefabInternal: {fileID: 1631444242}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &758845858
 GameObject:
   m_ObjectHideFlags: 0
@@ -44456,6 +44481,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1640089196}
   - component: {fileID: 1640089197}
+  - component: {fileID: 1640089198}
   m_Layer: 5
   m_Name: PlayerHealth
   m_TagString: Untagged
@@ -44499,6 +44525,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthImage: {fileID: 2100144133}
+--- !u!114 &1640089198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1640089195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d96deab2c4544c347ada2c3c170710a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xboxButtonSprite: {fileID: 21300030, guid: db00f33dbee509744ac848b8efa0fc4b, type: 3}
+  ps4ButtonSprite: {fileID: 21300026, guid: db00f33dbee509744ac848b8efa0fc4b, type: 3}
+  buttonPadImage: {fileID: 1900575542}
 --- !u!1 &1640622248
 GameObject:
   m_ObjectHideFlags: 0
