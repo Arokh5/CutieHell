@@ -48,8 +48,10 @@ public class RoundScore : MonoBehaviour {
     private int currentScoreValue = 0;
     [SerializeField]
     private Text total;
-    [SerializeField]
+    private int totalScore;
     private int scoreCounterSpeed;
+    [SerializeField]
+    private int roundScoreTotalTime = 300;
     [SerializeField]
     private GameObject pressContinue;
 
@@ -105,6 +107,8 @@ public class RoundScore : MonoBehaviour {
         currentScore.gameObject.SetActive(true);
 
         showingState = ShowingState.ACHIEVEMENTS;
+
+        scoreCounterSpeed =  totalScore / roundScoreTotalTime;
         Time.timeScale = 0;
     }
 
@@ -144,6 +148,7 @@ public class RoundScore : MonoBehaviour {
     public void SetUpTotalScore(int globalScore)
     {
         total.text = globalScore.ToString();
+        totalScore = globalScore;
     }
 
     public void ResetSkillScores()
