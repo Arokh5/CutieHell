@@ -54,7 +54,10 @@ public class AttackInfosManager : MonoBehaviour
         foreach (AttackInfo info in attackInfos)
         {
             if (info.type == attack)
-                return info.buttonSprite;
+                if (InputManager.instance.isPS4)
+                    return info.buttonPs4Sprite;
+                else
+                    return info.buttonXboxSprite;
         }
         return null;
     }

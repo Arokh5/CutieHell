@@ -5,5 +5,6 @@ public class AttackInfo
 {
     public AttackType type;
     public ControllerButton button;
-    public Sprite buttonSprite;
+    public Sprite buttonPs4Sprite;
+    public Sprite buttonXboxSprite;
 }
