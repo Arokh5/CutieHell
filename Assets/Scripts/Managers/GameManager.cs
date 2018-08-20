@@ -91,12 +91,10 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameStates.OnRoundEnd:
-                UIManager.instance.IncreaseEnemiesTimeCount();
                 GoToNextRound();
                 break;
 
             case GameStates.OnGameEnd:
-                UIManager.instance.IncreaseEnemiesTimeCount();
                 GoToTitleScreen();
                 break;
 
@@ -182,7 +180,6 @@ public class GameManager : MonoBehaviour
         {
             player.OnRoundOver();
             //crosshair.SetActive(false);
-            gameOverPanel.SetActive(true);
             gameOverPanel.SetActive(true);
             UIManager.instance.ChangeRoundEndText("YOU LOSE!");
             UIManager.instance.ChangeEndBtnText("Go To Title Screen");

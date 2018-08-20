@@ -44,19 +44,6 @@ public class UIManager : MonoBehaviour
     private AudioClip coinSfx;
 
     private const float enemiesCountVel = 0.15f;
-
-    private float basicEnemiesPrevTimeCount;
-    private float basicEnemiesTimeCount;
-    private int basicEnemiesCounter;
-
-    private float rangeEnemiesPrevTimeCount;
-    private float rangeEnemiesTimeCount;
-    private int rangeEnemiesCounter;
-
-    private float conquerorEnemiesPrevTimeCount;
-    private float conquerorEnemiesTimeCount;
-    private int conquerorEnemiesCounter;
-
     #endregion
 
     #region MonoBehaviour Methods
@@ -94,14 +81,6 @@ public class UIManager : MonoBehaviour
     {
         Debug.LogError("NOT IMPLEMENTED:UIManager::ZoneConnectionOpened");
     }
-
-    public void IncreaseEnemiesTimeCount()
-    {
-        IncreaseBasicEnemiesTimeCount();
-        IncreaseRangeEnemiesTimeCount();
-        IncreaseConquerorEnemiesTimeCount();
-    }
-
     #endregion
 
     #region Private Methods
@@ -110,21 +89,6 @@ public class UIManager : MonoBehaviour
         Vector3 refPos = rectTransform.localPosition;
         refPos.x = xValue;
         rectTransform.localPosition = refPos;
-    }
-
-    private void IncreaseBasicEnemiesTimeCount()
-    {
-        basicEnemiesTimeCount += Time.deltaTime;
-    }
-
-    private void IncreaseRangeEnemiesTimeCount()
-    {
-        rangeEnemiesTimeCount += Time.deltaTime;
-    }
-
-    private void IncreaseConquerorEnemiesTimeCount()
-    {
-        conquerorEnemiesTimeCount += Time.deltaTime;
     }
     #endregion
 }
