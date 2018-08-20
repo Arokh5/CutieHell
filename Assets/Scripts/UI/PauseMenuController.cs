@@ -10,7 +10,9 @@ public class PauseMenuController : MonoBehaviour {
     private MenuButton[] pauseButtons = new MenuButton[4];
     private int pauseIndex = 0;
     [SerializeField]
-    private GameObject optionsScreen;
+    private GameObject optionsScreenXBOX;
+    [SerializeField]
+    private GameObject optionsScreenPS;
     private bool controlsScreenActive = false;
     #endregion
 
@@ -83,7 +85,11 @@ public class PauseMenuController : MonoBehaviour {
                     break;
 
                 case 2:
-                    optionsScreen.SetActive(true);
+                    if (InputManager.instance.isPS4)
+                        optionsScreenPS.SetActive(true);
+                    else
+                        optionsScreenXBOX.SetActive(true);
+
                     controlsScreenActive = true;
                     break;
 
@@ -112,7 +118,11 @@ public class PauseMenuController : MonoBehaviour {
     {
         if (InputManager.instance.GetOButtonDown())
         {
-            optionsScreen.SetActive(false);
+            if (InputManager.instance.isPS4)
+                optionsScreenPS.SetActive(false);
+            else
+                optionsScreenXBOX.SetActive(false);
+
             controlsScreenActive = false;
         }
     }

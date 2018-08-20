@@ -42,8 +42,6 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     private AudioClip coinSfx;
-    [SerializeField]
-    private AudioClip stampSfx;
 
     private const float enemiesCountVel = 0.15f;
 
