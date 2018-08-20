@@ -79,12 +79,12 @@ public class CooldownUI : Observer {
     {
         if (fontSize < 0)
             fontSize = 0;
+
         if (numberText)
             numberText.fontSize = fontSize;
-        if (background)
-            background.sprite = sprite;
-        if (foreground)
-            foreground.sprite = sprite;
+
+        sprite = spritePS4;
+        AssignSprite();
     }
     #endregion
 
@@ -128,7 +128,7 @@ public class CooldownUI : Observer {
             sprite = spritePS4;
         else if (InputManager.instance.isXbox)
             sprite = spriteXbox;
-        OnValidate();
+        AssignSprite();
     }
     #endregion
 
@@ -151,6 +151,14 @@ public class CooldownUI : Observer {
 
         currentScale = (1 - u) * flashScale + u * initialScale;
         rectTransform.localScale = currentScale * Vector3.one;
+    }
+
+    private void AssignSprite()
+    {
+        if (background)
+            background.sprite = sprite;
+        if (foreground)
+            foreground.sprite = sprite;
     }
     #endregion
 }
