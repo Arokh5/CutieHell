@@ -7,6 +7,6 @@ public class PlaySound : StateAction
 
     public override void Act(Player player)
     {
-        player.oneShotAudioSource.PlayOneShot(audioClip);
+        SoundManager.instance.PlaySfxClip(player.oneShotAudioSource, audioClip, true);
     }
 }

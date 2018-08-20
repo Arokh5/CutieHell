@@ -75,7 +75,7 @@ public class AISpawner : MonoBehaviour {
     {
         if (!activeSpawnInfos.Contains(spawnInfo))
         {
-            lightningSource.Play();
+            SoundManager.instance.PlaySfxClip(lightningSource);
             ParticlesManager.instance.LaunchParticleSystem(lightningVFX, this.transform.position, lightningVFX.transform.rotation);
             activeSpawnInfos.Add(spawnInfo);
             spawnInfo.elapsedTime = 0;
