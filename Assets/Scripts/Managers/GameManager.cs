@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameStates.OnRoundEnd:
-                GoToNextRound();
+                // GoToNextRound() is now called from the RoundScore script
                 break;
 
             case GameStates.OnGameEnd:
@@ -250,19 +250,16 @@ public class GameManager : MonoBehaviour
 
     public void GoToNextRound()
     {
-        if (InputManager.instance.GetXButtonDown())
-        {
-            //crosshair.SetActive(true);
-            gameOverPanel.SetActive(false);
-            StatsManager.instance.ResetKillCounts();
-            StatsManager.instance.ResetRoundPoints();
-            StatsManager.instance.GetMaxCombo().ResetCombo();
-            StatsManager.instance.GetTimeCombo().ResetCombo();
-            StatsManager.instance.GetReceivedDamageCombo().ResetCombo();
-            gameState = GameStates.InGame;
+        //crosshair.SetActive(true);
+        gameOverPanel.SetActive(false);
+        StatsManager.instance.ResetKillCounts();
+        StatsManager.instance.ResetRoundPoints();
+        StatsManager.instance.GetMaxCombo().ResetCombo();
+        StatsManager.instance.GetTimeCombo().ResetCombo();
+        StatsManager.instance.GetReceivedDamageCombo().ResetCombo();
+        gameState = GameStates.InGame;
 
-            StartNextRound();
-        }
+        StartNextRound();
     }
 
     public void GoToTitleScreen()

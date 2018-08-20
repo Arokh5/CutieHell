@@ -63,12 +63,6 @@ public class RoundScore : MonoBehaviour {
     #endregion
 
     #region MonoBehaviour methods
-
-    // Use this for initialization
-    void Start () 
-	{
-      
-	}
 	
 	// Update is called once per frame
 	void Update () 
@@ -78,7 +72,7 @@ public class RoundScore : MonoBehaviour {
         switch (showingState)
         {
             case ShowingState.ACHIEVEMENTS:
-                if (obtainedAchievements.Count != 0 && obtainedAchievements != null)
+                if (obtainedAchievements != null && obtainedAchievements.Count != 0)
                     ShowAchievements();
                 else
                     showingState = ShowingState.STATS;
@@ -89,7 +83,6 @@ public class RoundScore : MonoBehaviour {
                 break;
 
             case ShowingState.COMPLETED:
-
                 CloseRoundScorePopup();
                 break;
         }
@@ -192,8 +185,8 @@ public class RoundScore : MonoBehaviour {
     private void DisplayRoundScore()
     {
         total.gameObject.SetActive(true);
-
     }
+
     private void CloseRoundScorePopup()
     {
         if(InputManager.instance.GetXButton())
@@ -225,6 +218,8 @@ public class RoundScore : MonoBehaviour {
             this.gameObject.SetActive(false);
 
             Time.timeScale = 1;
+
+            GameManager.instance.GoToNextRound();
         }
     }
 
