@@ -56,7 +56,7 @@ public class AIAttackCooldown : AIAttackLogic
 
     public void LaunchAttack()
     {
-        if (attackTarget != null)
+        if (attackTarget != null && attackTarget.IsTargetable())
         {
             Attack(attackTarget);
         }

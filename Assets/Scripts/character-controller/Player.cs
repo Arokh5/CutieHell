@@ -313,7 +313,6 @@ public class Player : MonoBehaviour, IDamageable
     #endregion
 
     #region Public Methods
-
     public void SetZoneController(AIZoneController zoneController, Vector3 knockbackDirection = default(Vector3))
     {
         if (!zoneController.isConquered)
@@ -396,6 +395,7 @@ public class Player : MonoBehaviour, IDamageable
         return baseHealth;
     }
 
+    // IDamageable
     public float GetCurrentHealth()
     {
         return currentHealth;
@@ -421,6 +421,12 @@ public class Player : MonoBehaviour, IDamageable
             PlayerGrounded();
         }
         UIManager.instance.SetPlayerHealth(currentHealth / baseHealth);
+    }
+
+    // IDamageable
+    public bool IsTargetable()
+    {
+        return isTargetable;
     }
 
     public virtual void TransitionToState(State targetState)

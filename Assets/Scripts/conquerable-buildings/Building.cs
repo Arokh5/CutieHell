@@ -63,11 +63,13 @@ public abstract class Building : MonoBehaviour, IDamageable
     public abstract void BuildingConverted();
     public abstract void BuildingKilled();
 
+    // IDamageable
     public float GetMaxHealth()
     {
         return baseHealth;
     }
 
+    // IDamageable
     public float GetCurrentHealth()
     {
         return currentHealth;
@@ -131,6 +133,12 @@ public abstract class Building : MonoBehaviour, IDamageable
             else
                 BuildingConverted();
         }
+    }
+
+    // IDamageable
+    public bool IsTargetable()
+    {
+        return true;
     }
     #endregion
 

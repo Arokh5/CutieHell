@@ -372,6 +372,12 @@ public class AIEnemy : MonoBehaviour, IDamageable
         AdjustMaterials();
     }
 
+    // IDamageable
+    public bool IsTargetable()
+    {
+        return true;
+    }
+
     // Called by the Area-type Trap to retarget the AIEnemy after exploding
     public void UpdateTarget()
     {
