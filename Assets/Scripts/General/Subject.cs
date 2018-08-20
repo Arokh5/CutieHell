@@ -7,18 +7,6 @@ public class Subject : MonoBehaviour {
     private List<Observer> observers = new List<Observer>();
 	#endregion
 	
-	// Use this for initialization
-	void Start () 
-	{
-		
-	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-		
-	}
-	
 	#region Public methods
 	public void AddObserver(Observer observer)
     {
