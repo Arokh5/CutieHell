@@ -110,7 +110,7 @@ public class AIAttackConquer : AIAttackLogic {
     public void EndTransformation()
     {
         inConquest = true;
-        attackSource.Play();
+        SoundManager.instance.PlaySfxClip(attackSource);
         elapsedTime = 0.0f;
         suicideTime = 0.0f;
     }

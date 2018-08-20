@@ -70,7 +70,7 @@ public class AIAttackCooldown : AIAttackLogic
         EnemyRangeAttack currentAttack = AttacksPool.instance.GetAttackObject(enemyType, attackSpawnPoint.position, attackSpawnPoint.rotation).GetComponent<EnemyRangeAttack>();
         ParticlesManager.instance.LaunchParticleSystem(heartShotVFX, attackSpawnPoint.position, attackSpawnPoint.rotation);
         currentAttack.Fire(target, attackDamage);
-        bearAttackSource.Play();
+        SoundManager.instance.PlaySfxClip(bearAttackSource);
     }
     #endregion
 }
