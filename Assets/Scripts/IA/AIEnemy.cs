@@ -57,13 +57,25 @@ public class AIEnemy : MonoBehaviour, IDamageable
     [Tooltip("The radius within which the player gets detected and becomes the target of the enemy")]
     private float detectionRadius = 4.0f;
     [SerializeField]
+    [Tooltip("The time (in seconds) it takes for an Enemy to react to the Player entering its detectionRadius")]
+    [Range(0.0f, 1.0f)]
+    private float detectionDelay = 0.0f;
+    [SerializeField]
     [Tooltip("The radius outside of which a targeted player gets ignored by the enemy")]
     private float escapeRadius = 8.0f;
     [SerializeField]
     [Tooltip("The distance at which the enemy stops approaching the player")]
     private float minDistance = 1.0f;
+
+    [SerializeField]
+    [ShowOnly]
+    private bool hasPlayerAsTarget = false;
+    [SerializeField]
+    [ShowOnly]
+    private bool hasPlayerAsDetected = false;
+
+    private float playerDetectedToTargetTimeLeft = 0.0f;
     private Player player;
-    private bool hasPlayerAsTarget;
 
     [Header("Outline")]
     [SerializeField]
@@ -219,7 +231,25 @@ public class AIEnemy : MonoBehaviour, IDamageable
         {
             Vector3 offset = Vector3.up;
             Gizmos.color = new Color(1, 0, 0, 1);
-            GizmosHelper.DrawArrow(transform.position + offset, player.transform.position + offset);
+            GizmosHelper.DrawArrow(transform.position + offset, player.transform.position + offset, 1.25f);
+        }
+        else
+        {
+            Vector3 offset = Vector3.up;
+            Gizmos.color = new Color(0, 0, 1, 1);
+            if (currentPath != null && currentPath.Count > 0)
+            {
+                GizmosHelper.DrawArrow(transform.position + offset, navMotionTarget + offset, 1.25f);
+            }
+            else
+            {
+                GizmosHelper.DrawArrow(transform.position + offset, navAttackTarget.transform.position + offset, 1.25f);
+            }
+            if (hasPlayerAsDetected)
+            {
+                Gizmos.color = new Color(1, 0.5f, 0, 1);
+                GizmosHelper.DrawArrow(transform.position + offset, player.transform.position + offset, 1.25f);
+            }
         }
     }
     #endregion
@@ -280,7 +310,10 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
     public void Restart()
     {
+        hasPlayerAsTarget = false;
+        hasPlayerAsDetected = false;
         navAttackTarget = null;
+
         timeOnStun = 0.0f;
         timeOnSlow = 0.0f;
         currentHealth = baseHealth;
@@ -532,14 +565,32 @@ public class AIEnemy : MonoBehaviour, IDamageable
                     currentTarget = currentTargetBuilding;
                 }
             }
+            else if (hasPlayerAsDetected)
+            {
+                // So we keep checking if the player remains in the detectionRadius
+                if (player.isTargetable && !player.IsDead() && enemyToPlayer.sqrMagnitude < detectionRadius * detectionRadius)
+                {
+                    playerDetectedToTargetTimeLeft -= Time.deltaTime;
+                    if (playerDetectedToTargetTimeLeft <= 0.0f)
+                    {
+                        hasPlayerAsDetected = false;
+                        hasPlayerAsTarget = true;
+                        currentTarget = player;
+                        navAttackTarget = null;
+                    }
+                }
+                else
+                {
+                    hasPlayerAsDetected = false;
+                }
+            }
             else
             {
                 // So we check if the player has entered the detectionRadius
                 if (player.isTargetable && !player.IsDead() && enemyToPlayer.sqrMagnitude < detectionRadius * detectionRadius)
                 {
-                    hasPlayerAsTarget = true;
-                    currentTarget = player;
-                    navAttackTarget = null;
+                    hasPlayerAsDetected = true;
+                    playerDetectedToTargetTimeLeft = detectionDelay;
                 }
                 else
                 {
