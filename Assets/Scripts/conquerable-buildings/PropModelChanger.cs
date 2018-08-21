@@ -12,7 +12,7 @@ public class PropModelChanger : Convertible
     [SerializeField]
     private ParticleSystem changeVFX;
     [SerializeField]
-    private bool brunosChangeMode = false;
+    private bool scaleChangeMode = false;
     
     [Header("Timing")]
     [Tooltip("The time (in seconds) it takes to collapse the original prop model's vertices towards the pivot")]
@@ -43,7 +43,7 @@ public class PropModelChanger : Convertible
     {
         UnityEngine.Assertions.Assert.IsNotNull(originalProp, "ERROR: original Prop Mesh Renderer has NOT been assigned in PropModelChanger in GameObject called " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(alternateProp, "ERROR: alternate Prop Mesh Renderer has NOT been assigned in PropModelChanger in GameObject called " + gameObject.name);
-        if (brunosChangeMode)
+        if (scaleChangeMode)
         {
             originalProp.transform.localScale = Vector3.one;
             originalProp.gameObject.SetActive(true);
@@ -52,6 +52,7 @@ public class PropModelChanger : Convertible
         }
         else
         {
+            UnityEngine.Assertions.Assert.IsNotNull(changeVFX, "ERROR: Change VFX (ParticleSystem) has NOT been assigned in PropModelChanger in GameObject called " + gameObject.name);
             originalProp.gameObject.SetActive(true);
             alternateProp.gameObject.SetActive(false);
         }
@@ -59,13 +60,13 @@ public class PropModelChanger : Convertible
 
     private void Update()
     {
-        if (brunosChangeMode)
+        if (scaleChangeMode)
         {
-            BrunosChangeMode();
+            ScaleChangeMode();
         }
         else
         {
-            DanisChangeMode();
+            PuffChangeMode();
         }
     }
     #endregion
@@ -90,7 +91,7 @@ public class PropModelChanger : Convertible
         return new Vector3(scaleX ? factor : 1, scaleY ? factor : 1, scaleZ ? factor : 1);
     }
 
-    private void BrunosChangeMode()
+    private void ScaleChangeMode()
     {
         if (converting)
         {
@@ -143,14 +144,14 @@ public class PropModelChanger : Convertible
         }
     }
 
-    private void DanisChangeMode()
+    private void PuffChangeMode()
     {
         if(converting && originalProp.gameObject.activeSelf)
         {
             originalProp.gameObject.SetActive(false);
             alternateProp.gameObject.SetActive(true);
             ParticleSystem ps = ParticlesManager.instance.LaunchParticleSystem(changeVFX, this.transform.position, originalProp.transform.rotation);
-            var shape = ps.shape;
+            ParticleSystem.ShapeModule shape = ps.shape;
             shape.mesh = alternateProp.GetComponent<MeshFilter>().mesh;
             converting = false;
             isConverted = true;
