@@ -129,9 +129,6 @@ public class AIZoneController : MonoBehaviour
         {
             blockage.gameObject.SetActive(false);
         }
-        if(!isFinalZone)
-            GameManager.instance.GetPlayer1().currentZonePlaying = 3 - iconIndex;
-
 
         if (isFinalZone)
             scenarioController.OnFinalZoneConquered();

@@ -183,19 +183,9 @@ public class Player : MonoBehaviour, IDamageable
 
     [Header("Meteorite Attack")]
     public CooldownInfo meteoriteAttackCooldown;
-    public GameObject meteoriteDestinationMarker;
-    public Vector3 initialPos;
-    [HideInInspector]
-    public bool comeBackFromMeteoriteAttack;
-    [HideInInspector]
-    public Vector3 lastMeteoriteAttackDestination;
+
     private bool isMeteoritesOn = false;
-    public Transform[] meteoritesPlayerPosition;
-    public Transform[] meteoritesReturnPlayerPosition;
-    public AIZoneController[] meteoriteZones;
-    public int currentZonePlaying = 0;
-
-
+    
     [Header("Footsteps")]
     public AudioClip footstepsClip;
     public AudioSource loopAudioSource;
