@@ -500,6 +500,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     {
         UnityEngine.Assertions.Assert.IsNotNull(zoneController, "Error: zoneController is null for AIEnemy in GameObject '" + gameObject.name + "'!");
         /* Update path and nextNode */
+        inNavNode = false;
         currentPath = zoneController.GetPath(transform.position);
         if (currentPath != null && currentPath.Count > 0)
         {

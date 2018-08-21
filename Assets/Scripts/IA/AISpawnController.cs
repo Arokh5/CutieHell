@@ -388,6 +388,10 @@ public class AISpawnController : MonoBehaviour
                     Debug.LogError("ERROR: RoundInfos error on AISpawnController. RoundInfo " + r + ", WaveInfo " + w + " has a negative waveStartDelay!");
                     return false;
                 }
+                else if (waveInfo.waveStartDelay == 0)
+                {
+                    waveInfo.waveStartDelay = float.Epsilon;
+                }
                 if (waveInfo.spawnInfos.Length == 0)
                 {
                     Debug.LogError("ERROR: RoundInfos error on AISpawnController. RoundInfo " + r + ", WaveInfo " + w + " contains an empty array of SpawnInfos!");
