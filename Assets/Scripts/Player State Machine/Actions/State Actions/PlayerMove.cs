@@ -8,7 +8,6 @@ public class PlayerMove : StateAction
     public float maxSpeed;
     public float acceleration;
     public bool useAnimation;
-    public bool useFootsteps;
     public LayerMask walkableLayer;
     public bool canExitWalkableLayer;
 
@@ -52,13 +51,6 @@ public class PlayerMove : StateAction
                 player.animator.SetBool("Move", true);
             else
                 player.mainCameraController.timeSinceLastAction = 0.0f;
-
-            if (useFootsteps)
-            {
-                player.footSteps.SetActive(true);
-                if (!player.loopAudioSource.isPlaying)
-                    player.loopAudioSource.Play();
-            }
         }
         else
         {
@@ -67,11 +59,6 @@ public class PlayerMove : StateAction
             if (useAnimation)
                 player.animator.SetBool("Move", false);
 
-            if (useFootsteps)
-            {
-                player.footSteps.SetActive(false);
-                player.loopAudioSource.Stop();
-            }
         }
 
         /* Remove currentSpeed components that are not aligned with acceleration */

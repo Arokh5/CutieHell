@@ -6,7 +6,5 @@ public class StopMoveAnimation : StateAction
     public override void Act(Player player)
     {
         player.animator.SetBool("Move", false);
-        player.footSteps.SetActive(false);
-        player.loopAudioSource.Stop();
     }
 }

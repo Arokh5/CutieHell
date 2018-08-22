@@ -5,6 +5,5 @@ public class MoveStateEnter : StateAction
 {
     public override void Act(Player player)
     {
-        player.loopAudioSource.clip = player.footstepsClip;
     }
 }

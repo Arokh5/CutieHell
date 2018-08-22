@@ -186,10 +186,10 @@ public class Player : MonoBehaviour, IDamageable
 
     private bool isMeteoritesOn = false;
     
-    [Header("Footsteps")]
-    public AudioClip footstepsClip;
-    public AudioSource loopAudioSource;
-    public AudioSource oneShotAudioSource;
+    [Header("Sounds")]
+    public AudioClip[] footstepsSFX;
+    public AudioClip knockbackSFX;
+    public AudioSource audioSource;
 
     #endregion
 
@@ -228,9 +228,6 @@ public class Player : MonoBehaviour, IDamageable
 
         UpdateNearestMonument();
 
-        loopAudioSource.loop = true;
-        oneShotAudioSource.loop = false;
-
         canMove = true;
         comeBackFromStrongAttack = false;
         comeBackFromConeAttack = false;
@@ -242,8 +239,6 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Start () 
     {
-        footSteps.SetActive(false);
-
         timeSinceLastAttack = 1000.0f;
         timeSinceLastTeleport = 0.0f;
         teleported = false;
@@ -273,7 +268,6 @@ public class Player : MonoBehaviour, IDamageable
     {
         if (GameManager.instance.gameIsPaused)
         {
-            loopAudioSource.Stop();
             lastPauseTime = Time.time;
             return;
         }
@@ -312,6 +306,7 @@ public class Player : MonoBehaviour, IDamageable
         else
         {
             knockbackActive = true;
+            SoundManager.instance.PlaySfxClip(audioSource, knockbackSFX, true);
             ParticlesManager.instance.LaunchParticleSystem(knockbackVFX, this.transform.position + Vector3.up * 1.55f, knockbackVFX.transform.rotation);
             knockbackCurrentForce = knockbackForce;
             this.knockbackDirection = knockbackDirection.normalized;
