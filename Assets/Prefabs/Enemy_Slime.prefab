@@ -86,7 +86,6 @@ GameObject:
   - component: {fileID: 114281369883354696}
   - component: {fileID: 114178141976866938}
   - component: {fileID: 114717388091579204}
-  - component: {fileID: 114307467650093880}
   - component: {fileID: 114635717462804158}
   - component: {fileID: 95063420550164430}
   - component: {fileID: 195335205196000428}
@@ -496,10 +495,11 @@ AudioSource:
   m_GameObject: {fileID: 1245194488886842}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 243254919489864220, guid: dc00f49cad4603e4ca624f7439e523d9,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.3
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -617,6 +617,8 @@ MonoBehaviour:
   modelPosition: {fileID: 4083688148413394}
   enemyHitVFX: {fileID: 198482322348272300, guid: 32167525622362249bf80ba530409243,
     type: 2}
+  enemyHitSFX: {fileID: 8300000, guid: a3de23300427c944ba0ef43f1ac20403, type: 3}
+  audioSource: {fileID: 82829625976766150}
 --- !u!114 &114281369883354696
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -658,26 +660,14 @@ MonoBehaviour:
   getHitVFX: {fileID: 198944252932203134, guid: 2b5dad98c6fb37d4fb643b69e96bac3e,
     type: 2}
   deathVFX: {fileID: 198975771329515660, guid: ab7d3ffbb16031741a985c5bd17a7a2b, type: 2}
-  deathSFX: {fileID: 8300000, guid: 326c5829d18c2d9438b8eb151155fc62, type: 3}
+  deathSFX: {fileID: 8300000, guid: a3de23300427c944ba0ef43f1ac20403, type: 3}
+  audioSource: {fileID: 82829625976766150}
   heightOffset: 0
   timeOnSlow: 0
   timeOnStun: 0
   stunVFX: {fileID: 1281096636206892}
   healthToReduce: 100
   hit: 0
---- !u!114 &114307467650093880
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1245194488886842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1791809b98038aa469f1eb7f6eb09dcc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkSource: {fileID: 82829625976766150}
-  walkClip: {fileID: 8300000, guid: 2c5292ba5cf254919a6b9e2b18e04f49, type: 3}
 --- !u!114 &114627100847882582
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -720,6 +710,8 @@ MonoBehaviour:
   maxValue: 1.1
   footStepsVFX: {fileID: 198284262000878438, guid: f59399f19893ace429d319c698993f75,
     type: 2}
+  footStepSFX: {fileID: 8300000, guid: 0836e28767bb254429f87e7656e9fe9b, type: 3}
+  audioSource: {fileID: 82829625976766150}
 --- !u!114 &114666495174003224
 MonoBehaviour:
   m_ObjectHideFlags: 1

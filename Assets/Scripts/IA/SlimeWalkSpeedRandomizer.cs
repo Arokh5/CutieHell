@@ -6,6 +6,8 @@ public class SlimeWalkSpeedRandomizer : MonoBehaviour
     public float minValue = 0.8f;
     public float maxValue = 1.1f;
     public ParticleSystem footStepsVFX;
+    public AudioClip footStepSFX;
+    public AudioSource audioSource;
 
     private Animator animator;
     #endregion
@@ -28,6 +30,7 @@ public class SlimeWalkSpeedRandomizer : MonoBehaviour
     public void InstantiateVFX()
     {
         ParticlesManager.instance.LaunchParticleSystem(footStepsVFX, this.transform.position - Vector3.up * 0.05f, footStepsVFX.transform.rotation);
+        SoundManager.instance.PlaySfxClip(audioSource, footStepSFX, true);
     }
     #endregion
 }

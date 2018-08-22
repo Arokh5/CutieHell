@@ -15,13 +15,6 @@ public class AISpawner : MonoBehaviour {
     private ParticleSystem spawnVFX;
 
     [SerializeField]
-    private ParticleSystem lightningVFX;
-    [SerializeField]
-    private AudioSource lightningSource;
-    [SerializeField]
-    private AudioClip lightningClip;
-
-    [SerializeField]
     private List<SpawnInfo> activeSpawnInfos = new List<SpawnInfo>(8);
     private List<SpawnInfo> spawnInfosToRemove = new List<SpawnInfo>(8);
     #endregion
@@ -31,7 +24,6 @@ public class AISpawner : MonoBehaviour {
     {
         UnityEngine.Assertions.Assert.IsNotNull(zoneController, "ERROR: ZoneController not set for AISpawner in gameObject '" + gameObject.name + "'");
         UnityEngine.Assertions.Assert.IsNotNull(spawnController, "ERROR: SpawnController not set for AISpawner in gameObject '" + gameObject.name + "'");
-        lightningSource.clip = lightningClip;
     }
 
     private void Update()
@@ -75,8 +67,6 @@ public class AISpawner : MonoBehaviour {
     {
         if (!activeSpawnInfos.Contains(spawnInfo))
         {
-            SoundManager.instance.PlaySfxClip(lightningSource);
-            ParticlesManager.instance.LaunchParticleSystem(lightningVFX, this.transform.position, lightningVFX.transform.rotation);
             activeSpawnInfos.Add(spawnInfo);
             spawnInfo.elapsedTime = 0;
             spawnInfo.nextSpawnIndex = 0;

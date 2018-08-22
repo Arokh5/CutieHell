@@ -13,6 +13,8 @@ public class AIAttackDPS : AIAttackLogic {
     private IDamageable target;
     [SerializeField]
     private ParticleSystem enemyHitVFX;
+    public AudioClip enemyHitSFX;
+    public AudioSource audioSource;
     #endregion
 
     #region MonoBehaviour Methods
@@ -56,12 +58,16 @@ public class AIAttackDPS : AIAttackLogic {
                 {
                     Attack(target);
                     ParticlesManager.instance.LaunchParticleSystem(enemyHitVFX, modelPosition.position - modelPosition.transform.right * 0.2f, enemyHitVFX.transform.rotation);
+                    audioSource.pitch = Random.Range(0.9f, 1.1f);
+                    SoundManager.instance.PlaySfxClip(audioSource, enemyHitSFX, true);
                 }
             }
             else
             {
                 Attack(target);
                 ParticlesManager.instance.LaunchParticleSystem(enemyHitVFX, modelPosition.position - modelPosition.transform.right * 0.2f, enemyHitVFX.transform.rotation);
+                audioSource.pitch = Random.Range(0.9f, 1.1f);
+                SoundManager.instance.PlaySfxClip(audioSource, enemyHitSFX, true);
             }
         }
     }

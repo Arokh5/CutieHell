@@ -102,6 +102,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private ParticleSystem deathVFX;
     [SerializeField]
     private AudioClip deathSFX;
+    public AudioSource audioSource;
     [HideInInspector]
     public float heightOffset;
     [HideInInspector]
@@ -393,8 +394,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
             killingHit = attacktype;
             Achievements.instance.IncreaseCurrentCountKillingType(1, killingHit);
             animator.SetBool("DieStandard", true);
-            SoundManager.instance.PlaySfxClip(deathSFX);
-            //Die();
+            SoundManager.instance.PlaySfxClip(audioSource,deathSFX,true);
         }
         else
         {
