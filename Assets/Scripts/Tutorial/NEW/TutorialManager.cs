@@ -1,8 +1,29 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
 {
     private delegate void VoidCallback();
+    [System.Serializable]
+    private struct HierarchyInfo
+    {
+        Transform transform;
+        Transform parent;
+        int siblingIndex;
+
+        public HierarchyInfo(Transform transform)
+        {
+            this.transform = transform;
+            parent = transform.parent;
+            siblingIndex = transform.GetSiblingIndex();
+        }
+
+        public void ReturnToOrigin()
+        {
+            transform.SetParent(parent);
+            transform.SetSiblingIndex(siblingIndex);
+        }
+    }
 
     #region Fields
     [Header("Setup")]
@@ -10,15 +31,22 @@ public class TutorialManager : MonoBehaviour
     private ScreenFadeController screenFadeController;
     [SerializeField]
     private CinematicStripes cinematicStripes;
+    [SerializeField]
+    private Transform tutorialForegroundParent;
     
     [Header("Scripted messages")]
     [SerializeField]
     private GameObject userWaitPrompts;
     [SerializeField]
     private GameObject firstMessage;
+    [SerializeField]
+    private Transform[] firstMessageForeground;
+    [SerializeField]
+    private GameObject secondMessage;
 
     // General
     private bool tutorialRunning;
+    private List<HierarchyInfo> hierarchyInfos = new List<HierarchyInfo>();
 
     // Player
     Player player;
@@ -36,6 +64,7 @@ public class TutorialManager : MonoBehaviour
     {
         UnityEngine.Assertions.Assert.IsNotNull(screenFadeController, "ERROR: Screen Fade Controller (ScreenFadeController) not assigned for TutorialManager script in GameObject " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(cinematicStripes, "ERROR: Cinematic Stripes (CinematicStripes) not assigned for TutorialManager script in GameObject " + gameObject.name);
+        UnityEngine.Assertions.Assert.IsNotNull(tutorialForegroundParent, "ERROR: Tutorial Foreground Parent (Transform) not assigned for TutorialManager script in GameObject " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(userWaitPrompts, "ERROR: User Wait Prompts (GameObject) not assigned for TutorialManager script in GameObject " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(firstMessage, "ERROR: First Message (GameObject) not assigned for TutorialManager script in GameObject " + gameObject.name);
     }
@@ -75,7 +104,12 @@ public class TutorialManager : MonoBehaviour
 
     private void RequestEndTutorial()
     {
+        screenFadeController.FadeToTransparent(0.5f, OnTutorialEnded);
         cinematicStripes.HideAnimated();
+    }
+
+    private void OnTutorialEnded()
+    {
         player.OnRoundStarted();
         tutorialRunning = false;
     }
@@ -85,6 +119,7 @@ public class TutorialManager : MonoBehaviour
     {
         userWaitPrompts.SetActive(true);
         firstMessage.SetActive(true);
+        BringToForeground(firstMessageForeground);
         WaitForUser(OnFirstMessageClosed);
     }
 
@@ -92,15 +127,38 @@ public class TutorialManager : MonoBehaviour
     {
         userWaitPrompts.SetActive(false);
         firstMessage.SetActive(false);
+        SendToBackground();
         if (!skipAll)
         {
             // Next scripted message
-            screenFadeController.FadeToTransparent(0.5f, RequestEndTutorial);
+            ShowSecondMessage();
         }
         else
         {
             // Finish
-            screenFadeController.TurnTransparent();
+            RequestEndTutorial();
+        }
+    }
+
+    private void ShowSecondMessage()
+    {
+        userWaitPrompts.SetActive(true);
+        secondMessage.SetActive(true);
+        WaitForUser(OnSecondMessageClosed);
+    }
+
+    private void OnSecondMessageClosed()
+    {
+        userWaitPrompts.SetActive(false);
+        secondMessage.SetActive(false);
+        if (!skipAll)
+        {
+            // Next scripted message
+            RequestEndTutorial();
+        }
+        else
+        {
+            // Finish
             RequestEndTutorial();
         }
     }
@@ -127,6 +185,25 @@ public class TutorialManager : MonoBehaviour
         waitingForUser = false;
         userWaitPrompts.SetActive(false);
         waitEndedCallback();
+    }
+
+    private void BringToForeground(Transform[] transforms)
+    {
+        for (int i = 0; i < transforms.Length; ++i)
+        {
+            Transform transform = transforms[i];
+            hierarchyInfos.Add(new HierarchyInfo(transform));
+            transform.SetParent(tutorialForegroundParent);
+        }
+}
+
+    private void SendToBackground()
+    {
+        for (int i = hierarchyInfos.Count - 1; i >= 0; --i)
+        {
+            hierarchyInfos[i].ReturnToOrigin();
+        }
+        hierarchyInfos.Clear();
     }
     #endregion
 
