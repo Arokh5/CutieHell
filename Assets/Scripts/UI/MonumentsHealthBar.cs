@@ -28,7 +28,7 @@ public class MonumentsHealthBar : MonoBehaviour
     [Tooltip("The time (in seconds) it takes to animate the health bar being refilled.")]
     private float refillAnimationDuration = 1.0f;
 
-    private bool refilling = true;
+    private bool refilling;
     private float refillElapsedTime;
 
     [Header("Flashing setup")]
@@ -67,6 +67,7 @@ public class MonumentsHealthBar : MonoBehaviour
 
         initialScale = rectTransform.localScale;
         initialColor = backgroundImage.color;
+        refilling = false;
     }
 
     private void Update()

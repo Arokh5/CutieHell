@@ -58,7 +58,7 @@ public class Monument : Building
     public void SetUpHealthBar()
     {
         healthBar.SetHealthBarTitle(healthBarTitle);
-        healthBar.RefillHealthBar();
+        healthBar.RefillHealthBar(isFirstEnemyTarget ? false : true);
     }
 
     public override void BuildingKilled()
