@@ -48,7 +48,7 @@ public class ScreenFadeController : MonoBehaviour
             fading = true;
             elapsedTime = 0;
 
-            startAlpha = 0;
+            startAlpha = image.color.a;
             endAlpha = opaqueColor.a;
         }
     }
@@ -67,7 +67,7 @@ public class ScreenFadeController : MonoBehaviour
             fading = true;
             elapsedTime = 0;
 
-            startAlpha = opaqueColor.a;
+            startAlpha = image.color.a;
             endAlpha = 0;
         }
     }

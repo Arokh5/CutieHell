@@ -4,12 +4,13 @@ using UnityEngine;
 public class TutorialManager : MonoBehaviour
 {
     private delegate void VoidCallback();
+
     [System.Serializable]
     private struct HierarchyInfo
     {
-        Transform transform;
-        Transform parent;
-        int siblingIndex;
+        private Transform transform;
+        private Transform parent;
+        private int siblingIndex;
 
         public HierarchyInfo(Transform transform)
         {
@@ -25,6 +26,13 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
+    [System.Serializable]
+    private class TutorialMessage
+    {
+        public GameObject message;
+        public Transform[] foregroundUI;
+    }
+    
     #region Fields
     [Header("Setup")]
     [SerializeField]
@@ -50,18 +58,11 @@ public class TutorialManager : MonoBehaviour
     [SerializeField]
     private GameObject userWaitPrompts;
     [SerializeField]
-    private GameObject firstMessage;
-    [SerializeField]
-    private Transform[] firstMessageForeground;
-    [SerializeField]
-    private GameObject secondMessage;
-    [SerializeField]
-    private GameObject thirdMessage;
-    [SerializeField]
-    private Transform[] thirdMessageForeground;
+    private TutorialMessage[] tutorialMessages;
 
     // General
     private bool tutorialRunning;
+    private int messageIndex = 0;
     private List<HierarchyInfo> hierarchyInfos = new List<HierarchyInfo>();
 
     // Player
@@ -82,7 +83,6 @@ public class TutorialManager : MonoBehaviour
         UnityEngine.Assertions.Assert.IsNotNull(cinematicStripes, "ERROR: Cinematic Stripes (CinematicStripes) not assigned for TutorialManager script in GameObject " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(tutorialForegroundParent, "ERROR: Tutorial Foreground Parent (Transform) not assigned for TutorialManager script in GameObject " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(userWaitPrompts, "ERROR: User Wait Prompts (GameObject) not assigned for TutorialManager script in GameObject " + gameObject.name);
-        UnityEngine.Assertions.Assert.IsNotNull(firstMessage, "ERROR: First Message (GameObject) not assigned for TutorialManager script in GameObject " + gameObject.name);
         player = GameManager.instance.GetPlayer1();
     }
 
@@ -108,7 +108,9 @@ public class TutorialManager : MonoBehaviour
         player.OnRoundOver(); // Triggers stopped state
         cinematicStripes.Show();
         screenFadeController.TurnOpaque();
-        screenFadeController.FadeToAlpha(messagesAlpha, 1.0f, ShowFirstMessage);
+
+        messageIndex = 0;
+        screenFadeController.FadeToAlpha(interMessagesAlpha, 1.0f, ShowNextMessage);
     }
     #endregion
 
@@ -127,74 +129,34 @@ public class TutorialManager : MonoBehaviour
     }
 
     #region Scripted messages
-    private void ShowFirstMessage()
+    private void ShowNextMessage()
     {
-        firstMessage.SetActive(true);
-        BringToForeground(firstMessageForeground);
-        WaitForUser(OnFirstMessageClosed);
-    }
-
-    private void OnFirstMessageClosed()
-    {
-        userWaitPrompts.SetActive(false);
-        firstMessage.SetActive(false);
-        SendToBackground();
-        if (!skipAll)
+        if (messageIndex < tutorialMessages.Length)
         {
-            // Next scripted message
-            screenFadeController.FadeToAlpha(interMessagesAlpha, 0.5f * messageTransitionDuration, ShowSecondMessage);
+            screenFadeController.FadeToAlpha(messagesAlpha, 0.5f * messageTransitionDuration, () =>
+            {
+                TutorialMessage tutMessage = tutorialMessages[messageIndex];
+                tutMessage.message.SetActive(true);
+                BringToForeground(tutMessage.foregroundUI);
+                WaitForUser(OnMessageClosed);
+            });
         }
         else
         {
-            // Finish
             RequestEndTutorial();
         }
     }
 
-    private void ShowSecondMessage()
+    private void OnMessageClosed()
     {
-        screenFadeController.FadeToAlpha(messagesAlpha, 0.5f * messageTransitionDuration, () =>
-        {
-            secondMessage.SetActive(true);
-            WaitForUser(OnSecondMessageClosed);
-        });
-    }
-
-    private void OnSecondMessageClosed()
-    {
-        userWaitPrompts.SetActive(false);
-        secondMessage.SetActive(false);
-        if (!skipAll)
-        {
-            // Next scripted message
-            screenFadeController.FadeToAlpha(interMessagesAlpha, 0.5f * messageTransitionDuration, ShowThirdMessage);
-        }
-        else
-        {
-            // Finish
-            RequestEndTutorial();
-        }
-    }
-
-    private void ShowThirdMessage()
-    {
-        screenFadeController.FadeToAlpha(messagesAlpha, 0.5f * messageTransitionDuration, () =>
-        {
-            thirdMessage.SetActive(true);
-            BringToForeground(thirdMessageForeground);
-            WaitForUser(OnThirdMessageClosed);
-        });
-    }
-
-    private void OnThirdMessageClosed()
-    {
-        userWaitPrompts.SetActive(false);
-        thirdMessage.SetActive(false);
+        TutorialMessage tutMessage = tutorialMessages[messageIndex];
+        tutMessage.message.SetActive(false);
         SendToBackground();
+        ++messageIndex;
         if (!skipAll)
         {
             // Next scripted message
-            RequestEndTutorial();
+            screenFadeController.FadeToAlpha(interMessagesAlpha, 0.5f * messageTransitionDuration, ShowNextMessage);
         }
         else
         {
@@ -229,16 +191,19 @@ public class TutorialManager : MonoBehaviour
 
     private void BringToForeground(Transform[] transforms)
     {
-        for (int i = 0; i < transforms.Length; ++i)
+        if (transforms != null)
         {
-            Transform transform = transforms[i];
-            hierarchyInfos.Add(new HierarchyInfo(transform));
-            transform.SetParent(tutorialForegroundParent);
+            for (int i = 0; i < transforms.Length; ++i)
+            {
+                hierarchyInfos.Add(new HierarchyInfo(transforms[i]));
+                transform.SetParent(tutorialForegroundParent);
+            }
         }
 }
 
     private void SendToBackground()
     {
+        // Must be in reverse order to ensure setting SiblingIndex properly
         for (int i = hierarchyInfos.Count - 1; i >= 0; --i)
         {
             hierarchyInfos[i].ReturnToOrigin();

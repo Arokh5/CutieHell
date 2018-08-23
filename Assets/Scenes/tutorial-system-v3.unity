@@ -18155,17 +18155,19 @@ MonoBehaviour:
   cinematicStripes: {fileID: 811188062}
   tutorialForegroundParent: {fileID: 1963707703}
   messagesAlpha: 0.9
-  interMessagesAlpha: 0.85
-  messageTransitionDuration: 0.3
+  interMessagesAlpha: 0.95
+  messageTransitionDuration: 0.6
   userWaitPrompts: {fileID: 686961008}
-  firstMessage: {fileID: 1167878464}
-  firstMessageForeground:
-  - {fileID: 1363509853}
-  - {fileID: 811188100}
-  secondMessage: {fileID: 1811580862}
-  thirdMessage: {fileID: 1845019480}
-  thirdMessageForeground:
-  - {fileID: 1875436318}
+  tutorialMessages:
+  - message: {fileID: 1167878464}
+    foregroundUI:
+    - {fileID: 1363509853}
+    - {fileID: 811188100}
+  - message: {fileID: 1811580862}
+    foregroundUI: []
+  - message: {fileID: 1845019480}
+    foregroundUI:
+    - {fileID: 1875436318}
 --- !u!4 &859360060
 Transform:
   m_ObjectHideFlags: 0
