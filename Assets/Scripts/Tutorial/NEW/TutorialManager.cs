@@ -36,6 +36,18 @@ public class TutorialManager : MonoBehaviour
     
     [Header("Scripted messages")]
     [SerializeField]
+    [Tooltip("The alpha value of the screen overlay when showing a message")]
+    [Range(0.0f, 1.0f)]
+    private float messagesAlpha = 0.9f;
+    [SerializeField]
+    [Tooltip("The alpha value of the screen overlay when transitioning between messages")]
+    [Range(0.0f, 1.0f)]
+    private float interMessagesAlpha = 0.85f;
+    [SerializeField]
+    [Tooltip("The duration (in seconds) of the transition between messages")]
+    [Range(0.0f, 2.0f)]
+    private float messageTransitionDuration = 0.3f;
+    [SerializeField]
     private GameObject userWaitPrompts;
     [SerializeField]
     private GameObject firstMessage;
@@ -43,6 +55,10 @@ public class TutorialManager : MonoBehaviour
     private Transform[] firstMessageForeground;
     [SerializeField]
     private GameObject secondMessage;
+    [SerializeField]
+    private GameObject thirdMessage;
+    [SerializeField]
+    private Transform[] thirdMessageForeground;
 
     // General
     private bool tutorialRunning;
@@ -67,10 +83,6 @@ public class TutorialManager : MonoBehaviour
         UnityEngine.Assertions.Assert.IsNotNull(tutorialForegroundParent, "ERROR: Tutorial Foreground Parent (Transform) not assigned for TutorialManager script in GameObject " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(userWaitPrompts, "ERROR: User Wait Prompts (GameObject) not assigned for TutorialManager script in GameObject " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(firstMessage, "ERROR: First Message (GameObject) not assigned for TutorialManager script in GameObject " + gameObject.name);
-    }
-
-    private void Start()
-    {
         player = GameManager.instance.GetPlayer1();
     }
 
@@ -96,7 +108,7 @@ public class TutorialManager : MonoBehaviour
         player.OnRoundOver(); // Triggers stopped state
         cinematicStripes.Show();
         screenFadeController.TurnOpaque();
-        screenFadeController.FadeToAlpha(0.9f, 1.0f, ShowFirstMessage);
+        screenFadeController.FadeToAlpha(messagesAlpha, 1.0f, ShowFirstMessage);
     }
     #endregion
 
@@ -117,7 +129,6 @@ public class TutorialManager : MonoBehaviour
     #region Scripted messages
     private void ShowFirstMessage()
     {
-        userWaitPrompts.SetActive(true);
         firstMessage.SetActive(true);
         BringToForeground(firstMessageForeground);
         WaitForUser(OnFirstMessageClosed);
@@ -131,7 +142,7 @@ public class TutorialManager : MonoBehaviour
         if (!skipAll)
         {
             // Next scripted message
-            ShowSecondMessage();
+            screenFadeController.FadeToAlpha(interMessagesAlpha, 0.5f * messageTransitionDuration, ShowSecondMessage);
         }
         else
         {
@@ -142,15 +153,44 @@ public class TutorialManager : MonoBehaviour
 
     private void ShowSecondMessage()
     {
-        userWaitPrompts.SetActive(true);
-        secondMessage.SetActive(true);
-        WaitForUser(OnSecondMessageClosed);
+        screenFadeController.FadeToAlpha(messagesAlpha, 0.5f * messageTransitionDuration, () =>
+        {
+            secondMessage.SetActive(true);
+            WaitForUser(OnSecondMessageClosed);
+        });
     }
 
     private void OnSecondMessageClosed()
     {
         userWaitPrompts.SetActive(false);
         secondMessage.SetActive(false);
+        if (!skipAll)
+        {
+            // Next scripted message
+            screenFadeController.FadeToAlpha(interMessagesAlpha, 0.5f * messageTransitionDuration, ShowThirdMessage);
+        }
+        else
+        {
+            // Finish
+            RequestEndTutorial();
+        }
+    }
+
+    private void ShowThirdMessage()
+    {
+        screenFadeController.FadeToAlpha(messagesAlpha, 0.5f * messageTransitionDuration, () =>
+        {
+            thirdMessage.SetActive(true);
+            BringToForeground(thirdMessageForeground);
+            WaitForUser(OnThirdMessageClosed);
+        });
+    }
+
+    private void OnThirdMessageClosed()
+    {
+        userWaitPrompts.SetActive(false);
+        thirdMessage.SetActive(false);
+        SendToBackground();
         if (!skipAll)
         {
             // Next scripted message
