@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     [SerializeField]
+    private TutorialManager tutorialManager;
+    [SerializeField]
     private bool skipTutorial = false;
     public TutorialController tutorialController;
     [SerializeField]
@@ -55,6 +57,7 @@ public class GameManager : MonoBehaviour
     {
         UnityEngine.Assertions.Assert.IsNotNull(aiSpawnController, "ERROR: The GameManager in gameObject '" + gameObject.name + "' doesn't have an AISpawnController assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(scenarioController, "ERROR: The GameManager in gameObject '" + gameObject.name + "' doesn't have a ScenarioController assigned!");
+        UnityEngine.Assertions.Assert.IsNotNull(tutorialManager, "ERROR: The GameManager in gameObject '" + gameObject.name + "' doesn't have a TutorialManager assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(tutorialController, "ERROR: The GameManager in gameObject '" + gameObject.name + "' doesn't have a TutorialController assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(screenFadeController, "ERROR: The GameManager in gameObject '" + gameObject.name + "' doesn't have a ScreenFadeController assigned!");
         //UnityEngine.Assertions.Assert.IsNotNull(crosshair, "ERROR: The GameManager in gameObject '" + gameObject.name + "' doesn't have a Crosshair assigned!");
@@ -69,6 +72,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        tutorialManager.RequestStartTutorial();
+        return;
         if (skipTutorial)
             tutorialController.RequestBypassTutorial();
         else

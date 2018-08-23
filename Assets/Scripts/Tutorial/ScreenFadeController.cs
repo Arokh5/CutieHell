@@ -72,6 +72,25 @@ public class ScreenFadeController : MonoBehaviour
         }
     }
 
+    public void FadeToAlpha(float alpha, FadeCallback fadeCallback = null)
+    {
+        FadeToAlpha(alpha, defaultFadeDuration, endCallback);
+    }
+
+    public void FadeToAlpha(float alpha, float fadeDuration, FadeCallback endCallback = null)
+    {
+        if (!fading)
+        {
+            currentFadeDuration = fadeDuration;
+            this.endCallback = endCallback;
+            fading = true;
+            elapsedTime = 0;
+
+            startAlpha = image.color.a;
+            endAlpha = alpha;
+        }
+    }
+
     public void TurnOpaque()
     {
         image.color = opaqueColor;
