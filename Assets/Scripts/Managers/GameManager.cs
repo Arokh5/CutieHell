@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        tutorialManager.RequestStartTutorial();
+        tutorialManager.RequestStartTutorial(OnTutorialFinished);
         return;
         if (skipTutorial)
             tutorialController.RequestBypassTutorial();
@@ -122,9 +122,9 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Public Methods
-    public void OnTutorialFinished(FadeCallback callback = null)
+    public void OnTutorialFinished()
     {
-        screenFadeController.FadeToTransparent(callback != null ? callback : null); // StartNextRound);
+        Debug.Log("GameManager: Tuto finished!");
     }
 
     public void OnRoundWon()

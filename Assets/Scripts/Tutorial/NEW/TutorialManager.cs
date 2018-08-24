@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
 {
-    private delegate void VoidCallback();
+    public delegate void VoidCallback();
 
     [System.Serializable]
     private struct HierarchyInfo
@@ -62,6 +62,7 @@ public class TutorialManager : MonoBehaviour
 
     // General
     private bool tutorialRunning;
+    private VoidCallback endCallback = null;
     private int messageIndex = 0;
     private List<HierarchyInfo> hierarchyInfos = new List<HierarchyInfo>();
 
@@ -102,9 +103,10 @@ public class TutorialManager : MonoBehaviour
     #endregion
 
     #region Public Methods
-    public void RequestStartTutorial()
+    public void RequestStartTutorial(VoidCallback tutorialEndCallback)
     {
         tutorialRunning = true;
+        endCallback = tutorialEndCallback;
         player.OnRoundOver(); // Triggers stopped state
         cinematicStripes.Show();
         screenFadeController.TurnOpaque();
@@ -126,6 +128,11 @@ public class TutorialManager : MonoBehaviour
     {
         player.OnRoundStarted();
         tutorialRunning = false;
+        if (endCallback != null)
+        {
+            endCallback();
+            endCallback = null;
+        }
     }
 
     #region Scripted messages
