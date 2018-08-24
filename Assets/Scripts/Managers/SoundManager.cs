@@ -92,7 +92,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySfxClip(AudioClip sfxClip, float pitch = 1f)
     {
-        if (CanPlay(sfxClip))
+        if (sfxClip != null && CanPlay(sfxClip))
         {
             sfxSource.pitch = pitch;
             sfxSource.PlayOneShot(sfxClip);
@@ -101,22 +101,29 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySfxClip(AudioSource source, AudioClip clip = null, bool oneShot = false)
     {
-        if (CanPlay(clip ? clip : source.clip))
+        if (source != null)
         {
-            if (oneShot)
+            if (CanPlay(clip ? clip : source.clip))
             {
-                if (clip)
-                    source.PlayOneShot(clip);
+                if (oneShot)
+                {
+                    if (clip)
+                        source.PlayOneShot(clip);
+                    else
+                        source.PlayOneShot(source.clip);
+                }
                 else
-                    source.PlayOneShot(source.clip);
-            }
-            else
-            {
-                if (clip)
-                    source.clip = clip;
+                {
+                    if (clip)
+                        source.clip = clip;
 
-                source.Play();
+                    source.Play();
+                }
             }
+        }
+        else
+        {
+            Debug.LogWarning("WARNING: SoundManager::PlaySfxClip called with a source (AudioSource) value of null!");
         }
     }
     #endregion
