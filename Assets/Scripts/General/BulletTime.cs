@@ -7,7 +7,10 @@ public class BulletTime : MonoBehaviour {
     public float slowdownLength = 0.5f;
     public float slowdownIncreaseTime = 0.5f;
     private float timeOnSlowdown = 0.0f;
+
     private bool inBulletTime = false;
+    [ShowOnly]
+    public bool paused = false;
 
 	void Awake ()
     {
@@ -17,22 +20,25 @@ public class BulletTime : MonoBehaviour {
 	
 	void Update ()
     {
-        if (inBulletTime)
+        if (inBulletTime && !paused)
         {
-            if (!GameManager.instance.gameIsPaused && Time.timeScale != 1.0f)
+            if (!GameManager.instance.gameIsPaused)
             {
-                if (timeOnSlowdown < slowdownLength)
+                if (Time.timeScale != 1.0f)
                 {
-                    timeOnSlowdown += Time.unscaledDeltaTime;
-                    Time.timeScale = Mathf.Clamp(Time.timeScale, 0.0f, 1.0f);
-                    Time.fixedDeltaTime = Time.timeScale * 0.02f;
-                }
-                else if (timeOnSlowdown < slowdownIncreaseTime + slowdownLength)
-                {
-                    timeOnSlowdown += Time.unscaledDeltaTime;
-                    Time.timeScale += (1f / slowdownIncreaseTime) * Time.unscaledDeltaTime;
-                    Time.timeScale = Mathf.Clamp(Time.timeScale, 0.0f, 1.0f);
-                    Time.fixedDeltaTime = Time.timeScale * 0.02f;
+                    if (timeOnSlowdown < slowdownLength)
+                    {
+                        timeOnSlowdown += Time.unscaledDeltaTime;
+                        Time.timeScale = Mathf.Clamp(Time.timeScale, 0.0f, 1.0f);
+                        Time.fixedDeltaTime = Time.timeScale * 0.02f;
+                    }
+                    else if (timeOnSlowdown < slowdownIncreaseTime + slowdownLength)
+                    {
+                        timeOnSlowdown += Time.unscaledDeltaTime;
+                        Time.timeScale += (1f / slowdownIncreaseTime) * Time.unscaledDeltaTime;
+                        Time.timeScale = Mathf.Clamp(Time.timeScale, 0.0f, 1.0f);
+                        Time.fixedDeltaTime = Time.timeScale * 0.02f;
+                    }
                 }
                 else
                 {

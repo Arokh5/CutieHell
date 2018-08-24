@@ -130,6 +130,7 @@ public class GameManager : MonoBehaviour
     {
         if (tutorialManager.LaunchEventMessage(eventIndex, OnTutorialEventFinished))
         {
+            Debug.Log("GameManager: Tutorial Event " + eventIndex + " launched!");
             FreezePlayer();
         }
     }
@@ -293,6 +294,7 @@ public class GameManager : MonoBehaviour
     #region Private Methods
     private void FreezePlayer()
     {
+        BulletTime.instance.paused = true;
         avoidPlayerUpdate = true;
         previousCameraState = player.cameraState;
         player.cameraState = Player.CameraState.STILL;
@@ -300,6 +302,7 @@ public class GameManager : MonoBehaviour
 
     private void ReleasePlayer()
     {
+        BulletTime.instance.paused = false;
         player.cameraState = previousCameraState;
         avoidPlayerUpdate = false;
     }

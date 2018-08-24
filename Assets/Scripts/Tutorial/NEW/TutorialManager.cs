@@ -71,6 +71,7 @@ public class TutorialManager : MonoBehaviour
     private VoidCallback scriptedMessagesEndCallback = null;
     private int messageIndex = 0;
     private List<HierarchyInfo> hierarchyInfos = new List<HierarchyInfo>();
+    private float originalTimeScale;
 
     private VoidCallback eventEndCallback = null;
     private TutorialMessage activeEventMessage = null;
@@ -138,6 +139,7 @@ public class TutorialManager : MonoBehaviour
                         activeEventMessage = eventMessage;
                         this.eventEndCallback = endCallback;
                         tutorialRunning = true;
+                        originalTimeScale = Time.timeScale;
                         Time.timeScale = 0.0f;
                         screenFadeController.FadeToAlpha(messagesAlpha, 0.5f, () =>
                         {
@@ -184,7 +186,7 @@ public class TutorialManager : MonoBehaviour
         HideTutorialMessage(activeEventMessage);
         screenFadeController.FadeToTransparent(0.5f, () =>
         {
-            Time.timeScale = 1.0f;
+            Time.timeScale = originalTimeScale;
             activeEventMessage = null;
             tutorialRunning = false;
             if (eventEndCallback != null)

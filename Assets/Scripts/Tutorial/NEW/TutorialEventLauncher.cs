@@ -4,7 +4,7 @@
 public class TutorialEventLauncher
 {
     [SerializeField]
-    private int eventIndex;
+    private int eventIndex = -1;
 
     public void LaunchEvent()
     {
