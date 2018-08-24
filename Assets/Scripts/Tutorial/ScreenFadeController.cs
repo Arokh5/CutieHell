@@ -11,7 +11,7 @@ public class ScreenFadeController : MonoBehaviour
 
     private float currentFadeDuration;
     private Image image;
-    private FadeCallback endCallback;
+    private FadeCallback fadeEndCallback;
     private bool fading;
     private float elapsedTime;
 
@@ -44,7 +44,7 @@ public class ScreenFadeController : MonoBehaviour
         if (!fading)
         {
             currentFadeDuration = fadeDuration;
-            this.endCallback = endCallback;
+            fadeEndCallback = endCallback;
             fading = true;
             elapsedTime = 0;
 
@@ -63,7 +63,7 @@ public class ScreenFadeController : MonoBehaviour
         if (!fading)
         {
             currentFadeDuration = fadeDuration;
-            this.endCallback = endCallback;
+            fadeEndCallback = endCallback;
             fading = true;
             elapsedTime = 0;
 
@@ -72,7 +72,7 @@ public class ScreenFadeController : MonoBehaviour
         }
     }
 
-    public void FadeToAlpha(float alpha, FadeCallback fadeCallback = null)
+    public void FadeToAlpha(float alpha, FadeCallback endCallback = null)
     {
         FadeToAlpha(alpha, defaultFadeDuration, endCallback);
     }
@@ -82,7 +82,7 @@ public class ScreenFadeController : MonoBehaviour
         if (!fading)
         {
             currentFadeDuration = fadeDuration;
-            this.endCallback = endCallback;
+            fadeEndCallback = endCallback;
             fading = true;
             elapsedTime = 0;
 
@@ -107,7 +107,7 @@ public class ScreenFadeController : MonoBehaviour
     #region Private Methods
     private void Fade()
     {
-        elapsedTime += Time.deltaTime;
+        elapsedTime += Time.unscaledDeltaTime;
         float u = elapsedTime / currentFadeDuration;
         
         if (u < 1)
@@ -124,9 +124,11 @@ public class ScreenFadeController : MonoBehaviour
             image.color = targetColor;
 
             fading = false;
-            if (endCallback != null)
+            if (fadeEndCallback != null)
             {
-                endCallback();
+                FadeCallback currentCallback = fadeEndCallback;
+                fadeEndCallback = null;
+                currentCallback();
             }
         }
     }

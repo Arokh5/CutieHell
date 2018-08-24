@@ -13,11 +13,12 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private TutorialManager tutorialManager;
-    [SerializeField]
-    private bool skipTutorial = false;
     public TutorialController tutorialController;
     [SerializeField]
     private ScreenFadeController screenFadeController;
+
+    private bool avoidPlayerUpdate;
+    private Player.CameraState previousCameraState;
 
     [SerializeField]
     private AISpawnController aiSpawnController;
@@ -72,6 +73,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        FreezePlayer();
         tutorialManager.RequestStartTutorial(OnTutorialFinished);
     }
 
@@ -124,9 +126,17 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Public Methods
-    public void OnTutorialFinished()
+    public void LaunchTutorialEvent(int eventIndex)
     {
-        Debug.Log("GameManager: Tutorial finished!");
+        if (tutorialManager.LaunchEventMessage(eventIndex, OnTutorialEventFinished))
+        {
+            FreezePlayer();
+        }
+    }
+
+    public bool CanUpdatePlayer()
+    {
+        return !gameIsPaused && !avoidPlayerUpdate;
     }
 
     public void OnRoundWon()
@@ -281,6 +291,32 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Private Methods
+    private void FreezePlayer()
+    {
+        avoidPlayerUpdate = true;
+        previousCameraState = player.cameraState;
+        player.cameraState = Player.CameraState.STILL;
+    }
+
+    private void ReleasePlayer()
+    {
+        player.cameraState = previousCameraState;
+        avoidPlayerUpdate = false;
+    }
+
+    private void OnTutorialFinished()
+    {
+        ReleasePlayer();
+        player.OnRoundStarted();
+        Debug.Log("GameManager: Tutorial finished!");
+    }
+
+    private void OnTutorialEventFinished()
+    {
+        ReleasePlayer();
+        Debug.Log("GameManager: Tutorial Event finished!");
+    }
+
     private void ResumeGamePaused()
     {
         unpauseNextFrame = false;

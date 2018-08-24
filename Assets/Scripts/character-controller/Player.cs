@@ -231,7 +231,7 @@ public class Player : MonoBehaviour, IDamageable
         comeBackFromStrongAttack = false;
         comeBackFromConeAttack = false;
 
-        currentState = defaultState;
+        currentState = stoppedState;
 
         cooldownInfos = new CooldownInfo[] { dashCooldown, coneAttackCooldown, strongAttackCooldown, meteoriteAttackCooldown, mineAttackCooldown };
     }
@@ -275,7 +275,7 @@ public class Player : MonoBehaviour, IDamageable
         timeSinceLastAttack += Time.deltaTime;
         strongAttackTimer += Time.deltaTime;
 
-        if (!GameManager.instance.gameIsPaused && lastTransitionTime != Time.time)
+        if (GameManager.instance.CanUpdatePlayer() && lastTransitionTime != Time.time)
         {
             currentState.UpdateState(this);
         }

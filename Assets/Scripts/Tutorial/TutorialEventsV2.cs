@@ -159,7 +159,7 @@ public class TutorialEventsV2 : TutorialEvents
     public override void OnTutorialEnded()
     {
         gameObject.SetActive(false);
-        GameManager.instance.OnTutorialFinished();
+        //GameManager.instance.OnTutorialFinished();
     }
 
     public override void LaunchEvent(int eventIndex)
