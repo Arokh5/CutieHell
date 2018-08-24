@@ -195,8 +195,9 @@ public class TutorialManager : MonoBehaviour
         {
             for (int i = 0; i < transforms.Length; ++i)
             {
-                hierarchyInfos.Add(new HierarchyInfo(transforms[i]));
-                transform.SetParent(tutorialForegroundParent);
+                Transform targetTransform = transforms[i];
+                hierarchyInfos.Add(new HierarchyInfo(targetTransform));
+                targetTransform.SetParent(tutorialForegroundParent);
             }
         }
 }
