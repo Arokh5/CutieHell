@@ -17,7 +17,7 @@ public class Player : MonoBehaviour, IDamageable
     [ShowOnly]
     public TeleportTarget currentTelepotTarget;
     public Transform[] teleportTargets;
-    public GameObject footSteps;
+    public ParticleSystem footStepsVFX;
 
     [Header("Movement")]
     public float floorClearance;
@@ -185,11 +185,15 @@ public class Player : MonoBehaviour, IDamageable
     public CooldownInfo meteoriteAttackCooldown;
 
     private bool isMeteoritesOn = false;
-    
+
     [Header("Sounds")]
+    public AudioClip firstFootstep;
     public AudioClip[] footstepsSFX;
     public AudioClip knockbackSFX;
     public AudioSource audioSource;
+    public Transform leftFoot, rightFoot;
+    [HideInInspector]
+    public int footstepID;
 
     #endregion
 
@@ -477,6 +481,26 @@ public class Player : MonoBehaviour, IDamageable
     {
         return isMeteoritesOn;
     }
+
+    public void FootStep(int i)
+    {
+        audioSource.pitch = Random.Range(0.935f, 1.065f);
+        SoundManager.instance.PlaySfxClip(audioSource, footstepsSFX[footstepID], true);
+        footstepID++;
+        if(i == 1)
+        {
+            ParticlesManager.instance.LaunchParticleSystem(footStepsVFX, leftFoot.position, footStepsVFX.transform.rotation);
+        }
+        else
+        {
+            ParticlesManager.instance.LaunchParticleSystem(footStepsVFX, rightFoot.position, footStepsVFX.transform.rotation);
+        }
+        if (footstepID >= footstepsSFX.Length)
+        {
+            footstepID = 0;
+        }
+    }
+
     #endregion
 
     #region Private Methods
