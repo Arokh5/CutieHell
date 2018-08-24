@@ -133,7 +133,6 @@ public class Player : MonoBehaviour, IDamageable
     [HideInInspector]
     public CameraController mainCameraController;
     private float lastTransitionTime = -1.0f;
-    private float lastPauseTime = -1.0f;
 
     [Header("Basic Attacks")]
     [HideInInspector]
@@ -266,12 +265,6 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        if (GameManager.instance.gameIsPaused)
-        {
-            lastPauseTime = Time.time;
-            return;
-        }
-
         if ( timeSinceLastMonumentChecking >= checkingMonumentRepetitionTime)
         {
             UpdateNearestMonument();
@@ -282,7 +275,7 @@ public class Player : MonoBehaviour, IDamageable
         timeSinceLastAttack += Time.deltaTime;
         strongAttackTimer += Time.deltaTime;
 
-        if (lastTransitionTime != Time.time && lastPauseTime != Time.time)
+        if (!GameManager.instance.gameIsPaused && lastTransitionTime != Time.time)
         {
             currentState.UpdateState(this);
         }

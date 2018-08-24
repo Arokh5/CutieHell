@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private RoundScore roundScore;
 
-
+    private bool unpauseNextFrame = false;
     #endregion
 
     #region Properties
@@ -73,11 +73,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         tutorialManager.RequestStartTutorial(OnTutorialFinished);
-        return;
-        if (skipTutorial)
-            tutorialController.RequestBypassTutorial();
-        else
-            tutorialController.RequestStartTutorial();
     }
 
     private void Update()
@@ -104,10 +99,17 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameStates.OnGamePaused:
-                if (tutorialController.IsRunning())
-                    tutorialPauseMenuController.HandlePause();
+                if (unpauseNextFrame)
+                {
+                    ResumeGamePaused();
+                }
                 else
-                    pauseMenuController.HandlePause();
+                {
+                    if (tutorialController.IsRunning())
+                        tutorialPauseMenuController.HandlePause();
+                    else
+                        pauseMenuController.HandlePause();
+                }
                 break;
         }
     }
@@ -124,7 +126,7 @@ public class GameManager : MonoBehaviour
     #region Public Methods
     public void OnTutorialFinished()
     {
-        Debug.Log("GameManager: Tuto finished!");
+        Debug.Log("GameManager: Tutorial finished!");
     }
 
     public void OnRoundWon()
@@ -210,25 +212,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ResumeGamePaused()
+    public void RequestResumeGamePaused()
     {
         if (gameState == GameStates.OnGamePaused)
         {
-            if (tutorialController.IsRunning())
-            {
-                tutorialPauseMenuController.gameObject.SetActive(false);
-            }
-            else
-            {
-                pauseMenuController.gameObject.SetActive(false);
-                //crosshair.SetActive(true);
-            }
-
-            Time.timeScale = 1.0f;
-
-            gameIsPaused = false;
-
-            gameState = GameStates.InGame;
+            unpauseNextFrame = true;
         }
     }
 
@@ -293,6 +281,27 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Private Methods
+    private void ResumeGamePaused()
+    {
+        unpauseNextFrame = false;
+
+        if (tutorialController.IsRunning())
+        {
+            tutorialPauseMenuController.gameObject.SetActive(false);
+        }
+        else
+        {
+            pauseMenuController.gameObject.SetActive(false);
+            //crosshair.SetActive(true);
+        }
+
+        Time.timeScale = 1.0f;
+
+        gameIsPaused = false;
+
+        gameState = GameStates.InGame;
+    }
+
 #if UNITY_EDITOR
     private void EditorPaused(PauseState state)
     {

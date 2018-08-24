@@ -108,7 +108,7 @@ public class PauseMenuController : MonoBehaviour {
 
     private void Resume()
     {
-        GameManager.instance.ResumeGamePaused();
+        GameManager.instance.RequestResumeGamePaused();
         pauseButtons[pauseIndex].UnselectButton();
         pauseIndex = 0;
         pauseButtons[pauseIndex].SelectButton();
