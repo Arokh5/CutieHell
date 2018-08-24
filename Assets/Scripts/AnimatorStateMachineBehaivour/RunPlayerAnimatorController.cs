@@ -25,6 +25,7 @@ public class RunPlayerAnimatorController : StateMachineBehaviour {
     {
         CheckPlayer(animator);
         player.mainCameraController.timeSinceLastAction = 1.0f;
+        player.footstepID = 0;
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here

@@ -187,7 +187,6 @@ public class Player : MonoBehaviour, IDamageable
     private bool isMeteoritesOn = false;
 
     [Header("Sounds")]
-    public AudioClip firstFootstep;
     public AudioClip[] footstepsSFX;
     public AudioClip knockbackSFX;
     public AudioSource audioSource;
@@ -497,7 +496,7 @@ public class Player : MonoBehaviour, IDamageable
         }
         if (footstepID >= footstepsSFX.Length)
         {
-            footstepID = 0;
+            footstepID = 1;
         }
     }
 
