@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -12,10 +11,12 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     [SerializeField]
-    private bool skipTutorial = false;
-    public TutorialController tutorialController;
+    private TutorialManager tutorialManager;
     [SerializeField]
     private ScreenFadeController screenFadeController;
+
+    private bool avoidPlayerUpdate;
+    private Player.CameraState previousCameraState;
 
     [SerializeField]
     private AISpawnController aiSpawnController;
@@ -25,8 +26,6 @@ public class GameManager : MonoBehaviour
     public bool gameIsPaused;
     [SerializeField]
     private PauseMenuController pauseMenuController;
-    [SerializeField]
-    private PauseMenuController tutorialPauseMenuController;
 
     public enum GameStates { OnStartMenu, InGame, OnRoundEnd, OnGameEnd, OnGamePaused };
     public GameStates gameState;
@@ -42,7 +41,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private RoundScore roundScore;
 
-
+    private bool unpauseNextFrame = false;
     #endregion
 
     #region Properties
@@ -55,7 +54,7 @@ public class GameManager : MonoBehaviour
     {
         UnityEngine.Assertions.Assert.IsNotNull(aiSpawnController, "ERROR: The GameManager in gameObject '" + gameObject.name + "' doesn't have an AISpawnController assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(scenarioController, "ERROR: The GameManager in gameObject '" + gameObject.name + "' doesn't have a ScenarioController assigned!");
-        UnityEngine.Assertions.Assert.IsNotNull(tutorialController, "ERROR: The GameManager in gameObject '" + gameObject.name + "' doesn't have a TutorialController assigned!");
+        UnityEngine.Assertions.Assert.IsNotNull(tutorialManager, "ERROR: The GameManager in gameObject '" + gameObject.name + "' doesn't have a TutorialManager assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(screenFadeController, "ERROR: The GameManager in gameObject '" + gameObject.name + "' doesn't have a ScreenFadeController assigned!");
         //UnityEngine.Assertions.Assert.IsNotNull(crosshair, "ERROR: The GameManager in gameObject '" + gameObject.name + "' doesn't have a Crosshair assigned!");
 
@@ -69,10 +68,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        if (skipTutorial)
-            tutorialController.RequestBypassTutorial();
-        else
-            tutorialController.RequestStartTutorial();
+        FreezePlayer();
+        tutorialManager.RequestStartTutorial(OnTutorialFinished);
     }
 
     private void Update()
@@ -99,10 +96,14 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameStates.OnGamePaused:
-                if (tutorialController.IsRunning())
-                    tutorialPauseMenuController.HandlePause();
+                if (unpauseNextFrame)
+                {
+                    ResumeGamePaused();
+                }
                 else
+                {
                     pauseMenuController.HandlePause();
+                }
                 break;
         }
     }
@@ -117,9 +118,35 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Public Methods
-    public void OnTutorialFinished(FadeCallback callback = null)
+    public bool LaunchTutorialEvent(int eventIndex, TutorialManager.VoidCallback endCallback = null)
     {
-        screenFadeController.FadeToTransparent(callback != null ? callback : null); // StartNextRound);
+        bool launched = false;
+        TutorialManager.VoidCallback finishCallback = OnTutorialEventFinished;
+
+        if (endCallback != null)
+        {
+            // Ensure the GameManager callback is called before any other callback
+            finishCallback += endCallback;
+        }
+
+        if (tutorialManager.LaunchEventMessage(eventIndex, finishCallback))
+        {
+            Debug.Log("GameManager: Tutorial Event " + eventIndex + " launched!");
+            FreezePlayer();
+            launched = true;
+        }
+        return launched;
+    }
+
+    public bool CanUpdatePlayer()
+    {
+        return !gameIsPaused && !avoidPlayerUpdate;
+    }
+
+    public void ExitGame()
+    {
+        TimeManager.instance.ResumeTime();
+        gameState = GameStates.OnGameEnd;
     }
 
     public void OnRoundWon()
@@ -191,13 +218,10 @@ public class GameManager : MonoBehaviour
     {
         if (gameState == GameStates.InGame)
         {
-            Time.timeScale = 0.0f;
+            TimeManager.instance.FreezeTime();
             //crosshair.SetActive(false);
 
-            if (tutorialController.IsRunning())
-                tutorialPauseMenuController.gameObject.SetActive(true);
-            else
-                pauseMenuController.gameObject.SetActive(true);
+            pauseMenuController.gameObject.SetActive(true);
 
             gameIsPaused = true;
 
@@ -205,41 +229,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ResumeGamePaused()
+    public void RequestResumeGamePaused()
     {
         if (gameState == GameStates.OnGamePaused)
         {
-            if (tutorialController.IsRunning())
-            {
-                tutorialPauseMenuController.gameObject.SetActive(false);
-            }
-            else
-            {
-                pauseMenuController.gameObject.SetActive(false);
-                //crosshair.SetActive(true);
-            }
-
-            Time.timeScale = 1.0f;
-
-            gameIsPaused = false;
-
-            gameState = GameStates.InGame;
-        }
-    }
-
-    public void SkipTutorial()
-    {
-        if (gameState == GameStates.OnGamePaused)
-        {
-            //crosshair.SetActive(true);
-            tutorialPauseMenuController.gameObject.SetActive(false);
-            tutorialController.RequestEndTutorial();
-
-            Time.timeScale = 1.0f;
-
-            gameIsPaused = false;
-
-            gameState = GameStates.InGame;
+            unpauseNextFrame = true;
         }
     }
 
@@ -274,7 +268,7 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        Time.timeScale = 1.0f;
+        TimeManager.instance.ResumeTime();
         gameIsPaused = false;
         gameState = GameStates.InGame;
         SceneManager.LoadScene("Game", LoadSceneMode.Single);
@@ -288,6 +282,46 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Private Methods
+    private void FreezePlayer()
+    {
+        avoidPlayerUpdate = true;
+        previousCameraState = player.cameraState;
+        player.cameraState = Player.CameraState.STILL;
+    }
+
+    private void ReleasePlayer()
+    {
+        player.cameraState = previousCameraState;
+        avoidPlayerUpdate = false;
+    }
+
+    private void OnTutorialFinished()
+    {
+        ReleasePlayer();
+        player.OnRoundStarted();
+        Debug.Log("GameManager: Tutorial finished!");
+    }
+
+    private void OnTutorialEventFinished()
+    {
+        ReleasePlayer();
+        Debug.Log("GameManager: Tutorial Event finished!");
+    }
+
+    private void ResumeGamePaused()
+    {
+        unpauseNextFrame = false;
+
+        pauseMenuController.gameObject.SetActive(false);
+        //crosshair.SetActive(true);
+
+        TimeManager.instance.ResumeTime();
+
+        gameIsPaused = false;
+
+        gameState = GameStates.InGame;
+    }
+
 #if UNITY_EDITOR
     private void EditorPaused(PauseState state)
     {

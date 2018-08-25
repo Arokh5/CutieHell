@@ -5,7 +5,6 @@ using UnityEngine;
 public class PauseMenuController : MonoBehaviour {
 
     #region Fields
-    public bool isTutorialPauseMenu = false;
     [SerializeField]
     private MenuButton[] pauseButtons = new MenuButton[4];
     private int pauseIndex = 0;
@@ -78,10 +77,7 @@ public class PauseMenuController : MonoBehaviour {
                     break;
 
                 case 1:
-                    if (isTutorialPauseMenu)
-                        GameManager.instance.SkipTutorial();
-                    else
-                        GameManager.instance.RestartGame();
+                    GameManager.instance.RestartGame();
                     break;
 
                 case 2:
@@ -94,8 +90,7 @@ public class PauseMenuController : MonoBehaviour {
                     break;
 
                 case 3:
-                    Time.timeScale = 1.0f;
-                    GameManager.instance.gameState = GameManager.GameStates.OnGameEnd;
+                    GameManager.instance.ExitGame();
                     break;
             }
         }
@@ -108,7 +103,7 @@ public class PauseMenuController : MonoBehaviour {
 
     private void Resume()
     {
-        GameManager.instance.ResumeGamePaused();
+        GameManager.instance.RequestResumeGamePaused();
         pauseButtons[pauseIndex].UnselectButton();
         pauseIndex = 0;
         pauseButtons[pauseIndex].SelectButton();

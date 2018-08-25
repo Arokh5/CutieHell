@@ -13,13 +13,18 @@ public class Player : MonoBehaviour, IDamageable
     }
 
     #region Fields
-    [Header("Movement Variabes")]
-    [ShowOnly]
-    public TeleportTarget currentTelepotTarget;
-    public Transform[] teleportTargets;
-    public ParticleSystem footStepsVFX;
+    [Header("Tutorial Events")]
+    [SerializeField]
+    private int enemyDamageIndex = -1;
+    [SerializeField]
+    private int cuteGroundIndex = -1;
+    [SerializeField]
+    private int healthMechanicsIndex = -1;
 
     [Header("Movement")]
+    [ShowOnly]
+    public TeleportTarget currentTelepotTarget;
+    public ParticleSystem footStepsVFX;
     public float floorClearance;
     [HideInInspector]
     public bool canMove;
@@ -133,7 +138,6 @@ public class Player : MonoBehaviour, IDamageable
     [HideInInspector]
     public CameraController mainCameraController;
     private float lastTransitionTime = -1.0f;
-    private float lastPauseTime = -1.0f;
 
     [Header("Basic Attacks")]
     [HideInInspector]
@@ -235,7 +239,7 @@ public class Player : MonoBehaviour, IDamageable
         comeBackFromStrongAttack = false;
         comeBackFromConeAttack = false;
 
-        currentState = defaultState;
+        currentState = stoppedState;
 
         cooldownInfos = new CooldownInfo[] { dashCooldown, coneAttackCooldown, strongAttackCooldown, meteoriteAttackCooldown, mineAttackCooldown };
     }
@@ -269,12 +273,6 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        if (GameManager.instance.gameIsPaused)
-        {
-            lastPauseTime = Time.time;
-            return;
-        }
-
         if ( timeSinceLastMonumentChecking >= checkingMonumentRepetitionTime)
         {
             UpdateNearestMonument();
@@ -285,7 +283,7 @@ public class Player : MonoBehaviour, IDamageable
         timeSinceLastAttack += Time.deltaTime;
         strongAttackTimer += Time.deltaTime;
 
-        if (lastTransitionTime != Time.time && lastPauseTime != Time.time)
+        if (GameManager.instance.CanUpdatePlayer() && lastTransitionTime != Time.time)
         {
             currentState.UpdateState(this);
         }
@@ -396,10 +394,12 @@ public class Player : MonoBehaviour, IDamageable
     }
 
     // IDamageable
-    public void TakeDamage(float damage, AttackType attacktype)
+    public void TakeDamage(float damage, AttackType attackType)
     {
         if (isGrounded)
             return;
+
+        LaunchTutorialEvents(attackType);
 
         timeSinceLastHit = 0;
         currentHealth -= damage;
@@ -503,6 +503,25 @@ public class Player : MonoBehaviour, IDamageable
     #endregion
 
     #region Private Methods
+    private void LaunchTutorialEvents(AttackType attackType)
+    {
+        if (attackType == AttackType.ENEMY)
+        {
+            GameManager.instance.LaunchTutorialEvent(enemyDamageIndex, () =>
+            {
+                GameManager.instance.LaunchTutorialEvent(healthMechanicsIndex);
+            });
+        }
+        else if (attackType == AttackType.CUTE_AREA)
+        {
+            GameManager.instance.LaunchTutorialEvent(cuteGroundIndex, () =>
+            {
+                GameManager.instance.LaunchTutorialEvent(healthMechanicsIndex);
+            });
+            
+        }
+    }
+
     private void SortMines()
     {
         for(int i = 0; i < maxMinesNumber - 1; i++)

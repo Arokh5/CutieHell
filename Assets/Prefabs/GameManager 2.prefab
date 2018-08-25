@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 114327510471244382}
   - component: {fileID: 114402565021805656}
   - component: {fileID: 114806932963551796}
+  - component: {fileID: 114397516481653796}
   m_Layer: 0
   m_Name: GameManager 2
   m_TagString: Untagged
@@ -100,14 +101,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8f1269efa60b0449a042ce49db70d0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skipTutorial: 1
-  tutorialController: {fileID: 0}
+  tutorialManager: {fileID: 0}
   screenFadeController: {fileID: 0}
   aiSpawnController: {fileID: 0}
   scenarioController: {fileID: 0}
   gameIsPaused: 0
   pauseMenuController: {fileID: 0}
-  tutorialPauseMenuController: {fileID: 0}
   gameState: 1
   player: {fileID: 0}
   crosshair: {fileID: 0}
@@ -127,6 +126,18 @@ MonoBehaviour:
   triggerLayerMask:
     serializedVersion: 2
     m_Bits: 32768
+--- !u!114 &114397516481653796
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1639395492040046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69daa3a2acbe6df46af3b4365cb29d8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultTimeScale: 1
 --- !u!114 &114402565021805656
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -138,6 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a14d2ce0f595b6343a3cf892968c1d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roundScore: {fileID: 0}
   roundTimeReward: 100
   roundMaxTime: 60
   maxCombo: {fileID: 0}

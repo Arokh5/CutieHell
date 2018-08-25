@@ -11,7 +11,7 @@ public class ScreenFadeController : MonoBehaviour
 
     private float currentFadeDuration;
     private Image image;
-    private FadeCallback endCallback;
+    private FadeCallback fadeEndCallback;
     private bool fading;
     private float elapsedTime;
 
@@ -44,11 +44,11 @@ public class ScreenFadeController : MonoBehaviour
         if (!fading)
         {
             currentFadeDuration = fadeDuration;
-            this.endCallback = endCallback;
+            fadeEndCallback = endCallback;
             fading = true;
             elapsedTime = 0;
 
-            startAlpha = 0;
+            startAlpha = image.color.a;
             endAlpha = opaqueColor.a;
         }
     }
@@ -63,12 +63,31 @@ public class ScreenFadeController : MonoBehaviour
         if (!fading)
         {
             currentFadeDuration = fadeDuration;
-            this.endCallback = endCallback;
+            fadeEndCallback = endCallback;
             fading = true;
             elapsedTime = 0;
 
-            startAlpha = opaqueColor.a;
+            startAlpha = image.color.a;
             endAlpha = 0;
+        }
+    }
+
+    public void FadeToAlpha(float alpha, FadeCallback endCallback = null)
+    {
+        FadeToAlpha(alpha, defaultFadeDuration, endCallback);
+    }
+
+    public void FadeToAlpha(float alpha, float fadeDuration, FadeCallback endCallback = null)
+    {
+        if (!fading)
+        {
+            currentFadeDuration = fadeDuration;
+            fadeEndCallback = endCallback;
+            fading = true;
+            elapsedTime = 0;
+
+            startAlpha = image.color.a;
+            endAlpha = alpha;
         }
     }
 
@@ -88,7 +107,7 @@ public class ScreenFadeController : MonoBehaviour
     #region Private Methods
     private void Fade()
     {
-        elapsedTime += Time.deltaTime;
+        elapsedTime += Time.unscaledDeltaTime;
         float u = elapsedTime / currentFadeDuration;
         
         if (u < 1)
@@ -105,9 +124,11 @@ public class ScreenFadeController : MonoBehaviour
             image.color = targetColor;
 
             fading = false;
-            if (endCallback != null)
+            if (fadeEndCallback != null)
             {
-                endCallback();
+                FadeCallback currentCallback = fadeEndCallback;
+                fadeEndCallback = null;
+                currentCallback();
             }
         }
     }

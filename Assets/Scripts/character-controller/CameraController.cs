@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
-public class CameraController : MonoBehaviour {
-
+public class CameraController : MonoBehaviour
+{
+    #region Fields
     [SerializeField]
     private LayerMask viewPosCheckLayerMask;
 
@@ -26,9 +24,9 @@ public class CameraController : MonoBehaviour {
     public bool slowAction, fastAction;
 
     private int collisionLayers;
-    [HideInInspector]
+    [ShowOnly]
     public float x;
-    [HideInInspector]
+    [ShowOnly]
     public float y;
 
     public float aR, aF, aU,zX,zY,zZ; 
@@ -46,19 +44,13 @@ public class CameraController : MonoBehaviour {
     [HideInInspector]
     public Vector3 cameraPositionOnConeAttack;
 
-    /* Turret camera values */
-    public float t_distance;
-    public float t_cameraY;
-    public float t_fov;
-
-    /*Canon camera values*/
-    public float lerpTowardsCanonTargetDecal; 
-
     [Header("Strong Attack setup")]
     public float strongAttackDistance;
     public float yStrongAttackMin;
     public float yStrongAttackMax;
+    #endregion
 
+    #region MonoBehaviour Methods
     private void Awake()
     {
         x = 0f;
@@ -82,10 +74,6 @@ public class CameraController : MonoBehaviour {
         zX = 1.1f;
         zY = 0.13f;
         zZ = 4.22f;
-
-        t_distance = -2.2f;
-        t_cameraY = 0.6f;
-        t_fov = 40f;
     }
 
     private void Start()
@@ -100,15 +88,32 @@ public class CameraController : MonoBehaviour {
     {
         RotateCamera();
     }
+    #endregion
 
+    #region Public Methods
+    public void SetCameraXAngle(float x)
+    {
+        this.x = x;
+    }
+
+    public void SetCameraYAngle(float y)
+    {
+        this.y = y;
+    }
+    #endregion
+
+    #region Private Methods
     private void RotateCamera()
     {
         if(!GameManager.instance.gameIsPaused)
         {
-            if (InputManager.instance.GetRightStickLeft() || InputManager.instance.GetRightStickRight())
-                x += xSpeed * InputManager.instance.GetRightStickHorizontalSqrValue();
-            if (InputManager.instance.GetRightStickUp() || InputManager.instance.GetRightStickDown())
-                y += ySpeed * InputManager.instance.GetRightStickVerticalSqrValue();
+            if (playerScript.cameraState != Player.CameraState.STILL)
+            {
+                if (InputManager.instance.GetRightStickLeft() || InputManager.instance.GetRightStickRight())
+                    x += xSpeed * InputManager.instance.GetRightStickHorizontalSqrValue();
+                if (InputManager.instance.GetRightStickUp() || InputManager.instance.GetRightStickDown())
+                    y += ySpeed * InputManager.instance.GetRightStickVerticalSqrValue();
+            }
 
             if (playerScript.cameraState != lastState)
             {
@@ -427,15 +432,5 @@ public class CameraController : MonoBehaviour {
         }
         return true;
     }
-
-    public void SetCameraXAngle(float x)
-    {
-        this.x = x;
-    }
-
-    public void SetCameraYAngle(float y)
-    {
-        this.y = y;
-    }
-
+    #endregion
 }

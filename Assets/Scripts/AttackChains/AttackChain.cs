@@ -8,10 +8,12 @@ public class AttackChain
     public string name;
     public AttackType startAttack;
     public FollowUpAttack[] followUps;
+    public TutorialEventLauncher tutorialEventLauncher;
 
     [HideInInspector]
     public float elapsedTime;
     private int followUpIndex = -1;
+    private bool tutorialEventLaunched = false;
     #endregion
 
     #region Public Methods
@@ -136,6 +138,15 @@ public class AttackChain
             return followUps[followUpIndex].attack;
         else
             return AttackType.NONE;
+    }
+
+    public void LaunchFollowUpTutorialEvent()
+    {
+        if (!tutorialEventLaunched)
+        {
+            tutorialEventLaunched = true;
+            tutorialEventLauncher.LaunchEvent();
+        }
     }
     #endregion
 

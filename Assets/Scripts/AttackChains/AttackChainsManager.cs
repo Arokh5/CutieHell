@@ -124,6 +124,7 @@ public class AttackChainsManager : MonoBehaviour
         {
             if(chain.IsInTimeFrame())
             {
+                chain.LaunchFollowUpTutorialEvent();
                 Sprite spriteToAdd = AttackInfosManager.instance.GetSprite(chain.GetFollowUpAttack());
                 if (spriteToAdd)
                     spritesToDisplay.Add(spriteToAdd);
