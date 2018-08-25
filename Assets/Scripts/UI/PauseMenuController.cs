@@ -94,8 +94,7 @@ public class PauseMenuController : MonoBehaviour {
                     break;
 
                 case 3:
-                    Time.timeScale = 1.0f;
-                    GameManager.instance.gameState = GameManager.GameStates.OnGameEnd;
+                    GameManager.instance.ExitGame();
                     break;
             }
         }

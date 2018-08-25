@@ -139,8 +139,7 @@ public class TutorialManager : MonoBehaviour
                         activeEventMessage = eventMessage;
                         this.eventEndCallback = endCallback;
                         tutorialRunning = true;
-                        originalTimeScale = Time.timeScale;
-                        Time.timeScale = 0.0f;
+                        TimeManager.instance.FreezeTime();
                         screenFadeController.FadeToAlpha(messagesAlpha, 0.5f, () =>
                         {
                             ShowTutorialMessage(activeEventMessage);
@@ -186,7 +185,7 @@ public class TutorialManager : MonoBehaviour
         HideTutorialMessage(activeEventMessage);
         screenFadeController.FadeToTransparent(0.5f, () =>
         {
-            Time.timeScale = originalTimeScale;
+            TimeManager.instance.ResumeTime();
             activeEventMessage = null;
             tutorialRunning = false;
             if (eventEndCallback != null)

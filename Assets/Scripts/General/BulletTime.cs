@@ -9,8 +9,14 @@ public class BulletTime : MonoBehaviour {
     private float timeOnSlowdown = 0.0f;
 
     private bool inBulletTime = false;
-    [ShowOnly]
-    public bool paused = false;
+
+    private float currentTimeScale
+    {
+        get
+        {
+            return TimeManager.instance.GetTimeScale();
+        }
+    }
 
 	void Awake ()
     {
@@ -20,32 +26,34 @@ public class BulletTime : MonoBehaviour {
 	
 	void Update ()
     {
-        if (inBulletTime && !paused)
+        if (inBulletTime && !TimeManager.instance.IsTimeFrozen())
         {
-            if (!GameManager.instance.gameIsPaused)
+            if (currentTimeScale != 1.0f)
             {
-                if (Time.timeScale != 1.0f)
+                if (timeOnSlowdown < slowdownLength)
                 {
-                    if (timeOnSlowdown < slowdownLength)
-                    {
-                        timeOnSlowdown += Time.unscaledDeltaTime;
-                        Time.timeScale = Mathf.Clamp(Time.timeScale, 0.0f, 1.0f);
-                        Time.fixedDeltaTime = Time.timeScale * 0.02f;
-                    }
-                    else if (timeOnSlowdown < slowdownIncreaseTime + slowdownLength)
-                    {
-                        timeOnSlowdown += Time.unscaledDeltaTime;
-                        Time.timeScale += (1f / slowdownIncreaseTime) * Time.unscaledDeltaTime;
-                        Time.timeScale = Mathf.Clamp(Time.timeScale, 0.0f, 1.0f);
-                        Time.fixedDeltaTime = Time.timeScale * 0.02f;
-                    }
+                    timeOnSlowdown += Time.unscaledDeltaTime;
+                    TimeManager.instance.SetTimeScale(Mathf.Clamp(currentTimeScale, 0.0f, 1.0f));
+                    Time.fixedDeltaTime = currentTimeScale * 0.02f;
                 }
-                else
+                else if (timeOnSlowdown < slowdownIncreaseTime + slowdownLength)
                 {
-                    Time.timeScale = 1.0f;
-                    Time.fixedDeltaTime = Time.timeScale * 0.02f;
-                    inBulletTime = false;
+                    timeOnSlowdown += Time.unscaledDeltaTime;
+                    float targetTimeScale = TimeManager.instance.GetTimeScale();
+                    targetTimeScale += (1f / slowdownIncreaseTime) * Time.unscaledDeltaTime;
+                    targetTimeScale = Mathf.Clamp(targetTimeScale, 0.0f, 1.0f);
+                    if (targetTimeScale != 1.0f)
+                        TimeManager.instance.SetTimeScale(targetTimeScale);
+                    else
+                        TimeManager.instance.RestoreTimeScale();
+                    Time.fixedDeltaTime = targetTimeScale * 0.02f;
                 }
+            }
+            else
+            {
+                TimeManager.instance.RestoreTimeScale();
+                Time.fixedDeltaTime = currentTimeScale * 0.02f;
+                inBulletTime = false;
             }
         }
     }
@@ -53,8 +61,8 @@ public class BulletTime : MonoBehaviour {
     public void DoSlowmotion(float _slowdownFactor = 0.05f, float _slowdownLength = 0.5f, float _slowdownIncreaseTime = 0.15f)
     {
         inBulletTime = true;
-        Time.timeScale = _slowdownFactor;
-        Time.fixedDeltaTime = Time.timeScale * 0.02f;
+        TimeManager.instance.SetTimeScale(_slowdownFactor);
+        Time.fixedDeltaTime = currentTimeScale * 0.02f;
         slowdownLength = _slowdownLength;
         slowdownIncreaseTime = _slowdownIncreaseTime;
         timeOnSlowdown = 0.0f;

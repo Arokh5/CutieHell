@@ -140,6 +140,12 @@ public class GameManager : MonoBehaviour
         return !gameIsPaused && !avoidPlayerUpdate;
     }
 
+    public void ExitGame()
+    {
+        TimeManager.instance.ResumeTime();
+        gameState = GameStates.OnGameEnd;
+    }
+
     public void OnRoundWon()
     {
         Debug.Log("Round (index) " + aiSpawnController.GetCurrentRoundIndex() + " finished!");
@@ -209,7 +215,7 @@ public class GameManager : MonoBehaviour
     {
         if (gameState == GameStates.InGame)
         {
-            Time.timeScale = 0.0f;
+            TimeManager.instance.FreezeTime();
             //crosshair.SetActive(false);
 
             if (tutorialController.IsRunning())
@@ -239,7 +245,7 @@ public class GameManager : MonoBehaviour
             tutorialPauseMenuController.gameObject.SetActive(false);
             tutorialController.RequestEndTutorial();
 
-            Time.timeScale = 1.0f;
+            TimeManager.instance.ResumeTime();
 
             gameIsPaused = false;
 
@@ -278,7 +284,7 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        Time.timeScale = 1.0f;
+        TimeManager.instance.ResumeTime();
         gameIsPaused = false;
         gameState = GameStates.InGame;
         SceneManager.LoadScene("Game", LoadSceneMode.Single);
@@ -294,7 +300,6 @@ public class GameManager : MonoBehaviour
     #region Private Methods
     private void FreezePlayer()
     {
-        BulletTime.instance.paused = true;
         avoidPlayerUpdate = true;
         previousCameraState = player.cameraState;
         player.cameraState = Player.CameraState.STILL;
@@ -302,7 +307,6 @@ public class GameManager : MonoBehaviour
 
     private void ReleasePlayer()
     {
-        BulletTime.instance.paused = false;
         player.cameraState = previousCameraState;
         avoidPlayerUpdate = false;
     }
@@ -334,7 +338,7 @@ public class GameManager : MonoBehaviour
             //crosshair.SetActive(true);
         }
 
-        Time.timeScale = 1.0f;
+        TimeManager.instance.ResumeTime();
 
         gameIsPaused = false;
 

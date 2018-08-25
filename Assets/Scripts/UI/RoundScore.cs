@@ -102,7 +102,7 @@ public class RoundScore : MonoBehaviour {
         showingState = ShowingState.ACHIEVEMENTS;
 
         scoreCounterSpeed =  totalScore / roundScoreTotalTime;
-        Time.timeScale = 0;
+        TimeManager.instance.FreezeTime();
     }
 
     public void SetUpDamageReceivedCount(float damageReceived)
@@ -217,7 +217,7 @@ public class RoundScore : MonoBehaviour {
             //Disables the popup itself
             this.gameObject.SetActive(false);
 
-            Time.timeScale = 1;
+            TimeManager.instance.ResumeTime();
 
             GameManager.instance.GoToNextRound();
         }
