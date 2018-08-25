@@ -3,6 +3,9 @@
 [CreateAssetMenu(menuName = "Player State Machine/Actions/PlaceMine")]
 public class PlaceMine : StateAction
 {
+    [SerializeField]
+    private TutorialEventLauncher tutorialEventLauncher;
+
     public override void Act(Player player)
     {
         if (InputManager.instance.GetXButtonDown())
@@ -11,6 +14,7 @@ public class PlaceMine : StateAction
                 //&& player.availableMinesNumber > 0
                 )
             {
+                tutorialEventLauncher.LaunchEvent();
                 player.mineAttackCooldown.timeSinceLastAction = 0.0f;
                 player.InstantiateMine();
             }

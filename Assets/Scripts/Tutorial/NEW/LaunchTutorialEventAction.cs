@@ -4,10 +4,10 @@
 public class LaunchTutorialEventAction : StateAction
 {
     [SerializeField]
-    private TutorialEventLauncher eventLauncher;
+    private TutorialEventLauncher tutorialEventLauncher;
 
     public override void Act(Player player)
     {
-        eventLauncher.LaunchEvent();
+        tutorialEventLauncher.LaunchEvent();
     }
 }
