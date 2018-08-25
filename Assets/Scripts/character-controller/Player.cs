@@ -507,13 +507,18 @@ public class Player : MonoBehaviour, IDamageable
     {
         if (attackType == AttackType.ENEMY)
         {
-            GameManager.instance.LaunchTutorialEvent(enemyDamageIndex);
-            GameManager.instance.LaunchTutorialEvent(healthMechanicsIndex);
+            GameManager.instance.LaunchTutorialEvent(enemyDamageIndex, () =>
+            {
+                GameManager.instance.LaunchTutorialEvent(healthMechanicsIndex);
+            });
         }
         else if (attackType == AttackType.CUTE_AREA)
         {
-            GameManager.instance.LaunchTutorialEvent(cuteGroundIndex);
-            GameManager.instance.LaunchTutorialEvent(healthMechanicsIndex);
+            GameManager.instance.LaunchTutorialEvent(cuteGroundIndex, () =>
+            {
+                GameManager.instance.LaunchTutorialEvent(healthMechanicsIndex);
+            });
+            
         }
     }
 

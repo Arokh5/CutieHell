@@ -126,13 +126,24 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Public Methods
-    public void LaunchTutorialEvent(int eventIndex)
+    public bool LaunchTutorialEvent(int eventIndex, TutorialManager.VoidCallback endCallback = null)
     {
-        if (tutorialManager.LaunchEventMessage(eventIndex, OnTutorialEventFinished))
+        bool launched = false;
+        TutorialManager.VoidCallback finishCallback = OnTutorialEventFinished;
+
+        if (endCallback != null)
+        {
+            // Ensure the GameManager callback is called before any other callback
+            finishCallback += endCallback;
+        }
+
+        if (tutorialManager.LaunchEventMessage(eventIndex, finishCallback))
         {
             Debug.Log("GameManager: Tutorial Event " + eventIndex + " launched!");
             FreezePlayer();
+            launched = true;
         }
+        return launched;
     }
 
     public bool CanUpdatePlayer()

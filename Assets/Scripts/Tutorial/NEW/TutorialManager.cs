@@ -190,8 +190,9 @@ public class TutorialManager : MonoBehaviour
             tutorialRunning = false;
             if (eventEndCallback != null)
             {
-                eventEndCallback();
+                VoidCallback callback = eventEndCallback;
                 eventEndCallback = null;
+                callback();
             }
         });
     }
