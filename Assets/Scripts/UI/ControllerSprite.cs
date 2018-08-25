@@ -15,8 +15,9 @@ public class ControllerSprite : Observer
     #region MonoBehaviour Methods
     private void Awake()
     {
-        InputManager.instance.AddObserver(this);
         UnityEngine.Assertions.Assert.IsNotNull(image, "ERROR: Image (Image) not assigned for ControllerSprite script in GameObject " + gameObject.name);
+        InputManager.instance.AddObserver(this);
+        OnNotify();
     }
 
     private void OnValidate()
