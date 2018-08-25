@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -13,7 +12,6 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private TutorialManager tutorialManager;
-    public TutorialController tutorialController;
     [SerializeField]
     private ScreenFadeController screenFadeController;
 
@@ -28,8 +26,6 @@ public class GameManager : MonoBehaviour
     public bool gameIsPaused;
     [SerializeField]
     private PauseMenuController pauseMenuController;
-    [SerializeField]
-    private PauseMenuController tutorialPauseMenuController;
 
     public enum GameStates { OnStartMenu, InGame, OnRoundEnd, OnGameEnd, OnGamePaused };
     public GameStates gameState;
@@ -59,7 +55,6 @@ public class GameManager : MonoBehaviour
         UnityEngine.Assertions.Assert.IsNotNull(aiSpawnController, "ERROR: The GameManager in gameObject '" + gameObject.name + "' doesn't have an AISpawnController assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(scenarioController, "ERROR: The GameManager in gameObject '" + gameObject.name + "' doesn't have a ScenarioController assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(tutorialManager, "ERROR: The GameManager in gameObject '" + gameObject.name + "' doesn't have a TutorialManager assigned!");
-        UnityEngine.Assertions.Assert.IsNotNull(tutorialController, "ERROR: The GameManager in gameObject '" + gameObject.name + "' doesn't have a TutorialController assigned!");
         UnityEngine.Assertions.Assert.IsNotNull(screenFadeController, "ERROR: The GameManager in gameObject '" + gameObject.name + "' doesn't have a ScreenFadeController assigned!");
         //UnityEngine.Assertions.Assert.IsNotNull(crosshair, "ERROR: The GameManager in gameObject '" + gameObject.name + "' doesn't have a Crosshair assigned!");
 
@@ -107,10 +102,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    if (tutorialController.IsRunning())
-                        tutorialPauseMenuController.HandlePause();
-                    else
-                        pauseMenuController.HandlePause();
+                    pauseMenuController.HandlePause();
                 }
                 break;
         }
@@ -229,10 +221,7 @@ public class GameManager : MonoBehaviour
             TimeManager.instance.FreezeTime();
             //crosshair.SetActive(false);
 
-            if (tutorialController.IsRunning())
-                tutorialPauseMenuController.gameObject.SetActive(true);
-            else
-                pauseMenuController.gameObject.SetActive(true);
+            pauseMenuController.gameObject.SetActive(true);
 
             gameIsPaused = true;
 
@@ -245,22 +234,6 @@ public class GameManager : MonoBehaviour
         if (gameState == GameStates.OnGamePaused)
         {
             unpauseNextFrame = true;
-        }
-    }
-
-    public void SkipTutorial()
-    {
-        if (gameState == GameStates.OnGamePaused)
-        {
-            //crosshair.SetActive(true);
-            tutorialPauseMenuController.gameObject.SetActive(false);
-            tutorialController.RequestEndTutorial();
-
-            TimeManager.instance.ResumeTime();
-
-            gameIsPaused = false;
-
-            gameState = GameStates.InGame;
         }
     }
 
@@ -339,15 +312,8 @@ public class GameManager : MonoBehaviour
     {
         unpauseNextFrame = false;
 
-        if (tutorialController.IsRunning())
-        {
-            tutorialPauseMenuController.gameObject.SetActive(false);
-        }
-        else
-        {
-            pauseMenuController.gameObject.SetActive(false);
-            //crosshair.SetActive(true);
-        }
+        pauseMenuController.gameObject.SetActive(false);
+        //crosshair.SetActive(true);
 
         TimeManager.instance.ResumeTime();
 
