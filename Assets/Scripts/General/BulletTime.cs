@@ -48,6 +48,12 @@ public class BulletTime : MonoBehaviour {
                         TimeManager.instance.RestoreTimeScale();
                     Time.fixedDeltaTime = targetTimeScale * 0.02f;
                 }
+                else
+                {
+                    TimeManager.instance.RestoreTimeScale();
+                    Time.fixedDeltaTime = currentTimeScale * 0.02f;
+                    inBulletTime = false;
+                }
             }
             else
             {
