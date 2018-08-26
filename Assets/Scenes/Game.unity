@@ -1112,7 +1112,7 @@ Transform:
   - {fileID: 394686605}
   - {fileID: 460970810}
   m_Father: {fileID: 1655144164}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &50261081 stripped
 Transform:
@@ -11880,7 +11880,7 @@ Transform:
   m_Children:
   - {fileID: 1533764076}
   m_Father: {fileID: 1655144164}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &548769867
 Transform:
@@ -14235,28 +14235,13 @@ GameObject:
   - component: {fileID: 661903399}
   - component: {fileID: 661903398}
   - component: {fileID: 661903400}
-  - component: {fileID: 661903397}
-  m_Layer: 17
-  m_Name: CH_Terrain_Bridges_COLLIDER
+  m_Layer: 10
+  m_Name: CH_Terrain_Bridges_Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 1
   m_IsActive: 1
---- !u!64 &661903397
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 661903396}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 0
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: 494a8834fa5e9954588207c3c430e802, type: 3}
 --- !u!23 &661903398
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -18777,7 +18762,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1655144164}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: -73.872, z: 0}
 --- !u!65 &896850593
 BoxCollider:
@@ -27285,6 +27270,49 @@ Transform:
   m_PrefabParentObject: {fileID: 4221736623741722, guid: 663b71004d1fe7e44b1e2a63aba27e00,
     type: 2}
   m_PrefabInternal: {fileID: 1303853032}
+--- !u!1 &1305565206
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: 494a8834fa5e9954588207c3c430e802, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1305565207}
+  - component: {fileID: 1305565208}
+  m_Layer: 17
+  m_Name: CH_Terrain_Bridges_Collider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 1
+  m_IsActive: 1
+--- !u!4 &1305565207
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: 494a8834fa5e9954588207c3c430e802, type: 3}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1305565206}
+  m_LocalRotation: {x: -0, y: 0.00069817895, z: -0, w: 0.99999976}
+  m_LocalPosition: {x: 0.09, y: 0, z: -0.02}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1655144164}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0.08, z: 0}
+--- !u!64 &1305565208
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1305565206}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 494a8834fa5e9954588207c3c430e802, type: 3}
 --- !u!1001 &1310311357
 Prefab:
   m_ObjectHideFlags: 0
@@ -29820,7 +29848,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 871093438d33bc6449e064c1d00c762e, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 871093438d33bc6449e064c1d00c762e, type: 3}
       propertyPath: m_Enabled
@@ -30981,7 +31009,7 @@ Transform:
   m_LocalScale: {x: 1.0000004, y: 1, z: 1.0000004}
   m_Children: []
   m_Father: {fileID: 1655144164}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: -37.711002, z: 0}
 --- !u!65 &1445017981
 BoxCollider:
@@ -32472,7 +32500,7 @@ Transform:
   - {fileID: 452123049}
   - {fileID: 986155959}
   m_Father: {fileID: 1655144164}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1515802805
 Prefab:
@@ -34881,6 +34909,7 @@ Transform:
   - {fileID: 50261081}
   - {fileID: 1680647792}
   - {fileID: 661903395}
+  - {fileID: 1305565207}
   - {fileID: 378145154}
   - {fileID: 1765686741}
   - {fileID: 1514807199}
@@ -37410,7 +37439,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1655144164}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &1765686742
 MeshCollider:
@@ -38644,7 +38673,7 @@ Transform:
   m_LocalScale: {x: 1.0000001, y: 1, z: 1.0000001}
   m_Children: []
   m_Father: {fileID: 1655144164}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: -3.236, y: -1.056, z: -3.4900002}
 --- !u!65 &1835207981
 BoxCollider:
@@ -44368,7 +44397,7 @@ Prefab:
       objectReference: {fileID: 2100000, guid: a362b8983446b7c44a1f283c7d41d78a, type: 2}
     - target: {fileID: 100000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
       propertyPath: m_Enabled
@@ -44406,6 +44435,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: a362b8983446b7c44a1f283c7d41d78a, type: 2}
+    - target: {fileID: 100000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
+      propertyPath: m_Name
+      value: CH_Terrain_Bridges_Walls
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5b0588607beff9c49bf4fe501a16f070, type: 3}
   m_IsPrefabParent: 0
