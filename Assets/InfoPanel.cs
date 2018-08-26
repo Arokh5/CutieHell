@@ -19,31 +19,20 @@ public class InfoPanel : MonoBehaviour
     #region Fields
     [SerializeField]
     private bool startActive;
+    [SerializeField]
+    [ShowOnly]
+    private bool inShownState;
 
     private GraphicInfo[] graphicInfos;
     
-    [SerializeField]
     private bool showFlag = false;
-    [SerializeField]
     private bool hideFlag = false;
-    [SerializeField]
     private bool showHideFlag = false;
-    [SerializeField]
+
     private float elapsedTime;
-    [SerializeField]
     private float blendDuration;
-    [SerializeField]
     private float displayDuration;
 
-    [Header("Testing")]
-    [Range(0.0f, 1.0f)]
-    public float alpha;
-    public bool update;
-    public float blend = 1.0f;
-    public float display = 2.0f;
-    public bool show;
-    public bool hide;
-    public bool showHide;
     #endregion
 
     #region Properties
@@ -88,31 +77,6 @@ public class InfoPanel : MonoBehaviour
             }
         }
     }
-
-    private void OnValidate()
-    {
-        if (graphicInfos == null || update)
-        {
-            update = false;
-            SetupGraphicInfos();
-        }
-        SetAlphaFactor(alpha);
-        if (show)
-        {
-            show = false;
-            ShowAnimated(blend, display);
-        }
-        if (hide)
-        {
-            hide = false;
-            HideAnimated(blend, display);
-        }
-        if (showHide)
-        {
-            showHide = false;
-            ShowHideAnimated(blend, display);
-        }
-    }
     #endregion
 
     #region Public Methods
@@ -120,6 +84,7 @@ public class InfoPanel : MonoBehaviour
     {
         ResetAnimationFlags();
         SetAlphaFactor(1.0f);
+        inShownState = true;
         gameObject.SetActive(true);
     }
 
@@ -127,24 +92,22 @@ public class InfoPanel : MonoBehaviour
     {
         gameObject.SetActive(false);
         SetAlphaFactor(0.0f);
+        inShownState = false;
         ResetAnimationFlags();
     }
 
-    public bool ShowAnimated(float _blendDuration, float _displayDuration)
+    public bool ShowAnimated(float _blendDuration)
     {
-        gameObject.SetActive(true);
-        return SetupAnimation(_blendDuration, _displayDuration, true, false);
+        return SetupAnimation(_blendDuration, 0.0f, true, false);
     }
 
-    public bool HideAnimated(float _blendDuration, float _displayDuration)
+    public bool HideAnimated(float _blendDuration)
     {
-        gameObject.SetActive(true);
-        return SetupAnimation(_blendDuration, _displayDuration, false, true);
+        return SetupAnimation(_blendDuration, 0.0f, false, true);
     }
 
     public bool ShowHideAnimated(float _blendDuration, float _displayDuration)
     {
-        gameObject.SetActive(true);
         return SetupAnimation(_blendDuration, _displayDuration, true, true);
     }
     #endregion
@@ -162,25 +125,28 @@ public class InfoPanel : MonoBehaviour
 
     private bool SetupAnimation(float _blendDuration, float _displayDuration, bool show, bool hide)
     {
-        if (animating || (!show && !hide))
+        bool success = false;
+
+        if (!animating && !(!show && !hide))
         {
-            Debug.Log("WILL NOT!");
-            return false;
-        }
-        else
-        {
-            Debug.Log("WILL DO!");
-            if (show && hide)
+            if ((show && hide) && !inShownState)
                 showHideFlag = true;
-            else if (show)
+            else if (show && !inShownState)
                 showFlag = true;
-            else if (hide)
+            else if (hide && inShownState)
                 hideFlag = true;
-            elapsedTime = 0.0f;
-            blendDuration = _blendDuration;
-            displayDuration = _displayDuration;
-            return true;
+
+            if (animating)
+            {
+                success = true;
+                gameObject.SetActive(true);
+                elapsedTime = 0.0f;
+                blendDuration = _blendDuration;
+                displayDuration = _displayDuration;
+            }
         }
+
+        return success;
     }
 
     private void ResetAnimationFlags()
@@ -204,6 +170,7 @@ public class InfoPanel : MonoBehaviour
     {
         if (elapsedTime < blendDuration)
         {
+            inShownState = true;
             elapsedTime += Time.deltaTime;
             float alphaFactor = elapsedTime / blendDuration;
             if (alphaFactor > 1.0f)
@@ -220,6 +187,7 @@ public class InfoPanel : MonoBehaviour
     {
         if (elapsedTime < blendDuration)
         {
+            inShownState = false;
             elapsedTime += Time.deltaTime;
             float alphaFactor = elapsedTime / blendDuration;
             alphaFactor = 1.0f - alphaFactor;
@@ -241,6 +209,7 @@ public class InfoPanel : MonoBehaviour
 
         if (elapsedTime < blendDuration)
         {
+            inShownState = true;
             alphaFactor = elapsedTime / blendDuration;
             if (alphaFactor > 1.0f)
                 alphaFactor = 1.0f;
@@ -252,6 +221,7 @@ public class InfoPanel : MonoBehaviour
         }
         else if (elapsedTime > blendDuration + displayDuration && elapsedTime <= 2 * blendDuration + displayDuration)
         {
+            inShownState = false;
             float u = (elapsedTime - (blendDuration + displayDuration)) / blendDuration;
             alphaFactor = 1 - u;
             if (alphaFactor < 0.0f)
