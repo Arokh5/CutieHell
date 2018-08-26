@@ -19,10 +19,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4088519737804120}
-  - component: {fileID: 33542843821021564}
   - component: {fileID: 65483958666092752}
-  - component: {fileID: 23530283302612928}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: COLLIDER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,10 +35,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4364827001535190}
-  - component: {fileID: 33425430846885108}
   - component: {fileID: 65601500287624022}
-  - component: {fileID: 23541642426146154}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: COLLIDER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +53,7 @@ GameObject:
   - component: {fileID: 4857714719370494}
   - component: {fileID: 33076525769715920}
   - component: {fileID: 23490599465183866}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CH_CE_prop_Sarcophagus_Open_Hell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,15 +92,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1511987805648508}
-  m_LocalRotation: {x: -0.19484937, y: -0, z: -0.0000000018626454, w: 0.98083323}
-  m_LocalPosition: {x: -4.29, y: 1.264, z: -15.29}
-  m_LocalScale: {x: 1, y: 1, z: 0.9999999}
+  m_LocalRotation: {x: -0.028825905, y: 0.97527677, z: 0.11763702, w: 0.1848401}
+  m_LocalPosition: {x: -17.26, y: 1.0581207, z: 9.62}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4364827001535190}
   - {fileID: 4088519737804120}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -22.472, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -13.893001, y: 157.99501, z: -0.75200003}
 --- !u!23 &23490599465183866
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -139,74 +135,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!23 &23530283302612928
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1003398307751992}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!23 &23541642426146154
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1405173660656666}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!33 &33076525769715920
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -214,20 +142,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1511987805648508}
   m_Mesh: {fileID: 4300000, guid: 257f30d003e8e6048baea2ffa8471fff, type: 3}
---- !u!33 &33425430846885108
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1405173660656666}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!33 &33542843821021564
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1003398307751992}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!65 &65483958666092752
 BoxCollider:
   m_ObjectHideFlags: 1
