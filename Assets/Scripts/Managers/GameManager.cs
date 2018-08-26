@@ -277,7 +277,8 @@ public class GameManager : MonoBehaviour
     public void StartNextRound()
     {
         aiSpawnController.StartNextRound();
-        player.OnRoundStarted();
+        if (aiSpawnController.GetCurrentRoundIndex() > 0)
+            player.OnRoundStarted();
     }
     #endregion
 
