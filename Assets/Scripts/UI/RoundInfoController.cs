@@ -13,7 +13,7 @@ public class RoundInfoController : MonoBehaviour
     [SerializeField]
     private FillIndicator waveDelayFillIndicator;
     [SerializeField]
-    private Text rushPrompt;
+    private Text waveComingPrompt;
 
     private int currentWaveNumber = -1;
     private int totalWavesCount = -1;
@@ -31,6 +31,11 @@ public class RoundInfoController : MonoBehaviour
     #endregion
 
     #region Public Methods
+    public int GetEnemiesCount()
+    {
+        return enemiesCount;
+    }
+
     public void SetWaveIndicator(int currentWaveNumber, int totalWavesNumber)
     {
         SetCurrentWave(currentWaveNumber);
@@ -86,9 +91,9 @@ public class RoundInfoController : MonoBehaviour
         waveDelayFillIndicator.enabled = isVisible;
     }
 
-    public void SetRushPromptVisibility(bool isVisible)
+    public void SetWaveComingPromptVisibility(bool isVisible)
     {
-        rushPrompt.enabled = isVisible;
+        waveComingPrompt.gameObject.SetActive(isVisible);
     }
     #endregion
 }
