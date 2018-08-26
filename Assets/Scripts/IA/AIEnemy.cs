@@ -244,7 +244,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
             }
             else
             {
-                GizmosHelper.DrawArrow(transform.position + offset, navAttackTarget.transform.position + offset, 1.25f);
+                if (navAttackTarget)
+                    GizmosHelper.DrawArrow(transform.position + offset, navAttackTarget.transform.position + offset, 1.25f);
             }
             if (hasPlayerAsDetected)
             {

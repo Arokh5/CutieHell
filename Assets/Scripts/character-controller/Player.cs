@@ -74,6 +74,7 @@ public class Player : MonoBehaviour, IDamageable
     public float postRecoveryDelay = 0.5f;
     [ShowOnly]
     public bool isTargetable = true;
+    public InfoPanel cuteGroundsInfoPanel;
 
     [HideInInspector]
     public float elapsedRecoveryTime;

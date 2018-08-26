@@ -84,7 +84,7 @@ public class AISpawnController : MonoBehaviour
         UIManager.instance.roundInfoController.SetWaveIndicator(0, roundInfos.Length > 0 ? roundInfos[0].waveInfos.Length : 0);
         UIManager.instance.roundInfoController.SetWaveDelayFill(0);
         UIManager.instance.roundInfoController.SetWaveDelayVisibility(false);
-        UIManager.instance.roundInfoController.SetRushPromptVisibility(false);
+        UIManager.instance.roundInfoController.SetWaveComingPromptVisibility(false);
     }
 
     private void Update()
@@ -93,7 +93,7 @@ public class AISpawnController : MonoBehaviour
         {
             if (waveDelayLeft > 0)
             {
-                rushingWave = AnyArrow();
+                rushingWave = ShouldRushWave();
                 waveDelayLeft -= Time.deltaTime * (rushingWave ? waveDelayRushSpeed : 1);
                 if (waveDelayLeft <= 0)
                 {
@@ -144,7 +144,7 @@ public class AISpawnController : MonoBehaviour
             UIManager.instance.roundInfoController.SetEnemiesCount(0);
             UIManager.instance.roundInfoController.SetWaveIndicator(0, roundInfo.waveInfos.Length);
             UIManager.instance.roundInfoController.SetWaveDelayVisibility(true);
-            UIManager.instance.roundInfoController.SetRushPromptVisibility(true);
+            UIManager.instance.roundInfoController.SetWaveComingPromptVisibility(true);
             Debug.Log("Starting round (index) " + currentRoundIndex + "!");
             return true;
         }
@@ -174,7 +174,7 @@ public class AISpawnController : MonoBehaviour
             UIManager.instance.roundInfoController.AddToEnemiesCount(waveInfo.totalEnemies);
             UIManager.instance.roundInfoController.SetWaveDelayFill(0);
             UIManager.instance.roundInfoController.SetWaveDelayVisibility(false);
-            UIManager.instance.roundInfoController.SetRushPromptVisibility(false);
+            UIManager.instance.roundInfoController.SetWaveComingPromptVisibility(false);
             UIManager.instance.roundInfoController.SetWaveIndicator(currentWaveIndex + 1, roundInfo.waveInfos.Length);
             return true;
         }
@@ -193,7 +193,7 @@ public class AISpawnController : MonoBehaviour
             currentRoundIndex = roundIndex - 1;
             UIManager.instance.roundInfoController.SetEnemiesCount(0);
             UIManager.instance.roundInfoController.SetWaveDelayFill(0);
-            UIManager.instance.roundInfoController.SetRushPromptVisibility(false);
+            UIManager.instance.roundInfoController.SetWaveComingPromptVisibility(false);
             return StartNextRound();
         }
         return false;
@@ -218,7 +218,7 @@ public class AISpawnController : MonoBehaviour
                 waveDelayLeft = 0;
                 UIManager.instance.roundInfoController.SetEnemiesCount(0);
                 UIManager.instance.roundInfoController.SetWaveDelayFill(0);
-                UIManager.instance.roundInfoController.SetRushPromptVisibility(false);
+                UIManager.instance.roundInfoController.SetWaveComingPromptVisibility(false);
                 return StartNextWave();
             }
         }
@@ -291,12 +291,9 @@ public class AISpawnController : MonoBehaviour
     #endregion
 
     #region Private Methods
-    private bool AnyArrow()
+    private bool ShouldRushWave()
     {
-        return InputManager.instance.GetPadUp()
-            || InputManager.instance.GetPadDown()
-            || InputManager.instance.GetPadLeft()
-            || InputManager.instance.GetPadRight();
+        return currentWaveIndex > -1 && UIManager.instance.roundInfoController.GetEnemiesCount() == 0;
     }
 
     private void HandleActiveWaves()
@@ -335,7 +332,7 @@ public class AISpawnController : MonoBehaviour
             currentWaveFinished = true;
             UIManager.instance.roundInfoController.SetWaveDelayFill(0);
             UIManager.instance.roundInfoController.SetWaveDelayVisibility(true);
-            UIManager.instance.roundInfoController.SetRushPromptVisibility(true);
+            UIManager.instance.roundInfoController.SetWaveComingPromptVisibility(true);
         }
     }
 

@@ -20,8 +20,17 @@ public class MonumentsHealthBar : MonoBehaviour
     private Image healthImage;
     [SerializeField]
     private Text barText;
+    [SerializeField]
+    private GameObject alertPrompt;
 
     private float currentFill = 1.0f;
+
+    [Header("Damage alert setup")]
+    [SerializeField]
+    private float alertDuration = 2.0f;
+
+    private bool alerting;
+    private float alertTimeLeft = 0.0f;
 
     [Header("Refill animation setup")]
     [SerializeField]
@@ -68,6 +77,7 @@ public class MonumentsHealthBar : MonoBehaviour
         initialScale = rectTransform.localScale;
         initialColor = backgroundImage.color;
         refilling = false;
+        alertPrompt.SetActive(false);
     }
 
     private void Update()
@@ -77,6 +87,9 @@ public class MonumentsHealthBar : MonoBehaviour
 
         if (flashing)
             FlashAnimation();
+
+        if (alerting)
+            AlertAnimation();
     }
     #endregion
 
@@ -97,7 +110,10 @@ public class MonumentsHealthBar : MonoBehaviour
         currentFill = normalizedFill;
 
         if (!refilling)
+        {
             healthImage.fillAmount = normalizedFill;
+            StartAlertAnimation();
+        }
 
         if (normalizedFill < flashThreshold && normalizedFill > 0)
             StartFlashAnimation();
@@ -119,6 +135,29 @@ public class MonumentsHealthBar : MonoBehaviour
     #endregion
 
     #region Private Methods
+    private void StartAlertAnimation()
+    {
+        alerting = true;
+        alertPrompt.SetActive(true);
+        alertTimeLeft = alertDuration;
+    }
+
+    private void AlertAnimation()
+    {
+        alertTimeLeft -= Time.deltaTime;
+        if (alertTimeLeft <= 0.0f)
+        {
+            StopAlertAnimation();
+        }
+    }
+
+    private void StopAlertAnimation()
+    {
+        alerting = false;
+        alertPrompt.SetActive(false);
+        alertTimeLeft = 0.0f;
+    }
+
     private void StartRefillAnimation()
     {
         refilling = true;
