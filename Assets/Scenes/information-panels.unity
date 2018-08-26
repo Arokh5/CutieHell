@@ -17686,7 +17686,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: You can't access an area conquered by the cuties!
+  m_Text: WATCH OUT! Taking damage due to cute grounds!
 --- !u!222 &624780594
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -49769,7 +49769,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76600fb0ca3b6e14d885896a5fad5110, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startActive: 0
+  showFlag: 0
+  hideFlag: 0
+  showHideFlag: 0
+  elapsedTime: 0
+  blendDuration: 1
+  displayDuration: 2
   alpha: 1
+  update: 0
+  blend: 1
+  display: 2
+  show: 0
+  hide: 0
+  showHide: 0
 --- !u!4 &1830657025 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4553282408530516, guid: 16db27611b219974b9e1e4bd30f1072e,
@@ -50302,6 +50315,7 @@ GameObject:
   - component: {fileID: 1850334139}
   - component: {fileID: 1850334141}
   - component: {fileID: 1850334140}
+  - component: {fileID: 1850334142}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -50360,6 +50374,20 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1850334138}
+--- !u!114 &1850334142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1850334138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d489043b89c6c0844b2887d43e2852bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frequency: 1
+  amplitude: 0.02
+  flashOnAwake: 1
 --- !u!1001 &1850721073
 Prefab:
   m_ObjectHideFlags: 0
