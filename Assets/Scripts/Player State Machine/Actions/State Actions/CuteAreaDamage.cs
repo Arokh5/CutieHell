@@ -4,6 +4,8 @@
 public class CuteAreaDamage : StateAction
 {
     public float cuteAreaDps = 10.0f;
+    public float infoPanelBlendDuration = 0.5f;
+
     private TextureChangerSource textureChangerSource;
 
     public override void Act(Player player)
@@ -24,6 +26,11 @@ public class CuteAreaDamage : StateAction
             if (inCuteArea)
             {
                 player.TakeDamage(cuteAreaDps * Time.deltaTime, AttackType.CUTE_AREA);
+                player.cuteGroundsInfoPanel.ShowAnimated(infoPanelBlendDuration);
+            }
+            else
+            {
+                player.cuteGroundsInfoPanel.HideAnimated(infoPanelBlendDuration);
             }
         }
     }

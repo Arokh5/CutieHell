@@ -12078,9 +12078,8 @@ RectTransform:
   - {fileID: 1346871060}
   - {fileID: 1770641987}
   - {fileID: 33831648}
-  - {fileID: 1484538591}
   m_Father: {fileID: 928893931}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -14598,6 +14597,11 @@ Prefab:
       propertyPath: meteoriteAttackCooldown.cooldownUI
       value: 
       objectReference: {fileID: 1259730771}
+    - target: {fileID: 114680497408467142, guid: 864a6d707bc61ed4fa52dbff8862d9ef,
+        type: 2}
+      propertyPath: cuteGroundsInfoPanel
+      value: 
+      objectReference: {fileID: 1827225854}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 864a6d707bc61ed4fa52dbff8862d9ef, type: 2}
   m_IsPrefabParent: 0
@@ -14728,7 +14732,7 @@ RectTransform:
   - {fileID: 2119613752}
   - {fileID: 988365116}
   m_Father: {fileID: 928893931}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -22591,7 +22595,7 @@ RectTransform:
   - {fileID: 128438537}
   - {fileID: 1776584607}
   m_Father: {fileID: 928893931}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -25143,6 +25147,7 @@ RectTransform:
   - {fileID: 1807202193}
   - {fileID: 425619907}
   - {fileID: 1928058918}
+  - {fileID: 1827225853}
   - {fileID: 402508047}
   - {fileID: 496318082}
   - {fileID: 823969474}
@@ -41046,40 +41051,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9e98d938b0a4b874dbfd69c3a218d256, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1484538590
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1484538591}
-  m_Layer: 5
-  m_Name: InfoMessages
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1484538591
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1484538590}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1827225853}
-  m_Father: {fileID: 402508047}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1488729346
 GameObject:
   m_ObjectHideFlags: 0
@@ -49732,12 +49703,12 @@ GameObject:
   - component: {fileID: 1827225853}
   - component: {fileID: 1827225854}
   m_Layer: 5
-  m_Name: InfoPanel
+  m_Name: CuteGroundsInfoPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1827225853
 RectTransform:
   m_ObjectHideFlags: 0
@@ -49750,8 +49721,8 @@ RectTransform:
   m_Children:
   - {fileID: 1850334139}
   - {fileID: 624780592}
-  m_Father: {fileID: 1484538591}
-  m_RootOrder: 0
+  m_Father: {fileID: 928893931}
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -49770,19 +49741,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startActive: 0
-  showFlag: 0
-  hideFlag: 0
-  showHideFlag: 0
-  elapsedTime: 0
-  blendDuration: 1
-  displayDuration: 2
-  alpha: 1
-  update: 0
-  blend: 1
-  display: 2
-  show: 0
-  hide: 0
-  showHide: 0
+  inShownState: 0
 --- !u!4 &1830657025 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4553282408530516, guid: 16db27611b219974b9e1e4bd30f1072e,
