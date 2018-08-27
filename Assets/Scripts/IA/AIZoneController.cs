@@ -37,6 +37,7 @@ public class AIZoneController : MonoBehaviour
     private List<AIEnemy> aiEnemies;
 
     [Header("Zone Conquering")]
+    public ZoneLossTransition zoneLossTransition;
     public TeleportTarget playerExpelTarget;
     public List<BuildingEffects> buildingEffects;
 
@@ -138,13 +139,15 @@ public class AIZoneController : MonoBehaviour
             OnTargetBuildingChanged();
         }
 
-        if (playerExpelTarget != null)
-            GameManager.instance.GetPlayer1().ExpelFromZone(this, playerExpelTarget);
+        GameManager.instance.GetPlayer1().OnRoundOver();
+        scenarioController.FreezeAllEnemies();
 
-        foreach (IZoneTakenListener listener in zoneTakenListeners)
-            listener.OnZoneTaken();
-
-        UIManager.instance.markersController.MonumentConquered(iconIndex);
+        if (zoneLossTransition)
+        {
+            zoneLossTransition.StartTransition(OnZoneTransitionFinished);
+        }
+        else
+            OnZoneTransitionFinished();
     }
 
     // Called by AIEnemy when it finishes conquering a Building or when the trap it was attacking becomes inactive
@@ -191,6 +194,22 @@ public class AIZoneController : MonoBehaviour
             }
         }
         return removed;
+    }
+
+    public void FreezeEnemies()
+    {
+        foreach (AIEnemy enemy in aiEnemies)
+        {
+            enemy.Freeze();
+        }
+    }
+
+    public void ResumeEnemies()
+    {
+        foreach (AIEnemy enemy in aiEnemies)
+        {
+            enemy.Resume();
+        }
     }
 
     // Called by CuteEffects to register
@@ -286,6 +305,21 @@ public class AIZoneController : MonoBehaviour
         {
             enemy.SetCurrentTarget(currentZoneTarget);
         }
+    }
+
+    private void OnZoneTransitionFinished()
+    {
+        scenarioController.ResumeAllEnemies();
+        Player player = GameManager.instance.GetPlayer1();
+        player.OnRoundStarted();
+        if (playerExpelTarget != null)
+            player.ExpelFromZone(this, playerExpelTarget);
+
+
+        foreach (IZoneTakenListener listener in zoneTakenListeners)
+            listener.OnZoneTaken();
+
+        UIManager.instance.markersController.MonumentConquered(iconIndex);
     }
     #endregion
 }

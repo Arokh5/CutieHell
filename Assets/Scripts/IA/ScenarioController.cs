@@ -71,6 +71,22 @@ public class ScenarioController : MonoBehaviour
             CheckRoundWon();
     }
 
+    public void FreezeAllEnemies()
+    {
+        foreach (AIZoneController zoneController in zoneControllers)
+        {
+            zoneController.FreezeEnemies();
+        }
+    }
+
+    public void ResumeAllEnemies()
+    {
+        foreach (AIZoneController zoneController in zoneControllers)
+        {
+            zoneController.ResumeEnemies();
+        }
+    }
+
     public void OnNewWaveStarted()
     {
         lastSpawnIsOver = false;
