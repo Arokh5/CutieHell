@@ -16,6 +16,17 @@ public class CameraMotion : ScriptedAnimation
     private Quaternion startRotation;
     private Quaternion targetRotationQuat;
     private float elapsedTime;
+
+#if UNITY_EDITOR
+    [SerializeField]
+    private bool previewCamera = false;
+    private bool initialized = false;
+    private bool restored = true;
+    private Transform cameraTransform;
+    private Vector3 originalCameraPos;
+    private Quaternion originalCameraRot;
+#endif
+
     #endregion
 
     #region MonoBehaviour Methods
@@ -37,6 +48,30 @@ public class CameraMotion : ScriptedAnimation
     {
         if (motionDuration < 0.0f)
             motionDuration = 0.0f;
+
+#if UNITY_EDITOR
+        if (previewCamera)
+        {
+            if (!initialized)
+            {
+                initialized = true;
+                restored = false;
+                Debug.Log("INFO: Remember to unclick the 'Preview Camera' checkbox before moving away from the GameObject + '" + gameObject.name + "'.");
+                cameraTransform = Camera.main.transform;
+                originalCameraPos = cameraTransform.position;
+                originalCameraRot = cameraTransform.rotation;
+            }
+            cameraTransform.position = targetPosition;
+            cameraTransform.rotation = Quaternion.Euler(targetRotation);
+        }
+        else if (!restored)
+        {
+            restored = true;
+            initialized = false;
+            cameraTransform.position = originalCameraPos;
+            cameraTransform.rotation = originalCameraRot;
+        }
+#endif
     }
     #endregion
 

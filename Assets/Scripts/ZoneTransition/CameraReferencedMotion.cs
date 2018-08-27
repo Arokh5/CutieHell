@@ -20,6 +20,17 @@ public class CameraReferencedMotion : ScriptedAnimation
     private Quaternion startRotation;
     private Quaternion targetRotationQuat;
     private float elapsedTime;
+
+#if UNITY_EDITOR
+    [SerializeField]
+    private bool previewCamera = false;
+    private bool initialized = false;
+    private bool restored = true;
+    private Transform cameraTransform;
+    private Vector3 originalCameraPos;
+    private Quaternion originalCameraRot;
+#endif
+
     #endregion
 
     #region MonoBehaviour Methods
@@ -42,6 +53,37 @@ public class CameraReferencedMotion : ScriptedAnimation
     {
         if (motionDuration < 0.0f)
             motionDuration = 0.0f;
+
+#if UNITY_EDITOR
+        if (previewCamera)
+        {
+            if (!reference)
+            {
+                previewCamera = false;
+                Debug.LogError("ERROR: Reference (Transform) not assigned for CameraReferencedMotion script!");
+                return;
+            }
+
+            if (!initialized)
+            {
+                initialized = true;
+                restored = false;
+                Debug.Log("INFO: Remember to unclick the 'Preview Camera' checkbox before moving away from the GameObject + '" + gameObject.name + "'.");
+                cameraTransform = Camera.main.transform;
+                originalCameraPos = cameraTransform.position;
+                originalCameraRot = cameraTransform.rotation;
+            }
+            cameraTransform.position = reference.TransformPoint(localTargetPosition);
+            cameraTransform.rotation = reference.transform.rotation * Quaternion.Euler(localTargetRotation);
+        }
+        else if (!restored)
+        {
+            restored = true;
+            initialized = false;
+            cameraTransform.position = originalCameraPos;
+            cameraTransform.rotation = originalCameraRot;
+        }
+#endif
     }
     #endregion
 
