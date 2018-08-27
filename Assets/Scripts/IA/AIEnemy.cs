@@ -395,7 +395,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
             killingHit = attacktype;
             Achievements.instance.IncreaseCurrentCountKillingType(1, killingHit);
             animator.SetBool("DieStandard", true);
-            SoundManager.instance.PlaySfxClip(audioSource,deathSFX,true);
+            DeathSound();
         }
         else
         {
@@ -407,6 +407,11 @@ public class AIEnemy : MonoBehaviour, IDamageable
     }
 
     // IDamageable
+    public void DeathSound()
+    {
+        audioSource.pitch = Random.Range(0.9f,1.1f);
+        SoundManager.instance.PlaySfxClip(audioSource, deathSFX, true);
+    }
     public bool IsTargetable()
     {
         return true;
@@ -456,7 +461,6 @@ public class AIEnemy : MonoBehaviour, IDamageable
         StatsManager.instance.RegisterKill(enemyType);
         zoneController.RemoveEnemy(this);
         killingHit = AttackType.NONE;
-
         if (deathVFX != null)
             ParticlesManager.instance.LaunchParticleSystem(deathVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation);
 
