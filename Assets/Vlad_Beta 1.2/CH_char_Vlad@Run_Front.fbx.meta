@@ -72,6 +72,8 @@ ModelImporter:
     100128: mixamorig:Spine
     100130: mixamorig:Spine1
     100132: mixamorig:Spine2
+    100134: default
+    100136: vlad_low4:CH_char_Vlad1
     400000: CH_char_Vlad
     400002: //RootNode
     400004: mixamorig:Head
@@ -139,11 +141,19 @@ ModelImporter:
     400128: mixamorig:Spine
     400130: mixamorig:Spine1
     400132: mixamorig:Spine2
+    400134: default
+    400136: vlad_low4:CH_char_Vlad1
     2100000: lambert1
+    2100002: No Name
+    2300000: default
+    3300000: default
     4300000: CH_char_Vlad
-    7400000: Take 001
+    4300002: default
+    4300004: vlad_low4:CH_char_Vlad1
+    7400000: Run_Front
     9500000: //RootNode
     13700000: CH_char_Vlad
+    13700002: vlad_low4:CH_char_Vlad1
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -170,7 +180,35 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Run_Front
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 22
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []

@@ -1,12 +1,12 @@
 fileFormatVersion: 2
-guid: d3ed6e0b5c021cc49b84cf8089d45fdf
-timeCreated: 1534206162
+guid: 52ae8cacf50de1e47a5186731d34a1fa
+timeCreated: 1535394243
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: CH_char_Vlad
-    100002: //RootNode
+    100000: //RootNode
+    100002: default
     100004: mixamorig:Head
     100006: mixamorig:HeadTop_End
     100008: mixamorig:Hips
@@ -72,8 +72,9 @@ ModelImporter:
     100128: mixamorig:Spine
     100130: mixamorig:Spine1
     100132: mixamorig:Spine2
-    400000: CH_char_Vlad
-    400002: //RootNode
+    100134: vlad_low4:CH_char_Vlad1
+    400000: //RootNode
+    400002: default
     400004: mixamorig:Head
     400006: mixamorig:HeadTop_End
     400008: mixamorig:Hips
@@ -139,16 +140,18 @@ ModelImporter:
     400128: mixamorig:Spine
     400130: mixamorig:Spine1
     400132: mixamorig:Spine2
-    2100000: lambert1
-    2100002: Cape___Complements
-    2100004: body
-    4300000: CH_char_Vlad
-    7400000: Idle
+    400134: vlad_low4:CH_char_Vlad1
+    2100000: No Name
+    2300000: default
+    3300000: default
+    4300000: default
+    4300002: vlad_low4:CH_char_Vlad1
+    7400000: Attack_Dash
     9500000: //RootNode
-    13700000: CH_char_Vlad
+    13700000: vlad_low4:CH_char_Vlad1
   externalObjects: {}
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -174,10 +177,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Idle
-      takeName: Take 001
+      name: Attack_Dash
+      takeName: mixamo.com
       firstFrame: 0
-      lastFrame: 26
+      lastFrame: 19
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
