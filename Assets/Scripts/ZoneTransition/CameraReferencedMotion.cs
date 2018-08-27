@@ -51,12 +51,12 @@ public class CameraReferencedMotion : ScriptedAnimation
     {
         animating = true;
         elapsedTime = 0.0f;
-        startPosition = reference.InverseTransformVector(gameCamera.transform.position);
+        startPosition = reference.InverseTransformPoint(gameCamera.transform.position);
         startRotation = Quaternion.Inverse(reference.transform.rotation) * gameCamera.transform.rotation;
     }
     #endregion
 
-    #region
+    #region Private Methods
     private void MotionAnimation()
     {
         elapsedTime += Time.deltaTime;
