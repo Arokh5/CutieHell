@@ -253,7 +253,9 @@ public class GameManager : MonoBehaviour
         StatsManager.instance.GetReceivedDamageCombo().ResetCombo();
         gameState = GameStates.InGame;
 
-        StartNextRound();
+        aiSpawnController.StartNextRound();
+        if (aiSpawnController.GetCurrentRoundIndex() > 0)
+            player.OnRoundStarted();
     }
 
     public void GoToTitleScreen()
@@ -272,13 +274,6 @@ public class GameManager : MonoBehaviour
         gameIsPaused = false;
         gameState = GameStates.InGame;
         SceneManager.LoadScene("Game", LoadSceneMode.Single);
-    }
-
-    public void StartNextRound()
-    {
-        aiSpawnController.StartNextRound();
-        if (aiSpawnController.GetCurrentRoundIndex() > 0)
-            player.OnRoundStarted();
     }
     #endregion
 

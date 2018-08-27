@@ -14,7 +14,7 @@ public class FirstWaveTrigger : MonoBehaviour
         if (Helpers.GameObjectInLayerMask(other.gameObject, triggerLayerMask))
         {
             gameObject.SetActive(false);
-            GameManager.instance.StartNextRound();
+            GameManager.instance.GoToNextRound();
         }
     }
     #endregion
