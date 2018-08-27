@@ -4,36 +4,60 @@ public class ZoneLossTransition : MonoBehaviour
 {
     public delegate void VoidCallback();
     #region Fields
+    [SerializeField]
+    private ScriptedAnimation[] scriptedAnimations;
 
     private bool inTransition = false;
-    public float elapsedTime;
+    private int currentAnimationIndex = -1;
     private VoidCallback endCallback = null;
     #endregion
 
     #region MonoBehaviour Methods
-    private void Update()
-    {
-        if (inTransition)
-        {
-            elapsedTime += Time.deltaTime;
-            if (elapsedTime > 2.0f)
-                OnTransitionFinished();
-        }
-    }
+
     #endregion
 
     #region Public Methods
     public void StartTransition(VoidCallback voidCallback)
     {
         endCallback = voidCallback;
-        elapsedTime = 0.0f;
+        StartAnimationChain();
         inTransition = true;
     }
     #endregion
 
     #region Private Methods
+    private void StartAnimationChain()
+    {
+        Debug.Log("Starting chain");
+        currentAnimationIndex = -1;
+        if (scriptedAnimations != null && scriptedAnimations.Length > 0)
+        {
+            StartNextAnimation();
+        }
+        else
+        {
+            OnTransitionFinished();
+        }
+    }
+
+    private void StartNextAnimation()
+    {
+        ++currentAnimationIndex;
+
+        if (currentAnimationIndex < scriptedAnimations.Length)
+        {
+            Debug.Log("Moving to element " + currentAnimationIndex);
+            scriptedAnimations[currentAnimationIndex].StartAnimation(StartNextAnimation);
+        }
+        else
+        {
+            OnTransitionFinished();
+        }
+    }
+
     private void OnTransitionFinished()
     {
+        Debug.Log("Finishing chain");
         inTransition = false;
         VoidCallback callback = endCallback;
         endCallback = null;
