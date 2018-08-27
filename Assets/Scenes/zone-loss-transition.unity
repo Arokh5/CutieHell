@@ -11107,6 +11107,7 @@ GameObject:
   - component: {fileID: 492266146}
   - component: {fileID: 492266147}
   - component: {fileID: 492266148}
+  - component: {fileID: 492266150}
   - component: {fileID: 492266149}
   m_Layer: 0
   m_Name: ZoneC_Fountain
@@ -11177,6 +11178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scriptedAnimations:
   - {fileID: 492266148}
+  - {fileID: 492266150}
   - {fileID: 492266149}
 --- !u!114 &492266148
 MonoBehaviour:
@@ -11206,6 +11208,18 @@ MonoBehaviour:
   targetPosition: {x: -30, y: 40, z: 20}
   targetRotation: {x: 45, y: 0, z: 0}
   motionDuration: 1
+--- !u!114 &492266150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 492266144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8275c8f37fc998d4da19621d1db85847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waitTime: 2
 --- !u!1 &493573612 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: f60ec507ca529254390c87694d2d9fe8, type: 3}

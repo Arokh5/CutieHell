@@ -32,6 +32,12 @@ public class CameraMotion : ScriptedAnimation
             MotionAnimation();
         }
     }
+
+    private void OnValidate()
+    {
+        if (motionDuration < 0.0f)
+            motionDuration = 0.0f;
+    }
     #endregion
 
     #region Protected Methods
