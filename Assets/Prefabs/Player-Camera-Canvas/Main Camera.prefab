@@ -38,13 +38,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1558515104831888}
-  m_LocalRotation: {x: 0.54197717, y: -0.09761218, z: 0.07110607, w: -0.831671}
-  m_LocalPosition: {x: 0.8739662, y: 82.48785, z: 84.304}
+  m_LocalRotation: {x: 0.058259457, y: 0.12918627, z: -0.015909186, w: 0.98977965}
+  m_LocalPosition: {x: -32.51, y: 37.95, z: 17.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -0.125, y: -15.153001, z: 0.024}
+  m_LocalEulerAnglesHint: {x: 6.86, y: 14.816001, z: -0.94900006}
 --- !u!20 &20970961766629942
 Camera:
   m_ObjectHideFlags: 1
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1558515104831888}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
   m_Name: 
@@ -147,6 +147,7 @@ MonoBehaviour:
   timeSinceLastAction: 0
   slowAction: 0
   fastAction: 0
+  x: 0
   y: 0
   aR: 0
   aF: 0
@@ -161,10 +162,7 @@ MonoBehaviour:
   focusX: 0
   focusY: 0
   fov: 0
-  t_distance: 0
-  t_cameraY: 0
-  t_fov: 0
-  lerpTowardsCanonTargetDecal: 40
+  cameraPositionOnConeAttack: {x: 0, y: 0, z: 0}
   strongAttackDistance: 15
   yStrongAttackMin: 50
   yStrongAttackMax: 85
