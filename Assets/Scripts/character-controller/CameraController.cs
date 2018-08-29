@@ -56,7 +56,7 @@ public class CameraController : MonoBehaviour
         x = 0f;
         y = 0f;
         slowAction = fastAction = false;
-        player = GameObject.Find("Player").transform;
+        player = GameManager.instance.GetPlayer1().transform;
         playerScript = player.GetComponent<Player>();
         playerCapsuleCollider = player.GetComponent<CapsuleCollider>();
 
