@@ -323,6 +323,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         SetAgentEnable(true);
         isTargetable = true;
         isTarget = false;
+        canvasController.HideHealthBar();
         canvasController.SetHealthBar();
         active = true;
         AdjustMaterials();
