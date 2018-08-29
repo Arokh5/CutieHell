@@ -131,14 +131,6 @@ public class AIZoneController : MonoBehaviour
             blockage.gameObject.SetActive(false);
         }
 
-        if (isFinalZone)
-            scenarioController.OnFinalZoneConquered();
-        else
-        {
-            currentZoneTarget = scenarioController.GetAlternateTarget(this);
-            OnTargetBuildingChanged();
-        }
-
         GameManager.instance.GetPlayer1().OnRoundOver();
         scenarioController.FreezeAllEnemies();
 
@@ -309,12 +301,19 @@ public class AIZoneController : MonoBehaviour
 
     private void OnZoneTransitionFinished()
     {
+        if (isFinalZone)
+            scenarioController.OnFinalZoneConquered();
+        else
+        {
+            currentZoneTarget = scenarioController.GetAlternateTarget(this);
+            OnTargetBuildingChanged();
+        }
+
         scenarioController.ResumeAllEnemies();
         Player player = GameManager.instance.GetPlayer1();
         player.OnRoundStarted();
         if (playerExpelTarget != null)
             player.ExpelFromZone(this, playerExpelTarget);
-
 
         foreach (IZoneTakenListener listener in zoneTakenListeners)
             listener.OnZoneTaken();
