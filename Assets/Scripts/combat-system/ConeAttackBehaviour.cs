@@ -6,6 +6,7 @@ public class ConeAttackBehaviour : PooledParticleSystem
     #region Fields
     public LayerMask layerMask;
     public int damage;
+    public float knockbackForce = 6.0f;
     public ConeAttackDetection enemiesDetector;
     public int enemiesToCombo;
     public float hurtEnemiesDelay;
@@ -23,7 +24,7 @@ public class ConeAttackBehaviour : PooledParticleSystem
     private float hitWaitTime;
     private float timeToNextHit;
     private bool hittingOverTime;
-
+    private bool delayFinished;
     #endregion
 
     #region MonoBehaviour Methods
@@ -34,8 +35,9 @@ public class ConeAttackBehaviour : PooledParticleSystem
         {
             timer -= Time.deltaTime;
         }
-        else
+        else if (!delayFinished)
         {
+            delayFinished = true;
             AcquireTargets();
             LaunchBulletTime();
             if (hitOverTime)
@@ -86,6 +88,7 @@ public class ConeAttackBehaviour : PooledParticleSystem
 
         hitWaitTime = 0.0f;
         hittingOverTime = false;
+        delayFinished = false;
     }
     #endregion
 
@@ -140,7 +143,9 @@ public class ConeAttackBehaviour : PooledParticleSystem
     private void HitOne(AIEnemy aiEnemy)
     {
         aiEnemy.MarkAsTarget(false);
-        aiEnemy.SetKnockback(transform.position, 6.0f);
+        if (knockbackForce > 0.0f)
+            aiEnemy.SetKnockback(transform.position, knockbackForce);
+
         aiEnemy.TakeDamage(damage, AttackType.CONE);
         comboCount++;
     }

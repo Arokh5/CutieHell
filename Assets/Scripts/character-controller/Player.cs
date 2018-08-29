@@ -158,6 +158,7 @@ public class Player : MonoBehaviour, IDamageable
     [Header("Strong Attack")]
     public CooldownInfo strongAttackCooldown;
     public StrongAttackDetection strongAttackCollider;
+    public GameObject strongAttackMotionLimiter;
     [HideInInspector]
     public float strongAttackTimer;
     [HideInInspector]
@@ -211,6 +212,8 @@ public class Player : MonoBehaviour, IDamageable
     {
         UnityEngine.Assertions.Assert.IsNotNull(startingZone, "ERROR: startingZone (AIZoneController) not assigned for Player in gameObject '" + gameObject.name + "'");
         currentZoneController = startingZone;
+
+        strongAttackMotionLimiter.SetActive(false);
 
         cameraState = CameraState.MOVE;
         mainCameraController = mainCamera.GetComponent<CameraController>();

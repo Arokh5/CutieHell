@@ -11,6 +11,22 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1042903312978876}
   m_IsPrefabParent: 1
+--- !u!1 &1013870621698332
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4509684030690980}
+  - component: {fileID: 136262221768416286}
+  m_Layer: 21
+  m_Name: StrongAttackMotionLimiter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1019552085077720
 GameObject:
   m_ObjectHideFlags: 1
@@ -1546,6 +1562,7 @@ Transform:
   - {fileID: 4676198415255192}
   - {fileID: 4213167052233946}
   - {fileID: 4899126256374470}
+  - {fileID: 4509684030690980}
   - {fileID: 4373502398786818}
   - {fileID: 4793870467433032}
   m_Father: {fileID: 0}
@@ -1690,7 +1707,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4307627348596282}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4376207934280498
 Transform:
@@ -1774,6 +1791,19 @@ Transform:
   - {fileID: 4351381559765552}
   m_Father: {fileID: 4541901693217188}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4509684030690980
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1013870621698332}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4307627348596282}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4512016672256264
 Transform:
@@ -2084,7 +2114,7 @@ Transform:
   - {fileID: 4408092190146482}
   - {fileID: 4358640424191706}
   m_Father: {fileID: 4307627348596282}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4844763775660812
 Transform:
@@ -2822,6 +2852,7 @@ MonoBehaviour:
     cooldownUI: {fileID: 0}
     timeSinceLastAction: 0
   strongAttackCollider: {fileID: 114193170441824256}
+  strongAttackMotionLimiter: {fileID: 1013870621698332}
   strongAttackTimer: 0
   currentStrongAttackTargets: []
   comeBackFromStrongAttack: 0
@@ -2972,6 +3003,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!136 &136262221768416286
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1013870621698332}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.24
+  m_Height: 1.9202671
+  m_Direction: 1
+  m_Center: {x: -0.00067194353, y: 0.9238267, z: 0.040550333}
 --- !u!136 &136586869646284780
 CapsuleCollider:
   m_ObjectHideFlags: 1
