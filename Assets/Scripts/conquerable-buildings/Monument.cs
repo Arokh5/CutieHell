@@ -64,10 +64,6 @@ public class Monument : Building
     public override void BuildingKilled()
     {
         healthBar.SetHealthBarFill(0.0f);
-    }
-
-    public override void BuildingConverted()
-    {
         zoneController.OnMonumentTaken();
         if (protectedMonument)
         {
@@ -75,6 +71,11 @@ public class Monument : Building
             int protectedMonumentIndex = protectedMonument.zoneController.iconIndex;
             UIManager.instance.markersController.MonumentTargetted(protectedMonumentIndex);
         }
+    }
+
+    public override void BuildingConverted()
+    {
+        
     }
     #endregion
 
