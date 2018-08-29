@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class ConeAttackBehaviour : PooledParticleSystem
 {
@@ -14,6 +15,7 @@ public class ConeAttackBehaviour : PooledParticleSystem
     [Tooltip("The time (in seconds) over which the enemies are hit")]
     public float hitSpreadDuration;
 
+    private List<AIEnemy> targets = new List<AIEnemy>();
     private int comboCount;
     private float timer;
     private float timeToReturnToPool;
@@ -28,9 +30,13 @@ public class ConeAttackBehaviour : PooledParticleSystem
     private void Update()
     {
         timer -= Time.deltaTime;
-        timeToReturnToPool -= Time.deltaTime;
-        if (timer <= 0.0f)
+        if (timer > 0.0f)
         {
+            timer -= Time.deltaTime;
+        }
+        else
+        {
+            AcquireTargets();
             LaunchBulletTime();
             if (hitOverTime)
             {
@@ -40,7 +46,6 @@ public class ConeAttackBehaviour : PooledParticleSystem
             {
                 HitAll();
             }
-            timer = 1000.0f;
         }
 
         if (hittingOverTime)
@@ -48,7 +53,8 @@ public class ConeAttackBehaviour : PooledParticleSystem
             HitOverTime();
         }
 
-        if(timeToReturnToPool <= 0.0f)
+        timeToReturnToPool -= Time.deltaTime;
+        if (timeToReturnToPool <= 0.0f)
         {
             HitAll();
             ReturnToPool();
@@ -72,6 +78,8 @@ public class ConeAttackBehaviour : PooledParticleSystem
     public override void Restart()
     {
         enemiesDetector.attackTargets.Clear();
+        targets.Clear();
+
         timer = hurtEnemiesDelay;
         timeToReturnToPool = timeToDisable;
         comboCount = 0;
@@ -82,9 +90,15 @@ public class ConeAttackBehaviour : PooledParticleSystem
     #endregion
 
     #region Private Methods
+    private void AcquireTargets()
+    {
+        targets.Clear();
+        targets.AddRange(enemiesDetector.attackTargets);
+    }
+
     private void LaunchBulletTime()
     {
-        if(enemiesDetector.attackTargets.Count > 0)
+        if(targets.Count > 0)
         {
             BulletTime.instance.DoSlowmotion(0.01f,0.1f,0.05f);
         }
@@ -92,9 +106,9 @@ public class ConeAttackBehaviour : PooledParticleSystem
 
     private void SetUpHitOverTime()
     {
-        if (enemiesDetector.attackTargets.Count > 0)
+        if (targets.Count > 0)
         {
-            hitWaitTime = hitSpreadDuration / enemiesDetector.attackTargets.Count;
+            hitWaitTime = hitSpreadDuration / targets.Count;
             timeToNextHit = 0.0f;
             hittingOverTime = true;
         }
@@ -106,21 +120,21 @@ public class ConeAttackBehaviour : PooledParticleSystem
         if (timeToNextHit <= 0.0f)
         {
             timeToNextHit += hitWaitTime;
-            AIEnemy aiEnemy = enemiesDetector.attackTargets[0];
-            enemiesDetector.attackTargets.RemoveAt(0);
+            AIEnemy aiEnemy = targets[0];
+            targets.RemoveAt(0);
             HitOne(aiEnemy);
         }
-        if (enemiesDetector.attackTargets.Count == 0)
+        if (targets.Count == 0)
             hittingOverTime = false;
     }
 
     private void HitAll()
     {
-        foreach (AIEnemy aiEnemy in enemiesDetector.attackTargets)
+        foreach (AIEnemy aiEnemy in targets)
         {
             HitOne(aiEnemy);
         }
-        enemiesDetector.attackTargets.Clear();
+        targets.Clear();
     }
 
     private void HitOne(AIEnemy aiEnemy)
