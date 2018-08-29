@@ -23,7 +23,7 @@ public class ConeAttackBehaviour : PooledParticleSystem
     private float hitWaitTime;
     private float timeToNextHit;
     private bool hittingOverTime;
-
+    private bool delayFinished;
     #endregion
 
     #region MonoBehaviour Methods
@@ -34,8 +34,9 @@ public class ConeAttackBehaviour : PooledParticleSystem
         {
             timer -= Time.deltaTime;
         }
-        else
+        else if (!delayFinished)
         {
+            delayFinished = true;
             AcquireTargets();
             LaunchBulletTime();
             if (hitOverTime)
@@ -86,6 +87,7 @@ public class ConeAttackBehaviour : PooledParticleSystem
 
         hitWaitTime = 0.0f;
         hittingOverTime = false;
+        delayFinished = false;
     }
     #endregion
 
