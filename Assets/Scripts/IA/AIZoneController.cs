@@ -301,14 +301,6 @@ public class AIZoneController : MonoBehaviour
 
     private void OnZoneTransitionFinished()
     {
-        if (isFinalZone)
-            scenarioController.OnFinalZoneConquered();
-        else
-        {
-            currentZoneTarget = scenarioController.GetAlternateTarget(this);
-            OnTargetBuildingChanged();
-        }
-
         scenarioController.ResumeAllEnemies();
         Player player = GameManager.instance.GetPlayer1();
         player.OnRoundStarted();
@@ -319,6 +311,14 @@ public class AIZoneController : MonoBehaviour
             listener.OnZoneTaken();
 
         UIManager.instance.markersController.MonumentConquered(iconIndex);
+
+        if (isFinalZone)
+            scenarioController.OnFinalZoneConquered();
+        else
+        {
+            currentZoneTarget = scenarioController.GetAlternateTarget(this);
+            OnTargetBuildingChanged();
+        }
     }
     #endregion
 }

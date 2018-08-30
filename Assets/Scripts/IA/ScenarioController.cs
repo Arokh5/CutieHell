@@ -110,6 +110,8 @@ public class ScenarioController : MonoBehaviour
     public void OnFinalZoneConquered()
     {
         spawnController.StopRound();
+        GameManager.instance.GetPlayer1().OnRoundOver();
+        FreezeAllEnemies();
         GameManager.instance.OnGameLost();
     }
 
