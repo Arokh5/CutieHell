@@ -178,10 +178,11 @@ public class BuildingEffects : MonoBehaviour, ITextureChanger
 
         if (progress < tipingPoint)
         {
-            buildingRenderer.transform.localScale = (1 - 2 * progress) * Vector3.one;
+            buildingRenderer.transform.localScale = (1 - progress / tipingPoint) * Vector3.one;
         }
         else
         {
+            buildingRenderer.transform.localScale = Vector3.zero;
             TriggerConvertions();
             // Rescale the progress to fall in the range [0,1]
             progress = (progress - tipingPoint) / (1 - tipingPoint);

@@ -13,6 +13,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     [SerializeField]
     private AIZoneController zoneController;
 
+    private bool frozen = false;
     private Player playerTarget;
     private IDamageable currentTarget;
     private Building currentTargetBuilding;
@@ -152,6 +153,9 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
     private void Update()
     {
+        if (frozen)
+            return;
+
         UpdateCurrentTarget();
         Knockback();
         UpdateSlowSpeed();
@@ -312,6 +316,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
     public void Restart()
     {
+        frozen = false;
         hasPlayerAsTarget = false;
         hasPlayerAsDetected = false;
         navAttackTarget = null;
@@ -482,6 +487,19 @@ public class AIEnemy : MonoBehaviour, IDamageable
         animator.Rebind();
         spawnController.ReturnEnemy(this);
         UIManager.instance.roundInfoController.AddToEnemiesCount(-1);
+    }
+
+    public void Freeze()
+    {
+        frozen = true;
+        SetAgentEnable(false);
+    }
+
+    public void Resume()
+    {
+        frozen = false;
+        if (!IsDead())
+            SetAgentEnable(true);
     }
     #endregion
 
