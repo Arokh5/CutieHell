@@ -52,8 +52,16 @@ public class RoundScore : MonoBehaviour {
     private int scoreCounterSpeed;
     [SerializeField]
     private int roundScoreTotalTime = 300;
+
+    [Header ("Close/Skip")]
     [SerializeField]
-    private GameObject pressContinue;
+    private Text pressContinueText;
+    [SerializeField]
+    private string skip;
+    [SerializeField]
+    private string close;
+
+    private bool skipFullCounting = false;
 
     private bool singleStatFullDisplayed = true;
 
@@ -68,6 +76,11 @@ public class RoundScore : MonoBehaviour {
 	void Update () 
 	{
         currentScore.text = currentScoreValue.ToString();
+
+        if(showingState != ShowingState.COMPLETED && InputManager.instance.GetXButton())
+        {
+            SkipFullRoundScoreCounting();
+        }
 
         switch (showingState)
         {
@@ -100,6 +113,7 @@ public class RoundScore : MonoBehaviour {
         currentScore.gameObject.SetActive(true);
 
         showingState = ShowingState.ACHIEVEMENTS;
+        pressContinueText.text = skip;
 
         scoreCounterSpeed =  totalScore / roundScoreTotalTime;
         TimeManager.instance.FreezeTime();
@@ -187,14 +201,19 @@ public class RoundScore : MonoBehaviour {
         total.gameObject.SetActive(true);
     }
 
+    private void SkipFullRoundScoreCounting()
+    {
+        skipFullCounting = true;
+    }
+
     private void CloseRoundScorePopup()
     {
         if(InputManager.instance.GetXButton())
         {
             //Disable total score and the button showing how to close the popup
             total.gameObject.SetActive(false);
-            pressContinue.gameObject.SetActive(false);
-
+            currentScoreValue = 0;
+            currentScoreTarget = 0;
             currentEvaluatedAchievementIterator = 0;
             currentEvaluatedSkillStatIterator = 0;
 
@@ -213,6 +232,8 @@ public class RoundScore : MonoBehaviour {
             ResetSkillScores();
             ResetSkillStatsScores();
             ResetScoresScores();
+
+            skipFullCounting = false;
 
             //Disables the popup itself
             this.gameObject.SetActive(false);
@@ -249,15 +270,23 @@ public class RoundScore : MonoBehaviour {
                     showingState = ShowingState.COMPLETED;
                     currentScore.gameObject.SetActive(false);
                     total.gameObject.SetActive(true);
-                    pressContinue.gameObject.SetActive(true);
+                    pressContinueText.text = close;
                 }
                 singleStatFullDisplayed = true;
             }
             else
             {
-                currentScoreValue += scoreCounterSpeed;
+                IncrementCurrentScore();
             }
         }
+    }
+
+    private void IncrementCurrentScore()
+    {
+        if (!skipFullCounting)
+            currentScoreValue += scoreCounterSpeed;
+        else
+            currentScoreValue = currentScoreTarget;
     }
 
     private void SetUpSkillStats()
@@ -316,7 +345,7 @@ public class RoundScore : MonoBehaviour {
                 singleStatFullDisplayed = true;
             }else
             {
-                currentScoreValue += scoreCounterSpeed;
+                IncrementCurrentScore();
             }
         }
     }
