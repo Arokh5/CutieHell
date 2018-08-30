@@ -212,6 +212,8 @@ public class RoundScore : MonoBehaviour {
         {
             //Disable total score and the button showing how to close the popup
             total.gameObject.SetActive(false);
+            currentScoreValue = 0;
+            currentScoreTarget = 0;
             currentEvaluatedAchievementIterator = 0;
             currentEvaluatedSkillStatIterator = 0;
 
