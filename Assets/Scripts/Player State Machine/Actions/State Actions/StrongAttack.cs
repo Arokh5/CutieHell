@@ -9,8 +9,6 @@ public class StrongAttack : StateAction
     public int damage;
     public ParticleSystem strongAttackVFX;
     public float timeToGoOut, timeToGoIn, delay;
-    [SerializeField]
-    private AudioClip landingSfx;
 
     public override void Act(Player player)
     {
