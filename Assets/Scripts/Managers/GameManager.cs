@@ -143,6 +143,16 @@ public class GameManager : MonoBehaviour
         return !gameIsPaused && !avoidPlayerUpdate;
     }
 
+    public void PauseEnemySpawning()
+    {
+        aiSpawnController.PauseRound();
+    }
+
+    public void ResumeEnemySpawning()
+    {
+        aiSpawnController.ResumeRound();
+    }
+
     public void ExitGame()
     {
         TimeManager.instance.ResumeTime();

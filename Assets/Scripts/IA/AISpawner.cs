@@ -16,7 +16,9 @@ public class AISpawner : MonoBehaviour {
 
     [SerializeField]
     private List<SpawnInfo> activeSpawnInfos = new List<SpawnInfo>(8);
+
     private List<SpawnInfo> spawnInfosToRemove = new List<SpawnInfo>(8);
+    private bool paused = false;
     #endregion
 
     #region MonoBehaviour Methods
@@ -28,29 +30,32 @@ public class AISpawner : MonoBehaviour {
 
     private void Update()
     {
-        foreach (SpawnInfo spawnInfo in activeSpawnInfos)
+        if (!paused)
         {
-            spawnInfo.elapsedTime += Time.deltaTime;
-
-            if (spawnInfo.elapsedTime >= spawnInfo.nextSpawnTime)
+            foreach (SpawnInfo spawnInfo in activeSpawnInfos)
             {
-                SpawnNextEnemy(spawnInfo);
+                spawnInfo.elapsedTime += Time.deltaTime;
+
+                if (spawnInfo.elapsedTime >= spawnInfo.nextSpawnTime)
+                {
+                    SpawnNextEnemy(spawnInfo);
+                }
+
+                if (spawnInfo.nextSpawnIndex >= spawnInfo.enemiesToSpawn.Length)
+                {
+                    spawnInfosToRemove.Add(spawnInfo);
+                }
             }
 
-            if (spawnInfo.nextSpawnIndex >= spawnInfo.enemiesToSpawn.Length)
+            foreach (SpawnInfo spawnInfo in spawnInfosToRemove)
             {
-                spawnInfosToRemove.Add(spawnInfo);
+                spawnInfo.elapsedTime = 0;
+                spawnInfo.nextSpawnIndex = 0;
+                spawnInfo.nextSpawnTime = 0;
+                activeSpawnInfos.Remove(spawnInfo);
             }
+            spawnInfosToRemove.Clear();
         }
-
-        foreach (SpawnInfo spawnInfo in spawnInfosToRemove)
-        {
-            spawnInfo.elapsedTime = 0;
-            spawnInfo.nextSpawnIndex = 0;
-            spawnInfo.nextSpawnTime = 0;
-            activeSpawnInfos.Remove(spawnInfo);
-        }
-        spawnInfosToRemove.Clear();
     }
 
     private void OnDrawGizmosSelected()
@@ -62,6 +67,16 @@ public class AISpawner : MonoBehaviour {
     #endregion
 
     #region Public Methods
+    public void Pause()
+    {
+        paused = true;
+    }
+
+    public void Resume()
+    {
+        paused = false;
+    }
+    
     // Called by AISpawnController
     public void Spawn(SpawnInfo spawnInfo)
     {

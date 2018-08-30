@@ -133,6 +133,7 @@ public class AIZoneController : MonoBehaviour
 
         GameManager.instance.GetPlayer1().OnRoundOver();
         scenarioController.FreezeAllEnemies();
+        GameManager.instance.PauseEnemySpawning();
 
         if (zoneLossTransition)
         {
@@ -301,6 +302,7 @@ public class AIZoneController : MonoBehaviour
 
     private void OnZoneTransitionFinished()
     {
+        GameManager.instance.ResumeEnemySpawning();
         scenarioController.ResumeAllEnemies();
         Player player = GameManager.instance.GetPlayer1();
         player.OnRoundStarted();

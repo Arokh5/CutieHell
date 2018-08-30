@@ -48,13 +48,13 @@ public class AISpawnController : MonoBehaviour
 
     private bool validRoundsInfo = true;
     private bool roundRunning = false;
+    private bool roundPaused = false;
     private bool rushingWave = false;
     private bool currentWaveFinished = false;
 
     #endregion
 
     #region MonoBehaviour Methods
-
     private void Awake()
     {
         if (!scenario)
@@ -89,7 +89,7 @@ public class AISpawnController : MonoBehaviour
 
     private void Update()
     {
-        if (roundRunning)
+        if (roundRunning && !roundPaused)
         {
             if (waveDelayLeft > 0)
             {
@@ -109,6 +109,24 @@ public class AISpawnController : MonoBehaviour
     #endregion
 
     #region Public Methods
+    public void PauseRound()
+    {
+        roundPaused = true;
+        foreach (AISpawner spawner in aiSpawners)
+        {
+            spawner.Pause();
+        }
+    }
+
+    public void ResumeRound()
+    {
+        roundPaused = false;
+        foreach (AISpawner spawner in aiSpawners)
+        {
+            spawner.Resume();
+        }
+    }
+
     public AIEnemy GetEnemy(EnemyType enemyType)
     {
         AIEnemy enemy = enemyPools[enemyType].GetObject(false);
@@ -139,6 +157,7 @@ public class AISpawnController : MonoBehaviour
             waveDelayTime = roundInfo.waveInfos[0].waveStartDelay;
             waveDelayLeft = waveDelayTime;
             roundRunning = true;
+            roundPaused = false;
             scenario.OnNewRoundStarted();
             StatsManager.instance.SetRoundState(true);
             UIManager.instance.roundInfoController.SetEnemiesCount(0);
