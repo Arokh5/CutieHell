@@ -38,7 +38,6 @@ public class ZoneLossTransition : MonoBehaviour
     #region Private Methods
     private void StartAnimationChain()
     {
-        Debug.Log("Starting chain");
         currentAnimationIndex = -1;
         if (HasAnimations())
         {
@@ -58,7 +57,6 @@ public class ZoneLossTransition : MonoBehaviour
 
         if (currentAnimationIndex < scriptedAnimations.Length)
         {
-            Debug.Log("Moving to element " + currentAnimationIndex);
             scriptedAnimations[currentAnimationIndex].StartAnimation(StartNextAnimation);
         }
         else
@@ -69,7 +67,6 @@ public class ZoneLossTransition : MonoBehaviour
 
     private void OnTransitionFinished()
     {
-        Debug.Log("Finishing chain");
         if (HasAnimations())
         {
             cinematicStripes.HideAnimated();
