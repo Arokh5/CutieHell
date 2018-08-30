@@ -9,9 +9,6 @@ public class StrongAttack : StateAction
     public int damage;
     public ParticleSystem strongAttackVFX;
     public float timeToGoOut, timeToGoIn, delay;
-
-    [SerializeField]
-    private AudioClip takeOffSfx;
     [SerializeField]
     private AudioClip landingSfx;
 
@@ -25,7 +22,6 @@ public class StrongAttack : StateAction
                     player.canMove = true;
                     player.strongAttackCollider.Activate();
                     player.teleportState = Player.TeleportStates.TRAVEL;
-                    SoundManager.instance.PlaySfxClip(takeOffSfx);
                 }
                 break;
             case Player.TeleportStates.TRAVEL:
@@ -45,17 +41,15 @@ public class StrongAttack : StateAction
 
                 if (player.strongAttackTimer >= timeToGoIn)
                 {
-                    BulletTime.instance.DoSlowmotion(0.01f, 0.35f);
+                    BulletTime.instance.DoSlowmotion(0.01f, 0.25f);
                     CameraShaker.Instance.ShakeOnce(0.8f, 15.5f, 0.1f, 0.7f);
                     player.cameraState = Player.CameraState.MOVE;
-                    player.SetRenderersVisibility(true);
                     player.mainCameraController.y = 10.0f;
                     player.strongAttackTimer = 0.0f;
                     player.teleported = true;
                     player.teleportState = Player.TeleportStates.DELAY;
                     player.strongAttackCooldown.timeSinceLastAction = 0.0f;
                     HurtEnemies(player, damage);
-                    SoundManager.instance.PlaySfxClip(landingSfx);
                 }
                 break;
             case Player.TeleportStates.DELAY:
