@@ -42,7 +42,10 @@
 			fixed4 _Color;
 
 			fixed4 frag(v2f i) : SV_Target{
-				float4 c = _Color * tex2D(_MainText, i.uv);
+				float4 c = tex2D(_MainText, i.uv);
+				if (c.a < 0.01f)
+					discard;
+				c *= _Color;
 				float val = tex2D(_DissolveTex, i.uv).a;
 
 				if (val > _Fill)
