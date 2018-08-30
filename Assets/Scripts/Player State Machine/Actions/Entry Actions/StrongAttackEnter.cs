@@ -13,6 +13,7 @@ public class StrongAttackEnter : StateAction
         player.comeBackFromStrongAttack = false;
         player.strongAttackTimer = 0.0f;
         player.SetRenderersVisibility(false);
+        player.strongAttackMotionLimiter.SetActive(true);
         player.teleported = false;
         player.cameraState = Player.CameraState.STRONG_ATTACK;
         player.teleportState = Player.TeleportStates.OUT;

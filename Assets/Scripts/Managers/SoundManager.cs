@@ -133,23 +133,30 @@ public class SoundManager : MonoBehaviour
     {
         bool canPlay = true;
 
-        UsageInfo usageInfo;
-        if (activeClips.TryGetValue(clip, out usageInfo))
+        if (clip != null)
         {
-            if (usageInfo.GetCount() < maxRepeats)
+            UsageInfo usageInfo;
+            if (activeClips.TryGetValue(clip, out usageInfo))
             {
-                usageInfo.AddTimer(activeSoundTime);
+                if (usageInfo.GetCount() < maxRepeats)
+                {
+                    usageInfo.AddTimer(activeSoundTime);
+                }
+                else
+                {
+                    canPlay = false;
+                }
             }
             else
             {
-                canPlay = false;
+                usageInfo = new UsageInfo();
+                usageInfo.AddTimer(activeSoundTime);
+                activeClips.Add(clip, usageInfo);
             }
         }
         else
         {
-            usageInfo = new UsageInfo();
-            usageInfo.AddTimer(activeSoundTime);
-            activeClips.Add(clip, usageInfo);
+            canPlay = false;
         }
 
         return canPlay;

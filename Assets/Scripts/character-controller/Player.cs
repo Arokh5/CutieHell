@@ -158,6 +158,7 @@ public class Player : MonoBehaviour, IDamageable
     [Header("Strong Attack")]
     public CooldownInfo strongAttackCooldown;
     public StrongAttackDetection strongAttackCollider;
+    public GameObject strongAttackMotionLimiter;
     [HideInInspector]
     public float strongAttackTimer;
     [HideInInspector]
@@ -195,6 +196,7 @@ public class Player : MonoBehaviour, IDamageable
     public AudioClip[] footstepsSFX;
     public AudioClip knockbackSFX;
     public AudioSource audioSource;
+    public AudioSource quietSource;
     public Transform leftFoot, rightFoot;
     [HideInInspector]
     public int footstepID;
@@ -210,6 +212,8 @@ public class Player : MonoBehaviour, IDamageable
     {
         UnityEngine.Assertions.Assert.IsNotNull(startingZone, "ERROR: startingZone (AIZoneController) not assigned for Player in gameObject '" + gameObject.name + "'");
         currentZoneController = startingZone;
+
+        strongAttackMotionLimiter.SetActive(false);
 
         cameraState = CameraState.MOVE;
         mainCameraController = mainCamera.GetComponent<CameraController>();
@@ -308,7 +312,7 @@ public class Player : MonoBehaviour, IDamageable
         else
         {
             knockbackActive = true;
-            SoundManager.instance.PlaySfxClip(audioSource, knockbackSFX, true);
+            SoundManager.instance.PlaySfxClip(knockbackSFX);
             ParticlesManager.instance.LaunchParticleSystem(knockbackVFX, this.transform.position + Vector3.up * 1.55f, knockbackVFX.transform.rotation);
             knockbackCurrentForce = knockbackForce;
             this.knockbackDirection = knockbackDirection.normalized;
@@ -343,6 +347,7 @@ public class Player : MonoBehaviour, IDamageable
         SortMines();
         mines[maxMinesNumber - 1] = ParticlesManager.instance.LaunchParticleSystem(minePrefab, this.transform.position, minePrefab.transform.rotation).GetComponent<ActivateMineExplosion>();
     }
+
 
     public void RemoveMine(ActivateMineExplosion mineToRemove)
     {
@@ -485,7 +490,7 @@ public class Player : MonoBehaviour, IDamageable
     public void FootStep(int i)
     {
         audioSource.pitch = Random.Range(0.935f, 1.065f);
-        SoundManager.instance.PlaySfxClip(audioSource, footstepsSFX[footstepID], true);
+        SoundManager.instance.PlaySfxClip(quietSource, footstepsSFX[footstepID], true);
         footstepID++;
         if(i == 1)
         {

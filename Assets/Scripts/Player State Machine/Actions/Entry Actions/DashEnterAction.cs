@@ -8,6 +8,8 @@ public class DashEnterAction : StateAction
     public LayerMask dashLimitLayerMask;
     [SerializeField]
     private ParticleSystem dashVFX;
+    [SerializeField]
+    private AudioClip dashSFX;
 
     public override void Act(Player player)
     {
@@ -16,6 +18,7 @@ public class DashEnterAction : StateAction
 
         ParticleSystem ps = ParticlesManager.instance.LaunchParticleSystem(dashVFX, player.transform.position, dashVFX.transform.rotation);
         ps.transform.SetParent(player.transform);
+        SoundManager.instance.PlaySfxClip(player.audioSource, dashSFX ,true);
         float threshold = InputManager.joystickThreshold;
         float verticalValue = -InputManager.instance.GetLeftStickVerticalValue();
         if (verticalValue > -threshold && verticalValue < threshold)

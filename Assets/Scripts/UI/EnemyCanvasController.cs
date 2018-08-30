@@ -57,8 +57,14 @@ public class EnemyCanvasController : MonoBehaviour
 	#endregion
 	
 	#region Public Methods
-	
-    public void SetHealthBar()
+    public void HideHealthBar()
+    {
+        fadeOut = false;
+        fadeOutTime = fadeOutBaseTime;
+        healthBarCanvas.gameObject.SetActive(false);
+    }
+
+	public void SetHealthBar()
     {
         healthFill.fillAmount = enemyScript.GetCurrentHealth() / baseHealth;
     }

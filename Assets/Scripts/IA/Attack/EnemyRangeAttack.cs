@@ -13,6 +13,10 @@ public class EnemyRangeAttack : MonoBehaviour {
     private float maxHitDistance;
     [SerializeField]
     private ParticleSystem heartExplosionVFX;
+    [SerializeField]
+    private AudioSource audioSource;
+    [SerializeField]
+    private AudioClip heartExplosionSFX;
 
     private Vector3 initialPosition;
     private Vector3 fullMotion;
@@ -85,6 +89,7 @@ public class EnemyRangeAttack : MonoBehaviour {
             target.TakeDamage(damage, AttackType.ENEMY);
             target = null;
             ParticlesManager.instance.LaunchParticleSystem(heartExplosionVFX, this.transform.position, heartExplosionVFX.transform.rotation);
+            SoundManager.instance.PlaySfxClip(heartExplosionSFX);
             AttacksPool.instance.ReturnAttackObject(enemyType, gameObject);
         }
     }

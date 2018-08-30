@@ -10,8 +10,8 @@ public class LivingParticleController : MonoBehaviour {
 
 	void Start () {
         psr = GetComponent<ParticleSystemRenderer>();
-        affector = GameObject.Find("Player").transform;
-	}
+        affector = GameManager.instance.GetPlayer1().transform;
+    }
 	
 	void Update () {
         psr.material.SetVector("_Affector", affector.position);

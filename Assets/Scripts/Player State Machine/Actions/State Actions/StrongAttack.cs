@@ -35,6 +35,7 @@ public class StrongAttack : StateAction
                     player.strongAttackTimer = 0.0f;
                     ParticlesManager.instance.LaunchParticleSystem(strongAttackVFX, player.transform.position, strongAttackVFX.transform.rotation);
                     player.strongAttackCollider.Deactivate();
+                    player.strongAttackMotionLimiter.SetActive(false);
                     player.canMove = false;
                     player.animator.Rebind();
                     AttackChainsManager.instance.ReportStartChainAttempt(AttackType.STRONG);

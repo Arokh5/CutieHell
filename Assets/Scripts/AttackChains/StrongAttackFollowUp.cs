@@ -26,6 +26,7 @@ public class StrongAttackFollowUp : StateAction
                     player.teleported = true;
                     player.teleportState = Player.TeleportStates.DELAY;
                     player.strongAttackCooldown.timeSinceLastAction = 0.0f;
+                    player.strongAttackCollider.Deactivate();
                     HurtEnemies(player, damage);
                     SoundManager.instance.PlaySfxClip(landingSfx);
                 }
