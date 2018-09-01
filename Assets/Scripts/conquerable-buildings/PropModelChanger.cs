@@ -12,6 +12,8 @@ public class PropModelChanger : Convertible
     [SerializeField]
     private ParticleSystem changeVFX;
     [SerializeField]
+    private int numberOfParticles = 250;
+    [SerializeField]
     private bool scaleChangeMode = false;
     
     [Header("Timing")]
@@ -150,7 +152,9 @@ public class PropModelChanger : Convertible
         {
             originalProp.gameObject.SetActive(false);
             alternateProp.gameObject.SetActive(true);
-            ParticleSystem ps = ParticlesManager.instance.LaunchParticleSystem(changeVFX, this.transform.position, originalProp.transform.rotation);
+            ParticleSystem ps = ParticlesManager.instance.LaunchParticleSystem(changeVFX, alternateProp.transform.position, alternateProp.transform.rotation);
+            ParticleSystem.Burst burst = new ParticleSystem.Burst(0.0f, numberOfParticles);
+            ps.emission.SetBurst(0, burst);
             ParticleSystem.ShapeModule shape = ps.shape;
             shape.mesh = alternateProp.GetComponent<MeshFilter>().mesh;
             converting = false;
