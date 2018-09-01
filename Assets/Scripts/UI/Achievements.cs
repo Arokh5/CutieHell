@@ -117,7 +117,7 @@ public class Achievements : Combo {
                     achievementInstantiation.GetComponent<Combo>().SetComboID(i);
                     break;
                 } //No empty spot on the whole array
-                else if (i == requestedAchievementTypeCurrentlyActive.Length)
+                else if (i+1 == requestedAchievementTypeCurrentlyActive.Length)
                 {
                     arrayNeedsAnIncrement = true;
 
