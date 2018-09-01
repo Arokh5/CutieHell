@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class KillingCountAchievement : Combo {
 
     #region Attributes
     [SerializeField]
     private AttackType attackType;
+
+    private List<int> hittedEnemiesIds;
 
     private Player player;
 	#endregion
@@ -17,30 +20,19 @@ public class KillingCountAchievement : Combo {
 	void Start () 
 	{
         player = GameManager.instance.GetPlayer1();
+        hittedEnemiesIds = new List<int>();
     }
 
     // Update is called once per frame
     void Update()
     {
         ReviewConditions();
-        if (attackType != AttackType.METEORITE && attackType != AttackType.WEAK)
+
+        if(attackType == AttackType.METEORITE)
         {
-            ResetCount();
-        }      
-        else
-        {
-            if(attackType == AttackType.WEAK)
+            if (currentCount > 0 && !player.GetIsMeteoritesOn())
             {
-                if(currentCount > 0 && !player.GetIsBoomerangOn())
-                {
-                    ResetCount();
-                }
-            }else if(attackType == AttackType.METEORITE)
-            {
-                if (currentCount > 0 && !player.GetIsMeteoritesOn())
-                {
-                    ResetCount();
-                }
+                ResetCount();
             }
         }
     }
@@ -73,6 +65,11 @@ public class KillingCountAchievement : Combo {
         {
             GrantReward();
         }
+    }
+
+    public List<int> GetHittedEnemiesIDs()
+    {
+        return hittedEnemiesIds;
     }
     #endregion
 

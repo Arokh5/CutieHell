@@ -53,6 +53,8 @@ public class FollowTarget : PooledParticleSystem
     private AttackStates attackState;
     private Player player;
 
+    private int linkedAchievementID;
+
     #endregion
 
     #region MonoBehaviour Methods
@@ -77,6 +79,7 @@ public class FollowTarget : PooledParticleSystem
             if (enemyHit)
             {
                 enemyHit.TakeDamage(damage, attackType);
+                Achievements.instance.IncreaseCurrentCountHitType(1, AttackType.WEAK, linkedAchievementID, enemyHit.GetInstanceID());
                 if (hasKnockback)
                     enemyHit.SetKnockback(this.transform.position);
                 audioSource.pitch = Random.Range(0.3f, 0.8f);
@@ -109,6 +112,8 @@ public class FollowTarget : PooledParticleSystem
         this.hitOffset = hitOffset;
         ++player.basicAttacksCount;
         player.SetIsBoomerangOn(true);
+
+        linkedAchievementID =  Achievements.instance.InstanceNewAchievement(Achievements.instance.GetMarksman());
     }
 
     #endregion
@@ -157,6 +162,7 @@ public class FollowTarget : PooledParticleSystem
                 --player.basicAttacksCount;
                 ReturnToPool();
                 player.SetIsBoomerangOn(false);
+                Achievements.instance.DestroyAchievementInstantiation(AchievementType.CONSECUTIVEHITTING, linkedAchievementID);
             }
         }
     }

@@ -285,6 +285,9 @@ public class GameManager : MonoBehaviour
         gameState = GameStates.InGame;
         SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }
+
+
+   
     #endregion
 
     #region Private Methods

@@ -173,6 +173,7 @@ public class Player : MonoBehaviour, IDamageable
     [Header("Cone Attack")]
     public CooldownInfo coneAttackCooldown;
     public ParticleSystem coneAttackVFX;
+    public int coneAttacklinkedAchievementID = 0;
     [HideInInspector]
     public bool comeBackFromConeAttack;
 
@@ -523,6 +524,15 @@ public class Player : MonoBehaviour, IDamageable
         }
     }
 
+    public void SetConeAttackLinkedAchievementID(int value)
+    {
+        coneAttacklinkedAchievementID = value;
+    }
+
+    public int GetConeAttackLinkedAchievementID()
+    {
+        return coneAttacklinkedAchievementID;
+    }
     #endregion
 
     #region Private Methods

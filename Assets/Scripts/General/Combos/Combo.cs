@@ -10,6 +10,9 @@ public class Combo : MonoBehaviour
     public string description;
     public int reward;
     public int score;
+
+    private int comboID;
+
     protected int currentCount = 0;
     protected int timesObtained = 0;
     protected bool comboEnabled = false;
@@ -64,6 +67,15 @@ public class Combo : MonoBehaviour
         return timesObtained; 
     }
 
+    public int GetComboID()
+    {
+        return comboID;
+    }
+
+    public void SetComboID(int value)
+    {
+        comboID = value;
+    }
     #endregion
 
 }
