@@ -332,6 +332,11 @@ public class Player : MonoBehaviour, IDamageable
             TransitionToState(teleportExpelState);
             expelCallback = postExpelCallback;
         }
+        else
+        {
+            if (postExpelCallback != null)
+                postExpelCallback();
+        }
     }
 
     public void InstantiateMine()
