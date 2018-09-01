@@ -27,26 +27,6 @@ public class KillingCountAchievement : Combo {
     void Update()
     {
         ReviewConditions();
-        if (attackType != AttackType.METEORITE && attackType != AttackType.WEAK)
-        {
-            ResetCount();
-        }      
-        else
-        {
-            if(attackType == AttackType.WEAK)
-            {
-                if(currentCount > 0 && !player.GetIsBoomerangOn())
-                {
-                    ResetCount();
-                }
-            }else if(attackType == AttackType.METEORITE)
-            {
-                if (currentCount > 0 && !player.GetIsMeteoritesOn())
-                {
-                    ResetCount();
-                }
-            }
-        }
     }
 
     #region Public methods

@@ -147,6 +147,7 @@ public class ConeAttackBehaviour : PooledParticleSystem
             aiEnemy.SetKnockback(transform.position, knockbackForce);
 
         aiEnemy.TakeDamage(damage, AttackType.CONE);
+        Achievements.instance.IncreaseCurrentCountHitType(1, AttackType.CONE, GameManager.instance.coneAttacklinkedAchievementID, aiEnemy.GetInstanceID());
         comboCount++;
     }
     #endregion

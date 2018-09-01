@@ -42,6 +42,9 @@ public class GameManager : MonoBehaviour
     private RoundScore roundScore;
 
     private bool unpauseNextFrame = false;
+
+    public int coneAttacklinkedAchievementID = 0;
+
     #endregion
 
     #region Properties
@@ -284,6 +287,17 @@ public class GameManager : MonoBehaviour
         gameIsPaused = false;
         gameState = GameStates.InGame;
         SceneManager.LoadScene("Game", LoadSceneMode.Single);
+    }
+
+
+    public void SetConeAttackLinkedAchievementID(int value)
+    {
+        coneAttacklinkedAchievementID = value;
+    }
+
+    public int GetConeAttackLinkedAchievementID()
+    {
+        return coneAttacklinkedAchievementID;
     }
     #endregion
 
