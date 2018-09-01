@@ -20,6 +20,6 @@ public class ConeAttackEnterAction : StateAction
         player.mainCameraController.fastAction = true;
         player.animator.SetTrigger(animationTrigger);
 
-        GameManager.instance.SetConeAttackLinkedAchievementID(Achievements.instance.InstanceNewAchievement(AchievementType.CONSECUTIVEHITTING, Achievements.instance.GetSliceNDice()));
+        GameManager.instance.SetConeAttackLinkedAchievementID(Achievements.instance.InstanceNewAchievement(Achievements.instance.GetSliceNDice()));
     }
 }

@@ -399,8 +399,6 @@ public class AIEnemy : MonoBehaviour, IDamageable
         if (getHitVFX != null)
             ParticlesManager.instance.LaunchParticleSystem(getHitVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation);
 
-        //Achievements.instance.IncreaseCurrentCountHitType(1, attacktype);
-
         if (currentHealth <= 0)
         {
             currentHealth = 0;

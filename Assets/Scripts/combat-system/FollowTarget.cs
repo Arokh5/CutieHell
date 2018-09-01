@@ -110,7 +110,7 @@ public class FollowTarget : PooledParticleSystem
         ++player.basicAttacksCount;
         player.SetIsBoomerangOn(true);
 
-        linkedAchievementID =  Achievements.instance.InstanceNewAchievement(AchievementType.CONSECUTIVEHITTING, Achievements.instance.GetMarksman());
+        linkedAchievementID =  Achievements.instance.InstanceNewAchievement(Achievements.instance.GetMarksman());
     }
 
     #endregion

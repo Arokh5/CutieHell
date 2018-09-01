@@ -13,14 +13,10 @@ public class Achievements : Combo {
     private GameObject marksmanPrefab;
     [SerializeField]
     private GameObject slicenDicePrefab;
-    [SerializeField]
-    private GameObject stuckTheLandingPrefab;
-    [SerializeField]
-    private GameObject watchOutPrefab;
-    [SerializeField]
-    private GameObject meteorShowerPrefab;
 
+    [SerializeField]
     private KillingCountAchievement[] killingCountAchievements;
+    
     private KillingCountAchievement[] hittingCountAchievements;
     private KillingTimeAchievement[] killingTimeAchievements;
     #endregion
@@ -48,14 +44,14 @@ public class Achievements : Combo {
 
     public void IncreaseCurrentCountKillingType(int addToCount, AttackType attackType)
     {
-       //for (int i = 0; i < killingCountAchievements.Length; i++)
-       // {
-       //     if(killingCountAchievements[i].GetAttackType() == attackType)
-       //     {
-       //         killingCountAchievements[i].IncreaseCurrentCount(addToCount);
-       //         return;
-       //     }
-       // }
+        for (int i = 0; i < killingCountAchievements.Length; i++)
+        {
+            if (killingCountAchievements[i].GetAttackType() == attackType)
+            {
+                killingCountAchievements[i].IncreaseCurrentCount(addToCount);
+                return;
+            }
+        }
     }
 
     //We use same killingCountAchievements list
@@ -89,51 +85,27 @@ public class Achievements : Combo {
         //}
     }
 
-    public int InstanceNewAchievement(AchievementType type, GameObject achievement)
+    public int InstanceNewAchievement( GameObject achievement)
     {
         Combo[] requestedAchievementTypeCurrentlyActive = null;
         GameObject achievementInstantiation = null;
         bool arrayNeedsAnIncrement = false;
 
-        switch (type)
+        if(hittingCountAchievements != null && hittingCountAchievements.Length != 0)
         {
-            case AchievementType.CONSECUTIVEHITTING:
-                if(hittingCountAchievements != null && hittingCountAchievements.Length != 0)
-                {
-                    requestedAchievementTypeCurrentlyActive = new Combo[hittingCountAchievements.Length];
-                    requestedAchievementTypeCurrentlyActive = hittingCountAchievements;
-                }
-                //on first request
-                else
-                {
-                    hittingCountAchievements = new  KillingCountAchievement[1];
-                    achievementInstantiation = Instantiate(achievement);
-                    achievementInstantiation.GetComponent<Combo>().SetComboID(0);
-                    hittingCountAchievements[0] = achievementInstantiation.GetComponent<KillingCountAchievement>();
-
-                    return 0;
-                }
-                
-                break;
-
-            case AchievementType.CONSECUTIVEKILLING:
-                if (killingCountAchievements != null && killingCountAchievements.Length != 0)
-                {
-                    requestedAchievementTypeCurrentlyActive = new Combo[killingCountAchievements.Length];
-                    requestedAchievementTypeCurrentlyActive = killingCountAchievements;
-                }
-                //on first request
-                else
-                {
-                    killingCountAchievements = new KillingCountAchievement[1];
-                    achievementInstantiation = Instantiate(achievement);
-                    achievementInstantiation.GetComponent<Combo>().SetComboID(0);
-                    killingCountAchievements[0] = achievementInstantiation.GetComponent<KillingCountAchievement>();
-
-                    return 0;
-                }
-                break;
+            requestedAchievementTypeCurrentlyActive = new Combo[hittingCountAchievements.Length];
+            requestedAchievementTypeCurrentlyActive = hittingCountAchievements;
         }
+        //on first request
+        else
+        {
+            hittingCountAchievements = new  KillingCountAchievement[1];
+            achievementInstantiation = Instantiate(achievement);
+            achievementInstantiation.GetComponent<Combo>().SetComboID(0);
+            hittingCountAchievements[0] = achievementInstantiation.GetComponent<KillingCountAchievement>();
+
+            return 0;
+        }              
 
         if(requestedAchievementTypeCurrentlyActive != null)
         {
@@ -158,20 +130,10 @@ public class Achievements : Combo {
             }
 
             //Add the new achievement instantiation to the corresponding array
-            switch (type)
-            {
-                case AchievementType.CONSECUTIVEHITTING:
-                    if(arrayNeedsAnIncrement)
-                        Array.Resize(ref hittingCountAchievements, hittingCountAchievements.Length + 1);
-                    hittingCountAchievements[achievementInstantiation.GetComponent<Combo>().GetComboID()] = achievementInstantiation.GetComponent<KillingCountAchievement>();
-                    break;
 
-                case AchievementType.CONSECUTIVEKILLING:
-                    if (arrayNeedsAnIncrement)
-                        Array.Resize(ref killingCountAchievements, killingCountAchievements.Length + 1);
-                    killingCountAchievements[achievementInstantiation.GetComponent<Combo>().GetComboID()] = achievementInstantiation.GetComponent<KillingCountAchievement>();
-                    break;
-            }
+            if(arrayNeedsAnIncrement)
+                Array.Resize(ref hittingCountAchievements, hittingCountAchievements.Length + 1);
+            hittingCountAchievements[achievementInstantiation.GetComponent<Combo>().GetComboID()] = achievementInstantiation.GetComponent<KillingCountAchievement>();          
             return achievementInstantiation.GetComponent<Combo>().GetComboID();
         }
 
@@ -214,21 +176,6 @@ public class Achievements : Combo {
     public GameObject GetSliceNDice()
     {
         return slicenDicePrefab;
-    }
-
-    public GameObject GetWatchOut()
-    {
-        return watchOutPrefab;
-    }
-
-    public GameObject GetMetorShower()
-    {
-        return meteorShowerPrefab;
-    }
-
-    public GameObject GetStuckTheLandingPrefab()
-    {
-        return stuckTheLandingPrefab;
     }
     #endregion
 

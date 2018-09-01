@@ -27,6 +27,14 @@ public class KillingCountAchievement : Combo {
     void Update()
     {
         ReviewConditions();
+
+        if(attackType == AttackType.METEORITE)
+        {
+            if (currentCount > 0 && !player.GetIsMeteoritesOn())
+            {
+                ResetCount();
+            }
+        }
     }
 
     #region Public methods
