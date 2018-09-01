@@ -226,7 +226,15 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private void OnDrawGizmosSelected()
     {
         if (!canAttackPlayer)
+        {
+            if (navAttackTarget)
+            {
+                Gizmos.color = new Color(0, 0, 1, 1);
+                Vector3 offset = Vector3.up;
+                GizmosHelper.DrawArrow(transform.position + offset, navAttackTarget.transform.position + offset, 1.25f);
+            }
             return;
+        }
 
         Gizmos.color = new Color(0, 1, 0, 1);
         Gizmos.DrawWireSphere(transform.position, escapeRadius);
