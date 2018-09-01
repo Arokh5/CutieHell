@@ -36,7 +36,6 @@ public class Achievements : Combo {
             Destroy(gameObject);
         }
 
-        DontDestroyOnLoad(this.gameObject);
     }
 
     // Update is called once per frame
