@@ -7,6 +7,7 @@ public class StrongAttackExit : StateAction
 {
     public override void Act(Player player)
     {
+        player.SetRenderersVisibility(true);
         player.strongAttackTimer = 0.0f;
         player.strongAttackCollider.Deactivate();
         player.cameraState = Player.CameraState.MOVE;
