@@ -5,21 +5,13 @@ using UnityEngine;
 public class PathsController : MonoBehaviour
 {
     #region Fields
-    [SerializeField]
-    private List<PathNode> startingPathNodes;
     private List<PathNode> allPathNodes;
     #endregion
 
     #region MonoBehaviour Methods
     private void Awake()
     {
-        UnityEngine.Assertions.Assert.IsTrue(startingPathNodes != null && startingPathNodes.Count > 0, "ERROR: The PathsController in gameObject '" + gameObject.name + "' doesn't have any startingPathNodes. There should be at least 1 element in startingPathNodes!");
-
         allPathNodes = new List<PathNode>(GetComponentsInChildren<PathNode>());
-        foreach (PathNode pathNode in startingPathNodes)
-        {
-            UnityEngine.Assertions.Assert.IsTrue(allPathNodes.Contains(pathNode), "ERROR: The PathsController in gameObject '" + gameObject.name + "' doesn't have the PathNode from gameObject'" + pathNode.gameObject.name + "' as one of its children!");
-        }
     }
     #endregion
 
