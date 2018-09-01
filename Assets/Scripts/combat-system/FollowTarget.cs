@@ -15,6 +15,8 @@ public class FollowTarget : PooledParticleSystem
     [SerializeField]
     private AudioClip hitSfx;
     [SerializeField]
+    private AudioSource audioSource;
+    [SerializeField]
     private bool hasKnockback = false;
 
     private Transform mainCamera;
@@ -77,7 +79,8 @@ public class FollowTarget : PooledParticleSystem
                 enemyHit.TakeDamage(damage, attackType);
                 if (hasKnockback)
                     enemyHit.SetKnockback(this.transform.position);
-                SoundManager.instance.PlaySfxClip(hitSfx, Random.Range(0.8f,1.3f));
+                audioSource.pitch = Random.Range(0.3f, 0.8f);
+                SoundManager.instance.PlaySfxClip(audioSource, hitSfx,true);
             }
         }
     }
