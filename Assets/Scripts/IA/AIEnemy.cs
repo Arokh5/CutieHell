@@ -501,6 +501,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
     {
         frozen = true;
         SetAgentEnable(false);
+        if (enemyType == EnemyType.BASIC)
+            animator.SetFloat("Speed", 1.0f);
     }
 
     public void Resume()

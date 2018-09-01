@@ -30,15 +30,18 @@ public class AIAttackDPS : AIAttackLogic {
         if (IsInAttackRange(navigationTarget) && !animator.GetCurrentAnimatorStateInfo(0).IsName("Attack") && !animator.GetBool("Attack"))
         {
             target = _target;
-            this.transform.LookAt(_target.transform.position);
+            transform.LookAt(_target.transform.position);
             animator.SetBool("Attack",true);
         }
+
         if(animator.GetBool("Attack") && !IsInAttackRange(navigationTarget))
         {
             animator.SetBool("Attack", false);
         }
+
         if (animator.GetBool("Attack"))
         {
+            transform.LookAt(_target.transform.position);
             animator.SetFloat("Speed", 5.0f);
         }
         else
@@ -56,6 +59,7 @@ public class AIAttackDPS : AIAttackLogic {
             {
                 if (Vector3.Distance(modelPosition.position, target.transform.position + Vector3.up) < 1.5f)
                 {
+                    this.transform.LookAt(target.transform.position);
                     Attack(target);
                     ParticlesManager.instance.LaunchParticleSystem(enemyHitVFX, modelPosition.position - modelPosition.transform.right * 0.2f, enemyHitVFX.transform.rotation);
                     audioSource.pitch = Random.Range(0.9f, 1.1f);
@@ -64,6 +68,7 @@ public class AIAttackDPS : AIAttackLogic {
             }
             else
             {
+                this.transform.LookAt(target.transform.position);
                 Attack(target);
                 ParticlesManager.instance.LaunchParticleSystem(enemyHitVFX, modelPosition.position - modelPosition.transform.right * 0.2f, enemyHitVFX.transform.rotation);
                 audioSource.pitch = Random.Range(0.9f, 1.1f);
