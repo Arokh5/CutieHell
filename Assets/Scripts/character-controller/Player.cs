@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IDamageable
 {
+    public delegate void VoidCallback();
+
     [System.Serializable]
     public class CooldownInfo
     {
@@ -32,6 +34,8 @@ public class Player : MonoBehaviour, IDamageable
     public Vector3 currentSpeed;
     [HideInInspector]
     public Vector3 lastValidPosition;
+
+    private VoidCallback expelCallback = null;
 
     [Header("Dash")]
     public CooldownInfo dashCooldown;
@@ -319,13 +323,14 @@ public class Player : MonoBehaviour, IDamageable
         }
     }
 
-    public void ExpelFromZone(AIZoneController sourceZone, TeleportTarget teleportTarget)
+    public void ExpelFromZone(AIZoneController sourceZone, TeleportTarget teleportTarget, VoidCallback postExpelCallback = null)
     {
         if (currentZoneController == sourceZone)
         {
             currentTelepotTarget = teleportTarget;
             currentZoneController = teleportTarget.zoneController;
             TransitionToState(teleportExpelState);
+            expelCallback = postExpelCallback;
         }
     }
 
@@ -429,6 +434,13 @@ public class Player : MonoBehaviour, IDamageable
         targetState.EnterState(this);
         currentState = targetState;
         lastTransitionTime = Time.time;
+
+        if (expelCallback != null)
+        {
+            VoidCallback callback = expelCallback;
+            expelCallback = null;
+            callback();
+        }
     }
 
     public void SetRenderersVisibility(bool visible)

@@ -41,6 +41,7 @@ public class AIZoneController : MonoBehaviour
     public TeleportTarget playerExpelTarget;
     public List<BuildingEffects> buildingEffects;
 
+    private bool shouldReportZoneEmpty = false;
     private List<IZoneTakenListener> zoneTakenListeners = new List<IZoneTakenListener>();
 
     [ShowOnly]
@@ -183,7 +184,14 @@ public class AIZoneController : MonoBehaviour
         {
             if (aiEnemies.Count == 0)
             {
-                scenarioController.OnZoneEmpty();
+                if (zoneLossTransition && zoneLossTransition.InTransition())
+                {
+                    shouldReportZoneEmpty = true;
+                }
+                else
+                {
+                    scenarioController.OnZoneEmpty();
+                }
             }
         }
         return removed;
@@ -306,8 +314,6 @@ public class AIZoneController : MonoBehaviour
         scenarioController.ResumeAllEnemies();
         Player player = GameManager.instance.GetPlayer1();
         player.OnRoundStarted();
-        if (playerExpelTarget != null)
-            player.ExpelFromZone(this, playerExpelTarget);
 
         foreach (IZoneTakenListener listener in zoneTakenListeners)
             listener.OnZoneTaken();
@@ -320,6 +326,20 @@ public class AIZoneController : MonoBehaviour
         {
             currentZoneTarget = scenarioController.GetAlternateTarget(this);
             OnTargetBuildingChanged();
+
+            if (shouldReportZoneEmpty)
+            {
+                shouldReportZoneEmpty = false;
+                if (playerExpelTarget != null)
+                    player.ExpelFromZone(this, playerExpelTarget, scenarioController.OnZoneEmpty);
+                else
+                    scenarioController.OnZoneEmpty();
+            }
+            else
+            {
+                if (playerExpelTarget != null)
+                    player.ExpelFromZone(this, playerExpelTarget);
+            }
         }
     }
     #endregion

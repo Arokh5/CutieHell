@@ -144,10 +144,10 @@ public class ScenarioController : MonoBehaviour
                 }
             }
 
-            GameManager.instance.OnRoundWon();
             StatsManager.instance.WinRoundPoints();
             StatsManager.instance.SetRoundState(false);
             StatsManager.instance.ResetRoundTime();
+            GameManager.instance.OnRoundWon();
         }
     }
 

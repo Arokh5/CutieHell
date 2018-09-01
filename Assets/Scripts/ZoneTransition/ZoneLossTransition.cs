@@ -33,6 +33,11 @@ public class ZoneLossTransition : MonoBehaviour
         inTransition = true;
         StartAnimationChain();
     }
+
+    public bool InTransition()
+    {
+        return inTransition;
+    }
     #endregion
 
     #region Private Methods
