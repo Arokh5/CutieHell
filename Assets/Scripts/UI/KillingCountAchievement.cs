@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class KillingCountAchievement : Combo {
 
     #region Attributes
     [SerializeField]
     private AttackType attackType;
+
+    private List<int> hittedEnemiesIds;
 
     private Player player;
 	#endregion
@@ -17,6 +20,7 @@ public class KillingCountAchievement : Combo {
 	void Start () 
 	{
         player = GameManager.instance.GetPlayer1();
+        hittedEnemiesIds = new List<int>();
     }
 
     // Update is called once per frame
@@ -73,6 +77,11 @@ public class KillingCountAchievement : Combo {
         {
             GrantReward();
         }
+    }
+
+    public List<int> GetHittedEnemiesIDs()
+    {
+        return hittedEnemiesIds;
     }
     #endregion
 
