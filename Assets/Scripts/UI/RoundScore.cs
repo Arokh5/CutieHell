@@ -68,6 +68,7 @@ public class RoundScore : MonoBehaviour {
     private ShowingState showingState;
 
     private List<Combo> obtainedAchievements = new List<Combo>();
+    private List<int> achievementsTimesObtained = new List<int>();
     #endregion
 
     #region MonoBehaviour methods
@@ -183,15 +184,22 @@ public class RoundScore : MonoBehaviour {
 
     public void AddObtainedAchievement(ref Combo achievement)
     {
-        if (!obtainedAchievements.Contains(achievement))
+        for (int i = 0; i < obtainedAchievements.Count; i++)
         {
-            obtainedAchievements.Add(achievement);
+            if (obtainedAchievements[i].comboName == achievement.comboName)
+            {
+                achievementsTimesObtained[i] = achievementsTimesObtained[i] + 1;
+                return;
+            }
         }
+        obtainedAchievements.Add(achievement);
+        achievementsTimesObtained.Add(1);
     }
 
     public void ResetObtainedAchievements()
     {
         obtainedAchievements.Clear();
+        achievementsTimesObtained.Clear();
     }
     #endregion
 
@@ -325,9 +333,9 @@ public class RoundScore : MonoBehaviour {
             achievementScore.transform.parent = obtainedAchievementsRoot;
             achievementScore.transform.localPosition = achievementsDisplayPosition.localPosition;
             achievementScore.GetComponent<Image>().sprite = obtainedAchievements[currentEvaluatedAchievementIterator].comboIcon;
-            achievementScore.GetComponentInChildren<Text>().text = "x" + obtainedAchievements[currentEvaluatedAchievementIterator].GetTimesObtained();
+            achievementScore.GetComponentInChildren<Text>().text = "x" + achievementsTimesObtained[currentEvaluatedAchievementIterator];
 
-            currentScoreTarget += obtainedAchievements[currentEvaluatedAchievementIterator].reward * obtainedAchievements[currentEvaluatedAchievementIterator].GetTimesObtained();
+            currentScoreTarget += obtainedAchievements[currentEvaluatedAchievementIterator].reward * achievementsTimesObtained[currentEvaluatedAchievementIterator];
         }
         else
         {
