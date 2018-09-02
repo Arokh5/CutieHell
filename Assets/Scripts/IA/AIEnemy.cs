@@ -614,6 +614,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
                 else
                 {
                     hasPlayerAsDetected = false;
+                    currentTarget = currentTargetBuilding;
                 }
             }
             else
@@ -624,10 +625,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
                     hasPlayerAsDetected = true;
                     playerDetectedToTargetTimeLeft = detectionDelay;
                 }
-                else
-                {
-                    currentTarget = currentTargetBuilding;
-                }
+                currentTarget = currentTargetBuilding;
             }
         }
         else
