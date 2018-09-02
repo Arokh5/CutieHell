@@ -14,8 +14,6 @@ public class InitGame : MonoBehaviour
     [Header("Alternate screens")]
     [SerializeField]
     private Image helpScreen;
-    [SerializeField]
-    private Image creditsScreen;
 
     [Header("Faders")]
     [SerializeField]
@@ -37,7 +35,6 @@ public class InitGame : MonoBehaviour
     {
         UnityEngine.Assertions.Assert.IsNotNull(loadingText, "ERROR: Text (loadingText) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
         UnityEngine.Assertions.Assert.IsNotNull(helpScreen, "ERROR: Image (helpScreen) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
-        UnityEngine.Assertions.Assert.IsNotNull(creditsScreen, "ERROR: Image (creditsScreen) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
         UnityEngine.Assertions.Assert.IsNotNull(blackFader, "ERROR: ScreenFadeController (blackFader) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
         UnityEngine.Assertions.Assert.IsNotNull(foregroundFader, "ERROR: ScreenFadeController (foregroundFader) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
     }
@@ -45,7 +42,6 @@ public class InitGame : MonoBehaviour
     private void Start()
     {
         helpScreen.enabled = false;
-        creditsScreen.enabled = false;
         loadingText.enabled = false;
         blackFader.TurnOpaque();
         foregroundFader.TurnOpaque();
@@ -133,8 +129,7 @@ public class InitGame : MonoBehaviour
                     break;
 
                 case 2:
-                    menuActive = false;
-                    creditsScreen.enabled = true;
+                    blackFader.FadeToOpaque(0.5f, LoadCreditsScene);
                     break;
 
                 case 3:
@@ -151,7 +146,6 @@ public class InitGame : MonoBehaviour
         {
             menuActive = true;
             helpScreen.enabled = false;
-            creditsScreen.enabled = false;
         }
     }
 
@@ -159,6 +153,11 @@ public class InitGame : MonoBehaviour
     {
         loadingText.enabled = true;
         SceneManager.LoadScene("Game", LoadSceneMode.Single);
+    }
+
+    private void LoadCreditsScene()
+    {
+        SceneManager.LoadScene("Credits",LoadSceneMode.Single);
     }
     #endregion
 }
