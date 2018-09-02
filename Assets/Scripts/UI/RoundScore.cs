@@ -216,8 +216,16 @@ public class RoundScore : MonoBehaviour {
 
     private void SaveRoundScoreInfo()
     {
+        List<Sprite> obtainedAchievementsIcons = new List<Sprite>();
 
+        for(int i = 0; i < obtainedAchievements.Count; i++)
+        {
+            obtainedAchievementsIcons.Add(obtainedAchievements[i].comboIcon);
+        }
+
+        StatsManager.instance.PassRoundScoreInfoToGameScore(totalScore, obtainedAchievementsIcons, achievementsTimesObtained);
     }
+
     private void CloseRoundScorePopup()
     {
         if(InputManager.instance.GetXButton())

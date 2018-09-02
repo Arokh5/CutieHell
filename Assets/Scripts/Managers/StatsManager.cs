@@ -69,7 +69,7 @@ public class StatsManager : MonoBehaviour
         roundActive = active;
     }
 
-    public void PassRoundScoreInfoToGameScore(int roundScore, List<Combo> obtainedAchievements, List<int> timesObtained)
+    public void PassRoundScoreInfoToGameScore(int roundScore, List<Sprite> obtainedAchievements, List<int> timesObtained)
     {
         gameScore.StoreRoundInformation(roundScore, obtainedAchievements, timesObtained);
     }

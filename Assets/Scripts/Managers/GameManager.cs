@@ -41,7 +41,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private RoundScore roundScore;
 
-    private int currentRoundNum;
+    [SerializeField]
+    private GameScore gameScore;
+    private int currentRoundNum = 0;
 
     private bool unpauseNextFrame = false;
     #endregion
@@ -169,6 +171,7 @@ public class GameManager : MonoBehaviour
         if (aiSpawnController.HasNextRound())  
         {
             OnRoundEnd();
+            currentRoundNum++;
         }
         else
         {
@@ -205,9 +208,9 @@ public class GameManager : MonoBehaviour
             StatsManager.instance.GetTimeCombo().GrantReward();
             StatsManager.instance.GetReceivedDamageCombo().GrantReward();
 
-            roundScore.gameObject.SetActive(true);
             roundScore.SetUpTotalScore(StatsManager.instance.GetRoundPoints());
-            roundScore.ShowRoundScore();
+            gameScore.ShowGameScore(true);
+
 
             gameState = GameStates.OnGameEnd;   
         }
@@ -219,10 +222,11 @@ public class GameManager : MonoBehaviour
         {
             player.OnRoundOver();
             //crosshair.SetActive(false);
-            gameOverPanel.SetActive(true);
             UIManager.instance.ChangeRoundEndText("YOU LOSE!");
             UIManager.instance.ChangeEndBtnText("Go To Title Screen");
             gameState = GameStates.OnGameEnd;
+
+            gameScore.ShowGameScore(false);
         }
     }
 
@@ -268,7 +272,6 @@ public class GameManager : MonoBehaviour
         aiSpawnController.StartNextRound();
         if (aiSpawnController.GetCurrentRoundIndex() > 0)
             player.OnRoundStarted();
-        currentRoundNum++;
     }
 
     public void GoToTitleScreen()
