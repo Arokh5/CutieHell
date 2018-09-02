@@ -33,6 +33,8 @@ public class StatsManager : MonoBehaviour
     [SerializeField]
     private ReceivedDamageCombo receivedDamageCombo;
 
+    [SerializeField]
+    private GameScore gameScore;
     #endregion
 
     #region Properties
@@ -67,6 +69,10 @@ public class StatsManager : MonoBehaviour
         roundActive = active;
     }
 
+    public void PassRoundScoreInfoToGameScore(int roundScore, List<Combo> obtainedAchievements, List<int> timesObtained)
+    {
+        gameScore.StoreRoundInformation(roundScore, obtainedAchievements, timesObtained);
+    }
     #endregion
 
     #region MonoBehaviour Methods

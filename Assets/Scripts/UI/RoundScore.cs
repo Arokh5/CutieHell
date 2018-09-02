@@ -214,10 +214,17 @@ public class RoundScore : MonoBehaviour {
         skipFullCounting = true;
     }
 
+    private void SaveRoundScoreInfo()
+    {
+
+    }
     private void CloseRoundScorePopup()
     {
         if(InputManager.instance.GetXButton())
         {
+
+            //Save round values for game global score
+            SaveRoundScoreInfo();
             //Disable total score and the button showing how to close the popup
             total.gameObject.SetActive(false);
             currentScoreValue = 0;

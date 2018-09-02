@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private RoundScore roundScore;
 
+    private int currentRoundNum;
+
     private bool unpauseNextFrame = false;
     #endregion
 
@@ -266,6 +268,7 @@ public class GameManager : MonoBehaviour
         aiSpawnController.StartNextRound();
         if (aiSpawnController.GetCurrentRoundIndex() > 0)
             player.OnRoundStarted();
+        currentRoundNum++;
     }
 
     public void GoToTitleScreen()
@@ -286,7 +289,10 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }
 
-
+    public int GetCurrentRoundNum()
+    {
+        return currentRoundNum;
+    }
    
     #endregion
 
