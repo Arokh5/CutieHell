@@ -17,6 +17,8 @@ public class ConeAttackAnimator : StateMachineBehaviour {
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         flag = false;
+        CheckPlayer(animator);
+        //player.cameraState = Player.CameraState.CONEATTACK;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -46,7 +48,10 @@ public class ConeAttackAnimator : StateMachineBehaviour {
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         CheckPlayer(animator);
-        player.comeBackFromConeAttack = true;
+        if (!player.animator.GetBool("ConeAttackFollow"))
+        {
+            player.comeBackFromConeAttack = true;
+        }
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here
