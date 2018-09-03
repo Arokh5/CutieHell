@@ -173,6 +173,7 @@ public class Player : MonoBehaviour, IDamageable
     [Header("Cone Attack")]
     public CooldownInfo coneAttackCooldown;
     public ParticleSystem coneAttackVFX;
+    public ParticleSystem coneAttackFollowVFX;
     public int coneAttacklinkedAchievementID = 0;
     [HideInInspector]
     public bool comeBackFromConeAttack;

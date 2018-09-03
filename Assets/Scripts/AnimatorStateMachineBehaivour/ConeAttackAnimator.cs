@@ -8,6 +8,10 @@ public class ConeAttackAnimator : StateMachineBehaviour {
     public float attackSpawnTime;
     private bool flag;
     private Player player;
+    [SerializeField]
+    private bool isFollow;
+    [SerializeField]
+    private AudioClip slash;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -23,7 +27,16 @@ public class ConeAttackAnimator : StateMachineBehaviour {
             BulletTime.instance.DoSlowmotion(0.65f, 0.25f);
             flag = true;
             CheckPlayer(animator);
-            ParticleSystem o = ParticlesManager.instance.LaunchParticleSystem(player.coneAttackVFX, player.transform.position + Vector3.up + player.transform.forward * 0.65f, player.transform.rotation * player.coneAttackVFX.transform.rotation);
+            ParticleSystem o;
+            if (!isFollow)
+            {
+                o = ParticlesManager.instance.LaunchParticleSystem(player.coneAttackVFX, player.transform.position + Vector3.up + player.transform.forward * 0.65f, player.transform.rotation * player.coneAttackVFX.transform.rotation);
+            }
+            else
+            {
+                o = ParticlesManager.instance.LaunchParticleSystem(player.coneAttackFollowVFX, player.transform.position + Vector3.up + player.transform.forward * 0.65f + player.transform.right * 0.5f, player.transform.rotation * player.coneAttackVFX.transform.rotation);
+            }
+            SoundManager.instance.PlaySfxClip(player.audioSource, slash, true);
             o.transform.SetParent(animator.gameObject.transform);
             CameraShaker.Instance.ShakeOnce(0.2f, 15.5f, 0.1f, 0.5f);
         }
