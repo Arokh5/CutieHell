@@ -44,7 +44,14 @@ public class GameManager : MonoBehaviour
     private int roundsCompleted = 0;
 
     private bool unpauseNextFrame = false;
-    #endregion
+
+#if UNITY_EDITOR
+    [Header("Editor tools")]
+    [SerializeField]
+    private bool forceGameLoss;
+#endif
+
+#endregion
 
     #region Properties
 
@@ -108,6 +115,13 @@ public class GameManager : MonoBehaviour
                 }
                 break;
         }
+#if UNITY_EDITOR
+        if (forceGameLoss)
+        {
+            forceGameLoss = false;
+            scenarioController.OnFinalZoneConquered();
+        }
+#endif
     }
 
     private void OnApplicationPause(bool pause)
