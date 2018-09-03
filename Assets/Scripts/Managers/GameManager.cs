@@ -41,6 +41,12 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private GameScore gameScore;
+    [SerializeField]
+    private AudioClip victoryClip;
+    [SerializeField]
+    private AudioClip defeatClip;
+
+
     private int roundsCompleted = 0;
 
     private bool unpauseNextFrame = false;
@@ -221,10 +227,9 @@ public class GameManager : MonoBehaviour
             StatsManager.instance.GetTimeCombo().GrantReward();
             StatsManager.instance.GetReceivedDamageCombo().GrantReward();
 
-            roundScore.SetUpTotalScore(StatsManager.instance.GetRoundPoints());
+            gameState = GameStates.OnGameEnd;
+            SoundManager.instance.PlayMusicClip(victoryClip);
             gameScore.ShowGameScore(true);
-
-            gameState = GameStates.OnGameEnd;   
         }
     }
 
@@ -234,8 +239,9 @@ public class GameManager : MonoBehaviour
         {
             player.OnRoundOver();
             //crosshair.SetActive(false);
-            gameState = GameStates.OnGameEnd;
 
+            gameState = GameStates.OnGameEnd;
+            SoundManager.instance.PlayMusicClip(defeatClip);
             gameScore.ShowGameScore(false);
         }
     }
