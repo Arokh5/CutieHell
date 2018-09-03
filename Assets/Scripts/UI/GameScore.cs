@@ -173,8 +173,7 @@ public class GameScore : MonoBehaviour {
             iscurrentRoundAchievementsCompleted = true;
             //TODO Reset all info for next round
         }
-
-        if (elapsedTime >= intervalTime)
+        else if (elapsedTime >= intervalTime)
         {
             GameObject achievementScore = Instantiate(achievementScorePrefab, this.transform);
             achievementScore.transform.parent = roundsVisualsGameScore[currentRoundBeingDisplayed].GetAchievements().transform;
