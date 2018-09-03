@@ -291,7 +291,7 @@ public class CameraController : MonoBehaviour
                     }           
                     break;
                 case Player.CameraState.CONEATTACK:
-                    { 
+                    {
                     y = ClampAngle(y, 15, 20);
                     Quaternion rotation = Quaternion.Euler(y, x, 0);
                     float noCollisionDistance = distance + 6;

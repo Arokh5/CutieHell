@@ -9,5 +9,6 @@ public class ConeAttackExitAction : StateAction
     {
         Achievements.instance.DestroyAchievementInstantiation(AchievementType.CONSECUTIVEHITTING, GameManager.instance.GetPlayer1().GetConeAttackLinkedAchievementID());
         player.canMove = true;
+        //player.cameraState = Player.CameraState.MOVE;
     }
 }
