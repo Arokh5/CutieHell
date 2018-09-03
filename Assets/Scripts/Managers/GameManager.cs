@@ -37,8 +37,6 @@ public class GameManager : MonoBehaviour
     private GameObject crosshair;
 
     [SerializeField]
-    private GameObject gameOverPanel;
-    [SerializeField]
     private RoundScore roundScore;
 
     [SerializeField]
@@ -222,8 +220,6 @@ public class GameManager : MonoBehaviour
         {
             player.OnRoundOver();
             //crosshair.SetActive(false);
-            UIManager.instance.ChangeRoundEndText("YOU LOSE!");
-            UIManager.instance.ChangeEndBtnText("Go To Title Screen");
             gameState = GameStates.OnGameEnd;
 
             gameScore.ShowGameScore(false);
@@ -262,7 +258,6 @@ public class GameManager : MonoBehaviour
     {
         if (aiSpawnController.HasNextRound())
         {
-            gameOverPanel.SetActive(false);
             StatsManager.instance.ResetKillCounts();
             StatsManager.instance.ResetRoundPoints();
             StatsManager.instance.GetMaxCombo().ResetCombo();
