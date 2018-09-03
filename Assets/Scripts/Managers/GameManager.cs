@@ -39,12 +39,15 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private RoundScore roundScore;
 
+    [Header("Game End")]
     [SerializeField]
     private GameScore gameScore;
     [SerializeField]
     private AudioClip victoryClip;
     [SerializeField]
     private AudioClip defeatClip;
+    [SerializeField]
+    private GameObject[] uiToHide;
 
 
     private int roundsCompleted = 0;
@@ -229,6 +232,7 @@ public class GameManager : MonoBehaviour
 
             gameState = GameStates.OnGameEnd;
             SoundManager.instance.PlayMusicClip(victoryClip);
+            HideUIOnGameEnd();
             gameScore.ShowGameScore(true);
         }
     }
@@ -242,6 +246,7 @@ public class GameManager : MonoBehaviour
 
             gameState = GameStates.OnGameEnd;
             SoundManager.instance.PlayMusicClip(defeatClip);
+            HideUIOnGameEnd();
             gameScore.ShowGameScore(false);
         }
     }
@@ -321,6 +326,17 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Private Methods
+    private void HideUIOnGameEnd()
+    {
+        if (uiToHide != null)
+        {
+            foreach (GameObject go in uiToHide)
+            {
+                go.SetActive(false);
+            }
+        }
+    }
+
     private void FreezePlayer()
     {
         avoidPlayerUpdate = true;
