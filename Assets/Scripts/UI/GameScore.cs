@@ -250,6 +250,7 @@ public class GameScore : MonoBehaviour {
 
     private void ShowRoundWithLock()
     {
+        roundsVisualsGameScore[currentRoundBeingDisplayed].GetRoundTitle().SetActive(true);
         roundsVisualsGameScore[currentRoundBeingDisplayed].DisplayLock();
         PrepareToShowNextRound();
     }
