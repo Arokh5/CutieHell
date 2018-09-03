@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private GameScore gameScore;
-    private int currentRoundNum = 0;
+    private int roundsCompleted = 0;
 
     private bool unpauseNextFrame = false;
     #endregion
@@ -168,16 +168,17 @@ public class GameManager : MonoBehaviour
         Debug.Log("Round (index) " + aiSpawnController.GetCurrentRoundIndex() + " finished!");
         player.OnRoundOver();
 
-        if (aiSpawnController.HasNextRound())  
-        {
-            OnRoundEnd();
-            currentRoundNum++;
-        }
-        else
-        {
-            Debug.Log("No more rounds available!");
-            OnGameWon();
-        }
+        ++roundsCompleted;
+        OnRoundEnd();
+
+        //if (aiSpawnController.HasNextRound())  
+        //{
+        //}
+        //else
+        //{
+        //    Debug.Log("No more rounds available!");
+        //    OnGameWon();
+        //}
     }
 
     public void OnRoundEnd()
@@ -199,7 +200,7 @@ public class GameManager : MonoBehaviour
 
     public void OnGameWon()
     {
-        if (gameState == GameStates.InGame)
+        if (gameState == GameStates.OnRoundEnd)
         {
             //crosshair.SetActive(false);
 
@@ -210,7 +211,6 @@ public class GameManager : MonoBehaviour
 
             roundScore.SetUpTotalScore(StatsManager.instance.GetRoundPoints());
             gameScore.ShowGameScore(true);
-
 
             gameState = GameStates.OnGameEnd;   
         }
@@ -260,18 +260,26 @@ public class GameManager : MonoBehaviour
 
     public void GoToNextRound()
     {
-        //crosshair.SetActive(true);
-        gameOverPanel.SetActive(false);
-        StatsManager.instance.ResetKillCounts();
-        StatsManager.instance.ResetRoundPoints();
-        StatsManager.instance.GetMaxCombo().ResetCombo();
-        StatsManager.instance.GetTimeCombo().ResetCombo();
-        StatsManager.instance.GetReceivedDamageCombo().ResetCombo();
-        gameState = GameStates.InGame;
+        if (aiSpawnController.HasNextRound())
+        {
+            gameOverPanel.SetActive(false);
+            StatsManager.instance.ResetKillCounts();
+            StatsManager.instance.ResetRoundPoints();
+            StatsManager.instance.GetMaxCombo().ResetCombo();
+            StatsManager.instance.GetTimeCombo().ResetCombo();
+            StatsManager.instance.GetReceivedDamageCombo().ResetCombo();
+            gameState = GameStates.InGame;
 
-        aiSpawnController.StartNextRound();
-        if (aiSpawnController.GetCurrentRoundIndex() > 0)
-            player.OnRoundStarted();
+            aiSpawnController.StartNextRound();
+            if (aiSpawnController.GetCurrentRoundIndex() > 0)
+                player.OnRoundStarted();
+        }
+        else
+        {
+            Debug.Log("No more rounds available!");
+            OnGameWon();
+        }
+        
     }
 
     public void GoToTitleScreen()
@@ -293,9 +301,9 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }
 
-    public int GetCurrentRoundNum()
+    public int GetRoundsCompleted()
     {
-        return currentRoundNum;
+        return roundsCompleted;
     }
    
     #endregion

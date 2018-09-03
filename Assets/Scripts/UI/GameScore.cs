@@ -83,7 +83,7 @@ public class GameScore : MonoBehaviour {
     #region Public methods
     public void StoreRoundInformation(int roundScore, List<Sprite> obtainedAchievementsIcons, List<int> timesObtained)
     {
-        int currentRound = GameManager.instance.GetCurrentRoundNum() - 1;
+        int currentRound = GameManager.instance.GetRoundsCompleted() - 1;
 
         roundTotalScores[currentRound] = roundScore;
         roundObtainedCombos.Add(new List<Sprite>());
@@ -103,7 +103,7 @@ public class GameScore : MonoBehaviour {
 
     public void ShowGameScore(bool gameWon)
     {
-        numOfRoundsCompleted = GameManager.instance.GetCurrentRoundNum();
+        numOfRoundsCompleted = GameManager.instance.GetRoundsCompleted();
 
         DisplayRightPopup(gameWon);
         PrepareToShowNextRound();
@@ -245,7 +245,5 @@ public class GameScore : MonoBehaviour {
     {
         currentRoundScoreValue = roundTotalScores[currentRoundBeingDisplayed];
     }
-
-
     #endregion
 }
