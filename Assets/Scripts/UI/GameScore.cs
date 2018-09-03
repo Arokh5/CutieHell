@@ -212,6 +212,11 @@ public class GameScore : MonoBehaviour {
     private void IncrementRoundScore(float value)
     {
         currentRoundScoreValue += value * Time.deltaTime;
+        if (currentRoundScoreValue > roundTotalScores[currentRoundBeingDisplayed])
+        {
+            currentRoundScoreValue = roundTotalScores[currentRoundBeingDisplayed];
+        }
+
         roundsVisualsGameScore[currentRoundBeingDisplayed].UpdateRoundScore((int)currentRoundScoreValue);
 
         if (currentRoundScoreValue >= roundTotalScores[currentRoundBeingDisplayed])
