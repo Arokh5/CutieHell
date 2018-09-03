@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameStates.OnGameEnd:
-                GoToTitleScreen();
+                // GoToTitleScreen() is now called from the GameScore script or from the ExitGame method (called by PauseMenuController)
                 break;
 
             case GameStates.OnGamePaused:
@@ -160,7 +160,7 @@ public class GameManager : MonoBehaviour
     public void ExitGame()
     {
         TimeManager.instance.ResumeTime();
-        gameState = GameStates.OnGameEnd;
+        GoToTitleScreen();
     }
 
     public void OnRoundWon()
@@ -284,12 +284,9 @@ public class GameManager : MonoBehaviour
 
     public void GoToTitleScreen()
     {
-        if (InputManager.instance.GetXButtonDown() || gameIsPaused)
-        {
-            gameIsPaused = false;
-            gameState = GameStates.OnStartMenu;
-            SceneManager.LoadScene("TitleScreen", LoadSceneMode.Single);
-        }
+        gameIsPaused = false;
+        gameState = GameStates.OnStartMenu;
+        SceneManager.LoadScene("TitleScreen", LoadSceneMode.Single);
     }
 
     public void RestartGame()

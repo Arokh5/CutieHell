@@ -77,6 +77,13 @@ public class GameScore : MonoBehaviour {
                 ShowRoundWithLock();
             }
         }
+        else
+        {
+            if (InputManager.instance.GetXButtonDown())
+            {
+                GameManager.instance.GoToTitleScreen();
+            }
+        }
     }
     #endregion
 
