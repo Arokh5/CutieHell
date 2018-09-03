@@ -78,7 +78,7 @@ public class RoundScore : MonoBehaviour {
 	{
         currentScore.text = currentScoreValue.ToString();
 
-        if(showingState != ShowingState.COMPLETED && InputManager.instance.GetXButton())
+        if(showingState != ShowingState.COMPLETED && InputManager.instance.GetXButtonDown())
         {
             SkipFullRoundScoreCounting();
         }
@@ -228,7 +228,7 @@ public class RoundScore : MonoBehaviour {
 
     private void CloseRoundScorePopup()
     {
-        if(InputManager.instance.GetXButton())
+        if(InputManager.instance.GetXButtonDown())
         {
 
             //Save round values for game global score

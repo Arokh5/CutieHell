@@ -67,7 +67,7 @@ public class GameScore : MonoBehaviour {
                     UpdateAchievements();
                 }
 
-                if (InputManager.instance.GetXButton())
+                if (InputManager.instance.GetXButtonDown())
                 {
                     SkipRoundWithoutLock();
                 }
