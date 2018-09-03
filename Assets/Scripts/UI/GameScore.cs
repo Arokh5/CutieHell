@@ -23,7 +23,7 @@ public class GameScore : MonoBehaviour {
     [SerializeField]
     private Sprite gameLostBackground;
     [SerializeField]
-    private GameObject totalScore;
+    private Text totalScore;
     [SerializeField]
     private GameObject continueButton;
 
@@ -92,6 +92,7 @@ public class GameScore : MonoBehaviour {
     {
         int currentRound = GameManager.instance.GetRoundsCompleted() - 1;
 
+        gameTotalScore += roundScore;
         roundTotalScores[currentRound] = roundScore;
         roundObtainedCombos.Add(new List<Sprite>());
         roundCombosTimesObtained.Add(new List<int>());
@@ -204,6 +205,7 @@ public class GameScore : MonoBehaviour {
 
         if (currentRoundBeingDisplayed >= 4)
         {
+            ShowTotalScore();
             displayingInfo = false;
             return;
         }
@@ -251,6 +253,12 @@ public class GameScore : MonoBehaviour {
     private void SkipRoundWithoutLock()
     {
         currentRoundScoreValue = roundTotalScores[currentRoundBeingDisplayed];
+    }
+
+    private void ShowTotalScore()
+    {
+        totalScore.text = gameTotalScore.ToString();
+        totalScore.gameObject.SetActive(true);
     }
     #endregion
 }
