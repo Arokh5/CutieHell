@@ -25,7 +25,7 @@ public class GameScore : MonoBehaviour {
     [SerializeField]
     private Text totalScore;
     [SerializeField]
-    private GameObject continueButton;
+    private Text continueButton;
 
     [SerializeField]
     private float countingSpeed = 250f;
@@ -123,6 +123,9 @@ public class GameScore : MonoBehaviour {
     #region Private methods
     private void DisplayRightPopup(bool gameWon)
     {
+        continueButton.text = "Skip";
+        totalScore.gameObject.SetActive(false);
+
         this.gameObject.SetActive(true);
         if (gameWon)
         {
@@ -205,6 +208,7 @@ public class GameScore : MonoBehaviour {
 
         if (currentRoundBeingDisplayed >= 4)
         {
+            continueButton.text = "To Menu";
             ShowTotalScore();
             displayingInfo = false;
             return;
