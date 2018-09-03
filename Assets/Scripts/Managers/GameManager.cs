@@ -287,6 +287,7 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         TimeManager.instance.ResumeTime();
+        FreezePlayer();
         gameIsPaused = false;
         gameState = GameStates.InGame;
         SceneManager.LoadScene("Game", LoadSceneMode.Single);

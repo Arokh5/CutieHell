@@ -142,29 +142,23 @@ public class Achievements : Combo {
 
     public void DestroyAchievementInstantiation(AchievementType type, int id)
     {
-        Combo[] auxAchievementsList = null;
 
         switch (type)
         {
             case AchievementType.CONSECUTIVEHITTING:
                 if(hittingCountAchievements != null)
                 {
-                    auxAchievementsList = new Combo[hittingCountAchievements.Length];
-                    auxAchievementsList = hittingCountAchievements;
+                   GameObject.Destroy(hittingCountAchievements[id].gameObject);
                 }
                 break;
 
             case AchievementType.CONSECUTIVEKILLING:
                 if (killingCountAchievements != null)
                 {
-                    auxAchievementsList = new Combo[killingCountAchievements.Length];
-                    auxAchievementsList = killingCountAchievements;
+                    GameObject.Destroy(killingCountAchievements[id].gameObject);
                 }
                 break;
         }
-
-        //id equals array's position
-        GameObject.Destroy(auxAchievementsList[id]);
     }
 
     public GameObject GetMarksman()

@@ -68,6 +68,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackSpawnTime: 0.35
+--- !u!114 &114592178097534106
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27c4a42fbff4c62438c82eaa11697253, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114708641176590338
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27c4a42fbff4c62438c82eaa11697253, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114929637226872866
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -81,6 +103,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shotTriggerNormalizedTime: 0.48
   prefab: {fileID: 198701849219759478, guid: a05bf91ad5b44004fa08a40e6193a688, type: 2}
+--- !u!114 &114933639427210656
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27c4a42fbff4c62438c82eaa11697253, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114964040977751914
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27c4a42fbff4c62438c82eaa11697253, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114995496298915842
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -484,7 +528,8 @@ AnimatorState:
   - {fileID: 1101679754462660790}
   - {fileID: 1101764227367597746}
   - {fileID: 1101669758671557506}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 114708641176590338}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -513,6 +558,7 @@ AnimatorState:
   - {fileID: 1101997253617992412}
   m_StateMachineBehaviours:
   - {fileID: 114126431899764608}
+  - {fileID: 114592178097534106}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -542,6 +588,7 @@ AnimatorState:
   - {fileID: 1101629544707163926}
   m_StateMachineBehaviours:
   - {fileID: 114995496298915842}
+  - {fileID: 114933639427210656}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -598,7 +645,8 @@ AnimatorState:
   - {fileID: 1101476800607339050}
   - {fileID: 1101040012455167518}
   - {fileID: 1101977483101289332}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: 114964040977751914}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1

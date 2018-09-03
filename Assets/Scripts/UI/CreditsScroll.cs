@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CreditsScroll : MonoBehaviour {
 
     [SerializeField]
     private RectTransform credits;
+    [SerializeField]
+    private ScreenFadeController fader;
 
 	void Start ()
     {
@@ -16,6 +19,7 @@ public class CreditsScroll : MonoBehaviour {
 	void Update ()
     {
         Move();
+        GoBack();
     }
 
     private void Move()
@@ -34,5 +38,21 @@ public class CreditsScroll : MonoBehaviour {
             nextPos.y += 50 * Time.deltaTime;
         }
         credits.localPosition = nextPos;
+    }
+
+    private void GoBack()
+    {
+        if (InputManager.instance.GetButtonDown(ControllerButton.X) ||
+            InputManager.instance.GetButtonDown(ControllerButton.CIRCLE) ||
+            InputManager.instance.GetButtonDown(ControllerButton.SQUARE) ||
+            InputManager.instance.GetButtonDown(ControllerButton.TRIANGLE))
+        {
+            fader.FadeToOpaque(0.5f, LoadTitleScreen);
+        }
+    }
+
+    private void LoadTitleScreen()
+    {
+        SceneManager.LoadScene("TitleScreen");
     }
 }
