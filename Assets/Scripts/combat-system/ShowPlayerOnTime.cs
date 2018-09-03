@@ -7,6 +7,8 @@ public class ShowPlayerOnTime : MonoBehaviour {
     public float timeToSpawn;
     private float timer = 0.0f;
     private bool flag = false;
+    [SerializeField]
+    private string animationToPlay;
 
     // Use this for initialization
     void OnEnable()
@@ -23,7 +25,10 @@ public class ShowPlayerOnTime : MonoBehaviour {
             if (timer >= timeToSpawn)
             {
                 GameManager.instance.GetPlayer1().SetRenderersVisibility(true);
-                GameManager.instance.GetPlayer1().animator.SetTrigger("StrongAttack");
+                if(animationToPlay != null)
+                {
+                    GameManager.instance.GetPlayer1().animator.SetTrigger(animationToPlay);
+                }
                 flag = true;
             }
         }
