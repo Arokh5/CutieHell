@@ -68,6 +68,7 @@ public class RoundScore : MonoBehaviour {
     private ShowingState showingState;
 
     private List<Combo> obtainedAchievements = new List<Combo>();
+    private List<int> achievementsTimesObtained = new List<int>();
     #endregion
 
     #region MonoBehaviour methods
@@ -77,7 +78,7 @@ public class RoundScore : MonoBehaviour {
 	{
         currentScore.text = currentScoreValue.ToString();
 
-        if(showingState != ShowingState.COMPLETED && InputManager.instance.GetXButton())
+        if(showingState != ShowingState.COMPLETED && InputManager.instance.GetXButtonDown())
         {
             SkipFullRoundScoreCounting();
         }
@@ -183,15 +184,22 @@ public class RoundScore : MonoBehaviour {
 
     public void AddObtainedAchievement(ref Combo achievement)
     {
-        if (!obtainedAchievements.Contains(achievement))
+        for (int i = 0; i < obtainedAchievements.Count; i++)
         {
-            obtainedAchievements.Add(achievement);
+            if (obtainedAchievements[i].comboName == achievement.comboName)
+            {
+                achievementsTimesObtained[i] = achievementsTimesObtained[i] + 1;
+                return;
+            }
         }
+        obtainedAchievements.Add(achievement);
+        achievementsTimesObtained.Add(1);
     }
 
     public void ResetObtainedAchievements()
     {
         obtainedAchievements.Clear();
+        achievementsTimesObtained.Clear();
     }
     #endregion
 
@@ -206,10 +214,25 @@ public class RoundScore : MonoBehaviour {
         skipFullCounting = true;
     }
 
+    private void SaveRoundScoreInfo()
+    {
+        List<Sprite> obtainedAchievementsIcons = new List<Sprite>();
+
+        for(int i = 0; i < obtainedAchievements.Count; i++)
+        {
+            obtainedAchievementsIcons.Add(obtainedAchievements[i].comboIcon);
+        }
+
+        StatsManager.instance.PassRoundScoreInfoToGameScore(totalScore, obtainedAchievementsIcons, achievementsTimesObtained);
+    }
+
     private void CloseRoundScorePopup()
     {
-        if(InputManager.instance.GetXButton())
+        if(InputManager.instance.GetXButtonDown())
         {
+
+            //Save round values for game global score
+            SaveRoundScoreInfo();
             //Disable total score and the button showing how to close the popup
             total.gameObject.SetActive(false);
             currentScoreValue = 0;
@@ -325,9 +348,9 @@ public class RoundScore : MonoBehaviour {
             achievementScore.transform.parent = obtainedAchievementsRoot;
             achievementScore.transform.localPosition = achievementsDisplayPosition.localPosition;
             achievementScore.GetComponent<Image>().sprite = obtainedAchievements[currentEvaluatedAchievementIterator].comboIcon;
-            achievementScore.GetComponentInChildren<Text>().text = "x" + obtainedAchievements[currentEvaluatedAchievementIterator].GetTimesObtained();
+            achievementScore.GetComponentInChildren<Text>().text = "x" + achievementsTimesObtained[currentEvaluatedAchievementIterator];
 
-            currentScoreTarget += obtainedAchievements[currentEvaluatedAchievementIterator].reward * obtainedAchievements[currentEvaluatedAchievementIterator].GetTimesObtained();
+            currentScoreTarget += obtainedAchievements[currentEvaluatedAchievementIterator].reward * achievementsTimesObtained[currentEvaluatedAchievementIterator];
         }
         else
         {

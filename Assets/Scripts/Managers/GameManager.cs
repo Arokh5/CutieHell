@@ -37,12 +37,30 @@ public class GameManager : MonoBehaviour
     private GameObject crosshair;
 
     [SerializeField]
-    private GameObject gameOverPanel;
-    [SerializeField]
     private RoundScore roundScore;
 
+    [Header("Game End")]
+    [SerializeField]
+    private GameScore gameScore;
+    [SerializeField]
+    private AudioClip victoryClip;
+    [SerializeField]
+    private AudioClip defeatClip;
+    [SerializeField]
+    private GameObject[] uiToHide;
+
+
+    private int roundsCompleted = 0;
+
     private bool unpauseNextFrame = false;
-    #endregion
+
+#if UNITY_EDITOR
+    [Header("Editor tools")]
+    [SerializeField]
+    private bool forceGameLoss;
+#endif
+
+#endregion
 
     #region Properties
 
@@ -92,7 +110,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameStates.OnGameEnd:
-                GoToTitleScreen();
+                // GoToTitleScreen() is now called from the GameScore script or from the ExitGame method (called by PauseMenuController)
                 break;
 
             case GameStates.OnGamePaused:
@@ -106,6 +124,13 @@ public class GameManager : MonoBehaviour
                 }
                 break;
         }
+#if UNITY_EDITOR
+        if (forceGameLoss)
+        {
+            forceGameLoss = false;
+            scenarioController.OnFinalZoneConquered();
+        }
+#endif
     }
 
     private void OnApplicationPause(bool pause)
@@ -156,7 +181,7 @@ public class GameManager : MonoBehaviour
     public void ExitGame()
     {
         TimeManager.instance.ResumeTime();
-        gameState = GameStates.OnGameEnd;
+        GoToTitleScreen();
     }
 
     public void OnRoundWon()
@@ -164,15 +189,17 @@ public class GameManager : MonoBehaviour
         Debug.Log("Round (index) " + aiSpawnController.GetCurrentRoundIndex() + " finished!");
         player.OnRoundOver();
 
-        if (aiSpawnController.HasNextRound())  
-        {
-            OnRoundEnd();
-        }
-        else
-        {
-            Debug.Log("No more rounds available!");
-            OnGameWon();
-        }
+        ++roundsCompleted;
+        OnRoundEnd();
+
+        //if (aiSpawnController.HasNextRound())  
+        //{
+        //}
+        //else
+        //{
+        //    Debug.Log("No more rounds available!");
+        //    OnGameWon();
+        //}
     }
 
     public void OnRoundEnd()
@@ -194,7 +221,7 @@ public class GameManager : MonoBehaviour
 
     public void OnGameWon()
     {
-        if (gameState == GameStates.InGame)
+        if (gameState == GameStates.OnRoundEnd)
         {
             //crosshair.SetActive(false);
 
@@ -203,11 +230,10 @@ public class GameManager : MonoBehaviour
             StatsManager.instance.GetTimeCombo().GrantReward();
             StatsManager.instance.GetReceivedDamageCombo().GrantReward();
 
-            roundScore.gameObject.SetActive(true);
-            roundScore.SetUpTotalScore(StatsManager.instance.GetRoundPoints());
-            roundScore.ShowRoundScore();
-
-            gameState = GameStates.OnGameEnd;   
+            gameState = GameStates.OnGameEnd;
+            SoundManager.instance.PlayMusicClip(victoryClip);
+            HideUIOnGameEnd();
+            gameScore.ShowGameScore(true);
         }
     }
 
@@ -217,10 +243,11 @@ public class GameManager : MonoBehaviour
         {
             player.OnRoundOver();
             //crosshair.SetActive(false);
-            gameOverPanel.SetActive(true);
-            UIManager.instance.ChangeRoundEndText("YOU LOSE!");
-            UIManager.instance.ChangeEndBtnText("Go To Title Screen");
+
             gameState = GameStates.OnGameEnd;
+            SoundManager.instance.PlayMusicClip(defeatClip);
+            HideUIOnGameEnd();
+            gameScore.ShowGameScore(false);
         }
     }
 
@@ -254,28 +281,32 @@ public class GameManager : MonoBehaviour
 
     public void GoToNextRound()
     {
-        //crosshair.SetActive(true);
-        gameOverPanel.SetActive(false);
-        StatsManager.instance.ResetKillCounts();
-        StatsManager.instance.ResetRoundPoints();
-        StatsManager.instance.GetMaxCombo().ResetCombo();
-        StatsManager.instance.GetTimeCombo().ResetCombo();
-        StatsManager.instance.GetReceivedDamageCombo().ResetCombo();
-        gameState = GameStates.InGame;
+        if (aiSpawnController.HasNextRound())
+        {
+            StatsManager.instance.ResetKillCounts();
+            StatsManager.instance.ResetRoundPoints();
+            StatsManager.instance.GetMaxCombo().ResetCombo();
+            StatsManager.instance.GetTimeCombo().ResetCombo();
+            StatsManager.instance.GetReceivedDamageCombo().ResetCombo();
+            gameState = GameStates.InGame;
 
-        aiSpawnController.StartNextRound();
-        if (aiSpawnController.GetCurrentRoundIndex() > 0)
-            player.OnRoundStarted();
+            aiSpawnController.StartNextRound();
+            if (aiSpawnController.GetCurrentRoundIndex() > 0)
+                player.OnRoundStarted();
+        }
+        else
+        {
+            Debug.Log("No more rounds available!");
+            OnGameWon();
+        }
+        
     }
 
     public void GoToTitleScreen()
     {
-        if (InputManager.instance.GetXButtonDown() || gameIsPaused)
-        {
-            gameIsPaused = false;
-            gameState = GameStates.OnStartMenu;
-            SceneManager.LoadScene("TitleScreen", LoadSceneMode.Single);
-        }
+        gameIsPaused = false;
+        gameState = GameStates.OnStartMenu;
+        SceneManager.LoadScene("TitleScreen", LoadSceneMode.Single);
     }
 
     public void RestartGame()
@@ -287,11 +318,25 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Game", LoadSceneMode.Single);
     }
 
-
+    public int GetRoundsCompleted()
+    {
+        return roundsCompleted;
+    }
    
     #endregion
 
     #region Private Methods
+    private void HideUIOnGameEnd()
+    {
+        if (uiToHide != null)
+        {
+            foreach (GameObject go in uiToHide)
+            {
+                go.SetActive(false);
+            }
+        }
+    }
+
     private void FreezePlayer()
     {
         avoidPlayerUpdate = true;

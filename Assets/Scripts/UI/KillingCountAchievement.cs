@@ -40,10 +40,8 @@ public class KillingCountAchievement : Combo {
     #region Public methods
     public override void GrantReward()
     {
-        if (timesObtained == 0)
-            StatsManager.instance.RegisterAchievement(this);
+        StatsManager.instance.RegisterAchievement(this);
 
-        timesObtained += 1;
         StatsManager.instance.IncreaseRoundPoints(reward);
         TransitionUI.instance.AskForTransition(comboName, comboIcon);
         ResetCount();

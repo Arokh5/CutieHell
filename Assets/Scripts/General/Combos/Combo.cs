@@ -14,7 +14,6 @@ public class Combo : MonoBehaviour
     private int comboID;
 
     protected int currentCount = 0;
-    protected int timesObtained = 0;
     protected bool comboEnabled = false;
     #endregion
 
@@ -60,11 +59,6 @@ public class Combo : MonoBehaviour
     public virtual void GrantReward()
     {
         StatsManager.instance.IncreaseRoundPoints(reward);
-    }
-
-    public int GetTimesObtained()
-    {
-        return timesObtained; 
     }
 
     public int GetComboID()
