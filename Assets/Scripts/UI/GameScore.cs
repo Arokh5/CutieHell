@@ -39,7 +39,7 @@ public class GameScore : MonoBehaviour {
     private int numOfRoundsCompleted;
 
     private float currentRoundScoreValue = 0;
-    private int currentRoundBeingDisplayed = 0;
+    private int currentRoundBeingDisplayed = -1;
     private bool iscurrentRoundScoreCompleted = false;
     private bool iscurrentRoundAchievementsCompleted = false;
 
@@ -106,6 +106,7 @@ public class GameScore : MonoBehaviour {
         numOfRoundsCompleted = GameManager.instance.GetCurrentRoundNum();
 
         DisplayRightPopup(gameWon);
+        PrepareToShowNextRound();
         displayingInfo = true;
 
     }
@@ -171,6 +172,7 @@ public class GameScore : MonoBehaviour {
         if (indexAchievement >= roundObtainedCombos[currentRoundBeingDisplayed].Count - 1)
         {
             iscurrentRoundAchievementsCompleted = true;
+            PrepareToShowNextRound();
             //TODO Reset all info for next round
         }
         else if (elapsedTime >= intervalTime)
@@ -204,7 +206,9 @@ public class GameScore : MonoBehaviour {
             followingRoundsAreBlocked = true;
         }
 
-        currentRoundBeingDisplayed++;
+        iscurrentRoundScoreCompleted = false;
+        iscurrentRoundAchievementsCompleted = false;
+        ++currentRoundBeingDisplayed;
 
     }
 
