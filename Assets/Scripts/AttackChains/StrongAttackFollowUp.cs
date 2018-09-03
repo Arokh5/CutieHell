@@ -26,8 +26,6 @@ public class StrongAttackFollowUp : StateAction
                     player.teleported = true;
                     player.teleportState = Player.TeleportStates.DELAY;
                     player.strongAttackCooldown.timeSinceLastAction = 0.0f;
-                    player.strongAttackCollider.Deactivate();
-                    HurtEnemies(player, damage);
                     SoundManager.instance.PlaySfxClip(landingSfx);
                 }
                 break;
@@ -39,15 +37,6 @@ public class StrongAttackFollowUp : StateAction
                 break;
             default:
                 break;
-        }
-    }
-    private void HurtEnemies(Player player, int damage)
-    {
-        foreach (AIEnemy aiEnemy in player.currentStrongAttackTargets)
-        {
-            aiEnemy.TakeDamage(damage, AttackType.STRONG);
-            aiEnemy.SetKnockback(player.transform.position, 3.0f);
-            aiEnemy.SetStun(1.0f);
         }
     }
 }
