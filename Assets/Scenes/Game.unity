@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1725969775}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.055659935, g: 0.053037904, b: 0.09803345, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -55,8 +55,8 @@ LightmapSettings:
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
     serializedVersion: 9
-    m_Resolution: 6
-    m_BakeResolution: 30
+    m_Resolution: 2
+    m_BakeResolution: 20
     m_TextureWidth: 1024
     m_TextureHeight: 1024
     m_AO: 0
@@ -90,7 +90,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000002, guid: dd442eff1f41acd4aa154b09169f4105,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -5877,11 +5878,11 @@ Prefab:
         type: 2}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8300000, guid: 2b7a77530fe6cf64aba39cf1ec6a34c1, type: 3}
     - target: {fileID: 82517701249313894, guid: 2077a6892ef477045bb061626b3aa2ac,
         type: 2}
       propertyPath: MaxDistance
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1934845410957934, guid: 2077a6892ef477045bb061626b3aa2ac, type: 2}
       propertyPath: m_Layer
@@ -24929,7 +24930,7 @@ Prefab:
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 6b7f861ce4981124f8805878fe86f923, type: 2}
+      objectReference: {fileID: 2100000, guid: fdb28bbbc2f5e924b8447bd717adecca, type: 2}
     - target: {fileID: 4791607495258606, guid: 2e39bda1886716f4cb2ad318b5c59d48, type: 2}
       propertyPath: m_LocalScale.x
       value: 0.38022503
@@ -34961,7 +34962,7 @@ Prefab:
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 6b7f861ce4981124f8805878fe86f923, type: 2}
+      objectReference: {fileID: 2100000, guid: fdb28bbbc2f5e924b8447bd717adecca, type: 2}
     - target: {fileID: 1603571667417268, guid: 2e39bda1886716f4cb2ad318b5c59d48, type: 2}
       propertyPath: m_StaticEditorFlags
       value: 1
@@ -41024,7 +41025,7 @@ Prefab:
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 6b7f861ce4981124f8805878fe86f923, type: 2}
+      objectReference: {fileID: 2100000, guid: fdb28bbbc2f5e924b8447bd717adecca, type: 2}
     - target: {fileID: 1603571667417268, guid: 2e39bda1886716f4cb2ad318b5c59d48, type: 2}
       propertyPath: m_StaticEditorFlags
       value: 1
@@ -66678,7 +66679,7 @@ Prefab:
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 6b7f861ce4981124f8805878fe86f923, type: 2}
+      objectReference: {fileID: 2100000, guid: fdb28bbbc2f5e924b8447bd717adecca, type: 2}
     - target: {fileID: 1603571667417268, guid: 2e39bda1886716f4cb2ad318b5c59d48, type: 2}
       propertyPath: m_StaticEditorFlags
       value: 1
@@ -66882,7 +66883,7 @@ Prefab:
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 6b7f861ce4981124f8805878fe86f923, type: 2}
+      objectReference: {fileID: 2100000, guid: fdb28bbbc2f5e924b8447bd717adecca, type: 2}
     - target: {fileID: 1603571667417268, guid: 2e39bda1886716f4cb2ad318b5c59d48, type: 2}
       propertyPath: m_StaticEditorFlags
       value: 1
@@ -74765,16 +74766,16 @@ Prefab:
         type: 2}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8300000, guid: fa6c9a10b68bf8843854476461dccd47, type: 3}
     - target: {fileID: 82181316205313704, guid: a1ab40c8ce66454489da8d4ebf54c01b,
         type: 2}
       propertyPath: Loop
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 82181316205313704, guid: a1ab40c8ce66454489da8d4ebf54c01b,
         type: 2}
       propertyPath: MaxDistance
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 65633683846977150, guid: a1ab40c8ce66454489da8d4ebf54c01b,
         type: 2}
@@ -96141,7 +96142,7 @@ Prefab:
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 6b7f861ce4981124f8805878fe86f923, type: 2}
+      objectReference: {fileID: 2100000, guid: fdb28bbbc2f5e924b8447bd717adecca, type: 2}
     - target: {fileID: 1603571667417268, guid: 2e39bda1886716f4cb2ad318b5c59d48, type: 2}
       propertyPath: m_StaticEditorFlags
       value: 1
