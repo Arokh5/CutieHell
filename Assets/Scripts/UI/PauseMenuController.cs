@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PauseMenuController : MonoBehaviour {
+public class PauseMenuController : MonoBehaviour
+{
 
     #region Fields
     [SerializeField]
     private MenuButton[] pauseButtons = new MenuButton[4];
     private int pauseIndex = 0;
     [SerializeField]
-    private GameObject optionsScreenXBOX;
-    [SerializeField]
-    private GameObject optionsScreenPS;
+    private GameObject helpPanel;
+
     private bool controlsScreenActive = false;
     #endregion
 
@@ -69,7 +69,7 @@ public class PauseMenuController : MonoBehaviour {
     {
         if (InputManager.instance.GetXButtonDown())
         {
-            
+
             switch (pauseIndex)
             {
                 case 0:
@@ -81,11 +81,7 @@ public class PauseMenuController : MonoBehaviour {
                     break;
 
                 case 2:
-                    if (InputManager.instance.isPS4)
-                        optionsScreenPS.SetActive(true);
-                    else
-                        optionsScreenXBOX.SetActive(true);
-
+                    helpPanel.SetActive(true);
                     controlsScreenActive = true;
                     break;
 
@@ -113,11 +109,7 @@ public class PauseMenuController : MonoBehaviour {
     {
         if (InputManager.instance.GetOButtonDown())
         {
-            if (InputManager.instance.isPS4)
-                optionsScreenPS.SetActive(false);
-            else
-                optionsScreenXBOX.SetActive(false);
-
+            helpPanel.SetActive(false);
             controlsScreenActive = false;
         }
     }

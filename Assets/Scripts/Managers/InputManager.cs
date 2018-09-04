@@ -11,11 +11,19 @@ public class InputManager : Subject {
     private ButtonState[] buttonStates;
     private int axisAsButtonsCount;
     public const float joystickThreshold = 0.1f;
+    [ShowOnly]
     public bool isXbox;
+    [ShowOnly]
     public bool isPS4;
     [SerializeField]
     private GameObject errorMessage;
     public bool stopGameIfNoController;
+
+#if UNITY_EDITOR
+    [Header("Editor tools")]
+    [SerializeField]
+    private bool forceXBox;
+#endif
 
     #endregion
 
@@ -758,6 +766,19 @@ public class InputManager : Subject {
 
     private void CheckDevice()
     {
+#if UNITY_EDITOR
+        if (forceXBox)
+        {
+            if (!isXbox)
+            {
+                isXbox = true;
+                isPS4 = false;
+                NotifyAll();
+            }
+            return;
+        }
+#endif
+
         string[] joystickNames = Input.GetJoystickNames();
         for (int i = 0; i < joystickNames.Length; i++)
         {
