@@ -180,7 +180,6 @@ public class GameManager : MonoBehaviour
 
     public void ExitGame()
     {
-        TimeManager.instance.ResumeTime();
         GoToTitleScreen();
     }
 
@@ -304,6 +303,8 @@ public class GameManager : MonoBehaviour
 
     public void GoToTitleScreen()
     {
+        TimeManager.instance.ResumeTime();
+        FreezePlayer();
         gameIsPaused = false;
         gameState = GameStates.OnStartMenu;
         SceneManager.LoadScene("TitleScreen", LoadSceneMode.Single);
