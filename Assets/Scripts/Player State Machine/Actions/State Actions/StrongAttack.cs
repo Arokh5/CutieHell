@@ -42,7 +42,7 @@ public class StrongAttack : StateAction
                     BulletTime.instance.DoSlowmotion(0.01f, 0.25f);
                     CameraShaker.Instance.ShakeOnce(0.8f, 15.5f, 0.1f, 0.7f);
                     player.cameraState = Player.CameraState.MOVE;
-                    player.mainCameraController.y = 10.0f;
+                    player.mainCameraController.y = 5.0f;
                     player.strongAttackTimer = 0.0f;
                     player.teleported = true;
                     player.teleportState = Player.TeleportStates.DELAY;

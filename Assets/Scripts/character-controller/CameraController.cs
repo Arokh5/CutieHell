@@ -60,12 +60,12 @@ public class CameraController : MonoBehaviour
         playerScript = player.GetComponent<Player>();
         playerCapsuleCollider = player.GetComponent<CapsuleCollider>();
 
-        zZ = distance = 2.8f;
+        zZ = distance = 3.7f;
         zX = cameraX = 0.45f;
-        zY = cameraY = 1.8f;
+        zY = cameraY = 2.1f;
         aF = focusDistance = 0.65f;
         aR = focusX = 0.55f;
-        aU = focusY = 1.65f;
+        aU = focusY = 1.8f;
         fov = 60f;
 
         aR = 0.35f;

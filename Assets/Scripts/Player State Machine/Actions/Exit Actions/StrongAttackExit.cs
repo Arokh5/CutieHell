@@ -12,6 +12,7 @@ public class StrongAttackExit : StateAction
         player.strongAttackCollider.Deactivate();
         player.cameraState = Player.CameraState.MOVE;
         player.canMove = true;
+        player.mainCameraController.y = 5.0f;
 
         foreach (AIEnemy aiEnemy in player.currentStrongAttackTargets)
         {

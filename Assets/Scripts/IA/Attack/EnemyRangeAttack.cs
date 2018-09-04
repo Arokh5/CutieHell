@@ -89,7 +89,7 @@ public class EnemyRangeAttack : MonoBehaviour {
             target.TakeDamage(damage, AttackType.ENEMY);
             target = null;
             ParticlesManager.instance.LaunchParticleSystem(heartExplosionVFX, this.transform.position, heartExplosionVFX.transform.rotation);
-            SoundManager.instance.PlaySfxClip(heartExplosionSFX);
+            SoundManager.instance.PlaySfxClip(audioSource, heartExplosionSFX, true);
             AttacksPool.instance.ReturnAttackObject(enemyType, gameObject);
         }
     }
