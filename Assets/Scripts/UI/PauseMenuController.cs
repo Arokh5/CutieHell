@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PauseMenuController : MonoBehaviour {
+public class PauseMenuController : MonoBehaviour
+{
 
     #region Fields
     [SerializeField]
@@ -69,7 +70,7 @@ public class PauseMenuController : MonoBehaviour {
     {
         if (InputManager.instance.GetXButtonDown())
         {
-            
+
             switch (pauseIndex)
             {
                 case 0:
@@ -113,10 +114,8 @@ public class PauseMenuController : MonoBehaviour {
     {
         if (InputManager.instance.GetOButtonDown())
         {
-            if (InputManager.instance.isPS4)
-                optionsScreenPS.SetActive(false);
-            else
-                optionsScreenXBOX.SetActive(false);
+            optionsScreenPS.SetActive(false);
+            optionsScreenXBOX.SetActive(false);
 
             controlsScreenActive = false;
         }

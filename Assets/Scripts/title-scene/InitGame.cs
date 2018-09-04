@@ -13,7 +13,9 @@ public class InitGame : MonoBehaviour
 
     [Header("Alternate screens")]
     [SerializeField]
-    private Image helpScreen;
+    private GameObject optionsScreenPS;
+    [SerializeField]
+    private GameObject optionsScreenXBOX;
 
     [Header("Faders")]
     [SerializeField]
@@ -34,14 +36,16 @@ public class InitGame : MonoBehaviour
     private void Awake()
     {
         UnityEngine.Assertions.Assert.IsNotNull(loadingText, "ERROR: Text (loadingText) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
-        UnityEngine.Assertions.Assert.IsNotNull(helpScreen, "ERROR: Image (helpScreen) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
+        UnityEngine.Assertions.Assert.IsNotNull(optionsScreenPS, "ERROR: Image (helpScreen) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
+        UnityEngine.Assertions.Assert.IsNotNull(optionsScreenXBOX, "ERROR: Image (helpScreen) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
         UnityEngine.Assertions.Assert.IsNotNull(blackFader, "ERROR: ScreenFadeController (blackFader) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
         UnityEngine.Assertions.Assert.IsNotNull(foregroundFader, "ERROR: ScreenFadeController (foregroundFader) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
     }
 
     private void Start()
     {
-        helpScreen.enabled = false;
+        optionsScreenPS.SetActive(false);
+        optionsScreenXBOX.SetActive(false);
         loadingText.enabled = false;
         blackFader.TurnOpaque();
         foregroundFader.TurnOpaque();
@@ -125,7 +129,10 @@ public class InitGame : MonoBehaviour
 
                 case 1:
                     menuActive = false;
-                    helpScreen.enabled = true;
+                    if (InputManager.instance.isPS4)
+                        optionsScreenPS.SetActive(true);
+                    else
+                        optionsScreenXBOX.SetActive(true);
                     break;
 
                 case 2:
@@ -145,7 +152,9 @@ public class InitGame : MonoBehaviour
         if (InputManager.instance.GetOButtonDown())
         {
             menuActive = true;
-            helpScreen.enabled = false;
+            
+            optionsScreenPS.SetActive(false);           
+            optionsScreenXBOX.SetActive(false);
         }
     }
 
