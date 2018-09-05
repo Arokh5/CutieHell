@@ -170,7 +170,9 @@ public class Player : MonoBehaviour, IDamageable
     [HideInInspector]
     public bool comeBackFromStrongAttack;
     [HideInInspector]
-    public bool canCharge;
+    public bool canChargeStrongAttack;
+    [HideInInspector]
+    public bool isChargingStrongAttack;
 
     [Header("Cone Attack")]
     public CooldownInfo coneAttackCooldown;
@@ -251,7 +253,8 @@ public class Player : MonoBehaviour, IDamageable
         canMove = true;
         comeBackFromStrongAttack = false;
         comeBackFromConeAttack = false;
-        canCharge = false;
+        canChargeStrongAttack = false;
+        isChargingStrongAttack = false;
 
         currentState = stoppedState;
 

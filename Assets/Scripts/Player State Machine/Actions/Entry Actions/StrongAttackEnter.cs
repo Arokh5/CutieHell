@@ -9,7 +9,8 @@ public class StrongAttackEnter : StateAction
 
     public override void Act(Player player)
     {
-        player.canCharge = false;
+        player.canChargeStrongAttack = false;
+        player.isChargingStrongAttack = false;
         player.canMove = false;
         player.comeBackFromStrongAttack = false;
         player.strongAttackTimer = 0.0f;

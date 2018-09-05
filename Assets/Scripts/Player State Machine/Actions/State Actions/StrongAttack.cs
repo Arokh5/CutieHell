@@ -18,9 +18,9 @@ public class StrongAttack : StateAction
 
     public override void Act(Player player)
     {
-        if (!player.canCharge)
+        if (!player.canChargeStrongAttack)
         {
-            if (!InputManager.instance.GetOButton()) player.canCharge = true;
+            if (!InputManager.instance.GetOButton()) player.canChargeStrongAttack = true;
         }
 
         switch (player.teleportState)
@@ -38,8 +38,9 @@ public class StrongAttack : StateAction
                 break;
             case Player.JumpStates.MOVE:
                 bool attack = false;
-                if (player.canCharge && InputManager.instance.GetOButton())
+                if (player.canChargeStrongAttack && InputManager.instance.GetOButton())
                 {
+                    player.isChargingStrongAttack = true;
                     holdingButton = true;
                     timeHolding += Time.deltaTime;
 
@@ -71,6 +72,7 @@ public class StrongAttack : StateAction
                     decalSize.UpdateThis();
                     player.strongAttackMotionLimiter.SetActive(false);
                     player.canMove = false;
+                    player.isChargingStrongAttack = false;
                     player.animator.Rebind();
                 }
                 break;

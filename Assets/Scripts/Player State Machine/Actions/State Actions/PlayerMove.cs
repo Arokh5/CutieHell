@@ -6,8 +6,7 @@ using UnityEngine;
 public class PlayerMove : StateAction
 {
     public float maxSpeed;
-    [HideInInspector]
-    public float tempMaxSpeed;
+    public float speedOnCharge;
     public float acceleration;
     public bool useAnimation;
     public LayerMask walkableLayer;
@@ -77,11 +76,20 @@ public class PlayerMove : StateAction
 
         /* Calculate currentSpeed */
         player.currentSpeed += acceleration * accelerationVector * Time.deltaTime;
-        if (player.currentSpeed.sqrMagnitude > maxSpeed * maxSpeed)
-            player.currentSpeed = player.currentSpeed.normalized * maxSpeed;
-
+        if (!player.isChargingStrongAttack)
+        {
+            if (player.currentSpeed.sqrMagnitude > maxSpeed * maxSpeed)
+                player.currentSpeed = player.currentSpeed.normalized * maxSpeed;
+        }
+        else
+        {
+            if (player.currentSpeed.sqrMagnitude > speedOnCharge * speedOnCharge)
+                player.currentSpeed = player.currentSpeed.normalized * speedOnCharge;
+        }
         /* Calculate new position */
+
         playerPos += player.currentSpeed * Time.deltaTime;
+
     }
 
     private void Knockback(Player player, ref Vector3 playerPos)
