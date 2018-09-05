@@ -6,6 +6,8 @@ using UnityEngine;
 public class PlayerMove : StateAction
 {
     public float maxSpeed;
+    [HideInInspector]
+    public float tempMaxSpeed;
     public float acceleration;
     public bool useAnimation;
     public LayerMask walkableLayer;

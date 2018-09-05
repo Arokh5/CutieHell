@@ -13,6 +13,8 @@ public class StrongAttackDetection : MonoBehaviour
     private Color decalOriginalColor;
     [SerializeField]
     private Color decalFinalColor;
+    private Color colorDiffernce;
+    private Material decalMat;
     #endregion
 
     #region MonoBehaviour Methods
@@ -21,7 +23,11 @@ public class StrongAttackDetection : MonoBehaviour
         projector = GetComponent<Projector>();
         UnityEngine.Assertions.Assert.IsNotNull(projector, "ERROR: A Projector Component could not be found by StrongAttackDetection in GameObject " + gameObject.name);
         projector.orthographicSize = startingSize;
-        projector.material.SetColor("[HDR]_TintColor", decalOriginalColor);
+        projector.material = new Material(projector.material);
+        decalMat = projector.material;
+
+        decalMat.SetColor("[HDR]_TintColor", decalOriginalColor);
+        colorDiffernce = decalFinalColor - decalOriginalColor;
 
         collider = GetComponent<SphereCollider>();
         UnityEngine.Assertions.Assert.IsNotNull(collider, "ERROR: A Collider Component could not be found by StrongAttackDetection in GameObject " + gameObject.name);
@@ -89,7 +95,7 @@ public class StrongAttackDetection : MonoBehaviour
 
     public void ChangeDecalColor(float time)
     {
-        projector.material.SetColor("Tint Color", Color.Lerp(decalOriginalColor, decalFinalColor, time));
+        decalMat.SetColor("Tint Color", decalOriginalColor + colorDiffernce * time);
     }
     #endregion
 }
