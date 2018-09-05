@@ -14,12 +14,12 @@ public class PlayerTeleport : StateAction
 
         switch (player.teleportState)
         {
-            case Player.TeleportStates.OUT:
+            case Player.JumpStates.JUMP:
                 if (player.timeSinceLastTeleport >= timeToGoOut)
                 {
                     player.timeSinceLastTeleport = 0.0f;
                     player.cameraState = Player.CameraState.TRANSITION;
-                    player.teleportState = Player.TeleportStates.TRAVEL;
+                    player.teleportState = Player.JumpStates.MOVE;
                     if (player.currentTelepotTarget != null)
                     {
                         player.transform.position = player.currentTelepotTarget.transform.position;
@@ -30,16 +30,16 @@ public class PlayerTeleport : StateAction
                     }
                 }
                 break;
-            case Player.TeleportStates.TRAVEL:
+            case Player.JumpStates.MOVE:
                 if (player.timeSinceLastTeleport >= timeToTravel)
                 {
                     player.timeSinceLastTeleport = 0.0f;
                     player.cameraState = Player.CameraState.ZOOMIN;
-                    player.teleportState = Player.TeleportStates.IN;
+                    player.teleportState = Player.JumpStates.LAND;
                     ParticlesManager.instance.LaunchParticleSystem(teleportVFX, player.transform.position, teleportVFX.transform.rotation);
                 }
                 break;
-            case Player.TeleportStates.IN:
+            case Player.JumpStates.LAND:
                 if (player.timeSinceLastTeleport >= timeToGoIn)
                 {
                     player.timeSinceLastTeleport = 0.0f;

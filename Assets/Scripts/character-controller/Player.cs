@@ -111,7 +111,7 @@ public class Player : MonoBehaviour, IDamageable
     [HideInInspector]
     public float timeSinceLastTeleport;
     [HideInInspector]
-    public TeleportStates teleportState;
+    public JumpStates teleportState;
 
     [Header("Attacks")]
     [SerializeField]
@@ -169,6 +169,8 @@ public class Player : MonoBehaviour, IDamageable
     public List<AIEnemy> currentStrongAttackTargets = new List<AIEnemy>();
     [HideInInspector]
     public bool comeBackFromStrongAttack;
+    [HideInInspector]
+    public bool canCharge;
 
     [Header("Cone Attack")]
     public CooldownInfo coneAttackCooldown;
@@ -210,7 +212,7 @@ public class Player : MonoBehaviour, IDamageable
     #endregion
 
     public enum CameraState { STILL, MOVE, STRONG_ATTACK, TRANSITION, ZOOMOUT, ZOOMIN, METEORITEAIM, CONEATTACK, DASH}
-    public enum TeleportStates { OUT, TRAVEL, IN, DELAY}
+    public enum JumpStates { JUMP, MOVE, LAND, DELAY}
     
 
     #region MonoBehaviour Methods
@@ -223,7 +225,7 @@ public class Player : MonoBehaviour, IDamageable
 
         cameraState = CameraState.MOVE;
         mainCameraController = mainCamera.GetComponent<CameraController>();
-        teleportState = TeleportStates.OUT;
+        teleportState = JumpStates.JUMP;
         initialBulletSpawnPointPos = new Vector3(0.8972f, 1.3626f, 0.1209f);
 
         renderers = this.GetComponentsInChildren<Renderer>();
@@ -249,6 +251,7 @@ public class Player : MonoBehaviour, IDamageable
         canMove = true;
         comeBackFromStrongAttack = false;
         comeBackFromConeAttack = false;
+        canCharge = false;
 
         currentState = stoppedState;
 

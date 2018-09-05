@@ -11,7 +11,7 @@ public class TeleportBaseEnterAction : StateAction
         player.teleported = false;
         player.timeSinceLastTeleport = 0.0f;
         player.cameraState = Player.CameraState.ZOOMOUT;
-        player.teleportState = Player.TeleportStates.OUT;
+        player.teleportState = Player.JumpStates.JUMP;
         ParticlesManager.instance.LaunchParticleSystem(teleportIn, player.transform.position, teleportIn.transform.rotation);
     }
 }

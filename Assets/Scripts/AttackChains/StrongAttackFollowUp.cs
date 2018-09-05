@@ -15,7 +15,7 @@ public class StrongAttackFollowUp : StateAction
     {
         switch (player.teleportState)
         {
-            case Player.TeleportStates.IN:
+            case Player.JumpStates.LAND:
                 {
                     ParticlesManager.instance.LaunchParticleSystem(strongAttackVFX, player.transform.position, strongAttackVFX.transform.rotation);
                     BulletTime.instance.DoSlowmotion(0.01f, 0.35f);
@@ -24,12 +24,12 @@ public class StrongAttackFollowUp : StateAction
                     player.mainCameraController.y = 10.0f;
                     player.strongAttackTimer = 0.0f;
                     player.teleported = true;
-                    player.teleportState = Player.TeleportStates.DELAY;
+                    player.teleportState = Player.JumpStates.DELAY;
                     player.strongAttackCooldown.timeSinceLastAction = 0.0f;
                     SoundManager.instance.PlaySfxClip(landingSfx);
                 }
                 break;
-            case Player.TeleportStates.DELAY:
+            case Player.JumpStates.DELAY:
                 if (player.strongAttackTimer >= delay)
                 {
                     player.comeBackFromStrongAttack = true;

@@ -6,31 +6,38 @@ using EZCameraShake;
 [CreateAssetMenu(menuName = "Player State Machine/Actions/StrongAttack")]
 public class StrongAttack : StateAction
 {
-    public float damage;
+    public float minDamage, maxDamage;      
+    public float timeToHold;
+    public float initialSize;
+    public float sizeToIncrease;
     public ParticleSystem strongAttackVFX;
     public float timeToGoOut, timeToGoIn, delay;
-    public float timeToHold;
-    public float sizeToIncrease;
+
     private bool holdingButton;
     private float timeHolding;
 
     public override void Act(Player player)
     {
+        if (!player.canCharge)
+        {
+            if (!InputManager.instance.GetOButton()) player.canCharge = true;
+        }
+
         switch (player.teleportState)
         {
-            case Player.TeleportStates.OUT:
+            case Player.JumpStates.JUMP:
                 if (player.strongAttackTimer >= timeToGoOut)
                 {
                     player.canMove = true;
                     player.strongAttackCollider.Activate();
-                    player.teleportState = Player.TeleportStates.TRAVEL;
+                    player.teleportState = Player.JumpStates.MOVE;
                     holdingButton = false;
                     timeHolding = 0.0f;
                 }
                 break;
-            case Player.TeleportStates.TRAVEL:
+            case Player.JumpStates.MOVE:
                 bool attack = false;
-                if (InputManager.instance.GetOButton())
+                if (player.canCharge && InputManager.instance.GetOButton())
                 {
                     holdingButton = true;
                     timeHolding += Time.deltaTime;
@@ -52,32 +59,33 @@ public class StrongAttack : StateAction
 
                 if (attack)
                 {
+                    player.strongAttackCollider.Deactivate();
                     player.ResetStrongAttackColliderSize();
-                    player.teleportState = Player.TeleportStates.IN;
+                    player.teleportState = Player.JumpStates.LAND;
                     player.strongAttackTimer = 0.0f;
                     ParticlesManager.instance.LaunchParticleSystem(strongAttackVFX, player.transform.position, strongAttackVFX.transform.rotation);
-                    player.strongAttackCollider.Deactivate();
                     player.strongAttackMotionLimiter.SetActive(false);
                     player.canMove = false;
                     player.animator.Rebind();
                 }
                 break;
-            case Player.TeleportStates.IN:
+            case Player.JumpStates.LAND:
                 if (player.strongAttackTimer >= timeToGoIn)
                 {
+
                     BulletTime.instance.DoSlowmotion(0.01f, 0.25f);
                     CameraShaker.Instance.ShakeOnce(0.8f, 15.5f, 0.1f, 0.7f);
                     player.cameraState = Player.CameraState.MOVE;
                     player.mainCameraController.y = 5.0f;
                     player.strongAttackTimer = 0.0f;
                     player.teleported = true;
-                    player.teleportState = Player.TeleportStates.DELAY;
+                    player.teleportState = Player.JumpStates.DELAY;
                     player.strongAttackCooldown.timeSinceLastAction = 0.0f;
-                    damage *= 1f + timeHolding / timeToHold;
+                    float damage = minDamage + ((maxDamage - minDamage) * timeHolding / timeToHold);
                     HurtEnemies(player, damage);
                 }
                 break;
-            case Player.TeleportStates.DELAY:
+            case Player.JumpStates.DELAY:
                 if (player.strongAttackTimer >= delay)
                 {
                     player.comeBackFromStrongAttack = true;

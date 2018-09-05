@@ -9,6 +9,7 @@ public class StrongAttackEnter : StateAction
 
     public override void Act(Player player)
     {
+        player.canCharge = false;
         player.canMove = false;
         player.comeBackFromStrongAttack = false;
         player.strongAttackTimer = 0.0f;
@@ -16,7 +17,7 @@ public class StrongAttackEnter : StateAction
         player.strongAttackMotionLimiter.SetActive(true);
         player.teleported = false;
         player.cameraState = Player.CameraState.STRONG_ATTACK;
-        player.teleportState = Player.TeleportStates.OUT;
+        player.teleportState = Player.JumpStates.JUMP;
         ParticlesManager.instance.LaunchParticleSystem(teleportIn, player.transform.position, teleportIn.transform.rotation);
     }
 }
