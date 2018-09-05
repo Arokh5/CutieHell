@@ -5,16 +5,7 @@ public class Monument : Building
 {
 
     #region Fields
-    [Header("Monument attributes")]
-    [SerializeField]
-    private Image almostConqueredScreenOverlay;
-    private bool showingScreenOverlay = false;
-    private float showAlmostConqueredScreenTintTexture = 0;
-    [Range(0, 1)]
-    [SerializeField]
-    private float lowHealthScreen;
-    [Space]
-    [Header("Health bar")]
+    [Header("Monument health bar")]
     public bool isFirstEnemyTarget = false;
     [SerializeField]
     private string healthBarTitle = "UNNAMED";
@@ -34,12 +25,6 @@ public class Monument : Building
             SetUpHealthBar();
             UIManager.instance.markersController.MonumentTargetted(zoneController.iconIndex);
         }
-    }
-
-    private new void Update()
-    {
-        base.Update();
-        ShowAlmostConqueredScreenTint();
     }
     #endregion
 
@@ -76,34 +61,6 @@ public class Monument : Building
     public override void BuildingConverted()
     {
         
-    }
-    #endregion
-
-    #region Private Methods
-    private void ShowAlmostConqueredScreenTint()
-    {
-        bool shouldShowScreenOverlay = false;
-        if (zoneController.GetZoneEnemiesCount() > 0)
-        {
-            if (currentHealth <= (baseHealth * lowHealthScreen) && currentHealth > 0)
-            {
-                if (showAlmostConqueredScreenTintTexture > 1)
-                {
-                    shouldShowScreenOverlay = true;
-                }
-                if (showAlmostConqueredScreenTintTexture > 2)
-                {
-                    showAlmostConqueredScreenTintTexture = 0;
-                }
-                showAlmostConqueredScreenTintTexture += Time.deltaTime;
-            }
-        }
-
-        if (shouldShowScreenOverlay != showingScreenOverlay)
-        {
-            almostConqueredScreenOverlay.gameObject.SetActive(shouldShowScreenOverlay);
-            showingScreenOverlay = shouldShowScreenOverlay;
-        }
     }
     #endregion
 }

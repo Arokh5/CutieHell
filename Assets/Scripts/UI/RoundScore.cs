@@ -345,7 +345,7 @@ public class RoundScore : MonoBehaviour {
 
             SoundManager.instance.PlaySfxClip(achievementSfx);
             GameObject achievementScore = Instantiate(achievementScorePrefab, this.transform);
-            achievementScore.transform.parent = obtainedAchievementsRoot;
+            achievementScore.transform.SetParent(obtainedAchievementsRoot);
             achievementScore.transform.localPosition = achievementsDisplayPosition.localPosition;
             achievementScore.GetComponent<Image>().sprite = obtainedAchievements[currentEvaluatedAchievementIterator].comboIcon;
             achievementScore.GetComponentInChildren<Text>().text = "x" + achievementsTimesObtained[currentEvaluatedAchievementIterator];
@@ -375,7 +375,7 @@ public class RoundScore : MonoBehaviour {
 
     private void SetUpAchievementsToDisplay()
     {
-        achievementsDisplayPosition.localPosition = new Vector3(achievementsDisplayPosition.localPosition.x - (obtainedAchievements.Count * 4), achievementsDisplayPosition.localPosition.y, achievementsDisplayPosition.localPosition.z);
+        achievementsDisplayPosition.localPosition = new Vector3(-(1.5f * (obtainedAchievements.Count - 1) * separationOnXaxisBetweenAchievementsIcons), achievementsDisplayPosition.localPosition.y, achievementsDisplayPosition.localPosition.z);
     }
 
     #endregion
