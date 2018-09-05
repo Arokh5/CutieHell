@@ -10,6 +10,7 @@ public class StrongAttack : StateAction
     public ParticleSystem strongAttackVFX;
     public float timeToGoOut, timeToGoIn, delay;
     public float timeToHold;
+    public float sizeToIncrease;
     private bool holdingButton;
     private float timeHolding;
 
@@ -39,9 +40,9 @@ public class StrongAttack : StateAction
                         timeHolding = timeToHold;
                         attack = true;
                     }
-
-                    player.IncreaseStrongAttackColliderSize(timeHolding);
-                    player.ChangeDecalColor(timeHolding / timeToHold);
+                    float holdPercent = timeHolding / timeToHold;
+                    player.IncreaseStrongAttackColliderSize(holdPercent * sizeToIncrease);
+                    player.ChangeDecalColor(holdPercent);
                 }
                 else
                 {

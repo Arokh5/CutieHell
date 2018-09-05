@@ -535,9 +535,9 @@ public class Player : MonoBehaviour, IDamageable
         return coneAttacklinkedAchievementID;
     }
 
-    public void IncreaseStrongAttackColliderSize(float time)
+    public void IncreaseStrongAttackColliderSize(float increase)
     {
-        strongAttackCollider.IncreaseSize(time);
+        strongAttackCollider.IncreaseSize(increase);
     }
 
     public void ResetStrongAttackColliderSize()

@@ -26,7 +26,7 @@ public class StrongAttackDetection : MonoBehaviour
         projector.material = new Material(projector.material);
         decalMat = projector.material;
 
-        decalMat.SetColor("[HDR]_TintColor", decalOriginalColor);
+        decalMat.SetColor("_TintColor", decalOriginalColor);
         colorDiffernce = decalFinalColor - decalOriginalColor;
 
         collider = GetComponent<SphereCollider>();
@@ -81,21 +81,22 @@ public class StrongAttackDetection : MonoBehaviour
         projector.enabled = false;
     }
 
-    public void IncreaseSize(float time)
+    public void IncreaseSize(float increase)
     {
-        collider.radius = startingSize + time;
-        projector.orthographicSize = startingSize + time;
+        collider.radius = startingSize + increase;
+        projector.orthographicSize = startingSize + increase;
     }
 
     public void ResetSize()
     {
         projector.orthographicSize = startingSize;
         collider.radius = startingSize;
+        decalMat.SetColor("_TintColor", decalOriginalColor);
     }
 
     public void ChangeDecalColor(float time)
     {
-        decalMat.SetColor("Tint Color", decalOriginalColor + colorDiffernce * time);
+        decalMat.SetColor("_TintColor", decalOriginalColor + colorDiffernce * time);
     }
     #endregion
 }
