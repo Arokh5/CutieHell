@@ -30,6 +30,7 @@ public class StrongAttack : StateAction
                 {
                     player.canMove = true;
                     player.strongAttackCollider.Activate();
+                    player.strongAttackCollider.SetAttackSize(initialSize);
                     player.teleportState = Player.JumpStates.MOVE;
                     holdingButton = false;
                     timeHolding = 0.0f;
@@ -63,7 +64,11 @@ public class StrongAttack : StateAction
                     player.ResetStrongAttackColliderSize();
                     player.teleportState = Player.JumpStates.LAND;
                     player.strongAttackTimer = 0.0f;
-                    ParticlesManager.instance.LaunchParticleSystem(strongAttackVFX, player.transform.position, strongAttackVFX.transform.rotation);
+                    ParticleSystem ps = ParticlesManager.instance.LaunchParticleSystem(strongAttackVFX, player.transform.position + player.transform.forward * 0.2f, strongAttackVFX.transform.rotation);
+                    StrongAttackDecalSize decalSize = ps.GetComponent<StrongAttackDecalSize>();
+                    decalSize.size = initialSize + (timeHolding / timeToHold) * sizeToIncrease * 1.55f;  //The 55% extra is becuse otherwise, the decal wouldn't match with the area
+                    decalSize.scale = (initialSize + (timeHolding / timeToHold) * sizeToIncrease) / 4.0f;
+                    decalSize.UpdateThis();
                     player.strongAttackMotionLimiter.SetActive(false);
                     player.canMove = false;
                     player.animator.Rebind();

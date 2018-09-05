@@ -4,8 +4,7 @@ public class StrongAttackDetection : MonoBehaviour
 {
     #region Fields
     public LayerMask layerMask;
-    public float startingSize;
-
+    private float startingSize;
     private Projector projector;
     private new SphereCollider collider;
     private Player player;
@@ -22,7 +21,6 @@ public class StrongAttackDetection : MonoBehaviour
     {
         projector = GetComponent<Projector>();
         UnityEngine.Assertions.Assert.IsNotNull(projector, "ERROR: A Projector Component could not be found by StrongAttackDetection in GameObject " + gameObject.name);
-        projector.orthographicSize = startingSize;
         projector.material = new Material(projector.material);
         decalMat = projector.material;
 
@@ -31,7 +29,6 @@ public class StrongAttackDetection : MonoBehaviour
 
         collider = GetComponent<SphereCollider>();
         UnityEngine.Assertions.Assert.IsNotNull(collider, "ERROR: A Collider Component could not be found by StrongAttackDetection in GameObject " + gameObject.name);
-        collider.radius = startingSize;
         Deactivate();
     }
 
@@ -68,6 +65,13 @@ public class StrongAttackDetection : MonoBehaviour
     #endregion
 
     #region Public Methods
+    public void SetAttackSize(float radius)
+    {
+        startingSize = radius;
+        projector.orthographicSize = startingSize;
+        collider.radius = startingSize;
+    }
+
     public void Activate(bool useProjector = true)
     {
         collider.enabled = true;
