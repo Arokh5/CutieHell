@@ -534,6 +534,22 @@ public class Player : MonoBehaviour, IDamageable
     {
         return coneAttacklinkedAchievementID;
     }
+
+    public void IncreaseStrongAttackColliderSize(float time)
+    {
+        strongAttackCollider.IncreaseSize(time);
+    }
+
+    public void ResetStrongAttackColliderSize()
+    {
+        strongAttackCollider.ResetSize();
+    }
+
+    public void ChangeDecalColor(float time)
+    {
+        strongAttackCollider.ChangeDecalColor(time);
+    }
+
     #endregion
 
     #region Private Methods

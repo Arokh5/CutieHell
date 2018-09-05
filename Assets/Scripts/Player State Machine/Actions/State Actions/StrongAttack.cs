@@ -6,9 +6,12 @@ using EZCameraShake;
 [CreateAssetMenu(menuName = "Player State Machine/Actions/StrongAttack")]
 public class StrongAttack : StateAction
 {
-    public int damage;
+    public float damage;
     public ParticleSystem strongAttackVFX;
     public float timeToGoOut, timeToGoIn, delay;
+    public float timeToHold;
+    private bool holdingButton;
+    private float timeHolding;
 
     public override void Act(Player player)
     {
@@ -20,11 +23,35 @@ public class StrongAttack : StateAction
                     player.canMove = true;
                     player.strongAttackCollider.Activate();
                     player.teleportState = Player.TeleportStates.TRAVEL;
+                    holdingButton = false;
+                    timeHolding = 0.0f;
                 }
                 break;
             case Player.TeleportStates.TRAVEL:
-                if (InputManager.instance.GetOButtonDown())
+                bool attack = false;
+                if (InputManager.instance.GetOButton())
                 {
+                    holdingButton = true;
+                    timeHolding += Time.deltaTime;
+
+                    if (timeHolding > timeToHold)
+                    {
+                        timeHolding = timeToHold;
+                        attack = true;
+                    }
+
+                    player.IncreaseStrongAttackColliderSize(timeHolding);
+                    player.ChangeDecalColor(timeHolding / timeToHold);
+                }
+                else
+                {
+                    if (holdingButton)
+                        attack = true;
+                }
+
+                if (attack)
+                {
+                    player.ResetStrongAttackColliderSize();
                     player.teleportState = Player.TeleportStates.IN;
                     player.strongAttackTimer = 0.0f;
                     ParticlesManager.instance.LaunchParticleSystem(strongAttackVFX, player.transform.position, strongAttackVFX.transform.rotation);
@@ -32,11 +59,9 @@ public class StrongAttack : StateAction
                     player.strongAttackMotionLimiter.SetActive(false);
                     player.canMove = false;
                     player.animator.Rebind();
-                    AttackChainsManager.instance.ReportStartChainAttempt(AttackType.STRONG);
                 }
                 break;
             case Player.TeleportStates.IN:
-
                 if (player.strongAttackTimer >= timeToGoIn)
                 {
                     BulletTime.instance.DoSlowmotion(0.01f, 0.25f);
@@ -47,6 +72,7 @@ public class StrongAttack : StateAction
                     player.teleported = true;
                     player.teleportState = Player.TeleportStates.DELAY;
                     player.strongAttackCooldown.timeSinceLastAction = 0.0f;
+                    damage *= 1f + timeHolding / timeToHold;
                     HurtEnemies(player, damage);
                 }
                 break;
@@ -54,13 +80,13 @@ public class StrongAttack : StateAction
                 if (player.strongAttackTimer >= delay)
                 {
                     player.comeBackFromStrongAttack = true;
-                }   
+                }
                 break;
             default:
                 break;
         }
     }
-    private void HurtEnemies(Player player, int damage)
+    private void HurtEnemies(Player player, float damage)
     {
         foreach (AIEnemy aiEnemy in player.currentStrongAttackTargets)
         {
