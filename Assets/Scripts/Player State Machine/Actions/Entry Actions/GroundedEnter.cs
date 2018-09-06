@@ -11,5 +11,6 @@ public class GroundedEnter : StateAction
         player.animator.SetTrigger("KnockOut");
         player.cameraState = Player.CameraState.CONEATTACK;
         UIManager.instance.SetUIElementsVisibility(false);
+        player.mainCameraController.DeathPostProcessing();
     }
 }

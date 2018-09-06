@@ -1,10 +1,16 @@
 ﻿using UnityEngine;
+using UnityEngine.PostProcessing;
 
 public class CameraController : MonoBehaviour
 {
     #region Fields
     [SerializeField]
     private LayerMask viewPosCheckLayerMask;
+    [SerializeField]
+    private PostProcessingProfile defaultPostProcessing;
+    [SerializeField]
+    private PostProcessingProfile deathPostProcessing;
+    private PostProcessingBehaviour postProcessing;
 
     private Transform player;
     private Player playerScript;
@@ -13,7 +19,7 @@ public class CameraController : MonoBehaviour
     private const float xSpeed = 4.20f;
     private const float ySpeed = 1.2f;
     private const float yMinLimit = -20f;
-    private const float yMaxLimit = 40f;
+    private const float yMaxLimit = 30f;
     private const float lerpSpeed = 0.1f;
     private const float transitionTime = 0.31f;
     private float timeOnTransition = 10.0f;
@@ -59,6 +65,7 @@ public class CameraController : MonoBehaviour
         player = GameManager.instance.GetPlayer1().transform;
         playerScript = player.GetComponent<Player>();
         playerCapsuleCollider = player.GetComponent<CapsuleCollider>();
+        postProcessing = this.GetComponent<PostProcessingBehaviour>();
 
         zZ = distance = 3.7f;
         zX = cameraX = 0.45f;
@@ -99,6 +106,16 @@ public class CameraController : MonoBehaviour
     public void SetCameraYAngle(float y)
     {
         this.y = y;
+    }
+
+    public void DeathPostProcessing()
+    {
+        postProcessing.profile = deathPostProcessing;
+    }
+
+    public void DefaultPostProcessing()
+    {
+        postProcessing.profile = defaultPostProcessing;
     }
     #endregion
 

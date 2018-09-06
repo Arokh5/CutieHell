@@ -15,7 +15,6 @@ public class HideWhenPlayerDies : MonoBehaviour {
 	void Awake () {
         rectTransform = this.GetComponent<RectTransform>();
         initialPos = rectTransform.anchoredPosition;
-        Debug.Log(rectTransform.anchoredPosition + this.transform.name);
         if (hideToTheLeft)
         {
             finalPos = initialPos + Vector2.left * distanceToMove;
