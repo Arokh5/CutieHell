@@ -9,25 +9,42 @@ public class PropModelChanger : Convertible
     private MeshRenderer originalProp;
     [SerializeField]
     private MeshRenderer alternateProp;
+
+    [Header("Trigger mode")]
+    [SerializeField]
+    private bool triggerOnCuteGround = true;
+    [SerializeField]
+    private bool triggerOnFirstCuteContact = true;
+
+    [Space]
+    [Header("Change modes")]
+    [SerializeField]
+    private bool scaleChangeMode = false;
+
+    [Header("Puff Change Mode")]
     [SerializeField]
     private ParticleSystem changeVFX;
     [SerializeField]
     private int numberOfParticles = 250;
-    [SerializeField]
-    private bool scaleChangeMode = false;
     
-    [Header("Timing")]
+    [Header("Scale Change Mode")]
+    [SerializeField]
     [Tooltip("The time (in seconds) it takes to collapse the original prop model's vertices towards the pivot")]
-    public float propCollapseDuration = 0.25f;
+    private float propCollapseDuration = 0.25f;
+    [SerializeField]
     [Tooltip("The time (in seconds) it takes to move the alternate prop model's vertices from the pivot to their original position")]
-    public float alternatePropGrowDuration = 0.75f;
+    private float alternatePropGrowDuration = 0.75f;
 
-    [Header("Scaling axes")]
-    public bool scaleX = true;
-    public bool scaleY = true;
-    public bool scaleZ = true;
+    [Header("Scaling axes (Scale Change Mode)")]
+    [SerializeField]
+    private bool scaleX = true;
+    [SerializeField]
+    private bool scaleY = true;
+    [SerializeField]
+    private bool scaleZ = true;
 
     private float convertionElapsedTime;
+    private TextureChangerSource textureChangerSource;
     #endregion
 
     #region MonoBehaviour Methods
@@ -58,10 +75,17 @@ public class PropModelChanger : Convertible
             originalProp.gameObject.SetActive(true);
             alternateProp.gameObject.SetActive(false);
         }
+        textureChangerSource = GetComponentInParent<TextureChangerSource>();
+        UnityEngine.Assertions.Assert.IsNotNull(textureChangerSource, "ERROR: Texture Changer Source (TextureChangerSource) could not be found in its parent hierarchy by GameObject '" + gameObject.name + "'!");
     }
 
     private void Update()
     {
+        if (triggerOnCuteGround)
+        {
+            CheckCuteGround();
+        }
+
         if (scaleChangeMode)
         {
             ScaleChangeMode();
@@ -76,14 +100,30 @@ public class PropModelChanger : Convertible
     #region Public Methods
     public override void Convert()
     {
-        if (!isConverted)
-            converting = true;
+        if (triggerOnCuteGround)
+        {
+            Debug.LogWarning("WARNING: PropModelChanger::Convert called on GameObject '" + gameObject.name + "' which has triggerOnCuteGround set to true. The call to Convert will be ignored!");
+        }
+        else
+        {
+            if (!isConverted)
+                converting = true;
+
+        }
     }
 
     public override void Unconvert()
     {
-        if (isConverted)
-            unconverting = true;
+        if (triggerOnCuteGround)
+        {
+            Debug.LogWarning("WARNING: PropModelChanger::Unconvert called on GameObject '" + gameObject.name + "' which has triggerOnCuteGround set to true. The call to Convert will be ignored!");
+        }
+        else
+        {
+            if (isConverted)
+                unconverting = true;
+
+        }
     }
     #endregion
 
@@ -160,7 +200,33 @@ public class PropModelChanger : Convertible
             converting = false;
             isConverted = true;
         }
+    }
 
+    private void CheckCuteGround()
+    {
+        if (converting || isConverted)
+            return;
+
+        bool inCuteArea = true;
+        foreach (ITextureChanger textureChanger in textureChangerSource.textureChangers)
+        {
+            Vector3 propToChanger = textureChanger.transform.position - transform.position;
+            float safeRadius = textureChanger.GetEffectMaxRadius();
+            if (triggerOnFirstCuteContact)
+            {
+                safeRadius *= textureChanger.GetNormalizedBlendStartRadius();
+            }
+            if (propToChanger.sqrMagnitude < safeRadius * safeRadius)
+            {
+                inCuteArea = false;
+                break;
+            }
+        }
+        if (inCuteArea)
+        {
+            if (!isConverted)
+                converting = true;
+        }
     }
     #endregion
 }

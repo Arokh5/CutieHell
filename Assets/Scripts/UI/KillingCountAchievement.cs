@@ -28,13 +28,26 @@ public class KillingCountAchievement : Combo {
     {
         ReviewConditions();
 
-        if(attackType == AttackType.METEORITE)
+        switch (attackType)
         {
-            if (currentCount > 0 && !player.GetIsMeteoritesOn())
-            {
-                ResetCount();
-            }
+            case AttackType.MINE:
+                if (currentCount > 0)
+                    ResetCount();
+                break;
+            case AttackType.STRONG:
+                if (player.cameraState != Player.CameraState.STRONG_ATTACK)
+                    ResetCount();
+                break;
+            case AttackType.CONE:
+                if (player.cameraState != Player.CameraState.CONEATTACK)
+                    ResetCount();
+                break;
+            case AttackType.METEORITE:
+                if (!player.GetIsMeteoritesOn() && currentCount > 0)
+                    ResetCount();
+                break;
         }
+
     }
 
     #region Public methods
