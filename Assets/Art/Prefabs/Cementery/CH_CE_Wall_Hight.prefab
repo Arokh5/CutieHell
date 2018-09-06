@@ -37,6 +37,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4173796917736068}
+  - component: {fileID: 114460481657786140}
+  - component: {fileID: 65371544184633986}
   m_Layer: 0
   m_Name: CH_CE_Wall_Hight
   m_TagString: Untagged
@@ -185,6 +187,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1995293695055018}
   m_Mesh: {fileID: 4300000, guid: 0e9aa8d5aee5af444b9254d9b1ee3c69, type: 3}
+--- !u!65 &65371544184633986
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1861060488674120}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 6.33, y: 3.1077433, z: 1.23}
+  m_Center: {x: 0.0027083158, y: 1.5426474, z: 0.000000044703484}
 --- !u!95 &95892527665164344
 Animator:
   serializedVersion: 3
@@ -219,3 +233,25 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114460481657786140
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1861060488674120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d552f61e7fedf8b4ba4d8eed58d2f2e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  originalProp: {fileID: 23322243595664792}
+  alternateProp: {fileID: 23103842332497604}
+  changeVFX: {fileID: 198160269598142280, guid: b36220c14a83a1f468e4464671cb388a,
+    type: 2}
+  numberOfParticles: 2500
+  scaleChangeMode: 0
+  propCollapseDuration: 0.25
+  alternatePropGrowDuration: 0.75
+  scaleX: 0
+  scaleY: 1
+  scaleZ: 0
