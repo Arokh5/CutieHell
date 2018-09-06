@@ -2592,7 +2592,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1042903312978876}
   m_LocalRotation: {x: -0, y: 0.11632647, z: -0, w: 0.99321103}
-  m_LocalPosition: {x: -28.8, y: 33.350376, z: 35.03}
+  m_LocalPosition: {x: -31.935991, y: 33.350376, z: 21.822102}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4669547464532272}
@@ -4315,6 +4315,8 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 256
+  decalOriginalColor: {r: 0, g: 0.66896534, b: 1, a: 1}
+  decalFinalColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &114335901074629872
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4370,9 +4372,7 @@ MonoBehaviour:
   baseHealth: 100
   autoHealDelay: 3.5
   fullAutoHealDuration: 5
-  recoveryDuration: 10
-  timeSavedPerClick: 0.2
-  postRecoveryDelay: 0.5
+  recoveryDuration: 3.5
   isTargetable: 1
   cuteGroundsInfoPanel: {fileID: 0}
   elapsedRecoveryTime: 0
@@ -4415,6 +4415,8 @@ MonoBehaviour:
   strongAttackTimer: 0
   currentStrongAttackTargets: []
   comeBackFromStrongAttack: 0
+  canChargeStrongAttack: 0
+  isChargingStrongAttack: 0
   coneAttackCooldown:
     cooldownTime: 2
     cooldownUI: {fileID: 0}
