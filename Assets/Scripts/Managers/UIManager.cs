@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     public MonumentsHealthBar monumentsHealthBar;
     public MarkersController markersController;
     public RoundInfoController roundInfoController;
+    public HideWhenPlayerDies[] objectsToHide;
 
     [Header("Player Health")]
     [Space]
@@ -39,6 +40,14 @@ public class UIManager : MonoBehaviour
     public void ZoneConnectionOpened(int zoneConnectionID)
     {
         Debug.LogError("NOT IMPLEMENTED:UIManager::ZoneConnectionOpened");
+    }
+
+    public void SetUIElementsVisibility(bool visible)
+    {
+        for(int i = 0; i <objectsToHide.Length; ++i)
+        {
+            objectsToHide[i].hide = !visible;
+        }
     }
     #endregion
 

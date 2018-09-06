@@ -7,5 +7,6 @@ public class GroundedExit : StateAction
     {
         player.SetCollidersActiveState(true);
         player.cameraState = Player.CameraState.MOVE;
+        UIManager.instance.SetUIElementsVisibility(true);
     }
 }

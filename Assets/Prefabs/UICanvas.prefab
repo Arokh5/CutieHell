@@ -1792,6 +1792,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224385303776727298}
   - component: {fileID: 114842026836627134}
+  - component: {fileID: 114578704900136668}
   m_Layer: 5
   m_Name: PlayerHealth
   m_TagString: Untagged
@@ -2155,6 +2156,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224161250940733028}
+  - component: {fileID: 114463429270190988}
   m_Layer: 5
   m_Name: Cooldowns
   m_TagString: Untagged
@@ -2394,6 +2396,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224181871022361220}
   - component: {fileID: 114319861805168144}
+  - component: {fileID: 114708298127835078}
   m_Layer: 5
   m_Name: RoundInfo
   m_TagString: Untagged
@@ -4282,6 +4285,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224846219008086800}
   - component: {fileID: 114617773147571074}
+  - component: {fileID: 114348815898336208}
   m_Layer: 5
   m_Name: MonumentsHealth
   m_TagString: Untagged
@@ -6609,6 +6613,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114348815898336208
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1969403796573086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e65abf7cacff2a64fb0c569dec314471, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hide: 0
+  hideToTheLeft: 1
+  distanceToMove: 700
 --- !u!114 &114356376437098228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7338,6 +7356,20 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: Your health recovers after some time of not taking damage. If you lose it
     all, you will just have to recover in place for a while.
+--- !u!114 &114463429270190988
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1514286423222330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e65abf7cacff2a64fb0c569dec314471, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hide: 0
+  hideToTheLeft: 1
+  distanceToMove: 700
 --- !u!114 &114468456239899150
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8002,6 +8034,20 @@ MonoBehaviour:
   frequency: 1
   amplitude: 0.05
   flashOnAwake: 1
+--- !u!114 &114578704900136668
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1426195583755094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e65abf7cacff2a64fb0c569dec314471, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hide: 0
+  hideToTheLeft: 1
+  distanceToMove: 700
 --- !u!114 &114581507216236642
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8810,6 +8856,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114708298127835078
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1546568041092332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e65abf7cacff2a64fb0c569dec314471, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hide: 0
+  hideToTheLeft: 0
+  distanceToMove: 700
 --- !u!114 &114711943444888230
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13017,7 +13077,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 12.400024, y: 67.8999}
+  m_AnchoredPosition: {x: 12.399902, y: 67.8999}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!224 &224167045747260966
@@ -13079,7 +13139,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 60, y: 19}
+  m_AnchoredPosition: {x: 60.00006, y: 19}
   m_SizeDelta: {x: 512, y: 256}
   m_Pivot: {x: 1, y: 1}
 --- !u!224 &224183660373035962
@@ -14100,7 +14160,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -18.900024, y: 9.5}
+  m_AnchoredPosition: {x: -18.899902, y: 9.5}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!224 &224386666219149164
