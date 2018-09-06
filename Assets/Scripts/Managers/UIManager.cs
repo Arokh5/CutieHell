@@ -17,8 +17,6 @@ public class UIManager : MonoBehaviour
     [Space]
     [SerializeField]
     private HealthBar playerHealthBar;
-    [SerializeField]
-    private GameObject buttonMashPrompt;
 
     private const float enemiesCountVel = 0.15f;
     #endregion
@@ -28,7 +26,6 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        SetPlayerHealthButtonMashVisibility(false);
     }
     #endregion
 
@@ -36,11 +33,6 @@ public class UIManager : MonoBehaviour
     public void SetPlayerHealth(float normalizedHealth)
     {
         playerHealthBar.SetHealthBarFill(normalizedHealth);
-    }
-
-    public void SetPlayerHealthButtonMashVisibility(bool isVisible)
-    {
-        buttonMashPrompt.SetActive(isVisible);
     }
 
     // Called by ZonesConnection when the connection gets opened

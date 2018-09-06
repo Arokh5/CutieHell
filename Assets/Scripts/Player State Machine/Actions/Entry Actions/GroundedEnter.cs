@@ -8,6 +8,7 @@ public class GroundedEnter : StateAction
         player.elapsedRecoveryTime = 0.0f;
         player.elapsedDelayTime = 0.0f;
         player.SetCollidersActiveState(false);
-        UIManager.instance.SetPlayerHealthButtonMashVisibility(true);
+        player.animator.SetTrigger("KnockOut");
+        player.cameraState = Player.CameraState.CONEATTACK;
     }
 }

@@ -8,20 +8,13 @@ public class GroundedRecover : StateAction
         bool recoveryOver = Recovery(player);
         if (recoveryOver)
         {
-            bool delayOver = Delay(player);
-            if (delayOver)
-                player.isGrounded = false;
+            player.isGrounded = false;
         }
     }
 
     private bool Recovery(Player player)
     {
         player.elapsedRecoveryTime += Time.deltaTime;
-        if (InputManager.instance.GetXButtonDown())
-        {
-            player.elapsedRecoveryTime += player.timeSavedPerClick;
-        }
-
         if (player.elapsedRecoveryTime < player.recoveryDuration)
         {
             player.SetCurrentHealth(player.elapsedRecoveryTime / player.recoveryDuration);
@@ -29,15 +22,8 @@ public class GroundedRecover : StateAction
         else
         {
             player.SetCurrentHealth(1.0f);
-            UIManager.instance.SetPlayerHealthButtonMashVisibility(false);
         }
 
         return player.elapsedRecoveryTime >= player.recoveryDuration;
-    }
-
-    private bool Delay(Player player)
-    {
-        player.elapsedDelayTime += Time.deltaTime;
-        return player.elapsedDelayTime >= player.postRecoveryDelay;
     }
 }
