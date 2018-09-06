@@ -35,6 +35,9 @@ public class KillingCountAchievement : Combo {
                 ResetCount();
             }
         }
+
+        if (attackType == AttackType.MINE && currentCount > 0)
+            ResetCount();
     }
 
     #region Public methods
