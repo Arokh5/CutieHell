@@ -12,8 +12,10 @@ public class StrongAttack : StateAction
     public float sizeToIncrease;
     public ParticleSystem strongAttackVFX;
     public float timeToGoOut, timeToGoIn, delay;
-    public float stunDuration;
-    public float knockbackForce;
+    [SerializeField]
+    private float stunDuration;
+    [SerializeField]
+    private float knockbackForce;
 
     private bool holdingButton;
     private float timeHolding;
