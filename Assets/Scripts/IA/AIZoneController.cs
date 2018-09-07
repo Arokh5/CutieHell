@@ -47,16 +47,11 @@ public class AIZoneController : MonoBehaviour
     [ShowOnly]
     [SerializeField]
     private List<CuteEffect> cuteEffects = new List<CuteEffect>();
-
-    [SerializeField]
-    private GateOpener[] gatesToOpen;
     #endregion
 
     #region Properties
-    public bool isConquered
-    {
-        get
-        {
+    public bool isConquered {
+        get {
             return !hasMonument || monumentTaken;
         }
     }
@@ -125,11 +120,11 @@ public class AIZoneController : MonoBehaviour
     public void OnMonumentTaken()
     {
         monumentTaken = true;
-        for(int i = 0; i < fogWallID.Length; i++)
+        for (int i = 0; i < fogWallID.Length; i++)
         {
             fogWallsManager.DeactivateFogWall(fogWallID[i]);
         }
-        foreach(NavMeshObstacle blockage in blockages)
+        foreach (NavMeshObstacle blockage in blockages)
         {
             blockage.gameObject.SetActive(false);
         }
@@ -326,9 +321,6 @@ public class AIZoneController : MonoBehaviour
             scenarioController.OnFinalZoneConquered();
         else
         {
-            foreach (GateOpener gate in gatesToOpen)
-                gate.OpenDoor();
-
             currentZoneTarget = scenarioController.GetAlternateTarget(this);
             OnTargetBuildingChanged();
 

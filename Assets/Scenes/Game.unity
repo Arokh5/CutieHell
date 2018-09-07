@@ -1767,7 +1767,6 @@ MonoBehaviour:
   playerExpelTarget: {fileID: 0}
   buildingEffects: []
   cuteEffects: []
-  gatesToOpen: []
 --- !u!1 &76694798 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1907052803260008, guid: 0c6ad375ad2d2444b837c461ff684fb2,
@@ -13994,7 +13993,6 @@ MonoBehaviour:
   playerExpelTarget: {fileID: 0}
   buildingEffects: []
   cuteEffects: []
-  gatesToOpen: []
 --- !u!4 &245302996
 Transform:
   m_ObjectHideFlags: 0
@@ -26479,9 +26477,6 @@ MonoBehaviour:
   buildingEffects:
   - {fileID: 273357512}
   cuteEffects: []
-  gatesToOpen:
-  - {fileID: 832611841}
-  - {fileID: 1194603049}
 --- !u!1001 &498910534
 Prefab:
   m_ObjectHideFlags: 0
@@ -45895,6 +45890,11 @@ Prefab:
       propertyPath: m_Name
       value: CH_CE_Gate (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 114788877056431306, guid: 1bfed91ee5b08c64ab2d2221e242b4b0,
+        type: 2}
+      propertyPath: referenceZone
+      value: 
+      objectReference: {fileID: 1083314264}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1bfed91ee5b08c64ab2d2221e242b4b0, type: 2}
   m_IsPrefabParent: 0
@@ -51130,15 +51130,14 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114788877056431306, guid: 1bfed91ee5b08c64ab2d2221e242b4b0,
+        type: 2}
+      propertyPath: referenceZone
+      value: 
+      objectReference: {fileID: 492266146}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1bfed91ee5b08c64ab2d2221e242b4b0, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &832611841 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114788877056431306, guid: 1bfed91ee5b08c64ab2d2221e242b4b0,
-    type: 2}
-  m_PrefabInternal: {fileID: 832611840}
-  m_Script: {fileID: 11500000, guid: 6ac781e0d04ef8f4189e56549f33dbd3, type: 3}
 --- !u!1 &832710068
 GameObject:
   m_ObjectHideFlags: 0
@@ -54810,6 +54809,11 @@ Prefab:
       propertyPath: m_Name
       value: CH_CE_Gate (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 114788877056431306, guid: 1bfed91ee5b08c64ab2d2221e242b4b0,
+        type: 2}
+      propertyPath: referenceZone
+      value: 
+      objectReference: {fileID: 1083314264}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1bfed91ee5b08c64ab2d2221e242b4b0, type: 2}
   m_IsPrefabParent: 0
@@ -60138,9 +60142,6 @@ MonoBehaviour:
   buildingEffects:
   - {fileID: 433428440}
   cuteEffects: []
-  gatesToOpen:
-  - {fileID: 1292562783}
-  - {fileID: 1173241489}
 --- !u!4 &1083613053 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4834023640930044, guid: 1d0af27063d778546ad51429a7bff6b1,
@@ -63383,12 +63384,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4291474328860366, guid: 2ebb213abdee02241b89d8a7657a2cb6,
     type: 2}
   m_PrefabInternal: {fileID: 1171837434}
---- !u!114 &1173241489 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114788877056431306, guid: 1bfed91ee5b08c64ab2d2221e242b4b0,
-    type: 2}
-  m_PrefabInternal: {fileID: 1005018985}
-  m_Script: {fileID: 11500000, guid: 6ac781e0d04ef8f4189e56549f33dbd3, type: 3}
 --- !u!114 &1175802461 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114119721524356066, guid: ec7c6d423aab9dc40b42a5ba38460421,
@@ -63618,7 +63613,7 @@ Prefab:
     - target: {fileID: 224181871022361220, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 59.99994
+      value: 59.999817
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ea64b03fd47dae043a3d7cf8c919a7b7, type: 2}
@@ -64347,15 +64342,14 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114788877056431306, guid: 1bfed91ee5b08c64ab2d2221e242b4b0,
+        type: 2}
+      propertyPath: referenceZone
+      value: 
+      objectReference: {fileID: 492266146}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1bfed91ee5b08c64ab2d2221e242b4b0, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &1194603049 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114788877056431306, guid: 1bfed91ee5b08c64ab2d2221e242b4b0,
-    type: 2}
-  m_PrefabInternal: {fileID: 1194603048}
-  m_Script: {fileID: 11500000, guid: 6ac781e0d04ef8f4189e56549f33dbd3, type: 3}
 --- !u!1001 &1196520475
 Prefab:
   m_ObjectHideFlags: 0
@@ -66742,12 +66736,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4641484087350230, guid: d2475185a7b983f4aa95777f3513daf7,
     type: 2}
   m_PrefabInternal: {fileID: 1942729091}
---- !u!114 &1292562783 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114788877056431306, guid: 1bfed91ee5b08c64ab2d2221e242b4b0,
-    type: 2}
-  m_PrefabInternal: {fileID: 757266861}
-  m_Script: {fileID: 11500000, guid: 6ac781e0d04ef8f4189e56549f33dbd3, type: 3}
 --- !u!1 &1302114053
 GameObject:
   m_ObjectHideFlags: 0
@@ -74932,7 +74920,6 @@ MonoBehaviour:
   playerExpelTarget: {fileID: 0}
   buildingEffects: []
   cuteEffects: []
-  gatesToOpen: []
 --- !u!4 &1488729348
 Transform:
   m_ObjectHideFlags: 0
@@ -102750,7 +102737,6 @@ MonoBehaviour:
   buildingEffects:
   - {fileID: 2036540558}
   cuteEffects: []
-  gatesToOpen: []
 --- !u!1001 &1957881742
 Prefab:
   m_ObjectHideFlags: 0

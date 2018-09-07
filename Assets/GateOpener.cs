@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GateOpener : MonoBehaviour {
+public class GateOpener : MonoBehaviour, IZoneTakenListener
+{
+    [SerializeField]
+    [Tooltip("The AIZoneController to listen to")]
+    private AIZoneController referenceZone;
 
     [SerializeField]
     private GameObject leftDoor;
@@ -23,8 +27,9 @@ public class GateOpener : MonoBehaviour {
     private bool openingDoor;
     private float openingTime;
 
-    void Awake()
+    void Start()
     {
+        referenceZone.AddIZoneTakenListener(this);
         leftClosedRotation = leftDoor.transform.localEulerAngles;
         rightClosedRotation = rightDoor.transform.localEulerAngles;
         openingDoor = false;
@@ -49,10 +54,10 @@ public class GateOpener : MonoBehaviour {
         }
     }
 
-    public void OpenDoor()
+    // IZoneTakenListener
+    public void OnZoneTaken()
     {
         openingDoor = true;
         openingTime = 0.0f;
     }
-
 }
