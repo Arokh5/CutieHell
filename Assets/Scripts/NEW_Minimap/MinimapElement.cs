@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MinimapElement : MonoBehaviour
 {
@@ -9,15 +7,24 @@ public class MinimapElement : MonoBehaviour
     [Tooltip("The size in pixels of the sprite shown in the minimap")]
     public int size = 20;
 
+    private bool hasStarted = false;
+
     #region MonoBehaviour Methods
     private void Start()
     {
+        hasStarted = true;
         MinimapController.instance.AddMinimapElement(this);
     }
 
-    private void OnDestroy()
+    private void OnEnable()
     {
-        MinimapController.instance.AddMinimapElement(this);
+        if (hasStarted)
+            MinimapController.instance.AddMinimapElement(this);
+    }
+
+    private void OnDisable()
+    {
+        MinimapController.instance.RemoveMinimapElement(this);
     }
     #endregion
 }

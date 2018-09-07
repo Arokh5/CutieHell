@@ -17,12 +17,15 @@ public class MinimapController : MonoBehaviour
     [SerializeField]
     private WorldReference worldReference;
     [SerializeField]
+    private Image minimapImagePrefab;
+    [SerializeField]
     private RectTransform elementsParent;
     [SerializeField]
-    private Image minimapImagePrefab;
+    private RectTransform poolParent;
 
     private List<MinimapElement> minimapElements = new List<MinimapElement>();
     private List<Image> minimapImages = new List<Image>();
+    private ObjectPool<Image> minimapImagesPool;
 
     private Vector2 worldBottomLeft;
     private Vector2 worldTopRight;
@@ -40,6 +43,13 @@ public class MinimapController : MonoBehaviour
         else if (instance != this)
             Destroy(this);
 
+        UnityEngine.Assertions.Assert.IsNotNull(worldReference.bottomLeft, "ERROR: World Reference > Bottom Left (Transform) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
+        UnityEngine.Assertions.Assert.IsNotNull(worldReference.topRight, "ERROR: World Reference > Top Right (Transform) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
+        UnityEngine.Assertions.Assert.IsNotNull(minimapImagePrefab, "ERROR: Minimap Image Prefab (Image Prefab) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
+        UnityEngine.Assertions.Assert.IsNotNull(elementsParent, "ERROR: Elements Parent (Transform) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
+        UnityEngine.Assertions.Assert.IsNotNull(poolParent, "ERROR: Pool Parent (Transform) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
+
+        minimapImagesPool = new ObjectPool<Image>(minimapImagePrefab, poolParent.transform);
     }
 
     private void Start()
@@ -56,16 +66,28 @@ public class MinimapController : MonoBehaviour
     {
         for (int i = 0; i < minimapElements.Count; ++i)
         {
-            Vector2 newPos = WorldToMinimap(minimapElements[i].transform.position);
-            minimapImages[i].rectTransform.localPosition = newPos;
-            if (IsMinimapImageWithinMinimap(minimapImages[i]))
+            MinimapElement minimapElement = minimapElements[i];
+            Image minimapImage = minimapImages[i];
+            if (minimapElement.gameObject.activeInHierarchy)
             {
-                minimapImages[i].enabled = true;
+                minimapImage.gameObject.SetActive(true);
+
+                Vector2 newPos = WorldToMinimap(minimapElements[i].transform.position);
+                minimapImage.rectTransform.localPosition = newPos;
+                if (IsMinimapImageWithinMinimap(minimapImage))
+                {
+                    minimapImage.enabled = true;
+                }
+                else
+                {
+                    minimapImage.enabled = false;
+                }
             }
             else
             {
-                minimapImages[i].enabled = false;
+                minimapImage.gameObject.SetActive(false);
             }
+            
         }
     }
     #endregion
@@ -84,14 +106,26 @@ public class MinimapController : MonoBehaviour
 
     public bool RemoveMinimapElement(MinimapElement mmElement)
     {
-        return minimapElements.Remove(mmElement);
+        int index = minimapElements.IndexOf(mmElement);
+        if (index != -1)
+        {
+            minimapElements.RemoveAt(index);
+            Image minimapImage = minimapImages[index];
+            if (minimapImage != null)
+            {
+                // The null case occurs during destruction of the scene
+                minimapImagesPool.ReturnToPool(minimapImage);
+            }
+            minimapImages.RemoveAt(index);
+        }
+        return index != -1;
     }
     #endregion
 
     #region Private Methods
     private Image CreateElementImage(MinimapElement mmElement)
     {
-        Image element = Instantiate(minimapImagePrefab, elementsParent);
+        Image element = minimapImagesPool.GetObject(elementsParent, false);
         element.sprite = mmElement.sprite;
         element.color = mmElement.color;
         element.rectTransform.sizeDelta = new Vector2(mmElement.size, mmElement.size);

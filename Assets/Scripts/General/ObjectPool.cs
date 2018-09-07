@@ -45,7 +45,7 @@ public class ObjectPool<T> where T : Component
         if (objectsAvailable.Count > 0)
             pooledObject = objectsAvailable.Pop();
         else
-            pooledObject = Object.Instantiate(prefab);
+            pooledObject = Object.Instantiate(prefab, poolParent);
 
         pooledObject.transform.SetParent(parent);
         if(useWorldSpace)
