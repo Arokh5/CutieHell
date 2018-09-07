@@ -17,15 +17,15 @@ public class MinimapController : MonoBehaviour
     [SerializeField]
     private WorldReference worldReference;
     [SerializeField]
-    private Image minimapImagePrefab;
+    private MinimapImage minimapImagePrefab;
     [SerializeField]
     private RectTransform elementsParent;
     [SerializeField]
     private RectTransform poolParent;
 
     private List<MinimapElement> minimapElements = new List<MinimapElement>();
-    private List<Image> minimapImages = new List<Image>();
-    private ObjectPool<Image> minimapImagesPool;
+    private List<MinimapImage> minimapImages = new List<MinimapImage>();
+    private ObjectPool<MinimapImage> minimapImagesPool;
 
     private Vector2 worldBottomLeft;
     private Vector2 worldTopRight;
@@ -49,7 +49,7 @@ public class MinimapController : MonoBehaviour
         UnityEngine.Assertions.Assert.IsNotNull(elementsParent, "ERROR: Elements Parent (Transform) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(poolParent, "ERROR: Pool Parent (Transform) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
 
-        minimapImagesPool = new ObjectPool<Image>(minimapImagePrefab, poolParent.transform);
+        minimapImagesPool = new ObjectPool<MinimapImage>(minimapImagePrefab, poolParent.transform);
     }
 
     private void Start()
@@ -67,20 +67,20 @@ public class MinimapController : MonoBehaviour
         for (int i = 0; i < minimapElements.Count; ++i)
         {
             MinimapElement minimapElement = minimapElements[i];
-            Image minimapImage = minimapImages[i];
+            MinimapImage minimapImage = minimapImages[i];
             if (minimapElement.gameObject.activeInHierarchy)
             {
                 minimapImage.gameObject.SetActive(true);
 
                 Vector2 newPos = WorldToMinimap(minimapElements[i].transform.position);
-                minimapImage.rectTransform.localPosition = newPos;
+                minimapImage.localPosition = newPos;
                 if (IsMinimapImageWithinMinimap(minimapImage))
                 {
-                    minimapImage.enabled = true;
+                    minimapImage.Show();
                 }
                 else
                 {
-                    minimapImage.enabled = false;
+                    minimapImage.Hide();
                 }
             }
             else
@@ -97,8 +97,9 @@ public class MinimapController : MonoBehaviour
     {
         if (!minimapElements.Contains(mmElement))
         {
-            minimapElements.Add(mmElement);
-            minimapImages.Add(CreateElementImage(mmElement));
+            int hierarchyIndex = GetMinimapElementInsertionIndex(mmElement);
+            minimapElements.Insert(hierarchyIndex, mmElement);
+            minimapImages.Insert(hierarchyIndex, CreateElementImage(mmElement, hierarchyIndex));
             return true;
         }
         return false;
@@ -110,10 +111,11 @@ public class MinimapController : MonoBehaviour
         if (index != -1)
         {
             minimapElements.RemoveAt(index);
-            Image minimapImage = minimapImages[index];
+            MinimapImage minimapImage = minimapImages[index];
             if (minimapImage != null)
             {
                 // The null case occurs during destruction of the scene
+                minimapImage.CleanUp();
                 minimapImagesPool.ReturnToPool(minimapImage);
             }
             minimapImages.RemoveAt(index);
@@ -123,13 +125,29 @@ public class MinimapController : MonoBehaviour
     #endregion
 
     #region Private Methods
-    private Image CreateElementImage(MinimapElement mmElement)
+    private int GetMinimapElementInsertionIndex(MinimapElement mmElement)
     {
-        Image element = minimapImagesPool.GetObject(elementsParent, false);
-        element.sprite = mmElement.sprite;
-        element.color = mmElement.color;
-        element.rectTransform.sizeDelta = new Vector2(mmElement.size, mmElement.size);
-        return element;
+        int count = minimapElements.Count;
+        int index = count;
+
+        for (int i = 0; i < count; ++i)
+        {
+            if (mmElement.priority < minimapElements[i].priority)
+            {
+                index = i;
+                break;
+            }
+        }
+
+        return index;
+    }
+
+    private MinimapImage CreateElementImage(MinimapElement mmElement, int hierarchyIndex)
+    {
+        MinimapImage mmImage = minimapImagesPool.GetObject(elementsParent, false);
+        mmImage.SetupMinimapImage(mmElement);
+        mmImage.transform.SetSiblingIndex(hierarchyIndex);
+        return mmImage;
     }
 
     private Vector2 WorldToMinimap(Vector3 worldPos)
@@ -144,12 +162,12 @@ public class MinimapController : MonoBehaviour
         return minimapPos;
     }
 
-    private bool IsMinimapImageWithinMinimap(Image minimapImage)
+    private bool IsMinimapImageWithinMinimap(MinimapImage minimapImage)
     {
-        return minimapImage.rectTransform.localPosition.x > 0.5f * minimapImage.rectTransform.sizeDelta.x
-            && minimapImage.rectTransform.localPosition.x < minimapWidth - 0.5f * minimapImage.rectTransform.sizeDelta.x
-            && minimapImage.rectTransform.localPosition.y > 0.5f * minimapImage.rectTransform.sizeDelta.y
-            && minimapImage.rectTransform.localPosition.y < minimapHeight - 0.5f * minimapImage.rectTransform.sizeDelta.y;
+        return minimapImage.localPosition.x > 0.5f * minimapImage.width
+            && minimapImage.localPosition.x < minimapWidth - 0.5f * minimapImage.width
+            && minimapImage.localPosition.y > 0.5f * minimapImage.height
+            && minimapImage.localPosition.y < minimapHeight - 0.5f * minimapImage.height;
     }
     #endregion
 }
