@@ -48,6 +48,8 @@ public class AIZoneController : MonoBehaviour
     [SerializeField]
     private List<CuteEffect> cuteEffects = new List<CuteEffect>();
 
+    [SerializeField]
+    private GateOpener[] gatesToOpen;
     #endregion
 
     #region Properties
@@ -324,6 +326,9 @@ public class AIZoneController : MonoBehaviour
             scenarioController.OnFinalZoneConquered();
         else
         {
+            foreach (GateOpener gate in gatesToOpen)
+                gate.OpenDoor();
+
             currentZoneTarget = scenarioController.GetAlternateTarget(this);
             OnTargetBuildingChanged();
 
