@@ -59,11 +59,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private bool forceGameLoss;
 #endif
-
-#endregion
-
-    #region Properties
-
+    
     #endregion
 
     #region MonoBehaviour Methods

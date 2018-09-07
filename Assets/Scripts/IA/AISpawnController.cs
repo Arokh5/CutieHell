@@ -127,6 +127,16 @@ public class AISpawnController : MonoBehaviour
         }
     }
 
+
+    public void StopRound()
+    {
+        roundRunning = false;
+        foreach (AISpawner spawner in aiSpawners)
+        {
+            spawner.Stop();
+        }
+    }
+
     public AIEnemy GetEnemy(EnemyType enemyType)
     {
         AIEnemy enemy = enemyPools[enemyType].GetObject(false);
@@ -286,11 +296,6 @@ public class AISpawnController : MonoBehaviour
     public void ForcePreviousRound()
     {
         ForceStartRound(currentRoundIndex - 1);
-    }
-
-    public void StopRound()
-    {
-        roundRunning = false;
     }
 
     public int GetCurrentRoundIndex()

@@ -76,6 +76,11 @@ public class AISpawner : MonoBehaviour {
     {
         paused = false;
     }
+
+    public void Stop()
+    {
+        activeSpawnInfos.Clear();
+    }
     
     // Called by AISpawnController
     public void Spawn(SpawnInfo spawnInfo)
