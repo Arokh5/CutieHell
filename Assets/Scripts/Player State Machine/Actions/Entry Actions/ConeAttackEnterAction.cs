@@ -10,13 +10,19 @@ public class ConeAttackEnterAction : StateAction
 
     public override void Act(Player player)
     {
+        player.slashButtonReleased = false;
         player.comeBackFromConeAttack = false;
         if (startsCooldown)
             player.coneAttackCooldown.timeSinceLastAction = 0.0f;
 
         player.mainCameraController.timeSinceLastAction = 0.0f;
+
         player.mainCameraController.fastAction = true;
         player.animator.SetTrigger(animationTrigger);
+        if (player.isDoubleSlash)
+        {
+            player.animator.SetTrigger("ConeAttackFollow");
+        }
         GameManager.instance.GetPlayer1().SetConeAttackLinkedAchievementID(Achievements.instance.InstanceNewAchievement(Achievements.instance.GetSliceNDice()));
     }
 }

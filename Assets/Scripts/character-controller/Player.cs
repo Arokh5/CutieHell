@@ -177,6 +177,10 @@ public class Player : MonoBehaviour, IDamageable
     public int coneAttacklinkedAchievementID = 0;
     [HideInInspector]
     public bool comeBackFromConeAttack;
+    [HideInInspector]
+    public bool slashButtonReleased;
+    [HideInInspector]
+    public bool isDoubleSlash;
 
     [Header("Mine Attack")]
     public CooldownInfo mineAttackCooldown;
@@ -251,6 +255,8 @@ public class Player : MonoBehaviour, IDamageable
         comeBackFromConeAttack = false;
         canChargeStrongAttack = false;
         isChargingStrongAttack = false;
+        slashButtonReleased = false;
+        isDoubleSlash = false;
 
         currentState = stoppedState;
 

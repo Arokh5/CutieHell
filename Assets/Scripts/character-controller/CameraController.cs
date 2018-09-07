@@ -327,26 +327,9 @@ public class CameraController : MonoBehaviour
                     timeOnTransition += Time.deltaTime;
                     this.transform.position = Vector3.Lerp(this.transform.position, rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position, 0.15f);
 
-                    if (timeSinceLastAction < 0.5f)
-                    {
-                        timeSinceLastAction += Time.deltaTime;
-                        if (fastAction)
-                        {
-                            SetPlayerDirection(rotation.eulerAngles.y, 0.7f);
-                        }
-                        else if (slowAction)
-                        {
-                            SetPlayerDirection(rotation.eulerAngles.y, 0.2f);
-                        }
-                        else
-                        {
-                            SetPlayerDirection(rotation.eulerAngles.y);//, playerScript.rb.velocity.magnitude / 10.0f);
-                        }
-                    }
-                    else
-                    {
-                        fastAction = slowAction = false;
-                    }
+                    SetPlayerDirection(rotation.eulerAngles.y, 0.7f);
+                    fastAction = slowAction = false;
+                    
                     this.transform.LookAt(player.transform.position + rotation * Vector3.up * focusY + rotation * Vector3.right * focusX + rotation * Vector3.forward * focusDistance);
                 }
                     break;
