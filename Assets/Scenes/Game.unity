@@ -21816,7 +21816,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneController: {fileID: 492266146}
-  baseHealth: 600
+  baseHealth: 500
   currentHealth: 0
   attachedConqueror: {fileID: 0}
   animating: 0
@@ -24691,7 +24691,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneController: {fileID: 1083314264}
-  baseHealth: 600
+  baseHealth: 500
   currentHealth: 0
   attachedConqueror: {fileID: 0}
   animating: 0
@@ -25404,7 +25404,7 @@ MonoBehaviour:
       spawnInfos:
       - spawnTime: 0
         spawnerIndex: 0
-        spawnDuration: 1
+        spawnDuration: 3
         enemiesToSpawn: 0000000000000000010000000000000000000000
         elapsedTime: 0
         nextSpawnTime: 0
@@ -25413,7 +25413,7 @@ MonoBehaviour:
       nextSpawnIndex: 0
       lastEnemySpawnTime: 0
       totalEnemies: 0
-    - waveStartDelay: 19
+    - waveStartDelay: 22
       spawnInfos:
       - spawnTime: 0
         spawnerIndex: 1
@@ -25634,22 +25634,63 @@ MonoBehaviour:
       spawnInfos:
       - spawnTime: 0
         spawnerIndex: 1
-        spawnDuration: 15
-        enemiesToSpawn: 000000000000000000000000010000000000000000000000010000000000000000000000000000000100000000000000000000000100000000000000
-        elapsedTime: 0
-        nextSpawnTime: 0
-        nextSpawnIndex: 0
-      - spawnTime: 0
-        spawnerIndex: 2
-        spawnDuration: 15
-        enemiesToSpawn: 010000000000000001000000010000000000000000000000010000000000000000000000000000000100000001000000000000000000000000000000
+        spawnDuration: 1
+        enemiesToSpawn: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
         elapsedTime: 0
         nextSpawnTime: 0
         nextSpawnIndex: 0
       - spawnTime: 10
+        spawnerIndex: 2
+        spawnDuration: 1
+        enemiesToSpawn: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
+        elapsedTime: 0
+        nextSpawnTime: 0
+        nextSpawnIndex: 0
+      - spawnTime: 20
         spawnerIndex: 0
         spawnDuration: 1
-        enemiesToSpawn: 0200000002000000
+        enemiesToSpawn: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
+        elapsedTime: 0
+        nextSpawnTime: 0
+        nextSpawnIndex: 0
+      elapsedTime: 0
+      nextSpawnIndex: 0
+      lastEnemySpawnTime: 0
+      totalEnemies: 0
+    - waveStartDelay: 15
+      spawnInfos:
+      - spawnTime: 0
+        spawnerIndex: 0
+        spawnDuration: 40
+        enemiesToSpawn: 0000000000000000010000000000000000000000000000000100000000000000010000000000000000000000010000000000000000000000000000000100000000000000010000000100000002000000
+        elapsedTime: 0
+        nextSpawnTime: 0
+        nextSpawnIndex: 0
+      - spawnTime: 10
+        spawnerIndex: 1
+        spawnDuration: 1
+        enemiesToSpawn: 010000000100000001000000
+        elapsedTime: 0
+        nextSpawnTime: 0
+        nextSpawnIndex: 0
+      - spawnTime: 20
+        spawnerIndex: 2
+        spawnDuration: 1
+        enemiesToSpawn: 010000000100000001000000
+        elapsedTime: 0
+        nextSpawnTime: 0
+        nextSpawnIndex: 0
+      - spawnTime: 30
+        spawnerIndex: 1
+        spawnDuration: 1
+        enemiesToSpawn: 010000000100000001000000
+        elapsedTime: 0
+        nextSpawnTime: 0
+        nextSpawnIndex: 0
+      - spawnTime: 30
+        spawnerIndex: 2
+        spawnDuration: 1
+        enemiesToSpawn: 010000000100000001000000
         elapsedTime: 0
         nextSpawnTime: 0
         nextSpawnIndex: 0
@@ -25661,63 +25702,8 @@ MonoBehaviour:
       spawnInfos:
       - spawnTime: 0
         spawnerIndex: 0
-        spawnDuration: 20
-        enemiesToSpawn: 0000000000000000000000000000000001000000000000000000000001000000000000000100000000000000000000000000000000000000010000000000000000000000010000000000000001000000
-        elapsedTime: 0
-        nextSpawnTime: 0
-        nextSpawnIndex: 0
-      - spawnTime: 5
-        spawnerIndex: 1
-        spawnDuration: 1
-        enemiesToSpawn: 02000000
-        elapsedTime: 0
-        nextSpawnTime: 0
-        nextSpawnIndex: 0
-      - spawnTime: 5
-        spawnerIndex: 2
-        spawnDuration: 1
-        enemiesToSpawn: 02000000
-        elapsedTime: 0
-        nextSpawnTime: 0
-        nextSpawnIndex: 0
-      - spawnTime: 15
-        spawnerIndex: 1
-        spawnDuration: 1
-        enemiesToSpawn: 0200000002000000
-        elapsedTime: 0
-        nextSpawnTime: 0
-        nextSpawnIndex: 0
-      - spawnTime: 15
-        spawnerIndex: 2
-        spawnDuration: 1
-        enemiesToSpawn: 0200000002000000
-        elapsedTime: 0
-        nextSpawnTime: 0
-        nextSpawnIndex: 0
-      elapsedTime: 0
-      nextSpawnIndex: 0
-      lastEnemySpawnTime: 0
-      totalEnemies: 0
-    - waveStartDelay: 10
-      spawnInfos:
-      - spawnTime: 0
-        spawnerIndex: 0
-        spawnDuration: 25
-        enemiesToSpawn: 000000000000000000000000010000000200000001000000000000000000000000000000010000000000000001000000010000000000000001000000000000000000000000000000010000000200000001000000000000000000000000000000
-        elapsedTime: 0
-        nextSpawnTime: 0
-        nextSpawnIndex: 0
-      - spawnTime: 0
-        spawnerIndex: 1
-        spawnDuration: 25
-        enemiesToSpawn: 000000000000000000000000010000000100000000000000000000000000000000000000010000000000000002000000000000000100000000000000000000000000000000000000010000000200000001000000000000000000000000000000
-        elapsedTime: 0
-        nextSpawnTime: 0
-        nextSpawnIndex: 0
-      - spawnTime: 0
-        spawnerIndex: 2
-        spawnDuration: 25
-        enemiesToSpawn: 000000000100000000000000000000000100000000000000000000000100000001000000010000000100000002000000000000000000000000000000000000000000000000000000000000000000000002000000010000000100000001000000
+        spawnDuration: 60
+        enemiesToSpawn: 00000000000000000000000000000000020000000100000001000000010000000000000000000000000000000000000001000000020000000100000000000000000000000000000001000000020000000100000000000000000000000000000000000000
         elapsedTime: 0
         nextSpawnTime: 0
         nextSpawnIndex: 0
@@ -25729,65 +25715,152 @@ MonoBehaviour:
     - waveStartDelay: 0
       spawnInfos:
       - spawnTime: 0
-        spawnerIndex: 0
-        spawnDuration: 45
-        enemiesToSpawn: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-        elapsedTime: 0
-        nextSpawnTime: 0
-        nextSpawnIndex: 0
-      - spawnTime: 0
-        spawnerIndex: 1
-        spawnDuration: 45
-        enemiesToSpawn: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-        elapsedTime: 0
-        nextSpawnTime: 0
-        nextSpawnIndex: 0
-      - spawnTime: 0
-        spawnerIndex: 2
-        spawnDuration: 45
-        enemiesToSpawn: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-        elapsedTime: 0
-        nextSpawnTime: 0
-        nextSpawnIndex: 0
-      - spawnTime: 0
-        spawnerIndex: 0
-        spawnDuration: 3
-        enemiesToSpawn: 01000000010000000100000002000000010000000100000001000000020000000100000002000000
-        elapsedTime: 0
-        nextSpawnTime: 0
-        nextSpawnIndex: 0
-      - spawnTime: 15
         spawnerIndex: 1
         spawnDuration: 1
-        enemiesToSpawn: 0100000001000000020000000100000001000000
+        enemiesToSpawn: 0000000000000000000000000000000000000000010000000100000001000000
+        elapsedTime: 0
+        nextSpawnTime: 0
+        nextSpawnIndex: 0
+      - spawnTime: 7
+        spawnerIndex: 0
+        spawnDuration: 1
+        enemiesToSpawn: 0000000000000000000000000000000000000000010000000100000001000000
         elapsedTime: 0
         nextSpawnTime: 0
         nextSpawnIndex: 0
       - spawnTime: 15
         spawnerIndex: 2
         spawnDuration: 1
-        enemiesToSpawn: 0100000001000000020000000100000001000000
+        enemiesToSpawn: 0000000000000000000000000000000000000000010000000100000001000000
         elapsedTime: 0
         nextSpawnTime: 0
         nextSpawnIndex: 0
-      - spawnTime: 30
+      elapsedTime: 0
+      nextSpawnIndex: 0
+      lastEnemySpawnTime: 0
+      totalEnemies: 0
+    - waveStartDelay: 0
+      spawnInfos:
+      - spawnTime: 0
         spawnerIndex: 0
         spawnDuration: 1
-        enemiesToSpawn: 0200000001000000010000000100000002000000
+        enemiesToSpawn: 000000000000000000000000000000000100000000000000000000000000000001000000010000000000000000000000010000000100000001000000
         elapsedTime: 0
         nextSpawnTime: 0
         nextSpawnIndex: 0
-      - spawnTime: 30
+      elapsedTime: 0
+      nextSpawnIndex: 0
+      lastEnemySpawnTime: 0
+      totalEnemies: 0
+    - waveStartDelay: 0
+      spawnInfos:
+      - spawnTime: 0
+        spawnerIndex: 1
+        spawnDuration: 15
+        enemiesToSpawn: 00000000000000000000000000000000000000000000000000000000000000000100000001000000
+        elapsedTime: 0
+        nextSpawnTime: 0
+        nextSpawnIndex: 0
+      - spawnTime: 0
+        spawnerIndex: 2
+        spawnDuration: 15
+        enemiesToSpawn: 00000000000000000000000000000000000000000000000000000000000000000100000001000000
+        elapsedTime: 0
+        nextSpawnTime: 0
+        nextSpawnIndex: 0
+      - spawnTime: 8
+        spawnerIndex: 0
+        spawnDuration: 1
+        enemiesToSpawn: 0000000000000000020000000000000000000000
+        elapsedTime: 0
+        nextSpawnTime: 0
+        nextSpawnIndex: 0
+      elapsedTime: 0
+      nextSpawnIndex: 0
+      lastEnemySpawnTime: 0
+      totalEnemies: 0
+    - waveStartDelay: 0
+      spawnInfos:
+      - spawnTime: 0
         spawnerIndex: 1
         spawnDuration: 1
-        enemiesToSpawn: 0100000001000000010000000200000002000000
+        enemiesToSpawn: 00000000000000000100000000000000000000000100000000000000000000000100000001000000
+        elapsedTime: 0
+        nextSpawnTime: 0
+        nextSpawnIndex: 0
+      - spawnTime: 15
+        spawnerIndex: 0
+        spawnDuration: 1
+        enemiesToSpawn: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
         elapsedTime: 0
         nextSpawnTime: 0
         nextSpawnIndex: 0
       - spawnTime: 30
         spawnerIndex: 2
         spawnDuration: 1
-        enemiesToSpawn: 0200000002000000010000000100000001000000
+        enemiesToSpawn: 0100000001000000010000000100000001000000
+        elapsedTime: 0
+        nextSpawnTime: 0
+        nextSpawnIndex: 0
+      - spawnTime: 45
+        spawnerIndex: 1
+        spawnDuration: 1
+        enemiesToSpawn: 0000000001000000020000000100000000000000
+        elapsedTime: 0
+        nextSpawnTime: 0
+        nextSpawnIndex: 0
+      - spawnTime: 50
+        spawnerIndex: 2
+        spawnDuration: 1
+        enemiesToSpawn: 0000000001000000020000000100000000000000
+        elapsedTime: 0
+        nextSpawnTime: 0
+        nextSpawnIndex: 0
+      elapsedTime: 0
+      nextSpawnIndex: 0
+      lastEnemySpawnTime: 0
+      totalEnemies: 0
+    - waveStartDelay: 30
+      spawnInfos:
+      - spawnTime: 0
+        spawnerIndex: 0
+        spawnDuration: 45
+        enemiesToSpawn: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+        elapsedTime: 0
+        nextSpawnTime: 0
+        nextSpawnIndex: 0
+      - spawnTime: 10
+        spawnerIndex: 1
+        spawnDuration: 1
+        enemiesToSpawn: 00000000000000000000000001000000010000000200000000000000000000000000000001000000
+        elapsedTime: 0
+        nextSpawnTime: 0
+        nextSpawnIndex: 0
+      - spawnTime: 25
+        spawnerIndex: 2
+        spawnDuration: 1
+        enemiesToSpawn: 0000000001000000020000000100000000000000
+        elapsedTime: 0
+        nextSpawnTime: 0
+        nextSpawnIndex: 0
+      - spawnTime: 35
+        spawnerIndex: 1
+        spawnDuration: 20
+        enemiesToSpawn: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+        elapsedTime: 0
+        nextSpawnTime: 0
+        nextSpawnIndex: 0
+      - spawnTime: 40
+        spawnerIndex: 2
+        spawnDuration: 20
+        enemiesToSpawn: 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+        elapsedTime: 0
+        nextSpawnTime: 0
+        nextSpawnIndex: 0
+      - spawnTime: 60
+        spawnerIndex: 0
+        spawnDuration: 1
+        enemiesToSpawn: 02000000020000000200000001000000010000000100000001000000
         elapsedTime: 0
         nextSpawnTime: 0
         nextSpawnIndex: 0
@@ -53197,6 +53270,11 @@ Prefab:
       propertyPath: meteoriteAttackCooldown.cooldownTime
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114417449873548372, guid: ea2f903cc9d56b54385666bd8d14ce92,
+        type: 2}
+      propertyPath: baseHealth
+      value: 150
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ea2f903cc9d56b54385666bd8d14ce92, type: 2}
   m_IsPrefabParent: 0
@@ -63614,6 +63692,18 @@ Prefab:
         type: 2}
       propertyPath: m_AnchoredPosition.x
       value: 59.999817
+      objectReference: {fileID: 0}
+    - target: {fileID: 1521934124928214, guid: ea64b03fd47dae043a3d7cf8c919a7b7, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1544288989193982, guid: ea64b03fd47dae043a3d7cf8c919a7b7, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1675786007191670, guid: ea64b03fd47dae043a3d7cf8c919a7b7, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ea64b03fd47dae043a3d7cf8c919a7b7, type: 2}
@@ -104949,7 +105039,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneController: {fileID: 1955635918}
-  baseHealth: 600
+  baseHealth: 500
   currentHealth: 0
   attachedConqueror: {fileID: 0}
   animating: 0
