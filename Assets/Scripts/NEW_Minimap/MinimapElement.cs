@@ -6,6 +6,8 @@ public class MinimapElement : MonoBehaviour
 {
     public Sprite sprite;
     public Color color = Color.white;
+    [Tooltip("The size in pixels of the sprite shown in the minimap")]
+    public int size = 20;
 
     #region MonoBehaviour Methods
     private void Start()

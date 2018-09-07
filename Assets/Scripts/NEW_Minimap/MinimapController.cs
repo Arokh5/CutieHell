@@ -19,7 +19,7 @@ public class MinimapController : MonoBehaviour
     [SerializeField]
     private RectTransform elementsParent;
     [SerializeField]
-    private Image representationPrefab;
+    private Image minimapImagePrefab;
 
     private List<MinimapElement> minimapElements = new List<MinimapElement>();
     private List<Image> minimapImages = new List<Image>();
@@ -58,6 +58,14 @@ public class MinimapController : MonoBehaviour
         {
             Vector2 newPos = WorldToMinimap(minimapElements[i].transform.position);
             minimapImages[i].rectTransform.localPosition = newPos;
+            if (IsMinimapImageWithinMinimap(minimapImages[i]))
+            {
+                minimapImages[i].enabled = true;
+            }
+            else
+            {
+                minimapImages[i].enabled = false;
+            }
         }
     }
     #endregion
@@ -83,9 +91,10 @@ public class MinimapController : MonoBehaviour
     #region Private Methods
     private Image CreateElementImage(MinimapElement mmElement)
     {
-        Image element = Instantiate(representationPrefab, elementsParent);
+        Image element = Instantiate(minimapImagePrefab, elementsParent);
         element.sprite = mmElement.sprite;
         element.color = mmElement.color;
+        element.rectTransform.sizeDelta = new Vector2(mmElement.size, mmElement.size);
         return element;
     }
 
@@ -99,6 +108,14 @@ public class MinimapController : MonoBehaviour
         Vector2 minimapPos = new Vector2(normalizedPos.x * minimapWidth, normalizedPos.y * minimapHeight);
 
         return minimapPos;
+    }
+
+    private bool IsMinimapImageWithinMinimap(Image minimapImage)
+    {
+        return minimapImage.rectTransform.localPosition.x > 0.5f * minimapImage.rectTransform.sizeDelta.x
+            && minimapImage.rectTransform.localPosition.x < minimapWidth - 0.5f * minimapImage.rectTransform.sizeDelta.x
+            && minimapImage.rectTransform.localPosition.y > 0.5f * minimapImage.rectTransform.sizeDelta.y
+            && minimapImage.rectTransform.localPosition.y < minimapHeight - 0.5f * minimapImage.rectTransform.sizeDelta.y;
     }
     #endregion
 }
