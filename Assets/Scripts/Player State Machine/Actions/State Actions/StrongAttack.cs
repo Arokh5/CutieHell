@@ -12,6 +12,8 @@ public class StrongAttack : StateAction
     public float sizeToIncrease;
     public ParticleSystem strongAttackVFX;
     public float timeToGoOut, timeToGoIn, delay;
+    public float stunDuration;
+    public float knockbackForce;
 
     private bool holdingButton;
     private float timeHolding;
@@ -107,8 +109,8 @@ public class StrongAttack : StateAction
         foreach (AIEnemy aiEnemy in player.currentStrongAttackTargets)
         {
             aiEnemy.TakeDamage(damage, AttackType.STRONG);
-            aiEnemy.SetKnockback(player.transform.position, 3.0f);
-            aiEnemy.SetStun(3.0f);
+            aiEnemy.SetKnockback(player.transform.position, knockbackForce);
+            aiEnemy.SetStun(stunDuration);
         }
     }
 }
