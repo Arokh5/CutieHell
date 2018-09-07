@@ -126,50 +126,8 @@ public class MinimapController : MonoBehaviour
 
     private void Update()
     {
-        for (int i = 0; i < minimapElements.Count; ++i)
-        {
-            MinimapElement minimapElement = minimapElements[i];
-            MinimapImage minimapImage = minimapImages[i];
-            if (minimapElement.gameObject.activeInHierarchy)
-            {
-                minimapImage.gameObject.SetActive(true);
-
-                if (minimapElement.ExtractEffectRequestState())
-                {
-                    minimapImage.RequestEffect();
-                }
-
-                Vector2 newPos = WorldToMinimap(minimapElements[i].transform.position);
-                minimapImage.localPosition = newPos;
-                MinimapBorder exitBorder = GetMinimapImageExitBorder(minimapImage);
-                if (exitBorder == MinimapBorder.NONE)
-                {
-                    minimapImage.Show();
-                }
-                else
-                {
-                    minimapImage.Hide();
-                    if (minimapElement.triggersAlert)
-                    {
-                        if (alertImages.ContainsKey(exitBorder))
-                        {
-                            alertImages[exitBorder].requiredState = true;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                minimapImage.gameObject.SetActive(false);
-            }
-        }
-
-        
-        foreach (MinimapBorder border in alertImages.Keys)
-        {
-            alertImages[border].image.gameObject.SetActive(alertImages[border].requiredState);
-            alertImages[border].requiredState = false;
-        }
+        UpdateElements();
+        UpdateAlerts();
     }
     #endregion
 
@@ -206,6 +164,61 @@ public class MinimapController : MonoBehaviour
     #endregion
 
     #region Private Methods
+    private void UpdateElements()
+    {
+        for (int i = 0; i < minimapElements.Count; ++i)
+        {
+            MinimapElement minimapElement = minimapElements[i];
+            MinimapImage minimapImage = minimapImages[i];
+            if (minimapElement.gameObject.activeInHierarchy)
+            {
+                minimapImage.gameObject.SetActive(true);
+
+                if (minimapElement.ExtractEffectRequestState())
+                {
+                    minimapImage.RequestEffect();
+                }
+
+                Vector2 newPos = WorldToMinimap(minimapElement.transform.position);
+                minimapImage.localPosition = newPos;
+                if (minimapElement.updatesRotation)
+                {
+                    minimapImage.rotationCW = minimapElement.transform.rotation.eulerAngles.y;
+                }
+
+                MinimapBorder exitBorder = GetMinimapImageExitBorder(minimapImage);
+                if (exitBorder == MinimapBorder.NONE)
+                {
+                    minimapImage.Show();
+                }
+                else
+                {
+                    minimapImage.Hide();
+                    if (minimapElement.triggersAlert)
+                    {
+                        if (alertImages.ContainsKey(exitBorder))
+                        {
+                            alertImages[exitBorder].requiredState = true;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                minimapImage.gameObject.SetActive(false);
+            }
+        }
+    }
+
+    private void UpdateAlerts()
+    {
+        foreach (MinimapBorder border in alertImages.Keys)
+        {
+            alertImages[border].image.gameObject.SetActive(alertImages[border].requiredState);
+            alertImages[border].requiredState = false;
+        }
+    }
+
     private int GetMinimapElementInsertionIndex(MinimapElement mmElement)
     {
         int count = minimapElements.Count;

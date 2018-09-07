@@ -20,6 +20,34 @@ public class MinimapImage : MonoBehaviour
         }
     }
 
+    public float rotationCW
+    {
+        get
+        {
+            return 360 - image.rectTransform.localRotation.eulerAngles.z;
+        }
+        set
+        {
+            Vector3 eulerAngles = image.rectTransform.localRotation.eulerAngles;
+            eulerAngles.z = 360 - value;
+            image.rectTransform.localRotation = Quaternion.Euler(eulerAngles);
+        }
+    }
+
+    public float rotationCCW
+    {
+        get
+        {
+            return image.rectTransform.localRotation.eulerAngles.z;
+        }
+        set
+        {
+            Vector3 eulerAngles = image.rectTransform.localRotation.eulerAngles;
+            eulerAngles.z = value;
+            image.rectTransform.localRotation = Quaternion.Euler(eulerAngles);
+        }
+    }
+
     public float width
     {
         get

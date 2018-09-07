@@ -11,6 +11,8 @@ public class MinimapElement : MonoBehaviour
     [Tooltip("Determines whether having this element outside of the bounds of the minimap triggers the alert corresponding to the minimap border")]
     public bool triggersAlert = false;
     public MinimapController.MinimapImageType minimapImageType;
+    [Tooltip("Determines whether the minimap image rotates with the GameObject's rotation")]
+    public bool updatesRotation = false;
 
     private bool hasStarted = false;
     private bool effectRequested = false;
