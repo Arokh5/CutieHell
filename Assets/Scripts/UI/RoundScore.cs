@@ -184,6 +184,7 @@ public class RoundScore : MonoBehaviour {
 
     public void AddObtainedAchievement(ref Combo achievement)
     {
+        Debug.Log("Obtained " + achievement.comboName);
         for (int i = 0; i < obtainedAchievements.Count; i++)
         {
             if (obtainedAchievements[i].comboName == achievement.comboName)

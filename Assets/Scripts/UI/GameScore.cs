@@ -180,7 +180,7 @@ public class GameScore : MonoBehaviour {
     private void UpdateAchievements()
     {
         
-        if (indexAchievement >= roundObtainedCombos[currentRoundBeingDisplayed].Count - 1)
+        if (indexAchievement >= roundObtainedCombos[currentRoundBeingDisplayed].Count)
         {
             iscurrentRoundAchievementsCompleted = true;
             PrepareToShowNextRound();
