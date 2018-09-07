@@ -57,6 +57,15 @@ public class MinimapController : MonoBehaviour
     #endregion
 
     #region MonoBehaviour Methods
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(worldReference.bottomLeft.position, 1.0f);
+        Gizmos.DrawSphere(worldReference.topRight.position, 1.0f);
+        Gizmos.color = Color.black;
+        Gizmos.DrawSphere(worldReference.bottomLeft.position, 0.2f);
+        Gizmos.DrawSphere(worldReference.topRight.position, 0.2f);
+    }
+
     private void Awake()
     {
         if (instance == null)
