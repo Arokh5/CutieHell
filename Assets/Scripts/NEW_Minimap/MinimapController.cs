@@ -4,11 +4,29 @@ using UnityEngine.UI;
 
 public class MinimapController : MonoBehaviour
 {
+    public enum MinimapBorder
+    {
+        NONE,
+        TOP,
+        RIGHT,
+        BOTTOM,
+        LEFT
+    }
+
     [System.Serializable]
     private class WorldReference
     {
         public Transform bottomLeft;
         public Transform topRight;
+    }
+
+    [System.Serializable]
+    private class AlertImageInfo
+    {
+        public MinimapBorder border;
+        public Image image;
+        [HideInInspector]
+        public bool requiredState = false;
     }
 
     #region Fields
@@ -22,10 +40,13 @@ public class MinimapController : MonoBehaviour
     private RectTransform elementsParent;
     [SerializeField]
     private RectTransform poolParent;
+    [SerializeField]
+    private AlertImageInfo[] alertImageInfos;
 
     private List<MinimapElement> minimapElements = new List<MinimapElement>();
     private List<MinimapImage> minimapImages = new List<MinimapImage>();
     private ObjectPool<MinimapImage> minimapImagesPool;
+    private Dictionary<MinimapBorder, AlertImageInfo> alertImages = new Dictionary<MinimapBorder, AlertImageInfo>();
 
     private Vector2 worldBottomLeft;
     private Vector2 worldTopRight;
@@ -50,6 +71,21 @@ public class MinimapController : MonoBehaviour
         UnityEngine.Assertions.Assert.IsNotNull(poolParent, "ERROR: Pool Parent (Transform) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
 
         minimapImagesPool = new ObjectPool<MinimapImage>(minimapImagePrefab, poolParent.transform);
+
+        for (int i = 0; i < alertImageInfos.Length - 1; ++i)
+        {
+            if (alertImageInfos[i].border == MinimapBorder.NONE)
+            {
+                Debug.LogError("ERROR (MinimapController): Alert Image Info at index " + i + " has the default value of NONE. Assign a valid value!");
+            }
+            for (int j = i + 1; j < alertImageInfos.Length; ++j)
+            {
+                if (alertImageInfos[i].border == alertImageInfos[j].border)
+                {
+                    Debug.LogError("ERROR (MinimapController): Alert Image Infos at indexes " + i + " and " + j + " have the same border value. There can only be one Alert Image Info for each border value!");
+                }
+            }
+        }
     }
 
     private void Start()
@@ -60,6 +96,12 @@ public class MinimapController : MonoBehaviour
         worldHeight = worldTopRight.y - worldBottomLeft.y;
         minimapWidth = elementsParent.sizeDelta.x;
         minimapHeight = elementsParent.sizeDelta.y;
+
+        foreach (AlertImageInfo info in alertImageInfos)
+        {
+            info.image.gameObject.SetActive(false);
+            alertImages.Add(info.border, info);
+        }
     }
 
     private void Update()
@@ -74,20 +116,34 @@ public class MinimapController : MonoBehaviour
 
                 Vector2 newPos = WorldToMinimap(minimapElements[i].transform.position);
                 minimapImage.localPosition = newPos;
-                if (IsMinimapImageWithinMinimap(minimapImage))
+                MinimapBorder exitBorder = GetMinimapImageExitBorder(minimapImage);
+                if (exitBorder == MinimapBorder.NONE)
                 {
                     minimapImage.Show();
                 }
                 else
                 {
                     minimapImage.Hide();
+                    if (minimapElement.triggersAlert)
+                    {
+                        if (alertImages.ContainsKey(exitBorder))
+                        {
+                            alertImages[exitBorder].requiredState = true;
+                        }
+                    }
                 }
             }
             else
             {
                 minimapImage.gameObject.SetActive(false);
             }
-            
+        }
+
+        
+        foreach (MinimapBorder border in alertImages.Keys)
+        {
+            alertImages[border].image.gameObject.SetActive(alertImages[border].requiredState);
+            alertImages[border].requiredState = false;
         }
     }
     #endregion
@@ -168,6 +224,23 @@ public class MinimapController : MonoBehaviour
             && minimapImage.localPosition.x < minimapWidth - 0.5f * minimapImage.width
             && minimapImage.localPosition.y > 0.5f * minimapImage.height
             && minimapImage.localPosition.y < minimapHeight - 0.5f * minimapImage.height;
+    }
+
+    private MinimapBorder GetMinimapImageExitBorder(MinimapImage minimapImage)
+    {
+        // Do note that exiting through the side takes precedence over top and bottom
+        MinimapBorder exitBorder = MinimapBorder.NONE;
+
+        if (minimapImage.localPosition.x < 0.5f * minimapImage.width)
+            exitBorder = MinimapBorder.LEFT;
+        else if (minimapImage.localPosition.x > minimapWidth - 0.5f * minimapImage.width)
+            exitBorder = MinimapBorder.RIGHT;
+        else if (minimapImage.localPosition.y < 0.5f * minimapImage.height)
+            exitBorder = MinimapBorder.BOTTOM;
+        else if (minimapImage.localPosition.y > minimapHeight - 0.5f * minimapImage.height)
+            exitBorder = MinimapBorder.TOP;
+
+        return exitBorder;
     }
     #endregion
 }

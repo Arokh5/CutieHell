@@ -8,6 +8,8 @@ public class MinimapElement : MonoBehaviour
     public int size = 20;
     [Tooltip("Elements with a higher priority number are drawn on top.")]
     public int priority = 0;
+    [Tooltip("Determines whether having this element outside of the bounds of the minimap triggers the alert corresponding to the minimap border")]
+    public bool triggersAlert = false;
 
     private bool hasStarted = false;
 
