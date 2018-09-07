@@ -264,7 +264,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &16890899
 GameObject:
@@ -6178,7 +6178,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4945600807155162, guid: fa95df378069a264ab6c0984a9122e87, type: 2}
       propertyPath: m_RootOrder
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 108303043015905096, guid: fa95df378069a264ab6c0984a9122e87,
         type: 2}
@@ -6726,7 +6726,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4747520670456778, guid: aa7289eb32dc80043a9fe97e38c6cbff, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 114402565021805656, guid: aa7289eb32dc80043a9fe97e38c6cbff,
         type: 2}
@@ -7305,7 +7305,7 @@ Transform:
   - {fileID: 966676848}
   - {fileID: 1717435337}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &141320467
 Prefab:
@@ -21913,6 +21913,7 @@ GameObject:
   - component: {fileID: 273357512}
   - component: {fileID: 273357516}
   - component: {fileID: 273357514}
+  - component: {fileID: 273357515}
   m_Layer: 16
   m_Name: Monument_Z3
   m_TagString: Monument
@@ -21989,7 +21990,7 @@ MonoBehaviour:
   - {fileID: 772300424}
   isFirstEnemyTarget: 1
   healthBarTitle: Fountain
-  protectedMonument: {fileID: 433428441}
+  minimapElement: {fileID: 0}
 --- !u!114 &273357514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22005,6 +22006,23 @@ MonoBehaviour:
   delay: 0
   convertibles:
   - {fileID: 1175802461}
+--- !u!114 &273357515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 273357510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81d76ca5c131f2a42a562e57c28a0f9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 21300002, guid: 5b1c1fcbbfc1b51469d50217b1f523f7, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  size: 50
+  priority: 10
+  triggersAlert: 0
+  minimapImageType: 1
 --- !u!208 &273357516
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -22323,7 +22341,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &286774622
 GameObject:
@@ -24788,6 +24806,7 @@ GameObject:
   - component: {fileID: 433428440}
   - component: {fileID: 433428442}
   - component: {fileID: 433428443}
+  - component: {fileID: 433428444}
   m_Layer: 16
   m_Name: Monument_Z2
   m_TagString: Monument
@@ -24864,7 +24883,7 @@ MonoBehaviour:
   - {fileID: 1619675488}
   isFirstEnemyTarget: 0
   healthBarTitle: Mausoleum
-  protectedMonument: {fileID: 2036540555}
+  minimapElement: {fileID: 0}
 --- !u!65 &433428442
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -24892,6 +24911,23 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 3, z: -0.5}
   m_TimeToStationary: 0.5
+--- !u!114 &433428444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 433428438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81d76ca5c131f2a42a562e57c28a0f9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 21300002, guid: 5b1c1fcbbfc1b51469d50217b1f523f7, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  size: 50
+  priority: 10
+  triggersAlert: 0
+  minimapImageType: 1
 --- !u!1001 &434006807
 Prefab:
   m_ObjectHideFlags: 0
@@ -30505,7 +30541,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4945600807155162, guid: fa95df378069a264ab6c0984a9122e87, type: 2}
       propertyPath: m_RootOrder
-      value: 15
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 108303043015905096, guid: fa95df378069a264ab6c0984a9122e87,
         type: 2}
@@ -50419,7 +50455,7 @@ Transform:
   - {fileID: 1612844955}
   - {fileID: 1990084017}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &794189215
 GameObject:
@@ -50726,7 +50762,7 @@ Transform:
   - {fileID: 1410166900}
   - {fileID: 983695449}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &804468631
 MonoBehaviour:
@@ -53535,7 +53571,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4307627348596282, guid: ea2f903cc9d56b54385666bd8d14ce92, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114067979253418486, guid: ea2f903cc9d56b54385666bd8d14ce92,
         type: 2}
@@ -55618,7 +55654,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4184355568827118, guid: 63081099a5fda6d4b874a6723411e01b, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 114568563659573344, guid: 63081099a5fda6d4b874a6723411e01b,
         type: 2}
@@ -60960,7 +60996,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4499005961235090, guid: f4dabff8a8a255c47a7721bb722fc13b, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f4dabff8a8a255c47a7721bb722fc13b, type: 2}
@@ -62818,7 +62854,7 @@ Transform:
   - {fileID: 1230314448}
   - {fileID: 97664034}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1137152577
 GameObject:
@@ -64023,7 +64059,7 @@ Prefab:
     - target: {fileID: 224050234008403358, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 224050234008403358, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
@@ -64117,7 +64153,7 @@ Prefab:
     - target: {fileID: 224878484040714380, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 224092478883075388, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
@@ -64127,12 +64163,12 @@ Prefab:
     - target: {fileID: 224924943079218876, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 224974686553508210, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 224611743372785280, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
@@ -64142,7 +64178,7 @@ Prefab:
     - target: {fileID: 224687759558893072, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 224826470594837324, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
@@ -64157,7 +64193,7 @@ Prefab:
     - target: {fileID: 224543668301894970, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 224587954225985932, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
@@ -64167,17 +64203,17 @@ Prefab:
     - target: {fileID: 224698427714826826, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 224941762051872984, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: m_RootOrder
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 224161250940733028, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 224181871022361220, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
@@ -64187,7 +64223,7 @@ Prefab:
     - target: {fileID: 224846219008086800, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ea64b03fd47dae043a3d7cf8c919a7b7, type: 2}
@@ -72496,7 +72532,7 @@ Transform:
   - {fileID: 37207471}
   - {fileID: 808158989}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1366232080
 MonoBehaviour:
@@ -84422,6 +84458,7 @@ MonoBehaviour:
   size: 20
   priority: 2
   triggersAlert: 0
+  minimapImageType: 0
 --- !u!1001 &1592598765
 Prefab:
   m_ObjectHideFlags: 0
@@ -90944,6 +90981,8 @@ MonoBehaviour:
     topRight: {fileID: 1717435337}
   minimapImagePrefab: {fileID: 114791953006702526, guid: cd585e0d2cb08e24a964c0332f0fd488,
     type: 2}
+  minimapFlashImagePrefab: {fileID: 114834644032598640, guid: 2c2dc3aec7f77b54d8bf6fb78ddba8bf,
+    type: 2}
   elementsParent: {fileID: 490633154}
   poolParent: {fileID: 1054579398}
   alertImageInfos:
@@ -95705,7 +95744,7 @@ Transform:
   m_Children:
   - {fileID: 2052622974}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1745875989
 MonoBehaviour:
@@ -104065,7 +104104,7 @@ Prefab:
     - target: {fileID: 224760219708366330, guid: caca1dac2152c464594348a4deb8bb3e,
         type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 224760219708366330, guid: caca1dac2152c464594348a4deb8bb3e,
         type: 2}
@@ -105792,6 +105831,7 @@ GameObject:
   - component: {fileID: 2036540558}
   - component: {fileID: 2036540556}
   - component: {fileID: 2036540557}
+  - component: {fileID: 2036540559}
   m_Layer: 16
   m_Name: Monument_Z1
   m_TagString: Monument
@@ -105848,7 +105888,7 @@ MonoBehaviour:
   - {fileID: 844377949}
   isFirstEnemyTarget: 0
   healthBarTitle: Statue
-  protectedMonument: {fileID: 0}
+  minimapElement: {fileID: 0}
 --- !u!136 &2036540556
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -105894,6 +105934,23 @@ MonoBehaviour:
   convertibles: []
   evilEffects: []
   conquerEffectDuration: 0.4
+--- !u!114 &2036540559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2036540553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81d76ca5c131f2a42a562e57c28a0f9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 21300002, guid: 5b1c1fcbbfc1b51469d50217b1f523f7, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  size: 50
+  priority: 10
+  triggersAlert: 0
+  minimapImageType: 1
 --- !u!1001 &2037211679
 Prefab:
   m_ObjectHideFlags: 0
@@ -106364,7 +106421,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4693108506872568, guid: d41716c251eb7b049bcb0c50eca272d1, type: 2}
       propertyPath: m_RootOrder
-      value: 13
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 198194939234380520, guid: d41716c251eb7b049bcb0c50eca272d1,
         type: 2}
@@ -118241,6 +118298,82 @@ Transform:
   m_PrefabParentObject: {fileID: 4334020036810326, guid: f21041017dd6cf04496f91bb821ea256,
     type: 2}
   m_PrefabInternal: {fileID: 2113363888}
+--- !u!1 &2117724913
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2117724916}
+  - component: {fileID: 2117724915}
+  - component: {fileID: 2117724914}
+  m_Layer: 0
+  m_Name: NEW_NOTES
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2117724914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2117724913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: '- Add MinimapElement to Player
+
+    - Add MinimapElement to Monument (Change imageType to FLASHER)'
+--- !u!222 &2117724915
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2117724913}
+--- !u!224 &2117724916
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2117724913}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &2121559679
 Prefab:
   m_ObjectHideFlags: 0
@@ -118629,7 +118762,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4021145053316204, guid: 8ab42f07557db7c4aa741e2b69119be6, type: 2}
       propertyPath: m_RootOrder
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8ab42f07557db7c4aa741e2b69119be6, type: 2}

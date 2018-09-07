@@ -38,7 +38,7 @@ public class MinimapImage : MonoBehaviour
     #endregion
 
     #region MonoBehaviour
-    private void Awake()
+    protected void Awake()
     {
         image = GetComponent<Image>();
         UnityEngine.Assertions.Assert.IsNotNull(image, "ERROR: An Image Component could not be found by MinimapImage in GameObject " + gameObject.name);
@@ -70,6 +70,11 @@ public class MinimapImage : MonoBehaviour
     public void Hide()
     {
         image.enabled = false;
+    }
+
+    public virtual void RequestEffect()
+    {
+
     }
     #endregion
 }

@@ -37,13 +37,16 @@ public class UIFlasher : MonoBehaviour
     #endregion
 
     #region Public Methods
-    public void StartFlash()
+    public void RequestStartFlash()
     {
-        enabled = true;
-        elapsedTime = 0;
+        if (!enabled)
+        {
+            enabled = true;
+            elapsedTime = 0;
+        }
     }
 
-    public void CancelFlash()
+    public void RequestStopFlash()
     {
         if (enabled)
             shouldStop = true;

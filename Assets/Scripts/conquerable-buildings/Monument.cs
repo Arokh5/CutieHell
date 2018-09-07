@@ -10,12 +10,19 @@ public class Monument : Building
     [SerializeField]
     private string healthBarTitle = "UNNAMED";
     [SerializeField]
-    private Monument protectedMonument;
+    private MinimapElement minimapElement;
 
+    private Monument protectedMonument;
     private MonumentsHealthBar healthBar;
     #endregion
 
     #region MonoBehaviour Methods
+    private new void Awake()
+    {
+        base.Awake();
+        minimapElement = GetComponent<MinimapElement>();
+    }
+
     private new void Start()
     {
         base.Start();
@@ -33,6 +40,10 @@ public class Monument : Building
     public override void TakeDamage(float damage, AttackType attacktype)
     {
         base.TakeDamage(damage, attacktype);
+
+        if (minimapElement)
+            minimapElement.RequestEffect();
+
         if (!IsDead())
             healthBar.SetHealthBarFill(currentHealth / baseHealth);
 

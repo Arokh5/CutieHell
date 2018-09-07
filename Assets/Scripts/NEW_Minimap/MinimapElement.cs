@@ -10,8 +10,10 @@ public class MinimapElement : MonoBehaviour
     public int priority = 0;
     [Tooltip("Determines whether having this element outside of the bounds of the minimap triggers the alert corresponding to the minimap border")]
     public bool triggersAlert = false;
+    public MinimapController.MinimapImageType minimapImageType;
 
     private bool hasStarted = false;
+    private bool effectRequested = false;
 
     #region MonoBehaviour Methods
     private void Start()
@@ -29,6 +31,20 @@ public class MinimapElement : MonoBehaviour
     private void OnDisable()
     {
         MinimapController.instance.RemoveMinimapElement(this);
+    }
+    #endregion
+
+    #region Public Methods
+    public void RequestEffect()
+    {
+        effectRequested = true;
+    }
+
+    public bool ExtractEffectRequestState()
+    {
+        bool response = effectRequested;
+        effectRequested = false;
+        return response;
     }
     #endregion
 }

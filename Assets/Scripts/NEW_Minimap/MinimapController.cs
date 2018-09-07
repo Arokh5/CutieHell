@@ -13,6 +13,12 @@ public class MinimapController : MonoBehaviour
         LEFT
     }
 
+    public enum MinimapImageType
+    {
+        DEFAULT,
+        FLASHER
+    }
+
     [System.Serializable]
     private class WorldReference
     {
@@ -37,6 +43,8 @@ public class MinimapController : MonoBehaviour
     [SerializeField]
     private MinimapImage minimapImagePrefab;
     [SerializeField]
+    private MinimapFlashImage minimapFlashImagePrefab;
+    [SerializeField]
     private RectTransform elementsParent;
     [SerializeField]
     private RectTransform poolParent;
@@ -46,6 +54,7 @@ public class MinimapController : MonoBehaviour
     private List<MinimapElement> minimapElements = new List<MinimapElement>();
     private List<MinimapImage> minimapImages = new List<MinimapImage>();
     private ObjectPool<MinimapImage> minimapImagesPool;
+    private ObjectPool<MinimapFlashImage> minimapFlashImagesPool;
     private Dictionary<MinimapBorder, AlertImageInfo> alertImages = new Dictionary<MinimapBorder, AlertImageInfo>();
 
     private Vector2 worldBottomLeft;
@@ -76,10 +85,12 @@ public class MinimapController : MonoBehaviour
         UnityEngine.Assertions.Assert.IsNotNull(worldReference.bottomLeft, "ERROR: World Reference > Bottom Left (Transform) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(worldReference.topRight, "ERROR: World Reference > Top Right (Transform) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(minimapImagePrefab, "ERROR: Minimap Image Prefab (Image Prefab) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
+        UnityEngine.Assertions.Assert.IsNotNull(minimapFlashImagePrefab, "ERROR: Minimap Flash Image Prefab (Image Prefab) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(elementsParent, "ERROR: Elements Parent (Transform) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(poolParent, "ERROR: Pool Parent (Transform) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
 
         minimapImagesPool = new ObjectPool<MinimapImage>(minimapImagePrefab, poolParent.transform);
+        minimapFlashImagesPool = new ObjectPool<MinimapFlashImage>(minimapFlashImagePrefab, poolParent.transform);
 
         for (int i = 0; i < alertImageInfos.Length - 1; ++i)
         {
@@ -122,6 +133,11 @@ public class MinimapController : MonoBehaviour
             if (minimapElement.gameObject.activeInHierarchy)
             {
                 minimapImage.gameObject.SetActive(true);
+
+                if (minimapElement.ExtractEffectRequestState())
+                {
+                    minimapImage.RequestEffect();
+                }
 
                 Vector2 newPos = WorldToMinimap(minimapElements[i].transform.position);
                 minimapImage.localPosition = newPos;
@@ -209,7 +225,20 @@ public class MinimapController : MonoBehaviour
 
     private MinimapImage CreateElementImage(MinimapElement mmElement, int hierarchyIndex)
     {
-        MinimapImage mmImage = minimapImagesPool.GetObject(elementsParent, false);
+        MinimapImage mmImage;
+        switch (mmElement.minimapImageType)
+        {
+            case MinimapImageType.DEFAULT:
+                mmImage = minimapImagesPool.GetObject(elementsParent, false);
+                break;
+            case MinimapImageType.FLASHER:
+                mmImage = minimapFlashImagesPool.GetObject(elementsParent, false);
+                break;
+            default:
+                Debug.LogError("ERROR (MinimapController): The CreateElementImage has not been updated to handle a newly introduced MinimapImageType!");
+                mmImage = minimapImagesPool.GetObject(elementsParent, false);
+                break;
+        }
         mmImage.SetupMinimapImage(mmElement);
         mmImage.transform.SetSiblingIndex(hierarchyIndex);
         return mmImage;
