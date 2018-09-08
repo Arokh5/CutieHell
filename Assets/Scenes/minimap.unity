@@ -21985,7 +21985,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d76ca5c131f2a42a562e57c28a0f9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300002, guid: 5b1c1fcbbfc1b51469d50217b1f523f7, type: 3}
+  sprite: {fileID: 21300000, guid: 5b1c1fcbbfc1b51469d50217b1f523f7, type: 3}
   color: {r: 1, g: 1, b: 1, a: 1}
   size: 50
   priority: 10
@@ -24934,7 +24934,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d76ca5c131f2a42a562e57c28a0f9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300002, guid: 5b1c1fcbbfc1b51469d50217b1f523f7, type: 3}
+  sprite: {fileID: 21300000, guid: 5b1c1fcbbfc1b51469d50217b1f523f7, type: 3}
   color: {r: 1, g: 1, b: 1, a: 1}
   size: 50
   priority: 10
@@ -31194,9 +31194,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d489043b89c6c0844b2887d43e2852bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frequency: 1
-  amplitude: 0.1
   flashOnAwake: 1
+  frequency: 1
+  shouldScale: 1
+  amplitude: 0.1
+  shouldColor: 0
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &528625179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31210,14 +31214,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300052, guid: cb533ae1869032641babc46330b14c89, type: 3}
+  m_Sprite: {fileID: 21300002, guid: c761e0a158551fd419da7e8cf6c2e22c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -64273,7 +64277,7 @@ Prefab:
     - target: {fileID: 224181871022361220, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 59.99872
+      value: 59.998657
       objectReference: {fileID: 0}
     - target: {fileID: 1521934124928214, guid: ea64b03fd47dae043a3d7cf8c919a7b7, type: 2}
       propertyPath: m_IsActive
@@ -84582,7 +84586,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d76ca5c131f2a42a562e57c28a0f9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 8a867d58ec8ead34cb3bc2253a1e0bac, type: 3}
+  sprite: {fileID: 21300000, guid: c761e0a158551fd419da7e8cf6c2e22c, type: 3}
   color: {r: 0.93333334, g: 0.3764706, b: 0.654902, a: 1}
   size: 40
   priority: 2
@@ -90643,9 +90647,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d489043b89c6c0844b2887d43e2852bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frequency: 1
-  amplitude: 0.1
   flashOnAwake: 1
+  frequency: 1
+  shouldScale: 1
+  amplitude: 0.1
+  shouldColor: 0
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &1695817271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90659,14 +90667,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300052, guid: cb533ae1869032641babc46330b14c89, type: 3}
+  m_Sprite: {fileID: 21300002, guid: c761e0a158551fd419da7e8cf6c2e22c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -92197,9 +92205,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d489043b89c6c0844b2887d43e2852bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frequency: 1
-  amplitude: 0.1
   flashOnAwake: 1
+  frequency: 1
+  shouldScale: 1
+  amplitude: 0.1
+  shouldColor: 0
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  flashColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &1740078729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92213,14 +92225,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300052, guid: cb533ae1869032641babc46330b14c89, type: 3}
+  m_Sprite: {fileID: 21300002, guid: c761e0a158551fd419da7e8cf6c2e22c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -106055,7 +106067,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d76ca5c131f2a42a562e57c28a0f9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300002, guid: 5b1c1fcbbfc1b51469d50217b1f523f7, type: 3}
+  sprite: {fileID: 21300000, guid: 5b1c1fcbbfc1b51469d50217b1f523f7, type: 3}
   color: {r: 1, g: 1, b: 1, a: 1}
   size: 50
   priority: 10
