@@ -24,6 +24,7 @@ public class MinimapController : MonoBehaviour
     {
         public Transform bottomLeft;
         public Transform topRight;
+        public Sprite backgroundSprite;
     }
 
     [System.Serializable]
@@ -38,18 +39,29 @@ public class MinimapController : MonoBehaviour
     #region Fields
     public static MinimapController instance;
 
-    [SerializeField]
-    private WorldReference worldReference;
+    [Header("Elements setup")]
     [SerializeField]
     private MinimapImage minimapImagePrefab;
     [SerializeField]
     private MinimapFlashImage minimapFlashImagePrefab;
     [SerializeField]
+    private Image backgroundImage;
+    [SerializeField]
     private RectTransform elementsParent;
     [SerializeField]
     private RectTransform poolParent;
+
+    [Header("World References")]
+    [SerializeField]
+    private WorldReference[] worldReferences;
+
+    [Header("Alerts setup")]
+    [SerializeField]
+    private int initialWorldReference;
     [SerializeField]
     private AlertImageInfo[] alertImageInfos;
+
+    private int currentWorldReference;
 
     private List<MinimapElement> minimapElements = new List<MinimapElement>();
     private List<MinimapImage> minimapImages = new List<MinimapImage>();
@@ -68,11 +80,36 @@ public class MinimapController : MonoBehaviour
     #region MonoBehaviour Methods
     private void OnDrawGizmos()
     {
-        Gizmos.DrawSphere(worldReference.bottomLeft.position, 1.0f);
-        Gizmos.DrawSphere(worldReference.topRight.position, 1.0f);
-        Gizmos.color = Color.black;
-        Gizmos.DrawSphere(worldReference.bottomLeft.position, 0.2f);
-        Gizmos.DrawSphere(worldReference.topRight.position, 0.2f);
+        if (worldReferences != null)
+        {
+            foreach (WorldReference wr in worldReferences)
+            {
+                // Draw square
+                if (wr.bottomLeft && wr.topRight)
+                {
+                    // Calculate corners
+                    float y = 0.0f;
+                    Vector3 bl = new Vector3(wr.bottomLeft.position.x, y, wr.bottomLeft.position.z);
+                    Vector3 br = new Vector3(wr.topRight.position.x, y, wr.bottomLeft.position.z);
+                    Vector3 tr = new Vector3(wr.topRight.position.x, y, wr.topRight.position.z);
+                    Vector3 tl = new Vector3(wr.bottomLeft.position.x, y, wr.topRight.position.z);
+
+                    // Draw corners
+                    Gizmos.color = new Color(0.25f, 0.25f, 0.375f);
+                    Gizmos.DrawWireSphere(bl, 1.0f);
+                    Gizmos.DrawWireSphere(br, 1.0f);
+                    Gizmos.DrawWireSphere(tr, 1.0f);
+                    Gizmos.DrawWireSphere(tl, 1.0f);
+
+                    // Draw lines
+                    Gizmos.color = new Color(0.75f, 0.75f, 0.75f);
+                    Gizmos.DrawLine(bl, br);
+                    Gizmos.DrawLine(br, tr);
+                    Gizmos.DrawLine(tr, tl);
+                    Gizmos.DrawLine(tl, bl);
+                }
+            }
+        }
     }
 
     private void Awake()
@@ -81,13 +118,21 @@ public class MinimapController : MonoBehaviour
             instance = this;
         else if (instance != this)
             Destroy(this);
-
-        UnityEngine.Assertions.Assert.IsNotNull(worldReference.bottomLeft, "ERROR: World Reference > Bottom Left (Transform) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
-        UnityEngine.Assertions.Assert.IsNotNull(worldReference.topRight, "ERROR: World Reference > Top Right (Transform) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
+        
         UnityEngine.Assertions.Assert.IsNotNull(minimapImagePrefab, "ERROR: Minimap Image Prefab (Image Prefab) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(minimapFlashImagePrefab, "ERROR: Minimap Flash Image Prefab (Image Prefab) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
+        UnityEngine.Assertions.Assert.IsNotNull(backgroundImage, "ERROR: Background Image (Image) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(elementsParent, "ERROR: Elements Parent (Transform) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(poolParent, "ERROR: Pool Parent (Transform) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
+
+        for (int i = 0; i < worldReferences.Length; ++i)
+        {
+            WorldReference wr = worldReferences[i];
+            UnityEngine.Assertions.Assert.IsNotNull(wr.bottomLeft, "ERROR: World Reference at index " + i + " does NOT have a Bottom Left (Transform) assigned in MinimapController in GameObject called " + gameObject.name);
+            UnityEngine.Assertions.Assert.IsNotNull(wr.topRight, "ERROR: World Reference at index " + i + " does NOT have a Top Right (Transform) assigned in MinimapController in GameObject called " + gameObject.name);
+            UnityEngine.Assertions.Assert.IsNotNull(wr.backgroundSprite, "ERROR: World Reference at index " + i + " does NOT have a Background Sprite (Image) assigned in MinimapController in GameObject called " + gameObject.name);
+        }
+        
 
         minimapImagesPool = new ObjectPool<MinimapImage>(minimapImagePrefab, poolParent.transform);
         minimapFlashImagesPool = new ObjectPool<MinimapFlashImage>(minimapFlashImagePrefab, poolParent.transform);
@@ -110,8 +155,8 @@ public class MinimapController : MonoBehaviour
 
     private void Start()
     {
-        worldBottomLeft = new Vector2(worldReference.bottomLeft.position.x, worldReference.bottomLeft.position.z);
-        worldTopRight = new Vector2(worldReference.topRight.position.x, worldReference.topRight.position.z);
+        worldBottomLeft = new Vector2(worldReferences[currentWorldReference].bottomLeft.position.x, worldReferences[currentWorldReference].bottomLeft.position.z);
+        worldTopRight = new Vector2(worldReferences[currentWorldReference].topRight.position.x, worldReferences[currentWorldReference].topRight.position.z);
         worldWidth = worldTopRight.x - worldBottomLeft.x;
         worldHeight = worldTopRight.y - worldBottomLeft.y;
         minimapWidth = elementsParent.sizeDelta.x;
