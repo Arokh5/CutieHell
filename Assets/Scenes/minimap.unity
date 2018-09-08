@@ -23446,6 +23446,49 @@ Transform:
   m_PrefabParentObject: {fileID: 4156568311302006, guid: 4f703643e18cab548aac6ad64b02cca4,
     type: 2}
   m_PrefabInternal: {fileID: 902691198}
+--- !u!1 &359597875
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 359597876}
+  - component: {fileID: 359597877}
+  m_Layer: 0
+  m_Name: ZoneCTaken
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &359597876
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 359597875}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1042198921}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &359597877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 359597875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d363730c2da7cf042bcd7f6fe9af1d7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  referenceZone: {fileID: 492266146}
+  minimapController: {fileID: 1705246483}
+  targetIndex: 1
 --- !u!1001 &360468890
 Prefab:
   m_ObjectHideFlags: 0
@@ -26701,7 +26744,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 6cb3b77aec711184eb3dff77d68f0548, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1ee8af124c1a5a64d8adc22389b2322b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -31134,9 +31177,9 @@ RectTransform:
   m_Father: {fileID: 571947515}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -100}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &528625178
@@ -40160,6 +40203,49 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &639176674
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 639176675}
+  - component: {fileID: 639176676}
+  m_Layer: 0
+  m_Name: ZoneBTaken
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &639176675
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 639176674}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1042198921}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &639176676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 639176674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d363730c2da7cf042bcd7f6fe9af1d7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  referenceZone: {fileID: 1083314264}
+  minimapController: {fileID: 1705246483}
+  targetIndex: 2
 --- !u!1 &643187480
 GameObject:
   m_ObjectHideFlags: 0
@@ -54818,6 +54904,7 @@ Transform:
   - {fileID: 202290076}
   - {fileID: 1966485594}
   - {fileID: 829229321}
+  - {fileID: 1042198921}
   m_Father: {fileID: 804468630}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -55926,6 +56013,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1667722699}
   m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1042198920
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1042198921}
+  m_Layer: 0
+  m_Name: NEW_MINIMAP_MinimapReferenceChange
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1042198921
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1042198920}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 359597876}
+  - {fileID: 639176675}
+  m_Father: {fileID: 983695449}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1047347460
 GameObject:
@@ -90509,9 +90626,9 @@ RectTransform:
   m_Father: {fileID: 571947515}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: -100}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1695817270
@@ -90993,7 +91110,7 @@ MonoBehaviour:
     type: 2}
   minimapFlashImagePrefab: {fileID: 114834644032598640, guid: 2c2dc3aec7f77b54d8bf6fb78ddba8bf,
     type: 2}
-  backgroundImage: {fileID: 256510680}
+  elementsBackgroundImage: {fileID: 490633155}
   elementsParent: {fileID: 490633154}
   poolParent: {fileID: 1054579398}
   worldReferences:
@@ -91017,6 +91134,7 @@ MonoBehaviour:
   - border: 4
     image: {fileID: 1695817271}
     requiredState: 0
+  testIndex: 2
 --- !u!1001 &1705709338
 Prefab:
   m_ObjectHideFlags: 0
@@ -118342,7 +118460,9 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: '- Add MinimapElement to Player
 
-    - Add MinimapElement to Monument (Change imageType to FLASHER)'
+    - Add MinimapElement to Monument (Change imageType to FLASHER)
+
+    - Add 2x MinimapReferenceChanger to Scenario>ZoneTakenListeners'
 --- !u!222 &2117724915
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -45,7 +45,7 @@ public class MinimapController : MonoBehaviour
     [SerializeField]
     private MinimapFlashImage minimapFlashImagePrefab;
     [SerializeField]
-    private Image backgroundImage;
+    private Image elementsBackgroundImage;
     [SerializeField]
     private RectTransform elementsParent;
     [SerializeField]
@@ -61,7 +61,7 @@ public class MinimapController : MonoBehaviour
     [SerializeField]
     private AlertImageInfo[] alertImageInfos;
 
-    private int currentWorldReference;
+    private int currentWorldReferenceIndex = 0;
 
     private List<MinimapElement> minimapElements = new List<MinimapElement>();
     private List<MinimapImage> minimapImages = new List<MinimapImage>();
@@ -78,6 +78,12 @@ public class MinimapController : MonoBehaviour
     #endregion
 
     #region MonoBehaviour Methods
+    public int testIndex = 0;
+    private void OnValidate()
+    {
+        ChangeMinimapReference(testIndex);
+    }
+
     private void OnDrawGizmos()
     {
         if (worldReferences != null)
@@ -121,7 +127,7 @@ public class MinimapController : MonoBehaviour
         
         UnityEngine.Assertions.Assert.IsNotNull(minimapImagePrefab, "ERROR: Minimap Image Prefab (Image Prefab) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(minimapFlashImagePrefab, "ERROR: Minimap Flash Image Prefab (Image Prefab) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
-        UnityEngine.Assertions.Assert.IsNotNull(backgroundImage, "ERROR: Background Image (Image) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
+        UnityEngine.Assertions.Assert.IsNotNull(elementsBackgroundImage, "ERROR: Background Image (Image) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(elementsParent, "ERROR: Elements Parent (Transform) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(poolParent, "ERROR: Pool Parent (Transform) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
 
@@ -155,10 +161,7 @@ public class MinimapController : MonoBehaviour
 
     private void Start()
     {
-        worldBottomLeft = new Vector2(worldReferences[currentWorldReference].bottomLeft.position.x, worldReferences[currentWorldReference].bottomLeft.position.z);
-        worldTopRight = new Vector2(worldReferences[currentWorldReference].topRight.position.x, worldReferences[currentWorldReference].topRight.position.z);
-        worldWidth = worldTopRight.x - worldBottomLeft.x;
-        worldHeight = worldTopRight.y - worldBottomLeft.y;
+        SetupWorldReference(worldReferences[0]);
         minimapWidth = elementsParent.sizeDelta.x;
         minimapHeight = elementsParent.sizeDelta.y;
 
@@ -205,6 +208,23 @@ public class MinimapController : MonoBehaviour
             minimapImages.RemoveAt(index);
         }
         return index != -1;
+    }
+
+    public bool ChangeMinimapReference(int index)
+    {
+        bool success;
+        if (index >= 0 && index < worldReferences.Length)
+        {
+            currentWorldReferenceIndex = index;
+            SetupWorldReference(worldReferences[currentWorldReferenceIndex]);
+            success = true;
+        }
+        else
+        {
+            Debug.LogWarning("WARNING: MinimapController::ChangeMinimapReference called with a parameter (" + index + ") out of the range [0, " + worldReferences.Length + "]. The call will be ignored!");
+            success = false;
+        }
+        return success;
     }
     #endregion
 
@@ -262,6 +282,15 @@ public class MinimapController : MonoBehaviour
             alertImages[border].image.gameObject.SetActive(alertImages[border].requiredState);
             alertImages[border].requiredState = false;
         }
+    }
+
+    private void SetupWorldReference(WorldReference reference)
+    {
+        worldBottomLeft = new Vector2(reference.bottomLeft.position.x, reference.bottomLeft.position.z);
+        worldTopRight = new Vector2(reference.topRight.position.x, reference.topRight.position.z);
+        worldWidth = worldTopRight.x - worldBottomLeft.x;
+        worldHeight = worldTopRight.y - worldBottomLeft.y;
+        elementsBackgroundImage.sprite = reference.backgroundSprite;
     }
 
     private int GetMinimapElementInsertionIndex(MinimapElement mmElement)
