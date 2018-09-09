@@ -99,6 +99,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4229137392041480}
+  - component: {fileID: 114012673627968586}
   - component: {fileID: 65910412033560650}
   - component: {fileID: 65023317361891960}
   m_Layer: 0
@@ -144,15 +145,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1741894410109316}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: 0.77133185, z: -0, w: 0.6364332}
+  m_LocalPosition: {x: 29.15, y: 1.06, z: 9.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4976504608145138}
   - {fileID: 4346821379229032}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 100.94701, z: 0}
 --- !u!4 &4245815099122518
 Transform:
   m_ObjectHideFlags: 1
@@ -367,6 +368,30 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114012673627968586
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1741894410109316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d552f61e7fedf8b4ba4d8eed58d2f2e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  originalObject: {fileID: 1023881904023428}
+  alternateObject: {fileID: 1702035381616970}
+  triggerOnCuteGround: 1
+  triggerOnFirstCuteContact: 1
+  scaleChangeMode: 0
+  changeVFX: {fileID: 198160269598142280, guid: b36220c14a83a1f468e4464671cb388a,
+    type: 2}
+  numberOfParticles: 250
+  propCollapseDuration: 0.25
+  alternatePropGrowDuration: 0.75
+  scaleX: 1
+  scaleY: 1
+  scaleZ: 1
 --- !u!137 &137496849518803248
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
