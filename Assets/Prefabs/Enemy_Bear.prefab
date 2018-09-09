@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 195023659793490422}
   - component: {fileID: 136090973812201706}
   - component: {fileID: 82792165882438392}
+  - component: {fileID: 114975312813828908}
   m_Layer: 8
   m_Name: Enemy_Bear
   m_TagString: Untagged
@@ -1367,6 +1368,24 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114975312813828908
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1179314277279608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81d76ca5c131f2a42a562e57c28a0f9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 21300000, guid: 8b2eca5eb2862a84c976b334e4430a11, type: 3}
+  color: {r: 0.5418864, g: 0, b: 0.5735294, a: 1}
+  size: 15
+  priority: 10
+  triggersAlert: 1
+  minimapImageType: 0
+  updatesRotation: 0
 --- !u!136 &136090973812201706
 CapsuleCollider:
   m_ObjectHideFlags: 1

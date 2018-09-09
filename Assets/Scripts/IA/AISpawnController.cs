@@ -81,6 +81,7 @@ public class AISpawnController : MonoBehaviour
     private void Start()
     {
         UIManager.instance.roundInfoController.SetEnemiesCount(0);
+        UIManager.instance.roundInfoController.SetRoundIndicator(0, roundInfos.Length);
         UIManager.instance.roundInfoController.SetWaveIndicator(0, roundInfos.Length > 0 ? roundInfos[0].waveInfos.Length : 0);
         UIManager.instance.roundInfoController.SetWaveDelayFill(0);
         UIManager.instance.roundInfoController.SetWaveDelayVisibility(false);
@@ -170,6 +171,7 @@ public class AISpawnController : MonoBehaviour
             roundPaused = false;
             scenario.OnNewRoundStarted();
             StatsManager.instance.SetRoundState(true);
+            UIManager.instance.roundInfoController.SetCurrentRound(currentRoundIndex + 1);
             UIManager.instance.roundInfoController.SetEnemiesCount(0);
             UIManager.instance.roundInfoController.SetWaveIndicator(0, roundInfo.waveInfos.Length);
             UIManager.instance.roundInfoController.SetWaveDelayVisibility(true);

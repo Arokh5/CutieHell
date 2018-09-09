@@ -161,6 +161,7 @@ GameObject:
   - component: {fileID: 95551480250669244}
   - component: {fileID: 195441599717727524}
   - component: {fileID: 136984457153044466}
+  - component: {fileID: 114447919003815324}
   m_Layer: 8
   m_Name: Enemy_Conqueror
   m_TagString: Untagged
@@ -2222,6 +2223,24 @@ MonoBehaviour:
   suicideDelay: 2.5
   attackSource: {fileID: 82729359210663708}
   attackClip: {fileID: 8300000, guid: 2667a0a008b044e218b63df62e2be749, type: 3}
+--- !u!114 &114447919003815324
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1188126374129282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81d76ca5c131f2a42a562e57c28a0f9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 21300006, guid: 9a89e305f9df2b6429dd66271aa4b426, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  size: 25
+  priority: 15
+  triggersAlert: 1
+  minimapImageType: 0
+  updatesRotation: 0
 --- !u!114 &114615395163376058
 MonoBehaviour:
   m_ObjectHideFlags: 1
