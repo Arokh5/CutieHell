@@ -99,6 +99,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4229137392041480}
+  - component: {fileID: 65910412033560650}
+  - component: {fileID: 65023317361891960}
   m_Layer: 0
   m_Name: CH_CE_Skull_Lantern
   m_TagString: Untagged
@@ -288,6 +290,30 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1702035381616970}
   m_Mesh: {fileID: 4300000, guid: 75f6fe91ae6b4254fbe43f87e9e16594, type: 3}
+--- !u!65 &65023317361891960
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1741894410109316}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.36, y: 2.65, z: 1.49}
+  m_Center: {x: 0, y: 3.13, z: -1.47}
+--- !u!65 &65910412033560650
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1741894410109316}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.42, y: 5.96, z: 2.18}
+  m_Center: {x: 0, y: 1.52, z: 0.35}
 --- !u!95 &95750477949713560
 Animator:
   serializedVersion: 3
