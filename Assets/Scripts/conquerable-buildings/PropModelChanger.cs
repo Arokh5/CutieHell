@@ -26,7 +26,7 @@ public class PropModelChanger : Convertible
     private ParticleSystem changeVFX;
     [SerializeField]
     private int numberOfParticles = 250;
-    
+
     [Header("Scale Change Mode")]
     [SerializeField]
     [Tooltip("The time (in seconds) it takes to collapse the original prop model's vertices towards the pivot")]
@@ -65,15 +65,15 @@ public class PropModelChanger : Convertible
         if (scaleChangeMode)
         {
             originalObject.transform.localScale = Vector3.one;
-            originalObject.gameObject.SetActive(true);
+            originalObject.SetActive(true);
             alternateObject.transform.localScale = Vector3.zero;
-            alternateObject.gameObject.SetActive(true);
+            alternateObject.SetActive(true);
         }
         else
         {
             UnityEngine.Assertions.Assert.IsNotNull(changeVFX, "ERROR: Change VFX (ParticleSystem) has NOT been assigned in PropModelChanger in GameObject called " + gameObject.name);
-            originalObject.gameObject.SetActive(true);
-            alternateObject.gameObject.SetActive(false);
+            originalObject.SetActive(true);
+            alternateObject.SetActive(false);
         }
         textureChangerSource = GetComponentInParent<TextureChangerSource>();
         UnityEngine.Assertions.Assert.IsNotNull(textureChangerSource, "ERROR: Texture Changer Source (TextureChangerSource) could not be found in its parent hierarchy by GameObject '" + gameObject.name + "'!");
@@ -188,15 +188,18 @@ public class PropModelChanger : Convertible
 
     private void PuffChangeMode()
     {
-        if(converting && originalObject.gameObject.activeSelf)
+        if (converting && originalObject.activeSelf)
         {
-            originalObject.gameObject.SetActive(false);
-            alternateObject.gameObject.SetActive(true);
-            ParticleSystem ps = ParticlesManager.instance.LaunchParticleSystem(changeVFX, alternateObject.transform.position, alternateObject.transform.rotation);
-            ParticleSystem.Burst burst = new ParticleSystem.Burst(0.0f, numberOfParticles);
-            ps.emission.SetBurst(0, burst);
-            ParticleSystem.ShapeModule shape = ps.shape;
-            shape.mesh = alternateObject.GetComponent<MeshFilter>().mesh;
+            originalObject.SetActive(false);
+            alternateObject.SetActive(true);
+            foreach (MeshFilter meshFilter in alternateObject.GetComponentsInChildren<MeshFilter>())
+            {
+                ParticleSystem ps = ParticlesManager.instance.LaunchParticleSystem(changeVFX, alternateObject.transform.position, alternateObject.transform.rotation);
+                ParticleSystem.Burst burst = new ParticleSystem.Burst(0.0f, numberOfParticles);
+                ps.emission.SetBurst(0, burst);
+                ParticleSystem.ShapeModule shape = ps.shape;
+                shape.mesh = meshFilter.mesh;
+            }
             converting = false;
             isConverted = true;
         }
