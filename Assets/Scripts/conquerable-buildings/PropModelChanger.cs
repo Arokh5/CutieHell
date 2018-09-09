@@ -6,9 +6,9 @@ public class PropModelChanger : Convertible
     [Header("Elements setup")]
 
     [SerializeField]
-    private MeshRenderer originalProp;
+    private GameObject originalObject;
     [SerializeField]
-    private MeshRenderer alternateProp;
+    private GameObject alternateObject;
 
     [Header("Trigger mode")]
     [SerializeField]
@@ -26,7 +26,7 @@ public class PropModelChanger : Convertible
     private ParticleSystem changeVFX;
     [SerializeField]
     private int numberOfParticles = 250;
-    
+
     [Header("Scale Change Mode")]
     [SerializeField]
     [Tooltip("The time (in seconds) it takes to collapse the original prop model's vertices towards the pivot")]
@@ -60,20 +60,20 @@ public class PropModelChanger : Convertible
 
     private void Awake()
     {
-        UnityEngine.Assertions.Assert.IsNotNull(originalProp, "ERROR: original Prop Mesh Renderer has NOT been assigned in PropModelChanger in GameObject called " + gameObject.name);
-        UnityEngine.Assertions.Assert.IsNotNull(alternateProp, "ERROR: alternate Prop Mesh Renderer has NOT been assigned in PropModelChanger in GameObject called " + gameObject.name);
+        UnityEngine.Assertions.Assert.IsNotNull(originalObject, "ERROR: original Prop Mesh Renderer has NOT been assigned in PropModelChanger in GameObject called " + gameObject.name);
+        UnityEngine.Assertions.Assert.IsNotNull(alternateObject, "ERROR: alternate Prop Mesh Renderer has NOT been assigned in PropModelChanger in GameObject called " + gameObject.name);
         if (scaleChangeMode)
         {
-            originalProp.transform.localScale = Vector3.one;
-            originalProp.gameObject.SetActive(true);
-            alternateProp.transform.localScale = Vector3.zero;
-            alternateProp.gameObject.SetActive(true);
+            originalObject.transform.localScale = Vector3.one;
+            originalObject.SetActive(true);
+            alternateObject.transform.localScale = Vector3.zero;
+            alternateObject.SetActive(true);
         }
         else
         {
             UnityEngine.Assertions.Assert.IsNotNull(changeVFX, "ERROR: Change VFX (ParticleSystem) has NOT been assigned in PropModelChanger in GameObject called " + gameObject.name);
-            originalProp.gameObject.SetActive(true);
-            alternateProp.gameObject.SetActive(false);
+            originalObject.SetActive(true);
+            alternateObject.SetActive(false);
         }
         textureChangerSource = GetComponentInParent<TextureChangerSource>();
         UnityEngine.Assertions.Assert.IsNotNull(textureChangerSource, "ERROR: Texture Changer Source (TextureChangerSource) could not be found in its parent hierarchy by GameObject '" + gameObject.name + "'!");
@@ -140,18 +140,18 @@ public class PropModelChanger : Convertible
             if (convertionElapsedTime < propCollapseDuration)
             {
                 float shrinkFactor = 1 - convertionElapsedTime / propCollapseDuration;
-                originalProp.transform.localScale = GetScale(shrinkFactor);
+                originalObject.transform.localScale = GetScale(shrinkFactor);
             }
             else if (convertionElapsedTime < propCollapseDuration + alternatePropGrowDuration)
             {
-                originalProp.transform.localScale = Vector3.zero;
+                originalObject.transform.localScale = Vector3.zero;
                 float growFactor = (convertionElapsedTime - propCollapseDuration) / alternatePropGrowDuration;
-                alternateProp.transform.localScale = GetScale(growFactor);
+                alternateObject.transform.localScale = GetScale(growFactor);
             }
             else
             {
                 // Convertion finished
-                alternateProp.transform.localScale = Vector3.one;
+                alternateObject.transform.localScale = Vector3.one;
                 convertionElapsedTime = 0;
                 converting = false;
                 isConverted = true;
@@ -162,18 +162,18 @@ public class PropModelChanger : Convertible
             if (convertionElapsedTime < alternatePropGrowDuration)
             {
                 float shrinkFactor = 1 - convertionElapsedTime / alternatePropGrowDuration;
-                alternateProp.transform.localScale = GetScale(shrinkFactor);
+                alternateObject.transform.localScale = GetScale(shrinkFactor);
             }
             else if (convertionElapsedTime < alternatePropGrowDuration + propCollapseDuration)
             {
-                alternateProp.transform.localScale = Vector3.zero;
+                alternateObject.transform.localScale = Vector3.zero;
                 float growFactor = (convertionElapsedTime - alternatePropGrowDuration) / propCollapseDuration;
-                originalProp.transform.localScale = GetScale(growFactor);
+                originalObject.transform.localScale = GetScale(growFactor);
             }
             else
             {
                 // Unconvertion finished
-                originalProp.transform.localScale = Vector3.one;
+                originalObject.transform.localScale = Vector3.one;
                 convertionElapsedTime = 0;
                 unconverting = false;
                 isConverted = false;
@@ -188,15 +188,18 @@ public class PropModelChanger : Convertible
 
     private void PuffChangeMode()
     {
-        if(converting && originalProp.gameObject.activeSelf)
+        if (converting && originalObject.activeSelf)
         {
-            originalProp.gameObject.SetActive(false);
-            alternateProp.gameObject.SetActive(true);
-            ParticleSystem ps = ParticlesManager.instance.LaunchParticleSystem(changeVFX, alternateProp.transform.position, alternateProp.transform.rotation);
-            ParticleSystem.Burst burst = new ParticleSystem.Burst(0.0f, numberOfParticles);
-            ps.emission.SetBurst(0, burst);
-            ParticleSystem.ShapeModule shape = ps.shape;
-            shape.mesh = alternateProp.GetComponent<MeshFilter>().mesh;
+            originalObject.SetActive(false);
+            alternateObject.SetActive(true);
+            foreach (MeshFilter meshFilter in alternateObject.GetComponentsInChildren<MeshFilter>())
+            {
+                ParticleSystem ps = ParticlesManager.instance.LaunchParticleSystem(changeVFX, alternateObject.transform.position, alternateObject.transform.rotation);
+                ParticleSystem.Burst burst = new ParticleSystem.Burst(0.0f, numberOfParticles);
+                ps.emission.SetBurst(0, burst);
+                ParticleSystem.ShapeModule shape = ps.shape;
+                shape.mesh = meshFilter.mesh;
+            }
             converting = false;
             isConverted = true;
         }

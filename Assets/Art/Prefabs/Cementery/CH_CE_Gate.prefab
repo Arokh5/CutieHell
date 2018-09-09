@@ -734,8 +734,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.27, y: 0.18602125, z: 4.82}
-  m_Center: {x: 0.8866063, y: -0.015675537, z: 1.7681277}
+  m_Size: {x: 2.76, y: 0.88, z: 4.82}
+  m_Center: {x: 1.16, y: -0.015675537, z: 1.7681277}
 --- !u!65 &65478636645020620
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -746,8 +746,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.31, y: 0.1860215, z: 4.76}
-  m_Center: {x: -0.8866023, y: -0.01567544, z: 1.7681273}
+  m_Size: {x: 2.91, y: 0.88, z: 4.76}
+  m_Center: {x: -1.07, y: -0.01567544, z: 1.7681273}
 --- !u!65 &65602283252418182
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -800,8 +800,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d552f61e7fedf8b4ba4d8eed58d2f2e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalProp: {fileID: 23661391447372606}
-  alternateProp: {fileID: 23879580280298064}
+  originalObject: {fileID: 0}
+  alternateObject: {fileID: 0}
   triggerOnCuteGround: 1
   triggerOnFirstCuteContact: 1
   scaleChangeMode: 0
@@ -824,6 +824,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ac781e0d04ef8f4189e56549f33dbd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  referenceZone: {fileID: 0}
   leftDoor: {fileID: 1871422134827568}
   rightDoor: {fileID: 1323267968055606}
   leftOpenedRotation: {x: 0, y: 0, z: -145}

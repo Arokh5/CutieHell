@@ -56,7 +56,7 @@ public class AIAttackCooldown : AIAttackLogic
 
     public void LaunchAttack()
     {
-        if (attackTarget != null && attackTarget.IsTargetable())
+        if (attackTarget != null && attackTarget.IsTargetable() && IsPositionWithinScaledRange(attackTarget.transform.position, 2.0f))
         {
             Attack(attackTarget);
         }
@@ -71,6 +71,12 @@ public class AIAttackCooldown : AIAttackLogic
         ParticlesManager.instance.LaunchParticleSystem(heartShotVFX, attackSpawnPoint.position, attackSpawnPoint.rotation);
         currentAttack.Fire(target, attackDamage);
         SoundManager.instance.PlaySfxClip(bearAttackSource, bearAttackClip,true);
+    }
+
+    private bool IsPositionWithinScaledRange(Vector3 position, float rangeScale)
+    {
+        Vector3 thisToTarget = position - transform.position;
+        return thisToTarget.sqrMagnitude < (attackRange * rangeScale) * (attackRange * rangeScale);
     }
     #endregion
 }
