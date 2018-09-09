@@ -280,6 +280,12 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4809288222545442}
+  - component: {fileID: 114890336630109982}
+  - component: {fileID: 136995469357234706}
+  - component: {fileID: 65965170615524456}
+  - component: {fileID: 65125846471223850}
+  - component: {fileID: 65850501634388318}
+  - component: {fileID: 65620517048042240}
   m_Layer: 0
   m_Name: CH_CE_Tree_03
   m_TagString: Untagged
@@ -765,6 +771,54 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1027373136302504}
   m_Mesh: {fileID: 4300002, guid: a86738f37289e1d498b246f915b35759, type: 3}
+--- !u!65 &65125846471223850
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1499051206781318}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.92, y: 1, z: 1.32}
+  m_Center: {x: -2.62, y: 0, z: 0}
+--- !u!65 &65620517048042240
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1499051206781318}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.19, y: 1, z: 2.63}
+  m_Center: {x: 0.73, y: 0, z: 2.07}
+--- !u!65 &65850501634388318
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1499051206781318}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.19, y: 1, z: 2.63}
+  m_Center: {x: 0.43, y: 0, z: -2.08}
+--- !u!65 &65965170615524456
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1499051206781318}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.91, y: 1, z: 1.32}
+  m_Center: {x: 2.63, y: 0, z: 0}
 --- !u!95 &95222303502393690
 Animator:
   serializedVersion: 3
@@ -782,6 +836,43 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114890336630109982
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1499051206781318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d552f61e7fedf8b4ba4d8eed58d2f2e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  originalObject: {fileID: 1100602765451162}
+  alternateObject: {fileID: 1108019143948804}
+  triggerOnCuteGround: 1
+  triggerOnFirstCuteContact: 1
+  scaleChangeMode: 0
+  changeVFX: {fileID: 198160269598142280, guid: b36220c14a83a1f468e4464671cb388a,
+    type: 2}
+  numberOfParticles: 2500
+  propCollapseDuration: 0.25
+  alternatePropGrowDuration: 0.75
+  scaleX: 1
+  scaleY: 1
+  scaleZ: 1
+--- !u!136 &136995469357234706
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1499051206781318}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 2.04
+  m_Height: 8.35
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.76, z: 0}
 --- !u!137 &137352462707983938
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
