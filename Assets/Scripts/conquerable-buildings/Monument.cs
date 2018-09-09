@@ -10,10 +10,10 @@ public class Monument : Building
     [SerializeField]
     private string healthBarTitle = "UNNAMED";
     [SerializeField]
-    private MinimapElement minimapElement;
-
     private Monument protectedMonument;
+
     private MonumentsHealthBar healthBar;
+    private MinimapElement minimapElement;
     #endregion
 
     #region MonoBehaviour Methods

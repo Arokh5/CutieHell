@@ -71,6 +71,7 @@ GameObject:
   - component: {fileID: 82523449665693132}
   - component: {fileID: 136586869646284780}
   - component: {fileID: 114417449873548372}
+  - component: {fileID: 114279805635330582}
   m_Layer: 15
   m_Name: Player
   m_TagString: Player
@@ -4317,6 +4318,24 @@ MonoBehaviour:
     m_Bits: 256
   decalOriginalColor: {r: 0, g: 0.66896534, b: 1, a: 1}
   decalFinalColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &114279805635330582
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1042903312978876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81d76ca5c131f2a42a562e57c28a0f9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 21300010, guid: 9a89e305f9df2b6429dd66271aa4b426, type: 3}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  size: 30
+  priority: 20
+  triggersAlert: 0
+  minimapImageType: 0
+  updatesRotation: 1
 --- !u!114 &114335901074629872
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4353,7 +4372,7 @@ MonoBehaviour:
   currentSpeed: {x: 0, y: 0, z: 0}
   lastValidPosition: {x: 0, y: 0, z: 0}
   dashCooldown:
-    cooldownTime: 3
+    cooldownTime: 0
     cooldownUI: {fileID: 0}
     timeSinceLastAction: 0
   dashDistance: 7
@@ -4369,7 +4388,7 @@ MonoBehaviour:
   knockbackCurrentForce: 0
   knockbackDirection: {x: 0, y: 0, z: 0}
   knockbackActive: 0
-  baseHealth: 100
+  baseHealth: 150
   autoHealDelay: 3.5
   fullAutoHealDuration: 5
   recoveryDuration: 3.5
@@ -4407,7 +4426,7 @@ MonoBehaviour:
   weakAttackTargetHitOffset: {x: 0, y: 0, z: 0}
   weakAttackTargetTransform: {fileID: 0}
   strongAttackCooldown:
-    cooldownTime: 4
+    cooldownTime: 0
     cooldownUI: {fileID: 0}
     timeSinceLastAction: 0
   strongAttackCollider: {fileID: 114193170441824256}
@@ -4418,7 +4437,7 @@ MonoBehaviour:
   canChargeStrongAttack: 0
   isChargingStrongAttack: 0
   coneAttackCooldown:
-    cooldownTime: 2
+    cooldownTime: 0
     cooldownUI: {fileID: 0}
     timeSinceLastAction: 0
   coneAttackVFX: {fileID: 198198694768147230, guid: 55bcdf238065df24190f2c200067562d,
@@ -4428,7 +4447,7 @@ MonoBehaviour:
   coneAttacklinkedAchievementID: 0
   comeBackFromConeAttack: 0
   mineAttackCooldown:
-    cooldownTime: 8
+    cooldownTime: 0
     cooldownUI: {fileID: 0}
     timeSinceLastAction: 0
   minePrefab: {fileID: 198004336150570630, guid: 6cfede698414cdc43a874ab388791ee0,
@@ -4441,7 +4460,7 @@ MonoBehaviour:
   minesCount: 0
   mineCounterUI: {fileID: 0}
   meteoriteAttackCooldown:
-    cooldownTime: 15
+    cooldownTime: 0
     cooldownUI: {fileID: 0}
     timeSinceLastAction: 0
   footstepsSFX:

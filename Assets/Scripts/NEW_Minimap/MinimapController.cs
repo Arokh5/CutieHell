@@ -25,6 +25,11 @@ public class MinimapController : MonoBehaviour
         public Transform bottomLeft;
         public Transform topRight;
         public Sprite backgroundSprite;
+
+        public bool IsValid()
+        {
+            return bottomLeft && topRight && backgroundSprite;
+        }
     }
 
     [System.Serializable]
@@ -215,9 +220,18 @@ public class MinimapController : MonoBehaviour
         bool success;
         if (index >= 0 && index < worldReferences.Length)
         {
-            currentWorldReferenceIndex = index;
-            SetupWorldReference(worldReferences[currentWorldReferenceIndex]);
-            success = true;
+            WorldReference reference = worldReferences[index];
+            if (reference.IsValid())
+            {
+                currentWorldReferenceIndex = index;
+                SetupWorldReference(reference);
+                success = true;
+            }
+            else
+            {
+                Debug.LogWarning("WARNING: WorldReference at index " + index + " is not valid. One of its elements is null. The call will be ignored!");
+                success = false;
+            }
         }
         else
         {
