@@ -57,16 +57,26 @@ public class KillingTimeAchievement : Combo
 
     public override void RegisterAttackType(AttackType attackType)
     {
-        int i = 0;
-        foreach (AttackType type in attackTypes)
+        switch (attackType)
         {
-            if (type.Equals(attackType))
+            case AttackType.CONE:
+            case AttackType.STRONG:
+            case AttackType.METEORITE:
+            case AttackType.MINE:
+                int i = 0;
+                foreach (AttackType type in attackTypes)
+                {
+                    if (type.Equals(attackType))
+                        break;
+
+                    ++i;
+                }
+
+                timeLimit[i] = score;
                 break;
-
-            ++i;
+            default:
+                break;
         }
-
-        timeLimit[i] = score;
     }
 
     public override void ReviewConditions()
