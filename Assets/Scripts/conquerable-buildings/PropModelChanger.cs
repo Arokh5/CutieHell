@@ -72,6 +72,8 @@ public class PropModelChanger : Convertible
         else
         {
             UnityEngine.Assertions.Assert.IsNotNull(changeVFX, "ERROR: Change VFX (ParticleSystem) has NOT been assigned in PropModelChanger in GameObject called " + gameObject.name);
+            originalObject.transform.localScale = Vector3.one;
+            alternateObject.transform.localScale = Vector3.one;
             originalObject.SetActive(true);
             alternateObject.SetActive(false);
         }
@@ -124,6 +126,22 @@ public class PropModelChanger : Convertible
                 unconverting = true;
 
         }
+    }
+
+    public void ForceEvil()
+    {
+        originalObject.transform.localScale = Vector3.one;
+        alternateObject.transform.localScale = Vector3.one;
+        originalObject.SetActive(true);
+        alternateObject.SetActive(false);
+    }
+
+    public void ForceCute()
+    {
+        originalObject.transform.localScale = Vector3.one;
+        alternateObject.transform.localScale = Vector3.one;
+        originalObject.SetActive(false);
+        alternateObject.SetActive(true);
     }
     #endregion
 
