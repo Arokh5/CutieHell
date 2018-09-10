@@ -11,14 +11,17 @@ public class PauseMenuController : MonoBehaviour
     private int pauseIndex = 0;
     [SerializeField]
     private GameObject helpPanel;
+    [SerializeField]
+    private GameObject challengesPanel;
 
     private bool controlsScreenActive = false;
+    private bool challengesScreenActive = false;
     #endregion
 
     #region Public Methods
     public void HandlePause()
     {
-        if (!controlsScreenActive)
+        if (!controlsScreenActive && !challengesScreenActive)
         {
             HandleSelection();
             HandleConfirm();
@@ -86,6 +89,11 @@ public class PauseMenuController : MonoBehaviour
                     break;
 
                 case 3:
+                    challengesPanel.SetActive(true);
+                    challengesScreenActive = true;
+                    break;
+
+                case 4:
                     GameManager.instance.ExitGame();
                     break;
             }
@@ -111,6 +119,8 @@ public class PauseMenuController : MonoBehaviour
         {
             helpPanel.SetActive(false);
             controlsScreenActive = false;
+            challengesPanel.SetActive(false);
+            challengesScreenActive = false;
         }
     }
     #endregion
