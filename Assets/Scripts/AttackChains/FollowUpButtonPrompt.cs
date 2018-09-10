@@ -3,11 +3,26 @@ using UnityEngine.UI;
 
 public class FollowUpButtonPrompt : MonoBehaviour
 {
+    [System.Serializable]
+    private class GraphicColorInfo
+    {
+        public Graphic graphic;
+        public Color initialColor;
+
+        public GraphicColorInfo(Graphic g, Color c)
+        {
+            graphic = g;
+            initialColor = c;
+        }
+    }
+
     private enum AnimationState
     {
+        OFF,
         HIDDEN,
         PRE_ALERT,
-        MASHABLE
+        MASHABLE,
+        FAIL
     }
 
     #region Fields
@@ -23,13 +38,21 @@ public class FollowUpButtonPrompt : MonoBehaviour
 
     [Header("Effect configuration")]
     [SerializeField]
-    public float coverStartScale = 2.0f;
+    private float coverStartScale = 2.0f;
+    [SerializeField]
+    private float maskingEndScale = 2.0f;
+    [SerializeField]
+    private float failDuration = 0.5f;
+    [SerializeField]
+    private Color failTargetColor = Color.red;
 
     private FollowUpPromptInfo currentInfo;
     private float maskMaxOffset;
     private float elapsedTime;
+    private float failElapsedTime;
     private AnimationState animState;
     private RectTransform rectTransform;
+    private GraphicColorInfo[] graphicInfos;
 
     [Range(0.0f, 1.0f)]
     public float maskTest = 0;
@@ -45,16 +68,14 @@ public class FollowUpButtonPrompt : MonoBehaviour
         UnityEngine.Assertions.Assert.IsNotNull(maskImage, "ERROR: Mask Image (Image) not assigned for FollowUpButtonPrompt script in GameObject " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(preAlertCover, "ERROR: Pre Alert Cover (RectTransform) not assigned for FollowUpButtonPrompt script in GameObject " + gameObject.name);
         rectTransform = GetComponent<RectTransform>();
-    }
-
-    private void Start()
-    {
-        maskMaxOffset = 0.5f * maskTransform.rect.width;
+        SetupGraphicInfos();
         ResetElements();
+        maskMaxOffset = 0.5f * maskTransform.rect.width;
     }
 
     private void Update()
     {
+        elapsedTime += Time.deltaTime;
         switch (animState)
         {
             case AnimationState.HIDDEN:
@@ -83,13 +104,22 @@ public class FollowUpButtonPrompt : MonoBehaviour
                     MashingAnimation(normalizedPhaseProgress);
                     if (elapsedTime >= currentInfo.timingInfo.end)
                     {
+                        animState = AnimationState.FAIL;
+                    }
+                }
+                break;
+            case AnimationState.FAIL:
+                {
+                    failElapsedTime += Time.deltaTime;
+                    float normalizedPhaseProgress = failElapsedTime / failDuration;
+                    FailAnimation(normalizedPhaseProgress);
+                    if (failElapsedTime > failDuration)
+                    {
                         Deactivate();
                     }
                 }
                 break;
         }
-
-        elapsedTime += Time.deltaTime;
     }
 
     private void OnValidate()
@@ -105,13 +135,39 @@ public class FollowUpButtonPrompt : MonoBehaviour
     public void RequestShow(FollowUpPromptInfo fupInfo)
     {
         gameObject.SetActive(true);
-        if (!IsCurrentInfo(fupInfo))
+        if (!IsCurrentInfo(fupInfo) || animState == AnimationState.FAIL)
         {
             SetupElements(fupInfo);
+            elapsedTime += Time.deltaTime; // Done to be in sync with the AttackChainsManager
+            animState = AnimationState.HIDDEN;
         }
     }
 
-    public void Deactivate()
+    public void RequestDeactivate()
+    {
+        switch (animState)
+        {
+            case AnimationState.OFF:
+            case AnimationState.FAIL:
+                // Do nothing
+                break;
+            case AnimationState.HIDDEN:
+                Deactivate();
+                break;
+            case AnimationState.MASHABLE:
+                if (elapsedTime + Time.deltaTime < currentInfo.timingInfo.end)
+                    Deactivate();
+                break;
+            case AnimationState.PRE_ALERT:
+                currentInfo = new FollowUpPromptInfo();
+                animState = AnimationState.FAIL;
+                break;
+        }
+    }
+    #endregion
+
+    #region Private Methods
+    private void Deactivate()
     {
         if (!rectTransform)
             rectTransform = GetComponent<RectTransform>();
@@ -120,9 +176,27 @@ public class FollowUpButtonPrompt : MonoBehaviour
         ResetElements();
         gameObject.SetActive(false);
     }
-    #endregion
 
-    #region Private Methods
+    private void SetupGraphicInfos()
+    {
+        Graphic[] graphics = GetComponentsInChildren<Graphic>();
+        graphicInfos = new GraphicColorInfo[graphics.Length];
+        for (int i = 0; i < graphicInfos.Length; ++i)
+        {
+            graphicInfos[i] = new GraphicColorInfo(graphics[i], graphics[i].color);
+        }
+    }
+
+    private void SetColorFactor(Color colorFactor)
+    {
+        foreach (GraphicColorInfo info in graphicInfos)
+        {
+            Color c = info.initialColor;
+            c *= colorFactor;
+            info.graphic.color = c;
+        }
+    }
+
     private bool IsCurrentInfo(FollowUpPromptInfo newFupInfo)
     {
         return newFupInfo.sprite == currentInfo.sprite
@@ -133,23 +207,24 @@ public class FollowUpButtonPrompt : MonoBehaviour
 
     private void SetupElements(FollowUpPromptInfo newFupInfo)
     {
-        currentInfo = newFupInfo;
         ResetElements();
+        currentInfo = newFupInfo;
         baseButton.sprite = currentInfo.sprite;
         maskImage.sprite = currentInfo.sprite;
     }
 
     private void ResetElements()
     {
-        elapsedTime = 0;
-        animState = AnimationState.HIDDEN;
+        elapsedTime = 0.0f;
+        failElapsedTime = 0.0f;
+        animState = AnimationState.OFF;
         baseButton.gameObject.SetActive(false);
         maskTransform.gameObject.SetActive(false);
         preAlertCover.gameObject.SetActive(false);
         rectTransform.localScale = Vector2.one;
         SetMaskTransformProgress(0.0f);
-
         SetPreAlertProgress(0.0f);
+        SetColorFactor(Color.white);
     }
 
     private void SetMaskTransformProgress(float normalizedProgress)
@@ -172,8 +247,14 @@ public class FollowUpButtonPrompt : MonoBehaviour
 
     private void MashingAnimation(float normalizedTime)
     {
-        rectTransform.localScale = (1.0f + Mathf.Sin(0.5f * Mathf.PI * normalizedTime)) * Vector2.one;
+        rectTransform.localScale = (1.0f + (maskingEndScale - 1.0f) * Mathf.Sin(0.5f * Mathf.PI * normalizedTime)) * Vector2.one;
         SetMaskTransformProgress(normalizedTime);
+    }
+
+    private void FailAnimation(float normalizedTime)
+    {
+        Color targetColor = Color.Lerp(Color.white, failTargetColor, normalizedTime);
+        SetColorFactor(targetColor);
     }
     #endregion
 }

@@ -43,7 +43,7 @@ public class AttackChainsUI : MonoBehaviour
             }
             else
             {
-                fubPrompt.Deactivate();
+                fubPrompt.RequestDeactivate();
             }
         }
     }
