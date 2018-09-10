@@ -8,7 +8,7 @@ public class AttackChainsUI : MonoBehaviour
     public static AttackChainsUI instance;
 
     [SerializeField]
-    private Image[] chainPrompts;
+    private FollowUpButtonPrompt[] fubPrompts;
 
     private int activeChainPrompts = 0;
     #endregion
@@ -24,24 +24,26 @@ public class AttackChainsUI : MonoBehaviour
     #endregion
 
     #region Public Methods
-    public void UpdateDisplay(List<Sprite> sprites)
+    public void UpdateDisplay(List<FollowUpPromptInfo> followUpPromptInfos)
     {
-        int spritesCount = sprites.Count;
-        if (spritesCount > chainPrompts.Length)
-            Debug.LogWarning("WARNING: AttackChainsUI.UpdateDisplay called in GameObject '" + gameObject.name + "' with more sprites than there are Images in its Chain Prompts array. Only the first " + chainPrompts.Length + " sprites will be displayed!");
+        int fupInfosCount = followUpPromptInfos.Count;
 
-        for (int i = 0; i < chainPrompts.Length; ++i)
+        if (fupInfosCount > 0)
+            fupInfosCount = fupInfosCount;
+
+        if (fupInfosCount > fubPrompts.Length)
+            Debug.LogWarning("WARNING: AttackChainsUI.UpdateDisplay called in GameObject '" + gameObject.name + "' with more elements than there are Images in its fubPrompts array. Only the first " + fubPrompts.Length + " elements will be displayed!");
+
+        for (int i = 0; i < fubPrompts.Length; ++i)
         {
-            Image chainPrompt = chainPrompts[i];
-            if (i < spritesCount)
+            FollowUpButtonPrompt fubPrompt = fubPrompts[i];
+            if (i < fupInfosCount)
             {
-                chainPrompt.sprite = sprites[i];
-                chainPrompt.enabled = true;
+                fubPrompt.RequestShow(followUpPromptInfos[i]);
             }
             else
             {
-                chainPrompt.sprite = null;
-                chainPrompt.enabled = false;
+                fubPrompt.Deactivate();
             }
         }
     }

@@ -8,8 +8,13 @@ public class FollowUpAttack
     public State relatedState;
     public TimingInfo timing;
 
-    public bool IsInTimeFrame(float testTime)
+    public bool IsInAttackTimeFrame(float testTime)
     {
         return testTime >= timing.start && testTime <= timing.end;
+    }
+
+    public bool IsInAlertTimeFrame(float testTime)
+    {
+        return testTime >= timing.alert && testTime < timing.start;
     }
 }
