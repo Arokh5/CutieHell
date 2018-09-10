@@ -41,6 +41,11 @@ public class Combo : MonoBehaviour
         currentCount += addToCount;
     }
 
+    public virtual void RegisterAttackType(AttackType attackType)
+    {
+
+    }
+
     public virtual void ResetCount()
     {
         currentCount = 0;

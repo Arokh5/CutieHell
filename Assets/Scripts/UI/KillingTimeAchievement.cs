@@ -7,8 +7,11 @@ public class KillingTimeAchievement : Combo
     #region Attributes
     [SerializeField]
     TimeLimitation timeLimitation;
+    [SerializeField]
+    AttackType[] attackTypes;
 
     private Player player;
+    private float[] timeLimit;
     #endregion
 
     #region MonoBehaviour methods
@@ -19,12 +22,24 @@ public class KillingTimeAchievement : Combo
     void Start()
     {
         player = GameManager.instance.GetPlayer1();
+
+        timeLimit = new float[attackTypes.Length];
+        for (int i = 0; i < timeLimit.Length; ++i)
+            timeLimit[i] = 0.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        ReviewConditions();        
+        ReviewConditions();
+
+        for (int i = 0; i < timeLimit.Length; ++i)
+        {
+            timeLimit[i] -= Time.deltaTime;
+
+            if (timeLimit[i] < 0.0f)
+                timeLimit[i] = 0.0f;
+        }
     }
 
     #region Public methods
@@ -35,20 +50,33 @@ public class KillingTimeAchievement : Combo
 
         StatsManager.instance.IncreaseRoundPoints(reward);
         TransitionUI.instance.AskForTransition(comboName, comboIcon);
-        ResetCount();
+
+        for (int i = 0; i < timeLimit.Length; ++i)
+            timeLimit[i] = 0.0f;
     }
 
-    public override void IncreaseCurrentCount(int addToCount)
+    public override void RegisterAttackType(AttackType attackType)
     {
-        currentCount += addToCount;
+        int i = 0;
+        foreach (AttackType type in attackTypes)
+        {
+            if (type.Equals(attackType))
+                break;
+
+            ++i;
+        }
+
+        timeLimit[i] = score;
     }
 
     public override void ReviewConditions()
     {
-        if (currentCount >= score)
-        {
+        bool success = true;
+        for (int i = 0; i < timeLimit.Length && success; ++i)
+            success = timeLimit[i] != 0.0f;
+
+        if (success)
             GrantReward();
-        }
     }
 
     public TimeLimitation GetTimeLimitationType()

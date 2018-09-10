@@ -406,6 +406,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
             SetIsTargetable(false);
             killingHit = attacktype;
             Achievements.instance.IncreaseCurrentCountKillingType(1, killingHit);
+            Achievements.instance.IncreaseCurrentTimeKillingType(TimeLimitation.Timed, killingHit);
             animator.SetBool("DieStandard", true);
             DeathSound();
         }

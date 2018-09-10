@@ -909,7 +909,7 @@ GameObject:
   - component: {fileID: 222206888968592832}
   - component: {fileID: 114183713238012266}
   m_Layer: 5
-  m_Name: Meteor Shower
+  m_Name: Feed the Darkness
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1485,7 +1485,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1288539675267138
 GameObject:
   m_ObjectHideFlags: 1
@@ -6462,7 +6462,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   comboName: Meteor Shower
-  comboIcon: {fileID: 21300002, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
+  comboIcon: {fileID: 21300012, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
   description: Killing "score" enemies with a single meteorite attack
   reward: 2500
   score: 10
@@ -7193,7 +7193,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300014, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
+  m_Sprite: {fileID: 21300016, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -9147,7 +9147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   comboName: Slice'n dice
-  comboIcon: {fileID: 21300014, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
+  comboIcon: {fileID: 21300016, guid: fc0abf4d052a3ef4aa11117f02913462, type: 3}
   description: Kill "score" enemies with a single slash attack
   reward: 2500
   score: 6
@@ -11093,6 +11093,8 @@ MonoBehaviour:
   - {fileID: 114156234716572526}
   - {fileID: 114183713238012266}
   - {fileID: 114530813899266950}
+  killingTimeAchievements:
+  - {fileID: 114947212865276178}
 --- !u!114 &114787114008636772
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12354,6 +12356,7 @@ MonoBehaviour:
   reward: 1000
   score: 1
   timeLimitation: 1
+  attackTypes: 
 --- !u!114 &114909685360160396
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12646,8 +12649,9 @@ MonoBehaviour:
   description: Defeat at least one enemy with each attack in your kit in less than
     15 seconds
   reward: 3000
-  score: 20
+  score: 15
   timeLimitation: 0
+  attackTypes: 05000000040000000600000007000000
 --- !u!114 &114951580705271822
 MonoBehaviour:
   m_ObjectHideFlags: 1

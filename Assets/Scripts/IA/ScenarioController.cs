@@ -118,10 +118,6 @@ public class ScenarioController : MonoBehaviour
     public void OnZoneEmpty()
     {
         --zonesWithEnemiesCount;
-        if(spawnController.HasNextRound() && spawnController.GetCurrentWaveFinished())
-        {
-            Achievements.instance.IncreaseCurrentTimeKillingType(TimeLimitation.Wave);
-        }
         CheckRoundWon();
     }
 
