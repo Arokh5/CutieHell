@@ -9,7 +9,7 @@ public class GroundedEnter : StateAction
         player.elapsedDelayTime = 0.0f;
         player.SetCollidersActiveState(false);
         player.animator.SetTrigger("KnockOut");
-        player.cameraState = Player.CameraState.CONEATTACK;
+        player.cameraState = Player.CameraState.DEATH;
         UIManager.instance.SetUIElementsVisibility(false);
     }
 }
