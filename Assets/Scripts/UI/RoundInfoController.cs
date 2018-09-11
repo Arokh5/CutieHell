@@ -18,6 +18,10 @@ public class RoundInfoController : MonoBehaviour
     private FillIndicator waveDelayFillIndicator;
     [SerializeField]
     private Text waveComingPrompt;
+    [SerializeField]
+    [Tooltip("The time (in seconds) that defines when the waveComingPrompt is shown. If the time left for the next wave is less that this value, the prompt is shown. Otherwise it remains hidden.")]
+    [Range(0.0f, 50.0f)]
+    private float promptTimeThreshold = 10.0f;
 
     private int currentRoundNumber = -1;
     private int totalRoundsCount = -1;
@@ -111,7 +115,32 @@ public class RoundInfoController : MonoBehaviour
         }
     }
 
-    public void SetWaveDelayFill(float normalizedFill)
+    public void SetWaveComingInfo(float timeLeft, float totalTime)
+    {
+        if (timeLeft <= 0.0f || timeLeft > promptTimeThreshold)
+        {
+            SetWaveDelayFill(0.0f);
+            SetWaveDelayVisibility(false);
+            SetWaveComingPromptVisibility(false);
+        }
+        else
+        {
+            // Here we show it the prompt
+            float maxTime = Mathf.Min(promptTimeThreshold, totalTime);
+            SetWaveDelayFill(1.0f - (timeLeft / maxTime));
+            SetWaveDelayVisibility(true);
+            SetWaveComingPromptVisibility(true);
+        }
+    }
+
+    public void HideWaveComingInfo()
+    {
+        SetWaveComingInfo(0.0f, 0.0f);
+    }
+    #endregion
+
+    #region Private Methods
+    private void SetWaveDelayFill(float normalizedFill)
     {
         normalizedFill = Mathf.Clamp01(normalizedFill);
         if (normalizedFill == 1.0f)
@@ -119,12 +148,12 @@ public class RoundInfoController : MonoBehaviour
         waveDelayFillIndicator.SetFill(normalizedFill);
     }
 
-    public void SetWaveDelayVisibility(bool isVisible)
+    private void SetWaveDelayVisibility(bool isVisible)
     {
         waveDelayFillIndicator.enabled = isVisible;
     }
 
-    public void SetWaveComingPromptVisibility(bool isVisible)
+    private void SetWaveComingPromptVisibility(bool isVisible)
     {
         waveComingPrompt.gameObject.SetActive(isVisible);
     }
