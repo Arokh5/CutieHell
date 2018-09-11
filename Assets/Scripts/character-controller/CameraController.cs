@@ -6,10 +6,6 @@ public class CameraController : MonoBehaviour
     #region Fields
     [SerializeField]
     private LayerMask viewPosCheckLayerMask;
-    [SerializeField]
-    private PostProcessingProfile defaultPostProcessing;
-    [SerializeField]
-    private PostProcessingProfile deathPostProcessing;
     private PostProcessingBehaviour postProcessing;
 
     private Transform player;
@@ -108,15 +104,6 @@ public class CameraController : MonoBehaviour
         this.y = y;
     }
 
-    public void DeathPostProcessing()
-    {
-        postProcessing.profile = deathPostProcessing;
-    }
-
-    public void DefaultPostProcessing()
-    {
-        postProcessing.profile = defaultPostProcessing;
-    }
     #endregion
 
     #region Private Methods
