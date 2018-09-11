@@ -38,7 +38,6 @@ public class PropModelChangersEditorTool : MonoBehaviour
             foreach (PropModelChanger pmc in propModelChangers)
             {
                 pmc.ForceEvil();
-
             }
         }
     }
