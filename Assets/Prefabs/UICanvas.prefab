@@ -625,6 +625,7 @@ GameObject:
   - component: {fileID: 224456314128242408}
   - component: {fileID: 222638159744413654}
   - component: {fileID: 114989576389216028}
+  - component: {fileID: 114106519663452320}
   m_Layer: 5
   m_Name: CurrentWave
   m_TagString: Untagged
@@ -1042,6 +1043,7 @@ GameObject:
   - component: {fileID: 224424840997195342}
   - component: {fileID: 222769932465754768}
   - component: {fileID: 114217604162710818}
+  - component: {fileID: 114982135304552084}
   m_Layer: 5
   m_Name: TotalWaves
   m_TagString: Untagged
@@ -1286,6 +1288,7 @@ GameObject:
   - component: {fileID: 224342726351693306}
   - component: {fileID: 222072072681128768}
   - component: {fileID: 114748207518039880}
+  - component: {fileID: 114354746535199208}
   m_Layer: 5
   m_Name: Slash
   m_TagString: Untagged
@@ -1366,6 +1369,7 @@ GameObject:
   - component: {fileID: 222152535917176408}
   - component: {fileID: 114392588553541270}
   - component: {fileID: 114964974661712672}
+  - component: {fileID: 114828274407126774}
   m_Layer: 5
   m_Name: Right
   m_TagString: Untagged
@@ -1648,6 +1652,7 @@ GameObject:
   - component: {fileID: 224181676995149162}
   - component: {fileID: 222084256402563562}
   - component: {fileID: 114054442446225038}
+  - component: {fileID: 114943529928524902}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -2032,6 +2037,7 @@ GameObject:
   - component: {fileID: 224192196329946148}
   - component: {fileID: 222362257187808982}
   - component: {fileID: 114501224012834678}
+  - component: {fileID: 114577040085171178}
   m_Layer: 5
   m_Name: CurrentRound
   m_TagString: Untagged
@@ -3050,6 +3056,7 @@ GameObject:
   - component: {fileID: 224446443856218246}
   - component: {fileID: 222867994913758278}
   - component: {fileID: 114256019371184598}
+  - component: {fileID: 114419029108018176}
   m_Layer: 5
   m_Name: Slash
   m_TagString: Untagged
@@ -3520,6 +3527,7 @@ GameObject:
   - component: {fileID: 224977452941094290}
   - component: {fileID: 222306652415751116}
   - component: {fileID: 114323399692755026}
+  - component: {fileID: 114504834709335004}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -3843,6 +3851,7 @@ GameObject:
   - component: {fileID: 222536489792148894}
   - component: {fileID: 114773631823847436}
   - component: {fileID: 114502583881624994}
+  - component: {fileID: 114751451478717158}
   m_Layer: 5
   m_Name: Top
   m_TagString: Untagged
@@ -4208,6 +4217,7 @@ GameObject:
   - component: {fileID: 224275942130084244}
   - component: {fileID: 222725434367399464}
   - component: {fileID: 114490673781822448}
+  - component: {fileID: 114125838974228438}
   m_Layer: 5
   m_Name: TotalRounds
   m_TagString: Untagged
@@ -4378,6 +4388,7 @@ GameObject:
   - component: {fileID: 222323374860860296}
   - component: {fileID: 114238104412943736}
   - component: {fileID: 114247507537380246}
+  - component: {fileID: 114054214245957616}
   m_Layer: 5
   m_Name: Left
   m_TagString: Untagged
@@ -5523,6 +5534,20 @@ MonoBehaviour:
     but they need time to recharge after use.
 
     Try them out to know more.'
+--- !u!114 &114054214245957616
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1828341276391502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &114054442446225038
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5946,6 +5971,20 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: 'Points:'
+--- !u!114 &114106519663452320
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1097479358936566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &114113011835968456
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6010,6 +6049,20 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: 'Points:'
+--- !u!114 &114125838974228438
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1791315248227700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &114127466287583398
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7886,6 +7939,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114354746535199208
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1224787617325020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &114356376437098228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8458,6 +8525,20 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: MINES
+--- !u!114 &114419029108018176
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1579428521194366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &114423619339557062
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9122,6 +9203,20 @@ MonoBehaviour:
   shouldColor: 0
   baseColor: {r: 1, g: 1, b: 1, a: 1}
   flashColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &114504834709335004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1645323978411478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &114511922829197624
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9537,6 +9632,20 @@ MonoBehaviour:
   - {fileID: 114035595282849316}
   - {fileID: 114251216045031656}
   - {fileID: 114514683238999866}
+--- !u!114 &114577040085171178
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1410113023977706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &114577985329452786
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10972,6 +11081,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114751451478717158
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1729470720444036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &114764401135755538
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11642,6 +11765,20 @@ MonoBehaviour:
   xboxButtonSprite: {fileID: 21300030, guid: db00f33dbee509744ac848b8efa0fc4b, type: 3}
   ps4ButtonSprite: {fileID: 21300026, guid: db00f33dbee509744ac848b8efa0fc4b, type: 3}
   buttonPadImage: {fileID: 114446754940933724}
+--- !u!114 &114828274407126774
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1247291834720986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &114832300484239930
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12751,6 +12888,20 @@ MonoBehaviour:
   image: {fileID: 114545342130877768}
   spritePS4: {fileID: 21300000, guid: f601d89849951a14184196cde9eae09d, type: 3}
   spriteXbox: {fileID: 21300000, guid: 87206d7f5a0ed704790cc9d1b8078eb8, type: 3}
+--- !u!114 &114943529928524902
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1321662044680226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &114947212865276178
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13021,6 +13172,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114982135304552084
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1178699031632460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!114 &114982637722165848
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -16905,7 +17070,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -24.9, y: 0}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!224 &224386666219149164
