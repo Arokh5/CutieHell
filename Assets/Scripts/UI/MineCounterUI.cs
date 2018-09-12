@@ -8,6 +8,8 @@ public class MineCounterUI : MonoBehaviour
     private Text currentCount;
     [SerializeField]
     private Text totalCount;
+    [SerializeField]
+    private Image sprite;
     #endregion
 
     #region MonoBehaviour Methods
@@ -27,6 +29,11 @@ public class MineCounterUI : MonoBehaviour
     public void SetCurrentCount(int count)
     {
         currentCount.text = count.ToString();
+    }
+
+    public void SetPercentageToNextMine(float percentage)
+    {
+        sprite.fillAmount = percentage;   
     }
     #endregion
 }

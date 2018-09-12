@@ -181,15 +181,15 @@ public class Player : MonoBehaviour, IDamageable
     [Header("Mine Attack")]
     public CooldownInfo mineAttackCooldown;
     public ParticleSystem minePrefab;
-    public int maxMinesNumber;
-    public int availableMinesNumber;
+    public int maxCurrentMinesNumber;
     public float timeToGetAnotherMine;
     [HideInInspector]
     public float timeSinceLastMine;
     public ActivateMineExplosion[] mines;
+    private int maxTotalMinesNumber = 100;
     [ShowOnly]
     [SerializeField]
-    private int minesCount = 0;
+    private int availableMinesNumber;
     [SerializeField]
     private MineCounterUI mineCounterUI;
 
@@ -233,7 +233,7 @@ public class Player : MonoBehaviour, IDamageable
         colls.RemoveAll((Collider coll) => coll.isTrigger);
         colliders = colls.ToArray();
 
-        mines = new ActivateMineExplosion[maxMinesNumber];
+        mines = new ActivateMineExplosion[maxTotalMinesNumber];
         rb = this.GetComponent<Rigidbody>();
         animator = this.GetComponent<Animator>();
 
@@ -265,7 +265,7 @@ public class Player : MonoBehaviour, IDamageable
         currentHealth = baseHealth;
         timeSinceLastHit = autoHealDelay;
         UIManager.instance.SetPlayerHealth(1.0f);
-        availableMinesNumber = maxMinesNumber;
+        availableMinesNumber = maxCurrentMinesNumber;
         timeSinceLastMine = 0.0f;
 
         dashCooldown.timeSinceLastAction = dashCooldown.cooldownTime;
@@ -274,8 +274,8 @@ public class Player : MonoBehaviour, IDamageable
         meteoriteAttackCooldown.timeSinceLastAction = meteoriteAttackCooldown.cooldownTime;
         mineAttackCooldown.timeSinceLastAction = mineAttackCooldown.cooldownTime;
 
-        mineCounterUI.SetCurrentCount(0);
-        mineCounterUI.SetTotalCount(maxMinesNumber);
+        mineCounterUI.SetCurrentCount(availableMinesNumber);
+        mineCounterUI.SetTotalCount(availableMinesNumber);
 
         currentState.EnterState(this);
 
@@ -346,41 +346,52 @@ public class Player : MonoBehaviour, IDamageable
     public void InstantiateMine()
     {
         availableMinesNumber--;
-        for (int i = 0; i < maxMinesNumber; i++)
+        mineCounterUI.SetCurrentCount(availableMinesNumber);
+        for (int i = 0; i < maxTotalMinesNumber; i++)
         {
             if (mines[i] == null)
             {
                 mines[i] = ParticlesManager.instance.LaunchParticleSystem(minePrefab, this.transform.position, minePrefab.transform.rotation).GetComponent<ActivateMineExplosion>();
-                ++minesCount;
-                mineCounterUI.SetCurrentCount(minesCount);
                 return;
             }
         }
         mines[0].DestroyMine();
         mines[0] = null;
         SortMines();
-        mines[maxMinesNumber - 1] = ParticlesManager.instance.LaunchParticleSystem(minePrefab, this.transform.position, minePrefab.transform.rotation).GetComponent<ActivateMineExplosion>();
+        mines[maxTotalMinesNumber - 1] = ParticlesManager.instance.LaunchParticleSystem(minePrefab, this.transform.position, minePrefab.transform.rotation).GetComponent<ActivateMineExplosion>();
     }
 
 
     public void RemoveMine(ActivateMineExplosion mineToRemove)
     {
-        for(int i = 0; i < maxMinesNumber; i++)
+        for(int i = 0; i < maxTotalMinesNumber; i++)
         {
             if(mines[i] == mineToRemove)
             {
                 mines[i] = null;
-                --minesCount;
-                mineCounterUI.SetCurrentCount(minesCount);
                 break;
             }
         }
         SortMines();
     }
 
-    public int getMinesCount()
+    public void GetNewMine()
     {
-        return minesCount;
+        if (availableMinesNumber < maxCurrentMinesNumber)
+        {
+            availableMinesNumber++;
+            mineCounterUI.SetCurrentCount(availableMinesNumber);
+        }
+    }
+    
+    public int GetAvailableMines()
+    {
+        return availableMinesNumber;
+    }
+
+    public void SetPercentageToNextMine(float percentage)
+    {
+        mineCounterUI.SetPercentageToNextMine(percentage);
     }
 
     public void SetCurrentHealth(float normalizedHealth)
@@ -576,7 +587,7 @@ public class Player : MonoBehaviour, IDamageable
 
     private void SortMines()
     {
-        for(int i = 0; i < maxMinesNumber - 1; i++)
+        for(int i = 0; i < maxTotalMinesNumber - 1; i++)
         {
             if(mines[i] == null)
             {

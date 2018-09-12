@@ -10,31 +10,29 @@ public class PlaceMine : StateAction
     {
         if (InputManager.instance.GetXButtonDown())
         {
-            if (player.mineAttackCooldown.timeSinceLastAction >= player.mineAttackCooldown.cooldownTime
-                //&& player.availableMinesNumber > 0
-                )
+            if (player.GetAvailableMines() > 0)
             {
                 tutorialEventLauncher.LaunchEvent();
-                player.mineAttackCooldown.timeSinceLastAction = 0.0f;
                 player.InstantiateMine();
             }
             else
                 player.mineAttackCooldown.cooldownUI.Flash();
         }
 
-        //UpdateMineTimer(player);
+        UpdateMineTimer(player);
     }
 
     private void UpdateMineTimer(Player player)
     {
-        if (player.availableMinesNumber < player.maxMinesNumber)
+        if (player.GetAvailableMines() < player.maxCurrentMinesNumber)
         {
             player.timeSinceLastMine += Time.deltaTime;
             if (player.timeSinceLastMine >= player.timeToGetAnotherMine)
             {
-                player.availableMinesNumber++;
+                player.GetNewMine();
                 player.timeSinceLastMine = 0.0f;
             }
+            player.SetPercentageToNextMine(player.timeSinceLastMine / player.timeToGetAnotherMine);
         }
     }
 }
