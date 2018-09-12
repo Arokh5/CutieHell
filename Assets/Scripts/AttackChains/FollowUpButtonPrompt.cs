@@ -53,11 +53,6 @@ public class FollowUpButtonPrompt : MonoBehaviour
     private AnimationState animState;
     private RectTransform rectTransform;
     private GraphicColorInfo[] graphicInfos;
-
-    [Range(0.0f, 1.0f)]
-    public float maskTest = 0;
-    [Range(0.0f, 1.0f)]
-    public float preAlertTest = 0;
     #endregion
 
     #region MonoBehaviour
@@ -120,14 +115,6 @@ public class FollowUpButtonPrompt : MonoBehaviour
                 }
                 break;
         }
-    }
-
-    private void OnValidate()
-    {
-        if (maskMaxOffset == 0)
-            maskMaxOffset = 0.5f * maskTransform.rect.width;
-        SetMaskTransformProgress(maskTest);
-        SetPreAlertProgress(preAlertTest);
     }
     #endregion
 
