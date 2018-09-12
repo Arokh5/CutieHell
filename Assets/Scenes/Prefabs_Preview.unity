@@ -321,6 +321,10 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 2880fc01e2519734382d5bbf66baf329, type: 3}
   m_PrefabInternal: {fileID: 549415022}
+--- !u!1 &549415024 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100000, guid: 2880fc01e2519734382d5bbf66baf329, type: 3}
+  m_PrefabInternal: {fileID: 549415022}
 --- !u!1001 &671634701
 Prefab:
   m_ObjectHideFlags: 0
@@ -453,6 +457,26 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d86c49e1a26c17f47b59a0b3ab4ccd7c, type: 3}
   m_IsPrefabParent: 0
+--- !u!1 &696593180 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100002, guid: d86c49e1a26c17f47b59a0b3ab4ccd7c, type: 3}
+  m_PrefabInternal: {fileID: 696593179}
+--- !u!65 &696593181
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 696593180}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4, y: 5, z: 4}
+  m_Center: {x: 0, y: 2.2, z: 0}
+--- !u!1 &696593182 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100000, guid: d86c49e1a26c17f47b59a0b3ab4ccd7c, type: 3}
+  m_PrefabInternal: {fileID: 696593179}
 --- !u!1001 &808924678
 Prefab:
   m_ObjectHideFlags: 0
@@ -649,6 +673,10 @@ Prefab:
     - {fileID: 9500000, guid: cdefd654f411c5e4ea1c59091bd1eb9e, type: 3}
   m_ParentPrefab: {fileID: 100100000, guid: cdefd654f411c5e4ea1c59091bd1eb9e, type: 3}
   m_IsPrefabParent: 0
+--- !u!1 &915405965 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100000, guid: cdefd654f411c5e4ea1c59091bd1eb9e, type: 3}
+  m_PrefabInternal: {fileID: 915405964}
 --- !u!1001 &958245840
 Prefab:
   m_ObjectHideFlags: 0
@@ -984,6 +1012,26 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 27c7674a34028ac4ab68a4dc9dc10ef1, type: 3}
   m_IsPrefabParent: 0
+--- !u!1 &1527467205 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100004, guid: 27c7674a34028ac4ab68a4dc9dc10ef1, type: 3}
+  m_PrefabInternal: {fileID: 1527467204}
+--- !u!65 &1527467206
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1527467205}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 2.19, z: -0.45}
+--- !u!1 &1527467207 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100000, guid: 27c7674a34028ac4ab68a4dc9dc10ef1, type: 3}
+  m_PrefabInternal: {fileID: 1527467204}
 --- !u!1001 &1545100444
 Prefab:
   m_ObjectHideFlags: 0
@@ -1296,6 +1344,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1900388094}
+  - component: {fileID: 1900388095}
   m_Layer: 0
   m_Name: CH_GA_Skull_Brush
   m_TagString: Untagged
@@ -1318,6 +1367,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1900388095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1900388093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d552f61e7fedf8b4ba4d8eed58d2f2e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  originalObject: {fileID: 1527467207}
+  alternateObject: {fileID: 549415024}
+  triggerOnCuteGround: 1
+  triggerOnFirstCuteContact: 1
+  changeVFX: {fileID: 198160269598142280, guid: b36220c14a83a1f468e4464671cb388a,
+    type: 2}
+  numberOfParticles: 250
 --- !u!1 &1927579989
 GameObject:
   m_ObjectHideFlags: 0
@@ -1356,6 +1423,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 2046147041}
+  - component: {fileID: 2046147042}
   m_Layer: 0
   m_Name: CH_GA_Ghost_Brush
   m_TagString: Untagged
@@ -1378,6 +1446,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2046147042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2046147040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d552f61e7fedf8b4ba4d8eed58d2f2e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  originalObject: {fileID: 696593182}
+  alternateObject: {fileID: 915405965}
+  triggerOnCuteGround: 1
+  triggerOnFirstCuteContact: 1
+  changeVFX: {fileID: 198160269598142280, guid: b36220c14a83a1f468e4464671cb388a,
+    type: 2}
+  numberOfParticles: 250
 --- !u!4 &2046787776 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: cdefd654f411c5e4ea1c59091bd1eb9e, type: 3}
