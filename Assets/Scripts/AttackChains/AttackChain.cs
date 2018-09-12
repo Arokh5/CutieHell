@@ -67,7 +67,18 @@ public class AttackChain
         if (currentFollowUp != null)
         {
             return currentFollowUp.attack == attack
-                && currentFollowUp.IsInTimeFrame(elapsedTime);
+                && currentFollowUp.IsInAttackTimeFrame(elapsedTime);
+        }
+        return false;
+    }
+
+    public bool CanCancelChain(AttackType attack)
+    {
+        FollowUpAttack currentFollowUp = GetCurrentFollowUpAttack();
+        if (currentFollowUp != null)
+        {
+            return currentFollowUp.attack != attack
+                || (currentFollowUp.attack == attack && currentFollowUp.IsInAlertTimeFrame(elapsedTime));
         }
         return false;
     }
@@ -104,12 +115,22 @@ public class AttackChain
         followUpIndex = -1;
     }
 
-    public bool IsInTimeFrame()
+    public bool IsInAlertTimeFrame()
     {
         FollowUpAttack followUp = GetCurrentFollowUpAttack();
         if (followUp != null)
         {
-            return followUp.IsInTimeFrame(elapsedTime);
+            return followUp.IsInAlertTimeFrame(elapsedTime);
+        }
+        return false;
+    }
+
+    public bool IsInAttackTimeFrame()
+    {
+        FollowUpAttack followUp = GetCurrentFollowUpAttack();
+        if (followUp != null)
+        {
+            return followUp.IsInAttackTimeFrame(elapsedTime);
         }
         return false;
     }
@@ -122,6 +143,14 @@ public class AttackChain
             return elapsedTime > followUp.timing.end;
         }
         return false;
+    }
+
+    public TimingInfo GetFollowUpTimingInfo()
+    {
+        if (followUpIndex != -1)
+            return followUps[followUpIndex].timing;
+        else
+            return new TimingInfo();
     }
 
     public State GetFollowUpState()

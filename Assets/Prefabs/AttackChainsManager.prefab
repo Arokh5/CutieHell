@@ -90,4 +90,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c24e70991a467c42a4fb58093b8f1c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackChains: []
+  attackChains:
+  - name: Double Slash
+    startAttack: 6
+    followUps:
+    - attack: 6
+      relatedState: {fileID: 11400000, guid: 1a6e0cc7be6cd764383574ef16a21ed8, type: 2}
+      timing:
+        alert: 0.3
+        start: 0.7
+        end: 1.7
+    tutorialEventLauncher:
+      eventIndex: 5
+    elapsedTime: 0

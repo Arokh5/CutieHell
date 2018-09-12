@@ -13,7 +13,7 @@ public class AttackChainsManager : MonoBehaviour
     private State nextChainState = null;
 
     private List<AttackChain> chainsToRemove = new List<AttackChain>();
-    private List<Sprite> spritesToDisplay = new List<Sprite>();
+    private List<FollowUpPromptInfo> followUpPromptInfo = new List<FollowUpPromptInfo>();
 
     #endregion
 
@@ -28,7 +28,7 @@ public class AttackChainsManager : MonoBehaviour
 
     private void Start()
     {
-        VerifyActiveChains();
+        VerifyAttackChains();
     }
 
     private void Update()
@@ -84,7 +84,7 @@ public class AttackChainsManager : MonoBehaviour
                         chainsToRemove.Add(chain);
                     }
                 }
-                else
+                else if (chain.CanCancelChain(attack))
                 {
                     chain.ResetChain();
                     chainsToRemove.Add(chain);
@@ -97,6 +97,7 @@ public class AttackChainsManager : MonoBehaviour
             activeChains.Remove(chain);
         }
         chainsToRemove.Clear();
+        UpdateUI();
 
         return nextChainState != null;
     }
@@ -119,22 +120,27 @@ public class AttackChainsManager : MonoBehaviour
 
     private void UpdateUI()
     {
-        spritesToDisplay.Clear();
+        followUpPromptInfo.Clear();
         foreach (AttackChain chain in activeChains)
         {
-            if(chain.IsInTimeFrame())
+            if(chain.IsInAlertTimeFrame())
             {
                 chain.LaunchFollowUpTutorialEvent();
-                Sprite spriteToAdd = AttackInfosManager.instance.GetSprite(chain.GetFollowUpAttack());
-                if (spriteToAdd)
-                    spritesToDisplay.Add(spriteToAdd);
+            }
+            Sprite spriteToAdd = AttackInfosManager.instance.GetSprite(chain.GetFollowUpAttack());
+            if (spriteToAdd)
+            {
+                FollowUpPromptInfo fupInfo;
+                fupInfo.timingInfo = chain.GetFollowUpTimingInfo();
+                fupInfo.sprite = spriteToAdd;
+                followUpPromptInfo.Add(fupInfo);
             }
         }
 
-        AttackChainsUI.instance.UpdateDisplay(spritesToDisplay);
+        AttackChainsUI.instance.UpdateDisplay(followUpPromptInfo);
     }
 
-    private bool VerifyActiveChains()
+    private bool VerifyAttackChains()
     {
         bool isValid = true;
         
