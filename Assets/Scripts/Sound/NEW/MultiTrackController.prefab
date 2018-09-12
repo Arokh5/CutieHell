@@ -27,22 +27,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1341251561463520
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4936151811192472}
-  - component: {fileID: 114959514016927248}
-  m_Layer: 0
-  m_Name: LOW-MultiTrack
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1430628046820748
 GameObject:
   m_ObjectHideFlags: 0
@@ -113,22 +97,8 @@ Transform:
   m_Children:
   - {fileID: 4693866005629564}
   - {fileID: 4235825690419746}
-  - {fileID: 4936151811192472}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4936151811192472
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1341251561463520}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4797438257110418}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &82362038376531554
 AudioSource:
@@ -303,22 +273,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainAudioSource: {fileID: 82362038376531554}
   secondaryAudioSource: {fileID: 82587566731579840}
-  testTrack: {fileID: 0}
-  go: 0
-  shouldContinue: 1
---- !u!114 &114959514016927248
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1341251561463520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d5ac2b6af93fe8459f2e2bbb4e9ed19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainClip: {fileID: 0}
-  secondaryClip: {fileID: 0}
-  firstPlayIndex: 1
-  playFrequency: 2
-  randomizePlay: 0
+  testTrack:
+    name: Test
+    mainClip: {fileID: 8300000, guid: b5785059e231a8946a313935708f4eed, type: 3}
+    secondaryClip: {fileID: 8300000, guid: b8e1bf6fd64cc714ba7174ee55d24324, type: 3}
+    firstPlayIndex: 1
+    playFrequency: 2
+    randomizePlay: 0
+    isPlaying: 0
+  alternateTrack:
+    name: Alternate
+    mainClip: {fileID: 8300000, guid: 7eb0d50c69aea3b4f939f637a248b606, type: 3}
+    secondaryClip: {fileID: 8300000, guid: 5f0329c7828d28b4db8175258b15556e, type: 3}
+    firstPlayIndex: 1
+    playFrequency: 2
+    randomizePlay: 0
+    isPlaying: 0
+  isPlaying: 0
+  start: 0
+  useAlternate: 0

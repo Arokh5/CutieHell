@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 
-public class MusicMultiTrack : MonoBehaviour
+[System.Serializable]
+public class MusicMultiTrack
 {
-    public delegate bool BoolCallback();
-
     #region Fields
+    [SerializeField]
+    private string name;
     [SerializeField]
     private AudioClip mainClip;
 
@@ -21,45 +22,21 @@ public class MusicMultiTrack : MonoBehaviour
         "A value of one indicates that it gets played everytime the mainClip is played. A value of 2 indicates that it gets played every second time the mainClip is played.")]
     private int playFrequency;
     [SerializeField]
-    [Tooltip("Indicates whether the playFrequency should be used as a randomizing factor or not.")]
+    [Tooltip("Indicates whether playback of the secondary Clip is decided randomly. In this case, the playFrequency is used as a randomizing factor. A playFrequency of 4 measn 25% (1/4) chances of playback.")]
     private bool randomizePlay;
+
+    [SerializeField]
+    [ShowOnly]
+    private bool isPlaying;
 
     private AudioSource mainAudioSource;
     private AudioSource secondaryAudioSource;
-
-    private BoolCallback endCallback;
     // Gets reset after the first play of the secondary clip (if active)
-    private int playCycle = 0;
+    private int playCycle = -1;
     #endregion
 
-    #region MonoBehaviour Methods
-    private void Awake()
-    {
-        UnityEngine.Assertions.Assert.IsNotNull(mainClip, "ERROR: Main Clip (AudioClip) not assigned for MusicMultiTrack in GameObject '" + gameObject.name + "'!");
-        enabled = false;
-    }
-
-    private void Update()
-    {
-        if (!mainAudioSource.isPlaying)
-        {
-            secondaryAudioSource.Stop();
-            Debug.Log("TEST: Music finished!");
-            bool shouldContinue = endCallback();
-            if (shouldContinue)
-            {
-                Debug.Log("TEST: Will continue!");
-                PlayMusic();
-            }
-            else
-            {
-                Debug.Log("TEST: Will stop!");
-                Stop();
-            }
-        }
-    }
-
-    private void OnValidate()
+    #region Public Methods
+    public void OnValidate()
     {
         if (firstPlayIndex < 0)
             firstPlayIndex = 0;
@@ -67,9 +44,14 @@ public class MusicMultiTrack : MonoBehaviour
         if (playFrequency < 0)
             playFrequency = 0;
     }
-    #endregion
 
-    #region Public Methods
+    public void ValidateSetup(string gameObjectName)
+    {
+        UnityEngine.Assertions.Assert.IsNotNull(mainClip, "ERROR: Main Clip (AudioClip) not assigned for MusicMultiTrack called '" + name + "' in GameObject '" + gameObjectName + "'!");
+        UnityEngine.Assertions.Assert.IsNotNull(mainAudioSource, "ERROR: mainAudioSource is null in MusicMultiTrack script called '" + name + "' in GameObject '" + gameObjectName + "'. Did you forget to call SetAudioSources before validating the setup?");
+        UnityEngine.Assertions.Assert.IsTrue(!secondaryClip || secondaryAudioSource, "ERROR: secondaryAudioSource is null in MusicMultiTrack script called '" + name + "' in GameObject '" + gameObjectName + "'. Did you forget to call SetAudioSources before validating the setup?");
+    }
+
     public void SetAudioSources(AudioSource mainAudioSource, AudioSource secondaryAudioSource)
     {
         this.mainAudioSource = mainAudioSource;
@@ -84,48 +66,23 @@ public class MusicMultiTrack : MonoBehaviour
         }
     }
 
-    public void Play(BoolCallback keepPlayingEndCallback)
+    public void StartPlaying()
     {
-        if (IsValid())
+        if (!isPlaying)
         {
-            if (!enabled)
-            {
-                enabled = true;
-                endCallback = keepPlayingEndCallback;
-                ResetInfo();
-                PlayMusic();
-            }
-            else
-            {
-                Debug.LogWarning("WARNING: MusicMultiTrack::Play method called while the script is already playing. The call will be ignored!");
-            }
+            ContinuePlaying();
         }
         else
         {
-            Debug.LogError("ERROR: MusicMultiTrack::Play called in an invalid state. Did you forget to call SetAudioSources prior to calling the Play method?");
+            Debug.LogWarning("WARNING: MusicMultiTrack::StartPlaying method called while the script is already playing. The MusicMultiTrack will be reset before playback!");
+            Stop();
+            ContinuePlaying();
         }
     }
 
-    public void Stop()
+    public void ContinuePlaying()
     {
-        enabled = false;
-        endCallback = null;
-    }
-    #endregion
-
-    #region Private Methods
-    private bool IsValid()
-    {
-        return mainAudioSource && (secondaryClip ? secondaryAudioSource : true);
-    }
-
-    private void ResetInfo()
-    {
-        playCycle = -1;
-    }
-
-    private void PlayMusic()
-    {
+        isPlaying = true;
         ++playCycle;
         mainAudioSource.PlayOneShot(mainClip);
 
@@ -150,6 +107,14 @@ public class MusicMultiTrack : MonoBehaviour
         }
     }
 
+    public void Stop()
+    {
+        playCycle = -1;
+        isPlaying = false;
+    }
+    #endregion
+
+    #region Private Methods
     private void NormalSecondaryPlay()
     {
         int repeatsCycle = playCycle - firstPlayIndex;

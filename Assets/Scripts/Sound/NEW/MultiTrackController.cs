@@ -9,10 +9,14 @@ public class MultiTrackController : MonoBehaviour
     [SerializeField]
     private AudioSource secondaryAudioSource;
 
+    private MusicMultiTrack activeMultiTrack;
+
     [Header("Testing")]
     public MusicMultiTrack testTrack;
+    public MusicMultiTrack alternateTrack;
+    public bool isPlaying = false;
     public bool start = false;
-    public bool shouldContinue = true;
+    public bool useAlternate = false;
     #endregion
 
     #region MonoBehaviour Methods
@@ -20,28 +24,59 @@ public class MultiTrackController : MonoBehaviour
     {
         UnityEngine.Assertions.Assert.IsNotNull(mainAudioSource, "ERROR: mainAudioSource (AudioSource) not assigned for MultiTrackController in GameObject '" + gameObject.name + "'!");
         UnityEngine.Assertions.Assert.IsNotNull(secondaryAudioSource, "ERROR: secondaryAudioSource (AudioSource) not assigned for MultiTrackController in GameObject '" + gameObject.name + "'!");
-    }
 
-    private void Start()
-    {
         testTrack.SetAudioSources(mainAudioSource, secondaryAudioSource);
+        testTrack.ValidateSetup(gameObject.name);
+        alternateTrack.SetAudioSources(mainAudioSource, secondaryAudioSource);
+        alternateTrack.ValidateSetup(gameObject.name);
+
+        activeMultiTrack = testTrack;
     }
 
     private void Update()
     {
+        if (isPlaying && !mainAudioSource.isPlaying)
+        {
+            secondaryAudioSource.Stop();
+            Debug.Log("TEST: Music finished!");
+            MusicMultiTrack nextMultiTrack = GetAdequateMultiTrack();
+
+            if (nextMultiTrack == activeMultiTrack)
+            {
+                Debug.Log("TEST: Will continue!");
+                activeMultiTrack.ContinuePlaying();
+            }
+            else
+            {
+                Debug.Log("TEST: Will stop!");
+                activeMultiTrack.Stop();
+                nextMultiTrack.StartPlaying();
+                activeMultiTrack = nextMultiTrack;
+            }
+        }
+
         if (start)
         {
             start = false;
-            testTrack.Play(ShouldContinuePlaying);
+            activeMultiTrack.StartPlaying();
+            isPlaying = true;
         }
+    }
+
+    private void OnValidate()
+    {
+        testTrack.OnValidate();
     }
     #endregion
 
-    #region Public Methods
-    bool ShouldContinuePlaying()
+    #region Private Methods
+    private MusicMultiTrack GetAdequateMultiTrack()
     {
-        Debug.Log("TEST: Question asked");
-        return shouldContinue;
+        Debug.Log("TEST: Queried!");
+        if (useAlternate)
+            return alternateTrack;
+        else
+            return testTrack;
     }
     #endregion
 }
