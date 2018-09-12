@@ -20,6 +20,14 @@ public class InitGame : MonoBehaviour
     [SerializeField]
     private ScreenFadeController foregroundFader;
 
+    [Header("Sounds")]
+    [SerializeField]
+    private AudioClip startClip;
+    [SerializeField]
+    private AudioClip selectionClip;
+
+    private AudioSource audioSource;
+
     private bool menuActive = false;
     private int index = 0;
 
@@ -32,6 +40,10 @@ public class InitGame : MonoBehaviour
         UnityEngine.Assertions.Assert.IsNotNull(helpPanel, "ERROR: GameObject (helpPanel) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
         UnityEngine.Assertions.Assert.IsNotNull(blackFader, "ERROR: ScreenFadeController (blackFader) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
         UnityEngine.Assertions.Assert.IsNotNull(foregroundFader, "ERROR: ScreenFadeController (foregroundFader) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
+        UnityEngine.Assertions.Assert.IsNotNull(startClip, "ERROR: Start Clip (AudioClip) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
+        UnityEngine.Assertions.Assert.IsNotNull(selectionClip, "ERROR: Selection Clip (AudioClip) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
+        audioSource = GetComponent<AudioSource>();
+        UnityEngine.Assertions.Assert.IsNotNull(audioSource, "ERROR: An AudioSource component could not be found by the InitGame script in GameObject '" + gameObject.name + "'!");
     }
 
     private void Start()
@@ -89,6 +101,7 @@ public class InitGame : MonoBehaviour
             }
 
             buttons[index].SelectButton();
+            audioSource.PlayOneShot(selectionClip);
         }
         else if (InputManager.instance.GetPadUpDown() || InputManager.instance.GetLeftStickUpDown())
         {
@@ -103,6 +116,7 @@ public class InitGame : MonoBehaviour
                 index--;
             }
 
+            audioSource.PlayOneShot(selectionClip);
             buttons[index].SelectButton();
         }
     }
@@ -115,6 +129,7 @@ public class InitGame : MonoBehaviour
             {
                 case 0:
                     menuActive = false;
+                    audioSource.PlayOneShot(startClip);
                     blackFader.FadeToOpaque(0.5f, LoadGameScene);
                     break;
 
