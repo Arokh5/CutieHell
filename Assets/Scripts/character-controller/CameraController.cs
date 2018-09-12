@@ -6,10 +6,6 @@ public class CameraController : MonoBehaviour
     #region Fields
     [SerializeField]
     private LayerMask viewPosCheckLayerMask;
-    [SerializeField]
-    private PostProcessingProfile defaultPostProcessing;
-    [SerializeField]
-    private PostProcessingProfile deathPostProcessing;
     private PostProcessingBehaviour postProcessing;
 
     private Transform player;
@@ -108,15 +104,6 @@ public class CameraController : MonoBehaviour
         this.y = y;
     }
 
-    public void DeathPostProcessing()
-    {
-        postProcessing.profile = deathPostProcessing;
-    }
-
-    public void DefaultPostProcessing()
-    {
-        postProcessing.profile = defaultPostProcessing;
-    }
     #endregion
 
     #region Private Methods
@@ -256,54 +243,6 @@ public class CameraController : MonoBehaviour
                         this.transform.position = position;
 
                         SetPlayerDirection(rotation.eulerAngles.y);
-                        if (Input.GetKey(KeyCode.A))
-                        {
-                            aR += Time.deltaTime;
-                        }
-                        if (Input.GetKey(KeyCode.S))
-                        {
-                            aR -= Time.deltaTime;
-                        }
-                        if (Input.GetKey(KeyCode.D))
-                        {
-                            aU += Time.deltaTime;
-                        }
-                        if (Input.GetKey(KeyCode.F))
-                        {
-                            aU -= Time.deltaTime;
-                        }
-                        if (Input.GetKey(KeyCode.G))
-                        {
-                            aF += Time.deltaTime;
-                        }
-                        if (Input.GetKey(KeyCode.H))
-                        {
-                            aF -= Time.deltaTime;
-                        }
-                        if (Input.GetKey(KeyCode.Q))
-                        {
-                            zX += Time.deltaTime;
-                        }
-                        if (Input.GetKey(KeyCode.W))
-                        {
-                            zX -= Time.deltaTime;
-                        }
-                        if (Input.GetKey(KeyCode.E))
-                        {
-                            zY += Time.deltaTime;
-                        }
-                        if (Input.GetKey(KeyCode.R))
-                        {
-                            zY -= Time.deltaTime;
-                        }
-                        if (Input.GetKey(KeyCode.T))
-                        {
-                            zZ += Time.deltaTime;
-                        }
-                        if (Input.GetKey(KeyCode.Y))
-                        {
-                            zZ -= Time.deltaTime;
-                        }
                         this.transform.LookAt(player.transform.position + rotation * Vector3.up * aU + rotation * Vector3.right * aR + rotation * Vector3.forward * aF);
                     }           
                     break;
@@ -327,28 +266,41 @@ public class CameraController : MonoBehaviour
                     timeOnTransition += Time.deltaTime;
                     this.transform.position = Vector3.Lerp(this.transform.position, rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position, 0.15f);
 
-                    if (timeSinceLastAction < 0.5f)
-                    {
-                        timeSinceLastAction += Time.deltaTime;
-                        if (fastAction)
-                        {
-                            SetPlayerDirection(rotation.eulerAngles.y, 0.7f);
-                        }
-                        else if (slowAction)
-                        {
-                            SetPlayerDirection(rotation.eulerAngles.y, 0.2f);
-                        }
-                        else
-                        {
-                            SetPlayerDirection(rotation.eulerAngles.y);//, playerScript.rb.velocity.magnitude / 10.0f);
-                        }
-                    }
-                    else
-                    {
-                        fastAction = slowAction = false;
-                    }
+                    timeSinceLastAction += Time.deltaTime;
+
+                    SetPlayerDirection(rotation.eulerAngles.y, 0.7f);
+
+                    fastAction = slowAction = false;
+
                     this.transform.LookAt(player.transform.position + rotation * Vector3.up * focusY + rotation * Vector3.right * focusX + rotation * Vector3.forward * focusDistance);
                 }
+                    break;
+                case Player.CameraState.DEATH:
+                    {
+                        y = ClampAngle(y, 15, 20);
+                        Quaternion rotation = Quaternion.Euler(y, x, 0);
+                        float noCollisionDistance = distance + 3;
+
+                        for (float zOffset = distance + 3; zOffset >= 0.5f; zOffset -= 0.025f)
+                        {
+                            noCollisionDistance = zOffset;
+                            Vector3 tempPos = rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position;
+
+                            if (DoubleViewingPosCheck(tempPos, zOffset))
+                            {
+                                break;
+                            }
+                        }
+
+                        timeOnTransition += Time.deltaTime;
+                        this.transform.position = Vector3.Lerp(this.transform.position, rotation * new Vector3(cameraX, cameraY, -noCollisionDistance) + player.position, 0.05f);
+
+                        timeSinceLastAction += Time.deltaTime;
+
+                        fastAction = slowAction = false;
+
+                        this.transform.LookAt(player.transform.position + rotation * Vector3.up * focusY + rotation * Vector3.right * focusX + rotation * Vector3.forward * focusDistance);
+                    }
                     break;
                 case Player.CameraState.DASH:
                     { 

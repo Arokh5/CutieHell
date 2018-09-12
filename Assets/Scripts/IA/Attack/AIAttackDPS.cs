@@ -38,16 +38,6 @@ public class AIAttackDPS : AIAttackLogic {
         {
             animator.SetBool("Attack", false);
         }
-
-        if (animator.GetBool("Attack"))
-        {
-            transform.LookAt(_target.transform.position);
-            animator.SetFloat("Speed", 5.0f);
-        }
-        else
-        {
-            animator.SetFloat("Speed", 1.0f);
-        }
     }
 
     public void HitAttack()
