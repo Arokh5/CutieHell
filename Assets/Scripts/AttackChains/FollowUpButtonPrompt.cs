@@ -240,8 +240,9 @@ public class FollowUpButtonPrompt : MonoBehaviour
 
     private void FailAnimation(float normalizedTime)
     {
-        Color targetColor = Color.Lerp(Color.white, failTargetColor, normalizedTime);
-        SetColorFactor(targetColor);
+        float u = Mathf.Sin(0.5f * Mathf.PI * normalizedTime);
+        Color targetColorFactor = (1.0f - u) * Color.white + u * failTargetColor;
+        SetColorFactor(targetColorFactor);
     }
     #endregion
 }
