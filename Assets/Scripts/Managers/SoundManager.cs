@@ -36,6 +36,14 @@ public class SoundManager : MonoBehaviour
     #region Fields
     public static SoundManager instance;
 
+    [Header("Sources setup")]
+    [SerializeField]
+    private AudioSource musicSource;
+    [SerializeField]
+    private AudioSource ambienceSource;
+    [SerializeField]
+    private AudioSource sfxSource;
+
     [Header("SFX Repetition limits")]
     [SerializeField]
     [Tooltip("The time (in seconds) after playback during which a clip is considered to be 'active'")]
@@ -46,13 +54,9 @@ public class SoundManager : MonoBehaviour
     
     private Dictionary<AudioClip, UsageInfo> activeClips = new Dictionary<AudioClip, UsageInfo>();
 
-    [Header("Sources setup")]
+    [Header("Music Multi Tracks")]
     [SerializeField]
-    private AudioSource musicSource;
-    [SerializeField]
-    private AudioSource ambienceSource;
-    [SerializeField]
-    private AudioSource sfxSource;
+    private MultiTrackController multiTrackController;
 	#endregion
 	
 	#region MonoBehaviour Methods
@@ -62,6 +66,17 @@ public class SoundManager : MonoBehaviour
             instance = this;
         else if (instance != this)
             Destroy(this);
+
+        UnityEngine.Assertions.Assert.IsNotNull(musicSource, "ERROR: Music Source (AudioSource) not assigned for SoundManager in GameObject '" + gameObject.name + "'!");
+        UnityEngine.Assertions.Assert.IsNotNull(ambienceSource, "ERROR: Ambient Source (AudioSource) not assigned for SoundManager in GameObject '" + gameObject.name + "'!");
+        UnityEngine.Assertions.Assert.IsNotNull(sfxSource, "ERROR: Sfx Source (AudioSource) not assigned for SoundManager in GameObject '" + gameObject.name + "'!");
+        UnityEngine.Assertions.Assert.IsNotNull(sfxSource, "ERROR: Multi Track Controller (MultiTrackController) not assigned for SoundManager in GameObject '" + gameObject.name + "'!");
+
+    }
+
+    private void Start()
+    {
+        multiTrackController.Play();
     }
 
     private void Update()
@@ -85,6 +100,7 @@ public class SoundManager : MonoBehaviour
     #region Public Methods
     public void PlayMusicClip(AudioClip musicClip, float pitch = 1f)
     {
+        multiTrackController.Stop();
         musicSource.clip = musicClip;
         musicSource.pitch = pitch;
         musicSource.Play();

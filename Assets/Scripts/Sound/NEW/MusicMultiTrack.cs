@@ -20,8 +20,11 @@ public class MusicMultiTrack
         "A value of one indicates that it gets played everytime the mainClip is played. A value of 2 indicates that it gets played every second time the mainClip is played.")]
     private int playFrequency;
     [SerializeField]
-    [Tooltip("Indicates whether playback of the secondary Clip is decided randomly. In this case, the playFrequency is used as a randomizing factor. A playFrequency of 4 measn 25% (1/4) chances of playback.")]
+    [Tooltip("Indicates whether playback of the secondary Clip is decided randomly. In this case, the playFrequency is ignored and the playChance is used instead.")]
     private bool randomizePlay;
+    [SerializeField]
+    [Range(0.0f, 1.0f)]
+    private float playChance = 1.0f;
 
     [SerializeField]
     [ShowOnly]
@@ -89,15 +92,15 @@ public class MusicMultiTrack
             if (playCycle == firstPlayIndex)
             {
                 // First time the secondary clip gets played.
-                secondaryAudioSource.PlayOneShot(secondaryClip);
+                PlaySecondaryClip();
             }
-            else if (playCycle > firstPlayIndex && playFrequency > 0)
+            else if (playCycle > firstPlayIndex)
             {
-                if (randomizePlay)
+                if (randomizePlay && playChance > 0.0f)
                 {
                     RandomizedSecondaryPlay();
                 }
-                else
+                else if (playFrequency > 0)
                 {
                     NormalSecondaryPlay();
                 }
@@ -118,18 +121,23 @@ public class MusicMultiTrack
         int repeatsCycle = playCycle - firstPlayIndex;
         if (repeatsCycle % playFrequency == 0)
         {
-            secondaryAudioSource.PlayOneShot(secondaryClip);
+            PlaySecondaryClip();
         }
     }
 
     private void RandomizedSecondaryPlay()
     {
-        float chanceToPlay = 1 / playFrequency;
         float randomNum = Random.Range(0.0f, 1.0f);
-        if (randomNum <= chanceToPlay)
+        if (randomNum <= playChance)
         {
-            secondaryAudioSource.PlayOneShot(secondaryClip);
+            PlaySecondaryClip();
         }
+    }
+
+    private void PlaySecondaryClip()
+    {
+        Debug.Log("INFO (MusicMultiTrack): Playing secondary clip.");
+        secondaryAudioSource.PlayOneShot(secondaryClip);
     }
     #endregion
 }

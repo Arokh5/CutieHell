@@ -174,6 +174,16 @@ public class GameManager : MonoBehaviour
         aiSpawnController.ResumeRound();
     }
 
+    public int GetEnemiesCount()
+    {
+        return scenarioController.GetEnemiesCount();
+    }
+
+    public float GetCurrentMonumentNormalizedHealth()
+    {
+        return scenarioController.GetCurrentMonumentNormalizedHealth();
+    }
+
     public void ExitGame()
     {
         GoToTitleScreen();
