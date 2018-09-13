@@ -5,6 +5,14 @@ using UnityEngine.UI;
 
 public class RoundScore : MonoBehaviour {
 
+    [System.Serializable]
+    public class RoundScoreTier
+    {
+        public float oneStarLimit;
+        public float twoStarLimit;
+        public float threeStarLimit;
+    }
+
     public enum ShowingState { ACHIEVEMENTS, STATS, COMPLETED}
     #region Attributes
     [SerializeField]
@@ -52,6 +60,19 @@ public class RoundScore : MonoBehaviour {
     private int scoreCounterSpeed;
     [SerializeField]
     private int roundScoreTotalTime = 300;
+    [SerializeField]
+    private RoundScoreTier[] roundScoreTiers;
+    private int currentRound;
+    [SerializeField]
+    private Image starsImage;
+    [SerializeField]
+    private Sprite oneStar;
+    [SerializeField]
+    private Sprite twoStars;
+    [SerializeField]
+    private Sprite threeStars;
+    [SerializeField]
+    private AudioClip starsSfx;
 
     [Header ("Close/Skip")]
     [SerializeField]
@@ -153,10 +174,11 @@ public class RoundScore : MonoBehaviour {
         consecutiveKillingsReward = consecutiveKillings;
     }
 
-    public void SetUpTotalScore(int globalScore)
+    public void SetUpTotalScore(int globalScore, int roundsCompleted)
     {
         total.text = globalScore.ToString();
         totalScore = globalScore;
+        currentRound = roundsCompleted - 1;
     }
 
     public void ResetSkillScores()
@@ -257,6 +279,8 @@ public class RoundScore : MonoBehaviour {
             ResetSkillStatsScores();
             ResetScoresScores();
 
+            starsImage.gameObject.SetActive(false);
+
             skipFullCounting = false;
 
             //Disables the popup itself
@@ -291,6 +315,7 @@ public class RoundScore : MonoBehaviour {
                 else
                 {
                     //All SkillStats are already full displayed
+                    ShowStars();
                     showingState = ShowingState.COMPLETED;
                     currentScore.gameObject.SetActive(false);
                     total.gameObject.SetActive(true);
@@ -303,6 +328,20 @@ public class RoundScore : MonoBehaviour {
                 IncrementCurrentScore();
             }
         }
+    }
+
+    private void ShowStars()
+    {
+        RoundScoreTier scoreTier = roundScoreTiers[currentRound];
+        if (totalScore < scoreTier.oneStarLimit)
+            starsImage.sprite = oneStar;
+        else if (totalScore < scoreTier.twoStarLimit)
+            starsImage.sprite = twoStars;
+        else
+            starsImage.sprite = threeStars;
+
+        starsImage.gameObject.SetActive(true);
+        SoundManager.instance.PlaySfxClip(starsSfx);
     }
 
     private void IncrementCurrentScore()
