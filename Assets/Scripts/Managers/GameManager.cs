@@ -49,7 +49,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject[] uiToHide;
 
-
     private int roundsCompleted = 0;
 
     private bool unpauseNextFrame = false;
@@ -208,7 +207,7 @@ public class GameManager : MonoBehaviour
             StatsManager.instance.GetReceivedDamageCombo().GrantReward();
 
             roundScore.gameObject.SetActive(true);
-            roundScore.SetUpTotalScore(StatsManager.instance.GetRoundPoints());
+            roundScore.SetUpTotalScore(StatsManager.instance.GetRoundPoints(), roundsCompleted);
             roundScore.ShowRoundScore();
             gameState = GameStates.OnRoundEnd;
         }
