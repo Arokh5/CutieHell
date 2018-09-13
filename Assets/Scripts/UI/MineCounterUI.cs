@@ -10,6 +10,8 @@ public class MineCounterUI : MonoBehaviour
     private Text totalCount;
     [SerializeField]
     private Image sprite;
+    [SerializeField]
+    private GameObject noAvailableMines;
     #endregion
 
     #region MonoBehaviour Methods
@@ -34,6 +36,11 @@ public class MineCounterUI : MonoBehaviour
     public void SetPercentageToNextMine(float percentage)
     {
         sprite.fillAmount = percentage;   
+    }
+
+    public void SetNoAvailableMines(bool value)
+    {
+       noAvailableMines.SetActive(value);
     }
     #endregion
 }
