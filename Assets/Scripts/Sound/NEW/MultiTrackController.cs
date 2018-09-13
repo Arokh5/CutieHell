@@ -2,6 +2,13 @@
 
 public class MultiTrackController : MonoBehaviour
 {
+    [System.Serializable]
+    private class MultiTrackInfo
+    {
+        public string name;
+        public MusicMultiTrack track;
+    }
+
     #region Fields
     [Header("Elements setup")]
     [SerializeField]
@@ -9,11 +16,12 @@ public class MultiTrackController : MonoBehaviour
     [SerializeField]
     private AudioSource secondaryAudioSource;
 
+    [SerializeField]
+    private MultiTrackInfo[] trackInfos;
+
     private MusicMultiTrack activeMultiTrack;
 
     [Header("Testing")]
-    public MusicMultiTrack testTrack;
-    public MusicMultiTrack alternateTrack;
     public bool isPlaying = false;
     public bool start = false;
     public bool useAlternate = false;
@@ -25,12 +33,14 @@ public class MultiTrackController : MonoBehaviour
         UnityEngine.Assertions.Assert.IsNotNull(mainAudioSource, "ERROR: mainAudioSource (AudioSource) not assigned for MultiTrackController in GameObject '" + gameObject.name + "'!");
         UnityEngine.Assertions.Assert.IsNotNull(secondaryAudioSource, "ERROR: secondaryAudioSource (AudioSource) not assigned for MultiTrackController in GameObject '" + gameObject.name + "'!");
 
-        testTrack.SetAudioSources(mainAudioSource, secondaryAudioSource);
-        testTrack.ValidateSetup(gameObject.name);
-        alternateTrack.SetAudioSources(mainAudioSource, secondaryAudioSource);
-        alternateTrack.ValidateSetup(gameObject.name);
+        for (int i = 0; i < trackInfos.Length; ++i)
+        {
+            MultiTrackInfo info = trackInfos[i];
+            info.track.SetAudioSources(mainAudioSource, secondaryAudioSource);
+            info.track.ValidateSetup(gameObject.name + " under the name " + info.name + " (index " + i + ")");
+        }
 
-        activeMultiTrack = testTrack;
+        activeMultiTrack = trackInfos[0].track;
     }
 
     private void Update()
@@ -65,7 +75,10 @@ public class MultiTrackController : MonoBehaviour
 
     private void OnValidate()
     {
-        testTrack.OnValidate();
+        foreach (MultiTrackInfo info in trackInfos)
+        {
+            info.track.OnValidate();
+        }
     }
     #endregion
 
@@ -74,9 +87,9 @@ public class MultiTrackController : MonoBehaviour
     {
         Debug.Log("TEST: Queried!");
         if (useAlternate)
-            return alternateTrack;
+            return trackInfos[1].track;
         else
-            return testTrack;
+            return trackInfos[0].track;
     }
     #endregion
 }

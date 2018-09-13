@@ -5,8 +5,6 @@ public class MusicMultiTrack
 {
     #region Fields
     [SerializeField]
-    private string name;
-    [SerializeField]
     private AudioClip mainClip;
 
     [Header("Secondary Clip")]
@@ -45,11 +43,11 @@ public class MusicMultiTrack
             playFrequency = 0;
     }
 
-    public void ValidateSetup(string gameObjectName)
+    public void ValidateSetup(string hostName)
     {
-        UnityEngine.Assertions.Assert.IsNotNull(mainClip, "ERROR: Main Clip (AudioClip) not assigned for MusicMultiTrack called '" + name + "' in GameObject '" + gameObjectName + "'!");
-        UnityEngine.Assertions.Assert.IsNotNull(mainAudioSource, "ERROR: mainAudioSource is null in MusicMultiTrack script called '" + name + "' in GameObject '" + gameObjectName + "'. Did you forget to call SetAudioSources before validating the setup?");
-        UnityEngine.Assertions.Assert.IsTrue(!secondaryClip || secondaryAudioSource, "ERROR: secondaryAudioSource is null in MusicMultiTrack script called '" + name + "' in GameObject '" + gameObjectName + "'. Did you forget to call SetAudioSources before validating the setup?");
+        UnityEngine.Assertions.Assert.IsNotNull(mainClip, "ERROR: Main Clip (AudioClip) not assigned for MusicMultiTrack hosted in " + hostName + "!");
+        UnityEngine.Assertions.Assert.IsNotNull(mainAudioSource, "ERROR: mainAudioSource is null in MusicMultiTrack hosted in " + hostName + ". Did you forget to call SetAudioSources before validating the setup?");
+        UnityEngine.Assertions.Assert.IsTrue(!secondaryClip || secondaryAudioSource, "ERROR: secondaryAudioSource is null in MusicMultiTrack script hosted in " + hostName + ". Did you forget to call SetAudioSources before validating the setup?");
     }
 
     public void SetAudioSources(AudioSource mainAudioSource, AudioSource secondaryAudioSource)

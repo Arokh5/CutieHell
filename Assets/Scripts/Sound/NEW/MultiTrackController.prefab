@@ -108,7 +108,8 @@ AudioSource:
   m_GameObject: {fileID: 1883106874150186}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 243197961293476954, guid: dc00f49cad4603e4ca624f7439e523d9,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -188,7 +189,8 @@ AudioSource:
   m_GameObject: {fileID: 1271072039978502}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 243197961293476954, guid: dc00f49cad4603e4ca624f7439e523d9,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -273,22 +275,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainAudioSource: {fileID: 82362038376531554}
   secondaryAudioSource: {fileID: 82587566731579840}
-  testTrack:
-    name: Test
-    mainClip: {fileID: 8300000, guid: b5785059e231a8946a313935708f4eed, type: 3}
-    secondaryClip: {fileID: 8300000, guid: b8e1bf6fd64cc714ba7174ee55d24324, type: 3}
-    firstPlayIndex: 1
-    playFrequency: 2
-    randomizePlay: 0
-    isPlaying: 0
-  alternateTrack:
-    name: Alternate
-    mainClip: {fileID: 8300000, guid: 7eb0d50c69aea3b4f939f637a248b606, type: 3}
-    secondaryClip: {fileID: 8300000, guid: 5f0329c7828d28b4db8175258b15556e, type: 3}
-    firstPlayIndex: 1
-    playFrequency: 2
-    randomizePlay: 0
-    isPlaying: 0
+  trackInfos:
+  - name: LOW
+    track:
+      mainClip: {fileID: 8300000, guid: f1868d0fc55383148ac46399b2b4e2d7, type: 3}
+      secondaryClip: {fileID: 8300000, guid: 2a79c4fcbc702504b85751c37887a0d6, type: 3}
+      firstPlayIndex: 1
+      playFrequency: 2
+      randomizePlay: 0
+      isPlaying: 0
+  - name: MID
+    track:
+      mainClip: {fileID: 8300000, guid: f69faa41a81005a469540dabe9d5eede, type: 3}
+      secondaryClip: {fileID: 8300000, guid: 4bca0a71317ebdf4c8d3b54f65d659c4, type: 3}
+      firstPlayIndex: 0
+      playFrequency: 2
+      randomizePlay: 1
+      isPlaying: 0
+  - name: HIGH
+    track:
+      mainClip: {fileID: 8300000, guid: b0df80bc951827446870f5e064b97bad, type: 3}
+      secondaryClip: {fileID: 0}
+      firstPlayIndex: 0
+      playFrequency: 0
+      randomizePlay: 0
+      isPlaying: 0
+  - name: HGHEST
+    track:
+      mainClip: {fileID: 8300000, guid: fe03483936c130d49a9a692ead711d99, type: 3}
+      secondaryClip: {fileID: 8300000, guid: 41e72c86a33cde74895e7b795fe59e32, type: 3}
+      firstPlayIndex: 0
+      playFrequency: 1
+      randomizePlay: 0
+      isPlaying: 0
   isPlaying: 0
   start: 0
   useAlternate: 0
