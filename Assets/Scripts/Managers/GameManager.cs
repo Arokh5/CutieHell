@@ -236,7 +236,7 @@ public class GameManager : MonoBehaviour
             StatsManager.instance.GetReceivedDamageCombo().GrantReward();
 
             gameState = GameStates.OnGameEnd;
-            SoundManager.instance.PlayMusicClip(victoryClip);
+            SoundManager.instance.PlayMusicClip(victoryClip, true);
             HideUIOnGameEnd();
             gameScore.ShowGameScore(true);
         }
@@ -250,7 +250,7 @@ public class GameManager : MonoBehaviour
             //crosshair.SetActive(false);
 
             gameState = GameStates.OnGameEnd;
-            SoundManager.instance.PlayMusicClip(defeatClip);
+            SoundManager.instance.PlayMusicClip(defeatClip, false);
             HideUIOnGameEnd();
             gameScore.ShowGameScore(false);
         }

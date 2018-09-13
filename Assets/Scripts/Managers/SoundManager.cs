@@ -98,11 +98,12 @@ public class SoundManager : MonoBehaviour
     #endregion
 
     #region Public Methods
-    public void PlayMusicClip(AudioClip musicClip, float pitch = 1f)
+    public void PlayMusicClip(AudioClip musicClip, bool loop = false, float pitch = 1f)
     {
         multiTrackController.Stop();
         musicSource.clip = musicClip;
         musicSource.pitch = pitch;
+        musicSource.loop = loop;
         musicSource.Play();
     }
 
