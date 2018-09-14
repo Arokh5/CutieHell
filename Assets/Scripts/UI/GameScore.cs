@@ -113,6 +113,8 @@ public class GameScore : MonoBehaviour {
     {
         numOfRoundsCompleted = GameManager.instance.GetRoundsCompleted();
 
+        UIManager.instance.SetUIVisibilityWhileShowingScores(false);
+
         DisplayRightPopup(gameWon);
         PrepareToShowNextRound();
         displayingInfo = true;
