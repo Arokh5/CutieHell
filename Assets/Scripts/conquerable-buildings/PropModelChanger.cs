@@ -106,6 +106,8 @@ public class PropModelChanger : Convertible
                 ps.emission.SetBurst(0, burst);
                 ParticleSystem.ShapeModule shape = ps.shape;
                 shape.mesh = meshFilter.mesh;
+                float unitScale = alternateObject.transform.localScale.x * alternateObject.transform.parent.transform.localScale.x;
+                shape.scale = new Vector3(unitScale, unitScale, unitScale);
             }
             converting = false;
             isConverted = true;

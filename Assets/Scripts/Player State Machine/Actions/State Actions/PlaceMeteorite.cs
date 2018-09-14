@@ -3,7 +3,7 @@
 [CreateAssetMenu(menuName = "Player State Machine/Actions/PlaceMeteorite")]
 public class PlaceMeteorite : StateAction
 {
-    public ParticleSystem meteoritePrefab;
+    public ParticleSystem balckHoleAttack;
     [SerializeField]
     private TutorialEventLauncher tutorialEventLauncher;
 
@@ -15,7 +15,7 @@ public class PlaceMeteorite : StateAction
             {
                 tutorialEventLauncher.LaunchEvent();
                 player.meteoriteAttackCooldown.timeSinceLastAction = 0.0f;
-                ParticlesManager.instance.LaunchParticleSystem(meteoritePrefab, player.transform.position, meteoritePrefab.transform.rotation);
+                ParticlesManager.instance.LaunchParticleSystem(balckHoleAttack, player.transform.position + player.transform.forward * 4 +  Vector3.up * 3, balckHoleAttack.transform.rotation);
             }
             else
                 player.meteoriteAttackCooldown.cooldownUI.Flash();
