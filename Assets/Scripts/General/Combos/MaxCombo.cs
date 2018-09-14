@@ -14,6 +14,8 @@ public class MaxCombo : Combo {
     private Text maxComboUICounter;
     [SerializeField]
     RoundScore roundScore;
+    [SerializeField]
+    UIFlasher maxComboFlasher;
     #endregion
 
     #region MonoBehaviour methods
@@ -85,11 +87,14 @@ public class MaxCombo : Combo {
     private void UpdateUIMaxComboTimer()
     {
         maxComboUITimer.fillAmount = 1 - (maxComboTime / maxComboLimitTime);
+        if (maxComboUICounter.transform.localScale.x < 1)
+            maxComboFlasher.ForceStopFlash();
     }
 
     private void UpdateUIMaxComboCounter()
     {
         maxComboUICounter.text = currentCount.ToString();
+        maxComboFlasher.RequestStartFlash();
     }
     #endregion
 
