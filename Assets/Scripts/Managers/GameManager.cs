@@ -151,7 +151,7 @@ public class GameManager : MonoBehaviour
 
         if (tutorialManager.LaunchEventMessage(eventIndex, finishCallback))
         {
-            Debug.Log("GameManager: Tutorial Event " + eventIndex + " launched!");
+            Debug.Log("INFO: (GameManager) Tutorial Event " + eventIndex + " launched!");
             FreezePlayer();
             launched = true;
         }
@@ -190,20 +190,11 @@ public class GameManager : MonoBehaviour
 
     public void OnRoundWon()
     {
-        Debug.Log("Round (index) " + aiSpawnController.GetCurrentRoundIndex() + " finished!");
+        Debug.Log("INFO: Round (index) " + aiSpawnController.GetCurrentRoundIndex() + " finished!");
         player.OnRoundOver();
 
         ++roundsCompleted;
         OnRoundEnd();
-
-        //if (aiSpawnController.HasNextRound())  
-        //{
-        //}
-        //else
-        //{
-        //    Debug.Log("No more rounds available!");
-        //    OnGameWon();
-        //}
     }
 
     public void OnRoundEnd()
@@ -227,9 +218,6 @@ public class GameManager : MonoBehaviour
     {
         if (gameState == GameStates.OnRoundEnd)
         {
-            //crosshair.SetActive(false);
-
-            //Debug.Log("TODO: Still same code in OnRoundEnd");
             StatsManager.instance.GetMaxCombo().GrantReward();
             StatsManager.instance.GetTimeCombo().GrantReward();
             StatsManager.instance.GetReceivedDamageCombo().GrantReward();
@@ -300,7 +288,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("No more rounds available!");
+            Debug.Log("INFO: No more rounds available!");
             OnGameWon();
         }
         
@@ -360,13 +348,13 @@ public class GameManager : MonoBehaviour
     {
         ReleasePlayer();
         player.OnRoundStarted();
-        Debug.Log("GameManager: Tutorial finished!");
+        Debug.Log("INFO: (GameManager) Tutorial finished!");
     }
 
     private void OnTutorialEventFinished()
     {
         ReleasePlayer();
-        Debug.Log("GameManager: Tutorial Event finished!");
+        Debug.Log("INFO: (GameManager) Tutorial Event finished!");
     }
 
     private void ResumeGamePaused()

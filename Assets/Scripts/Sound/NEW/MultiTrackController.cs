@@ -183,7 +183,7 @@ public class MultiTrackController : MonoBehaviour
         // Calculate hazardLevel
         float hazardLevel = generalOffset + enemiesCount * monumentFactor;
 
-        Debug.Log("INFO (MultiTrackController: Hazard lvl: " + hazardLevel + " (Enemies: " + enemiesCount + " | Mon. Dmg: " + normalizedMonumentDamage + ")");
+        Debug.Log("INFO: (MultiTrackController) Hazard lvl: " + hazardLevel + " (Enemies: " + enemiesCount + " | Mon. Dmg: " + normalizedMonumentDamage + ")");
         return hazardLevel;
     }
 

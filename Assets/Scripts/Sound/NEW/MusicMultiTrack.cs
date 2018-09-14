@@ -136,7 +136,7 @@ public class MusicMultiTrack
 
     private void PlaySecondaryClip()
     {
-        Debug.Log("INFO (MusicMultiTrack): Playing secondary clip.");
+        Debug.Log("INFO: (MusicMultiTrack) Playing secondary clip.");
         secondaryAudioSource.PlayOneShot(secondaryClip);
     }
     #endregion

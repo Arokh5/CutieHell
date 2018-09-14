@@ -173,7 +173,7 @@ public class AISpawnController : MonoBehaviour
             UIManager.instance.roundInfoController.SetEnemiesCount(0);
             UIManager.instance.roundInfoController.SetWaveIndicator(0, roundInfo.waveInfos.Length);
             UIManager.instance.roundInfoController.HideWaveComingInfo();
-            Debug.Log("Starting round (index) " + currentRoundIndex + "!");
+            Debug.Log("INFO: Starting round (index) " + currentRoundIndex + "!");
             return true;
         }
         return false;
