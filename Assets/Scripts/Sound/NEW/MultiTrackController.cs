@@ -41,9 +41,11 @@ public class MultiTrackController : MonoBehaviour
     [SerializeField]
     [ShowOnly]
     private bool isPlaying = false;
+    [SerializeField]
+    [ShowOnly]
+    private int activeTrackIndex = 0;
 
     private MusicMultiTrack activeMultiTrack;
-    private int activeTrackIndex = 0;
 
     [Header("Testing")]
     public bool test_overrideNextTrack;
@@ -69,17 +71,14 @@ public class MultiTrackController : MonoBehaviour
         if (isPlaying && !mainAudioSource.isPlaying)
         {
             secondaryAudioSource.Stop();
-            Debug.Log("TEST: Music finished!");
             MusicMultiTrack currentMultiTrack = GetCurrentMultiTrack();
 
             if (currentMultiTrack == activeMultiTrack)
             {
-                Debug.Log("TEST: Will continue!");
                 activeMultiTrack.ContinuePlaying();
             }
             else
             {
-                Debug.Log("TEST: Will stop!");
                 if (activeMultiTrack != null)
                 {
                     activeMultiTrack.Stop();
@@ -121,7 +120,6 @@ public class MultiTrackController : MonoBehaviour
     #region Private Methods
     private MusicMultiTrack GetCurrentMultiTrack()
     {
-        Debug.Log("TEST: Queried!");
         if (test_overrideNextTrack)
         {
             activeTrackIndex = test_nextTrackIndex;
@@ -185,7 +183,7 @@ public class MultiTrackController : MonoBehaviour
         // Calculate hazardLevel
         float hazardLevel = generalOffset + enemiesCount * monumentFactor;
 
-        Debug.Log("TEST: Calculated hazard level: " + hazardLevel + " (Enemies: " + enemiesCount + " | Monument Damage: " + normalizedMonumentDamage + ")");
+        Debug.Log("INFO (MultiTrackController: Hazard lvl: " + hazardLevel + " (Enemies: " + enemiesCount + " | Mon. Dmg: " + normalizedMonumentDamage + ")");
         return hazardLevel;
     }
 
