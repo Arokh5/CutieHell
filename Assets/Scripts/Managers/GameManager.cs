@@ -173,6 +173,16 @@ public class GameManager : MonoBehaviour
         aiSpawnController.ResumeRound();
     }
 
+    public int GetEnemiesCount()
+    {
+        return scenarioController.GetEnemiesCount();
+    }
+
+    public float GetCurrentMonumentNormalizedHealth()
+    {
+        return scenarioController.GetCurrentMonumentNormalizedHealth();
+    }
+
     public void ExitGame()
     {
         GoToTitleScreen();
@@ -225,7 +235,7 @@ public class GameManager : MonoBehaviour
             StatsManager.instance.GetReceivedDamageCombo().GrantReward();
 
             gameState = GameStates.OnGameEnd;
-            SoundManager.instance.PlayMusicClip(victoryClip);
+            SoundManager.instance.PlayMusicClip(victoryClip, true);
             HideUIOnGameEnd();
             gameScore.ShowGameScore(true);
         }
@@ -239,7 +249,7 @@ public class GameManager : MonoBehaviour
             //crosshair.SetActive(false);
 
             gameState = GameStates.OnGameEnd;
-            SoundManager.instance.PlayMusicClip(defeatClip);
+            SoundManager.instance.PlayMusicClip(defeatClip, false);
             HideUIOnGameEnd();
             gameScore.ShowGameScore(false);
         }

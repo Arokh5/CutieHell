@@ -75,6 +75,11 @@ public abstract class Building : MonoBehaviour, IDamageable
         return currentHealth;
     }
 
+    public float GetNormalizedHealth()
+    {
+        return currentHealth / baseHealth;
+    }
+
     public bool HasFullHealth()
     {
         return currentHealth == baseHealth;

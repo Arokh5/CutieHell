@@ -116,6 +116,12 @@ public class AIZoneController : MonoBehaviour
         }
     }
 
+    // Called by Monument when it becomes the active enemy target
+    public void OnMonumentActivated()
+    {
+        scenarioController.SetActiveMonument(monument);
+    }
+
     // Called by Monument when it gets conquered.
     public void OnMonumentTaken()
     {
@@ -259,6 +265,11 @@ public class AIZoneController : MonoBehaviour
     public bool HasEnemies()
     {
         return aiEnemies.Count > 0;
+    }
+
+    public int GetEnemiesCount()
+    {
+        return aiEnemies.Count;
     }
 
     public void DestroyAllEnemies()

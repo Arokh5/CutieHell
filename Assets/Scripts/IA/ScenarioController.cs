@@ -12,6 +12,7 @@ public class ScenarioController : MonoBehaviour
     [SerializeField]
     private List<AIZoneController> zoneControllers;
     private int zonesWithEnemiesCount = 0;
+    private Monument activeMonument;
     #endregion
 
     #region MonoBehaviour Methods
@@ -85,6 +86,26 @@ public class ScenarioController : MonoBehaviour
         {
             zoneController.ResumeEnemies();
         }
+    }
+
+    public int GetEnemiesCount()
+    {
+        int count = 0;
+        foreach(AIZoneController zoneController in zoneControllers)
+        {
+            count += zoneController.GetEnemiesCount();
+        }
+        return count;
+    }
+
+    public void SetActiveMonument(Monument monument)
+    {
+        activeMonument = monument;
+    }
+
+    public float GetCurrentMonumentNormalizedHealth()
+    {
+        return activeMonument.GetNormalizedHealth();
     }
 
     public void OnNewWaveStarted()

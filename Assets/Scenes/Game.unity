@@ -7140,11 +7140,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114327510471244382, guid: aa7289eb32dc80043a9fe97e38c6cbff,
-        type: 2}
-      propertyPath: uiToHide.Array.size
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 4747520670456778, guid: aa7289eb32dc80043a9fe97e38c6cbff, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7177,6 +7172,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114065911579042496, guid: aa7289eb32dc80043a9fe97e38c6cbff,
+        type: 2}
+      propertyPath: errorMessage
+      value: 
+      objectReference: {fileID: 823969473}
     - target: {fileID: 114402565021805656, guid: aa7289eb32dc80043a9fe97e38c6cbff,
         type: 2}
       propertyPath: roundScore
@@ -7197,6 +7197,11 @@ Prefab:
       propertyPath: receivedDamageCombo
       value: 
       objectReference: {fileID: 425164829}
+    - target: {fileID: 114402565021805656, guid: aa7289eb32dc80043a9fe97e38c6cbff,
+        type: 2}
+      propertyPath: gameScore
+      value: 
+      objectReference: {fileID: 1122635970}
     - target: {fileID: 114327510471244382, guid: aa7289eb32dc80043a9fe97e38c6cbff,
         type: 2}
       propertyPath: tutorialManager
@@ -7233,20 +7238,6 @@ Prefab:
       value: 
       objectReference: {fileID: 102332480}
     - target: {fileID: 114327510471244382, guid: aa7289eb32dc80043a9fe97e38c6cbff,
-        type: 2}
-      propertyPath: gameScore
-      value: 
-      objectReference: {fileID: 1122635970}
-    - target: {fileID: 114065911579042496, guid: aa7289eb32dc80043a9fe97e38c6cbff,
-        type: 2}
-      propertyPath: errorMessage
-      value: 
-      objectReference: {fileID: 823969473}
-    - target: {fileID: 1639395492040046, guid: aa7289eb32dc80043a9fe97e38c6cbff, type: 2}
-      propertyPath: m_Name
-      value: GameManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 114402565021805656, guid: aa7289eb32dc80043a9fe97e38c6cbff,
         type: 2}
       propertyPath: gameScore
       value: 
@@ -7301,6 +7292,10 @@ Prefab:
       propertyPath: uiToHide.Array.data[9]
       value: 
       objectReference: {fileID: 1346871047}
+    - target: {fileID: 1639395492040046, guid: aa7289eb32dc80043a9fe97e38c6cbff, type: 2}
+      propertyPath: m_Name
+      value: GameManager
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aa7289eb32dc80043a9fe97e38c6cbff, type: 2}
   m_IsPrefabParent: 0
