@@ -100,8 +100,8 @@ public class InitGame : MonoBehaviour
                 index++;
             }
 
+            PlaySelectionClip();
             buttons[index].SelectButton();
-            audioSource.PlayOneShot(selectionClip);
         }
         else if (InputManager.instance.GetPadUpDown() || InputManager.instance.GetLeftStickUpDown())
         {
@@ -116,7 +116,7 @@ public class InitGame : MonoBehaviour
                 index--;
             }
 
-            audioSource.PlayOneShot(selectionClip);
+            PlaySelectionClip();
             buttons[index].SelectButton();
         }
     }
@@ -129,7 +129,7 @@ public class InitGame : MonoBehaviour
             {
                 case 0:
                     menuActive = false;
-                    audioSource.PlayOneShot(startClip);
+                    PlayStartClip();
                     blackFader.FadeToOpaque(0.5f, LoadGameScene);
                     break;
 
@@ -168,6 +168,18 @@ public class InitGame : MonoBehaviour
     private void LoadCreditsScene()
     {
         SceneManager.LoadScene("Credits",LoadSceneMode.Single);
+    }
+
+    private void PlaySelectionClip()
+    {
+        if (selectionClip)
+            audioSource.PlayOneShot(selectionClip);
+    }
+
+    private void PlayStartClip()
+    {
+        if (startClip)
+            audioSource.PlayOneShot(startClip);
     }
     #endregion
 }
