@@ -346,6 +346,9 @@ public class Player : MonoBehaviour, IDamageable
     public void InstantiateMine()
     {
         availableMinesNumber--;
+        if (availableMinesNumber == 0)        
+            mineCounterUI.SetNoAvailableMines(true);
+        
         mineCounterUI.SetCurrentCount(availableMinesNumber);
         for (int i = 0; i < maxTotalMinesNumber; i++)
         {
@@ -359,6 +362,8 @@ public class Player : MonoBehaviour, IDamageable
         mines[0] = null;
         SortMines();
         mines[maxTotalMinesNumber - 1] = ParticlesManager.instance.LaunchParticleSystem(minePrefab, this.transform.position, minePrefab.transform.rotation).GetComponent<ActivateMineExplosion>();
+            Debug.Log(availableMinesNumber);
+       
     }
 
 
@@ -381,6 +386,7 @@ public class Player : MonoBehaviour, IDamageable
         {
             availableMinesNumber++;
             mineCounterUI.SetCurrentCount(availableMinesNumber);
+            mineCounterUI.SetNoAvailableMines(false);
         }
     }
     

@@ -18,21 +18,5 @@ public class PlaceMine : StateAction
             else
                 player.mineAttackCooldown.cooldownUI.Flash();
         }
-
-        UpdateMineTimer(player);
-    }
-
-    private void UpdateMineTimer(Player player)
-    {
-        if (player.GetAvailableMines() < player.maxCurrentMinesNumber)
-        {
-            player.timeSinceLastMine += Time.deltaTime;
-            if (player.timeSinceLastMine >= player.timeToGetAnotherMine)
-            {
-                player.GetNewMine();
-                player.timeSinceLastMine = 0.0f;
-            }
-            player.SetPercentageToNextMine(player.timeSinceLastMine / player.timeToGetAnotherMine);
-        }
     }
 }
