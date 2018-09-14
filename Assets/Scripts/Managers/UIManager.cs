@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     public MarkersController markersController;
     public RoundInfoController roundInfoController;
     public HideWhenPlayerDies[] objectsToHide;
+    public GameObject[] elementsToHideOnShowScore;
 
     [Header("Player Health")]
     [Space]
@@ -47,6 +48,14 @@ public class UIManager : MonoBehaviour
         for(int i = 0; i <objectsToHide.Length; ++i)
         {
             objectsToHide[i].hide = !visible;
+        }
+    }
+
+    public void SetUIVisibilityWhileShowingScores(bool visible)
+    {
+        for (int i = 0; i < elementsToHideOnShowScore.Length; ++i)
+        {
+            elementsToHideOnShowScore[i].SetActive(false);
         }
     }
     #endregion

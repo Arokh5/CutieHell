@@ -139,6 +139,7 @@ public class RoundScore : MonoBehaviour {
 
         scoreCounterSpeed =  totalScore / roundScoreTotalTime;
         TimeManager.instance.FreezeTime();
+        UIManager.instance.SetUIVisibilityWhileShowingScores(false);
     }
 
     public void SetUpDamageReceivedCount(float damageReceived)

@@ -89,6 +89,16 @@ public class UIFlasher : MonoBehaviour
         if (enabled)
             shouldStop = true;
     }
+
+    public void ForceStopFlash()
+    {
+        if (enabled)
+        {
+            shouldStop = true;
+            elapsedTime = 1 / frequency;
+        }
+
+    }
     #endregion
 
     #region Private Methods

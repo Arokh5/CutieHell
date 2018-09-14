@@ -202,10 +202,12 @@ public class GameManager : MonoBehaviour
         if (gameState == GameStates.InGame)
         {
             //crosshair.SetActive(false);
-            
+
+            StatsManager.instance.GetMaxCombo().ResetCount();
             StatsManager.instance.GetMaxCombo().GrantReward();
             StatsManager.instance.GetTimeCombo().GrantReward();
             StatsManager.instance.GetReceivedDamageCombo().GrantReward();
+
 
             roundScore.gameObject.SetActive(true);
             roundScore.SetUpTotalScore(StatsManager.instance.GetRoundPoints(), roundsCompleted);
