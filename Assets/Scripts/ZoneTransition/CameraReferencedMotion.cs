@@ -4,6 +4,12 @@ public class CameraReferencedMotion : ScriptedAnimation
 {
     #region Fields
     [SerializeField]
+    private bool hideObstructions = false;
+    [SerializeField]
+    private float yOffset = 0.0f;
+
+    [Space]
+    [SerializeField]
     private Transform reference;
     [SerializeField]
     [Tooltip("The target position in the reference's local space")]
@@ -13,6 +19,8 @@ public class CameraReferencedMotion : ScriptedAnimation
     private Vector3 localTargetRotation;
     [SerializeField]
     private float motionDuration = 1.0f;
+    
+    
 
     private bool animating;
     private Camera gameCamera;
@@ -20,6 +28,7 @@ public class CameraReferencedMotion : ScriptedAnimation
     private Quaternion startRotation;
     private Quaternion targetRotationQuat;
     private float elapsedTime;
+    private Renderer[] hiddenRenderers;
 
 #if UNITY_EDITOR
     [SerializeField]
@@ -95,6 +104,14 @@ public class CameraReferencedMotion : ScriptedAnimation
         elapsedTime = 0.0f;
         startPosition = reference.InverseTransformPoint(gameCamera.transform.position);
         startRotation = Quaternion.Inverse(reference.transform.rotation) * gameCamera.transform.rotation;
+        if (hideObstructions)
+        {
+            Vector3 cameraFinalPos = reference.TransformPoint(localTargetPosition);
+            // Hide obstructions to face
+            obstructionsHandler.HideObstructions(reference.transform.position + yOffset * Vector3.up, cameraFinalPos);
+            // Hide obstructions to feet
+            obstructionsHandler.HideObstructions(reference.transform.position + 0.2f * Vector3.up, cameraFinalPos);
+        }
     }
     #endregion
 

@@ -86,7 +86,7 @@ public class CameraMotion : ScriptedAnimation
     }
     #endregion
 
-    #region
+    #region Private Methods
     private void MotionAnimation()
     {
         elapsedTime += Time.deltaTime;

@@ -17,12 +17,14 @@ public class ZoneLossTransition : MonoBehaviour
     private bool inTransition = false;
     private int currentAnimationIndex = -1;
     private VoidCallback endCallback = null;
+    private ObstructionHandler obstructionHandler;
     #endregion
 
     #region MonoBehaviour Methods
     private void Awake()
     {
         UnityEngine.Assertions.Assert.IsNotNull(cinematicStripes, "ERROR: Cinematic Stripes (CinematicStripes) not assigned for ZoneLossTransition script in GameObject " + gameObject.name);
+        obstructionHandler = new ObstructionHandler();
     }
     #endregion
 
@@ -62,7 +64,7 @@ public class ZoneLossTransition : MonoBehaviour
 
         if (currentAnimationIndex < scriptedAnimations.Length)
         {
-            scriptedAnimations[currentAnimationIndex].StartAnimation(StartNextAnimation);
+            scriptedAnimations[currentAnimationIndex].StartAnimation(StartNextAnimation, obstructionHandler);
         }
         else
         {
@@ -74,6 +76,7 @@ public class ZoneLossTransition : MonoBehaviour
     {
         if (HasAnimations())
         {
+            obstructionHandler.ShowObstructions();
             cinematicStripes.HideAnimated();
             SetObjectsToHideActiveState(true);
         }
