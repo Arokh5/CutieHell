@@ -20,7 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4331575899926924}
   - component: {fileID: 114040506631096758}
-  m_Layer: 0
+  - component: {fileID: 65536689090017680}
+  m_Layer: 9
   m_Name: CH_CE_prop_Tomb_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,14 +38,13 @@ GameObject:
   - component: {fileID: 4731034976943664}
   - component: {fileID: 33626970973739528}
   - component: {fileID: 23833217555453556}
-  - component: {fileID: 65511039995696180}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CH_CE_prop_Tomb_Hell_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 1
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1808412554042020
 GameObject:
   m_ObjectHideFlags: 0
@@ -55,29 +55,28 @@ GameObject:
   - component: {fileID: 4434302449703270}
   - component: {fileID: 33644312338983414}
   - component: {fileID: 23243707884686828}
-  - component: {fileID: 65620744396089346}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CH_CE_prop_Tomb_Cute_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 1
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4331575899926924
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1077581916609330}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.015790416, y: 0.91824836, z: 0.041627318, w: -0.39349452}
+  m_LocalPosition: {x: -7.834, y: 0.652, z: -6.937}
+  m_LocalScale: {x: 1.4020885, y: 1.4020889, z: 1.4020889}
   m_Children:
   - {fileID: 4731034976943664}
   - {fileID: 4434302449703270}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -5.0990005, y: 226.403, z: -0.216}
 --- !u!4 &4434302449703270
 Transform:
   m_ObjectHideFlags: 1
@@ -186,30 +185,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1808412554042020}
   m_Mesh: {fileID: 4300000, guid: fd56d3fb73a2c06498112a166e9aa42c, type: 3}
---- !u!65 &65511039995696180
+--- !u!65 &65536689090017680
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1183979804969554}
+  m_GameObject: {fileID: 1077581916609330}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.824237, y: 1.1368243, z: 0.4671728}
   m_Center: {x: -0.0014472753, y: 0.5684121, z: 0.04539454}
---- !u!65 &65620744396089346
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1808412554042020}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.83980316, y: 1.250976, z: 0.5208102}
-  m_Center: {x: 0, y: 0.625488, z: 0.04744587}
 --- !u!114 &114040506631096758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -221,10 +208,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d552f61e7fedf8b4ba4d8eed58d2f2e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalProp: {fileID: 23833217555453556}
-  alternateProp: {fileID: 23243707884686828}
-  propCollapseDuration: 0.25
-  alternatePropGrowDuration: 0.75
-  scaleX: 1
-  scaleY: 1
-  scaleZ: 1
+  originalObject: {fileID: 1183979804969554}
+  alternateObject: {fileID: 1808412554042020}
+  triggerOnCuteGround: 1
+  triggerOnFirstCuteContact: 1
+  changeVFX: {fileID: 198160269598142280, guid: b36220c14a83a1f468e4464671cb388a,
+    type: 2}
+  numberOfParticles: 250
