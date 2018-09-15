@@ -196,7 +196,7 @@ public class Player : MonoBehaviour, IDamageable
     [Header("Meteorite Attack")]
     public CooldownInfo meteoriteAttackCooldown;
 
-    private bool isMeteoritesOn = false;
+    private bool isBlackHoleOn = false;
 
     [Header("Sounds")]
     public AudioClip[] footstepsSFX;
@@ -505,9 +505,9 @@ public class Player : MonoBehaviour, IDamageable
         TransitionToState(stoppedState);
     }
 
-    public void SetIsMeteoritesOn(bool meteorites)
+    public void SetIsBlackHoleOn(bool blackHole)
     {
-        isMeteoritesOn = meteorites;
+        isBlackHoleOn = blackHole;
     }
 
     public void SetIsBoomerangOn(bool boomerang)
@@ -520,9 +520,9 @@ public class Player : MonoBehaviour, IDamageable
         return isBoomerangOn;
     }
 
-    public bool GetIsMeteoritesOn()
+    public bool GetIsBlackHoleOn()
     {
-        return isMeteoritesOn;
+        return isBlackHoleOn;
     }
 
     public void FootStep(int i)

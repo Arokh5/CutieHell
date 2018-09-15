@@ -18,6 +18,7 @@ public class BlackHole : MonoBehaviour {
         sphereCollider.radius = slowRange;
         attackTargets.Clear();
         sqrKillRange = killRange * killRange;
+        GameManager.instance.GetPlayer1().SetIsBlackHoleOn(true);
     }
 
     void Update()

@@ -43,7 +43,7 @@ public class KillingCountAchievement : Combo {
                     ResetCount();
                 break;
             case AttackType.METEORITE:
-                if (!player.GetIsMeteoritesOn() && currentCount > 0)
+                if (!player.GetIsBlackHoleOn() && currentCount > 0)
                     ResetCount();
                 break;
         }

@@ -16,6 +16,8 @@ public class TimedPooledParticleSystem : PooledParticleSystem
         if (elapsedTime > timeToReturnToPool)
         {
             enabled = false;
+            if (this.gameObject.GetComponent<BlackHole>() != null)
+                GameManager.instance.GetPlayer1().SetIsBlackHoleOn(false);
             ReturnToPool();
         }
     }
