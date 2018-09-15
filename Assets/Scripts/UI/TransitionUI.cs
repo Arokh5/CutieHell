@@ -65,13 +65,13 @@ public class TransitionUI : MonoBehaviour {
                     if(elapsedTime == 0)
                         SoundManager.instance.PlaySfxClip(showUpSound);
 
-                    elementBackground.transform.position = transforms[0].position;
+                    elementIcon.transform.position = transforms[0].position;
 
                     elapsedTime += Time.deltaTime;
 
                     elapsedColor = Mathf.Lerp(elementBackground.color.a, colors[0].a, elapsedTime);
 
-                    elementBackground.transform.localScale = Vector3.Lerp(elementBackground.transform.localScale, transforms[0].localScale, elapsedTime);
+                    elementIcon.transform.localScale = Vector3.Lerp(elementIcon.transform.localScale, transforms[0].localScale, elapsedTime);
 
                     elementBackground.color = new Color(elementBackground.color.r, elementBackground.color.g, elementBackground.color.b, elapsedColor);
                     elementIcon.color = new Color(elementIcon.color.r, elementIcon.color.g, elementIcon.color.b, elapsedColor);
@@ -87,8 +87,8 @@ public class TransitionUI : MonoBehaviour {
                     elapsedTime += Time.deltaTime;
                     elapsedColor = Mathf.Lerp(elementBackground.color.a, colors[1].a, elapsedTime);
 
-                    elementBackground.transform.localScale = Vector3.Lerp(elementBackground.transform.localScale, transforms[1].localScale, elapsedTime);
-                    elementBackground.transform.position = Vector3.Lerp(elementBackground.transform.position, transforms[1].position, elapsedTime);
+                    elementIcon.transform.localScale = Vector3.Lerp(elementIcon.transform.localScale, transforms[1].localScale, elapsedTime);
+                    elementIcon.transform.position = Vector3.Lerp(elementIcon.transform.position, transforms[1].position, elapsedTime);
 
                     elementBackground.color = new Color(elementBackground.color.r, elementBackground.color.g, elementBackground.color.b, elapsedColor);
                     elementIcon.color = new Color(elementIcon.color.r, elementIcon.color.g, elementIcon.color.b, elapsedColor);
