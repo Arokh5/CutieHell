@@ -39,6 +39,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private RoundScore roundScore;
 
+    [Header("Round won")]
+    [SerializeField]
+    private ZoneLossTransition roundWonTransition;
+
     [Header("Game End")]
     [SerializeField]
     private GameScore gameScore;
@@ -194,20 +198,17 @@ public class GameManager : MonoBehaviour
         player.OnRoundOver();
 
         ++roundsCompleted;
-        OnRoundEnd();
+        roundWonTransition.StartTransition(OnRoundEnd);
     }
 
     public void OnRoundEnd()
     {
         if (gameState == GameStates.InGame)
         {
-            //crosshair.SetActive(false);
-
             StatsManager.instance.GetMaxCombo().ResetCount();
             StatsManager.instance.GetMaxCombo().GrantReward();
             StatsManager.instance.GetTimeCombo().GrantReward();
             StatsManager.instance.GetReceivedDamageCombo().GrantReward();
-
 
             roundScore.gameObject.SetActive(true);
             roundScore.SetUpTotalScore(StatsManager.instance.GetRoundPoints(), roundsCompleted);
