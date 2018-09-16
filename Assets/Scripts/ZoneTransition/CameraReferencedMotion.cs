@@ -8,7 +8,9 @@ public class CameraReferencedMotion : ScriptedAnimation
     [SerializeField]
     private float yOffset = 0.0f;
 
-    [Space]
+    private Renderer[] hiddenRenderers;
+
+    [Header("Camera setup")]
     [SerializeField]
     private Transform reference;
     [SerializeField]
@@ -19,8 +21,6 @@ public class CameraReferencedMotion : ScriptedAnimation
     private Vector3 localTargetRotation;
     [SerializeField]
     private float motionDuration = 1.0f;
-    
-    
 
     private bool animating;
     private Camera gameCamera;
@@ -28,9 +28,21 @@ public class CameraReferencedMotion : ScriptedAnimation
     private Quaternion startRotation;
     private Quaternion targetRotationQuat;
     private float elapsedTime;
-    private Renderer[] hiddenRenderers;
+
+    [Header("Animation triggering")]
+    [SerializeField]
+    [Tooltip("Defines if this ScriptedAnimation will attempt to find an Animator in its reference and set the trigger specified by triggerName.")]
+    private bool triggerAnimation;
+    [SerializeField]
+    [Tooltip("Defines the timing og the animation is triggerd. If ticked, the animation is triggered at the end of the ScriptedAnimation. Otherwise, it is triggered an the beginning.")]
+    private bool triggerOnEnd;
+    [SerializeField]
+    private string triggerName;
+
+    private Animator referenceAnimator;
 
 #if UNITY_EDITOR
+    [Header("Editor tools")]
     [SerializeField]
     private bool previewCamera = false;
     private bool initialized = false;
@@ -45,9 +57,27 @@ public class CameraReferencedMotion : ScriptedAnimation
     #region MonoBehaviour Methods
     private void Awake()
     {
-        UnityEngine.Assertions.Assert.IsNotNull(reference, "ERROR: Reference (Transform) not assigned for CameraReferencedMotion script in GameObject " + gameObject.name);
+        UnityEngine.Assertions.Assert.IsNotNull(reference, "ERROR: Reference (Transform) not assigned for CameraReferencedMotion script in GameObject '" + gameObject.name + "'!");
         gameCamera = Camera.main;
         targetRotationQuat = Quaternion.Euler(localTargetRotation);
+        if (triggerAnimation)
+        {
+            referenceAnimator = reference.GetComponent<Animator>();
+            UnityEngine.Assertions.Assert.IsNotNull(referenceAnimator, "ERROR: The Reference (Transform) assigned for CameraReferencedMotion script in GameObject " + gameObject.name + "' does not have an Animator Component attached to it!");
+            bool found = false;
+            foreach (AnimatorControllerParameter acp in referenceAnimator.parameters)
+            {
+                if (acp.name == triggerName)
+                {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+            {
+                Debug.LogError("ERROR: The Animator found in the Reference (Transform) assigned for CameraReferencedMotion script in GameObject " + gameObject.name + "' does NOT have an animator parameter called '" + triggerName + "'!");
+            }
+        }
     }
 
     private void Update()
@@ -104,6 +134,7 @@ public class CameraReferencedMotion : ScriptedAnimation
         elapsedTime = 0.0f;
         startPosition = reference.InverseTransformPoint(gameCamera.transform.position);
         startRotation = Quaternion.Inverse(reference.transform.rotation) * gameCamera.transform.rotation;
+
         if (hideObstructions)
         {
             Vector3 cameraFinalPos = reference.TransformPoint(localTargetPosition);
@@ -111,6 +142,11 @@ public class CameraReferencedMotion : ScriptedAnimation
             obstructionsHandler.HideObstructions(reference.transform.position + yOffset * Vector3.up, cameraFinalPos);
             // Hide obstructions to feet
             obstructionsHandler.HideObstructions(reference.transform.position + 0.2f * Vector3.up, cameraFinalPos);
+        }
+
+        if (triggerAnimation && !triggerOnEnd)
+        {
+            referenceAnimator.SetTrigger(triggerName);
         }
     }
     #endregion
@@ -135,6 +171,12 @@ public class CameraReferencedMotion : ScriptedAnimation
     private void EndAnimation()
     {
         animating = false;
+
+        if (triggerAnimation && triggerOnEnd)
+        {
+            referenceAnimator.SetTrigger(triggerName);
+        }
+
         OnAnimationFinished();
     }
     #endregion
