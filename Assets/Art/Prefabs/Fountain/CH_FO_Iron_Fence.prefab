@@ -20,12 +20,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4548007711151274}
   - component: {fileID: 114119721524356066}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CH_FO_Iron_Fence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 9
   m_IsActive: 1
 --- !u!1 &1529512522501960
 GameObject:
@@ -37,12 +37,12 @@ GameObject:
   - component: {fileID: 4469292595577322}
   - component: {fileID: 33612780678803462}
   - component: {fileID: 23911434683520048}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CH_FO_Iron_Fence_Cute
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 9
   m_IsActive: 0
 --- !u!1 &1822695670672272
 GameObject:
@@ -54,12 +54,12 @@ GameObject:
   - component: {fileID: 4372567796373492}
   - component: {fileID: 33787938331170828}
   - component: {fileID: 23456938244068986}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CH_FO_Iron_Fence_Hell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 9
   m_IsActive: 1
 --- !u!4 &4372567796373492
 Transform:
@@ -195,10 +195,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d552f61e7fedf8b4ba4d8eed58d2f2e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalProp: {fileID: 23456938244068986}
-  alternateProp: {fileID: 23911434683520048}
-  propCollapseDuration: 0.25
-  alternatePropGrowDuration: 0.75
-  scaleX: 1
-  scaleY: 1
-  scaleZ: 1
+  originalObject: {fileID: 0}
+  alternateObject: {fileID: 0}
+  triggerOnCuteGround: 1
+  triggerOnFirstCuteContact: 1
+  changeVFX: {fileID: 0}
+  numberOfParticles: 250
