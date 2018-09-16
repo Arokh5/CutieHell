@@ -160,7 +160,6 @@ public class AIEnemy : MonoBehaviour, IDamageable
             return;
         if (blackHoleAffected && agent.isActiveAndEnabled)
         {
-            SetStoppingDistanceZero();
             agent.stoppingDistance = 0.0f;
             agent.updateRotation = false;
             agent.SetDestination(blackHolePosition.position);
@@ -344,6 +343,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
     public void SetStoppingDistanceZero()
     {
+        agent.enabled = false;
+        agent.enabled = true;
         agent.stoppingDistance = 0.0f;
     }
 
