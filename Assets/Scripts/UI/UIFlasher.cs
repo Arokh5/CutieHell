@@ -82,6 +82,7 @@ public class UIFlasher : MonoBehaviour
             enabled = true;
             elapsedTime = 0;
         }
+        shouldStop = false;
     }
 
     public void RequestStopFlash()

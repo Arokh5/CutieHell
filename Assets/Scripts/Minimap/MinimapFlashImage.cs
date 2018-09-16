@@ -7,7 +7,10 @@ public class MinimapFlashImage : MinimapImage
     #region MonoBehaviour Methods
     [SerializeField]
     [Tooltip("The duration (in seconds) of the flashing effect counted from the last effect request.")]
-    private float flashDuration;
+    private float effectDuration;
+    [SerializeField]
+    [Tooltip("(Optional) The sfx clip to play when the effect starts.")]
+    private AudioClip clip;
 
     private UIFlasher uiFlasher;
     private float lastRequestTime;
@@ -26,7 +29,7 @@ public class MinimapFlashImage : MinimapImage
     {
         if (effectActive)
         {
-            if (Time.time - lastRequestTime > flashDuration)
+            if (Time.time - lastRequestTime > effectDuration)
             {
                 effectActive = false;
                 uiFlasher.RequestStopFlash();
@@ -38,9 +41,17 @@ public class MinimapFlashImage : MinimapImage
     #region Public Methods
     public override void RequestEffect()
     {
-        effectActive = true;
         lastRequestTime = Time.time;
-        uiFlasher.RequestStartFlash();
+
+        if (!effectActive)
+        {
+            uiFlasher.RequestStartFlash();
+            if (clip)
+                SoundManager.instance.PlaySfxClip(clip);
+        }
+
+        effectActive = true;
+
     }
     #endregion
 }
