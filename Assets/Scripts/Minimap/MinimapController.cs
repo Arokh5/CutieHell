@@ -16,7 +16,8 @@ public class MinimapController : MonoBehaviour
     public enum MinimapImageType
     {
         DEFAULT,
-        FLASHER
+        FLASHER,
+        ENABLE_FLASHER
     }
 
     [System.Serializable]
@@ -50,6 +51,8 @@ public class MinimapController : MonoBehaviour
     [SerializeField]
     private MinimapFlashImage minimapFlashImagePrefab;
     [SerializeField]
+    private MinimapEnableFlashImage minimapEnableFlashImagePrefab;
+    [SerializeField]
     private Image elementsBackgroundImage;
     [SerializeField]
     private RectTransform elementsParent;
@@ -72,6 +75,7 @@ public class MinimapController : MonoBehaviour
     private List<MinimapImage> minimapImages = new List<MinimapImage>();
     private ObjectPool<MinimapImage> minimapImagesPool;
     private ObjectPool<MinimapFlashImage> minimapFlashImagesPool;
+    private ObjectPool<MinimapEnableFlashImage> minimapEnableFlashImagesPool;
     private Dictionary<MinimapBorder, AlertImageInfo> alertImages = new Dictionary<MinimapBorder, AlertImageInfo>();
 
     private Vector2 worldBottomLeft;
@@ -130,8 +134,9 @@ public class MinimapController : MonoBehaviour
         else if (instance != this)
             Destroy(this);
         
-        UnityEngine.Assertions.Assert.IsNotNull(minimapImagePrefab, "ERROR: Minimap Image Prefab (Image Prefab) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
-        UnityEngine.Assertions.Assert.IsNotNull(minimapFlashImagePrefab, "ERROR: Minimap Flash Image Prefab (Image Prefab) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
+        UnityEngine.Assertions.Assert.IsNotNull(minimapImagePrefab, "ERROR: Minimap Image Prefab (MinimapImage Prefab) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
+        UnityEngine.Assertions.Assert.IsNotNull(minimapFlashImagePrefab, "ERROR: Minimap Flash Image Prefab (MinimapFlashImage Prefab) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
+        UnityEngine.Assertions.Assert.IsNotNull(minimapEnableFlashImagePrefab, "ERROR: Minimap Enable Flash Image Prefab (MinimapEnableFlashImage Prefab) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(elementsBackgroundImage, "ERROR: Background Image (Image) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(elementsParent, "ERROR: Elements Parent (Transform) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
         UnityEngine.Assertions.Assert.IsNotNull(poolParent, "ERROR: Pool Parent (Transform) has NOT been assigned in MinimapController in GameObject called " + gameObject.name);
@@ -147,6 +152,7 @@ public class MinimapController : MonoBehaviour
 
         minimapImagesPool = new ObjectPool<MinimapImage>(minimapImagePrefab, poolParent.transform);
         minimapFlashImagesPool = new ObjectPool<MinimapFlashImage>(minimapFlashImagePrefab, poolParent.transform);
+        minimapEnableFlashImagesPool = new ObjectPool<MinimapEnableFlashImage>(minimapEnableFlashImagePrefab, poolParent.transform);
 
         for (int i = 0; i < alertImageInfos.Length - 1; ++i)
         {
@@ -334,6 +340,9 @@ public class MinimapController : MonoBehaviour
                 break;
             case MinimapImageType.FLASHER:
                 mmImage = minimapFlashImagesPool.GetObject(elementsParent, false);
+                break;
+            case MinimapImageType.ENABLE_FLASHER:
+                mmImage = minimapEnableFlashImagesPool.GetObject(elementsParent, false);
                 break;
             default:
                 Debug.LogError("ERROR (MinimapController): The CreateElementImage has not been updated to handle a newly introduced MinimapImageType!");

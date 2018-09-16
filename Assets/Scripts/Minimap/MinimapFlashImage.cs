@@ -3,7 +3,6 @@
 [RequireComponent(typeof(UIFlasher))]
 public class MinimapFlashImage : MinimapImage
 {
-
     #region MonoBehaviour Methods
     [SerializeField]
     [Tooltip("The duration (in seconds) of the flashing effect counted from the last effect request.")]

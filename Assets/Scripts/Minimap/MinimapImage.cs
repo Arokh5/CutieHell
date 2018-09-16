@@ -92,17 +92,27 @@ public class MinimapImage : MonoBehaviour
 
     public void Show()
     {
+        if (!image.enabled)
+        {
+            OnImageShown();
+        }
         image.enabled = true;
     }
 
     public void Hide()
     {
+        if (image.enabled)
+        {
+            OnImageHidden();
+        }
         image.enabled = false;
     }
 
-    public virtual void RequestEffect()
-    {
+    public virtual void RequestEffect() { }
+    #endregion
 
-    }
+    #region Protected Methods
+    protected virtual void OnImageShown() { }
+    protected virtual void OnImageHidden() { }
     #endregion
 }
