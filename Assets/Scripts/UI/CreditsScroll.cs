@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class CreditsScroll : MonoBehaviour {
@@ -10,6 +7,10 @@ public class CreditsScroll : MonoBehaviour {
     private RectTransform credits;
     [SerializeField]
     private ScreenFadeController fader;
+    [SerializeField]
+    private AudioSource audioSource;
+    [SerializeField]
+    private AudioClip backClip;
 
 	void Start ()
     {
@@ -47,6 +48,7 @@ public class CreditsScroll : MonoBehaviour {
             InputManager.instance.GetButtonDown(ControllerButton.SQUARE) ||
             InputManager.instance.GetButtonDown(ControllerButton.TRIANGLE))
         {
+            audioSource.PlayOneShot(backClip);
             fader.FadeToOpaque(0.5f, LoadTitleScreen);
         }
     }

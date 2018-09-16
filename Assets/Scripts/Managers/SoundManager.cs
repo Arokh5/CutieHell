@@ -83,7 +83,7 @@ public class SoundManager : MonoBehaviour
     {
         foreach (UsageInfo usageInfo in activeClips.Values)
         {
-            usageInfo.UpdateTimers(Time.deltaTime);
+            usageInfo.UpdateTimers(Time.unscaledDeltaTime);
         }
     }
 

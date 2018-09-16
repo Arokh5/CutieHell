@@ -22,9 +22,13 @@ public class InitGame : MonoBehaviour
 
     [Header("Sounds")]
     [SerializeField]
+    private AudioClip changeSelectionClip;
+    [SerializeField]
     private AudioClip startClip;
     [SerializeField]
-    private AudioClip selectionClip;
+    private AudioClip clickClip;
+    [SerializeField]
+    private AudioClip backClip;
 
     private AudioSource audioSource;
 
@@ -41,7 +45,9 @@ public class InitGame : MonoBehaviour
         UnityEngine.Assertions.Assert.IsNotNull(blackFader, "ERROR: ScreenFadeController (blackFader) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
         UnityEngine.Assertions.Assert.IsNotNull(foregroundFader, "ERROR: ScreenFadeController (foregroundFader) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
         UnityEngine.Assertions.Assert.IsNotNull(startClip, "ERROR: Start Clip (AudioClip) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
-        UnityEngine.Assertions.Assert.IsNotNull(selectionClip, "ERROR: Selection Clip (AudioClip) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
+        UnityEngine.Assertions.Assert.IsNotNull(changeSelectionClip, "ERROR: Change Selection Clip (AudioClip) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
+        UnityEngine.Assertions.Assert.IsNotNull(clickClip, "ERROR: Click Clip (AudioClip) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
+        UnityEngine.Assertions.Assert.IsNotNull(backClip, "ERROR: Back Clip (AudioClip) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
         audioSource = GetComponent<AudioSource>();
         UnityEngine.Assertions.Assert.IsNotNull(audioSource, "ERROR: An AudioSource component could not be found by the InitGame script in GameObject '" + gameObject.name + "'!");
     }
@@ -100,7 +106,7 @@ public class InitGame : MonoBehaviour
                 index++;
             }
 
-            PlaySelectionClip();
+            PlayChangeSelectionClip();
             buttons[index].SelectButton();
         }
         else if (InputManager.instance.GetPadUpDown() || InputManager.instance.GetLeftStickUpDown())
@@ -116,7 +122,7 @@ public class InitGame : MonoBehaviour
                 index--;
             }
 
-            PlaySelectionClip();
+            PlayChangeSelectionClip();
             buttons[index].SelectButton();
         }
     }
@@ -128,21 +134,24 @@ public class InitGame : MonoBehaviour
             switch (index)
             {
                 case 0:
-                    menuActive = false;
                     PlayStartClip();
+                    menuActive = false;
                     blackFader.FadeToOpaque(0.5f, LoadGameScene);
                     break;
 
                 case 1:
+                    PlayClickClip();
                     menuActive = false;
                     helpPanel.SetActive(true);
                     break;
 
                 case 2:
+                    PlayClickClip();
                     blackFader.FadeToOpaque(0.5f, LoadCreditsScene);
                     break;
 
                 case 3:
+                    PlayClickClip();
                     Application.Quit();
                     break;
             }
@@ -154,6 +163,7 @@ public class InitGame : MonoBehaviour
     {
         if (InputManager.instance.GetOButtonDown())
         {
+            PlayBackClip();
             menuActive = true;
             helpPanel.SetActive(false);
         }
@@ -170,16 +180,27 @@ public class InitGame : MonoBehaviour
         SceneManager.LoadScene("Credits",LoadSceneMode.Single);
     }
 
-    private void PlaySelectionClip()
+    private void PlayChangeSelectionClip()
     {
-        if (selectionClip)
-            audioSource.PlayOneShot(selectionClip);
+        if (changeSelectionClip)
+            audioSource.PlayOneShot(changeSelectionClip);
     }
 
     private void PlayStartClip()
     {
         if (startClip)
             audioSource.PlayOneShot(startClip);
+    }
+
+    private void PlayClickClip()
+    {
+        if (clickClip)
+            audioSource.PlayOneShot(clickClip);
+    }
+    private void PlayBackClip()
+    {
+        if (backClip)
+            audioSource.PlayOneShot(backClip);
     }
     #endregion
 }

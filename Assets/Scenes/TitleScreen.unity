@@ -4121,6 +4121,51 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 72255660}
   m_Mesh: {fileID: 4300000, guid: b39aeeafd42b470478f38608dfefbc55, type: 3}
+--- !u!1 &85194987
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 85194989}
+  - component: {fileID: 85194988}
+  m_Layer: 0
+  m_Name: InputManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &85194988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 85194987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e796f52dfb0a47408b3deaad32859c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isXbox: 0
+  isPS4: 0
+  errorMessage: {fileID: 2076708842}
+  stopGameIfNoController: 1
+  forceXBox: 0
+--- !u!4 &85194989
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 85194987}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &96165148
 GameObject:
   m_ObjectHideFlags: 0
@@ -10085,7 +10130,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &560247857 stripped
 MonoBehaviour:
@@ -22255,7 +22300,6 @@ GameObject:
   m_Component:
   - component: {fileID: 871382080}
   - component: {fileID: 871382079}
-  - component: {fileID: 871382081}
   - component: {fileID: 871382082}
   m_Layer: 0
   m_Name: InitGame
@@ -22284,8 +22328,10 @@ MonoBehaviour:
   helpPanel: {fileID: 2019633391}
   blackFader: {fileID: 449117910}
   foregroundFader: {fileID: 848938688}
-  startClip: {fileID: 8300000, guid: de5c5f6b338834d4ea5a0cbce848c642, type: 3}
-  selectionClip: {fileID: 8300000, guid: 7305267463f64d24f8bfe99ebef2e8ee, type: 3}
+  changeSelectionClip: {fileID: 8300000, guid: 7305267463f64d24f8bfe99ebef2e8ee, type: 3}
+  startClip: {fileID: 8300000, guid: b6e4238e8558662449ab9cf5892a0141, type: 3}
+  clickClip: {fileID: 8300000, guid: 0378ce649fb821747b169169093ed8f5, type: 3}
+  backClip: {fileID: 8300000, guid: 6bf226a03626e96468e3192e1ca6e442, type: 3}
 --- !u!4 &871382080
 Transform:
   m_ObjectHideFlags: 0
@@ -22299,22 +22345,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &871382081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 871382078}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e796f52dfb0a47408b3deaad32859c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isXbox: 0
-  isPS4: 0
-  errorMessage: {fileID: 2076708842}
-  stopGameIfNoController: 1
-  forceXBox: 0
 --- !u!82 &871382082
 AudioSource:
   m_ObjectHideFlags: 0
@@ -39962,7 +39992,7 @@ Prefab:
     - target: {fileID: 224022867720920868, guid: 091ea44678da1ff4aa84866431bda8f5,
         type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 224022867720920868, guid: 091ea44678da1ff4aa84866431bda8f5,
         type: 2}
@@ -40017,7 +40047,7 @@ Prefab:
     - target: {fileID: 224060756451112712, guid: 091ea44678da1ff4aa84866431bda8f5,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 43.000122
+      value: 43
       objectReference: {fileID: 0}
     - target: {fileID: 1802461162716838, guid: 091ea44678da1ff4aa84866431bda8f5, type: 2}
       propertyPath: m_IsActive
@@ -41568,7 +41598,7 @@ Transform:
   - {fileID: 414046011}
   - {fileID: 1397633047}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1938235962
 GameObject:

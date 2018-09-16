@@ -14,6 +14,14 @@ public class PauseMenuController : MonoBehaviour
     [SerializeField]
     private GameObject challengesPanel;
 
+    [Header("SFX")]
+    [SerializeField]
+    private AudioClip changeSelectionClip;
+    [SerializeField]
+    private AudioClip clickClip;
+    [SerializeField]
+    private AudioClip backClip;
+
     private bool controlsScreenActive = false;
     private bool challengesScreenActive = false;
     #endregion
@@ -38,6 +46,7 @@ public class PauseMenuController : MonoBehaviour
     {
         if (InputManager.instance.GetPadDownDown() || InputManager.instance.GetLeftStickDownDown())
         {
+            PlayChangeSelectionClip();
             pauseButtons[pauseIndex].UnselectButton();
 
             if (pauseIndex == pauseButtons.Length - 1)
@@ -53,6 +62,7 @@ public class PauseMenuController : MonoBehaviour
         }
         else if (InputManager.instance.GetPadUpDown() || InputManager.instance.GetLeftStickUpDown())
         {
+            PlayChangeSelectionClip();
             pauseButtons[pauseIndex].UnselectButton();
 
             if (pauseIndex == 0)
@@ -72,7 +82,7 @@ public class PauseMenuController : MonoBehaviour
     {
         if (InputManager.instance.GetXButtonDown())
         {
-
+            PlayClickClip();
             switch (pauseIndex)
             {
                 case 0:
@@ -101,6 +111,7 @@ public class PauseMenuController : MonoBehaviour
 
         if (InputManager.instance.GetPS4OptionsDown())
         {
+            PlayClickClip();
             Resume();
         }
     }
@@ -117,11 +128,29 @@ public class PauseMenuController : MonoBehaviour
     {
         if (InputManager.instance.GetOButtonDown())
         {
+            PlayBackClip();
             helpPanel.SetActive(false);
             controlsScreenActive = false;
             challengesPanel.SetActive(false);
             challengesScreenActive = false;
         }
+    }
+
+    private void PlayChangeSelectionClip()
+    {
+        if (changeSelectionClip)
+            SoundManager.instance.PlaySfxClip(changeSelectionClip);
+    }
+
+    private void PlayClickClip()
+    {
+        if (clickClip)
+            SoundManager.instance.PlaySfxClip(clickClip);
+    }
+    private void PlayBackClip()
+    {
+        if (backClip)
+            SoundManager.instance.PlaySfxClip(backClip);
     }
     #endregion
 }
