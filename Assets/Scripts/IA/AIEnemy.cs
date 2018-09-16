@@ -14,6 +14,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private AIZoneController zoneController;
 
     private bool frozen = false;
+    public bool blackHoleAffected;
+    public Transform blackHolePosition;
     private Player playerTarget;
     private IDamageable currentTarget;
     private Building currentTargetBuilding;
@@ -141,6 +143,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         enemyCollider = GetComponent<Collider>();
         originalStoppingDistance = agent.stoppingDistance;
         active = false;
+        blackHoleAffected = false;
         initialSpeed = agent.speed;
         timeSinceLastAttackRecived = 0.0f;
         heightOffset = enemyCollider.bounds.size.y / 2.0f;
@@ -155,7 +158,19 @@ public class AIEnemy : MonoBehaviour, IDamageable
     {
         if (frozen)
             return;
-
+        if (blackHoleAffected && agent.isActiveAndEnabled)
+        {
+            agent.SetDestination(blackHolePosition.position);
+            agent.updateRotation = false;
+            agent.stoppingDistance = 0.0f;
+            agent.speed = (- Vector3.Distance(blackHolePosition.position, this.transform.position) + 12) / 1.5f + speedOnSlow;
+            return;
+        }
+        else
+        {
+            agent.updateRotation = true;
+            agent.speed = initialSpeed;
+        }
         UpdateCurrentTarget();
         Knockback();
         UpdateSlowSpeed();
@@ -322,9 +337,19 @@ public class AIEnemy : MonoBehaviour, IDamageable
         return currentHealth;
     }
 
+    public void BearMove()
+    {
+        if (enemyType == EnemyType.RANGE)
+        {
+            animator.SetBool("Move", true);
+        }
+    }
+
     public void Restart()
     {
         frozen = false;
+        blackHoleAffected = false;
+        blackHolePosition = null;
         hasPlayerAsTarget = false;
         hasPlayerAsDetected = false;
         navAttackTarget = null;

@@ -58,7 +58,6 @@ GameObject:
   - component: {fileID: 135306669891866968}
   - component: {fileID: 54098577998148712}
   - component: {fileID: 114637366188394284}
-  - component: {fileID: 114307524903064590}
   m_Layer: 0
   m_Name: BlackHole
   m_TagString: Untagged
@@ -276,18 +275,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &114307524903064590
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1254106180116098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb21fc7b641e3544fae69356650e080d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeToReturnToPool: 16
 --- !u!114 &114637366188394284
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -306,6 +293,7 @@ MonoBehaviour:
   slowRange: 6
   killRange: 2.5
   sphereCollider: {fileID: 135306669891866968}
+  duration: 15.5
 --- !u!135 &135306669891866968
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -15,7 +15,7 @@ public class PlaceMeteorite : StateAction
             {
                 tutorialEventLauncher.LaunchEvent();
                 player.meteoriteAttackCooldown.timeSinceLastAction = 0.0f;
-                ParticlesManager.instance.LaunchParticleSystem(balckHoleAttack, player.transform.position + player.transform.forward * 4 +  Vector3.up * 3, balckHoleAttack.transform.rotation);
+                ParticlesManager.instance.LaunchParticleSystem(balckHoleAttack, player.transform.position + player.transform.forward * 4 +  Vector3.up * 2.2f, balckHoleAttack.transform.rotation);
             }
             else
                 player.meteoriteAttackCooldown.cooldownUI.Flash();

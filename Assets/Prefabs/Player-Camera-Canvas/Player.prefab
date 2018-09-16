@@ -4388,9 +4388,9 @@ MonoBehaviour:
   knockbackCurrentForce: 0
   knockbackDirection: {x: 0, y: 0, z: 0}
   knockbackActive: 0
-  baseHealth: 150
-  autoHealDelay: 3.5
-  fullAutoHealDuration: 5
+  baseHealth: 200
+  autoHealDelay: 5
+  fullAutoHealDuration: 20
   recoveryDuration: 3.5
   isTargetable: 1
   cuteGroundsInfoPanel: {fileID: 0}
@@ -4426,7 +4426,7 @@ MonoBehaviour:
   weakAttackTargetHitOffset: {x: 0, y: 0, z: 0}
   weakAttackTargetTransform: {fileID: 0}
   strongAttackCooldown:
-    cooldownTime: 0
+    cooldownTime: 2
     cooldownUI: {fileID: 0}
     timeSinceLastAction: 0
   strongAttackCollider: {fileID: 114193170441824256}
@@ -4437,7 +4437,7 @@ MonoBehaviour:
   canChargeStrongAttack: 0
   isChargingStrongAttack: 0
   coneAttackCooldown:
-    cooldownTime: 0
+    cooldownTime: 1
     cooldownUI: {fileID: 0}
     timeSinceLastAction: 0
   coneAttackVFX: {fileID: 198198694768147230, guid: 55bcdf238065df24190f2c200067562d,
@@ -4452,15 +4452,14 @@ MonoBehaviour:
     timeSinceLastAction: 0
   minePrefab: {fileID: 198004336150570630, guid: 6cfede698414cdc43a874ab388791ee0,
     type: 2}
-  maxMinesNumber: 3
-  availableMinesNumber: 0
-  timeToGetAnotherMine: 4
+  maxCurrentMinesNumber: 3
+  timeToGetAnotherMine: 5
   timeSinceLastMine: 0
   mines: []
-  minesCount: 0
+  availableMinesNumber: 0
   mineCounterUI: {fileID: 0}
   meteoriteAttackCooldown:
-    cooldownTime: 0
+    cooldownTime: 16
     cooldownUI: {fileID: 0}
     timeSinceLastAction: 0
   footstepsSFX:
