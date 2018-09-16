@@ -41,6 +41,7 @@ public class BlackHole : PooledParticleSystem
         {
             AIEnemy aIEnemy = other.GetComponent<AIEnemy>();
             aIEnemy.MarkAsTarget(true);
+            aIEnemy.SetStoppingDistanceZero();
             attackTargets.Add(aIEnemy);
             aIEnemy.blackHoleAffected = true;
             aIEnemy.blackHolePosition = this.transform;

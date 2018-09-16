@@ -160,10 +160,15 @@ public class AIEnemy : MonoBehaviour, IDamageable
             return;
         if (blackHoleAffected && agent.isActiveAndEnabled)
         {
-            agent.SetDestination(blackHolePosition.position);
-            agent.updateRotation = false;
+            SetStoppingDistanceZero();
             agent.stoppingDistance = 0.0f;
+            agent.updateRotation = false;
+            agent.SetDestination(blackHolePosition.position);
             agent.speed = (- Vector3.Distance(blackHolePosition.position, this.transform.position) + 12) / 1.5f + speedOnSlow;
+            if(agent.speed <= 0.0f)
+            {
+                agent.speed = 0.5f;
+            }
             return;
         }
         else
@@ -335,6 +340,11 @@ public class AIEnemy : MonoBehaviour, IDamageable
     public float GetCurrentHealth()
     {
         return currentHealth;
+    }
+
+    public void SetStoppingDistanceZero()
+    {
+        agent.stoppingDistance = 0.0f;
     }
 
     public void BearMove()
