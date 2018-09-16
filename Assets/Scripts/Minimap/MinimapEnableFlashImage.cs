@@ -5,7 +5,7 @@ public class MinimapEnableFlashImage : MinimapImage
 {
     #region MonoBehaviour Methods
     [SerializeField]
-    [Tooltip("(Optional) The sfx clip to play when the effect starts.")]
+    [Tooltip("(Optional) The sfx clip to play every time this minimap Image enters the minimap area.")]
     private AudioClip clip;
 
     private UIFlasher uiFlasher;
@@ -30,7 +30,9 @@ public class MinimapEnableFlashImage : MinimapImage
         uiFlasher.RequestStopFlash();
 
         if (clip)
+        {
             SoundManager.instance.PlaySfxClip(clip);
+        }
     }
     #endregion
 }

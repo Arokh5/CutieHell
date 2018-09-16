@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class RoundInfoController : MonoBehaviour
 {
     #region Fields
+    [Header("Elements setup")]
     [SerializeField]
     private Text currentRoundText;
     [SerializeField]
@@ -18,10 +19,15 @@ public class RoundInfoController : MonoBehaviour
     private FillIndicator waveDelayFillIndicator;
     [SerializeField]
     private Text waveComingPrompt;
+
+    [Header("Wave prompt configuration")]
     [SerializeField]
     [Tooltip("The time (in seconds) that defines when the waveComingPrompt is shown. If the time left for the next wave is less that this value, the prompt is shown. Otherwise it remains hidden.")]
     [Range(0.0f, 50.0f)]
     private float promptTimeThreshold = 10.0f;
+    [SerializeField]
+    [Tooltip("(Optional) The sfx clip to play every time the waveComingPrompt appears on screen.")]
+    private AudioClip wavePromptsSFX;
 
     private int currentRoundNumber = -1;
     private int totalRoundsCount = -1;
@@ -155,7 +161,16 @@ public class RoundInfoController : MonoBehaviour
 
     private void SetWaveComingPromptVisibility(bool isVisible)
     {
+        if (isVisible && !waveComingPrompt.gameObject.activeSelf)
+        {
+            // So, it will appear
+            if (wavePromptsSFX)
+            {
+                SoundManager.instance.PlaySfxClip(wavePromptsSFX);
+            }
+        }
         waveComingPrompt.gameObject.SetActive(isVisible);
+
     }
     #endregion
 }

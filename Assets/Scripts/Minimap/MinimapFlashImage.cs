@@ -46,7 +46,9 @@ public class MinimapFlashImage : MinimapImage
         {
             uiFlasher.RequestStartFlash();
             if (clip)
+            {
                 SoundManager.instance.PlaySfxClip(clip);
+            }
         }
 
         effectActive = true;
