@@ -129,6 +129,8 @@ public class MultiTrackController : MonoBehaviour
             float hazardLevel = GetHazardLevel();
             UpdateActiveTrackIndex(hazardLevel);
         }
+
+        Debug.Log("INFO: (MultiTrackController) Playing track " + trackInfos[activeTrackIndex].name);
         return trackInfos[activeTrackIndex].track;
     }
 
