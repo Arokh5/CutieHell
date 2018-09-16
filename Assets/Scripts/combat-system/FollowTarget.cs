@@ -79,7 +79,6 @@ public class FollowTarget : PooledParticleSystem
             if (enemyHit)
             {
                 enemyHit.TakeDamage(damage, attackType);
-                Achievements.instance.IncreaseCurrentCountHitType(1, AttackType.WEAK, linkedAchievementID, enemyHit.GetInstanceID());
                 if (hasKnockback)
                     enemyHit.SetKnockback(this.transform.position);
                 audioSource.pitch = Random.Range(0.3f, 0.8f);
