@@ -37,10 +37,19 @@ public class MultiTrackController : MonoBehaviour
     [SerializeField]
     private MonumentEffect maxMonumentEffect;
 
+    [Header("Fading out")]
+    [SerializeField]
+    private float fadeOutTime = 0.5f;
+
+    private float elapsedFadeTime = 0.0f;
+
     [Header("Information")]
     [SerializeField]
     [ShowOnly]
     private bool isPlaying = false;
+    [SerializeField]
+    [ShowOnly]
+    private bool isFadingOut = false;
     [SerializeField]
     [ShowOnly]
     private int activeTrackIndex = 0;
@@ -68,6 +77,11 @@ public class MultiTrackController : MonoBehaviour
 
     private void Update()
     {
+        if (isFadingOut)
+        {
+            FadeOutEffect();
+        }
+
         if (isPlaying && !mainAudioSource.isPlaying)
         {
             secondaryAudioSource.Stop();
@@ -101,23 +115,40 @@ public class MultiTrackController : MonoBehaviour
     #region Public Methods
     public void Play()
     {
+        isFadingOut = false;
+        SetAudioSourcesVolume(1.0f);
+        StopAudioSources();
         isPlaying = true;
     }
 
+    public void FadeOut()
+    {
+        if (isPlaying)
+        {
+            StopMultiTrack();
+            elapsedFadeTime = 0.0f;
+            isFadingOut = true;
+        }
+    }
+
     public void Stop()
+    {
+        StopMultiTrack();
+        StopAudioSources();
+    }
+    #endregion
+
+    #region Private Methods
+    private void StopMultiTrack()
     {
         if (activeMultiTrack != null)
         {
             activeMultiTrack.Stop();
             activeMultiTrack = null;
         }
-
-        StopAudioSources();
         isPlaying = false;
     }
-    #endregion
 
-    #region Private Methods
     private MusicMultiTrack GetCurrentMultiTrack()
     {
         if (test_overrideNextTrack)
@@ -187,6 +218,32 @@ public class MultiTrackController : MonoBehaviour
 
         Debug.Log("INFO: (MultiTrackController) Hazard lvl: " + hazardLevel + " (Enemies: " + enemiesCount + " | Mon. Dmg: " + normalizedMonumentDamage + ")");
         return hazardLevel;
+    }
+
+    private void FadeOutEffect()
+    {
+        elapsedFadeTime += Time.unscaledDeltaTime;
+        if (elapsedFadeTime > fadeOutTime)
+        {
+            elapsedFadeTime = fadeOutTime;
+        }
+
+        float progress = elapsedFadeTime / fadeOutTime;
+        float volume = 1.0f - progress;
+
+        SetAudioSourcesVolume(volume);
+
+        if (elapsedFadeTime == fadeOutTime)
+        {
+            StopAudioSources();
+            isFadingOut = false;
+        }
+    }
+
+    private void SetAudioSourcesVolume(float volume)
+    {
+        mainAudioSource.volume = volume;
+        secondaryAudioSource.volume = volume;
     }
 
     private void StopAudioSources()

@@ -100,11 +100,17 @@ public class SoundManager : MonoBehaviour
     #region Public Methods
     public void PlayMusicClip(AudioClip musicClip, bool loop = false, float pitch = 1f)
     {
-        multiTrackController.Stop();
+        multiTrackController.FadeOut();
         musicSource.clip = musicClip;
         musicSource.pitch = pitch;
         musicSource.loop = loop;
         musicSource.Play();
+    }
+
+    public void RestoreDefaultBGM()
+    {
+        musicSource.Stop();
+        multiTrackController.Play();
     }
 
     public void PlaySfxClip(AudioClip sfxClip, float pitch = 1f)

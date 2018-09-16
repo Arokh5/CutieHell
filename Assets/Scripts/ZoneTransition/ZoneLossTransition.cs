@@ -8,6 +8,9 @@ public class ZoneLossTransition : MonoBehaviour
     [SerializeField]
     private CinematicStripes cinematicStripes;
     [SerializeField]
+    [Tooltip("(Optional) The BGM that will be played during the transition.")]
+    private AudioClip transitionBGM;
+    [SerializeField]
     [Tooltip("GameObjects that will be deactivated for the duration of the Transition.")]
     private GameObject[] objectsToHide;
 
@@ -48,6 +51,10 @@ public class ZoneLossTransition : MonoBehaviour
         currentAnimationIndex = -1;
         if (HasAnimations())
         {
+            if (transitionBGM)
+            {
+                SoundManager.instance.PlayMusicClip(transitionBGM, true);
+            }
             cinematicStripes.ShowAnimated();
             SetObjectsToHideActiveState(false);
             StartNextAnimation();
@@ -76,6 +83,10 @@ public class ZoneLossTransition : MonoBehaviour
     {
         if (HasAnimations())
         {
+            if (transitionBGM)
+            {
+                SoundManager.instance.RestoreDefaultBGM();
+            }
             obstructionHandler.ShowObstructions();
             cinematicStripes.HideAnimated();
             SetObjectsToHideActiveState(true);
