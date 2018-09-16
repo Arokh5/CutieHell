@@ -39,9 +39,11 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private RoundScore roundScore;
 
-    [Header("Round won")]
+    [Header("Round won and game won")]
     [SerializeField]
     private ZoneLossTransition roundWonTransition;
+    [SerializeField]
+    private ZoneLossTransition gameWonTransition;
 
     [Header("Game End")]
     [SerializeField]
@@ -292,7 +294,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("INFO: No more rounds available!");
-            OnGameWon();
+            gameWonTransition.StartTransition(OnGameWon);
         }
         
     }

@@ -47,6 +47,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1229406733955540
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4112235738167400}
+  - component: {fileID: 114365181972276076}
+  - component: {fileID: 114294007314655234}
+  - component: {fileID: 114660775361871242}
+  m_Layer: 0
+  m_Name: GameWonTransition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1639395492040046
 GameObject:
   m_ObjectHideFlags: 0
@@ -67,6 +85,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4112235738167400
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1229406733955540}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4747520670456778}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4686611169597948
 Transform:
   m_ObjectHideFlags: 1
@@ -92,6 +123,7 @@ Transform:
   m_Children:
   - {fileID: 4953440652591776}
   - {fileID: 4686611169597948}
+  - {fileID: 4112235738167400}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -165,6 +197,28 @@ MonoBehaviour:
   errorMessage: {fileID: 0}
   stopGameIfNoController: 1
   forceXBox: 0
+--- !u!114 &114294007314655234
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1229406733955540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e9f43850c430ca4181c35fc4493c9d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  restoreObstructions: 0
+  hideObstructions: 1
+  yOffset: 1.5
+  reference: {fileID: 0}
+  localTargetPosition: {x: 0, y: 2.35, z: 3.7}
+  localTargetRotation: {x: 15.38, y: 180, z: 0}
+  motionDuration: 1
+  triggerAnimation: 1
+  triggerOnEnd: 1
+  triggerName: WinGame
+  previewCamera: 0
 --- !u!114 &114327510471244382
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -187,6 +241,7 @@ MonoBehaviour:
   crosshair: {fileID: 0}
   roundScore: {fileID: 0}
   roundWonTransition: {fileID: 114017735550717742}
+  gameWonTransition: {fileID: 114365181972276076}
   gameScore: {fileID: 0}
   victoryClip: {fileID: 8300000, guid: da90e4c5a369bb44f9a4ee08b01fd220, type: 3}
   defeatClip: {fileID: 8300000, guid: dcdb78c389ffed14da4afbb6698bbdee, type: 3}
@@ -202,6 +257,32 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   forceGameLoss: 0
+--- !u!114 &114365181972276076
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1229406733955540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b64fa3536fae88458f6a1f00117b219, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cinematicStripes: {fileID: 0}
+  objectsToHide:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  scriptedAnimations:
+  - {fileID: 114294007314655234}
+  - {fileID: 114660775361871242}
 --- !u!114 &114386236205031278
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -268,6 +349,19 @@ MonoBehaviour:
   timeCombo: {fileID: 0}
   receivedDamageCombo: {fileID: 0}
   gameScore: {fileID: 0}
+--- !u!114 &114660775361871242
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1229406733955540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8275c8f37fc998d4da19621d1db85847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  restoreObstructions: 0
+  waitTime: 4.4
 --- !u!114 &114679199570073192
 MonoBehaviour:
   m_ObjectHideFlags: 1
