@@ -35,6 +35,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private NavMeshAgent agent;
     [HideInInspector]
     public float initialSpeed;
+    private Vector3 initialScale;
     public float speedOnSlow;
     private float originalStoppingDistance;
 
@@ -151,6 +152,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         player = GameManager.instance.GetPlayer1();
         timeOnStun = 0.0f;
         timeOnSlow = 0.0f;
+        initialScale = this.transform.localScale;
         stunVFX.SetActive(false);
         canvasController = GetComponent<EnemyCanvasController>();
     }
@@ -371,7 +373,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         hasPlayerAsTarget = false;
         hasPlayerAsDetected = false;
         navAttackTarget = null;
-        this.transform.localScale = Vector3.one;
+        this.transform.localScale = initialScale;
 
         timeOnStun = 0.0f;
         timeOnSlow = 0.0f;
