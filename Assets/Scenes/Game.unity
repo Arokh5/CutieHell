@@ -44084,7 +44084,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1823624127792384, guid: ea64b03fd47dae043a3d7cf8c919a7b7, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1199556099031044, guid: ea64b03fd47dae043a3d7cf8c919a7b7, type: 2}
       propertyPath: m_IsActive
@@ -44147,9 +44147,45 @@ Prefab:
       value: As enemies conquer your monument, the ground towards it will turn cute.
         Stepping on cute ground will slowly reduce your health, be careful.
       objectReference: {fileID: 0}
+    - target: {fileID: 114826807590197834, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: db00f33dbee509744ac848b8efa0fc4b,
+        type: 3}
+    - target: {fileID: 114826807590197834, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+        type: 2}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ea64b03fd47dae043a3d7cf8c919a7b7, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &631537231 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1859811327071706, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+    type: 2}
+  m_PrefabInternal: {fileID: 631537230}
+--- !u!114 &631537232 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114826807590197834, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+    type: 2}
+  m_PrefabInternal: {fileID: 631537230}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &631537233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 631537231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6261e7898d471864aa015201c260afc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 631537232}
+  spritePS4: {fileID: 21300000, guid: db00f33dbee509744ac848b8efa0fc4b, type: 3}
+  spriteXbox: {fileID: 21300004, guid: db00f33dbee509744ac848b8efa0fc4b, type: 3}
 --- !u!4 &631742153
 Transform:
   m_ObjectHideFlags: 0
