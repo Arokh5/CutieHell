@@ -3150,6 +3150,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224337615966256068}
   - component: {fileID: 222640540371409014}
+  - component: {fileID: 114221730064152138}
   - component: {fileID: 114404539018824100}
   m_Layer: 5
   m_Name: Info
@@ -4071,6 +4072,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224565034542097090}
   - component: {fileID: 222281928119003242}
+  - component: {fileID: 114318247388851752}
   - component: {fileID: 114790900203197692}
   m_Layer: 5
   m_Name: Info
@@ -4595,6 +4597,7 @@ GameObject:
   - component: {fileID: 224891692748230944}
   - component: {fileID: 222464804818803460}
   - component: {fileID: 114826807590197834}
+  - component: {fileID: 114778361415012204}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -6845,6 +6848,22 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 99
+--- !u!114 &114221730064152138
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1580776545820146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 909b0bd611ab38148ab075aa2f2172a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textElement: {fileID: 114404539018824100}
+  textPS4: After a SLASH ATTACK, you can get an extra slash if you press the square
+    button at the right time.
+  textXbox: After a SLASH ATTACK, you can get an extra slash if you press the X button
+    at the right time.
 --- !u!114 &114224160877720762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7859,6 +7878,22 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114318247388851752
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1766009120905018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 909b0bd611ab38148ab075aa2f2172a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textElement: {fileID: 114790900203197692}
+  textPS4: '"Fly up, aim and then press the circle button to land with fury, damaging
+    all enemies in the area. You can also hold the circle instead to charge up."'
+  textXbox: '"Fly up, aim and then press the B button to land with fury, damaging
+    all enemies in the area. You can also hold the B instead to charge up."'
 --- !u!114 &114321099845251360
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8523,7 +8558,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: After a SLASH ATTACK, you can get an extra slash if you press the skill's
+  m_Text: After a SLASH ATTACK, you can get an extra slash if you press the square
     button at the right time.
 --- !u!114 &114408876832514578
 MonoBehaviour:
@@ -11346,6 +11381,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114778361415012204
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1859811327071706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6261e7898d471864aa015201c260afc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 114826807590197834}
+  spritePS4: {fileID: 21300000, guid: db00f33dbee509744ac848b8efa0fc4b, type: 3}
+  spriteXbox: {fileID: 21300004, guid: db00f33dbee509744ac848b8efa0fc4b, type: 3}
 --- !u!114 &114781565878707966
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11489,8 +11538,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Fly up and press the skill's button again to land with fury, damaging all
-    enemies in the area. Hold circle to charge up.
+  m_Text: '"Fly up, aim and then press the circle button to land with fury, damaging
+    all enemies in the area. You can also hold the circle instead to charge up."'
 --- !u!114 &114791122641019006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11836,7 +11885,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: db00f33dbee509744ac848b8efa0fc4b, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
