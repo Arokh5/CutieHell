@@ -45,6 +45,16 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private ZoneLossTransition gameWonTransition;
 
+    [Header("Conqueror tutorial")]
+    [SerializeField]
+    private ZoneLossTransition firstConquerorTransition;
+    [SerializeField]
+    private CameraReferencedMotion conquerorCameraPlane;
+    [SerializeField]
+    private int conquerorTutorialEventIndex = -1;
+
+    private bool firstConquerorShown = false;
+
     [Header("Game End")]
     [SerializeField]
     private GameScore gameScore;
@@ -160,6 +170,10 @@ public class GameManager : MonoBehaviour
             Debug.Log("INFO: (GameManager) Tutorial Event " + eventIndex + " launched!");
             FreezePlayer();
             launched = true;
+        }
+        else if (endCallback != null)
+        {
+            endCallback();
         }
         return launched;
     }
@@ -322,9 +336,33 @@ public class GameManager : MonoBehaviour
         return roundsCompleted;
     }
    
+    public void OnConquerorAppears(Transform conquerorTransform)
+    {
+        if (!firstConquerorShown)
+        {
+            firstConquerorShown = true;
+            FreezePlayer();
+            scenarioController.FreezeAllEnemies();
+            PauseEnemySpawning();
+            conquerorCameraPlane.SetReference(conquerorTransform);
+            firstConquerorTransition.StartTransition(OnConquerorCameraPlaneFinished);
+        }
+    }
     #endregion
 
     #region Private Methods
+    private void OnConquerorCameraPlaneFinished()
+    {
+        LaunchTutorialEvent(conquerorTutorialEventIndex, OnConquerorTutorialFinished);
+    }
+
+    private void OnConquerorTutorialFinished()
+    {
+        ResumeEnemySpawning();
+        scenarioController.ResumeAllEnemies();
+        ReleasePlayer();
+    }
+
     private void HideUIOnGameEnd()
     {
         if (uiToHide != null)
@@ -338,15 +376,21 @@ public class GameManager : MonoBehaviour
 
     private void FreezePlayer()
     {
-        avoidPlayerUpdate = true;
-        previousCameraState = player.cameraState;
-        player.cameraState = Player.CameraState.STILL;
+        if (!avoidPlayerUpdate)
+        {
+            avoidPlayerUpdate = true;
+            previousCameraState = player.cameraState;
+            player.cameraState = Player.CameraState.STILL;
+        }
     }
 
     private void ReleasePlayer()
     {
-        player.cameraState = previousCameraState;
-        avoidPlayerUpdate = false;
+        if (avoidPlayerUpdate)
+        {
+            player.cameraState = previousCameraState;
+            avoidPlayerUpdate = false;
+        }
     }
 
     private void OnTutorialFinished()
