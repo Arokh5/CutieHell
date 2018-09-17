@@ -27,8 +27,13 @@ public class BlackHole : PooledParticleSystem
 
     void Update()
     {
-        AttackLogic();
         timer += Time.deltaTime;
+
+        if (timer <= duration - 0.5f)
+        {
+            AttackLogic();
+        }
+
         if(timer >= duration)
         {
             DisableBlackHole();
@@ -58,10 +63,9 @@ public class BlackHole : PooledParticleSystem
             lookDirection = attackTargets[i].transform.position - this.transform.position;
             lookDirection.y = 0;
             attackTargets[i].transform.rotation = Quaternion.LookRotation(lookDirection);
-
             if (sqrKillRange > Vector3.SqrMagnitude(this.transform.position - attackTargets[i].gameObject.transform.position))
             {
-                attackTargets[i].TakeDamage(9999999, AttackType.METEORITE);
+                attackTargets[i].ActivateBlackHoleKill();
                 attackTargets.Remove(attackTargets[i]);
             }
         }
@@ -73,6 +77,7 @@ public class BlackHole : PooledParticleSystem
         {
             attackTargets[i].blackHoleAffected = false;
             attackTargets[i].blackHolePosition = null;
+            attackTargets[i].MarkAsTarget(false);
         }
 
         enabled = false;
