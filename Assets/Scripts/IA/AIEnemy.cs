@@ -14,7 +14,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
     private AIZoneController zoneController;
 
     private bool frozen = false;
-    public bool blackHoleAffected;
+    public bool blackHoleAffected, blackHoleKill;
     public Transform blackHolePosition;
     private Player playerTarget;
     private IDamageable currentTarget;
@@ -144,6 +144,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         originalStoppingDistance = agent.stoppingDistance;
         active = false;
         blackHoleAffected = false;
+        blackHoleKill = false;
         initialSpeed = agent.speed;
         timeSinceLastAttackRecived = 0.0f;
         heightOffset = enemyCollider.bounds.size.y / 2.0f;
@@ -174,6 +175,11 @@ public class AIEnemy : MonoBehaviour, IDamageable
         {
             agent.updateRotation = true;
             agent.speed = initialSpeed;
+        }
+        if (blackHoleKill)
+        {
+            DieBlackHole();
+            return;
         }
         UpdateCurrentTarget();
         Knockback();
@@ -360,10 +366,12 @@ public class AIEnemy : MonoBehaviour, IDamageable
     {
         frozen = false;
         blackHoleAffected = false;
+        blackHoleKill = false;
         blackHolePosition = null;
         hasPlayerAsTarget = false;
         hasPlayerAsDetected = false;
         navAttackTarget = null;
+        this.transform.localScale = Vector3.one;
 
         timeOnStun = 0.0f;
         timeOnSlow = 0.0f;
@@ -514,6 +522,36 @@ public class AIEnemy : MonoBehaviour, IDamageable
             ParticlesManager.instance.LaunchParticleSystem(deathVFX, this.transform.position + Vector3.up * heightOffset, this.transform.rotation);
 
         DestroySelf();
+    }
+
+    public void ActivateBlackHoleKill()
+    {
+        blackHoleAffected = false;
+        blackHoleKill = true;
+        agent.enabled = false;
+        MarkAsTarget(false);
+    }
+
+    public void DieBlackHole()
+    {
+        if (blackHolePosition == null)
+        {
+            DestroySelf();
+            return;
+        }
+        this.transform.RotateAround(blackHolePosition.position, Vector3.up, 5.0f);
+        this.transform.Rotate(Vector3.up + Vector3.right + Vector3.forward, 9.0f);
+        this.transform.Translate((blackHolePosition.position - this.transform.position).normalized * 2f * Time.deltaTime, Space.World);
+        this.transform.localScale = this.transform.localScale * 0.99f;
+        Debug.Log(Vector3.Distance(blackHolePosition.position, this.transform.position));
+        if (Vector3.Distance(blackHolePosition.position, this.transform.position) <= 0.1f)
+        {
+            StatsManager.instance.GetMaxCombo().EnableCombo();
+            StatsManager.instance.RegisterKill(enemyType);
+            zoneController.RemoveEnemy(this);
+            killingHit = AttackType.METEORITE;
+            DestroySelf();
+        }
     }
 
     public void DieAfterMatch()
