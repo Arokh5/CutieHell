@@ -8,6 +8,9 @@ public class TutorialEventLauncher
 
     public void LaunchEvent()
     {
-        GameManager.instance.LaunchTutorialEvent(eventIndex);
+        if (eventIndex != -1)
+        {
+            GameManager.instance.LaunchTutorialEvent(eventIndex);
+        }
     }
 }

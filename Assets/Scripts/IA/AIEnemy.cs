@@ -157,6 +157,14 @@ public class AIEnemy : MonoBehaviour, IDamageable
         canvasController = GetComponent<EnemyCanvasController>();
     }
 
+    private void Start()
+    {
+        if (enemyType == EnemyType.CONQUEROR)
+        {
+            GameManager.instance.OnConquerorAppears(transform);
+        }
+    }
+
     private void Update()
     {
         if (frozen)

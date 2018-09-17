@@ -142,7 +142,7 @@ public class AISpawner : MonoBehaviour {
     {
         EnemyType enemyType = spawnInfo.enemiesToSpawn[spawnInfo.nextSpawnIndex];
         ++spawnInfo.nextSpawnIndex;
-        spawnInfo.nextSpawnTime = spawnInfo.nextSpawnIndex * spawnInfo.spawnDuration / spawnInfo.enemiesToSpawn.Length;
+        spawnInfo.nextSpawnTime = (spawnInfo.nextSpawnIndex + 1) * spawnInfo.spawnDuration / spawnInfo.enemiesToSpawn.Length;
 
         SpawnOne(enemyType);
     }

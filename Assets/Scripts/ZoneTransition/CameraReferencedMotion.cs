@@ -12,6 +12,8 @@ public class CameraReferencedMotion : ScriptedAnimation
 
     [Header("Camera setup")]
     [SerializeField]
+    private bool allowRuntimeReferenceSet = false;
+    [SerializeField]
     private Transform reference;
     [SerializeField]
     [Tooltip("The target position in the reference's local space")]
@@ -57,27 +59,13 @@ public class CameraReferencedMotion : ScriptedAnimation
     #region MonoBehaviour Methods
     private void Awake()
     {
-        UnityEngine.Assertions.Assert.IsNotNull(reference, "ERROR: Reference (Transform) not assigned for CameraReferencedMotion script in GameObject '" + gameObject.name + "'!");
+        if (!allowRuntimeReferenceSet)
+        {
+            UnityEngine.Assertions.Assert.IsNotNull(reference, "ERROR: Reference (Transform) not assigned for CameraReferencedMotion script in GameObject '" + gameObject.name + "'!");
+        }
         gameCamera = Camera.main;
         targetRotationQuat = Quaternion.Euler(localTargetRotation);
-        if (triggerAnimation)
-        {
-            referenceAnimator = reference.GetComponent<Animator>();
-            UnityEngine.Assertions.Assert.IsNotNull(referenceAnimator, "ERROR: The Reference (Transform) assigned for CameraReferencedMotion script in GameObject " + gameObject.name + "' does not have an Animator Component attached to it!");
-            bool found = false;
-            foreach (AnimatorControllerParameter acp in referenceAnimator.parameters)
-            {
-                if (acp.name == triggerName)
-                {
-                    found = true;
-                    break;
-                }
-            }
-            if (!found)
-            {
-                Debug.LogError("ERROR: The Animator found in the Reference (Transform) assigned for CameraReferencedMotion script in GameObject " + gameObject.name + "' does NOT have an animator parameter called '" + triggerName + "'!");
-            }
-        }
+        ValidateAnimatorParameter();
     }
 
     private void Update()
@@ -123,6 +111,14 @@ public class CameraReferencedMotion : ScriptedAnimation
             cameraTransform.rotation = originalCameraRot;
         }
 #endif
+    }
+    #endregion
+
+    #region Public Methods
+    public void SetReference(Transform reference)
+    {
+        this.reference = reference;
+        ValidateAnimatorParameter();
     }
     #endregion
 
@@ -178,6 +174,28 @@ public class CameraReferencedMotion : ScriptedAnimation
         }
 
         OnAnimationFinished();
+    }
+
+    private void ValidateAnimatorParameter()
+    {
+        if (triggerAnimation)
+        {
+            referenceAnimator = reference.GetComponent<Animator>();
+            UnityEngine.Assertions.Assert.IsNotNull(referenceAnimator, "ERROR: The Reference (Transform) assigned for CameraReferencedMotion script in GameObject " + gameObject.name + "' does not have an Animator Component attached to it!");
+            bool found = false;
+            foreach (AnimatorControllerParameter acp in referenceAnimator.parameters)
+            {
+                if (acp.name == triggerName)
+                {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+            {
+                Debug.LogError("ERROR: The Animator found in the Reference (Transform) assigned for CameraReferencedMotion script in GameObject " + gameObject.name + "' does NOT have an animator parameter called '" + triggerName + "'!");
+            }
+        }
     }
     #endregion
 }
