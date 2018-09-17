@@ -15,7 +15,7 @@ public class ControllerText : Observer
     #region MonoBehaviour Methods
     private void Awake()
     {
-        UnityEngine.Assertions.Assert.IsNotNull(textElement, "ERROR: Text Element (Text) not assigned for ControllerSprite script in GameObject " + gameObject.name);
+        UnityEngine.Assertions.Assert.IsNotNull(textElement, "ERROR: Text Element (Text) not assigned for ControllerText script in GameObject " + gameObject.name);
         InputManager.instance.AddObserver(this);
         OnNotify();
     }
