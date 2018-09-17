@@ -542,9 +542,8 @@ public class AIEnemy : MonoBehaviour, IDamageable
         this.transform.RotateAround(blackHolePosition.position, Vector3.up, 5.0f);
         this.transform.Rotate(Vector3.up + Vector3.right + Vector3.forward, 9.0f);
         this.transform.Translate((blackHolePosition.position - this.transform.position).normalized * 2f * Time.deltaTime, Space.World);
-        this.transform.localScale = this.transform.localScale * 0.99f;
-        Debug.Log(Vector3.Distance(blackHolePosition.position, this.transform.position));
-        if (Vector3.Distance(blackHolePosition.position, this.transform.position) <= 0.1f)
+        this.transform.localScale = this.transform.localScale * 0.9915f;
+        if (Vector3.Distance(blackHolePosition.position, this.transform.position) <= 0.2f)
         {
             StatsManager.instance.GetMaxCombo().EnableCombo();
             StatsManager.instance.RegisterKill(enemyType);
