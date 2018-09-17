@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     private ScreenFadeController screenFadeController;
 
     private bool avoidPlayerUpdate;
+    private int playerFreezeRequests = 0;
     private Player.CameraState previousCameraState;
 
     [SerializeField]
@@ -376,6 +377,7 @@ public class GameManager : MonoBehaviour
 
     private void FreezePlayer()
     {
+        ++playerFreezeRequests;
         if (!avoidPlayerUpdate)
         {
             avoidPlayerUpdate = true;
@@ -386,7 +388,8 @@ public class GameManager : MonoBehaviour
 
     private void ReleasePlayer()
     {
-        if (avoidPlayerUpdate)
+        --playerFreezeRequests;
+        if (avoidPlayerUpdate && playerFreezeRequests == 0)
         {
             player.cameraState = previousCameraState;
             avoidPlayerUpdate = false;
