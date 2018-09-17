@@ -354,7 +354,7 @@ public class Player : MonoBehaviour, IDamageable
         {
             if (mines[i] == null)
             {
-                mines[i] = ParticlesManager.instance.LaunchParticleSystem(minePrefab, this.transform.position, minePrefab.transform.rotation).GetComponent<ActivateMineExplosion>();
+                mines[i] = ParticlesManager.instance.LaunchParticleSystem(minePrefab, this.transform.position + this.transform.forward, minePrefab.transform.rotation * this.transform.rotation).GetComponent<ActivateMineExplosion>();
                 return;
             }
         }
