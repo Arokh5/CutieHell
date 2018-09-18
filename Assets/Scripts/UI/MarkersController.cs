@@ -21,5 +21,11 @@ public class MarkersController : MonoBehaviour
         if (index >= 0 && index < monumentIndicators.Length)
             monumentIndicators[index].MonumentTaken();
     }
+
+    public void RequestFlash(int index)
+    {
+        if (index >= 0 && index < monumentIndicators.Length)
+            monumentIndicators[index].RequestFlash();
+    }
     #endregion
 }

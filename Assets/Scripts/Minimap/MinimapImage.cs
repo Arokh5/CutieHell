@@ -76,6 +76,10 @@ public class MinimapImage : MonoBehaviour
     #region Public Methods
     public void SetupMinimapImage(MinimapElement mmElement)
     {
+        if (!image)
+        {
+            image = GetComponent<Image>();
+        }
         image.sprite = mmElement.sprite;
         image.color = mmElement.color;
         image.rectTransform.sizeDelta = new Vector2(mmElement.size, mmElement.size);

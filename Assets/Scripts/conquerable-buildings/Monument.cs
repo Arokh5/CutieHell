@@ -44,6 +44,8 @@ public class Monument : Building
         if (minimapElement)
             minimapElement.RequestEffect();
 
+        UIManager.instance.markersController.RequestFlash(zoneController.iconIndex);
+
         if (!IsDead())
             healthBar.SetHealthBarFill(currentHealth / baseHealth);
 

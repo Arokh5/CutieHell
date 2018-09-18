@@ -1,10 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class ObjectiveMarker : MonoBehaviour
 {
+    #region Fields
+    [Header("Monument marker")]
     public float horizontalOffsetPercentage = 0.05f;
     public float bottomOffset = 0.1f;
     public float topOffset = 0.7f;
@@ -18,12 +18,23 @@ public class ObjectiveMarker : MonoBehaviour
     private bool arrowEnableState = true;
     private RectTransform iconTransform;
 
+    [Header("Flashing")]
+    [SerializeField]
+    [Tooltip("(Optional) Used to cause the monument indocator to flash upon request")]
+    private UIFlasher uiFlasher;
+    [SerializeField]
+    private float flashDuration = 1.0f;
+
+    private float flashTimeLeft = 0.0f;
+    #endregion
+
+    #region MonoBehaviour Methods
     private void Awake()
     {
         gameObject.SetActive(false);
     }
 
-    void Start()
+    private void Start()
     {
         horizontalOffset = mainCamera.pixelWidth * horizontalOffsetPercentage;
 
@@ -35,7 +46,36 @@ public class ObjectiveMarker : MonoBehaviour
         iconTransform = GetComponent<RectTransform>();
     }
     
-    void Update()
+    private void Update()
+    {
+        UpdateIcon();
+        UpdateFlashing();
+    }
+    #endregion
+
+    #region Public Methods
+    public void MonumentTargetted()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void MonumentTaken()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void RequestFlash()
+    {
+        if (uiFlasher)
+        {
+            uiFlasher.RequestStartFlash();
+            flashTimeLeft = flashDuration;
+        }
+    }
+    #endregion
+
+    #region Private Methods
+    private void UpdateIcon()
     {
         bool currentArrowEnableState = true;
 
@@ -76,7 +116,7 @@ public class ObjectiveMarker : MonoBehaviour
                 iconPosition.y = mainCamera.pixelHeight * Mathf.Clamp(screenPosition.y, bottomOffset, topOffset);
                 iconPosition.x = mainCamera.pixelWidth * Mathf.Clamp(screenPosition.x, horizontalOffsetPercentage, 1 - horizontalOffsetPercentage);
             }
-            else 
+            else
             {
                 float upwardsFactor;
                 if (left)
@@ -124,13 +164,15 @@ public class ObjectiveMarker : MonoBehaviour
         }
     }
 
-    public void MonumentTargetted()
+    private void UpdateFlashing()
     {
-        gameObject.SetActive(true);
-    }
+        if (flashTimeLeft > 0.0f)
+        {
+            flashTimeLeft -= Time.deltaTime;
 
-    public void MonumentTaken()
-    {
-        gameObject.SetActive(false);
+            if (flashTimeLeft <= 0.0f)
+                uiFlasher.RequestStopFlash();
+        }
     }
+    #endregion
 }
