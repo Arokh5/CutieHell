@@ -107,7 +107,7 @@ public class ScreenFadeController : MonoBehaviour
     #region Private Methods
     private void Fade()
     {
-        elapsedTime += Time.unscaledDeltaTime;
+        elapsedTime += Time.unscaledDeltaTime < 0.1f ? Time.unscaledDeltaTime : 0.0f;
         float u = elapsedTime / currentFadeDuration;
         
         if (u < 1)
