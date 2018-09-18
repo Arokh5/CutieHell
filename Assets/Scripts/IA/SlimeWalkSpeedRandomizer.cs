@@ -29,7 +29,7 @@ public class SlimeWalkSpeedRandomizer : MonoBehaviour
 
     public void InstantiateVFX()
     {
-        ParticlesManager.instance.LaunchParticleSystem(footStepsVFX, this.transform.position - Vector3.up * 0.05f, footStepsVFX.transform.rotation);
+        ParticlesManager.instance.LaunchParticleSystem(footStepsVFX, this.transform.position + Vector3.up * 0.1f, footStepsVFX.transform.rotation);
         SoundManager.instance.PlaySfxClip(audioSource, footStepSFX, true);
     }
     #endregion
