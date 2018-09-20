@@ -18,7 +18,9 @@ public class InitGame : MonoBehaviour
     [SerializeField]
     private ScreenFadeController blackFader;
     [SerializeField]
-    private ScreenFadeController foregroundFader;
+    private InfoPanel frontUI;
+    [SerializeField]
+    private float frontUIBlendDuration = 1.0f;
 
     [Header("Sounds")]
     [SerializeField]
@@ -43,7 +45,7 @@ public class InitGame : MonoBehaviour
         UnityEngine.Assertions.Assert.IsNotNull(loadingText, "ERROR: Text (loadingText) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
         UnityEngine.Assertions.Assert.IsNotNull(helpPanel, "ERROR: GameObject (helpPanel) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
         UnityEngine.Assertions.Assert.IsNotNull(blackFader, "ERROR: ScreenFadeController (blackFader) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
-        UnityEngine.Assertions.Assert.IsNotNull(foregroundFader, "ERROR: ScreenFadeController (foregroundFader) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
+        UnityEngine.Assertions.Assert.IsNotNull(frontUI, "ERROR: Front UI (InfoPanel) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
         UnityEngine.Assertions.Assert.IsNotNull(startClip, "ERROR: Start Clip (AudioClip) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
         UnityEngine.Assertions.Assert.IsNotNull(changeSelectionClip, "ERROR: Change Selection Clip (AudioClip) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
         UnityEngine.Assertions.Assert.IsNotNull(clickClip, "ERROR: Click Clip (AudioClip) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
@@ -69,7 +71,7 @@ public class InitGame : MonoBehaviour
         helpPanel.SetActive(false);
         loadingText.enabled = false;
         blackFader.TurnOpaque();
-        foregroundFader.TurnOpaque();
+        frontUI.Hide();
         blackFader.FadeToTransparent(OnFadedIn);
     }
 
@@ -91,7 +93,7 @@ public class InitGame : MonoBehaviour
     #region Public Methods
     public void OnFadedIn()
     {
-        foregroundFader.FadeToTransparent(OnMenuShown);
+        frontUI.ShowAnimated(frontUIBlendDuration, OnMenuShown);
     }
 
     public void OnMenuShown()
@@ -101,8 +103,6 @@ public class InitGame : MonoBehaviour
     #endregion
 
     #region Private Methods
-
-
     private void ProcessToggleBetweenButtons()
     {
         if (InputManager.instance.GetPadDownDown() || InputManager.instance.GetLeftStickDownDown())

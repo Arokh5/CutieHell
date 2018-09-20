@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class InfoPanel : MonoBehaviour
 {
+    public delegate void VoidCallback();
+
     [System.Serializable]
     private class GraphicInfo
     {
@@ -33,6 +35,7 @@ public class InfoPanel : MonoBehaviour
     private float blendDuration;
     private float displayDuration;
 
+    private VoidCallback endCallback = null;
     #endregion
 
     #region Properties
@@ -96,19 +99,19 @@ public class InfoPanel : MonoBehaviour
         ResetAnimationFlags();
     }
 
-    public bool ShowAnimated(float _blendDuration)
+    public bool ShowAnimated(float _blendDuration, VoidCallback _endCallback = null)
     {
-        return SetupAnimation(_blendDuration, 0.0f, true, false);
+        return SetupAnimation(_blendDuration, 0.0f, true, false, _endCallback);
     }
 
-    public bool HideAnimated(float _blendDuration)
+    public bool HideAnimated(float _blendDuration, VoidCallback _endCallback = null)
     {
-        return SetupAnimation(_blendDuration, 0.0f, false, true);
+        return SetupAnimation(_blendDuration, 0.0f, false, true, _endCallback);
     }
 
-    public bool ShowHideAnimated(float _blendDuration, float _displayDuration)
+    public bool ShowHideAnimated(float _blendDuration, float _displayDuration, VoidCallback _endCallback = null)
     {
-        return SetupAnimation(_blendDuration, _displayDuration, true, true);
+        return SetupAnimation(_blendDuration, _displayDuration, true, true, _endCallback);
     }
     #endregion
 
@@ -123,12 +126,13 @@ public class InfoPanel : MonoBehaviour
         }
     }
 
-    private bool SetupAnimation(float _blendDuration, float _displayDuration, bool show, bool hide)
+    private bool SetupAnimation(float _blendDuration, float _displayDuration, bool show, bool hide, VoidCallback _endCallback)
     {
         bool success = false;
 
         if (!animating && !(!show && !hide))
         {
+            endCallback = _endCallback;
             if ((show && hide) && !inShownState)
                 showHideFlag = true;
             else if (show && !inShownState)
@@ -180,6 +184,7 @@ public class InfoPanel : MonoBehaviour
         else
         {
             showFlag = false;
+            LaunchCallback();
         }
     }
 
@@ -199,6 +204,7 @@ public class InfoPanel : MonoBehaviour
         {
             hideFlag = false;
             gameObject.SetActive(false);
+            LaunchCallback();
         }
     }
 
@@ -232,8 +238,19 @@ public class InfoPanel : MonoBehaviour
             alphaFactor = 0.0f;
             showHideFlag = false;
             gameObject.SetActive(false);
+            LaunchCallback();
         }
         SetAlphaFactor(alphaFactor);
+    }
+
+    private void LaunchCallback()
+    {
+        if (endCallback != null)
+        {
+            VoidCallback callback = endCallback;
+            endCallback = null;
+            callback();
+        }
     }
     #endregion
 }
