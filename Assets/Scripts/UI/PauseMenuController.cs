@@ -7,7 +7,7 @@ public class PauseMenuController : MonoBehaviour
 
     #region Fields
     [SerializeField]
-    private MenuButton[] pauseButtons = new MenuButton[4];
+    private MenuButton[] pauseButtons;
     private int pauseIndex = 0;
     [SerializeField]
     private GameObject helpPanel;
@@ -24,6 +24,23 @@ public class PauseMenuController : MonoBehaviour
 
     private bool controlsScreenActive = false;
     private bool challengesScreenActive = false;
+    #endregion
+
+    #region MonoBehaviour Methods
+    private void Awake()
+    {
+        for (int i = 0; i < pauseButtons.Length; ++i)
+        {
+            if (i == 0)
+            {
+                pauseButtons[i].SelectButton();
+            }
+            else
+            {
+                pauseButtons[i].UnselectButton();
+            }
+        }
+    }
     #endregion
 
     #region Public Methods

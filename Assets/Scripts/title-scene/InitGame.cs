@@ -50,6 +50,18 @@ public class InitGame : MonoBehaviour
         UnityEngine.Assertions.Assert.IsNotNull(backClip, "ERROR: Back Clip (AudioClip) not assigned for InitGame in GameObject '" + gameObject.name + "'!");
         audioSource = GetComponent<AudioSource>();
         UnityEngine.Assertions.Assert.IsNotNull(audioSource, "ERROR: An AudioSource component could not be found by the InitGame script in GameObject '" + gameObject.name + "'!");
+
+        for (int i = 0; i < buttons.Length; ++i)
+        {
+            if (i == 0)
+            {
+                buttons[i].SelectButton();
+            }
+            else
+            {
+                buttons[i].UnselectButton();
+            }
+        }
     }
 
     private void Start()
