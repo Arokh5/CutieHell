@@ -214,7 +214,7 @@ public class MinimapController : MonoBehaviour
             {
                 // The null case occurs during destruction of the scene
                 minimapImage.CleanUp();
-                minimapImagesPool.ReturnToPool(minimapImage);
+                DestroyElementImage(minimapImage, mmElement.minimapImageType);
             }
             minimapImages.RemoveAt(index);
         }
@@ -352,6 +352,25 @@ public class MinimapController : MonoBehaviour
         mmImage.SetupMinimapImage(mmElement);
         mmImage.transform.SetSiblingIndex(hierarchyIndex);
         return mmImage;
+    }
+
+    private void DestroyElementImage(MinimapImage image, MinimapImageType type)
+    {
+        switch (type)
+        {
+            case MinimapImageType.DEFAULT:
+                minimapImagesPool.ReturnToPool(image);
+                break;
+            case MinimapImageType.FLASHER:
+                minimapFlashImagesPool.ReturnToPool((MinimapFlashImage)image);
+                break;
+            case MinimapImageType.ENABLE_FLASHER:
+                minimapEnableFlashImagesPool.ReturnToPool((MinimapEnableFlashImage)image);
+                break;
+            default:
+                minimapImagesPool.ReturnToPool(image);
+                break;
+        }
     }
 
     private Vector2 WorldToMinimap(Vector3 worldPos)
