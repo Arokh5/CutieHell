@@ -13,9 +13,8 @@ public class PlaceMine : StateAction
             if (player.GetAvailableMines() > 0)
             {
                 tutorialEventLauncher.LaunchEvent();
-                player.InstantiateMine();
                 AnimatorClipInfo[] a = player.animator.GetCurrentAnimatorClipInfo(0);
-                if(a[0].clip.name != "Attack_Mine" || !player.animator.GetBool("PlaceMine"))
+                if (a[0].clip.name != "Attack_Mine" || !player.animator.GetBool("PlaceMine"))
                 {
                     player.animator.SetTrigger("PlaceMine");
                 }
