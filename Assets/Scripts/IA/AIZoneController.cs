@@ -153,10 +153,10 @@ public class AIZoneController : MonoBehaviour
         return currentZoneTarget;
     }
 
-    public List<PathNode> GetPath(Vector3 startingPos)
+    public List<PathNode> GetPath(Vector3 startingPos, int pathIndex = -1)
     {
         if (pathsController)
-            return pathsController.GetPath(startingPos);
+            return pathsController.GetPath(startingPos, pathIndex);
         return null;
     }
 

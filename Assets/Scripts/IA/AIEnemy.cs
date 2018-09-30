@@ -5,6 +5,11 @@ using UnityEngine.AI;
 public class AIEnemy : MonoBehaviour, IDamageable
 {
     #region Fields
+    [Header("PRESENTATION")]
+    [ShowOnly]
+    public int pathIndex = -1;
+    [Space(20.0f)]
+
     public EnemyType enemyType;
 
     [HideInInspector]
@@ -648,7 +653,7 @@ public class AIEnemy : MonoBehaviour, IDamageable
         UnityEngine.Assertions.Assert.IsNotNull(zoneController, "Error: zoneController is null for AIEnemy in GameObject '" + gameObject.name + "'!");
         /* Update path and nextNode */
         inNavNode = false;
-        currentPath = zoneController.GetPath(transform.position);
+        currentPath = zoneController.GetPath(transform.position, pathIndex);
         if (currentPath != null && currentPath.Count > 0)
         {
             currentNodeIndex = 0;

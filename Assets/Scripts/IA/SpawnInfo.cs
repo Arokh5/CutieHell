@@ -3,6 +3,10 @@
 [System.Serializable]
 public class SpawnInfo
 {
+    [Header("PRESENTATION")]
+    public int pathIndex = -1;
+    [Space(20.0f)]
+    
     // Used by AISpawnController
     [Tooltip("Time is expressed in seconds")]
     public float spawnTime;

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class AISpawner : MonoBehaviour {
@@ -94,7 +93,7 @@ public class AISpawner : MonoBehaviour {
         }
     }
 
-    public AIEnemy SpawnOne(EnemyType enemyType)
+    public AIEnemy SpawnOne(EnemyType enemyType, int pathIndex = -1)
     {
         Vector3 randomPosition = new Vector3(
             Random.Range(0.5f * -spawnerArea.x, 0.5f * spawnerArea.x),
@@ -109,6 +108,7 @@ public class AISpawner : MonoBehaviour {
         instantiatedEnemy.transform.rotation = Quaternion.LookRotation(transform.forward, transform.up);
 
         instantiatedEnemy.Restart();
+        instantiatedEnemy.pathIndex = pathIndex;
         instantiatedEnemy.SetZoneController(zoneController);
 
         /* For particle effects */
@@ -144,7 +144,7 @@ public class AISpawner : MonoBehaviour {
         ++spawnInfo.nextSpawnIndex;
         spawnInfo.nextSpawnTime = (spawnInfo.nextSpawnIndex + 1) * spawnInfo.spawnDuration / spawnInfo.enemiesToSpawn.Length;
 
-        SpawnOne(enemyType);
+        SpawnOne(enemyType, spawnInfo.pathIndex);
     }
     #endregion
 }
