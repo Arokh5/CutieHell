@@ -15,6 +15,16 @@ public class Player : MonoBehaviour, IDamageable
     }
 
     #region Fields
+    [Header("PRESENTATION")]
+    [SerializeField]
+    private float reducedDamageSafetyLimit = -1.0f;
+    [SerializeField]
+    [Range(0.0f, 1.0f)]
+    private float reducedDamageFactor = 0.5f;
+    [SerializeField]
+    private float minHealthSafetyLimit = -1.0f;
+    [Space(20.0f)]
+
     [Header("Tutorial Events")]
     [SerializeField]
     private int enemyDamageIndex = -1;
@@ -440,6 +450,17 @@ public class Player : MonoBehaviour, IDamageable
 
         timeSinceLastHit = 0;
         currentHealth -= damage;
+
+        if (currentHealth < reducedDamageSafetyLimit)
+        {
+            currentHealth += (1.0f - reducedDamageFactor) * damage;
+        }
+
+        if (currentHealth < minHealthSafetyLimit)
+        {
+            currentHealth = minHealthSafetyLimit;
+        }
+
         if (currentHealth <= 0)
         {
             currentHealth = 0;

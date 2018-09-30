@@ -5,6 +5,11 @@ public abstract class Building : MonoBehaviour, IDamageable
 {
 
     #region Fields
+    [Header("PRESENTATION")]
+    [SerializeField]
+    private float minHealthSafetyLimit = -1.0f;
+    [Space(20.0f)]
+
     [Header ("General Building fields")]
     [SerializeField]
     protected AIZoneController zoneController;
@@ -123,6 +128,9 @@ public abstract class Building : MonoBehaviour, IDamageable
 
         if (currentHealth <= 0)
             currentHealth = 0;
+
+        if (currentHealth < minHealthSafetyLimit)
+            currentHealth = minHealthSafetyLimit;
 
         // Reset the underAttackElapsedTime timer
         if (buildingEffects)
