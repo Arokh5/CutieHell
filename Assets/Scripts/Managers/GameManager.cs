@@ -381,6 +381,11 @@ public class GameManager : MonoBehaviour
             firstConquerorTransition.StartTransition(OnConquerorCameraPlaneFinished);
         }
     }
+
+    public void ForceRoundWin()
+    {
+        scenarioController.ForceRoundWin();
+    }
     #endregion
 
     #region Private Methods

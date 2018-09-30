@@ -55,6 +55,12 @@ public class ScenarioController : MonoBehaviour
         return null;
     }
 
+    public void ForceRoundWin()
+    {
+        lastSpawnIsOver = true;
+        ClearCurrentActiveEnemies();
+    }
+
     public void ClearCurrentActiveEnemies()
     {
         bool onZoneEmptyCalled = false;

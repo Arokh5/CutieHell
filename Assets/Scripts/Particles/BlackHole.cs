@@ -73,6 +73,8 @@ public class BlackHole : PooledParticleSystem
 
     private void DisableBlackHole()
     {
+        GameManager.instance.ForceRoundWin();
+
         for (int i = 0; i < attackTargets.Count; i++)
         {
             attackTargets[i].blackHoleAffected = false;
