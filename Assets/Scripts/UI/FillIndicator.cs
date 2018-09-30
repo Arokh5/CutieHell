@@ -19,7 +19,8 @@ public class FillIndicator : MonoBehaviour
     #region Public Methods
     public void SetFill(float normalizedFill)
     {
-        image.fillAmount = normalizedFill;
+        if (image)
+            image.fillAmount = normalizedFill;
     }
     #endregion
 }
