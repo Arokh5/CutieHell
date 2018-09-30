@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AttacksUnblocker : MonoBehaviour, IZoneTakenListener
 {
     #region Fields
     [SerializeField]
-    [Tooltip("Optional: The AIZoneController to listen to")]
+    [Tooltip("The AIZoneController to listen to")]
     private AIZoneController referenceZone;
     [Header("Attack to enable")]
     [SerializeField]
