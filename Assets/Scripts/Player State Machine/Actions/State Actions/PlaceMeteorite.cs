@@ -9,7 +9,7 @@ public class PlaceMeteorite : StateAction
 
     public override void Act(Player player)
     {
-        if (InputManager.instance.GetTriangleButtonDown())
+        if (AttacksBlocker.instance.canUseBlackHole && InputManager.instance.GetTriangleButtonDown())
         {
             if (player.meteoriteAttackCooldown.timeSinceLastAction >= player.meteoriteAttackCooldown.cooldownTime)
             {
