@@ -11,6 +11,7 @@ public class BlackHole : PooledParticleSystem
     public float slowRange, killRange;
     public SphereCollider sphereCollider;
     public float duration;
+    public AudioSource audioSource;
     private float sqrKillRange;
     private float timer;
     #endregion
@@ -23,6 +24,7 @@ public class BlackHole : PooledParticleSystem
         attackTargets.Clear();
         sqrKillRange = killRange * killRange;
         GameManager.instance.GetPlayer1().SetIsBlackHoleOn(true);
+        audioSource.Play();
     }
 
     void Update()
@@ -79,6 +81,8 @@ public class BlackHole : PooledParticleSystem
             attackTargets[i].blackHolePosition = null;
             attackTargets[i].MarkAsTarget(false);
         }
+
+        audioSource.Stop();
 
         enabled = false;
         if (this.gameObject.GetComponent<BlackHole>() != null)
