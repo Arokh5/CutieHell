@@ -10,6 +10,15 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
 
+    [Header("PRESENTATION")]
+    [SerializeField]
+    private bool skipRoundWonAnimations = true;
+    [SerializeField]
+    private ScreenFadeController finalRenderFader;
+    [SerializeField]
+    private float finalFadeDuration = 2.5f;
+
+    [Space(20.0f)]
     [SerializeField]
     private TutorialManager tutorialManager;
     [SerializeField]
@@ -123,6 +132,13 @@ public class GameManager : MonoBehaviour
 
             case GameStates.OnGameEnd:
                 // GoToTitleScreen() is now called from the GameScore script or from the ExitGame method (called by PauseMenuController)
+                if (skipRoundWonAnimations)
+                {
+                    if (InputManager.instance.GetButtonDown(ControllerButton.X))
+                    {
+                        GoToTitleScreen();
+                    }
+                }
                 break;
 
             case GameStates.OnGamePaused:
@@ -215,7 +231,16 @@ public class GameManager : MonoBehaviour
         player.OnRoundOver();
 
         ++roundsCompleted;
-        roundWonTransition.StartTransition(OnRoundEnd);
+
+        if (skipRoundWonAnimations)
+        {
+            gameState = GameStates.OnRoundEnd;
+            GoToNextRound();
+        }
+        else
+        {
+            roundWonTransition.StartTransition(OnRoundEnd);
+        }
     }
 
     public void OnRoundEnd()
@@ -309,7 +334,14 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("INFO: No more rounds available!");
-            gameWonTransition.StartTransition(OnGameWon);
+            if (skipRoundWonAnimations)
+            {
+                gameWonTransition.StartTransition(OnGameWonNoScore);
+            }
+            else
+            {
+                gameWonTransition.StartTransition(OnGameWon);
+            }
         }
         
     }
@@ -352,6 +384,17 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Private Methods
+    private void OnGameWonNoScore()
+    {
+        if (gameState == GameStates.OnRoundEnd)
+        {
+            gameState = GameStates.OnGameEnd;
+            SoundManager.instance.PlayMusicClip(victoryClip, true);
+            HideUIOnGameEnd();
+            finalRenderFader.FadeToOpaque(finalFadeDuration);
+        }
+    }
+
     private void OnConquerorCameraPlaneFinished()
     {
         LaunchTutorialEvent(conquerorTutorialEventIndex, OnConquerorTutorialFinished);
