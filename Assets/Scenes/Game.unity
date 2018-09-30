@@ -14535,7 +14535,7 @@ GameObject:
   - component: {fileID: 236796813}
   - component: {fileID: 236796814}
   m_Layer: 0
-  m_Name: Node 3-2
+  m_Name: Node 4-2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14567,7 +14567,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940d052aa945185468a21e56ae0c4ba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathNodeLayer: 3
+  pathNodeLayer: 4
   radius: 2
   isEndOfPath: 0
   outlets:
@@ -26724,7 +26724,7 @@ GameObject:
   - component: {fileID: 422426383}
   - component: {fileID: 422426384}
   m_Layer: 0
-  m_Name: Node 3-3
+  m_Name: Node 4-3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26756,7 +26756,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940d052aa945185468a21e56ae0c4ba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathNodeLayer: 3
+  pathNodeLayer: 4
   radius: 2
   isEndOfPath: 0
   outlets:
@@ -27118,7 +27118,7 @@ GameObject:
   - component: {fileID: 436575584}
   - component: {fileID: 436575585}
   m_Layer: 0
-  m_Name: Node 4-0
+  m_Name: Node 5-0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27150,7 +27150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940d052aa945185468a21e56ae0c4ba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathNodeLayer: 4
+  pathNodeLayer: 5
   radius: 4
   isEndOfPath: 0
   outlets:
@@ -27803,7 +27803,8 @@ MonoBehaviour:
   - waveInfos:
     - waveStartDelay: 0
       spawnInfos:
-      - spawnTime: 0
+      - pathIndex: -1
+        spawnTime: 0
         spawnerIndex: 0
         spawnDuration: 1
         enemiesToSpawn: 000000000000000000000000000000000000000000000000
@@ -27817,7 +27818,8 @@ MonoBehaviour:
   - waveInfos:
     - waveStartDelay: 0
       spawnInfos:
-      - spawnTime: 0
+      - pathIndex: -1
+        spawnTime: 0
         spawnerIndex: 0
         spawnDuration: 1
         enemiesToSpawn: 010000000100000001000000
@@ -27831,7 +27833,8 @@ MonoBehaviour:
   - waveInfos:
     - waveStartDelay: 0
       spawnInfos:
-      - spawnTime: 0
+      - pathIndex: -1
+        spawnTime: 0
         spawnerIndex: 0
         spawnDuration: 1
         enemiesToSpawn: 020000000000000000000000
@@ -55688,7 +55691,7 @@ GameObject:
   - component: {fileID: 829016610}
   - component: {fileID: 829016611}
   m_Layer: 0
-  m_Name: Node 3-0
+  m_Name: Node 4-0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55720,7 +55723,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940d052aa945185468a21e56ae0c4ba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathNodeLayer: 3
+  pathNodeLayer: 4
   radius: 3
   isEndOfPath: 0
   outlets:
@@ -57101,9 +57104,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 758845860}
-  - {fileID: 2099972065}
   - {fileID: 1184739964}
   - {fileID: 2032900130}
+  - {fileID: 2099972065}
   - {fileID: 1338041781}
   - {fileID: 829016610}
   - {fileID: 1431568040}
@@ -57125,6 +57128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14b4aaa3fb654e540a14c152f5e517a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  predeterminedPaths: []
 --- !u!1001 &886095688
 Prefab:
   m_ObjectHideFlags: 0
@@ -70567,7 +70571,7 @@ GameObject:
   - component: {fileID: 1184739964}
   - component: {fileID: 1184739963}
   m_Layer: 0
-  m_Name: Node 2-0-1
+  m_Name: Node 2-0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70602,7 +70606,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 878575433}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1187729577
 Prefab:
@@ -75084,6 +75088,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14b4aaa3fb654e540a14c152f5e517a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  predeterminedPaths: []
 --- !u!4 &1332926455
 Transform:
   m_ObjectHideFlags: 0
@@ -75120,7 +75125,7 @@ GameObject:
   - component: {fileID: 1338041781}
   - component: {fileID: 1338041780}
   m_Layer: 0
-  m_Name: Node 2-2
+  m_Name: Node 3-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75138,7 +75143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940d052aa945185468a21e56ae0c4ba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathNodeLayer: 2
+  pathNodeLayer: 3
   radius: 5
   isEndOfPath: 0
   outlets:
@@ -81563,7 +81568,7 @@ GameObject:
   - component: {fileID: 1431568040}
   - component: {fileID: 1431568041}
   m_Layer: 0
-  m_Name: Node 3-1
+  m_Name: Node 4-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81595,7 +81600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940d052aa945185468a21e56ae0c4ba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathNodeLayer: 3
+  pathNodeLayer: 4
   radius: 3
   isEndOfPath: 0
   outlets:
@@ -106106,6 +106111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14b4aaa3fb654e540a14c152f5e517a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  predeterminedPaths: []
 --- !u!1001 &1804427008
 Prefab:
   m_ObjectHideFlags: 0
@@ -120083,7 +120089,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 878575433}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2033496270
 Prefab:
@@ -133180,7 +133186,7 @@ GameObject:
   - component: {fileID: 2099972065}
   - component: {fileID: 2099972064}
   m_Layer: 0
-  m_Name: Node 2-0
+  m_Name: Node 3-0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -133198,7 +133204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940d052aa945185468a21e56ae0c4ba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathNodeLayer: 2
+  pathNodeLayer: 3
   radius: 2.5
   isEndOfPath: 0
   outlets:
@@ -133215,7 +133221,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 878575433}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2102322473
 Prefab:
