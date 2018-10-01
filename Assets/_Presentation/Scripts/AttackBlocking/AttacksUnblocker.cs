@@ -36,11 +36,11 @@ public class AttacksUnblocker : MonoBehaviour, IZoneTakenListener
     {
         if (unblockMines)
         {
-            AttacksBlocker.instance.canUseMines = true;
+            AttacksBlocker.instance.UnblockMines();
         }
         if (unblockBlackHole)
         {
-            AttacksBlocker.instance.canUseBlackHole = true;
+            AttacksBlocker.instance.UnblockBlackHole(); ;
         }
     }
     #endregion

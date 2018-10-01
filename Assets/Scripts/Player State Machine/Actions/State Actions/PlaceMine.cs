@@ -8,7 +8,7 @@ public class PlaceMine : StateAction
 
     public override void Act(Player player)
     {
-        if (AttacksBlocker.instance.canUseMines && InputManager.instance.GetXButtonDown())
+        if (InputManager.instance.GetXButtonDown() && AttacksBlocker.instance.TryUseMines())
         {
             if (player.GetAvailableMines() > 0)
             {
