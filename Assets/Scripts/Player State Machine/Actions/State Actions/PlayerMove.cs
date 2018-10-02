@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(menuName = "Player State Machine/Actions/PlayerMove")]
 public class PlayerMove : StateAction
@@ -8,6 +6,7 @@ public class PlayerMove : StateAction
     public float maxSpeed;
     public float speedOnCharge;
     public float acceleration;
+    public bool verticalMovementOnly = false;
     public bool useAnimation;
     public LayerMask walkableLayer;
     public bool canExitWalkableLayer;
@@ -37,8 +36,8 @@ public class PlayerMove : StateAction
         Vector3 horizontalAcceleration = player.transform.right;
 
         accelerationVector += verticalAcceleration * -InputManager.instance.GetLeftStickVerticalValue();
-        accelerationVector += horizontalAcceleration * InputManager.instance.GetLeftStickHorizontalValue();
-
+        accelerationVector += horizontalAcceleration * InputManager.instance.GetLeftStickHorizontalValue() * (verticalMovementOnly ? 0.0f : 1.0f);
+        
         float accelerationMagnitude = accelerationVector.magnitude;
         if (accelerationMagnitude > 1.0f)
         {
