@@ -27803,11 +27803,35 @@ MonoBehaviour:
   - waveInfos:
     - waveStartDelay: 0
       spawnInfos:
-      - pathIndex: -1
+      - pathIndex: 0
         spawnTime: 0
+        spawnerIndex: 1
+        spawnDuration: 1
+        enemiesToSpawn: 000000000000000001000000000000000100000001000000000000000000000000000000010000000000000000000000
+        elapsedTime: 0
+        nextSpawnTime: 0
+        nextSpawnIndex: 0
+      - pathIndex: 1
+        spawnTime: 3
         spawnerIndex: 0
         spawnDuration: 1
-        enemiesToSpawn: 000000000000000000000000000000000000000000000000
+        enemiesToSpawn: 0000000000000000000000000000000000000000
+        elapsedTime: 0
+        nextSpawnTime: 0
+        nextSpawnIndex: 0
+      - pathIndex: 2
+        spawnTime: 7
+        spawnerIndex: 2
+        spawnDuration: 0
+        enemiesToSpawn: 01000000010000000100000001000000
+        elapsedTime: 0
+        nextSpawnTime: 0
+        nextSpawnIndex: 0
+      - pathIndex: 1
+        spawnTime: 14
+        spawnerIndex: 0
+        spawnDuration: 1
+        enemiesToSpawn: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
         elapsedTime: 0
         nextSpawnTime: 0
         nextSpawnIndex: 0
@@ -27818,11 +27842,43 @@ MonoBehaviour:
   - waveInfos:
     - waveStartDelay: 5
       spawnInfos:
-      - pathIndex: -1
+      - pathIndex: 2
         spawnTime: 0
         spawnerIndex: 0
+        spawnDuration: 0
+        enemiesToSpawn: 0000000000000000000000000000000000000000
+        elapsedTime: 0
+        nextSpawnTime: 0
+        nextSpawnIndex: 0
+      - pathIndex: 1
+        spawnTime: 5
+        spawnerIndex: 0
+        spawnDuration: 0
+        enemiesToSpawn: 0000000000000000000000000000000000000000
+        elapsedTime: 0
+        nextSpawnTime: 0
+        nextSpawnIndex: 0
+      - pathIndex: 3
+        spawnTime: 30
+        spawnerIndex: 2
         spawnDuration: 1
-        enemiesToSpawn: 010000000100000001000000
+        enemiesToSpawn: 02000000
+        elapsedTime: 0
+        nextSpawnTime: 0
+        nextSpawnIndex: 0
+      - pathIndex: 0
+        spawnTime: 30
+        spawnerIndex: 1
+        spawnDuration: 5
+        enemiesToSpawn: 000000000100000000000000000000000000000001000000010000000000000000000000010000000000000001000000010000000000000000000000
+        elapsedTime: 0
+        nextSpawnTime: 0
+        nextSpawnIndex: 0
+      - pathIndex: 1
+        spawnTime: 40
+        spawnerIndex: 0
+        spawnDuration: 1
+        enemiesToSpawn: 00000000000000000100000001000000010000000000000000000000
         elapsedTime: 0
         nextSpawnTime: 0
         nextSpawnIndex: 0
@@ -73622,7 +73678,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1281987908}
   m_LocalRotation: {x: 0, y: 0.2588191, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: -58.35, y: 35.82, z: 22.51}
+  m_LocalPosition: {x: -56.07, y: 35.82, z: 25.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1730234001}
@@ -75066,7 +75122,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14b4aaa3fb654e540a14c152f5e517a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  predeterminedPaths: []
+  predeterminedPaths:
+  - nodes:
+    - {fileID: 794189216}
+    - {fileID: 1061612408}
+    - {fileID: 791415872}
+  - nodes:
+    - {fileID: 1744420407}
+    - {fileID: 791415872}
+  - nodes:
+    - {fileID: 135534331}
+    - {fileID: 633315862}
+    - {fileID: 791415872}
 --- !u!4 &1332926455
 Transform:
   m_ObjectHideFlags: 0
@@ -93871,7 +93938,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1626541617}
   m_LocalRotation: {x: 0, y: -0.53729963, z: 0, w: 0.8433914}
-  m_LocalPosition: {x: 12.5, y: 32.5, z: 36.5}
+  m_LocalPosition: {x: 12.22, y: 32.5, z: 37.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1692787887}
@@ -106012,7 +106079,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14b4aaa3fb654e540a14c152f5e517a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  predeterminedPaths: []
+  predeterminedPaths:
+  - nodes:
+    - {fileID: 973132444}
+    - {fileID: 1493860726}
+    - {fileID: 899752330}
+    - {fileID: 1905392039}
+  - nodes:
+    - {fileID: 157216413}
+    - {fileID: 1313579622}
+    - {fileID: 561028836}
+    - {fileID: 1905392039}
+  - nodes:
+    - {fileID: 1446397347}
+    - {fileID: 1137152579}
+    - {fileID: 561028836}
+    - {fileID: 1905392039}
+  - nodes:
+    - {fileID: 696543793}
+    - {fileID: 1038422163}
+    - {fileID: 840037796}
+    - {fileID: 1905392039}
 --- !u!1001 &1804427008
 Prefab:
   m_ObjectHideFlags: 0
@@ -132901,6 +132988,21 @@ Prefab:
         type: 2}
       propertyPath: wavePromptsSFX
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114650509618246500, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114335495799633054, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114886954514567580, guid: ea64b03fd47dae043a3d7cf8c919a7b7,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ea64b03fd47dae043a3d7cf8c919a7b7, type: 2}
