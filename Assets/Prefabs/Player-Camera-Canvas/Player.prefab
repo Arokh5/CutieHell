@@ -4361,6 +4361,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1001fc1c05d1f242abd7f8a8c02112f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reducedDamageSafetyLimit: 50
+  reducedDamageFactor: 0.5
+  minHealthSafetyLimit: 20
   enemyDamageIndex: 7
   cuteGroundIndex: 8
   healthMechanicsIndex: 9
@@ -4388,7 +4391,7 @@ MonoBehaviour:
   knockbackCurrentForce: 0
   knockbackDirection: {x: 0, y: 0, z: 0}
   knockbackActive: 0
-  baseHealth: 200
+  baseHealth: 150
   autoHealDelay: 5
   fullAutoHealDuration: 20
   recoveryDuration: 3.5
@@ -4437,7 +4440,7 @@ MonoBehaviour:
   canChargeStrongAttack: 0
   isChargingStrongAttack: 0
   coneAttackCooldown:
-    cooldownTime: 1
+    cooldownTime: 1.5
     cooldownUI: {fileID: 0}
     timeSinceLastAction: 0
   coneAttackVFX: {fileID: 198198694768147230, guid: 55bcdf238065df24190f2c200067562d,
@@ -4453,15 +4456,17 @@ MonoBehaviour:
   minePrefab: {fileID: 198004336150570630, guid: 6cfede698414cdc43a874ab388791ee0,
     type: 2}
   maxCurrentMinesNumber: 3
-  timeToGetAnotherMine: 5
+  timeToGetAnotherMine: 7
   timeSinceLastMine: 0
   mines: []
   availableMinesNumber: 0
   mineCounterUI: {fileID: 0}
   meteoriteAttackCooldown:
-    cooldownTime: 25
+    cooldownTime: 30
     cooldownUI: {fileID: 0}
     timeSinceLastAction: 0
+  blackHoleAttack: {fileID: 198652807117627848, guid: 8da6be24a7c265e4ab4a29096a873143,
+    type: 2}
   footstepsSFX:
   - {fileID: 8300000, guid: d7193b6de456a5342a88908e67da6010, type: 3}
   - {fileID: 8300000, guid: fa7379e9f4ce0c04b9c6baacad95dd55, type: 3}

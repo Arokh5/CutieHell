@@ -205,6 +205,7 @@ public class Player : MonoBehaviour, IDamageable
 
     [Header("Meteorite Attack")]
     public CooldownInfo meteoriteAttackCooldown;
+    public ParticleSystem blackHoleAttack;
 
     private bool isBlackHoleOn = false;
 
@@ -588,6 +589,11 @@ public class Player : MonoBehaviour, IDamageable
     public void ChangeDecalColor(float time)
     {
         strongAttackCollider.ChangeDecalColor(time);
+    }
+
+    public void PlaceBlackHole()
+    {
+        ParticlesManager.instance.LaunchParticleSystem(blackHoleAttack, this.transform.position + this.transform.forward * 4 + Vector3.up * 2.2f, blackHoleAttack.transform.rotation);
     }
 
     #endregion
