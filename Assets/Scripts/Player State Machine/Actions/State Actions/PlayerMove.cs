@@ -7,9 +7,9 @@ public class PlayerMove : StateAction
     public float speedOnCharge;
     public float acceleration;
     [Range(0.0f, 1.0f)]
-    public float horizontalMovementFactor = 1.0f;
+    public float frontalMovementFactor = 1.0f;
     [Range(0.0f, 1.0f)]
-    public float verticalMovementFactor = 1.0f;
+    public float sidewaysMovementFactor = 1.0f;
     public bool useAnimation;
     public LayerMask walkableLayer;
     public bool canExitWalkableLayer;
@@ -38,8 +38,8 @@ public class PlayerMove : StateAction
         Vector3 verticalAcceleration = player.transform.forward;
         Vector3 horizontalAcceleration = player.transform.right;
 
-        accelerationVector += verticalAcceleration * -InputManager.instance.GetLeftStickVerticalValue() * horizontalMovementFactor;
-        accelerationVector += horizontalAcceleration * InputManager.instance.GetLeftStickHorizontalValue() * verticalMovementFactor;
+        accelerationVector += verticalAcceleration * -InputManager.instance.GetLeftStickVerticalValue() * frontalMovementFactor;
+        accelerationVector += horizontalAcceleration * InputManager.instance.GetLeftStickHorizontalValue() * sidewaysMovementFactor;
         
         float accelerationMagnitude = accelerationVector.magnitude;
         if (accelerationMagnitude > 1.0f)
