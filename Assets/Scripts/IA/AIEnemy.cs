@@ -179,10 +179,10 @@ public class AIEnemy : MonoBehaviour, IDamageable
             agent.stoppingDistance = 0.0f;
             agent.updateRotation = false;
             agent.SetDestination(blackHolePosition.position);
-            agent.speed = (- Vector3.Distance(blackHolePosition.position, this.transform.position) + 12) / 1.5f + speedOnSlow;
-            if(agent.speed <= 0.0f)
+            agent.speed = (- Vector3.Distance(blackHolePosition.position, this.transform.position) + 12) / 1.5f + speedOnSlow ;
+            if(agent.speed <= 3.5f)
             {
-                agent.speed = 0.5f;
+                agent.speed = 3.6f;
             }
             return;
         }
