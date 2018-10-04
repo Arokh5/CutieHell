@@ -24,8 +24,11 @@ public class ObstructionHandler : IObstructionsHandler
             hit.transform.GetComponentsInChildren(true, renderersBuffer);
             foreach (Renderer renderer in renderersBuffer)
             {
-                renderer.enabled = false;
-                hiddenRenderers.Add(renderer);
+                if (!renderer.gameObject.CompareTag("PlayerMesh"))
+                {
+                    renderer.enabled = false;
+                    hiddenRenderers.Add(renderer);
+                }
             }
             renderersBuffer.Clear();
         }
