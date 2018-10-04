@@ -37,6 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4562832818940316}
   - component: {fileID: 114198897601384956}
+  - component: {fileID: 136546728313789908}
   m_Layer: 9
   m_Name: CH_GA_Gargoyle
   m_TagString: Untagged
@@ -97,15 +98,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1113516471631606}
-  m_LocalRotation: {x: -0, y: 0.9937103, z: -0, w: -0.111981995}
-  m_LocalPosition: {x: -9.098, y: 0.12627792, z: 9.731}
-  m_LocalScale: {x: 1.6702394, y: 1.6702299, z: 1.6702394}
+  m_LocalRotation: {x: 0.0030481361, y: 0.4974917, z: -0.0038240037, w: 0.867455}
+  m_LocalPosition: {x: -2.2059586, y: -0.02785492, z: 18.333328}
+  m_LocalScale: {x: 1.6702399, y: 1.6702299, z: 1.6702399}
   m_Children:
   - {fileID: 4479001588040966}
   - {fileID: 4723650191638850}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 192.859, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.521, y: 59.668003, z: -0.20600002}
 --- !u!4 &4723650191638850
 Transform:
   m_ObjectHideFlags: 1
@@ -270,3 +271,16 @@ MonoBehaviour:
   changeVFX: {fileID: 198160269598142280, guid: b36220c14a83a1f468e4464671cb388a,
     type: 2}
   numberOfParticles: 250
+--- !u!136 &136546728313789908
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1113516471631606}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.65
+  m_Height: 4
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
