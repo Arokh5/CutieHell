@@ -26,6 +26,7 @@ AudioMixerController:
     - 4c1773c5dd58d1d45959b7df9a9af994
     - 82abe28b7a6da2741a4818f0e2e86985
     - a1c84b3a14f998145a4c35abfb62db72
+    - 20a6482a68b943c42a18aabe2a53ba77
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -77,6 +78,7 @@ AudioMixerSnapshotController:
     a70da534647ddaf4cbf0f0dd9ad87274: 7.2
     63c5a354c7e6b2e48a592a64cf53b45f: -6.25
     25ec94c475a044e42a4b7a8184d8e745: 0
+    b22a9858ee897cb4684ddcf502fae9ba: -4
     fe5954d8f0d5fb74aa7312737cb132d5: 6.5
     1a36010bd91b82e47b30670b073eab24: 0
     19bd4e3c8416b8a4585dd6903adfab8b: 0
@@ -115,6 +117,23 @@ AudioMixerGroupController:
   m_Pitch: 7638c89f70fd637468877411916cf314
   m_Effects:
   - {fileID: 244848784272594542}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
+--- !u!243 &243197345168244936
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Vlad Footsteps
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 20a6482a68b943c42a18aabe2a53ba77
+  m_Children: []
+  m_Volume: b22a9858ee897cb4684ddcf502fae9ba
+  m_Pitch: cca83c694f25b504c9ad6d6edb74b8cc
+  m_Effects:
+  - {fileID: 244729064866364716}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
@@ -180,7 +199,8 @@ AudioMixerGroupController:
   m_Name: Quiet
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 82abe28b7a6da2741a4818f0e2e86985
-  m_Children: []
+  m_Children:
+  - {fileID: 243197345168244936}
   m_Volume: 63c5a354c7e6b2e48a592a64cf53b45f
   m_Pitch: 9764ae4d998224149b9a03fb5407df0f
   m_Effects:
@@ -312,6 +332,19 @@ AudioMixerEffectController:
   m_EffectID: ed6d9fc086dbe1b409f478c89f205ea2
   m_EffectName: Attenuation
   m_MixLevel: ea4d8aa34b482c9489d47d0d1a0453a0
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!244 &244729064866364716
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: 
+  m_EffectID: 8957d4344f6c47b47ae5bd098688dd2c
+  m_EffectName: Attenuation
+  m_MixLevel: 9ee913afd0d1c1c42abb2308a943c3ff
   m_Parameters: []
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
