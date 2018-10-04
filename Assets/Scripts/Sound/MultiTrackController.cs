@@ -56,9 +56,9 @@ public class MultiTrackController : MonoBehaviour
 
     private MusicMultiTrack activeMultiTrack;
 
-    [Header("Testing")]
-    public bool test_overrideNextTrack;
-    public int test_nextTrackIndex = 0;
+    [Header("Overriding")]
+    public bool overrideNextTrack;
+    public int nextTrackIndex = 0;
     #endregion
 
     #region MonoBehaviour Methods
@@ -151,9 +151,13 @@ public class MultiTrackController : MonoBehaviour
 
     private MusicMultiTrack GetCurrentMultiTrack()
     {
-        if (test_overrideNextTrack)
+        if (overrideNextTrack && nextTrackIndex >= 0 && nextTrackIndex < trackInfos.Length)
         {
-            activeTrackIndex = test_nextTrackIndex;
+            activeTrackIndex = nextTrackIndex;
+        }
+        else if (overrideNextTrack)
+        {
+            Debug.LogError("ERROR: MultiTrackController override track index set to a value (" + nextTrackIndex + ") out of the range [0, " + trackInfos.Length + "]!");
         }
         else
         {
