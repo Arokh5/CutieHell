@@ -9,8 +9,6 @@ public class AttackChainsUI : MonoBehaviour
 
     [SerializeField]
     private FollowUpButtonPrompt[] fubPrompts;
-
-    private int activeChainPrompts = 0;
     #endregion
 
     #region MonoBehaviour Methods

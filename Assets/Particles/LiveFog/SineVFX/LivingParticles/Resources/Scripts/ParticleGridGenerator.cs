@@ -21,7 +21,6 @@ public class ParticleGridGenerator : MonoBehaviour {
     private ParticleSystem ps;
     private ParticleSystem.Particle[] particles;
     private List<Vector4> customData = new List<Vector4>();
-    private List<Vector4> customData2 = new List<Vector4>();
 
     void Start () {
         ps = GetComponent<ParticleSystem>();

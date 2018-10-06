@@ -91,7 +91,7 @@ public class ObjectiveMarker : MonoBehaviour
         bool behind = tAngle < -90 || tAngle > 90;
         bool front = tAngle > -hAngle && tAngle < hAngle;
         bool left = tAngle >= -90 && tAngle <= -hAngle;
-        bool right = tAngle >= hAngle && tAngle <= 90;
+        //bool right = tAngle >= hAngle && tAngle <= 90;
 
         if (behind)
         {

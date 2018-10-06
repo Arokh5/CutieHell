@@ -7,11 +7,9 @@ public class MeteoritesStorm : MonoBehaviour {
     public float timeDelay, attackDuration, delayOnMeteoritesLaunch;
     public ParticleSystem meteoriteVFX, spawnVFX;
     private float timeSinceLastMeteoriteLaunch;
-    private Player player;
  
     void OnEnable ()
     {
-        player = GameManager.instance.GetPlayer1();
         timeDelay = 2.0f;
         attackDuration = 6.5f;
         timeSinceLastMeteoriteLaunch = 0.0f;
@@ -38,8 +36,8 @@ public class MeteoritesStorm : MonoBehaviour {
                     float z = Mathf.Cos(angle) * Random.Range(0.0f, 9.0f);
                     x += this.transform.position.x;
                     z += this.transform.position.z;
-                    ParticleSystem ps = ParticlesManager.instance.LaunchParticleSystem(meteoriteVFX, new Vector3(x , this.transform.position.y + 5.0f ,z), Quaternion.LookRotation(Vector3.down));
-                    ParticleSystem spawn = ParticlesManager.instance.LaunchParticleSystem(spawnVFX, new Vector3(x, this.transform.position.y, z), spawnVFX.transform.rotation);
+                    ParticlesManager.instance.LaunchParticleSystem(meteoriteVFX, new Vector3(x , this.transform.position.y + 5.0f ,z), Quaternion.LookRotation(Vector3.down));
+                    ParticlesManager.instance.LaunchParticleSystem(spawnVFX, new Vector3(x, this.transform.position.y, z), spawnVFX.transform.rotation);
                 }
             }
         }

@@ -22,9 +22,6 @@ public class FollowTarget : PooledParticleSystem
     private Transform mainCamera;
     private Vector3 camForwardDir;
     private Vector3 camBackwardDir;
-    private AIEnemy enemy;
-    private Transform enemyTransform;
-    private Vector3 hitOffset;
 
     [Header("Motion")]
     [SerializeField]
@@ -97,18 +94,10 @@ public class FollowTarget : PooledParticleSystem
         initPos = transform.position;
         attackState = AttackStates.GoWay;
         camForwardDir = transform.InverseTransformDirection(mainCamera.forward);
-        enemyTransform = null;
-        enemy = null;
-        hitOffset = Vector3.zero;
     }
 
     public void Fire(Transform enemyTransform, Vector3 hitOffset)
     {
-        this.enemyTransform = enemyTransform;
-        if (enemyTransform)
-            this.enemy = enemyTransform.GetComponent<AIEnemy>();
-
-        this.hitOffset = hitOffset;
         ++player.basicAttacksCount;
         player.SetIsBoomerangOn(true);
 

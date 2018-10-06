@@ -74,8 +74,6 @@ public class MinimapController : MonoBehaviour
     [SerializeField]
     private AlertImageInfo[] alertImageInfos;
 
-    private int currentWorldReferenceIndex = 0;
-
     private List<MinimapElement> minimapElements = new List<MinimapElement>();
     private List<MinimapImage> minimapImages = new List<MinimapImage>();
     private ObjectPool<MinimapImage> minimapImagesPool;
@@ -234,7 +232,6 @@ public class MinimapController : MonoBehaviour
             WorldReference reference = worldReferences[index];
             if (reference.IsValid())
             {
-                currentWorldReferenceIndex = index;
                 SetupWorldReference(reference);
                 success = true;
             }

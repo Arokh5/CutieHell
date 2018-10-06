@@ -10,7 +10,6 @@ public class KillingTimeAchievement : Combo
     [SerializeField]
     AttackType[] attackTypes;
 
-    private Player player;
     private float[] timeLimit;
     #endregion
 
@@ -21,7 +20,6 @@ public class KillingTimeAchievement : Combo
     // Use this for initialization
     void Start()
     {
-        player = GameManager.instance.GetPlayer1();
 
         timeLimit = new float[attackTypes.Length];
         for (int i = 0; i < timeLimit.Length; ++i)

@@ -6,7 +6,6 @@ public class CameraController : MonoBehaviour
     #region Fields
     [SerializeField]
     private LayerMask viewPosCheckLayerMask;
-    private PostProcessingBehaviour postProcessing;
 
     private Transform player;
     private Player playerScript;
@@ -61,7 +60,6 @@ public class CameraController : MonoBehaviour
         player = GameManager.instance.GetPlayer1().transform;
         playerScript = player.GetComponent<Player>();
         playerCapsuleCollider = player.GetComponent<CapsuleCollider>();
-        postProcessing = this.GetComponent<PostProcessingBehaviour>();
 
         zZ = distance = 3.7f;
         zX = cameraX = 0.45f;

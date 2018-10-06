@@ -67,6 +67,11 @@ public class BuildingEffects : MonoBehaviour, ITextureChanger
 
     private void Update()
     {
+        if(conquered)
+        {
+            return;
+        }
+
         if (conquering)
         {
             conquerEffectElapsedTime += Time.deltaTime;

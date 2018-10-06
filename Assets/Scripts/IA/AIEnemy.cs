@@ -126,8 +126,6 @@ public class AIEnemy : MonoBehaviour, IDamageable
 
     private Collider enemyCollider;
     private AttackType killingHit = AttackType.NONE;
-
-    private bool active;
     #endregion
 
     #region MonoBehaviour Methods
@@ -143,7 +141,6 @@ public class AIEnemy : MonoBehaviour, IDamageable
         UnityEngine.Assertions.Assert.IsNotNull(animator, "Error: No Animator found in GameObject '" + gameObject.name + "'!");
         enemyCollider = GetComponent<Collider>();
         originalStoppingDistance = agent.stoppingDistance;
-        active = false;
         blackHoleAffected = false;
         blackHoleKill = false;
         initialSpeed = agent.speed;
@@ -392,7 +389,6 @@ public class AIEnemy : MonoBehaviour, IDamageable
         isTarget = false;
         canvasController.HideHealthBar();
         canvasController.SetHealthBar();
-        active = true;
         AdjustMaterials();
     }
 
