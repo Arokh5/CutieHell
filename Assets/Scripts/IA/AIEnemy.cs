@@ -711,7 +711,12 @@ public class AIEnemy : MonoBehaviour, IDamageable
             currentTarget = currentTargetBuilding;
         }
 
+        // Warning CS0252: Possible unintended reference comparison. Consider casting the left side expression to type `Building' to get value comparison
+        // Warning was raised by the comparison of currentTarget with currentTargetBuilding
+        // Warning was disabled because the reference comparison is intended
+        #pragma warning disable 0252
         if (navAttackTarget == null && currentNode == null && currentTarget == currentTargetBuilding)
+        #pragma warning restore 0252
         {
             navAttackTarget = currentTargetBuilding.GetNavTarget(transform);
         }
