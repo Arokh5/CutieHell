@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿// Warning CS0649: Field '#fieldname#' is never assigned to, and will always have its default value null (CS0649) (Assembly-CSharp)
+// Warning was raised for the following fields: MultiTrackController::MultiTrackInfo.name, MultiTrackController::MultiTrackInfo.minHazardLevel and MultiTrackController::MultiTrackInfo.maxHazardLevel
+// Warning was disabled because these private fields are serialized and assigned through the inspector
+#pragma warning disable 0649
+
+using UnityEngine;
 
 public class MultiTrackController : MonoBehaviour
 {

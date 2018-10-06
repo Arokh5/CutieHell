@@ -1,4 +1,9 @@
-﻿using System.Collections.Generic;
+﻿// Warning CS0649: Field '#fieldname#' is never assigned to, and will always have its default value null (CS0649) (Assembly-CSharp)
+// Warning was raised for the following fields: all fields of MinimapController::WorldReference; MinimapController::AlertImageInfo.border and MinimapController::AlertImageInfo.image
+// Warning was disabled because these private fields are serialized and assigned through the inspector
+#pragma warning disable 0649
+
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
