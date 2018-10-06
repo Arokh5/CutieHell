@@ -14,7 +14,7 @@ public class MinimapEnableFlashImage : MinimapImage
     #endregion
 
     #region MonoBehaviour Methods
-    protected void Awake()
+    protected new void Awake()
     {
         base.Awake();
         uiFlasher = GetComponent<UIFlasher>();

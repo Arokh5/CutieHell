@@ -27,7 +27,7 @@ public class Achievements : Combo
     #endregion
 
     // Use this for initialization
-    void Awake()
+    new void Awake()
     {
         if (instance == null)
         {
