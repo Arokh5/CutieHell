@@ -36,7 +36,7 @@ public class LiveParticles : MonoBehaviour {
                 float distance = Vector3.Distance(target.position, particles[i].position);
                 float firstColorAmmount = distance - (changeColorDistance - changeColorLength);
                 firstColorAmmount /= changeColorLength;
-                particles[i].color = MixColors(firstColorAmmount, Color.red, Color.blue);
+                particles[i].startColor = MixColors(firstColorAmmount, Color.red, Color.blue);
             }
         }
         particleSystem.SetParticles(particles, particles.Length);

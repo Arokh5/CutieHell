@@ -26,9 +26,6 @@ public class AttackChainsUI : MonoBehaviour
     {
         int fupInfosCount = followUpPromptInfos.Count;
 
-        if (fupInfosCount > 0)
-            fupInfosCount = fupInfosCount;
-
         if (fupInfosCount > fubPrompts.Length)
             Debug.LogWarning("WARNING: AttackChainsUI.UpdateDisplay called in GameObject '" + gameObject.name + "' with more elements than there are Images in its fubPrompts array. Only the first " + fubPrompts.Length + " elements will be displayed!");
 

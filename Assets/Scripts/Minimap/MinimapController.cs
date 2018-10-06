@@ -87,13 +87,25 @@ public class MinimapController : MonoBehaviour
     private float worldHeight;
     private float minimapWidth;
     private float minimapHeight;
+
+#if UNITY_EDITOR
+    [SerializeField]
+    private int testIndex = 0;
+    private int previousIndex = 0;
+#endif
+
     #endregion
 
     #region MonoBehaviour Methods
-    public int testIndex = 0;
     private void OnValidate()
     {
-        ChangeMinimapReference(testIndex);
+#if UNITY_EDITOR
+        if (previousIndex != testIndex)
+        {
+            previousIndex = testIndex;
+            ChangeMinimapReference(testIndex);
+        }
+#endif
     }
 
     private void OnDrawGizmos()
